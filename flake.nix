@@ -267,7 +267,8 @@
 
             ./system-modules/docker.nix
             ./system-modules/fonts.nix
-            ./system-modules/intelgpu.nix
+            ./system-modules/intelcpu.nix
+            #./system-modules/intelgpu.nix
             #./system-modules/nasmount.nix
             ./system-modules/printing.nix
             ./system-modules/python.nix
