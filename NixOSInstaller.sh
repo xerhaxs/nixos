@@ -124,7 +124,7 @@ mkdir -p /mnt/etc/nixos/
 cp -R ../nixos/* /mnt/etc/nixos/
 #echo "$ROOTPASS" | nixos-install --impure --flake /mnt/etc/nixos/$CHOSEN_HOST
 FLAKE_HOST="$(pwd)#$CHOSEN_HOST"
-nixos-install --no-root-passwd --impure --flake $FLAKE_HOST
+nixos-install --no-root-passwd --impure --accept-flake-config --flake $FLAKE_HOST
 
 PASSWORD="";
 PASSWORD_CHECK="";

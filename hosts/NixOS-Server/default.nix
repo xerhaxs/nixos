@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./server
+    #./server
 
     #./bootloader.nix
     ./disko-config.nix
