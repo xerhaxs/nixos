@@ -1,0 +1,19 @@
+# NixOS Configuration
+
+This is my personal NixOS configuration.
+I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute following command:
+
+```
+curl 
+```
+
+```
+# generate new key at ~/.config/sops/age/keys.txt
+$ nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt
+
+# generate new key at ~/.config/sops/age/keys.txt from private ssh key at ~/.ssh/private
+$ nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/age/keys.txt
+
+# get a public key of ~/.config/sops/age/keys.txt
+nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
+```
