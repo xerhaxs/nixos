@@ -6,7 +6,7 @@ I use flakes, disko and sops to manage my system. To install NixOS on a device I
 ### Installation / Usage
 
 ```
-curl 
+Comming soon (use curl)
 ```
 
 ### If you need to create your own keys for sops:
