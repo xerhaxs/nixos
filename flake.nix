@@ -233,6 +233,9 @@
 
             # disko Moule
             disko.nixosModules.disko
+            {
+              _module.args.disks = [ "/dev/nvme0n1" ];
+            }
 
             # nur repo
             #nur.nixosModules.nur
