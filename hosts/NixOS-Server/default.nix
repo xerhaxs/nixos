@@ -9,7 +9,6 @@
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
-    ./sddm.nix
     ./user.nix
   ];
 }
