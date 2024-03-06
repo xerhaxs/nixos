@@ -6,8 +6,7 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-git clone 
-chmod +x nixos/
+git clone https://github.com/xerhaxs/nixos.git
 cd nixos/
 
 # Simple NixOS installation script
