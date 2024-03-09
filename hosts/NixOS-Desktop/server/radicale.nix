@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  systemd.services.radicale.serviceConfig.EnvironmentFile = [ 
+    config.sops.secrets."radicale/htpasswd".path 
+  ];
+
   sops.secrets."radicale/htpasswd" = {
     owner = config.systemd.services.radicale.serviceConfig.User;
   };
