@@ -114,7 +114,7 @@ openssl genrsa -out /tmp/keyfile.key 4096
 
 ## Create partition
 echo $DISKPASS > /tmp/secret.key
-INSTALLATION_TARGET="github:xerhaxs/nixos#$CHOSEN_HOST"
+INSTALLATION_TARGET="github:xerhaxs/nixos/main#$CHOSEN_HOST"
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
 mkdir /mnt/root
 mv /tmp/keyfile.key /mnt/root/keyfile.key
