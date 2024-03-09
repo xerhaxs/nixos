@@ -46,7 +46,7 @@
 
   boot.initrd.luks.devices = {
    "crypt" = {
-      device = "/dev/disk/by-partlabel/disk-SYSTEM-LUKS";
+      device = "/dev/disk/by-partlabel/disk-SYSTEM-luks";
       preLVM = true;
     };
   };
