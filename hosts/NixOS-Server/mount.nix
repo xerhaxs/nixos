@@ -8,6 +8,6 @@
       enable = true;
       blkDev = "/dev/disk/by-partlabel/disk-VAR-LUKS";
       keyFile = "/root/keyfile.key";
-    }
+    };
   };
 }
