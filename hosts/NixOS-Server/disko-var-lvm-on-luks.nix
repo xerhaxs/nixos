@@ -23,7 +23,7 @@
                 additionalKeyFiles = [ "/tmp/keyfile.key" ];
                 content = {
                   type = "lvm_pv";
-                  vg = "crypt";
+                  vg = "crypt2";
                 };
               };
             };
@@ -32,7 +32,7 @@
       };
     };
     lvm_vg = {
-      crypt = {
+      crypt2 = {
         type = "lvm_vg";
         lvs = {
           var = {
