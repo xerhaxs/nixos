@@ -6,8 +6,8 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-git clone https://github.com/xerhaxs/nixos.git
-cd nixos/
+#git clone https://github.com/xerhaxs/nixos.git
+#cd nixos/
 
 # Simple NixOS installation script
 nix-env -iA nixos.newt
@@ -115,9 +115,10 @@ fi
 ## Create partition
 echo $DISKPASS > /tmp/secret.key
 #DISKO_TARGET="$(pwd)/hosts/$CHOSEN_HOST/disko-config.nix"
+INSTALLTION_TARGET="github:xerhaxs/nixos#$CHOSEN_HOST"
 	#nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko $DISKO_TARGET
 	#nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $FLAKE_HOST --arg disks '[ "$CHOSEN_DRIVE" ]'
-nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko --flake github:xerhaxs/nixos#$CHOSEN_HOST
+nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko --flake $INSTALLTION_TARGET
 
 # Generate NixOS Config
 	#nixos-generate-config --root /mnt
