@@ -109,11 +109,15 @@ if [[ $WIPE = true ]]; then
 	dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
 fi
 
+# Create keyfile for encryption without password
+openssl genrsa -out /tmp/keyfile.key 4096
+
 ## Create partition
 echo $DISKPASS > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos#$CHOSEN_HOST"
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET --arg disks '[ "/dev/sda" ]'
-nixos-install --no-root-passwd --impure --accept-flake-config --flake $INSTALLATION_TARGET
+mv /tmp/keyfile.key /mnt/root
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
+nixos-install --no-root-passwd --impure --flake $INSTALLATION_TARGET
 
 PASSWORD="";
 PASSWORD_CHECK="";
