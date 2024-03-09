@@ -7,7 +7,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # Simple NixOS installation script
-nix-env -iA nixos.newt
+nix-env -iA nixos.newt nixos.openssl
 
 loadkeys de
 
