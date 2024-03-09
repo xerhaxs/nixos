@@ -1,4 +1,4 @@
-{ disks ? [ "/dev/vda" ], ... }: {
+{ disks ? [ "/dev/vda" ], ... }:
 
 # sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
 # (optional) nixos-generate-config --no-filesystems --root /mnt
