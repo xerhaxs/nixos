@@ -63,6 +63,7 @@
             ./hosts/NixOS-Crafter
 
             ./system-modules/fonts.nix
+            ./system-modules/hardware-configuration.nix
             ./system-modules/intelcpu.nix
             ./system-modules/intelgpu.nix
             ./system-modules/kdeconnect.nix
@@ -77,9 +78,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-bios-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/sda" ];
-            }
+            #{
+            #  _module.args.disks = [ "/dev/sda" ];
+            #}
 
             # nur repo
             nur.nixosModules.nur
@@ -116,6 +117,7 @@
             ./system-modules/firefox.nix
             ./system-modules/flatpak.nix
             ./system-modules/fonts.nix
+            #./system-modules/hardware-configuration.nix
             ./system-modules/hyprland.nix
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
@@ -133,9 +135,9 @@
             # disko Moule
             disko.nixosModules.disko
             #./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/nvme0n1" ];
-            }
+            #{
+            #  _module.args.disks = [ "/dev/nvme0n1" ];
+            #}
 
             # nur repo
             nur.nixosModules.nur
@@ -169,8 +171,9 @@
             #./system-modules/bigscreen.nix
             ./system-modules/corectrl.nix
             ./system-modules/flatpak.nix
-            ./system-modules/gamemode.nix
             ./system-modules/fonts.nix
+            ./system-modules/gamemode.nix
+            ./system-modules/hardware-configuration.nix
             ./system-modules/kdeconnect.nix
             ./system-modules/nasmount.nix
             ./system-modules/nvidiagpu.nix
@@ -183,9 +186,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/nvme0n1" ];
-            }
+            #{
+            #  _module.args.disks = [ "/dev/nvme0n1" ];
+            #}
 
             # nur repo
             nur.nixosModules.nur
@@ -221,6 +224,7 @@
             ./system-modules/firefox.nix
             ./system-modules/flatpak.nix
             ./system-modules/fonts.nix
+            ./system-modules/hardware-configuration.nix
             ./system-modules/hyprland.nix
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
@@ -237,9 +241,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/nvme0n1" ];
-            }
+            #{
+            #  _module.args.disks = [ "/dev/nvme0n1" ];
+            #}
 
             # nur repo
             nur.nixosModules.nur
@@ -271,6 +275,7 @@
 
             ./system-modules/docker.nix
             ./system-modules/fonts.nix
+            ./system-modules/hardware-configuration.nix
             ./system-modules/intelcpu.nix
             #./system-modules/intelgpu.nix
             #./system-modules/nasmount.nix
@@ -316,6 +321,7 @@
 
             ./system-modules/amdgpu.nix
             ./system-modules/fonts.nix
+            ./system-modules/hardware-configuration.nix
             ./system-modules/hyprland.nix
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
@@ -328,9 +334,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/sda" ];
-            }
+            #{
+            #  _module.args.disks = [ "/dev/sda" ];
+            #}
 
             # nur repo
             #nur.nixosModules.nur
