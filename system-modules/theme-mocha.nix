@@ -1,4 +1,4 @@
-{ config, libs, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   catppuccin-grub = pkgs.fetchFromGitHub {

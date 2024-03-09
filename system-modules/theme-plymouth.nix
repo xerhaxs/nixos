@@ -1,4 +1,4 @@
-{ config, libs, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   plymouth = pkgs.fetchFromGitHub {
@@ -13,6 +13,6 @@ in
 {
   boot.plymouth = {
     #themePackages = [];
-    theme = pkgs.lib.mkDefault (plymouth + "/${theme}");
+    theme = lib.mkDefault (plymouth + "/${theme}");
   };
 }
