@@ -76,12 +76,13 @@
 
             # disko Moule
             disko.nixosModules.disko
+            ./system-modules/disko-bios-lvm-on-luks.nix
             {
               _module.args.disks = [ "/dev/sda" ];
             }
 
             # nur repo
-            #nur.nixosModules.nur
+            nur.nixosModules.nur
 
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -131,12 +132,13 @@
 
             # disko Moule
             disko.nixosModules.disko
+            ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/nvme0n1" ];
+              _module.args.disks = [ "/dev/sda" ];
             }
 
             # nur repo
-            #nur.nixosModules.nur
+            nur.nixosModules.nur
 
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -180,12 +182,13 @@
             
             # disko Moule
             disko.nixosModules.disko
+            ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/nvme0n1" ];
+              _module.args.disks = [ "/dev/sda" ];
             }
 
             # nur repo
-            #nur.nixosModules.nur
+            nur.nixosModules.nur
 
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -233,12 +236,13 @@
 
             # disko Moule
             disko.nixosModules.disko
+            ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/nvme0n1" ];
+              _module.args.disks = [ "/dev/sda" ];
             }
 
             # nur repo
-            #nur.nixosModules.nur
+            nur.nixosModules.nur
 
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -277,13 +281,13 @@
 
             # disko Moule
             disko.nixosModules.disko
-            ./system-modules/disko-config.nix
+            ./system-modules/disko-uefi-lvm-on-luks.nix
             {
               _module.args.disks = [ "/dev/sda" ];
             }
 
             # nur repo
-            #nur.nixosModules.nur
+            nur.nixosModules.nur
 
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -320,6 +324,13 @@
             ./system-modules/sddm.nix
             ./system-modules/theme.nix
             ./system-modules/theme-mocha.nix
+
+            # disko Moule
+            disko.nixosModules.disko
+            ./system-modules/disko-uefi-lvm-on-luks.nix
+            {
+              _module.args.disks = [ "/dev/sda" ];
+            }
 
             # nur repo
             #nur.nixosModules.nur

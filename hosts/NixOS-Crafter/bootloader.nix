@@ -8,7 +8,7 @@
     device = pkgs.lib.mkDefault "/dev/sda1";
     efiSupport = pkgs.lib.mkDefault false;
     efiInstallAsRemovable = pkgs.lib.mkDefault true;
-    gfxmodeBios = "auto";
+    gfxmodeBios = "1600x900";
     gfxpayloadBios = "text";
   };
 
