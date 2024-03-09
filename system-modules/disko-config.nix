@@ -8,6 +8,7 @@
     disk = {
       vda = {
         type = "disk";
+        name = "SYSTEM";
         device = builtins.elemAt disks 0;
         content = {
           type = "gpt";
