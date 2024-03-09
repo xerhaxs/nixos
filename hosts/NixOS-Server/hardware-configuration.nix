@@ -19,7 +19,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/ESP";
+    device = "/dev/disk/by-partlabel/disk-SYSTEM-BOOT";
     fsType = "vfat";
   };
 

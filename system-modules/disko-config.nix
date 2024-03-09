@@ -5,10 +5,10 @@
 
 {
   disko.devices = {
-    SYSTEM = {
+    disk = {
       vda = {
         type = "disk";
-        name = "BOOT";
+        name = "SYSTEM";
         device = builtins.elemAt disks 0;
         content = {
           type = "gpt";
@@ -16,7 +16,7 @@
             ESP = {
               size = "500M";
               type = "EF00";
-              name = "UEFI";
+              name = "BOOT";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -30,7 +30,7 @@
               size = "100%";
               content = {
                 type = "luks";
-                name = "system";
+                name = "CRYPT";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   # if you want to use the key for interactive login be sure there is no trailing newline
