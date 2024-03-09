@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk = {
-      vda = {
+      vdb = {
         type = "disk";
         name = "VAR";
         device = builtins.elemAt disks 1;
