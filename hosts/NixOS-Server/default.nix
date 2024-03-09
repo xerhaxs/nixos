@@ -7,7 +7,7 @@
     #./bootloader.nix
     ./disko-var-lvm-on-luks.nix
     ./hardware-configuration.nix
-    #./mount.nix
+    ./mount.nix
     ./networking.nix
     ./user.nix
   ];
