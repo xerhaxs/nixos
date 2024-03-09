@@ -45,7 +45,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, disko, nurpkgs, nixos-generators, home-manager, plasma-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, ... }:
     let
 
     in {
@@ -132,9 +132,9 @@
 
             # disko Moule
             disko.nixosModules.disko
-            ./system-modules/disko-uefi-lvm-on-luks.nix
+            #./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/sda" ];
+              _module.args.disks = [ "/dev/nvme0n1" ];
             }
 
             # nur repo
@@ -184,7 +184,7 @@
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/sda" ];
+              _module.args.disks = [ "/dev/nvme0n1" ];
             }
 
             # nur repo
@@ -238,7 +238,7 @@
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/sda" ];
+              _module.args.disks = [ "/dev/nvme0n1" ];
             }
 
             # nur repo
