@@ -90,7 +90,7 @@ function_select_host() {
 }
 
 # Call the functions
-function_select_installation_disk
+#function_select_installation_disk
 
 #function_select_disk_wipe
 
