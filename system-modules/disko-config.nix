@@ -15,7 +15,7 @@
             ESP = {
               size = "500M";
               type = "EF00";
-              #name = "BOOT";
+              name = "BOOT";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -29,7 +29,7 @@
               size = "100%";
               content = {
                 type = "luks";
-                name = "crypt";
+                name = "system";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   # if you want to use the key for interactive login be sure there is no trailing newline
