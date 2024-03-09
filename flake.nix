@@ -277,7 +277,7 @@
 
             # disko Moule
             disko.nixosModules.disko
-            {
+            ./system-modules/disko-config.nix {
               _module.args.disks = [ "/dev/sda" ];
             }
 
