@@ -122,13 +122,13 @@ ROOTPASS="";
 USERPASS="";
 
 ## Reboot system
-#whiptail --title "Installation is complete" --yesno "Restart computer?" 32 128 3>&1 1>&2 2>&3
-#
-#	if [[ $? -eq 0 ]]; then
-#		    umount -a
-#	    	systemctl reboot --now
-#   	elif [[ $? -eq 1 ]]; then
-#			whiptail --title "MESSAGE" --msgbox "Cancelling Process since user pressed <NO>. Returned to shell." 32 128 3>&1 1>&2 2>&3
-#	    elif [[ $? -eq 255 ]]; then
-#	        whiptail --title "MESSAGE" --msgbox "User pressed ESC. Returned to shell." 32 128 3>&1 1>&2 2>&3
-#fi
+whiptail --title "Installation is complete" --yesno "Restart computer?" 32 128 3>&1 1>&2 2>&3
+
+	if [[ $? -eq 0 ]]; then
+		    umount -a
+	    	systemctl reboot --now
+   	elif [[ $? -eq 1 ]]; then
+			whiptail --title "MESSAGE" --msgbox "Cancelling Process since user pressed <NO>. Returned to shell." 32 128 3>&1 1>&2 2>&3
+	    elif [[ $? -eq 255 ]]; then
+	        whiptail --title "MESSAGE" --msgbox "User pressed ESC. Returned to shell." 32 128 3>&1 1>&2 2>&3
+fi
