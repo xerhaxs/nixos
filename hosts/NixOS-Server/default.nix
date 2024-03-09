@@ -7,7 +7,7 @@
     #./bootloader.nix
     #./disko-config.nix
     ./hardware-configuration.nix
-    ./mount.nix
+    #./mount.nix
     ./networking.nix
     ./user.nix
   ];
