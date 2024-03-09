@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-AytQnmLXIi76dETWg6FFtStLMUv29xomiYYvKnk9v6g=";
+    hash = "sha256-a09C5YMjD2saQDoi12lUzDWj4ermQcMMyeSIT0IdRj4=";
   };
 
   malware = pkgs.fetchurl {
@@ -87,16 +87,16 @@ in
 
     hostFiles = [
       StevenBlack
-      malware
-      phishing
-      ransomware
+      #malware
+      #phishing
+      #ransomware
       #redirect
-      scam
-      tiktok
+      #scam
+      #tiktok
       #tracking
       smart-tv
       adobe
-      ads
+      #ads
       AmazonFireTV
       #oisd-small
       #oisd-big
