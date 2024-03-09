@@ -27,9 +27,9 @@ in
         xdg-desktop-portal-gtk
       ];
 
-      config = {
-        common.default = "*";
-      };
+      #config = {
+      #  common.default = "*";
+      #};
     };
 
     autostart.enable = true;
