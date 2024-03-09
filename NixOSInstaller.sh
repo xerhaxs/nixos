@@ -113,7 +113,7 @@ fi
 echo $DISKPASS > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos#$CHOSEN_HOST"
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET --arg disks '[ "/dev/sda" ]'
-nixos-install --no-root-passwd --impure --flake $INSTALLATION_TARGET
+nixos-install --no-root-passwd --impure --accept-flake-config --flake $INSTALLATION_TARGET
 
 PASSWORD="";
 PASSWORD_CHECK="";
