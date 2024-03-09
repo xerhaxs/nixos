@@ -1,21 +1,18 @@
-# sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
-# (optional) nixos-generate-config --no-filesystems --root /mnt
-# sudo nix run github:nix-community/disko -- --mode zap_create_mount --flake github:Lassulus/flakes-testing#fnord  --arg disks '[ "/dev/sda" ]'
-
-{ ... }:
+{ disks ? [ "/dev/vda" ], ... }:
   
 {
   disko.devices = {
     disk = {
       vdb = {
         type = "disk";
-        device = "/dev/sda";
+        name = "SYSTEM";
+        device = builtins.elemAt disks 0;
         content = {
           type = "table";
           format = "gpt";
           partitions = [
             {
-              name = "ESP";
+              name = "BOOT";
               start = "1M";
               end = "500M";
               bootable = true;
@@ -34,8 +31,8 @@
               end = "100%";
               content = {
                 type = "luks";
-                name = "crypt";
-                extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" "--pbkdf-parallel 8" "--label CRYPTDRIVE" ];
+                name = "LUKS";
+                extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   # if you want to use the key for interactive login be sure there is no trailing newline
                   # for example use `echo -n "password" > /tmp/secret.key`
@@ -45,7 +42,7 @@
                 #additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                 content = {
                   type = "lvm_pv";
-                  vg = "pool";
+                  vg = "crypt";
                 };
               };
             }
@@ -54,7 +51,7 @@
       };
     };
     lvm_vg = {
-      pool = {
+      crypt = {
         type = "lvm_vg";
         lvs = {
           root = {
