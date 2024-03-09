@@ -31,15 +31,15 @@
     ];
 
     systemPackages = with pkgs; [
-      adw-gtk3
+ #     adw-gtk3
  #     gnome.gnome-tweaks
  #     gnome.gnome-terminal			# Gnome terminal emulator
  #     gnome.gedit				        # Gnome texteditor
  #     gnome-usage				        # Gnome task manager
  #     gnome.simple-scan			    # Gnome scanning utility
-      gnome.gvfs				
-      endeavour
-      gnome.gnome-tweaks
+#      gnome.gvfs				
+#      endeavour
+#      gnome.gnome-tweaks
 #      gnomeExtensions.appindicator
 #      gnomeExtensions.clipboard-indicator
 #      gnomeExtensions.privacy-settings-menu

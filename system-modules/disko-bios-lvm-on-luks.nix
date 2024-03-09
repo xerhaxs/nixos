@@ -26,7 +26,7 @@
               };
             }
             {
-              name = "luks";
+              name = "LUKS";
               start = "500M";
               end = "100%";
               content = {

@@ -6,8 +6,9 @@
     displayManager = {
       gdm = {
         enable = true;
+        banner = "Hello World!";
         wayland = true;
-        autoSuspend = false;
+        autoSuspend = true;
         #settings = {};
       };
       defaultSession = "gnome";
