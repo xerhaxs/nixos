@@ -282,9 +282,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/sda" ];
-            }
+            #{
+            #  _module.args.disks = [ "/dev/sda" ];
+            #}
 
             # nur repo
             nur.nixosModules.nur
