@@ -111,11 +111,14 @@ fi
 
 # Create keyfile for encryption without password
 openssl genrsa -out /tmp/keyfile.key 4096
+cp /tmp/keyfile.key /tmp/keyfile.key.bck
 
 ## Create partition
 echo $DISKPASS > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos#$CHOSEN_HOST"
-mv /tmp/keyfile.key /mnt/root
+mv /tmp/keyfile.key.bck /mnt/root/keyfile.key
+chmod -v 0400 /mnt/root/keyfile.key
+chown root:root /mnt/root/keyfile.key
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
 nixos-install --no-root-passwd --impure --flake $INSTALLATION_TARGET
 
