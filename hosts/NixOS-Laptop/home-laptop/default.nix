@@ -7,6 +7,7 @@
     ../../../home-modules/3dprinting.nix
     ../../../home-modules/applications.nix
     ../../../home-modules/editing.nix
+    #../../../home-modules/gnome
     ../../../home-modules/hyprland
     #../../../home-modules/firefox.nix
     ../../../home-modules/flameshot.nix
@@ -18,7 +19,7 @@
     ../../../home-modules/office.nix
     ../../../home-modules/privacy.nix
     ../../../home-modules/programming.nix
-    ../../../home-modules/plasma.nix
+    #../../../home-modules/plasma.nix
     ../../../home-modules/syncthing.nix
     ../../../home-modules/theme-latte.nix
     #../../../home-modules/thunderbird.nix
