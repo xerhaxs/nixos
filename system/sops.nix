@@ -20,7 +20,8 @@
     defaultSopsFile = ../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     #age.keyFile = "${config.xdg.userDirs.documents}/Wichtige Datein/sops/age/keys.txt";
-    age.keyFile = "/mount/Data/Datein/Dokumente/Wichtige Datein/sops/age/keys.txt";
+    #age.keyFile = "/mount/Data/Datein/Dokumente/Wichtige Datein/sops/age/keys.txt";
+    age.keyFile = "/home/jf/Dokumente/Wichtige Datein/sops/age/keys.txt";
 
     secrets = {
       changeme = { };
