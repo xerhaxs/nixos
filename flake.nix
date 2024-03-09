@@ -78,9 +78,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-bios-lvm-on-luks.nix
-            #{
-            #  _module.args.disks = [ "/dev/sda" ];
-            #}
+            {
+              _module.args.disks = [ "/dev/sda" ];
+            }
 
             # nur repo
             nur.nixosModules.nur
@@ -186,9 +186,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            #{
-            #  _module.args.disks = [ "/dev/nvme0n1" ];
-            #}
+            {
+              _module.args.disks = [ "/dev/nvme0n1" ];
+            }
 
             # nur repo
             nur.nixosModules.nur
@@ -241,9 +241,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            #{
-            #  _module.args.disks = [ "/dev/nvme0n1" ];
-            #}
+            {
+              _module.args.disks = [ "/dev/nvme0n1" ];
+            }
 
             # nur repo
             nur.nixosModules.nur
@@ -288,7 +288,7 @@
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/sda" ];
+              _module.args.disks = [ "/dev/sda" "/dev/sdb" ];
             }
 
             # nur repo
@@ -334,9 +334,9 @@
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
-            #{
-            #  _module.args.disks = [ "/dev/sda" ];
-            #}
+            {
+              _module.args.disks = [ "/dev/sda" ];
+            }
 
             # nur repo
             #nur.nixosModules.nur

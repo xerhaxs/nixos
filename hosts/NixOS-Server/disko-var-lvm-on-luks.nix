@@ -5,24 +5,11 @@
     disk = {
       vda = {
         type = "disk";
-        name = "SYSTEM";
-        device = builtins.elemAt disks 0;
+        name = "VAR";
+        device = builtins.elemAt disks 1;
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
-              size = "500M";
-              type = "EF00";
-              name = "BOOT";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = [
-                  "defaults"
-                ];
-              };
-            };
             luks = {
               size = "100%";
               content = {
@@ -48,23 +35,15 @@
       crypt = {
         type = "lvm_vg";
         lvs = {
-          root = {
-            size = "40%FREE";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
-            };
-          };
-          home = {
+          var = {
             size = "100%FREE";
             content = {
               type = "filesystem";
               format = "ext4";
-              mountpoint = "/home";
+              mountpoint = "/var";
+              mountOptions = [
+                "defaults"
+              ];
             };
           };
         };
