@@ -10,6 +10,14 @@
     '';
   };
 
+  #boot.initrd.luks.devices = {
+  # "crypt" = {
+  #    device = "/dev/disk/by-partlabel/disk-VAR-luks";
+  #    keyFile = "/mnt-root/root/keyfile.key";
+  #    preLVM = true;
+  #  };
+  #};
+
   # Internal Storage
   fileSystems."/mount/Data" = {
     device = "/dev/mapper/data";
