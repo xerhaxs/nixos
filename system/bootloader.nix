@@ -45,8 +45,8 @@
   boot.initrd.systemd.enable = true;
 
   boot.initrd.luks.devices = {
-   "system" = {
-      device = "/dev/disk/by-label/CRYPTDRIVE";
+   "crypt" = {
+      device = "/dev/disk/by-partlabel/disk-SYSTEM-LUKS";
       preLVM = true;
     };
   };
