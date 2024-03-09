@@ -31,7 +31,6 @@
               content = {
                 type = "luks";
                 name = "LUKS";
-                hash = "sha512";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   # if you want to use the key for interactive login be sure there is no trailing newline
