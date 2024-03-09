@@ -10,8 +10,8 @@
         content = {
           type = "table";
           format = "gpt";
-          partitions = {
-            ESP = {
+          partitions = [
+            {
               name = "BOOT";
               start = "1M";
               end = "500M";
@@ -24,8 +24,9 @@
                   "defaults"
                 ];
               };
-            };
-            luks = {
+            }
+            {
+              name = "LUKS";
               start = "500M";
               end = "100%";
               content = {
@@ -42,8 +43,8 @@
                   vg = "crypt";
                 };
               };
-            };
-          };
+            }
+          ];
         };
       };
     };

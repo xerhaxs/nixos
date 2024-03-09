@@ -1,11 +1,11 @@
-{ config, libs, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   catppuccin-grub = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "grub";
     rev = "main"; # commit hash or tag
-    sha256 = "sha256-/bSolCta8GCZ4lP0u5NVqYQ9Y3ZooYCNdTwORNvR7M0="; #sha256 = lib.fakeSha256;
+    sha256 = "sha256-e8XFWebd/GyX44WQI06Cx6sOduCZc5z7/YhweVQGMGY="; #sha256 = lib.fakeSha256;
   };
   latte-grub = "src/catppuccin-latte-grub-theme";
 
@@ -29,7 +29,7 @@ in
     theme = "catppuccin-latte";
   };
 
-  services.xserver.displayManager.sddm.theme = catppuccin-sddm + "/${latte-sddm}";
+  #services.xserver.displayManager.sddm.theme = catppuccin-sddm + "/${latte-sddm}";
 
   environment.systemPackages = with pkgs; [
     #(catppuccin.override {
