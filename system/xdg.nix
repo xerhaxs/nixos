@@ -19,10 +19,10 @@ in
   xdg = {
     portal = {
       enable = true;
-      #wlr = {
-      #  enable = true;
+      wlr = {
+        enable = true;
         #settings = {};
-      #};
+      };
       #extraPortals = with pkgs; [
       #  xdg-desktop-portal-gtk
       #];
