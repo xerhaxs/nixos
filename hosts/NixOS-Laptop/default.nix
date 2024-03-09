@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./powersave.nix
-    ./sddm.nix
+    #./sddm.nix
     ./user.nix
   ];
 }
