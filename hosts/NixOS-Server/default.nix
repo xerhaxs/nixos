@@ -4,7 +4,7 @@
   imports = [
     #./server
 
-    #./bootloader.nix
+    ./bootloader.nix
     ./disko-var-lvm-on-luks.nix
     ./hardware-configuration.nix
     ./mount.nix

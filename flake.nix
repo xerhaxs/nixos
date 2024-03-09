@@ -281,7 +281,6 @@
             ./system-modules/intelcpu.nix
             #./system-modules/intelgpu.nix
             #./system-modules/nasmount.nix
-            ./system-modules/printing.nix
             ./system-modules/python.nix
             ./system-modules/ssh.nix
             ./system-modules/virtualisation.nix
