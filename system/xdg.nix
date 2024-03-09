@@ -51,6 +51,7 @@ in
         "x-scheme-handler/https" = browser;
         "x-scheme-handler/unknown" = editor;
         "text/plain" = editor;
+        "text/markdown"=editor;
         "text/html" = editor;
         "audio/*" = mediaplayer;
         "video/*" = mediaplayer;
