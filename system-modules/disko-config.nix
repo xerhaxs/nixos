@@ -5,10 +5,10 @@
 
 {
   disko.devices = {
-    disk = {
+    SYSTEM = {
       vda = {
         type = "disk";
-        name = "SYSTEM";
+        name = "BOOT";
         device = builtins.elemAt disks 0;
         content = {
           type = "gpt";
@@ -16,7 +16,7 @@
             ESP = {
               size = "500M";
               type = "EF00";
-              name = "BOOT";
+              name = "UEFI";
               content = {
                 type = "filesystem";
                 format = "vfat";
