@@ -1,4 +1,4 @@
-{ ... }:
+{ disks ? [ "/dev/vda" ], ... }: {
 
 # sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko-config.nix
 # (optional) nixos-generate-config --no-filesystems --root /mnt
@@ -8,7 +8,8 @@
     disk = {
       vda = {
         type = "disk";
-        device = "/dev/sda";
+        device = builtins.elemAt disks 0;
+        label = "CRYPTDRIVE";
         content = {
           type = "gpt";
           partitions = {
