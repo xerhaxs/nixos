@@ -9,7 +9,6 @@
       vda = {
         type = "disk";
         device = builtins.elemAt disks 0;
-        label = "CRYPTDRIVE";
         content = {
           type = "gpt";
           partitions = {
@@ -30,7 +29,8 @@
               size = "100%";
               content = {
                 type = "luks";
-                name = "crypt";
+                name = "CRYPTDRIVE";
+                label = "CRYPTDRIVE";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   # if you want to use the key for interactive login be sure there is no trailing newline
