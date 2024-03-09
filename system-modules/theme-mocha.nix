@@ -5,7 +5,7 @@ let
     owner = "catppuccin";
     repo = "grub";
     rev = "main"; # commit hash or tag
-    sha256 = "sha256-/bSolCta8GCZ4lP0u5NVqYQ9Y3ZooYCNdTwORNvR7M0="; #sha256 = lib.fakeSha256;
+    sha256 = "sha256-e8XFWebd/GyX44WQI06Cx6sOduCZc5z7/YhweVQGMGY="; #sha256 = lib.fakeSha256;
   };
   mocha-grub = "src/catppuccin-mocha-grub-theme";
 
