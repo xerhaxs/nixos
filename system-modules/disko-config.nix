@@ -15,7 +15,7 @@
             ESP = {
               size = "500M";
               type = "EF00";
-              name = "BOOT";
+              #name = "BOOT";
               content = {
                 type = "filesystem";
                 format = "vfat";
