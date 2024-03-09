@@ -117,6 +117,7 @@ cp /tmp/keyfile.key /tmp/keyfile.key.bck
 echo $DISKPASS > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos#$CHOSEN_HOST"
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
+mkdir /mnt/root
 mv /tmp/keyfile.key.bck /mnt/root/keyfile.key
 chmod -v 0400 /mnt/root/keyfile.key
 chown root:root /mnt/root/keyfile.key
