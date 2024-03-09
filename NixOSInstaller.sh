@@ -115,8 +115,9 @@ fi
 ## Create partition
 echo $DISKPASS > /tmp/secret.key
 DISKO_TARGET="$(pwd)/hosts/$CHOSEN_HOST/disko-config.nix"
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko $DISKO_TARGET
+#nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko $DISKO_TARGET
 #nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $FLAKE_HOST --arg disks '[ "$CHOSEN_DRIVE" ]'
+nix run github:nix-community/disko -- --mode disko --flake github:xerhaxs/nixos#NixOS-Server
 
 # Generate NixOS Config
 #nixos-generate-config --root /mnt
