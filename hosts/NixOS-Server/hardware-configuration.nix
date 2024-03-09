@@ -19,7 +19,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/UEFI";
+    device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
   };
 
