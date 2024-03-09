@@ -12,7 +12,7 @@
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/boot" = lib.mkDefault {
+  fileSystems."/boot" = lib.mkForce {
     device = "/dev/disk/by-partlabel/BOOT";
     fsType = "vfat";
   };
