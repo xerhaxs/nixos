@@ -14,7 +14,7 @@
               size = "100%";
               content = {
                 type = "luks";
-                name = "LUKS";
+                name = "LUKS2";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
