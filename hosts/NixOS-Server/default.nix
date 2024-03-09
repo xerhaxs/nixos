@@ -5,7 +5,7 @@
     #./server
 
     #./bootloader.nix
-    ./disko-var-lvm-on-luks
+    ./disko-var-lvm-on-luks.nix
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
