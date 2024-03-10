@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  services.acpid.enable = true;
+
   #services.power-profiles-daemon.enable = true;
 
   #services.auto-cpufreq.settings = {
