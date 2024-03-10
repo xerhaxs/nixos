@@ -3,7 +3,7 @@
 {
   services.acpid.enable = true;
 
-  #services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   #services.auto-cpufreq.settings = {
   #  enable = false;
@@ -50,10 +50,10 @@
   #  };
   #};
 
-  #powerManagement = {
-  #  enable = true;
-  #  cpuFreqGovernor = "powersave";
-  #  scsiLinkPolicy = "min_power";
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "powersave";
+    scsiLinkPolicy = "min_power";
   #  powertop.enable = true;
-  #};
+  };
 }
