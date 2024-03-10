@@ -110,10 +110,10 @@
             ./system
             ./hosts/NixOS-Desktop
 
-            ./system-modules/amdcpu.nix
+            #./system-modules/amdcpu.nix
             ./system-modules/amdgpu.nix
             ./system-modules/autostart.nix
-            ./system-modules/corectrl.nix
+            #./system-modules/corectrl.nix
             ./system-modules/firefox.nix
             ./system-modules/flatpak.nix
             ./system-modules/fonts.nix
