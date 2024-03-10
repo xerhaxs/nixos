@@ -40,17 +40,17 @@ in
       libsForQt5.libksysguard
       #libsForQt5.akonadi
       #libsForQt5.akonadi-import-wizard
-      libsForQt5.merkuro
+      #libsForQt5.merkuro
       #libsForQt5.plasma-browser-integration
       #kwayland-integration
-      libsForQt5.kwin-tiling
-      libsForQt5.bismuth
+      #libsForQt5.kwin-tiling
+      #libsForQt5.bismuth
       libsForQt5.filelight
       #libsForQt5.kaccounts-integration
       #libsForQt5.kaccounts-providers
-      libsForQt5.qt5.qtwebsockets
-      libsForQt5.qt5.qtdeclarative
-      libsForQt5.qt5.qtwebchannel
+      #libsForQt5.qt5.qtwebsockets
+      #libsForQt5.qt5.qtdeclarative
+      #libsForQt5.qt5.qtwebchannel
       libsForQt5.plasma-framework
       gst_all_1.gst-libav
       xorg.xkill
