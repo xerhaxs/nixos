@@ -29,7 +29,7 @@ in
     theme = "catppuccin-latte";
   };
 
-  #services.xserver.displayManager.sddm.theme = catppuccin-sddm + "/${latte-sddm}";
+  services.xserver.displayManager.sddm.theme = catppuccin-sddm + "/${latte-sddm}";
 
   environment.systemPackages = with pkgs; [
     #(catppuccin.override {
