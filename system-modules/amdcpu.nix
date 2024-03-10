@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
