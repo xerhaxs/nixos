@@ -86,18 +86,18 @@ in
     useDHCP = true;
 
     hostFiles = [
-      #StevenBlack
-      #malware
-      #phishing
-      #ransomware
+      StevenBlack
+      malware
+      phishing
+      ransomware
       #redirect
-      #scam
+      scam
       #tiktok
       #tracking
-      #smart-tv
-      #adobe
-      #ads
-      #AmazonFireTV
+      smart-tv
+      adobe
+      ads
+      AmazonFireTV
       #oisd-small
       #oisd-big
     ];
