@@ -33,7 +33,7 @@
                   keyFile = "/tmp/secret.key";
                   allowDiscards = true;
                 };
-                additionalKeyFiles = [ "/tmp/keyfile.key" ];
+                additionalKeyFiles = [ "/tmp/secret.key" "/tmp/keyfile.key" ];
                 content = {
                   type = "lvm_pv";
                   vg = "crypt";
