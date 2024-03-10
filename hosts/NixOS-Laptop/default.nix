@@ -6,7 +6,7 @@
     ./driver.nix
     ./hardware-configuration.nix
     ./networking.nix
-    #./powersave.nix
+    ./powersave.nix
     ./sddm.nix
     ./user.nix
   ];
