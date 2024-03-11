@@ -1,7 +1,22 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.power-profiles-daemon.enable = true;
+  #services.power-profiles-daemon.enable = true;
+
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  services.thermald.enable = true;
+  services.auto-cpufreq.settings = {
+    enable = true;
+    battery = {
+      governor = "powersave";
+      turbo = "never";
+    };
+    charger = {
+      governor = "performance";
+      turbo = "auto";
+    };
+  };
 
   #services.auto-cpufreq.settings = {
   #  enable = false;
@@ -48,10 +63,10 @@
   #  };
   #};
 
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "powersave";
-    scsiLinkPolicy = "min_power";
+  #powerManagement = {
+  #  enable = true;
+  #  cpuFreqGovernor = "powersave";
+  #  scsiLinkPolicy = "min_power";
   #  powertop.enable = true;
-  };
+  #};
 }
