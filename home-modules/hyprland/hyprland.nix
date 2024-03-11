@@ -17,9 +17,10 @@
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
 
     # See https://wiki.hyprland.org/Configuring/Monitors/
-    monitor = ",preferred,auto,auto";
+    #monitor = ",preferred,auto,auto";
     #monitor = "name,resolution,position,scale";
     #monitor = "DP-1,3840x1600@144,0x0,1,bitdepth,10";
+    #monitor = ",1920x1200@60,0x0,1,bitdepth,8";
 
     # Execute your favorite apps at launch
     #exec-once=swaybg -i $NIXOS_CONFIG_DIR/pics/wallpaper.png
@@ -49,8 +50,8 @@
         gaps_in = 5;
         gaps_out = 20;
         border_size = 2;
-        col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        col.inactive_border = "rgba(595959aa)";
+        #col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        #col.inactive_border = "rgba(595959aa)";
 
         # env variable for qt theming on hyprland
         env = "QT_QPA_PLATFORM,wayland";
@@ -73,21 +74,21 @@
         ];
     };
     
-    decoration = {
+    #decoration = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-        blur_enabled = true;
-        rounding = 10;
-        blur = "yes";
-        blur_size = 3;
-        blur_passes = 1;
-        blur_new_optimizations = true;
+    #    blur_enabled = true;
+    #    rounding = 10;
+    #    blur = "yes";
+    #    blur_size = 3;
+    #    blur_passes = 1;
+    #    blur_new_optimizations = true;
 
-        drop_shadow = "yes";
-        shadow_range = 4;
-        shadow_render_power = 3;
-        col.shadow = "rgba(1a1a1aee)";
-    };
+    #    drop_shadow = "yes";
+    #    shadow_range = 4;
+    #    shadow_render_power = 3;
+    #    col.shadow = "rgba(1a1a1aee)";
+    #};
 
     dwindle = {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
@@ -181,8 +182,8 @@
 
     bindm = [
         # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+        #"$mainMod, mouse_down, workspace, e+1"
+        #"$mainMod, mouse_up, workspace, e-1"
 
         # Move/resize windows with mainMod + LMB/RMB and dragging
         "$mainMod, mouse:272, movewindow"

@@ -25,6 +25,7 @@
     #../../../home-modules/thunderbird.nix
     #../../../home-modules/vscodium.nix
 
+    ./hyprland.nix
     ./xdg.nix
   ];
 
