@@ -17,6 +17,7 @@
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # enable theming
       "general.autoScroll" = true; # enable autoscroll
       "media.navigator.enabled" = false;
+      "media.ffmpeg.vaapi.enabled" = true;
       "xpinstall.signatures.required" = false;
       "widget.use-xdg-desktop-portal.file-pcker" = 1;
       "intl.accept_languages" = "en-US,de";

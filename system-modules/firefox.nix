@@ -34,6 +34,8 @@
 
       EncryptedMediaExtensions.Enabled = false;
 
+      media.ffmpeg.vaapi.enabled = true;
+
       ExtensionUpdate = true;
 
       FirefoxHome = {
