@@ -318,7 +318,7 @@
           modules = [
             # This is not a complete NixOS configuration and you need to reference
             # your normal configuration here.
-            ./system
+            #./system
             ./hosts/NixOS-Testing
 
             #./system-modules/amdcpu.nix
