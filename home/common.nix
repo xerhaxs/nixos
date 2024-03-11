@@ -78,7 +78,7 @@
     pv # replacement of cp
     iotop # io monitoring
     iftop # network monitoring
-    nvtop # nvidia monitoring
+    #nvtop # nvidia monitoring
 
     # system call monitoring
     strace # system call monitoring
