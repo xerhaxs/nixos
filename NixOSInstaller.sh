@@ -127,8 +127,8 @@ chmod -v 0400 /mnt/root/keyfile.key
 chown root:root /mnt/root/keyfile.key
 
 nixos-generate-config --root /mnt
-nixos-install --no-root-passwd
-#nixos-install --no-root-passwd --impure --flake $INSTALLATION_TARGET
+#nixos-install --no-root-passwd
+nixos-install --no-root-passwd --impure --flake $INSTALLATION_TARGET
 
 PASSWORD="";
 PASSWORD_CHECK="";
