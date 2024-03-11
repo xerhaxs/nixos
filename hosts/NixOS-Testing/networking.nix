@@ -2,7 +2,6 @@
 
 {
   networking = {
-  
     hostName = "NixOS-Testing";
   };
 }
