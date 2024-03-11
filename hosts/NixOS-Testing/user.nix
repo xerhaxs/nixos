@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 let
-  user = "nixos";
-  pass = "$y$j9T$wokl9GFpVK889MUxogoDc.$VV6rHmXcz3lea4kfX3v73ARLEplIl7IatX3j1NUHPc/";
+  user = "jf";
+  pass = "$y$j9T$QJpNF3qTBVhLCq2CwPCbs1$BJOqUB9uV.QhaBK9SU5s/zRIYP/.3kHL9iff399qdS8";
 in
 
 {

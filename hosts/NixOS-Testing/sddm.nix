@@ -2,6 +2,6 @@
 
 {
   services.xserver.displayManager = {
-    defaultSession = pkgs.lib.mkDefault "plasmawayland";
+    defaultSession = lib.mkDefault "plasmawayland";
   };
 }

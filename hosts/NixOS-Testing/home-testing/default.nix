@@ -2,29 +2,35 @@
 
 {
   imports = [
-    ../../../home
+    #../../../home
 
-    ../../../home-modules/applications.nix
+    #../../../home-modules/3dprinting.nix
+    #../../../home-modules/applications.nix
+    #../../../home-modules/editing.nix
+    #../../../home-modules/gnome
     #../../../home-modules/hyprland
     #../../../home-modules/firefox.nix
-    ../../../home-modules/flameshot.nix
+    #../../../home-modules/flameshot.nix
     #../../../home-modules/hacking.nix
-    ../../../home-modules/kdeconnect.nix
-    ../../../home-modules/librewolf.nix
-    ../../../home-modules/multimedia.nix
+    #../../../home-modules/kdeconnect.nix
+    #../../../home-modules/librewolf.nix
+    #../../../home-modules/multimedia.nix
     #../../../home-modules/obs-studio.nix
-    ../../../home-modules/office.nix
-    ../../../home-modules/programming.nix
-    ../../../home-modules/syncthing.nix
-    ../../../home-modules/theme-mocha.nix
+    #../../../home-modules/office.nix
+    #../../../home-modules/privacy.nix
+    #../../../home-modules/programming.nix
+    #../../../home-modules/plasma.nix
+    #../../../home-modules/syncthing.nix
+    #../../../home-modules/theme-latte.nix
     #../../../home-modules/thunderbird.nix
     #../../../home-modules/vscodium.nix
 
-    ./xdg.nix
+    #./hyprland.nix
+    #./xdg.nix
   ];
 
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  home.username = "jf";
+  home.homeDirectory = "/home/jf";
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;

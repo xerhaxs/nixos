@@ -321,27 +321,38 @@
             ./system
             ./hosts/NixOS-Testing
 
-            ./system-modules/amdgpu.nix
-            ./system-modules/fonts.nix
+            #./system-modules/amdcpu.nix
+            #./system-modules/amdgpu.nix
+            #./system-modules/autostart.nix
+            #./system-modules/corectrl.nix
+            #./system-modules/firefox.nix
+            #./system-modules/flatpak.nix
+            #./system-modules/fonts.nix
+            #./system-modules/gdm.nix
+            #./system-modules/gnome.nix
             ./system-modules/hardware-configuration.nix
-            ./system-modules/hyprland.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/mullvad.nix
+            #./system-modules/hyprland.nix
+            #./system-modules/kdeconnect.nix
+            #./system-modules/mullvad.nix
+            #./system-modules/nasmount.nix
             ./system-modules/plasma.nix
-            ./system-modules/printing.nix
+            #./system-modules/printing.nix
+            #./system-modules/protonmail-bridge.nix
+            #./system-modules/python.nix
             ./system-modules/sddm.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-mocha.nix
+            #./system-modules/theme.nix
+            #./system-modules/theme-latte.nix
+            #./system-modules/wireguard-client.nix
 
             # disko Moule
             disko.nixosModules.disko
             ./system-modules/disko-uefi-lvm-on-luks.nix
             {
-              _module.args.disks = [ "/dev/sda" ];
+              _module.args.disks = [ "/dev/nvme0n1" ];
             }
 
             # nur repo
-            #nur.nixosModules.nur
+            nur.nixosModules.nur
 
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
