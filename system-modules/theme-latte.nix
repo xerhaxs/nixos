@@ -13,7 +13,7 @@ let
     owner = "catppuccin";
     repo = "sddm";
     rev = "main"; # commit hash or tag
-    sha256 = "sha256-0zoJOTFjQq3gm5i3xCRbyk781kB7BqcWWNrrIkWf2Xk="; #sha256 = lib.fakeSha256;
+    sha256 = "sha256-cZuNQDXdWiE2eCf/bdGFYKM5SXrENxJere83SI47ol4="; #sha256 = lib.fakeSha256;
   };
   latte-sddm = "src/catppuccin-latte";
 in
