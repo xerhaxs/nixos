@@ -17,8 +17,8 @@
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
 
     # See https://wiki.hyprland.org/Configuring/Monitors/
-    monitor=,preferred,auto,auto
-    #monitor=name,resolution,position,scale
+    monitor = ",preferred,auto,auto";
+    #monitor = "name,resolution,position,scale";
     #monitor = "DP-1,3840x1600@144,0x0,1,bitdepth,10";
 
     # Execute your favorite apps at launch
