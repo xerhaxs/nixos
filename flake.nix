@@ -361,7 +361,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.users.nixos = import ./hosts/NixOS-Testing/home-testing;
+              home-manager.users.jf = import ./hosts/NixOS-Testing/home-testing;
 
               # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
             }
