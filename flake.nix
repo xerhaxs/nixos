@@ -121,7 +121,7 @@
             ./system-modules/hyprland.nix
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
-            ./system-modules/nasmount.nix
+            #./system-modules/nasmount.nix
             ./system-modules/plasma.nix
             ./system-modules/printing.nix
             ./system-modules/protonmail-bridge.nix

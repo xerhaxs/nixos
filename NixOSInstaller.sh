@@ -112,7 +112,7 @@ fi
 # Create keyfile for encryption without password
 openssl genrsa -out /tmp/keyfile.key 4096
 
-echo "$DISKPASS" > /tmp/secret.key
+echo -n "$DISKPASS" > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos/main#$CHOSEN_HOST"
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
 
