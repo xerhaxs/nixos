@@ -88,6 +88,7 @@
     # system tools
     sysstat
     lm_sensors # for `sensors` command
+    powerstat
     ethtool
     pciutils # lspci
     usbutils # lsusb
