@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+
+  security.polkit.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
   boot.loader.grub = {
@@ -9,7 +18,7 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
     enableCryptodisk = true;
-    gfxmodeEfi = "1920x1200x32";
+    gfxmodeEfi = "auto";
     gfxpayloadEfi = "keep";
     useOSProber = true;
     configurationLimit = 16;
@@ -39,4 +48,14 @@
       preLVM = true;
     };
   };
+
+  services.udisks2.enable = true;
+
+  services.fwupd.enable = true;
+
+  services.acpid.enable = true;
+
+  environment.systemPackages = [
+    pkgs.acpid
+  ];
 }
