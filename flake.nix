@@ -325,8 +325,8 @@
             #./system-modules/amdgpu.nix
             #./system-modules/autostart.nix
             #./system-modules/corectrl.nix
-            ./system-modules/firefox.nix
-            ./system-modules/flatpak.nix
+            #./system-modules/firefox.nix
+            #./system-modules/flatpak.nix
             #./system-modules/fonts.nix
             #./system-modules/gdm.nix
             #./system-modules/gnome.nix
@@ -340,8 +340,8 @@
             #./system-modules/protonmail-bridge.nix
             #./system-modules/python.nix
             ./system-modules/sddm.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-latte.nix
+            #./system-modules/theme.nix
+            #./system-modules/theme-latte.nix
             #./system-modules/wireguard-client.nix
 
             # disko Moule
