@@ -2,7 +2,7 @@
 
 {
   imports = [
-    #../../../home
+    ../../../home
 
     #../../../home-modules/3dprinting.nix
     #../../../home-modules/applications.nix
@@ -25,8 +25,8 @@
     #../../../home-modules/thunderbird.nix
     #../../../home-modules/vscodium.nix
 
-    #./hyprland.nix
-    #./xdg.nix
+    ./hyprland.nix
+    ./xdg.nix
   ];
 
   home.username = "jf";

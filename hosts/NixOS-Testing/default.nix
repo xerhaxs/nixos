@@ -3,7 +3,7 @@
 {
   imports = [
     ./bootloader.nix
-    #./driver.nix
+    ./driver.nix
     ./hardware-configuration.nix
     ./networking.nix
     #./powersave.nix
