@@ -323,25 +323,25 @@
 
             #./system-modules/amdcpu.nix
             #./system-modules/amdgpu.nix
-            ./system-modules/autostart.nix
+            #./system-modules/autostart.nix
             #./system-modules/corectrl.nix
-            ./system-modules/firefox.nix
-            ./system-modules/flatpak.nix
-            ./system-modules/fonts.nix
+            #./system-modules/firefox.nix
+            #./system-modules/flatpak.nix
+            #./system-modules/fonts.nix
             #./system-modules/gdm.nix
             #./system-modules/gnome.nix
             ./system-modules/hardware-configuration.nix
-            ./system-modules/hyprland.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/mullvad.nix
+            #./system-modules/hyprland.nix
+            #./system-modules/kdeconnect.nix
+            #./system-modules/mullvad.nix
             #./system-modules/nasmount.nix
             ./system-modules/plasma.nix
-            ./system-modules/printing.nix
-            ./system-modules/protonmail-bridge.nix
-            ./system-modules/python.nix
+            #./system-modules/printing.nix
+            #./system-modules/protonmail-bridge.nix
+            #./system-modules/python.nix
             ./system-modules/sddm.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-latte.nix
+            #./system-modules/theme.nix
+            #./system-modules/theme-latte.nix
             #./system-modules/wireguard-client.nix
 
             # disko Moule
