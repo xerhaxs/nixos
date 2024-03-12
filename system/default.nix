@@ -14,11 +14,11 @@
     ./input.nix
     ./locals.nix
     ./networking.nix
-    ./nixosvm.nix
-    ./samba-client.nix
+    #./nixosvm.nix
+    #./samba-client.nix
     ./sops.nix
     ./swap.nix
-    ./upower.nix
+    #./upower.nix
     ./xdg.nix
     ./xserver.nix
   ];
