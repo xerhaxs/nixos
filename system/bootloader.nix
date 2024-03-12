@@ -2,7 +2,7 @@
 
 {
   # Bootloader
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "sr_mod" ];
   boot.kernelParams = [ "quiet" "splash" "loglevel=3" "udev.log-priority=3" "vt.global_cursor_default=1" ];
   boot.kernelModules = [ "fuse" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;

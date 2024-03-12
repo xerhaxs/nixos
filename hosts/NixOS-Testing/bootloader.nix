@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  # Bootloader
+  boot.initrd.availableKernelModules = [ "sr_mod" ];
+  boot.kernelParams = [ "quiet" "splash" "loglevel=3" "udev.log-priority=3" "vt.global_cursor_default=1" ];
+  boot.kernelModules = [ "fuse" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
