@@ -26,7 +26,7 @@
     ../../system/samba-client.nix
     ../../system/sops.nix
     ../../system/swap.nix
-    ../../upower.nix
+    ../../system/upower.nix
     ../../system/xdg.nix
     ../../system/xserver.nix
   ];
