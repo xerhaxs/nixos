@@ -321,7 +321,7 @@
             ./hosts/NixOS-Testing
 
             ./system-modules/amdcpu.nix
-            ./system-modules/amdgpu.nix
+            #./system-modules/amdgpu.nix
             ./system-modules/autostart.nix
             #./system-modules/corectrl.nix
             ./system-modules/firefox.nix
