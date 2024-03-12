@@ -332,11 +332,11 @@
             #./system-modules/gnome.nix
             ./system-modules/hardware-configuration.nix
             ./system-modules/hyprland.nix
-            #./system-modules/kdeconnect.nix
-            #./system-modules/mullvad.nix
+            ./system-modules/kdeconnect.nix
+            ./system-modules/mullvad.nix
             #./system-modules/nasmount.nix
             ./system-modules/plasma.nix
-            #./system-modules/printing.nix
+            ./system-modules/printing.nix
             #./system-modules/protonmail-bridge.nix
             #./system-modules/python.nix
             ./system-modules/sddm.nix
