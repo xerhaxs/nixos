@@ -340,7 +340,7 @@
             #./system-modules/protonmail-bridge.nix
             #./system-modules/python.nix
             ./system-modules/sddm.nix
-            #./system-modules/theme.nix
+            ./system-modules/theme.nix
             #./system-modules/theme-latte.nix
             #./system-modules/wireguard-client.nix
 

@@ -23,6 +23,7 @@ in
 
   boot.plymouth = {
     enable = true;
+    font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
     themePackages = with pkgs; [
       (catppuccin-plymouth.override {variant = "mocha";})
     ];
