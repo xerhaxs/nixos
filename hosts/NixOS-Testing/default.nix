@@ -23,10 +23,10 @@
     ../../system/locals.nix
     ../../system/networking.nix
     ../../system/nixosvm.nix
-    ../../system/samba-client.nix
+    #../../system/samba-client.nix
     ../../system/sops.nix
     ../../system/swap.nix
-    ../../system/upower.nix
+    #../../upower.nix
     ../../system/xdg.nix
     ../../system/xserver.nix
   ];
