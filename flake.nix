@@ -337,11 +337,11 @@
             #./system-modules/nasmount.nix
             ./system-modules/plasma.nix
             ./system-modules/printing.nix
-            #./system-modules/protonmail-bridge.nix
-            #./system-modules/python.nix
+            ./system-modules/protonmail-bridge.nix
+            ./system-modules/python.nix
             ./system-modules/sddm.nix
             ./system-modules/theme.nix
-            #./system-modules/theme-latte.nix
+            ./system-modules/theme-latte.nix
             #./system-modules/wireguard-client.nix
 
             # disko Moule
