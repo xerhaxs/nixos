@@ -10,14 +10,14 @@
     ./sddm.nix
     ./user.nix
 
-    ../../system/audio.nix
-    ../../system/bluetooth.nix
+    #../../system/audio.nix
+    #../../system/bluetooth.nix
     #./bootloader.nix
     #./clamav.nix
-    ../../system/common.nix
-    ../../system/cron.nix
-    ../../system/dbus.nix
-    ../../system/dconf.nix
+    #../../system/common.nix
+    #../../system/cron.nix
+    #../../system/dbus.nix
+    #../../system/dconf.nix
     ../../system/firewall.nix
     ../../system/input.nix
     ../../system/locals.nix
