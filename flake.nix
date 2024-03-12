@@ -218,8 +218,8 @@
             ./system
             ./hosts/NixOS-Laptop
 
-            ./system-modules/amdcpu.nix
-            ./system-modules/amdgpu.nix
+            #./system-modules/amdcpu.nix
+            #./system-modules/amdgpu.nix
             ./system-modules/autostart.nix
             ./system-modules/firefox.nix
             ./system-modules/flatpak.nix
