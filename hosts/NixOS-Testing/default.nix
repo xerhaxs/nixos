@@ -13,7 +13,7 @@
     ../../system/audio.nix
     ../../system/bluetooth.nix
     #./bootloader.nix
-    #./clamav.nix
+    ../../system/clamav.nix
     ../../system/common.nix
     ../../system/cron.nix
     ../../system/dbus.nix
