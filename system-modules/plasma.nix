@@ -32,12 +32,7 @@ in
       #wallpaper-engine-kde-plugin
       adw-gtk3
       #mplayer
-      maliit-keyboard
       libsForQt5.sddm-kcm
-      libsForQt5.soundkonverter
-      libsForQt5.discover
-      libsForQt5.kate
-      libsForQt5.libksysguard
       #libsForQt5.akonadi
       #libsForQt5.akonadi-import-wizard
       #libsForQt5.merkuro

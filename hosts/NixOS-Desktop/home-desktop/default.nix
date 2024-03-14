@@ -16,7 +16,7 @@
     ../../../home-modules/multimedia.nix
     ../../../home-modules/obs-studio.nix
     ../../../home-modules/office.nix
-    ../../../home-modules/plasma.nix
+    #../../../home-modules/plasma.nix
     ../../../home-modules/privacy.nix
     ../../../home-modules/programming.nix
     ../../../home-modules/syncthing.nix

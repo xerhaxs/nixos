@@ -48,6 +48,11 @@
   outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, ... }:
     let
 
+    specialArgs = {
+      inherit inputs;
+      inherit plasma-manager;
+    };
+
     in {
     nixosConfigurations = {
 
@@ -93,8 +98,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.crafter = import ./hosts/NixOS-Crafter/home-crafter;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
@@ -150,8 +154,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.jf = import ./hosts/NixOS-Desktop/home-desktop;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
@@ -201,8 +204,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.sirmorton = import ./hosts/NixOS-Gaming/home-gaming;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
@@ -219,7 +221,7 @@
             ./hosts/NixOS-Laptop
 
             #./system-modules/amdcpu.nix
-            #./system-modules/amdgpu.nix
+            ./system-modules/amdgpu.nix
             ./system-modules/autostart.nix
             ./system-modules/firefox.nix
             ./system-modules/flatpak.nix
@@ -256,10 +258,9 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = specialArgs;
 
               home-manager.users.jf = import ./hosts/NixOS-Laptop/home-laptop;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
             }
           ];
         };
@@ -303,8 +304,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.admin = import ./hosts/NixOS-Server/home-server;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
@@ -360,8 +360,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.jf = import ./hosts/NixOS-Testing/home-testing;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
