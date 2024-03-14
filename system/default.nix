@@ -5,7 +5,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./bootloader.nix
-    ./clamav.nix
+    #./clamav.nix
     ./common.nix
     ./cron.nix
     ./dbus.nix
