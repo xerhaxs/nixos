@@ -70,15 +70,15 @@
             ./system-modules/fonts.nix
             ./system-modules/hardware-configuration.nix
             ./system-modules/intelcpu.nix
-            ./system-modules/intelgpu.nix
+            #./system-modules/intelgpu.nix
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
-            ./system-modules/nvidiagpu.nix
+            #./system-modules/nvidiagpu.nix
             ./system-modules/plasma.nix
             ./system-modules/printing.nix
             ./system-modules/sddm.nix
             ./system-modules/theme.nix
-            ./system-modules/theme-mocha.nix
+            ./system-modules/theme-latte.nix
 
             # disko Moule
             disko.nixosModules.disko
@@ -154,7 +154,7 @@
               home-manager.useUserPackages = true;
 
               home-manager.users.jf = import ./hosts/NixOS-Desktop/home-desktop;
-              home-manager.extraSpecialArgs = specialArgs;
+              #home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
@@ -220,7 +220,7 @@
             ./system
             ./hosts/NixOS-Laptop
 
-            #./system-modules/amdcpu.nix
+            ./system-modules/amdcpu.nix
             ./system-modules/amdgpu.nix
             ./system-modules/autostart.nix
             ./system-modules/firefox.nix
