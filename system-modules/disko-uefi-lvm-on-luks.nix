@@ -17,7 +17,6 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                extraFormatArgs = [ "-L BOOT" ];
                 mountpoint = "/boot";
                 mountOptions = [
                   "defaults"
@@ -29,7 +28,6 @@
               content = {
                 type = "luks";
                 name = "LUKS";
-                extraFormatArgs = [ "-L CRYPTDRIVE" ];
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
