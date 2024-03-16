@@ -5,7 +5,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
 
   boot.loader.grub = {
-    device = lib.mkDefault "/dev/disk/by-partlabel/BOOT";
+    device = lib.mkForce "/dev/disk/by-partlabel/BOOT";
     efiSupport = lib.mkDefault false;
     efiInstallAsRemovable = lib.mkDefault true;
     gfxmodeBios = "1600x900";
@@ -14,7 +14,7 @@
 
   boot.initrd.luks.devices = {
    "crypt" = {
-      device = lib.mkDefault "/dev/disk/by-partlabel/LUKS";
+      device = lib.mkForce "/dev/disk/by-partlabel/LUKS";
       preLVM = true;
     };
   };
