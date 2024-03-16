@@ -14,6 +14,7 @@
               size = "500M";
               type = "EF00";
               name = "BOOT";
+              extraArgs = [ "-L BOOT" ];
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -28,6 +29,7 @@
               content = {
                 type = "luks";
                 name = "LUKS";
+                extraArgs = [ "-L CRYPTDRIVE" ];
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
