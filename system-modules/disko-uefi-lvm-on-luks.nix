@@ -14,10 +14,10 @@
               size = "500M";
               type = "EF00";
               name = "BOOT";
-              extraArgs = [ "-L BOOT" ];
               content = {
                 type = "filesystem";
                 format = "vfat";
+                extraArgs = [ "-L BOOT" ];
                 mountpoint = "/boot";
                 mountOptions = [
                   "defaults"
