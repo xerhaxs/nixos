@@ -7,6 +7,5 @@
     enable = true;
     cpuFreqGovernor = "powersave";
     scsiLinkPolicy = "min_power";
-    powertop.enable = true;
   };
 }
