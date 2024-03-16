@@ -10,56 +10,49 @@
 , qtwebchannel
 , qtdeclarative
 , qtx11extras
-, shaderc
-, glslang
 , vulkan-headers
 , vulkan-loader
 , vulkan-tools
 , pkg-config
 , lz4
-, wayland
-, libass
-, fribidi
-, ffmpeg
-, libdvdnav
-, libdvdread
-, mujs
-, lcms
-, libarchive
-, libplacebo
-, libunwind
-, libdovi
-, libbluray
-, lua
-, rubberband
-, spirv-tools
-, SDL2
-, libuchardet
-, zimg
-, alsa-oss
 }:
+let
+  glslang-submodule = mkDerivation {
+    name = "glslang";
+    installPhase = ''
+      mkdir -p $out
+    '';
+    src = fetchFromGitHub {
+      owner = "KhronosGroup";
+      repo = "glslang";
+      rev = "c34bb3b6c55f6ab084124ad964be95a699700d34";
+      sha256 = "IMROcny+b5CpmzEfvKBYDB0QYYvqC5bq3n1S4EQ6sXc=";
+    };
+  };
+in
 
 mkDerivation rec {
   pname = "wallpaper-engine-kde-plugin";
   version = "0.5.4";
 
-  cmakeFlags = [ "-DUSE_PLASMAPKG=ON" ];
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config spirv-tools ];
+  cmakeFlags = [ "-DUSE_PLASMAPKG=ON" "-DCMAKE_C_COMPILER=gcc" "-DCMAKE_CXX_COMPILER=g++" ];
+  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config glslang-submodule ];
   buildInputs = [ 
     plasma-framework mpv qtwebsockets websockets qtwebchannel
     qtdeclarative qtx11extras lz4
-    vulkan-headers vulkan-tools vulkan-loader shaderc glslang wayland zimg libuchardet alsa-oss SDL2 spirv-tools rubberband libbluray lua libass fribidi libdovi libplacebo libunwind libarchive ffmpeg mujs lcms libdvdnav libdvdread
+    vulkan-headers vulkan-tools vulkan-loader
   ];
 
   postPatch = ''
-    rmdir src/backend_scene/third_party/glslang
-    ln -s ${glslang.src} src/backend_scene/third_party/glslang
+    rm -rf src/backend_scene/third_party/glslang
+    ln -s ${glslang-submodule.src} src/backend_scene/third_party/glslang
   '';
 
   src = fetchFromGitHub {
     owner = "catsout";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-a0iwxu/V6vNWftfjQE/mY0wO0lEtVIkQVNZypUT/fdI=";
+    rev = "f972b2a24c9c3cc2d3e4f41d2ebd14f1473cebdf";
+    fetchSubmodules = true;
+    sha256 = "BVtTnJA1RLUU/Tj7WI/80ja4pI8NezHCjKvB72VjrZk=";
   };
 }

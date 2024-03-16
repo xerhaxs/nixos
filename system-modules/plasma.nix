@@ -4,7 +4,14 @@ let
   wallpaper-engine-kde-plugin = pkgs.plasma5Packages.callPackage ./wallpaper-engine-plasma-plugin.nix {
     inherit (pkgs.gst_all_1) gst-libav;
     inherit (pkgs.python3Packages) websockets;
+    inherit (pkgs.libsForQt5.qt5) qtwebsockets;
   };
+    # Python packages
+  python-packages = ps: with ps; [
+    websockets
+    pandas
+    numpy
+  ];
 in
 
 {
@@ -29,7 +36,8 @@ in
     ];
 
     systemPackages = with pkgs; [
-      #wallpaper-engine-kde-plugin
+      wallpaper-engine-kde-plugin
+      (python311.withPackages python-packages)
       adw-gtk3
       #mplayer
       libsForQt5.sddm-kcm
@@ -43,7 +51,7 @@ in
       libsForQt5.filelight
       #libsForQt5.kaccounts-integration
       #libsForQt5.kaccounts-providers
-      #libsForQt5.qt5.qtwebsockets
+      libsForQt5.qt5.qtwebsockets
       #libsForQt5.qt5.qtdeclarative
       #libsForQt5.qt5.qtwebchannel
       libsForQt5.plasma-framework
