@@ -129,7 +129,7 @@
             ./system-modules/plasma.nix
             ./system-modules/printing.nix
             ./system-modules/protonmail-bridge.nix
-            ./system-modules/python.nix
+            #./system-modules/python.nix
             ./system-modules/razer.nix
             ./system-modules/sddm.nix
             ./system-modules/theme.nix
