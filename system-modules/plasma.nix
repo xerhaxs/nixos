@@ -32,15 +32,15 @@ let
   qt.platformTheme = "kde";
 
   environment = {
-    plasma5.excludePackages = with pkgs; [
-      libsForQt5.elisa
-      libsForQt5.spectacle
-      libsForQt5.kwalletmanager
-      libsForQt5.breeze-qt5
-      libsForQt5.breeze-gtk
-      libsForQt5.breeze-icons
-      libsForQt5.oxygen
-      libsForQt5.oxygen-icons5
+    plasma5.excludePackages = with pkgs; with libsForQt5; [
+      elisa
+      spectacle
+      kwalletmanager
+      breeze-qt5
+      breeze-gtk
+      breeze-icons
+      oxygen
+      oxygen-icons5
     ];
 
     plasma6.excludePackages = with pkgs; with kdePackages; [
@@ -51,6 +51,8 @@ let
       breeze-icons
       breeze-gtk
       plasma-workspace-wallpapers
+      oxygen
+      oxygen-icons5
     ];
 
     systemPackages = with pkgs; with libsForQt5; [
