@@ -1,23 +1,27 @@
 { config, pkgs, ... }:
 
 let
-  wallpaper-engine-kde-plugin = pkgs.plasma5Packages.callPackage ./wallpaper-engine-plasma-plugin.nix {
-    inherit (pkgs.gst_all_1) gst-libav;
-    inherit (pkgs.python3Packages) websockets;
-    inherit (pkgs.libsForQt5.qt5) qtwebsockets;
-  };
+    #Wallpaper Engine Plugin
+    wallpaper-engine-kde-plugin = pkgs.plasma5Packages.callPackage ./wallpaper-engine-plasma-plugin.nix {
+      inherit (pkgs.gst_all_1) gst-libav;
+      inherit (pkgs.python3Packages) websockets;
+      inherit (pkgs.libsForQt5.qt5) qtwebsockets;
+    };
+
     # Python packages
-  python-packages = ps: with ps; [
-    websockets
-    pandas
-    numpy
-  ];
-in
+    python-packages = ps: with ps; [
+      websockets
+      pandas
+      numpy
+    ];
+  in
 
 {
   services.xserver = {
     desktopManager = {
       plasma5.enable = true;
+      #plasma6.enable = true;
+      #plasma6.enableQt5Integration = true;
     };
   };
 
@@ -35,12 +39,25 @@ in
       libsForQt5.oxygen-icons5
     ];
 
-    systemPackages = with pkgs; [
+    plasma6.excludePackages = with pkgs; with kdePackages; [
+      elisa
+      spectacle
+      kwalletmanager
+      breeze
+      breeze-icons
+      breeze-gtk
+      plasma-workspace-wallpapers
+    ];
+
+    systemPackages = with pkgs; with libsForQt5; [
       wallpaper-engine-kde-plugin
-      (python311.withPackages python-packages)
+      #(python311.withPackages python-packages)
+      (python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))
+      libsForQt5.qt5.qtwebsockets
+
       adw-gtk3
       #mplayer
-      libsForQt5.sddm-kcm
+      sddm-kcm
       #libsForQt5.akonadi
       #libsForQt5.akonadi-import-wizard
       #libsForQt5.merkuro
@@ -48,13 +65,12 @@ in
       #kwayland-integration
       #libsForQt5.kwin-tiling
       #libsForQt5.bismuth
-      libsForQt5.filelight
+      filelight
       #libsForQt5.kaccounts-integration
       #libsForQt5.kaccounts-providers
-      libsForQt5.qt5.qtwebsockets
       #libsForQt5.qt5.qtdeclarative
       #libsForQt5.qt5.qtwebchannel
-      libsForQt5.plasma-framework
+      plasma-framework
       gst_all_1.gst-libav
       xorg.xkill
     ];

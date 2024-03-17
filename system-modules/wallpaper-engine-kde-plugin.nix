@@ -15,7 +15,9 @@
 , vulkan-tools
 , pkg-config
 , lz4
+, glslang
 }:
+
 let
   glslang-submodule = mkDerivation {
     name = "glslang";
@@ -35,7 +37,7 @@ mkDerivation rec {
   pname = "wallpaper-engine-kde-plugin";
   version = "0.5.4";
 
-  cmakeFlags = [ "-DUSE_PLASMAPKG=ON" "-DCMAKE_C_COMPILER=gcc" "-DCMAKE_CXX_COMPILER=g++" ];
+  cmakeFlags = [ "-DUSE_PLASMAPKG=OFF" "-DCMAKE_C_COMPILER=gcc" "-DCMAKE_CXX_COMPILER=g++" ];
   nativeBuildInputs = [ cmake extra-cmake-modules pkg-config glslang-submodule ];
   buildInputs = [ 
     plasma-framework mpv qtwebsockets websockets qtwebchannel
