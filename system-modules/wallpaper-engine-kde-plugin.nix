@@ -30,7 +30,7 @@ wallpaper-engine-kde-plugin = with pkgs; stdenv.mkDerivation rec {
   ] 
   ++ (with libsForQt5; with qt5; [plasma-framework qtwebsockets qtwebchannel qtx11extras qtdeclarative])
   ++ [(python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))];
-  cmakeFlags = [ "-DUSE_PLASMAPKG=OFF" "-DCMAKE_C_COMPILER=gcc" "-DCMAKE_CXX_COMPILER=g++" ];
+  cmakeFlags = [ "-DUSE_PLASMAPKG=OFF" ];
   dontWrapQtApps = true;
   postPatch = ''
     rm -rf src/backend_scene/third_party/glslang
@@ -53,11 +53,7 @@ in {
     desktopManager.plasma5.enable = true;
   };
   environment.systemPackages = with pkgs; with libsForQt5; [
-    #latte-dock
-    #kdePackages.discover
-    #kdePackages.kgpg
-    #applet-window-buttons
-    #yakuake
+    applet-window-buttons
     ### wallpaper-engine-plugin
     wallpaper-engine-kde-plugin
     qt5.qtwebsockets
