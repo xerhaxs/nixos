@@ -1,4 +1,6 @@
-{username, pkgs, ...} :let 
+{ config, pkgs, ...} :
+
+let 
 # References: https://github.com/brianIcke/nixos-conf/blob/226c97d1b78a527eb0126a7012e27d935d4b4da0/system/BrianTUX/pkgs/wallpaper-engine-plasma-plugin.nix#L37
 glslang-submodule = with pkgs; stdenv.mkDerivation {
   name = "glslang";
@@ -14,13 +16,11 @@ glslang-submodule = with pkgs; stdenv.mkDerivation {
 };
 wallpaper-engine-kde-plugin = with pkgs; stdenv.mkDerivation rec {
   pname = "wallpaperEngineKde";
-  version = "91d8e25c0c94b4919f3d110c1f22727932240b3c";
   src = fetchFromGitHub {
-    owner = "Jelgnum";
-    repo = "wallpaper-engine-kde-plugin";
-    rev = version;
-    hash = "sha256-ff3U/TXr9umQeVHiqfEy38Wau5rJuMeJ3G/CZ9VE++g=";
+    owner = "catsout";
+    repo = pname;
     fetchSubmodules = true;
+    sha256 = test;
   };
   nativeBuildInputs = [
     cmake extra-cmake-modules glslang-submodule pkg-config gst_all_1.gst-libav shaderc
@@ -44,20 +44,19 @@ wallpaper-engine-kde-plugin = with pkgs; stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 };
-in {
-  # Enable the X11 windowing system.
-  services.xserver = {
-    # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
-    
-    desktopManager.plasma5.enable = true;
-  };
+in 
+
+{
   environment.systemPackages = with pkgs; with libsForQt5; [
-    applet-window-buttons
-    ### wallpaper-engine-plugin
     wallpaper-engine-kde-plugin
     qt5.qtwebsockets
     (python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))
-    ### 
   ];
+
+  system.activationScripts = {
+    wallpaper-engine-kde-plugin.text = ''
+      wallpaperenginetarget=share/plasma/wallpapers/com.github.casout.wallpaperEngineKde
+      ln -s ${wallpaper-engine-kde-plugin}/$wallpaperenginetarget /home/jf/.local/$wallpaperenginetarget
+    '';
+  };
 }
