@@ -1,24 +1,8 @@
 { config, pkgs, ... }:
 
-let
-    #Wallpaper Engine Plugin
-    wallpaper-engine-kde-plugin = pkgs.plasma5Packages.callPackage ./wallpaper-engine-kde-plugin.nix {
-      inherit (pkgs.gst_all_1) gst-libav;
-      inherit (pkgs.python3Packages) websockets;
-      inherit (pkgs.libsForQt5.qt5) qtwebsockets;
-    };
-
-    # Python packages
-    python-packages = ps: with ps; [
-      websockets
-      pandas
-      numpy
-    ];
-  in
-
 {
   imports = [
-    ./wallpaper-engine-kde-plugin.nix
+    ../pkgs/wallpaper-engine-kde-plugin.nix
   ];
 
   services.xserver = {
@@ -56,10 +40,6 @@ let
     ];
 
     systemPackages = with pkgs; with libsForQt5; [
-      #wallpaper-engine-kde-plugin
-      #(python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))
-      #qt5.qtwebsockets
-
       adw-gtk3
       #mplayer
       sddm-kcm
