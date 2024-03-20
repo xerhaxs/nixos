@@ -8,7 +8,7 @@
   services.accounts-daemon.enable = true;
 
   system.activationScripts = {
-    flatpak-installer-updater = ''
+    flatpak-installer-updater.sh = ''
       # List of desired Flatpak programs
       PROGRAM_LIST=(
         "com.github.tchx84.Flatseal"
