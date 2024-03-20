@@ -18,6 +18,11 @@
       yzhang.markdown-all-in-one
       jnoortheen.nix-ide
       arrterian.nix-env-selector
+      streetsidesoftware.code-spell-checker
+      davidlday.languagetool-linter
+      hediet.vscode-drawio
+      james-yu.latex-workshop
+      alefragnani.bookmarks
     ];
   };
 }
