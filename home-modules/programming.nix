@@ -8,7 +8,6 @@
     okteta
     libsForQt5.kompare
     diffutils
-    vscodium
     jetbrains.pycharm-community
     jetbrains.idea-community
     rpi-imager # raspberry pi imaging utility
