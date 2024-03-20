@@ -61,7 +61,7 @@
                       local COMMANDS=($EXTRA_COMMAND)
                       local PROGRAM_NAME="${COMMANDS[0]}"
                       unset COMMANDS[0]
-                      
+                      echo "Executing additional commands for $PROGRAM_NAME: ${COMMANDS[*]}"
                       "${COMMANDS[@]}"
                   fi
               else
