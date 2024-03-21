@@ -25,6 +25,7 @@
       breeze-icons
       oxygen
       oxygen-icons5
+      plasma-workspace-wallpapers
     ];
 
     plasma6.excludePackages = with pkgs; with kdePackages; [
@@ -34,9 +35,9 @@
       breeze
       breeze-icons
       breeze-gtk
-      plasma-workspace-wallpapers
       oxygen
       oxygen-icons5
+      plasma-workspace-wallpapers
     ];
 
     systemPackages = with pkgs; with libsForQt5; [
