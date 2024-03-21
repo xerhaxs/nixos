@@ -10,6 +10,7 @@
       "files.autoSave" = "off";
       "[nix]"."editor.tabSize" = 2;
       "update.mode" = "none";
+      "git.enableSmartCommit" = true;
     };
 
     extensions = with pkgs.vscode-extensions; [
