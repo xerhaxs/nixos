@@ -6,6 +6,7 @@
 
      #./alacritty.nix
      ./common.nix
+     ./dconf.nix
      #./emacs.nix
      ./fonts.nix
      ./git.nix

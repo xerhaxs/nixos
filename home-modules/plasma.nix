@@ -202,8 +202,8 @@
       "org.flameshot.Flameshot.desktop"."Configure" = [ ];
       "org.flameshot.Flameshot.desktop"."Launcher" = [ ];
       "org.flameshot.Flameshot.desktop"."_launch" = [ ];
-      "normcap.desktop"."_launch" = "Shift+Print";
-      "org.kde.spectacle.desktop"."ActiveWindowScreenShot" = "Meta+Print";
+      "normcap.desktop"."_launch" = "Meta+Print";
+      "org.kde.spectacle.desktop"."ActiveWindowScreenShot" = [ ];
       "org.kde.spectacle.desktop"."CurrentMonitorScreenShot" = [ ];
       "org.kde.spectacle.desktop"."FullScreenScreenShot" = "Ctrl+Print";
       "org.kde.spectacle.desktop"."OpenWithoutScreenshot" = [ ];

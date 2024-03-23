@@ -24,5 +24,7 @@
 
   hardware.i2c.enable = true;
 
-  hardware.xpadneo.enable = false;
+  hardware.xpadneo.enable = true;
+
+  hardware.spacenavd.enable = true;
 }

@@ -7,5 +7,9 @@
 
   services.accounts-daemon.enable = true;
 
+  system.activationScripts = {
+    #flatpak-installer-updater.sh = ''
+    #  
+    #'';
   };
 }
