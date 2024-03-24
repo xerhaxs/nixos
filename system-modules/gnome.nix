@@ -7,8 +7,6 @@
     };
   };
 
-#  qt.platformTheme = "gnome";
-
   programs.dconf.enable = true;
 
   services.udev.packages = with pkgs; [
@@ -16,21 +14,22 @@
   ];
 
   environment = {
-    gnome.excludePackages = with pkgs; [
-      gnome.cheese
+    gnome.excludePackages = with pkgs; with gnome; [
+      cheese
       epiphany
-      gnome.geary
+      geary
       gnome-photos
-      gnome.gnome-characters
+      gnome-characters
       gnome-tour
-      gnome.totem
-      gnome.gnome-music
-      gnome.gnome-maps
-      gnome.gnome-weather
-      gnome.seahorse
+      totem
+      gnome-music
+      gnome-maps
+      gnome-weather
+      seahorse
     ];
+  };
 
-    systemPackages = with pkgs; [
+   systemPackages = with pkgs; [
  #     adw-gtk3
  #     gnome.gnome-tweaks
  #     gnome.gnome-terminal			# Gnome terminal emulator
@@ -62,5 +61,4 @@
 	  #gnomeExtensions.gamemode
  #     gnomeExtensions.syncthing-indicator
     ];
-  };
 }
