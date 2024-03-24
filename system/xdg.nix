@@ -23,13 +23,9 @@ in
         enable = true;
         #settings = {};
       };
-      #extraPortals = with pkgs; [
-      #  xdg-desktop-portal-gtk
-      #];
-
-      #config = {
-      #  common.default = "*";
-      #};
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
     };
 
     autostart.enable = true;
