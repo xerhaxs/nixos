@@ -34,6 +34,18 @@
       package = pkgs.catppuccin-cursors.latteLight;
       size = 24;
     };
+
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-light-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-light-theme=1
+      '';
+    };
   };
 
   programs.vscode = {
