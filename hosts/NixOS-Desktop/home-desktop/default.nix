@@ -7,6 +7,7 @@
     ../../../home-modules/3dprinting.nix
     ../../../home-modules/applications.nix
     ../../../home-modules/editing.nix
+    #../../../home-modules/gnome
     ../../../home-modules/hyprland
     #../../../home-modules/firefox.nix
     ../../../home-modules/flameshot.nix

@@ -122,6 +122,8 @@
             ./system-modules/firefox.nix
             ./system-modules/flatpak.nix
             ./system-modules/fonts.nix
+            ./system-modules/gamemode.nix
+            #./system-modules/gnome.nix
             #./system-modules/hardware-configuration.nix
             ./system-modules/hyprland.nix
             ./system-modules/kdeconnect.nix
@@ -283,10 +285,10 @@
             ./system-modules/docker.nix
             ./system-modules/fonts.nix
             ./system-modules/hardware-configuration.nix
-            ./system-modules/intelcpu.nix
+            #./system-modules/intelcpu.nix
             #./system-modules/intelgpu.nix
             #./system-modules/nasmount.nix
-            ./system-modules/python.nix
+            #./system-modules/python.nix
             ./system-modules/ssh.nix
             ./system-modules/virtualisation.nix
 
