@@ -14,6 +14,7 @@
     handbrake
     yt-dlp # A command-line video downloader
     imagemagick
+    ffmpeg
     # AI Tools
     upscayl
     openai-whisper
