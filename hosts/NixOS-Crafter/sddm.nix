@@ -3,6 +3,6 @@
 {
   services.xserver.displayManager = {
     sddm.wayland.enable = pkgs.lib.mkDefault false;
-    defaultSession = pkgs.lib.mkDefault "plasma";
+    defaultSession = pkgs.lib.mkDefault "plasma-x11";
   };
 }

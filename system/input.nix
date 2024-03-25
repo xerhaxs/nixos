@@ -22,9 +22,9 @@
 
   services.ratbagd.enable = true;
 
-  hardware.i2c.enable = true;
-
-  hardware.xpadneo.enable = true;
-
-  hardware.spacenavd.enable = true;
+  hardware = {
+    xpadneo.enable = true;
+    spacenavd.enable = true;
+    i2c.enable = true;
+  };
 }

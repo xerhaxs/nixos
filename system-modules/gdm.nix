@@ -2,7 +2,6 @@
 
 {
   services.xserver = {
-    enable = true; # if gdm fails to start, xserver needs to be enabled
     displayManager = {
       gdm = {
         enable = true;
