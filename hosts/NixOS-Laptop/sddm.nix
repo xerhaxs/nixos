@@ -2,6 +2,6 @@
 
 {
   services.xserver.displayManager = {
-    defaultSession = lib.mkDefault "plasma";
+    defaultSession = lib.mkDefault "plasmawayland";
   };
 }

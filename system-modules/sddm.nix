@@ -10,7 +10,7 @@
         wayland.enable = true;
         enableHidpi = false;
       };
-      defaultSession = "plasma";
+      defaultSession = "hyprland";
     };
   };
 }
