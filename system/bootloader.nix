@@ -51,6 +51,7 @@
    "crypt" = {
       device = "/dev/disk/by-partlabel/disk-SYSTEM-luks";
       preLVM = true;
+      #fallbackToPassword = true;
     };
   };
 
