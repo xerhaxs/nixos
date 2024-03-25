@@ -74,7 +74,7 @@
             #./system-modules/kdeconnect.nix
             #./system-modules/mullvad.nix
             #./system-modules/nvidiagpu.nix
-            #./system-modules/plasma.nix
+            #./system-modules/plasma5.nix
             #./system-modules/printing.nix
             #./system-modules/sddm.nix
             #./system-modules/theme.nix
@@ -129,7 +129,7 @@
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
             #./system-modules/nasmount.nix
-            ./system-modules/plasma.nix
+            ./system-modules/plasma5.nix
             ./system-modules/printing.nix
             ./system-modules/protonmail-bridge.nix
             #./system-modules/python.nix
@@ -184,7 +184,7 @@
             ./system-modules/kdeconnect.nix
             ./system-modules/nasmount.nix
             ./system-modules/nvidiagpu.nix
-            ./system-modules/plasma.nix
+            ./system-modules/plasma5.nix
             ./system-modules/sddm.nix
             ./system-modules/steam.nix
             ./system-modules/theme.nix
@@ -238,7 +238,7 @@
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
             #./system-modules/nasmount.nix
-            ./system-modules/plasma.nix
+            ./system-modules/plasma5.nix
             ./system-modules/printing.nix
             ./system-modules/protonmail-bridge.nix
             ./system-modules/python.nix
@@ -340,7 +340,7 @@
             ./system-modules/kdeconnect.nix
             ./system-modules/mullvad.nix
             #./system-modules/nasmount.nix
-            ./system-modules/plasma.nix
+            ./system-modules/plasma6.nix
             ./system-modules/printing.nix
             ./system-modules/protonmail-bridge.nix
             ./system-modules/python.nix

@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-  #  ../pkgs/wallpaper-engine-kde-plugin.nix
-  ];
-
   services = {
     desktopManager = {
       plasma6.enable = true;
@@ -18,18 +14,6 @@
   };
 
   environment = {
-    plasma5.excludePackages = with pkgs; with libsForQt5; [
-      elisa
-      spectacle
-      kwalletmanager
-      breeze-qt5
-      breeze-gtk
-      breeze-icons
-      oxygen
-      oxygen-icons5
-      plasma-workspace-wallpapers
-    ];
-
     plasma6.excludePackages = with pkgs; with kdePackages; [
       elisa
       spectacle

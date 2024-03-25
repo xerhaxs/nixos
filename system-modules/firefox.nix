@@ -103,7 +103,9 @@
       UseSystemPrintDialog = true;
     };
 
-    #nativeMessagingHosts.packages = [ pkgs.kdePackages.plasma-browser-integration ];
+    nativeMessagingHosts.packages = with pkgs; [
+      libsForQt5.plasma-browser-integration
+    ];
   };
 
   environment.sessionVariables = {
