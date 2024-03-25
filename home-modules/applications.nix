@@ -20,6 +20,7 @@
     libsForQt5.kate
     yt-dlp # A command-line video downloader
     woeusb-ng # A windows image writer for linux
+    xorg.xkill
 
     # Social
     element-desktop
