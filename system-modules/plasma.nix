@@ -5,9 +5,8 @@
   #  ../pkgs/wallpaper-engine-kde-plugin.nix
   ];
 
-  services.xserver = {
+  services = {
     desktopManager = {
-      #plasma5.enable = true;
       plasma6.enable = true;
       plasma6.enableQt5Integration = true;
     };
@@ -44,19 +43,17 @@
     systemPackages = with pkgs; with kdePackages; [
       kaccounts-providers
       kaccounts-integration
-      kwayland-integration
+      #kwayland-integration
       sddm-kcm
       #libsForQt5.akonadi
       #libsForQt5.akonadi-import-wizard
       #libsForQt5.plasma-browser-integration
       #libsForQt5.kwin-tiling
       #libsForQt5.bismuth
-
       #libsForQt5.qt5.qtdeclarative
       #libsForQt5.qt5.qtwebchannel
       #plasma-framework
       #gst_all_1.gst-libav
-      
     ];
   };
 }
