@@ -6,7 +6,7 @@
     #helix
     #pulsar
     okteta
-    libsForQt5.kompare
+    #kompare
     diffutils
     jetbrains.pycharm-community
     jetbrains.idea-community

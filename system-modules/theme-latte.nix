@@ -12,8 +12,8 @@ let
   catppuccin-sddm = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "sddm";
-    rev = "main"; # commit hash or tag
-    sha256 = "sha256-cZuNQDXdWiE2eCf/bdGFYKM5SXrENxJere83SI47ol4="; #sha256 = lib.fakeSha256;
+    rev = "a487ae20737d5014ed986cb0e207cc011726a485"; # commit hash or tag
+    sha256 = "sha256-SdpkuonPLgCgajW99AzJaR8uvdCPi4MdIxS5eB+Q9WQ="; #sha256 = lib.fakeSha256;
   };
   latte-sddm = "src/catppuccin-latte";
 in

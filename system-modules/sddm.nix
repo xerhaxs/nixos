@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   services.xserver = {
@@ -10,7 +10,7 @@
         wayland.enable = true;
         enableHidpi = false;
       };
-      defaultSession = "hyprland";
+      defaultSession = "plasma";
     };
   };
 }
