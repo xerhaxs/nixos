@@ -11,10 +11,11 @@
     kdenlive
     blender-hip
     vlc
-    handbrake
+    #handbrake
+    #ffmpeg
+    #gst_all_1.gst-libav
     yt-dlp # A command-line video downloader
     imagemagick
-    ffmpeg
     # AI Tools
     upscayl
     openai-whisper

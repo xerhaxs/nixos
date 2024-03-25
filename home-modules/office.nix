@@ -15,7 +15,7 @@
     languagetool
     hyphen
     mythes
-    normcap
+    #normcap
     #gnome-frog
     gImageReader
     #libsForQt5.ghostwriter

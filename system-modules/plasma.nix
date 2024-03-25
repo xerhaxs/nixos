@@ -12,7 +12,10 @@
     };
   };
 
-  qt.platformTheme = "kde";
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+  };
 
   environment = {
     plasma5.excludePackages = with pkgs; with libsForQt5; [
@@ -43,8 +46,9 @@
     systemPackages = with pkgs; with kdePackages; [
       kaccounts-providers
       kaccounts-integration
+      plasma-browser-integration
       #kwayland-integration
-      sddm-kcm
+      #sddm-kcm
       #libsForQt5.akonadi
       #libsForQt5.akonadi-import-wizard
       #libsForQt5.plasma-browser-integration

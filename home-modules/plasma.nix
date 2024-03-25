@@ -8,12 +8,11 @@
   home.packages = with pkgs; with kdePackages; [
     filelight
     maliit-keyboard
-    libsForQt5.soundkonverter
+    soundkonverter
     discover
     kate
     libksysguard
     merkuro
-    plasma-browser-integration
   ];
 
   programs.plasma = {
