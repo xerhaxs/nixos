@@ -29,7 +29,7 @@
               content = {
                 type = "luks";
                 name = "LUKS";
-                extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
+                extraOpenArgs = [ "-L CRYPTDRIVE" "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
                   allowDiscards = true;
@@ -38,7 +38,6 @@
                 content = {
                   type = "lvm_pv";
                   vg = "crypt";
-                  extraArgs = "-L CRYPTDRIVE";
                 };
               };
             };
