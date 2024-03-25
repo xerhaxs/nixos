@@ -43,14 +43,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    flatpaks = {
+      url = "github:GermanBread/declarative-flatpak/stable";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, flatpaks, ... }:
     let
 
     specialArgs = {
       inherit inputs;
       inherit plasma-manager;
+      inherit flatpaks;
     };
 
     in {
