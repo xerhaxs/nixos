@@ -5,12 +5,15 @@
     plasma-manager.homeManagerModules.plasma-manager
   ];
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; with kdePackages; [
+    filelight
     maliit-keyboard
     libsForQt5.soundkonverter
-    libsForQt5.discover
-    libsForQt5.kate
-    libsForQt5.libksysguard
+    discover
+    kate
+    libksysguard
+    merkuro
+    plasma-browser-integration
   ];
 
   programs.plasma = {
