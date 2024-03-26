@@ -29,7 +29,7 @@
     ];
   };
 
-   systemPackages = with pkgs; [
+  # systemPackages = with pkgs; [
  #     adw-gtk3
  #     gnome.gnome-tweaks
  #     gnome.gnome-terminal			# Gnome terminal emulator
@@ -60,5 +60,5 @@
 #	  gnome.gnome-power-manager
 	  #gnomeExtensions.gamemode
  #     gnomeExtensions.syncthing-indicator
-    ];
+   # ];
 }

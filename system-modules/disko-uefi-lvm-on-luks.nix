@@ -52,7 +52,6 @@
           root = {
             name = "root";
             size = "40%FREE";
-            extraArgs = "-L root";
             content = {
               type = "filesystem";
               extraArgs = "-L root";
@@ -66,7 +65,6 @@
           home = {
             name = "home";
             size = "100%FREE";
-            extraArgs = "-L home";
             content = {
               type = "filesystem";
               extraArgs = "-L home";
