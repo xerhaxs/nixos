@@ -4,16 +4,16 @@
   disko.devices = {
     disk = {
       vda = {
-        type = "disk";
         name = "SYSTEM";
+        type = "disk";
         device = builtins.elemAt disks 0;
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              size = "500M";
-              type = "EF00";
               name = "BOOT";
+              type = "EF00";
+              size = "500M";
               content = {
                 type = "filesystem";
                 extraArgs = "-L BOOT";
@@ -25,11 +25,12 @@
               };
             };
             luks = {
+              name = "CRYPT";
               size = "100%";
               extraArgs = "--label CRYPTDRIVE";
               content = {
                 type = "luks";
-                name = "LUKS";
+                name = "TEST";
                 extraOpenArgs = [ "--label CRYPTDRIVE" "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
@@ -51,6 +52,7 @@
         type = "lvm_vg";
         lvs = {
           root = {
+            name = "root";
             size = "40%FREE";
             extraArgs = "-L root";
             content = {
@@ -64,6 +66,7 @@
             };
           };
           home = {
+            name = "home";
             size = "100%FREE";
             extraArgs = "-L home";
             content = {
