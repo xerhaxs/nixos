@@ -54,7 +54,6 @@
             size = "40%FREE";
             content = {
               type = "filesystem";
-              extraArgs = "-L root";
               format = "ext4";
               mountpoint = "/";
               mountOptions = [
@@ -67,7 +66,6 @@
             size = "100%FREE";
             content = {
               type = "filesystem";
-              extraArgs = "-L home";
               format = "ext4";
               mountpoint = "/home";
             };
