@@ -16,7 +16,6 @@
               size = "500M";
               content = {
                 type = "filesystem";
-                extraArgs = "-L BOOT";
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = [

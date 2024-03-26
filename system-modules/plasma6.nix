@@ -2,6 +2,7 @@
 
 {
   services = {
+    xserver.displayManager.sddm.package = [ pkgs.kdePackages.sddm ];
     desktopManager = {
       plasma6.enable = true;
       plasma6.enableQt5Integration = true;
