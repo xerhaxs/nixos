@@ -127,7 +127,7 @@
             ./system-modules/flatpak.nix
             ./system-modules/fonts.nix
             ./system-modules/gamemode.nix
-            #./system-modules/gnome.nix
+            ./system-modules/gnome.nix
             #./system-modules/hardware-configuration.nix
             ./system-modules/hyprland.nix
             ./system-modules/kdeconnect.nix

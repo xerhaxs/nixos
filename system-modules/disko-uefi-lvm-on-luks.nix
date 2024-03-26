@@ -27,7 +27,6 @@
             luks = {
               name = "CRYPT";
               size = "100%";
-              extraArgs = "--label CRYPTDRIVE";
               content = {
                 type = "luks";
                 name = "TEST";
