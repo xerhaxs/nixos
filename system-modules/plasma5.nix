@@ -6,7 +6,7 @@
   ];
 
   services.xserver = {
-    displayManager.sddm.package = [ pkgs.libsForQt5.sddm ];
+    displayManager.sddm.package = pkgs.libsForQt5.sddm;
     desktopManager = {
       plasma5.enable = true;
     };
