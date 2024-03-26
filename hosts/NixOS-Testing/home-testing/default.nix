@@ -9,7 +9,7 @@
     ../../../home-modules/editing.nix
     #../../../home-modules/gnome
     ../../../home-modules/hyprland
-    #../../../home-modules/firefox.nix
+    ../../../home-modules/firefox.nix
     ../../../home-modules/flameshot.nix
     ../../../home-modules/hacking.nix
     ../../../home-modules/kdeconnect.nix
