@@ -24,7 +24,8 @@ in
         #settings = {};
       };
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
+        xdg-desktop-portal-kde
+        #xdg-desktop-portal-gtk
       ];
       config.common.default = "*";
     };
@@ -62,5 +63,11 @@ in
         "inode/directory" = filemanager;
       };
     };
+  };
+
+  environment.sessionVariables = {
+    MOZ_USE_XINPUT2 = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    GTK_USE_PORTAL = "1";
   };
 }

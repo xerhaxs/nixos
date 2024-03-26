@@ -5,6 +5,7 @@
     ../../../home
 
     ../../../home-modules/hyprland
+    ../../../home-modules/firefox.nix
     ../../../home-modules/flameshot.nix
     ../../../home-modules/kdeconnect.nix
     ../../../home-modules/librewolf.nix
