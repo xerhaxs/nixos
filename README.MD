@@ -25,3 +25,16 @@ $ nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/
 # get a public key of ~/.config/sops/age/keys.txt
 nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ```
+
+### ToDo
+
+[ ] Setup Hyrpland with Waybar and Swaylock
+[ ] Move the server configuration from Desktop to Nuc
+[ ] Add a general testing configuration for interested people
+[ ] Make Thunderbird decleartiv
+[ ] Add Gnome Config
+[ ] Complete Plasma Config
+[ ] Setup Firefox + Librewolf + Brave in config
+[ ] Make Syncthing declerativ
+[ ] Add HomeAssistant VM
+[ ] Setup Crafter Laptop
