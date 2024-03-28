@@ -15,9 +15,9 @@
     openFirewall = true;
   };
 
-#  services.printing.drivers = [
-#    (writeTextDir "share/cups/model/Kyocera_ECOSYS_P2040dn.PPD" (builtins.readFile ./etc/nixos/hardware/Kyocera_ECOSYS_P2040dn.PPD))
-#  ];
+  #services.printing.drivers = [
+  #  (writeTextDir "share/cups/model/KyoceraECOSYSP2040dn.PPD" (builtins.readFile ../pkgs/KyoceraECOSYSP2040dn.PPD))
+  #];
 
   # Enable scanner support
   hardware.sane = {
