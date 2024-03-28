@@ -38,3 +38,4 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 [ ] Make Syncthing declerativ
 [ ] Add HomeAssistant VM
 [ ] Setup Crafter Laptop
+[ ] Selvhost captive portal service + add to network manager and firefox

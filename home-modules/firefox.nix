@@ -1,14 +1,11 @@
 { config, pkgs, ... }:
 
 let
+
+arkenfox-js = {
 # Thanks to the arkenfox project! 
 # https://github.com/arkenfox/user.js/blob/master/user.js
 
-test = {
-  "browser.aboutConfig.showWarning" = false;
-};
-
-arkenfox-js = {
 #  0100: STARTUP
 #  0200: GEOLOCATION
 #  0300: QUIETER FOX
@@ -38,13 +35,16 @@ arkenfox-js = {
 # disable about:config warning
 "browser.aboutConfig.showWarning" = false;
 
+# disable about:config
+#"general.aboutConfig.enable" = false;
+
 ### [SECTION 0100]: STARTUP
 # set startup page [SETUP-CHROME]
 # 0=blank, 1=home, 2=last visited page, 3=resume previous session
 "browser.startup.page" = 1;
 
 # set HOME+NEWWINDOW page
-"browser.startup.homepage" = "about:blank";
+"browser.startup.homepage" = "about:newtab";
 
 # set NEWTAB page
 # true=Firefox Home, false=blank page
@@ -130,9 +130,14 @@ arkenfox-js = {
 # enforce no submission of backlogged Crash Reports [FF58+]
 "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
 
+## FEEDBACK
+# disable ask for feedback
+"app.feedback.baseURL" = "";
+"messaging-system.askForFeedback" = false;
+
 ## OTHER
 # disable Captive Portal detection
-#"captivedetect.canonicalURL" = "http://nmcheck.gnome.org/check_network_status.txt";
+"captivedetect.canonicalURL" = "http://detectportal.firefox.com/canonical.html";
 #"captivedetect.canonicalURL" = "";
 #"network.captive-portal-service.enabled" = false;
 
@@ -301,7 +306,7 @@ arkenfox-js = {
 "privacy.userContext.ui.enabled" = true;
 
 # set behavior on "+ Tab" button to display container menu on left click [FF74+]
-"privacy.userContext.newTabContainerOnLeftClick.enabled" = true;
+#"privacy.userContext.newTabContainerOnLeftClick.enabled" = true;
 
 ### [SECTION 2000]: PLUGINS / MEDIA / WEBRTC
 # force WebRTC inside the proxy [FF70+]
@@ -324,6 +329,12 @@ arkenfox-js = {
 # remove temp files opened from non-PB windows with an external application
 "browser.download.start_downloads_in_tmp_dir" = true;
 "browser.helperApps.deleteTempFileOnExit" = true;
+
+# remove default search engines
+"browser.policies.runOncePerModification.removeSearchEngines" = [ "Google" "Bing" "Amazon.com" "eBay" "Twitter" ];
+
+# set default search engine
+"browser.policies.runOncePerModification.setDefaultSearchEngine" = "DuckDuckGo";
 
 # disable UITour backend so there is no chance that a remote page can use it
 "browser.uitour.enabled" = false;
@@ -351,6 +362,9 @@ arkenfox-js = {
 
 # enable middle click on new tab button opening URLs or searches using clipboard [FF115+]
 "browser.tabs.searchclipboardfor.middleclick" = true;
+
+# block multiple popups
+"dom.block_multiple_popups" = true;
 
 ## DOWNLOADS
 # enable user interaction for security by always asking where to download
@@ -424,7 +438,7 @@ arkenfox-js = {
 ### [SECTION 4500]: RFP (resistFingerprinting)
 
 # enable RFP
-#"privacy.resistFingerprinting" = true;
+"privacy.resistFingerprinting" = true;
 "privacy.resistFingerprinting.pbmode" = true;
 
 # set new window size rounding max values [FF55+]
@@ -561,7 +575,7 @@ arkenfox-js = {
 ### [SECTION 7000]: DON'T BOTHER
 # disable APIs
 "geo.enabled" = false;
-"full-screen-api.enabled" = false;
+#"full-screen-api.enabled" = false;
 
 # set default permissions
 # Location, Camera, Microphone, Notifications [FF58+] Virtual Reality [FF73+]
@@ -589,7 +603,7 @@ arkenfox-js = {
 "network.http.altsvc.enabled" = false;
 
 # disable website control over browser right-click context menu
-"dom.event.contextmenu.enabled" = false;
+#"dom.event.contextmenu.enabled" = false;
 
 # disable Clipboard API
 #"dom.event.clipboardevents.enabled" = false;
@@ -689,7 +703,33 @@ arkenfox-js = {
 # warn on close
 "browser.tabs.warnOnClose" = true;
 
+# enable vaapi ffmpeg support
+"media.ffmpeg.vaapi.enabled" = true;
 
+# disable default browser check
+"browser.shell.checkDefaultBrowser" = false;
+"browser.shell.skipDefaultBrowserCheckOnFirstRun" = true;
+
+# enable enterprise policies
+"security.enterprise_roots.enabled" = true;
+
+## FIREFOX ACCOUNTS
+# disable firefox accounts
+"identity.fxaccounts.enabled" = false;
+"identity.fxaccounts.oauth.enabled" = false;
+"identity.fxaccounts.toolbar.enabled" = false;
+
+# setup custom sync server
+"identity.sync.tokenserver.uri" = "https://firefoxsync.bitsync.icu/1.0/sync/1.5";
+
+# disable pocket integration
+"extensions.pocket.enabled" = false;
+
+# disable welcome screen
+"browser.aboutwelcome.enabled" = false;
+
+# always display bookmarks toolbar
+"browser.toolbars.bookmarks.visibility" = "always";
 
 # customize firefox toolbars
 "browser.uiCustomization.state" = {
@@ -767,18 +807,7 @@ in
     ];
 
     policies = {
-      CaptivePortal = true;
-      BlockAboutConfig = false;
       DefaultDownloadDirectory = "\${home}/Downloads";
-
-      DisableFeedbackCommands = true;
-      DisableFirefoxAccounts = true;
-      DisableFirefoxStudies = true;
-      DisableFormHistory = true;
-      DisablePocket = true;
-      DisableSafeMode = true;
-
-      DisplayBookmarksToolbar = "always";
 
       DontCheckDefaultBrowser = true;
       EnterprisePoliciesEnabled = true;
@@ -867,10 +896,6 @@ in
         #};
       };
 
-      media.ffmpeg.vaapi.enabled = true;
-
-      ExtensionUpdate = true;
-
       FirefoxHome = {
         Search = true;
         TopSites = false;
@@ -882,45 +907,36 @@ in
         Locked = false;
       };
 
-      Containers = {
-        Privacy = {
-          color = "black";
-          icon = "fingerprint";
-          id = 0;
-        };
-      };
-
       ManagedBookmarks = [
         {
           toplevel_name = "Managed";
         }
-          {
-            name = "NixOS Changelog";
-            keyword = "changelog";
-            url = "https://nixos.org/manual/nixos/unstable/release-notes";
-            toolbar = true;
-          }
-          {
-            name = "Nix Packages";
-            keyword = "changelog";
-            url = "https://search.nixos.org/packages";
-            toolbar = true;
-          }
-          {
-            name = "Nix Options";
-            keyword = "changelog";
-            url = "https://search.nixos.org/options";
-            toolbar = true;
-          }
-          {
-            name = "Home Manager Options";
-            keyword = "changelog";
-            url = "https://home-manager-options.extranix.com/";
-            toolbar = true;
-          }
+        {
+          name = "NixOS Changelog";
+          keyword = "changelog";
+          url = "https://nixos.org/manual/nixos/unstable/release-notes";
+          toolbar = true;
+        }
+        {
+          name = "Nix Packages";
+          keyword = "changelog";
+          url = "https://search.nixos.org/packages";
+          toolbar = true;
+        }
+        {
+          name = "Nix Options";
+          keyword = "changelog";
+          url = "https://search.nixos.org/options";
+          toolbar = true;
+        }
+        {
+          name = "Home Manager Options";
+          keyword = "changelog";
+          url = "https://home-manager-options.extranix.com/";
+          toolbar = true;
+        }
         {
           name = "Work";
-          #toolbar = true;
           children = [
             {
               name = "Proton";
@@ -932,69 +948,33 @@ in
       ];
 
       SearchEngines = {
-        "Nix Packages" = {
-          urls = [{
-            template = "https://search.nixos.org/packages";
-            params = [
-              { name = "type"; value = "packages"; }
-              { name = "query"; value = "{searchTerms}"; }
-            ];
-          }];
-
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@np" ];
-        };
-
-        "NixOS Wiki" = {
-          urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-          iconUpdateURL = "https://nixos.wiki/favicon.png";
-          updateInterval = 24 * 60 * 60 * 1000; # every day
-          definedAliases = [ "@nw" ];
-        };
+        #Add = [];
+        Remove = [
+          "Google"
+          "Bing"
+          "Amazon.de"
+          "DuckDuckGo"
+          "eBay"
+          "Ecosia"
+          "LEO Eng-Deu"
+          "Wikipedia (en)"
+        ];
+        #Default = "DuckDuckGo";
       };
 
-      #Handlers = {
-#
- #     };
+      #Handlers = {};
 
       GoToIntranetSiteForSingleWordEntryInAddressBar = false;
       HardwareAcceleration = true;
-      NoDefaultBookmarks = true;
-      OverrideFirstRunPage = "about:blank";
-      OverridePostUpdatePage = "about:blank";
       PasswordManagerEnabled = false;
       PrimaryPassword = false;
       PopupBlocking.Default = true;
       RequestedLocales = [ "de-DE" "en-US" ];
-      SearchBar = "separate";
-
-      #Proxy = 
-
-      #SearchEngines.Add = {
-      #  Name = "Such-O-Mat";
-
-        #Name = "DuckDuckGo";
-
-        #Name = "MetaGer";
-
-        #Name = "Brave";
-
-        #Name = "Qwant";
-
-        #Name = "Startpage";
-
-       # Name = "Wikipedia";
-
-       # Name = "Ahmia";
-
-
-      #};
     };
 
     profiles = {
       default = {
         id = 0;
-        name = "Default";
         isDefault = true;
         containers = {
           ChatGPT = {
@@ -1008,14 +988,152 @@ in
             id = 3;
           };
         };
-        settings = {
-          "browser.aboutConfig.showWarning" = false;
+        settings = arkenfox-js;
+        search = {
+          engines = {
+            "Nix Packages" = {
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  { name = "channel"; value = "unstable"; }
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              definedAliases = [ "@np" ];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            };
+
+            "Nix Options" = {
+              urls = [{
+                template = "https://search.nixos.org/options";
+                params = [
+                  { name = "channel"; value = "unstable"; }
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              definedAliases = [ "@no" ];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            };
+
+            "Home Manager Options" = {
+              urls = [{
+                template = "https://home-manager-options.extranix.com/";
+                params = [
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              definedAliases = [ "@hm" ];
+              iconUpdateURL = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
+            };
+
+            "NixOS Wiki" = {
+              urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+              updateInterval = 24 * 60 * 60 * 1000; # every day
+              definedAliases = [ "@nw" ];
+              iconUpdateURL = "https://nixos.wiki/favicon.png";
+            };
+
+            "Such-O-Mat" = {
+              urls = [{ template = "https://searxng.bitsync.icu/search/{searchTerms}"; }];
+              definedAliases = [ "@s" ];
+              iconUpdateURL = "https://searxng.bitsync.icu/favicon";
+            };
+
+            "DuckDuckGo" = {
+              urls = [{ template = "https://duckduckgo.com"; }];
+              params = [
+                  { name = "q"; value = "{searchTerms}"; }
+                ];
+              definedAliases = [ "@d" ];
+              iconUpdateURL = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
+            };
+
+            "Brave" = {
+              urls = [{ template = "https://search.brave.com/search"; }];
+              params = [
+                  { name = "q"; value = "{searchTerms}"; }
+                ];
+              definedAliases = [ "@b" ];
+              iconUpdateURL = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
+            };
+
+            "Qwant" = {
+              urls = [{ template = "https://www.qwant.com/"; }];
+              params = [
+                  { name = "q"; value = "{searchTerms}"; }
+                ];
+              definedAliases = [ "@b" ];
+              iconUpdateURL = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
+            };
+
+            "Startpage" = {
+              urls = [{ template = "https://www.startpage.com/sp/search"; }];
+              params = [
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              definedAliases = [ "@sp" ];
+              iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
+            };
+
+            "MetaGer" = {
+              urls = [{ template = "https://metager.org/meta/meta.ger3"; }];
+              params = [
+                  { name = "eingabe"; value = "{searchTerms}"; }
+                ];
+              definedAliases = [ "@m" ];
+              iconUpdateURL = "https://icons.duckduckgo.com/ip3/metager.org.ico";
+            };
+          };
+
+          order = [
+            "Suck-O-Mat"
+            "DuckDuckGo"
+            "Brave"
+            "Qwant"
+            "Startpage"
+            "MetaGer"
+            "Nix Packages"
+            "Nix Options"
+            "Home Manager Options"
+            "NixOS Wiki"
+          ];
+
+          default = "DuckDuckGo";
         };
+
+        bookmarks = [
+          {
+            name = "wikipedia";
+            tags = [ "wiki" ];
+            keyword = "wiki";
+            url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+          }
+          {
+            name = "kernel.org";
+            url = "https://www.kernel.org";
+          }
+          {
+            name = "Nix sites";
+            toolbar = true;
+            bookmarks = [
+              {
+                name = "homepage";
+                url = "https://nixos.org/";
+              }
+              {
+                name = "wiki";
+                tags = [ "wiki" "nix" ];
+                url = "https://nixos.wiki/";
+              }
+            ];
+          }
+        ];
       };
 
       work = {
         id = 1;
-        name = "Work";
         containers = {
           ChatGPT = {
             color = "red";
@@ -1045,7 +1163,6 @@ in
       
       school = {
         id = 2;
-        name = "School";
         containers = {
           Teams = {
             color = "red";
@@ -1080,7 +1197,6 @@ in
       
       entertainment = {
         id = 3;
-        name = "Entertainment";
         containers = {
           Netflix = {
             color = "red";
@@ -1121,7 +1237,6 @@ in
 
       privacy = {
         id = 4;
-        name = "Privacy";
         settings = {
           "privacy.donottrackheader.enabled" = true;
           "privacy.globalprivacycontrol.enabled" = true;
@@ -1140,7 +1255,6 @@ in
 
       hacking = {
         id = 5;
-        name = "Hacking";
         settings = {
           "privacy.donottrackheader.enabled" = true;
           "privacy.globalprivacycontrol.enabled" = true;
