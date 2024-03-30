@@ -3,7 +3,7 @@
 {
   services.printing = {
     enable = true;
-    startWhenNeeded = true;
+    startWhenNeeded = false;
     browsing = true;
     openFirewall = true;
   };
@@ -21,8 +21,8 @@
 
   # Enable scanner support
   hardware.sane = {
-     enable = true;
-     openFirewall = true;
+    enable = true;
+    openFirewall = true;
   };
 
   #networking.firewall = {

@@ -85,18 +85,22 @@ in
 
     useDHCP = true;
 
+    hosts = {
+      "44.216.120.106" = [ "eapik.anagog.com" ];
+    };
+
     hostFiles = [
-      StevenBlack
+      #StevenBlack
       malware
       phishing
       ransomware
       #redirect
       scam
-      #tiktok
-      #tracking
+      tiktok
+      tracking
       smart-tv
       adobe
-      ads
+      #ads
       AmazonFireTV
       #oisd-small
       #oisd-big
