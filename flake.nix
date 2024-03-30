@@ -72,18 +72,18 @@
             ./system
             ./hosts/NixOS-Crafter
 
-            #./system-modules/fonts.nix
+            ./system-modules/fonts.nix
             ./system-modules/hardware-configuration.nix
             ./system-modules/intelcpu.nix
-            #./system-modules/intelgpu.nix
-            #./system-modules/kdeconnect.nix
-            #./system-modules/mullvad.nix
+            ./system-modules/intelgpu.nix
+            ./system-modules/kdeconnect.nix
+            ./system-modules/mullvad.nix
             #./system-modules/nvidiagpu.nix
-            #./system-modules/plasma5.nix
-            #./system-modules/printing.nix
-            #./system-modules/sddm.nix
-            #./system-modules/theme.nix
-            #./system-modules/theme-latte.nix
+            ./system-modules/plasma5.nix
+            ./system-modules/printing.nix
+            ./system-modules/sddm.nix
+            ./system-modules/theme.nix
+            ./system-modules/theme-latte.nix
 
             # disko Moule
             disko.nixosModules.disko
