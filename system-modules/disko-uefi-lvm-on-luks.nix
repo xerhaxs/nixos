@@ -24,10 +24,10 @@
               };
             };
             luks = {
-              name = "CRYPT";
+              name = "crypt";
               size = "100%";
               content = {
-                name = "LUKS";
+                name = "crypt";
                 type = "luks";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
