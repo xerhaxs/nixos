@@ -4,8 +4,8 @@
   disko.devices = {
     disk = {
       vda = {
-        type = "disk";
         name = "SYSTEM";
+        type = "disk";
         device = builtins.elemAt disks 0;
         content = {
           type = "table";
@@ -26,12 +26,12 @@
               };
             }
             {
-              name = "LUKS";
+              name = "CRYPT";
               start = "500M";
               end = "100%";
               content = {
-                type = "luks";
                 name = "LUKS";
+                type = "luks";
                 extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
@@ -53,6 +53,7 @@
         type = "lvm_vg";
         lvs = {
           root = {
+            name = "root";
             size = "40%FREE";
             content = {
               type = "filesystem";
@@ -64,6 +65,7 @@
             };
           };
           home = {
+            name = "home";
             size = "100%FREE";
             content = {
               type = "filesystem";
