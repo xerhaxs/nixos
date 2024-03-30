@@ -28,8 +28,8 @@
               size = "100%";
               content = {
                 type = "luks";
-                name = "TEST";
-                extraOpenArgs = [ "--label CRYPTDRIVE" "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
+                #name = "TEST";
+                extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                 settings = {
                   keyFile = "/tmp/secret.key";
                   allowDiscards = true;
@@ -50,7 +50,7 @@
         type = "lvm_vg";
         lvs = {
           root = {
-            name = "root";
+            #name = "root";
             size = "40%FREE";
             content = {
               type = "filesystem";
@@ -62,7 +62,7 @@
             };
           };
           home = {
-            name = "home";
+            #name = "home";
             size = "100%FREE";
             content = {
               type = "filesystem";
