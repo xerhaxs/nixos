@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../pkgs/wallpaper-engine-kde-plugin.nix
+    #../pkgs/wallpaper-engine-kde-plugin.nix
   ];
 
   services.xserver = {
