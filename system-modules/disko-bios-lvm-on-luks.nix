@@ -29,6 +29,8 @@
               name = "CRYPT";
               start = "500M";
               end = "100%";
+              part-type = "primary";
+              bootable = true;
               content = {
                 name = "LUKS";
                 type = "luks";
