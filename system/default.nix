@@ -11,7 +11,7 @@
     ./dbus.nix
     ./dconf.nix
     ./firewall.nix
-    ./home-manager.nix
+    ./home.nix
     ./input.nix
     ./locals.nix
     ./networking.nix

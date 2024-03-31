@@ -52,18 +52,13 @@
   outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, flatpak, ... }:
     let
       system = "x86_64-linux";
-      specialArgs = {
-        inherit system;
-        inherit inputs;
-        inherit plasma-manager;
-        inherit flatpak;
-      };
+      specialArgs = inputs;
     in {
     nixosConfigurations = {
       NixOS-Crafter = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
-        specialArgs = inputs;
+        
 
         modules = [
           # This is not a complete NixOS configuration and you need to reference
@@ -110,11 +105,10 @@
       };
 
       NixOS-Desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
 
-        specialArgs = {
+        _module.args = { 
           inherit inputs;
-          inherit flatpak;
         };
 
         modules = [
@@ -156,6 +150,7 @@
           nur.nixosModules.nur
           flatpak.nixosModules.default
           home-manager.nixosModules.home-manager
+          plasma-manager.nixosModules.plasma-manager
         ];
       };
 
