@@ -10,9 +10,9 @@ in
     ../../modules/defaultuser.nix
   ];
 
-  defaultuser.set = "jf";
+  defaultuser = "jf";
 
-  users.users.${user} = {
+  users.users.${config.defaultuser} = {
     name = "jf";
     isNormalUser = true;
     group = "users";
