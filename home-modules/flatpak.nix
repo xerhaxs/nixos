@@ -1,10 +1,15 @@
-{ config, pkgs, flatpaks, ... }:
+{ config, pkgs, flatpak, ... }:
 
 {
   services.flatpak = {
     enable = true;
     deduplicate = true;
     recycle-generation = false;
+    update = {
+      auto.enable = true;
+      onActivation = true;
+      onCalendar = "weekly";
+    };
     packages = [
       "com.github.tchx84.Flatseal"
       "com.discordapp.Discord"
