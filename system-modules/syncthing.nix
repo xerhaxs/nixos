@@ -16,7 +16,7 @@ in
     systemService = true;
     #user = "${user}";
     #group = "root";
-    dataDir = config.home-manager.users.${config.defaultuser}.home.homeDirectory;
+    dataDir = "${config.home-manager.users.${config.defaultuser.name}.home.homeDirectory}";
     configDir = config.services.syncthing.dataDir + "/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true; 
@@ -44,42 +44,42 @@ in
 
       folders = {
         "Bilder" = {
-          path = "${config.home-manager.users.${config.defaultuser}.xdg.userDirs.pictures}";
+          path = "${config.home-manager.users.${config.defaultuser.name}.xdg.userDirs.pictures}";
           rescanInterval = 60;
           ignorePerms = true;
           type = "sendonly";
           devices = [ "NixOS-Laptop" ];
         };
         "Dokumente" = {
-          path = "${config.home-manager.users.${config.defaultuser}.xdg.userDirs.documents}";
+          path = "${config.home-manager.users.${config.defaultuser.name}.xdg.userDirs.documents}";
           rescanInterval = 60;
           ignorePerms = true;
           type = "sendonly";
           devices = [ "NixOS-Laptop" ];
         };
         "Downloads" = {
-          path = "${config.home-manager.users.${config.defaultuser}.xdg.userDirs.download}";
+          path = "${config.home-manager.users.${config.defaultuser.name}.xdg.userDirs.download}";
           rescanInterval = 60;
           ignorePerms = true;
           type = "sendonly";
           devices = [ "NixOS-Laptop" ];
         };
         "Musik" = {
-          path = "${config.home-manager.users.${config.defaultuser}.xdg.userDirs.music}";
+          path = "${config.home-manager.users.${config.defaultuser.name}.xdg.userDirs.music}";
           rescanInterval = 60;
           ignorePerms = true;
           type = "sendonly";
           devices = [ "NixOS-Laptop" ];
         };
         "Videos" = {
-          path = "${config.home-manager.users.${config.defaultuser}.xdg.userDirs.videos}";
+          path = "${config.home-manager.users.${config.defaultuser.name}.xdg.userDirs.videos}";
           rescanInterval = 60;
           ignorePerms = true;
           type = "sendonly";
         #  devices = [ "NixOS-Laptop" ];
         };
         "FreeTube" = {
-          path = config.home-manager.users.${config.defaultuser}.home.homeDirectory + "/.config/FreeTube";
+          path = config.home-manager.users.${config.defaultuser.name}.home.homeDirectory + "/.config/FreeTube";
           rescanInterval = 30;
           ignorePerms = true;
           type = "sendonly";

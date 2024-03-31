@@ -44,337 +44,328 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    flatpaks = {
+    flatpak = {
       url = "github:GermanBread/declarative-flatpak/stable";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, flatpaks, ... }:
+  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, flatpak, ... }:
     let
-
-    specialArgs = {
-      inherit inputs;
-      inherit plasma-manager;
-      inherit flatpaks;
-    };
-
+      system = "x86_64-linux";
+      specialArgs = {
+        inherit system;
+        inherit inputs;
+        inherit plasma-manager;
+        inherit flatpak;
+      };
     in {
     nixosConfigurations = {
+      NixOS-Crafter = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-        NixOS-Crafter = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+        specialArgs = inputs;
 
-          specialArgs = inputs;
+        modules = [
+          # This is not a complete NixOS configuration and you need to reference
+          # your normal configuration here.
+          ./system
+          ./hosts/NixOS-Crafter
 
-          modules = [
-            # This is not a complete NixOS configuration and you need to reference
-            # your normal configuration here.
-            ./system
-            ./hosts/NixOS-Crafter
+          ./system-modules/fonts.nix
+          ./system-modules/hardware-configuration.nix
+          ./system-modules/intelcpu.nix
+          ./system-modules/intelgpu.nix
+          ./system-modules/kdeconnect.nix
+          ./system-modules/mullvad.nix
+          #./system-modules/nvidiagpu.nix
+          ./system-modules/plasma5.nix
+          ./system-modules/printing.nix
+          ./system-modules/sddm.nix
+          ./system-modules/syncthing.nix
+          ./system-modules/theme.nix
+          ./system-modules/theme-latte.nix
 
-            ./system-modules/fonts.nix
-            ./system-modules/hardware-configuration.nix
-            ./system-modules/intelcpu.nix
-            ./system-modules/intelgpu.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/mullvad.nix
-            #./system-modules/nvidiagpu.nix
-            ./system-modules/plasma5.nix
-            ./system-modules/printing.nix
-            ./system-modules/sddm.nix
-            ./system-modules/syncthing.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-latte.nix
+          # disko Moule
+          disko.nixosModules.disko
+          ./system-modules/disko-bios-lvm-on-luks.nix
+          {
+            _module.args.disks = [ "/dev/sda" ];
+          }
 
-            # disko Moule
-            disko.nixosModules.disko
-            ./system-modules/disko-bios-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/sda" ];
-            }
+          # nur repo
+          nur.nixosModules.nur
 
-            # nur repo
-            nur.nixosModules.nur
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.crafter = import ./hosts/NixOS-Crafter/home-crafter;
+            };
+          }
+        ];
+      };
 
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.crafter = import ./hosts/NixOS-Crafter/home-crafter;
-              };
-            }
-          ];
+      NixOS-Desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          inherit flatpak;
         };
 
-        NixOS-Desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+        modules = [
+          # This is not a complete NixOS configuration and you need to reference
+          # your normal configuration here.
+          ./system
+          ./hosts/NixOS-Desktop
 
-          specialArgs = inputs;
+          ./system-modules/amdcpu.nix
+          ./system-modules/amdgpu.nix
+          ./system-modules/autostart.nix
+          #./system-modules/corectrl.nix
+          ./system-modules/flatpak.nix
+          ./system-modules/fonts.nix
+          ./system-modules/gamemode.nix
+          #./system-modules/gnome.nix
+          #./system-modules/hardware-configuration.nix
+          ./system-modules/hyprland.nix
+          ./system-modules/kdeconnect.nix
+          ./system-modules/mullvad.nix
+          #./system-modules/nasmount.nix
+          ./system-modules/plasma5.nix
+          ./system-modules/printing.nix
+          ./system-modules/protonmail-bridge.nix
+          #./system-modules/python.nix
+          ./system-modules/razer.nix
+          ./system-modules/sddm.nix
+          ./system-modules/syncthing.nix
+          ./system-modules/theme.nix
+          ./system-modules/theme-mocha.nix
 
-          modules = [
-            # This is not a complete NixOS configuration and you need to reference
-            # your normal configuration here.
-            ./system
-            ./hosts/NixOS-Desktop
+          # disko Moule
+          disko.nixosModules.disko
+          #./system-modules/disko-uefi-lvm-on-luks.nix
+          #{
+          #  _module.args.disks = [ "/dev/nvme0n1" ];
+          #}
 
-            ./system-modules/amdcpu.nix
-            ./system-modules/amdgpu.nix
-            ./system-modules/autostart.nix
-            #./system-modules/corectrl.nix
-            ./system-modules/flatpak.nix
-            ./system-modules/fonts.nix
-            ./system-modules/gamemode.nix
-            #./system-modules/gnome.nix
-            #./system-modules/hardware-configuration.nix
-            ./system-modules/hyprland.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/mullvad.nix
-            #./system-modules/nasmount.nix
-            ./system-modules/plasma5.nix
-            ./system-modules/printing.nix
-            ./system-modules/protonmail-bridge.nix
-            #./system-modules/python.nix
-            ./system-modules/razer.nix
-            ./system-modules/sddm.nix
-            #./system-modules/syncthing.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-mocha.nix
+          nur.nixosModules.nur
+          flatpak.nixosModules.default
+          home-manager.nixosModules.home-manager
+        ];
+      };
 
-            # disko Moule
-            disko.nixosModules.disko
-            #./system-modules/disko-uefi-lvm-on-luks.nix
-            #{
-            #  _module.args.disks = [ "/dev/nvme0n1" ];
-            #}
+      NixOS-Gaming = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-            # nur repo
-            nur.nixosModules.nur
+        specialArgs = inputs;
 
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.jf = import ./hosts/NixOS-Desktop/home-desktop;
-              };
-            }
-          ];
-        };
+        modules = [
+          # This is not a complete NixOS configuration and you need to reference
+          # your normal configuration here.
+          ./system
+          ./hosts/NixOS-Gaming
 
-        NixOS-Gaming = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          ./system-modules/amdcpu.nix
+          #./system-modules/bigscreen.nix
+          ./system-modules/corectrl.nix
+          ./system-modules/flatpak.nix
+          ./system-modules/fonts.nix
+          ./system-modules/gamemode.nix
+          ./system-modules/hardware-configuration.nix
+          ./system-modules/kdeconnect.nix
+          ./system-modules/nasmount.nix
+          ./system-modules/nvidiagpu.nix
+          ./system-modules/plasma5.nix
+          ./system-modules/sddm.nix
+          ./system-modules/steam.nix
+          ./system-modules/theme.nix
+          ./system-modules/theme-mocha.nix
+          
+          # disko Moule
+          disko.nixosModules.disko
+          ./system-modules/disko-uefi-lvm-on-luks.nix
+          {
+            _module.args.disks = [ "/dev/nvme0n1" ];
+          }
 
-          specialArgs = inputs;
+          # nur repo
+          nur.nixosModules.nur
 
-          modules = [
-            # This is not a complete NixOS configuration and you need to reference
-            # your normal configuration here.
-            ./system
-            ./hosts/NixOS-Gaming
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.sirmorton = import ./hosts/NixOS-Gaming/home-gaming;
+            };
+          }
+        ];
+      };
 
-            ./system-modules/amdcpu.nix
-            #./system-modules/bigscreen.nix
-            ./system-modules/corectrl.nix
-            ./system-modules/flatpak.nix
-            ./system-modules/fonts.nix
-            ./system-modules/gamemode.nix
-            ./system-modules/hardware-configuration.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/nasmount.nix
-            ./system-modules/nvidiagpu.nix
-            ./system-modules/plasma5.nix
-            ./system-modules/sddm.nix
-            ./system-modules/steam.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-mocha.nix
-            
-            # disko Moule
-            disko.nixosModules.disko
-            ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/nvme0n1" ];
-            }
+      NixOS-Laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-            # nur repo
-            nur.nixosModules.nur
+        specialArgs = inputs;
 
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.sirmorton = import ./hosts/NixOS-Gaming/home-gaming;
-              };
-            }
-          ];
-        };
+        modules = [
+          # This is not a complete NixOS configuration and you need to reference
+          # your normal configuration here.
+          ./system
+          ./hosts/NixOS-Laptop
 
-        NixOS-Laptop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          ./system-modules/amdcpu.nix
+          ./system-modules/amdgpu.nix
+          ./system-modules/autostart.nix
+          ./system-modules/flatpak.nix
+          ./system-modules/fonts.nix
+          #./system-modules/gdm.nix
+          #./system-modules/gnome.nix
+          ./system-modules/hardware-configuration.nix
+          ./system-modules/hyprland.nix
+          ./system-modules/kdeconnect.nix
+          ./system-modules/mullvad.nix
+          #./system-modules/nasmount.nix
+          ./system-modules/plasma5.nix
+          ./system-modules/printing.nix
+          ./system-modules/protonmail-bridge.nix
+          ./system-modules/python.nix
+          ./system-modules/sddm.nix
+          ./system-modules/syncthing.nix
+          ./system-modules/theme.nix
+          ./system-modules/theme-latte.nix
+          #./system-modules/wireguard-client.nix
 
-          specialArgs = inputs;
+          # disko Moule
+          disko.nixosModules.disko
+          ./system-modules/disko-uefi-lvm-on-luks.nix
+          {
+            _module.args.disks = [ "/dev/nvme0n1" ];
+          }
 
-          modules = [
-            # This is not a complete NixOS configuration and you need to reference
-            # your normal configuration here.
-            ./system
-            ./hosts/NixOS-Laptop
+          # nur repo
+          nur.nixosModules.nur
 
-            ./system-modules/amdcpu.nix
-            ./system-modules/amdgpu.nix
-            ./system-modules/autostart.nix
-            ./system-modules/flatpak.nix
-            ./system-modules/fonts.nix
-            #./system-modules/gdm.nix
-            #./system-modules/gnome.nix
-            ./system-modules/hardware-configuration.nix
-            ./system-modules/hyprland.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/mullvad.nix
-            #./system-modules/nasmount.nix
-            ./system-modules/plasma5.nix
-            ./system-modules/printing.nix
-            ./system-modules/protonmail-bridge.nix
-            ./system-modules/python.nix
-            ./system-modules/sddm.nix
-            ./system-modules/syncthing.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-latte.nix
-            #./system-modules/wireguard-client.nix
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.jf = import ./hosts/NixOS-Laptop/home-laptop;
+            };
+          }
+        ];
+      };
 
-            # disko Moule
-            disko.nixosModules.disko
-            ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/nvme0n1" ];
-            }
+      NixOS-Server = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-            # nur repo
-            nur.nixosModules.nur
+        specialArgs = inputs;
 
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.jf = import ./hosts/NixOS-Laptop/home-laptop;
-              };
-            }
-          ];
-        };
+        modules = [
+          # This is not a complete NixOS configuration and you need to reference
+          # your normal configuration here.
+          ./system
+          ./hosts/NixOS-Server
 
-        NixOS-Server = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          ./system-modules/docker.nix
+          ./system-modules/fonts.nix
+          ./system-modules/hardware-configuration.nix
+          ./system-modules/intelcpu.nix
+          #./system-modules/intelgpu.nix
+          #./system-modules/nasmount.nix
+          #./system-modules/python.nix
+          ./system-modules/ssh.nix
 
-          specialArgs = inputs;
+          # disko Moule
+          disko.nixosModules.disko
+          ./system-modules/disko-uefi-lvm-on-luks.nix
+          {
+            _module.args.disks = [ "/dev/sda" "/dev/sdb" ];
+          }
 
-          modules = [
-            # This is not a complete NixOS configuration and you need to reference
-            # your normal configuration here.
-            ./system
-            ./hosts/NixOS-Server
+          # nur repo
+          nur.nixosModules.nur
 
-            ./system-modules/docker.nix
-            ./system-modules/fonts.nix
-            ./system-modules/hardware-configuration.nix
-            ./system-modules/intelcpu.nix
-            #./system-modules/intelgpu.nix
-            #./system-modules/nasmount.nix
-            #./system-modules/python.nix
-            ./system-modules/ssh.nix
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.admin = import ./hosts/NixOS-Server/home-server;
+            };
+          }
+        ];
+      };
 
-            # disko Moule
-            disko.nixosModules.disko
-            ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/sda" "/dev/sdb" ];
-            }
+      NixOS-Testing = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-            # nur repo
-            nur.nixosModules.nur
+        specialArgs = inputs;
 
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.admin = import ./hosts/NixOS-Server/home-server;
-              };
-            }
-          ];
-        };
+        modules = [
+          # This is not a complete NixOS configuration and you need to reference
+          # your normal configuration here.
+          #./system
+          ./hosts/NixOS-Testing
 
-        NixOS-Testing = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          #./system-modules/amdcpu.nix
+          #./system-modules/amdgpu.nix
+          ./system-modules/autostart.nix
+          ./system-modules/flatpak.nix
+          ./system-modules/fonts.nix
+          #./system-modules/gdm.nix
+          #./system-modules/gnome.nix
+          ./system-modules/hardware-configuration.nix
+          ./system-modules/hyprland.nix
+          ./system-modules/kdeconnect.nix
+          ./system-modules/mullvad.nix
+          #./system-modules/nasmount.nix
+          ./system-modules/plasma6.nix
+          ./system-modules/printing.nix
+          ./system-modules/protonmail-bridge.nix
+          ./system-modules/python.nix
+          ./system-modules/sddm.nix
+          ./system-modules/theme.nix
+          ./system-modules/theme-latte.nix
+          #./system-modules/wireguard-client.nix
 
-          specialArgs = inputs;
+          # disko Moule
+          disko.nixosModules.disko
+          ./system-modules/disko-uefi-lvm-on-luks.nix
+          {
+            _module.args.disks = [ "/dev/nvme0n1" ];
+          }
 
-          modules = [
-            # This is not a complete NixOS configuration and you need to reference
-            # your normal configuration here.
-            #./system
-            ./hosts/NixOS-Testing
+          # nur repo
+          nur.nixosModules.nur
 
-            #./system-modules/amdcpu.nix
-            #./system-modules/amdgpu.nix
-            ./system-modules/autostart.nix
-            ./system-modules/flatpak.nix
-            ./system-modules/fonts.nix
-            #./system-modules/gdm.nix
-            #./system-modules/gnome.nix
-            ./system-modules/hardware-configuration.nix
-            ./system-modules/hyprland.nix
-            ./system-modules/kdeconnect.nix
-            ./system-modules/mullvad.nix
-            #./system-modules/nasmount.nix
-            ./system-modules/plasma6.nix
-            ./system-modules/printing.nix
-            ./system-modules/protonmail-bridge.nix
-            ./system-modules/python.nix
-            ./system-modules/sddm.nix
-            ./system-modules/theme.nix
-            ./system-modules/theme-latte.nix
-            #./system-modules/wireguard-client.nix
-
-            # disko Moule
-            disko.nixosModules.disko
-            ./system-modules/disko-uefi-lvm-on-luks.nix
-            {
-              _module.args.disks = [ "/dev/nvme0n1" ];
-            }
-
-            # nur repo
-            nur.nixosModules.nur
-
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                users.jf = import ./hosts/NixOS-Testing/home-testing;
-              };
-            }
-          ];
-        };
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.jf = import ./hosts/NixOS-Testing/home-testing;
+            };
+          }
+        ];
+      };
     };
   };
 }

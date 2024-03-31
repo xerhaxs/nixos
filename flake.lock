@@ -20,7 +20,7 @@
         "type": "github"
       }
     },
-    "flatpaks": {
+    "flatpak": {
       "inputs": {
         "nixpkgs": "nixpkgs",
         "utils": "utils"
@@ -199,7 +199,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
-        "flatpaks": "flatpaks",
+        "flatpak": "flatpak",
         "home-manager": "home-manager",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_2",

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, osConfig, ... }:
 
 {
   imports = [
@@ -19,6 +19,10 @@
     ./xresources.nix
   ];
 
-  home.username = config.defaultuser.name;
-  home.homeDirectory = "/home/" + config.defaultuser.name;
+  home.username = "${osConfig.defaultuser.name}";
+  home.homeDirectory = "/home/" + osConfig.defaultuser.name;
+
+  home.stateVersion = "24.05";
+
+  programs.home-manager.enable = true;
 }
