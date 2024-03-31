@@ -6,7 +6,13 @@ let
 in
 
 {
- users.users.${user} = {
+  imports = [ 
+    ../../modules/defaultuser.nix
+  ];
+
+  defaultuser.set = "jf";
+
+  users.users.${user} = {
     name = "jf";
     isNormalUser = true;
     group = "users";

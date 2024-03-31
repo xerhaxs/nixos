@@ -82,6 +82,7 @@
             ./system-modules/plasma5.nix
             ./system-modules/printing.nix
             ./system-modules/sddm.nix
+            ./system-modules/syncthing.nix
             ./system-modules/theme.nix
             ./system-modules/theme-latte.nix
 
@@ -139,6 +140,7 @@
             #./system-modules/python.nix
             ./system-modules/razer.nix
             ./system-modules/sddm.nix
+            #./system-modules/syncthing.nix
             ./system-modules/theme.nix
             ./system-modules/theme-mocha.nix
             ./system-modules/virtualisation.nix
@@ -246,6 +248,7 @@
             ./system-modules/protonmail-bridge.nix
             ./system-modules/python.nix
             ./system-modules/sddm.nix
+            ./system-modules/syncthing.nix
             ./system-modules/theme.nix
             ./system-modules/theme-latte.nix
             #./system-modules/wireguard-client.nix
