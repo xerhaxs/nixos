@@ -47,6 +47,8 @@
 
   boot.initrd.systemd.enable = true;
 
+  boot.initrd.luks.reusePassphrases = true;
+
   boot.initrd.luks.devices = {
    "crypt" = {
       device = "/dev/disk/by-partlabel/disk-SYSTEM-crypt";

@@ -896,100 +896,100 @@ in
         #};
       };
 
-      "uBlock0@raymondhill.net".adminSettings = {
-        userSettings = rec {
-          advancedUserEnabled = true;
-          uiTheme = "auto";
-          uiAccentCustom = true;
-          cloudStorageEnabled = false;
-          importedLists = [
-            "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
-          ];
-          externalLists = lib.concatStringsSep "\n" importedLists;
-          popupPanelSections = 63;
-        };
-        selectedFilterLists = [
-          "user-filters"
-          "ublock-filters"
-          "ublock-badware"
-          "ublock-privacy"
-          "ublock-quick-fixes"
-          "ublock-unbreak"
-          "easylist"
-          "adguard-spyware"
-          "easyprivacy"
-          "urlhaus-1"
-          "plowe-0"
-          "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
-        ];
-      };
+      #"uBlock0@raymondhill.net".adminSettings = {
+      #  userSettings = rec {
+      #    advancedUserEnabled = true;
+      #    uiTheme = "auto";
+      #    uiAccentCustom = true;
+      #    cloudStorageEnabled = false;
+      #    importedLists = [
+      #      "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
+      #    ];
+      #    externalLists = lib.concatStringsSep "\n" importedLists;
+      #    popupPanelSections = 63;
+      #  };
+      #  selectedFilterLists = [
+      #    "user-filters"
+      #    "ublock-filters"
+      #    "ublock-badware"
+      #    "ublock-privacy"
+      #    "ublock-quick-fixes"
+      #    "ublock-unbreak"
+      #    "easylist"
+      #    "adguard-spyware"
+      #    "easyprivacy"
+      #    "urlhaus-1"
+      #    "plowe-0"
+      #    "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
+      #  ];
+      #};
 
-      "keepassxc-browser@keepassxc.org".adminSettings = {
-        autoReconnect = true;
-        afterFillSorting = "sortByMatchingCredentials";
-        afterFillSortingTotp = "sortByRelevantEntry";
-        autoCompleteUsernames = true;
-        showGroupNameInAutocomplete = true;
-        autoFillAndSend = false;
-        autoFillSingleEntry = false;
-        autoFillSingleTotp = true;
-        autoRetrieveCredentials = true;
-        autoSubmit = true;
-        checkUpdateKeePassXC = 0;
-        clearCredentialsTimeout = 10;
-        colorTheme = "system";
-        credentialSorting = "sortByGroupAndTitle";
-        defaultGroupAlwaysAsk = true;
-        downloadFaviconAfterSave = true;
-        passkeys = true;
-        passkeysFallback = true;
-        saveDomainOnly = false;
-        showGettingStartedGuideAlert = true;
-        showTroubleshootingGuideAlert = true;
-        showLoginFormIcon = true;
-        showLoginNotifications = true;
-        showNotifications = true;
-        useMonochromeToolbarIcon = false;
-        showOTPIcon = true;
-        useObserver = true;
-        usePredefinedSites = true;
-        usePasswordGeneratorIcons = true;
-      };
+      #"keepassxc-browser@keepassxc.org".adminSettings = {
+      #  autoReconnect = true;
+      #  afterFillSorting = "sortByMatchingCredentials";
+      #  afterFillSortingTotp = "sortByRelevantEntry";
+      #  autoCompleteUsernames = true;
+      #  showGroupNameInAutocomplete = true;
+      #  autoFillAndSend = false;
+      #  autoFillSingleEntry = false;
+      #  autoFillSingleTotp = true;
+      #  autoRetrieveCredentials = true;
+      #  autoSubmit = true;
+      #  checkUpdateKeePassXC = 0;
+      #  clearCredentialsTimeout = 10;
+      #  colorTheme = "system";
+      #  credentialSorting = "sortByGroupAndTitle";
+      #  defaultGroupAlwaysAsk = true;
+      #  downloadFaviconAfterSave = true;
+      #  passkeys = true;
+      #  passkeysFallback = true;
+      #  saveDomainOnly = false;
+      #  showGettingStartedGuideAlert = true;
+      #  showTroubleshootingGuideAlert = true;
+      #  showLoginFormIcon = true;
+      #  showLoginNotifications = true;
+      #  showNotifications = true;
+      #  useMonochromeToolbarIcon = false;
+      #  showOTPIcon = true;
+      #  useObserver = true;
+      #  usePredefinedSites = true;
+      #  usePasswordGeneratorIcons = true;
+      #};
 
-      "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
-        scripts = {
-          "Simple YouTube Age Restriction Bypass" = {
-            custom = {
-              origInclude = true;
-              origExclude = true;
-              origMatch = true;
-              origExcludeMatch = true;
-              homepageURL = "https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass?tab=readme-ov-file";
-              lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
-            };
-            config = {
-              enabled = 1;
-              shouldUpdate = 1;
-              removed = 0;
-            };
-          };
-        };
-        settings = {
-          isApplied = true;
-          autoUpdate = 1;
-          updateEnabledScriptsOnly = false;
-          exportValues = true;
-          closeAfterInstall = false;
-          editAfterInstall = false;
-          autoReload = true;
-          importScriptData = false;
-          importSettings = false;
-          notifyUpdates = false;
-          notifyUpdatesGlobal = false;
-          defaultInjectInto = "auto";
-          showAdvanced = true;
-        };
-      };
+      #"{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
+      #  scripts = {
+      #    "Simple YouTube Age Restriction Bypass" = {
+       #     custom = {
+       #       origInclude = true;
+       ##       origExclude = true;
+       #       origMatch = true;
+       #       origExcludeMatch = true;
+       #       homepageURL = "https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass?tab=readme-ov-file";
+       #       lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
+       #     };
+       #     config = {
+       #       enabled = 1;
+       #       shouldUpdate = 1;
+       #       removed = 0;
+       #     };
+       #   };
+       # };
+       # settings = {
+       #   isApplied = true;
+       #   autoUpdate = 1;
+       #   updateEnabledScriptsOnly = false;
+       #   exportValues = true;
+       #   closeAfterInstall = false;
+       #   editAfterInstall = false;
+       #   autoReload = true;
+       #   importScriptData = false;
+       #   importSettings = false;
+       #   notifyUpdates = false;
+       #   notifyUpdatesGlobal = false;
+       #   defaultInjectInto = "auto";
+       #   showAdvanced = true;
+       # };
+      #};
 
       FirefoxHome = {
         Search = true;

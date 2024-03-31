@@ -4,7 +4,7 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    hsphfpd.enable = false;
+    hsphfpd.enable = true;
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
