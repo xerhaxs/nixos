@@ -143,7 +143,6 @@
             #./system-modules/syncthing.nix
             ./system-modules/theme.nix
             ./system-modules/theme-mocha.nix
-            ./system-modules/virtualisation.nix
 
             # disko Moule
             disko.nixosModules.disko
@@ -296,7 +295,6 @@
             #./system-modules/nasmount.nix
             #./system-modules/python.nix
             ./system-modules/ssh.nix
-            ./system-modules/virtualisation.nix
 
             # disko Moule
             disko.nixosModules.disko
