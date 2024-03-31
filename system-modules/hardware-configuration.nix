@@ -2,7 +2,7 @@
 
 {
   fileSystems."/" = {
-    device = "/dev/crypt/crypt-root";
+    device = "/dev/mapper/crypt-root";
     fsType = "ext4";
   };
 
@@ -12,7 +12,7 @@
   };
 
   fileSystems."/home" = {
-    device = "/dev/crypt/crypt-home";
+    device = "/dev/mapper/crypt-home";
     fsType = "ext4";
   };
 }
