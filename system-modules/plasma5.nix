@@ -1,10 +1,6 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ../pkgs/wallpaper-engine-kde-plugin.nix
-  ];
-
   services.xserver = {
     displayManager.sddm.package = pkgs.libsForQt5.sddm;
     desktopManager = {
