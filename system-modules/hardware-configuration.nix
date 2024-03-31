@@ -2,7 +2,7 @@
 
 {
   fileSystems."/" = {
-    device = lib.mkForce "/dev/mapper/crypt-root";
+    device = "/dev/crypt/root";
     fsType = "ext4";
   };
 
@@ -12,7 +12,7 @@
   };
 
   fileSystems."/home" = {
-    device = lib.mkForce "/dev/mapper/crypt-home";
+    device = "/dev/crypt/home";
     fsType = "ext4";
   };
 }
