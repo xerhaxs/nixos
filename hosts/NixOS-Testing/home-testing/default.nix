@@ -23,6 +23,7 @@
     #../../../home-modules/syncthing.nix
     ../../../home-modules/theme-latte.nix
     #../../../home-modules/thunderbird.nix
+    ../../../home-modules/virtualisation.nix
     ../../../home-modules/vscodium.nix
 
     ./hyprland.nix

@@ -19,7 +19,11 @@
     ./sops.nix
     ./swap.nix
     ./upower.nix
+    ./user.nix
+    ./virtualisation.nix
     ./xdg.nix
     ./xserver.nix
+
+    ../modules
   ];
 }
