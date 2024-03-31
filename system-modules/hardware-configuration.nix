@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   fileSystems."/" = {
-    device = "/dev/mapper/root";
+    device = "/dev/mapper/crypt-root";
     fsType = "ext4";
   };
 
@@ -12,7 +12,7 @@
   };
 
   fileSystems."/home" = {
-    device = "/dev/mapper/home";
+    device = "/dev/mapper/crypt-home";
     fsType = "ext4";
   };
 }
