@@ -16,7 +16,6 @@
 
   environment.systemPackages = with pkgs; [
     quickemu
-    quickgui
     qemu
     vde2
     ebtables
@@ -26,10 +25,8 @@
     bridge-utils
     OVMF 
     libvirt
-    spice-gtk
     win-spice
-    win-virtio
-    virt-viewer
+    virtio-win
     virglrenderer
   ];
 }

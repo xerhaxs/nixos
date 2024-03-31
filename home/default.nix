@@ -18,4 +18,7 @@
     ./xdg.nix
     ./xresources.nix
   ];
+
+  home.username = "${config.defaultuser}";
+  home.homeDirectory = "/home/" + ${config.defaultuser};
 }
