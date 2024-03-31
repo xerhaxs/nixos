@@ -6,7 +6,7 @@
     settings = {
       General = {
         showStartupLaunchMessage = false;
-        savePath = "${config.xdg.userDirs.desktop}";
+        savePath = config.xdg.userDirs.desktop;
         saveAsFileExtension = ".png";
         uiColor = "#740096";
         contrastUiColor = "#270032";

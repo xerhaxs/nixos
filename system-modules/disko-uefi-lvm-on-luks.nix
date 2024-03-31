@@ -40,6 +40,7 @@
                   vg = "crypt";
                 };
               };
+              initrdUnlock = true;
             };
           };
         };
