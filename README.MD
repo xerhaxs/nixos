@@ -28,15 +28,15 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 ### ToDo
 
-[ ] Setup Hyrpland with Waybar and Swaylock
-[ ] Move the server configuration from Desktop to Nuc
-[ ] Add a general testing configuration for interested people
-[ ] Make Thunderbird decleartiv
-[ ] Add Gnome Config
-[ ] Complete Plasma Config
-[ ] Setup Firefox + Librewolf + Brave in config
-[ ] Make Syncthing declerativ
-[ ] Add HomeAssistant VM
-[ ] Setup Crafter Laptop
-[ ] Selvhost captive portal service + add to network manager and firefox
-[ ] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
+- [ ] Setup Hyrpland with Waybar and Swaylock
+- [ ] Move the server configuration from Desktop to Nuc
+- [ ] Add a general testing configuration for interested people
+- [ ] Make Thunderbird decleartiv
+- [ ] Add Gnome Config
+- [ ] Complete Plasma Config
+- [ ] Setup Firefox + Librewolf + Brave in config
+- [ ] Make Syncthing declerativ
+- [ ] Add HomeAssistant VM
+- [ ] Setup Crafter Laptop
+- [ ] Selvhost captive portal service + add to network manager and firefox
+- [ ] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
