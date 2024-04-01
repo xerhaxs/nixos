@@ -1,33 +1,55 @@
 { config, lib, pkgs, ... }:
 
-let
-  lang = "en_US.UTF-8";
-  local = "de_DE.UTF-8";
-  timezone = "Europe/Berlin";
-  consolekbd = "de";
-in
+with lib;
 
 {
-  time.timeZone = "${timezone}";
-
-  i18n.defaultLocale = "${lang}";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "${local}";
-    LC_IDENTIFICATION = "${local}";
-    LC_MEASUREMENT = "${local}";
-    LC_MONETARY = "${local}";
-    LC_NAME = "${local}";
-    LC_NUMERIC = "${local}";
-    LC_PAPER = "${local}";
-    LC_TELEPHONE = "${local}";
-    LC_TIME = "${local}";
+  options.nixos = {
+    system.locals = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Enable system locals.";
+      };
+      lang = {
+        type = types.str;
+        default = "en_US.UTF-8";
+      };
+      local = {
+        type = types.str;
+        default = "de_DE.UTF-8"
+      };
+      timezone = {
+        type = types.str;
+        default = "Europe/Berlin";
+      };
+      consolekbd = {
+        type = types.str;
+        default = "de";
+      };
+    };
   };
 
-  console.keyMap = "${consolekbd}";
+  time.timeZone = "${config.nixos.system.locals.timezone}";
+
+  i18n.defaultLocale = "${config.nixos.system.locals.lang}";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "${config.nixos.system.locals.local}";
+    LC_IDENTIFICATION = "${config.nixos.system.locals.local}";
+    LC_MEASUREMENT = "${config.nixos.system.locals.local}";
+    LC_MONETARY = "${config.nixos.system.locals.local}";
+    LC_NAME = "${config.nixos.system.locals.local}";
+    LC_NUMERIC = "${config.nixos.system.locals.local}";
+    LC_PAPER = "${config.nixos.system.locals.local}";
+    LC_TELEPHONE = "${config.nixos.system.locals.local}";
+    LC_TIME = "${config.nixos.system.locals.local}";
+  };
+
+  console.keyMap = "${config.nixos.system.locals.consolekbd}";
 
   services.xserver = {
-    xkb.layout = "${consolekbd}";
+    xkb.layout = "${config.nixos.system.locals.consolekbd}";
     xkb.variant = "";
     #xkb.options = "";
   };

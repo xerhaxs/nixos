@@ -72,75 +72,89 @@ let
   };
 in
 
+with lib;
+
 {
-  networking = {
-
-    networkmanager.enable = true;
-    
-    wireless.userControlled.enable = true;
-
-    enableIPv6 = false;
-
-    useDHCP = true;
-
-    hosts = {
-      "10.75.0.1" = [ "fritz.box" ];
-      "10.75.0.10" = [
-        "adguard.bitsync.icu"
-        "dav.bitsync.icu"
-        "etesync.bitsync.icu"
-        "firefoxsync.bitsync.icu"
-        "freshrss.bitsync.icu"
-        "gitea.bitsync.icu"
-        "homeassistant.bitsync.icu"
-        "invidious.bitsync.icu"
-        "jellyfin.bitsync.icu"
-        "libreddit.bitsync.icu"
-        "lidarr.bitsync.icu"
-        "monero.bitsync.icu"
-        "nextcloud.bitsync.icu"
-        "nitter.bitsync.icu"
-        "nzbget.bitsync.icu"
-        "nzbhydra2.bitsync.icu"
-        "onlyoffice.bitsync.icu"
-        "pufferpanel-sftp.bitsync.icu"
-        "pufferpanel.bitsync.icu"
-        "radarr.bitsync.icu"
-        "radicale.bitsync.icu"
-        "readarr.bitsync.icu"
-        "searxng.bitsync.icu"
-        "sonarr.bitsync.icu"
-        "uptime-kuma.bitsync.icu"
-        "vaultwarden.bitsync.icu"
-      ];
-      "10.75.0.65" = [ 
-        "haos.bitsync.icu" 
-        "tmjf.duckdns.org"
-      ];
-      "10.75.0.120" = [ "proxmox.bitsync.icu" ];
+  options.nixos = {
+    system.networking = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Enable networking and network config.";
+      };
     };
+  };
 
-    hostFiles = [
-      StevenBlack
-      malware
-      phishing
-      ransomware
-      #redirect
-      scam
-      tiktok
-      tracking
-      smart-tv
-      adobe
-      #ads
-      AmazonFireTV
-      #oisd-small
-      #oisd-big
-    ];
+  config = mkIf config.nixos.system.networking.enable {
+    networking = {
+      networkmanager.enable = true;
+      
+      wireless.userControlled.enable = true;
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+      enableIPv6 = false;
 
-    defaultGateway = "10.75.0.1";
+      useDHCP = true;
 
-    nameservers = [ "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
+      hosts = {
+        "10.75.0.1" = [ "fritz.box" ];
+        "10.75.0.10" = [
+          "adguard.bitsync.icu"
+          "dav.bitsync.icu"
+          "etesync.bitsync.icu"
+          "firefoxsync.bitsync.icu"
+          "freshrss.bitsync.icu"
+          "gitea.bitsync.icu"
+          "homeassistant.bitsync.icu"
+          "invidious.bitsync.icu"
+          "jellyfin.bitsync.icu"
+          "libreddit.bitsync.icu"
+          "lidarr.bitsync.icu"
+          "monero.bitsync.icu"
+          "nextcloud.bitsync.icu"
+          "nitter.bitsync.icu"
+          "nzbget.bitsync.icu"
+          "nzbhydra2.bitsync.icu"
+          "onlyoffice.bitsync.icu"
+          "pufferpanel-sftp.bitsync.icu"
+          "pufferpanel.bitsync.icu"
+          "radarr.bitsync.icu"
+          "radicale.bitsync.icu"
+          "readarr.bitsync.icu"
+          "searxng.bitsync.icu"
+          "sonarr.bitsync.icu"
+          "uptime-kuma.bitsync.icu"
+          "vaultwarden.bitsync.icu"
+        ];
+        "10.75.0.65" = [ 
+          "haos.bitsync.icu" 
+          "tmjf.duckdns.org"
+        ];
+        "10.75.0.120" = [ "proxmox.bitsync.icu" ];
+      };
+
+      hostFiles = [
+        StevenBlack
+        malware
+        phishing
+        ransomware
+        #redirect
+        scam
+        tiktok
+        tracking
+        smart-tv
+        adobe
+        #ads
+        AmazonFireTV
+        #oisd-small
+        #oisd-big
+      ];
+
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+      defaultGateway = "10.75.0.1";
+
+      nameservers = [ "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
+    };
   };
 }

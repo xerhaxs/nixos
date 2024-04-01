@@ -4,6 +4,7 @@
   imports = [
     ./docker.nix
     ./kvm.nix
+    ./podman.nix
     ./waydroid.nix
   ];
 }
