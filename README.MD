@@ -39,3 +39,4 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 [ ] Add HomeAssistant VM
 [ ] Setup Crafter Laptop
 [ ] Selvhost captive portal service + add to network manager and firefox
+[ ] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist

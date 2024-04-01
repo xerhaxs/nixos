@@ -52,7 +52,11 @@
   outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, flatpak, ... }:
     let
       system = "x86_64-linux";
-      specialArgs = inputs;
+      specialArgs = {
+        inherit inputs;
+        inherit plasma-manager;
+        inherit flatpak;
+      };
     in {
     nixosConfigurations = {
       NixOS-Crafter = nixpkgs.lib.nixosSystem {
@@ -107,7 +111,7 @@
       NixOS-Desktop = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        _module.args = { 
+        specialArgs = { 
           inherit inputs;
         };
 
@@ -149,8 +153,25 @@
 
           nur.nixosModules.nur
           flatpak.nixosModules.default
-          home-manager.nixosModules.home-manager
           plasma-manager.nixosModules.plasma-manager
+
+          home-manager.nixosModules.home-manager 
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+            };
+
+            #home-manager.extraSpecialArgs = specialArgs;
+            home-manager.users.${config.defaultuser.name} = {
+              imports = [ 
+                ./hosts/NixOS-Desktop/home-desktop
+                plasma-manager.homeManagerModules.plasma-manager
+                flatpak.homeManagerModules.default  
+              ];
+            };
+          }
         ];
       };
 
@@ -202,6 +223,16 @@
               users.sirmorton = import ./hosts/NixOS-Gaming/home-gaming;
             };
           }
+        ];
+      };
+
+      NixOS-ISO = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        specialArgs = inputs;
+
+        modules = [
+          ./system-modules/installer.nix
         ];
       };
 
