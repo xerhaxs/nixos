@@ -1,28 +1,41 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 {
-  services.xserver = {
-    desktopManager = {
-      plasma5.bigscreen.enable = true;
+  options.nixos = {
+    desktop.desktopEnvironment.plasma5-bigscreen = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        example = true;
+        description = "Enable Plasma5 Bigscreen desktop environment.";
+      };
     };
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "kde";
-  };
+  config = mkIf config.nixos.desktop.desktopEnvironment.plasma5-bigscreen.enable {
+    services.xserver.desktopManager.plasma5.bigscreen = {
+      enable = true;
+    };
 
-  environment = {
-    plasma5.excludePackages = with pkgs; with libsForQt5; [
-      elisa
-      spectacle
-      kwalletmanager
-      breeze-qt5
-      breeze-gtk
-      breeze-icons
-      oxygen
-      oxygen-icons5
-      plasma-workspace-wallpapers
-    ];
+    qt = {
+      enable = true;
+      platformTheme = "kde";
+    };
+
+    environment = {
+      plasma5.excludePackages = with pkgs; with libsForQt5; [
+        elisa
+        spectacle
+        kwalletmanager
+        breeze-qt5
+        breeze-gtk
+        breeze-icons
+        oxygen
+        oxygen-icons5
+        plasma-workspace-wallpapers
+      ];
+    };
   };
 }

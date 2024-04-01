@@ -3,19 +3,23 @@
 with lib;
 
 {
-  options.nixos = {
-    virtualisation.docker = {
+  options = {
+    nixos.virtualisation.docker = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
+        example = true;
         description = "Enable Docker virtualisation.";
       };
-      enableNvidia = {
-        default = false;
-        enableIf = [
-          { option = "hardware.nvidia.open"; value = true; }
-        ];
-      };
+    };
+    virtualisation.docker.enableNvidia = {
+      default = false;
+      example = true;
+      enableIf = [
+        { option = "hardware.nvidia.enable"; value = true; 
+          option = "nixos.virtualisation.docker.enable"; value = true; }
+      ];
+      description = "Enable nvidia support if needed.";
     };
   };
 
@@ -24,5 +28,23 @@ with lib;
       enable = true;
       enableOnBoot = true;
     };
+  };
+}
+
+
+{
+  options.nixos = {
+    folder.name = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Enable Docker virtualisation.";
+      };
+    };
+  };
+
+  config = mkIf config.nixos.folder.name.enable {
+
   };
 }
