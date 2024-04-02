@@ -1,8 +1,23 @@
-{ pkgs, lib, config, ... }: 
+{ config, lib, pkgs, ... }:
+
+with lib;
 
 { 
-  imports = [
-    ./samba.nix
-    ./webdav.nix
-  ];
+  options.nixos = {
+    server.fileshare = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Enable fileshare modules bundle.";
+      };
+    };
+  };
+
+  config = mkIf config.nixos.server.fileshare.enable {
+    imports = [
+      ./samba.nix
+      ./webdav.nix
+    ];
+  };
 }

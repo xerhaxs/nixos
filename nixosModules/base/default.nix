@@ -4,20 +4,20 @@ with lib;
 
 {
   options.nixos = {
-    desktop.displayManager = {
+    base = {
       enable = mkOption {
         type = types.bool;
         default = true;
         example = false;
-        description = "Enable displayManager modules bundle.";
+        description = "Enable base modules bundle.";
       };
     };
   };
 
-  config = mkIf config.nixos.desktop.displayManager.enable {
+  config = mkIf config.nixos.base.enable {
     imports = [
-      ./gdm.nix
-      ./sddm.nix
+      ./shell
+      ./texteditor
     ];
   };
 }

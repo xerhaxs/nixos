@@ -40,3 +40,29 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] Setup Crafter Laptop
 - [ ] Selvhost captive portal service + add to network manager and firefox
 - [ ] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
+- [ ] Add a custom Homepage for nginx#
+- [ ] create NixOS Hardend Config
+- [ ] write killswitch for server with rapi
+- [ ] move secrets to privat repo and create new secrets
+
+
+
+
+with lib;
+
+{
+  options.nixos = {
+    folder.name = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Enable Docker virtualisation.";
+      };
+    };
+  };
+
+  config = mkIf config.nixos.folder.name.enable {
+
+  };
+}
