@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 {
   options.nixos = {
     desktop.desktopEnvironment.xfce = {

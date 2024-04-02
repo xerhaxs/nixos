@@ -4,16 +4,17 @@ with lib;
 
 {
   options.nixos = {
-    desktop.windowManager.awesome = {
+    userEnvironment.gamemode = {
       enable = mkOption {
         type = types.bool;
         default = false;
         example = true;
-        description = "Enable awesome windowManager.";
+        description = "Enable gamemode.";
       };
     };
   };
 
-  config = mkIf config.nixos.desktop.windowManager.awesome.enable {
+  config = mkIf config.nixos.userEnvironment.gamemode.enable {
+    programs.gamemode.enable = true;
   };
 }

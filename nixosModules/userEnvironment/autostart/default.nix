@@ -4,20 +4,20 @@ with lib;
 
 {
   options.nixos = {
-    desktop.displayManager = {
+    userEnvironment.autostart = {
       enable = mkOption {
         type = types.bool;
         default = true;
         example = false;
-        description = "Enable displayManager modules bundle.";
+        description = "Enable autostart modules bundle.";
       };
     };
   };
 
-  config = mkIf config.nixos.desktop.displayManager.enable {
+  config = mkIf config.nixos.userEnvironment.autostart.enable {
     imports = [
-      ./gdm.nix
-      ./sddm.nix
+      ./protonmail-bridge.nix
+      ./steam.nix
     ];
   };
 }

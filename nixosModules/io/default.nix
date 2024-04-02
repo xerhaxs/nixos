@@ -4,20 +4,21 @@ with lib;
 
 {
   options.nixos = {
-    desktop.displayManager = {
+    io = {
       enable = mkOption {
         type = types.bool;
         default = true;
         example = false;
-        description = "Enable displayManager modules bundle.";
+        description = "Enable io modules bundle.";
       };
     };
   };
 
-  config = mkIf config.nixos.desktop.displayManager.enable {
+  config = mkIf config.nixos.io.enable {
     imports = [
-      ./gdm.nix
-      ./sddm.nix
+      ./bluetooth.nix
+      ./input.nix
+      ./razer.nix
     ];
   };
 }

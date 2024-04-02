@@ -30,21 +30,3 @@ with lib;
     };
   };
 }
-
-
-{
-  options.nixos = {
-    folder.name = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        example = false;
-        description = "Enable Docker virtualisation.";
-      };
-    };
-  };
-
-  config = mkIf config.nixos.folder.name.enable {
-
-  };
-}

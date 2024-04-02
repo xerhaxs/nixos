@@ -1,16 +1,31 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 {
-  boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  
-  hardware = {
-    enableAllFirmware = true;
-    enableRedistributableFirmware = true;
-    cpu.amd.updateMicrocode = true;
+  options.nixos = {
+    hardware.amdcpu = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        example = true;
+        description = "Enable amdcpu support.";
+      };
+    };
   };
 
-  environment.systemPackages = [
-    pkgs.microcodeAmd
-  ];
+  config = mkIf config.nixos.hardware.amdcpu.enable {
+    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
+    boot.kernelModules = [ "kvm-amd" ];
+    
+    hardware = {
+      enableAllFirmware = true;
+      enableRedistributableFirmware = true;
+      cpu.amd.updateMicrocode = true;
+    };
+
+    environment.systemPackages = [
+      pkgs.microcodeAmd
+    ];
+  };
 }
