@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.displayManager = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable displayManager modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.displayManager.enable {
+  config = lib.mkIf config.nixos.desktop.displayManager.enable {
     imports = [
       ./gdm.nix
       ./sddm.nix

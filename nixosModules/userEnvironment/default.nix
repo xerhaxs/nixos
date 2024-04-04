@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     userEnvironment = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable userEnvironment modules bundle.";
@@ -14,13 +12,16 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.enable {
+  config = lib.mkIf config.nixos.userEnvironment.enable {
     imports = [
       ./autostart
       ./flatpak.nix
       ./gamemode.nix
       ./kdeconnect.nix
+      ./mullvad.nix
       ./printing.nix
+      ./samba-client.nix
+      ./xdgmime.nix
     ];
   };
 }

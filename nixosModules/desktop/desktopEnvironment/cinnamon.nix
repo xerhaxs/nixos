@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.desktopEnvironment.cinnamon = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable Cinnamon desktop environment.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.desktopEnvironment.cinnamon.enable {
+  config = lib.mkIf config.nixos.desktop.desktopEnvironment.cinnamon.enable {
     services.xserver.desktopManager.cinnamon = {
       enable = true;
     };

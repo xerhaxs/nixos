@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }: 
 
-with lib;
-
 { 
   options.nixos = {
     disko = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable disko modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.disko.enable {
+  config = lib.mkIf config.nixos.disko.enable {
     imports = [
       ./disko-bios-lvm-on-luks.nix
       ./disko-uefi-lvm-on-luks.nix

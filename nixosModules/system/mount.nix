@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.mount = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable mounting default drives.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.mount.enable {
+  config = lib.mkIf config.nixos.system.mount.enable {
     fileSystems."/" = {
       device = "/dev/crypt/root";
       fsType = "ext4";

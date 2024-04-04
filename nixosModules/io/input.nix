@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     io.bluetooth = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable standard I/O settings.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.io.bluetooth.enable {
+  config = lib.mkIf config.nixos.io.bluetooth.enable {
     services.xserver = {
       libinput = {
         enable = true;

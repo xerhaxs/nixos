@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 { 
   options.nixos = {
     server.home = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable home modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.server.home.enable {
+  config = lib.mkIf config.nixos.server.home.enable {
     imports = [
       ./etesync.nix
       ./firefoxsync.nix

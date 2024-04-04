@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }: 
 
-with lib;
-
 { 
   options.nixos = {
     hardware = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable hardware modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.hardware.enable {
+  config = lib.mkIf config.nixos.hardware.enable {
     imports = [
       ./amdcpu.nix
       ./amdgpu.nix

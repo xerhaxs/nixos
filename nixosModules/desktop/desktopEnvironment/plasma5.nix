@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.desktopEnvironment.plasma5 = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable Plasma5 desktop environment.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.desktopEnvironment.plasma5.enable {
+  config = lib.mkIf config.nixos.desktop.desktopEnvironment.plasma5.enable {
     services.xserver.desktopManager.plasma5 = {
       enable = true;
     };

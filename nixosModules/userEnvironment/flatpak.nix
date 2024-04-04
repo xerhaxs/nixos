@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     userEnvironment.flatpak = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable flatpak.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.flatpak.enable {
+  config = lib.mkIf config.nixos.userEnvironment.flatpak.enable {
     services.flatpak = {
       enable = true;
     };

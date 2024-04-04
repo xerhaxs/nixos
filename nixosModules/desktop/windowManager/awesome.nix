@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.windowManager.awesome = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable awesome windowManager.";
@@ -14,6 +12,6 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.windowManager.awesome.enable {
+  config = lib.mkIf config.nixos.desktop.windowManager.awesome.enable {
   };
 }

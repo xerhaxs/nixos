@@ -1,9 +1,22 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.radarr = {
-    enable = true;
-    openFirewall = false;
-    #dataDir = "";
+  options.nixos = {
+    server.usenet.radarr = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Radarr.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.nixos.server.usenet.radarr.enable {
+    services.radarr = {
+      enable = true;
+      openFirewall = false;
+      #dataDir = "";
+    };
   };
 }

@@ -1,5 +1,13 @@
 { config, lib, pkgs, ... }:
 
+environment.sessionVariables = {
+    MOZ_USE_XINPUT2 = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    GTK_USE_PORTAL = "1";
+  };
+
+change to homesesionvariables
+
 let
 
 arkenfox-js = {

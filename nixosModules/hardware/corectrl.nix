@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     hardware.corectrl = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable corectrl.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.hardware.corectrl.enable {
+  config = lib.mkIf config.nixos.hardware.corectrl.enable {
     programs.corectrl = {
       enable = true;
       gpuOverclock.enable = true;

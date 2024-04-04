@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     base = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable base modules bundle.";
@@ -14,10 +12,11 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.base.enable {
+  config = lib.mkIf config.nixos.base.enable {
     imports = [
       ./shell
       ./texteditor
+      ./tools
     ];
   };
 }

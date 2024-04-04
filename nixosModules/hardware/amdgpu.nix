@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     hardwrae.amdgpu = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable amdgpu support.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.hardware.amdgpu.enable {
+  config = lib.mkIf config.nixos.hardware.amdgpu.enable {
     # Enable OpenCL & Vulkan
     boot.initrd.kernelModules = [ "amdgpu" ];
 

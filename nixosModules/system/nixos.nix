@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.nixos = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable the default NixOS settings.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.nixos.enable {
+  config = lib.mkIf config.nixos.system.nixos.enable {
     nixpkgs.config.allowUnfree = true;
 
     programs.nix-ld.enable = true;
@@ -43,4 +41,12 @@ with lib;
 
     system.stateVersion = "24.05";
   };
+
+  environment.systemPackages = with pkgs; [
+    nix-output-monitor # nix related
+    nix-prefetch
+    nixos-generators
+  ];
+
+  programs.nix-index.enable = true;
 }

@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.powermanagement = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable Docker virtualisation.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.powermanagement.enable {
+  config = lib.mkIf config.nixos.system.powermanagement.enable {
     services.upower = {
       enable = true;
       ignoreLid = false;

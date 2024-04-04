@@ -1,17 +1,30 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.vaultwarden = {
-    enable = true;
-    dbBackend = "sqlite";
-    config = {
-      DOMAIN = "vaultwarden.bitsync.icu";
-      SIGNUPS_ALLOWED = true;
+  options.nixos = {
+    server.home.vaultwarden = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Vaultwarden.";
+      };
+    };
+  };
 
-      ROCKET_ADDRESS = "127.0.0.1";
-      ROCKET_PORT = 8222;
+  config = lib.mkIf config.nixos.server.home.vaultwarden.enable {
+    services.vaultwarden = {
+      enable = true;
+      dbBackend = "sqlite";
+      config = {
+        DOMAIN = "vaultwarden.bitsync.icu";
+        SIGNUPS_ALLOWED = true;
 
-      ROCKET_LOG = "critical";
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 8222;
+
+        ROCKET_LOG = "critical";
+      };
     };
   };
 }

@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options = {
     nixos.virtualisation.docker = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable Docker virtualisation.";
@@ -23,7 +21,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.virtualisation.docker.enable {
+  config = lib.mkIf config.nixos.virtualisation.docker.enable {
     virtualisation.docker.enable = {
       enable = true;
       enableOnBoot = true;

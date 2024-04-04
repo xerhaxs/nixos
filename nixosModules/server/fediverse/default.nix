@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 { 
   options.nixos = {
     server.fediverse = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable fediverse modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.server.fediverse.enable {
+  config = lib.mkIf config.nixos.server.fediverse.enable {
     imports = [
       ./freshrss.nix
       ./gitea.nix

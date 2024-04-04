@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     userEnvironment.kdeconnect = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable kdeconnect.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.kdeconnect.enable {
+  config = lib.mkIf config.nixos.userEnvironment.kdeconnect.enable {
     programs.kdeconnect.enable = true;
     networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
     networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];

@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.desktopEnvironment = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable desktopEnvironment modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.desktopEnvironment.enable {
+  config = lib.mkIf config.nixos.desktop.desktopEnvironment.enable {
     imports = [
       ./cinnamon.nix
       ./gnome.nix

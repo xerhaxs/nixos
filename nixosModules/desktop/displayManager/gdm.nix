@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.displayManager.gdm = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable GDM display manager.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.displayManager.gdm.enable {
+  config = lib.mkIf config.nixos.desktop.displayManager.gdm.enable {
     services.xserver = {
       displayManager = {
         gdm = {

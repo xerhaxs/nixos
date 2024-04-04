@@ -1,29 +1,42 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  systemd.services.radicale.serviceConfig.EnvironmentFile = [ 
-    config.sops.secrets."radicale/htpasswd".path 
-  ];
-
-  sops.secrets."radicale/htpasswd" = {
-    owner = config.systemd.services.radicale.serviceConfig.User;
+  options.nixos = {
+    server.home.radicale = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Radiacle.";
+      };
+    };
   };
 
-  services.radicale = {
-    enable = true;
-    settings = {
-      server = {
-        hosts = [ "0.0.0.0:5232" "[::]:5232" ];
-      };
+  config = lib.mkIf config.nixos.server.home.radicale.enable {
+    systemd.services.radicale.serviceConfig.EnvironmentFile = [ 
+      config.sops.secrets."radicale/htpasswd".path 
+    ];
 
-      auth = {
-        type = "htpasswd";
-        htpasswd_filename = config.sops.secrets."radicale/htpasswd".path;
-        htpasswd_encryption = "plain";
-      };
+    sops.secrets."radicale/htpasswd" = {
+      owner = config.systemd.services.radicale.serviceConfig.User;
+    };
 
-      storage = {
-        filesystem_folder = "/mount/Data/Datein/Server/radicale";
+    services.radicale = {
+      enable = true;
+      settings = {
+        server = {
+          hosts = [ "0.0.0.0:5232" "[::]:5232" ];
+        };
+
+        auth = {
+          type = "htpasswd";
+          htpasswd_filename = config.sops.secrets."radicale/htpasswd".path;
+          htpasswd_encryption = "plain";
+        };
+
+        storage = {
+          filesystem_folder = "/mount/Data/Datein/Server/radicale";
+        };
       };
     };
   };
