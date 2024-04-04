@@ -72,13 +72,11 @@ let
   };
 in
 
-with lib;
-
 {
   options.nixos = {
     system.networking = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable networking and network config.";
@@ -86,7 +84,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.networking.enable {
+  config = lib.mkIf config.nixos.system.networking.enable {
     networking = {
       networkmanager.enable = true;
       

@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     hardware.intelcpu = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable intelcpu support.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.hardware.intelcpu.enable {
+  config = lib.mkIf config.nixos.hardware.intelcpu.enable {
     boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.initrd.availableKernelModules = [ "snd-hda-intel" ];

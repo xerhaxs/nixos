@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     virtualisation.kvm = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable kvm / qemu virtualisation.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.virtualisation.kvm.enable {
+  config = lib.mkIf config.nixos.virtualisation.kvm.enable {
     virtualisation.libvirtd = {
       enable = true;
       #allowedBridges = [];

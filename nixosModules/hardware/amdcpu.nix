@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     hardware.amdcpu = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable amdcpu support.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.hardware.amdcpu.enable {
+  config = lib.mkIf config.nixos.hardware.amdcpu.enable {
     boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
     boot.kernelModules = [ "kvm-amd" ];
     

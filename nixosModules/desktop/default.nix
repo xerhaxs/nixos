@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable desktop modules bundle.";
@@ -14,11 +12,13 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.enable {
+  config = lib.mkIf config.nixos.desktop.enable {
     imports = [
       ./desktopEnvironment
       ./displayManager
       ./windowManager
+      ./xdg.nix
+      ./xserver.nix
     ];
   };
 }

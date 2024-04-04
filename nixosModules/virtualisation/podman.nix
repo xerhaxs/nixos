@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options = {
     nixos.virtualisation.podman = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable podman virtualisation.";
@@ -23,7 +21,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.virtualisation.podman.enable {
+  config = lib.mkIf config.nixos.virtualisation.podman.enable {
     virtualisation.podman.enable = {
       enable = true;
     };

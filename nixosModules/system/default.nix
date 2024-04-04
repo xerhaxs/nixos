@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable system modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.enable {
+  config = lib.mkIf config.nixos.system.enable {
     imports = [
       ./audio.nix
       ./bootloader.nix
@@ -25,11 +23,15 @@ with lib;
       ./firewall.nix
       ./fonts.nix
       ./mount
+      ./nasmount.nix
       ./locals.nix
       ./networking.nix
       ./nixos.nix
       ./nixosvm.nix
       ./powermanagement.nix
+      ./secureboot.nix
+      ./sops.nix
+      ./ssh.nix
       ./swap.nix
       ./user.nix
     ];

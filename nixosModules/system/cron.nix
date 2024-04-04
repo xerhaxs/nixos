@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.cron = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable cron service.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.folder.name.enable {
+  config = lib.mkIf config.nixos.folder.name.enable {
     services.cron = {
       enable = true;
     };

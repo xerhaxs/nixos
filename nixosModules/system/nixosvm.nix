@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.nixosvm = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable nixosvm.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.nixosvm.enable {
+  config = lib.mkIf config.nixos.system.nixosvm.enable {
     virtualisation.vmVariant = {
       virtualisation = {
         #diskSize = 32768;

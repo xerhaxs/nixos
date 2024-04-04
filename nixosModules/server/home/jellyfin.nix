@@ -1,14 +1,27 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-  ];
+  options.nixos = {
+    server.home.jellyfin = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Jellyfin.";
+      };
+    };
+  };
 
-  services.jellyfin = {
-    enable = true;
-    openFirewall = false;
+  config = lib.mkIf config.nixos.server.home.jellyfin.enable {
+    #environment.systemPackages = with pkgs; [
+    #  jellyfin
+    #  jellyfin-web
+    #  jellyfin-ffmpeg
+    #];
+
+    services.jellyfin = {
+      enable = true;
+      openFirewall = false;
+    };
   };
 }

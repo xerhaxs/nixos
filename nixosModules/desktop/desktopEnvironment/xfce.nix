@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     desktop.desktopEnvironment.xfce = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable XFCE desktop environment.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.desktop.desktopEnvironment.xfce.enable {
+  config = lib.mkIf config.nixos.desktop.desktopEnvironment.xfce.enable {
     services.xserver.desktopManager.xfce = {
       enable = true;
       enableXfwm = true;

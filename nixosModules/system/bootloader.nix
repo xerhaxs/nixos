@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.bootloader = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable Bootloader.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.system.bootloader.enable {
+  config = lib.mkIf config.nixos.system.bootloader.enable {
     # Bootloader
     boot.initrd.availableKernelModules = [ "sr_mod" ];
     boot.kernelParams = [ "quiet" "splash" "loglevel=3" "udev.log-priority=3" "vt.global_cursor_default=1" ];

@@ -1,0 +1,18 @@
+{ config, lib, pkgs, ... }:
+
+{
+  options.nixos = {
+    base.texteditor.vim = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Vim.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.nixos.base.texteditor.vim.enable {
+    programs.vim.defaultEditor = true;
+  };
+}

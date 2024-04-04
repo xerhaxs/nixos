@@ -1,12 +1,25 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.uptime-kuma = {
-    enable = true;
-    appriseSupport = true;
-    settings = {
-      HOST = "uptime-kuma.bitsync.icu";
-      PORT = "8765";
+  options.nixos = {
+    server.network.uptime-kuma = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Uptime Kuma.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.nixos.server.network.uptime-kuma.enable {
+    services.uptime-kuma = {
+      enable = true;
+      appriseSupport = true;
+      settings = {
+        HOST = "uptime-kuma.bitsync.icu";
+        PORT = "8765";
+      };
     };
   };
 }

@@ -44,17 +44,31 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] create NixOS Hardend Config
 - [ ] write killswitch for server with rapi
 - [ ] move secrets to privat repo and create new secrets
+- [ ] bring normcap + handbrake to work
+- [ ] setup zsh
+- [ ] setup fish
+- [ ] OpenVPN Client
+- [ ] WireguardVPN Client
+
+- [ ] Server config
+  - [ ] setup lemmy
+  - [ ] setup mastodon
+  - [ ] setup moneronode
+  - [ ] setup peertube
+  - [ ] setup pixelfed
+  - [ ] setup haos vm
+  - [ ] setup OpenVPN Server config
+  - [ ] setup WireGuardVPN Server config
 
 
 
 
-with lib;
 
 {
   options.nixos = {
     folder.name = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable Docker virtualisation.";
@@ -62,7 +76,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.folder.name.enable {
+  config = lib.mkIf config.nixos.folder.name.enable {
 
   };
 }

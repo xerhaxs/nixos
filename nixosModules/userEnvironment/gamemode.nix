@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     userEnvironment.gamemode = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable gamemode.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.gamemode.enable {
+  config = lib.mkIf config.nixos.userEnvironment.gamemode.enable {
     programs.gamemode.enable = true;
   };
 }

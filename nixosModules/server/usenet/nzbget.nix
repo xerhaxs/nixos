@@ -1,13 +1,26 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.nzbget = {
-    enable = true;
-    settings = {
-      MainDir = "/mount/Data/Datein/Downloads/NZB Download/";
-      ControlPort = "6789";
-      ControlUsername = "admin";
-      ControlPassword = "CHANGEME";
+  options.nixos = {
+    server.usenet.nzbget = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable NZBGet.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.nixos.server.usenet.nzbget.enable {
+    services.nzbget = {
+      enable = true;
+      settings = {
+        MainDir = "/mount/Data/Datein/Downloads/NZB Download/";
+        ControlPort = "6789";
+        ControlUsername = "admin";
+        ControlPassword = "CHANGEME";
+      };
     };
   };
 }

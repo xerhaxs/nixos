@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   # generate via openvpn --genkey --secret openvpn-laptop.key
@@ -7,61 +7,74 @@ let
   vpn-dev = "tun0";
   port = 1194;
 in {
-  # sudo systemctl start nat
-  networking.nat = {
-    enable = true;
-    externalInterface = <your-server-out-if>;
-    internalInterfaces  = [ vpn-dev ];
+  options.nixos = {
+    server.network.openvpn-server = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = "Enable OpenVPN-Server.";
+      };
+    };
   };
-  networking.firewall.trustedInterfaces = [ vpn-dev ];
-  networking.firewall.allowedUDPPorts = [ port ];
-  environment.systemPackages = [ pkgs.openvpn ]; # for key generation
-  services.openvpn.servers.smartphone.config = ''
-    dev ${vpn-dev}
-    proto udp
-    ifconfig 10.8.0.1 10.8.0.2
-    secret ${client-key}
-    port ${toString port}
 
-    cipher AES-256-CBC
-    auth-nocache
-
-    comp-lzo
-    keepalive 10 60
-    ping-timer-rem
-    persist-tun
-    persist-key
-  '';
-
-  environment.etc."openvpn/smartphone-client.ovpn" = {
-    text = ''
-      dev tun
-      remote "${domain}"
-      ifconfig 10.8.0.2 10.8.0.1
+  config = lib.mkIf config.nixos.server.network.openvpn-server.enable {
+    # sudo systemctl start nat
+    networking.nat = {
+      enable = true;
+      externalInterface = <your-server-out-if>;
+      internalInterfaces  = [ vpn-dev ];
+    };
+    networking.firewall.trustedInterfaces = [ vpn-dev ];
+    networking.firewall.allowedUDPPorts = [ port ];
+    environment.systemPackages = [ pkgs.openvpn ]; # for key generation
+    services.openvpn.servers.smartphone.config = ''
+      dev ${vpn-dev}
+      proto udp
+      ifconfig 10.8.0.1 10.8.0.2
+      secret ${client-key}
       port ${toString port}
-      redirect-gateway def1
 
       cipher AES-256-CBC
       auth-nocache
 
       comp-lzo
       keepalive 10 60
-      resolv-retry infinite
-      nobind
-      persist-key
+      ping-timer-rem
       persist-tun
-      secret [inline]
-
+      persist-key
     '';
-    mode = "600";
+
+    environment.etc."openvpn/smartphone-client.ovpn" = {
+      text = ''
+        dev tun
+        remote "${domain}"
+        ifconfig 10.8.0.2 10.8.0.1
+        port ${toString port}
+        redirect-gateway def1
+
+        cipher AES-256-CBC
+        auth-nocache
+
+        comp-lzo
+        keepalive 10 60
+        resolv-retry infinite
+        nobind
+        persist-key
+        persist-tun
+        secret [inline]
+
+      '';
+      mode = "600";
+    };
+    system.activationScripts.openvpn-addkey = ''
+      f="/etc/openvpn/smartphone-client.ovpn"
+      if ! grep -q '<secret>' $f; then
+        echo "appending secret key"
+        echo "<secret>" >> $f
+        cat ${client-key} >> $f
+        echo "</secret>" >> $f
+      fi
+    '';
   };
-  system.activationScripts.openvpn-addkey = ''
-    f="/etc/openvpn/smartphone-client.ovpn"
-    if ! grep -q '<secret>' $f; then
-      echo "appending secret key"
-      echo "<secret>" >> $f
-      cat ${client-key} >> $f
-      echo "</secret>" >> $f
-    fi
-  '';
 }

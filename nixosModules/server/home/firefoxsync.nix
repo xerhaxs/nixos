@@ -1,19 +1,32 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  systemd.services.firefox-syncserver.serviceConfig.EnvironmentFile = [ 
-    config.sops.secrets."firefoxsync/secret".path
-  ];
+  options.nixos = {
+    server.home.firefoxsync = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable Firefoxsync.";
+      };
+    };
+  };
 
-  services.mysql.package = pkgs.mariadb;
+  config = lib.mkIf config.nixos.server.home.firefoxsync.enable {
+    systemd.services.firefox-syncserver.serviceConfig.EnvironmentFile = [ 
+      config.sops.secrets."firefoxsync/secret".path
+    ];
 
-  services.firefox-syncserver = {
-    enable = true;
-    secrets = config.sops.secrets."firefoxsync/secret".path;
-    singleNode = {
+    services.mysql.package = pkgs.mariadb;
+
+    services.firefox-syncserver = {
       enable = true;
-      hostname = "localhost";
-      url = "http://localhost:5000";
+      secrets = config.sops.secrets."firefoxsync/secret".path;
+      singleNode = {
+        enable = true;
+        hostname = "localhost";
+        url = "http://localhost:5000";
+      };
     };
   };
 }

@@ -1,32 +1,36 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     system.user = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Setup the system user.";
       };
       defaultuser = {
-        name = mkOption {
-          type = types.str;
+        name = lib.mkOption {
+          type = lib.types.str;
           example = "USER1";
           description = "Set the default user name.";
         };
-        pass = mkOption {
-          type = types.str;
+        pass = lib.mkOption {
+          type = lib.types.str;
           example = "$y$j9T$0UcoJ1R/ZXIbBZ5E0HtJT/$I7Q8aZQe/J06G1WZiLlEh0rc7HDOrltYUuDZrZSd4r0";
           description = "Set the pass for the default user as a hash. Create a hash of a password with `mkpasswd`.";
+        };
+        shell = lib.mkOption {
+          type = lib.types.package;
+          default = pkgs.bash;
+          example = pkgs.zsh;
+          description = "Set the default shell."
         };
       };
     };
   };
 
-  config = mkIf config.nixos.system.user.enable {
+  config = lib.mkIf config.nixos.system.user.enable {
     users.users."${config.nixos.system.user.defaultuser.name}" = {
       name = "${config.nixos.system.user.defaultuser.name}";
       isNormalUser = true;
@@ -41,7 +45,7 @@ with lib;
         "lp"
       ];
       initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
-      shell = pkgs.bash;
+      shell = ${config.nixos.system.user.defaultuser.shll};
     };
   };
 }

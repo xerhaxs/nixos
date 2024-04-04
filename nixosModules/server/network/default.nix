@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 { 
   options.nixos = {
     server.network = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         example = false;
         description = "Enable network modules bundle.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.server.network.enable {
+  config = lib.mkIf config.nixos.server.network.enable {
     imports = [
       ./adguard.nix
       ./dnsmasq.nix
@@ -22,6 +20,7 @@ with lib;
       ./nginx.nix
       ./openvpn-server
       ./uptime-kuma.nix
+      ./wireguard-server.nix
     ];
   };
 }
