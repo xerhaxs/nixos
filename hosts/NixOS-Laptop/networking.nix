@@ -21,8 +21,6 @@
 
     useDHCP = lib.mkForce true;
 
-    #defaultGateway = "10.75.0.1";
-
     wireless = {
       environmentFile = config.sops.secrets.wifi.path;
       networks = {
@@ -43,22 +41,5 @@
         };
       };
     };
-
-    extraHosts = ''
-      10.75.0.80 bitsync.icu
-      10.75.0.80 uptimekuma.bitsync.icu
-      10.75.0.80 nextcloud.bitsync.icu
-      10.75.0.80 radicale.bitsync.icu
-      10.75.0.80 homeassistant.bitsync.icu
-      10.75.0.80 pihole.bitsync.icu
-      10.75.0.80 radarr.bitsync.icu
-      10.75.0.80 sonarr.bitsync.icu
-      10.75.0.80 searx.bitsync.icu
-      10.75.0.80 invidious.bitsync.icu
-      10.75.0.80 libreddit.bitsync.icu
-      10.75.0.80 jellyfin.bitsync.icu
-      10.75.0.80 pufferpanel.bitsync.icu
-      10.75.0.80 onlyoffice.bitsync.icu
-    '';
   };
 }

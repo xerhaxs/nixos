@@ -28,27 +28,36 @@
     };
   };
 
-  time.timeZone = "${config.nixos.system.locals.timezone}";
+  config = mkIf config.nixos.system.locals.enable {
+    timezone = mkIf config.nixos.system.locals.timezone {
+      time.timeZone = "${config.nixos.system.locals.timezone}";
+    };
 
-  i18n.defaultLocale = "${config.nixos.system.locals.lang}";
+    lang = mkIf config.nixos.system.locals.lang {
+      i18n.defaultLocale = "${config.nixos.system.locals.lang}";
+    };
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "${config.nixos.system.locals.local}";
-    LC_IDENTIFICATION = "${config.nixos.system.locals.local}";
-    LC_MEASUREMENT = "${config.nixos.system.locals.local}";
-    LC_MONETARY = "${config.nixos.system.locals.local}";
-    LC_NAME = "${config.nixos.system.locals.local}";
-    LC_NUMERIC = "${config.nixos.system.locals.local}";
-    LC_PAPER = "${config.nixos.system.locals.local}";
-    LC_TELEPHONE = "${config.nixos.system.locals.local}";
-    LC_TIME = "${config.nixos.system.locals.local}";
-  };
+    local = mkIf config.nixos.system.locals.local {
+      i18n.extraLocaleSettings = {
+        LC_ADDRESS = "${config.nixos.system.locals.local}";
+        LC_IDENTIFICATION = "${config.nixos.system.locals.local}";
+        LC_MEASUREMENT = "${config.nixos.system.locals.local}";
+        LC_MONETARY = "${config.nixos.system.locals.local}";
+        LC_NAME = "${config.nixos.system.locals.local}";
+        LC_NUMERIC = "${config.nixos.system.locals.local}";
+        LC_PAPER = "${config.nixos.system.locals.local}";
+        LC_TELEPHONE = "${config.nixos.system.locals.local}";
+        LC_TIME = "${config.nixos.system.locals.local}";
+      };
+    };
 
-  console.keyMap = "${config.nixos.system.locals.consolekbd}";
-
-  services.xserver = {
-    xkb.layout = "${config.nixos.system.locals.consolekbd}";
-    xkb.variant = "";
-    #xkb.options = "";
+    consolekbd = mkIf config.nixos.system.locals.consolekbd {
+      console.keyMap = "${config.nixos.system.locals.consolekbd}";
+      services.xserver = {
+        xkb.layout = "${config.nixos.system.locals.consolekbd}";
+        xkb.variant = "";
+        #xkb.options = "";
+      };
+    };
   };
 }

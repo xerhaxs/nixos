@@ -9,6 +9,12 @@
         example = false;
         description = "Enable displayManager modules bundle.";
       };
+      defaultSession = lib.mkOption {
+        type = lib.types.str;
+        default = "hyprland";
+        example = "plasma";
+        description = "Set the default session for display manager.";
+      };
     };
   };
 

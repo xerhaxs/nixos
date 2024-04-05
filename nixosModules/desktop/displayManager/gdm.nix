@@ -22,7 +22,7 @@
           autoSuspend = true;
           #settings = {};
         };
-        defaultSession = "gnome";
+        defaultSession = "${config.nixos.desktop.displayManager.defaultSession}";
         #setupCommands = ""; # commands to run after displayManager has launched
       };
     };
