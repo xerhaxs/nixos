@@ -2,8 +2,10 @@
 
 {
   home.packages = with pkgs; [
-    gnome.gnome-disk-utility
-    gnome.file-roller
+    blender-hip
+    cura
+    curaengine
   ];
 }
+
 

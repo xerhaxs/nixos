@@ -21,6 +21,8 @@
     amdgpu.enable = true;
   };
 
+  nixos.system.nasmount.enable = true;
+
   nixos.system.powerManagement.profiles.powersave = lib.mkDefault true;
 
   nixos.system.user.defaultuser = {

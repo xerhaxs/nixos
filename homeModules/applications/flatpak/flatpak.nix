@@ -10,18 +10,15 @@
       onActivation = true;
       onCalendar = "weekly";
     };
-    packages = [
-      "com.github.tchx84.Flatseal"
-      "com.discordapp.Discord"
-      "com.valvesoftware.Steam"
-      "com.heroicgameslauncher.hgl"
-      "org.prismlauncher.PrismLauncher"
-      "net.lutris.Lutris"
-      "org.freedesktop.Platform.VulkanLayer.MangoHud"
-    ];
+
     remotes = {
      "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
     };
+    
+    packages = [
+      "com.github.tchx84.Flatseal"
+    ];
+
     overrides = {
       #"global" = {
         #filesystems = [
@@ -37,8 +34,5 @@
         #];
       #};
     };
-    preSwitchCommand = [
-      "com.valvesoftware.Steam:flatpak override --user --filesystem=/mount/Games/Spiele/Steam/ com.valvesoftware.Steam"
-    ];
   };
 }

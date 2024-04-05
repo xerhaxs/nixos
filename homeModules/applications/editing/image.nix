@@ -2,8 +2,9 @@
 
 {
   home.packages = with pkgs; [
-    gnome.gnome-disk-utility
-    gnome.file-roller
+    gimp
+    #inkscape-with-extensions
+    #krita
+    metapixel
   ];
 }
-

@@ -49,6 +49,10 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] setup fish
 - [ ] OpenVPN Client
 - [ ] WireguardVPN Client
+- [ ] setup helix + vim theming
+- [ ] default editor für EDITOR env in hm + nixos
+- [ ] kiwix addon firefox
+- [ ] create protonmail-bridge module
 
 - [ ] Server config
   - [ ] setup lemmy

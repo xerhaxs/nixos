@@ -2,8 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    gnome.gnome-disk-utility
-    gnome.file-roller
+    tor-browser-bundle-bin
   ];
 }
 

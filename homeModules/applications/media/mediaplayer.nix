@@ -2,8 +2,10 @@
 
 {
   home.packages = with pkgs; [
-    easyeffects
-    helvum
-    pavucontrol
+    clementine
+    mpv
+    vlc
   ];
 }
+
+
