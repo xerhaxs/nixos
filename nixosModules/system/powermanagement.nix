@@ -9,6 +9,26 @@
         example = false;
         description = "Enable Docker virtualisation.";
       };
+      profiles = {
+        powersave = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          example = true;
+          description = "Enables powersave profile.";
+        };
+        balance = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          example = false;
+          description = "Enables balance profile.";
+        };
+        performance  = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          example = true;
+          description = "Enables performance profile.";
+        }
+      };
     };
   };
 
@@ -23,5 +43,30 @@
     };
     powerManagement.enable = true;
     services.power-profiles-daemon.enable = true;
+
+    powersave = lib.mkIf config.nixos.system.powermanagement.powersave {
+      powerManagement = {
+        cpuFreqGovernor = "powersave";
+        scsiLinkPolicy = "min_power";
+        powertop.enable = true;
+      };
+    };
+
+    balance = lib.mkIf config.nixos.system.powermanagement.balance {
+      powerManagement = {
+        cpuFreqGovernor = "ondemand";
+        scsiLinkPolicy = "max_performance";
+      };
+    };
+
+    performance = lib.mkIf config.nixos.system.powermanagement.performance {
+      powerManagement = {
+        cpuFreqGovernor = "performance";
+        scsiLinkPolicy = "max_performance";
+      };
+    };
   };
 }
+
+
+  

@@ -3,11 +3,8 @@
 {
   imports = [
     ./bootloader.nix
-    ./driver.nix
     ./hardware-configuration.nix
+    ./laptop.nix
     ./networking.nix
-    ./powersave.nix
-    ./sddm.nix
-    ./user.nix
   ];
 }

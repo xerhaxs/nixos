@@ -22,7 +22,7 @@
         wayland.enable = true;
         enableHidpi = false;
       };
-      defaultSession = "hyprland";
+      defaultSession = "${config.nixos.desktop.displayManager.defaultSession}";
     };
   };
 }
