@@ -1,7 +1,11 @@
- { config, pkgs, ... }:
+ { config, lib, pkgs, ... }:
 
 {
   dconf.settings = {
+    "org/gnome/desktop/wm.preferences" = {
+      button-layout = "close,minimize,maximize";
+    };
+
     "org/gnome/shell" = {
       favorite-apps = [
         "librewolf.desktop"

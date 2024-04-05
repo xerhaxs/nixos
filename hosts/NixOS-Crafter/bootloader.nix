@@ -1,4 +1,4 @@
-{ config, lib, pkgs, fetchgit, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Bootloader

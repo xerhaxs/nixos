@@ -2,8 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    gnome.gnome-disk-utility
-    gnome.file-roller
+    jetbrains.idea-community
+    jetbrains.pycharm-community
   ];
 }
-
