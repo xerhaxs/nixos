@@ -45,6 +45,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] write killswitch for server with rapi
 - [ ] move secrets to privat repo and create new secrets
 - [ ] bring normcap + handbrake to work
+- [ ] setup bash
 - [ ] setup zsh
 - [ ] setup fish
 - [ ] OpenVPN Client
@@ -53,6 +54,11 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] default editor für EDITOR env in hm + nixos
 - [ ] kiwix addon firefox
 - [ ] create protonmail-bridge module
+- [ ] setup diff tools in hm
+- [ ] theme starship
+- [ ] setup emacs, helix, neovim, vim + theming
+- [ ] setup ranger with theming
+
 
 - [ ] Server config
   - [ ] setup lemmy

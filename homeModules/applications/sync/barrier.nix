@@ -1,9 +1,22 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.barrier.client = {
-    enable = true;
-    enableCrypot = true;
-    enableDragDrop = true;
+  options.homeManager = {
+    applications.sync.barrier = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = "Enable barrier sync.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.homeManager.applications.sync.barrier.enable {
+    services.barrier.client = {
+      enable = true;
+      enableCrypot = true;
+      enableDragDrop = true;
+    };
   };
 }

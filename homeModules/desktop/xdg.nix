@@ -46,21 +46,34 @@ let
 in
 
 {
-  xdg = {
-    enable = true;
-    cacheHome = config.home.homeDirectory + "/.local/cache";
-
-    mimeApps = {
-      enable = true;
-      defaultApplications = associations;
-      associations.added = associations;
+  options.homeManager = {
+    desktop.xdg = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable xdg settings.";
+      };
     };
+  };
 
-    userDirs = {
+  config = lib.mkIf config.homeManager.desktop.xdg.enable {
+    xdg = {
       enable = true;
-      createDirectories = true;
-      extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.desktop}";
+      cacheHome = config.home.homeDirectory + "/.local/cache";
+
+      mimeApps = {
+        enable = true;
+        defaultApplications = associations;
+        associations.added = associations;
+      };
+
+      userDirs = {
+        enable = true;
+        createDirectories = true;
+        extraConfig = {
+          XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.desktop}";
+        };
       };
     };
   };

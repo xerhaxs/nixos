@@ -164,7 +164,7 @@
             };
 
             #home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users.${config.defaultuser.name} = {
+            home-manager.users.${osConfig.defaultuser.name} = {
               imports = [ 
                 ./hosts/NixOS-Desktop/home-desktop
                 plasma-manager.homeManagerModules.plasma-manager

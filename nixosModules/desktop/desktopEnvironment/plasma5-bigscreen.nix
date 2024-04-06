@@ -32,6 +32,7 @@
         breeze-icons
         oxygen
         oxygen-icons5
+        oxygen-sounds
         plasma-workspace-wallpapers
       ];
     };

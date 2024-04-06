@@ -1,22 +1,34 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
-    gImageReader
-    hunspell
-    hunspellDicts.de_DE
-    hunspellDicts.en_GB-large
-    hunspellDicts.en_US
-    hyphen
-    kdePackages.ghostwriter
-    kile
-    languagetool
-    libreoffice
-    mythes
-    normcap
-    #onlyoffice-bin
-    rnote
-    #xournalpp
-  ];
+  options.homeManager = {
+    applications.office.office = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable office tools.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.homeManager.applications.office.office.enable {
+    home.packages = with pkgs; [
+      gImageReader
+      hunspell
+      hunspellDicts.de_DE
+      hunspellDicts.en_GB-large
+      hunspellDicts.en_US
+      hyphen
+      kdePackages.ghostwriter
+      kile
+      languagetool
+      libreoffice
+      mythes
+      normcap
+      #onlyoffice-bin
+      rnote
+      #xournalpp
+    ];
+  };
 }
