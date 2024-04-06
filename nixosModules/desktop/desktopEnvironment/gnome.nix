@@ -36,6 +36,7 @@
         gnome-maps
         gnome-weather
         seahorse
+        sound-theme-freedesktop
       ];
     };
 

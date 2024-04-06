@@ -1,38 +1,51 @@
 { config, pkgs, flatpak, ... }:
 
 {
-  services.flatpak = {
-    enable = true;
-    deduplicate = true;
-    recycle-generation = false;
-    update = {
-      auto.enable = true;
-      onActivation = true;
-      onCalendar = "weekly";
+  options.homeManager = {
+    applications.flatpak.flatpak = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable flatpak.";
+      };
     };
+  };
 
-    remotes = {
-     "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
-    };
-    
-    packages = [
-      "com.github.tchx84.Flatseal"
-    ];
+  config = lib.mkIf config.homeManager.applications.flatpak.flatpak.enable {
+    services.flatpak = {
+      enable = true;
+      deduplicate = true;
+      recycle-generation = false;
+      update = {
+        auto.enable = true;
+        onActivation = true;
+        onCalendar = "weekly";
+      };
 
-    overrides = {
-      #"global" = {
-        #filesystems = [
-        #  "home"
-        #  "!~/Games/Heroic"
-        #];
-        #environment = {
-        #  "MOZ_ENABLE_WAYLAND" = 1;
+      remotes = {
+      "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
+      };
+      
+      packages = [
+        "com.github.tchx84.Flatseal"
+      ];
+
+      overrides = {
+        #"global" = {
+          #filesystems = [
+          #  "home"
+          #  "!~/Games/Heroic"
+          #];
+          #environment = {
+          #  "MOZ_ENABLE_WAYLAND" = 1;
+          #};
+          #sockets = [
+          #  "!x11"
+          #  "fallback-x11"
+          #];
         #};
-        #sockets = [
-        #  "!x11"
-        #  "fallback-x11"
-        #];
-      #};
+      };
     };
   };
 }

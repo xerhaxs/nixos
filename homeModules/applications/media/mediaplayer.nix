@@ -1,11 +1,24 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    clementine
-    mpv
-    vlc
-  ];
+  options.homeManager = {
+    applications.media.mediaplayer = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable mediaplayer.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.homeManager.applications.media.mediaplayer.enable {
+    home.packages = with pkgs; [
+      clementine
+      mpv
+      vlc
+    ];
+  };
 }
 
 

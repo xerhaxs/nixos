@@ -1,29 +1,42 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  services.dunst = {
-    enable = false;
-
-    settings = {
-      global = {
-        frame_color = "#89B4FA";
-        separator_color = "frame";
+  options.homeManager = {
+    desktop.windowManager.hyprland.dunst = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable dunst.";
       };
+    };
+  };
 
-      urgency_low = {
-        background = "#1E1E2E";
-        foreground = "#CDD6F4";
-      };
+  config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.dunst.enable {
+    services.dunst = {
+      enable = false;
 
-      urgency_normal = {
-        background = "#1E1E2E";
-        foreground = "#CDD6F4";
-      };
+      settings = {
+        global = {
+          frame_color = "#89B4FA";
+          separator_color = "frame";
+        };
 
-      urgency_critical = {
-        background = "#1E1E2E";
-        foreground = "#CDD6F4";
-        frame_color = "#FAB387";
+        urgency_low = {
+          background = "#1E1E2E";
+          foreground = "#CDD6F4";
+        };
+
+        urgency_normal = {
+          background = "#1E1E2E";
+          foreground = "#CDD6F4";
+        };
+
+        urgency_critical = {
+          background = "#1E1E2E";
+          foreground = "#CDD6F4";
+          frame_color = "#FAB387";
+        };
       };
     };
   };

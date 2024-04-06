@@ -1,12 +1,25 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    xorg.xkill
-  ];
+  options.homeManager = {
+    desktop.xserver = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable xserver settings.";
+      };
+    };
+  };
 
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 100;
+  config = lib.mkIf config.homeManager.desktop.xserver.enable {
+    home.packages = with pkgs; [
+      xorg.xkill
+    ];
+
+    xresources.properties = {
+      "Xcursor.size" = 16;
+      "Xft.dpi" = 100;
+    };
   };
 }

@@ -1,13 +1,26 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    fluent-reader
-    freetube
-    mediathekview
-    nuclear
-    qbittorrent
-  ];
+  options.homeManager = {
+    applications.media.clients = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = "Enable media clients.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.homeManager.applications.media.clients.enable {
+    home.packages = with pkgs; [
+      fluent-reader
+      freetube
+      mediathekview
+      nuclear
+      qbittorrent
+    ];
+  };
 }
 
 
