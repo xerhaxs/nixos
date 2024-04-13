@@ -11,10 +11,10 @@
     };
     displayManager = {
       defaultSession = "plasma";
-      sddm.enbale = true;
+      sddm.enable = true;
     };
     windowManager = {
-      hyprland.enbale = true;
+      hyprland.enable = true;
     }
   };
 
@@ -23,13 +23,15 @@
     amdgpu.enable = true;
   };
 
+  nixos.server.enable = true;
+
   nixos.system.nasmount.enable = true;
 
-  nixos.system.powerManagement.profiles.powersave = lib.mkDefault true;
+  nixos.system.powerManagement.profiles.performance = lib.mkDefault true;
 
   nixos.system.user.defaultuser = {
     name = "jf";
-    pass = "$y$j9T$QJpNF3qTBVhLCq2CwPCbs1$BJOqUB9uV.QhaBK9SU5s/zRIYP/.3kHL9iff399qdS8";
+    pass = "$y$j9T$A6v316Tc2Usaan2354fxd1$wulue.bpYvZaWAASMRbzx6OlrxLCODK8higp4OkTLJB";
   };
 
   nixos.userEnvironment.enable = true;

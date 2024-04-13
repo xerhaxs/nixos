@@ -58,6 +58,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] theme starship
 - [ ] setup emacs, helix, neovim, vim + theming
 - [ ] setup ranger with theming
+- [ ] USB Bootdrive with NixOS and files
+- [ ] Plasma6 HDR test
 
 
 - [ ] Server config

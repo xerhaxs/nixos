@@ -28,7 +28,7 @@
       config = {
         dbtype = "pgsql";
         dbuser = "nextcloud";
-        #dbhost = "/mount/Data/Datein/Server/nextcloud-postgresql";
+        dbhost = "/mount/Data/Datein/Server/nextcloud-postgresql";
         dbname = "nextcloud";
         dbpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
         adminuser = "admin";
