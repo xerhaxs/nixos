@@ -61,28 +61,8 @@
     nixosConfigurations = {
       NixOS-Crafter = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-
-        
-
         modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
-          ./system
-          ./hosts/NixOS-Crafter
-
-          ./system-modules/fonts.nix
-          ./system-modules/hardware-configuration.nix
-          ./system-modules/intelcpu.nix
-          ./system-modules/intelgpu.nix
-          ./system-modules/kdeconnect.nix
-          ./system-modules/mullvad.nix
-          #./system-modules/nvidiagpu.nix
-          ./system-modules/plasma5.nix
-          ./system-modules/printing.nix
-          ./system-modules/sddm.nix
-          ./system-modules/syncthing.nix
-          ./system-modules/theme.nix
-          ./system-modules/theme-latte.nix
+          
 
           # disko Moule
           disko.nixosModules.disko
@@ -116,33 +96,8 @@
         };
 
         modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
-          ./system
-          ./hosts/NixOS-Desktop
-
-          ./system-modules/amdcpu.nix
-          ./system-modules/amdgpu.nix
-          ./system-modules/autostart.nix
-          #./system-modules/corectrl.nix
-          ./system-modules/flatpak.nix
-          ./system-modules/fonts.nix
-          ./system-modules/gamemode.nix
-          #./system-modules/gnome.nix
-          #./system-modules/hardware-configuration.nix
-          ./system-modules/hyprland.nix
-          ./system-modules/kdeconnect.nix
-          ./system-modules/mullvad.nix
-          #./system-modules/nasmount.nix
-          ./system-modules/plasma5.nix
-          ./system-modules/printing.nix
-          ./system-modules/protonmail-bridge.nix
-          #./system-modules/python.nix
-          ./system-modules/razer.nix
-          ./system-modules/sddm.nix
-          ./system-modules/syncthing.nix
-          ./system-modules/theme.nix
-          ./system-modules/theme-mocha.nix
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Desktop/default.nix
 
           # disko Moule
           disko.nixosModules.disko
@@ -153,25 +108,8 @@
 
           nur.nixosModules.nur
           flatpak.nixosModules.default
-          plasma-manager.nixosModules.plasma-manager
+          #plasma-manager.nixosModules.plasma-manager
 
-          home-manager.nixosModules.home-manager 
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = specialArgs;
-            };
-
-            #home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users.${osConfig.defaultuser.name} = {
-              imports = [ 
-                ./hosts/NixOS-Desktop/home-desktop
-                plasma-manager.homeManagerModules.plasma-manager
-                flatpak.homeManagerModules.default  
-              ];
-            };
-          }
         ];
       };
 
@@ -181,26 +119,7 @@
         specialArgs = inputs;
 
         modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
-          ./system
-          ./hosts/NixOS-Gaming
-
-          ./system-modules/amdcpu.nix
-          #./system-modules/bigscreen.nix
-          ./system-modules/corectrl.nix
-          ./system-modules/flatpak.nix
-          ./system-modules/fonts.nix
-          ./system-modules/gamemode.nix
-          ./system-modules/hardware-configuration.nix
-          ./system-modules/kdeconnect.nix
-          ./system-modules/nasmount.nix
-          ./system-modules/nvidiagpu.nix
-          ./system-modules/plasma5.nix
-          ./system-modules/sddm.nix
-          ./system-modules/steam.nix
-          ./system-modules/theme.nix
-          ./system-modules/theme-mocha.nix
+          
           
           # disko Moule
           disko.nixosModules.disko
@@ -242,32 +161,7 @@
         specialArgs = inputs;
 
         modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
-          ./system
-          ./hosts/NixOS-Laptop
-
-          ./system-modules/amdcpu.nix
-          ./system-modules/amdgpu.nix
-          ./system-modules/autostart.nix
-          ./system-modules/flatpak.nix
-          ./system-modules/fonts.nix
-          #./system-modules/gdm.nix
-          #./system-modules/gnome.nix
-          ./system-modules/hardware-configuration.nix
-          ./system-modules/hyprland.nix
-          ./system-modules/kdeconnect.nix
-          ./system-modules/mullvad.nix
-          #./system-modules/nasmount.nix
-          ./system-modules/plasma5.nix
-          ./system-modules/printing.nix
-          ./system-modules/protonmail-bridge.nix
-          ./system-modules/python.nix
-          ./system-modules/sddm.nix
-          ./system-modules/syncthing.nix
-          ./system-modules/theme.nix
-          ./system-modules/theme-latte.nix
-          #./system-modules/wireguard-client.nix
+          
 
           # disko Moule
           disko.nixosModules.disko
@@ -299,20 +193,7 @@
         specialArgs = inputs;
 
         modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
-          ./system
-          ./hosts/NixOS-Server
-
-          ./system-modules/docker.nix
-          ./system-modules/fonts.nix
-          ./system-modules/hardware-configuration.nix
-          ./system-modules/intelcpu.nix
-          #./system-modules/intelgpu.nix
-          #./system-modules/nasmount.nix
-          #./system-modules/python.nix
-          ./system-modules/ssh.nix
-
+          
           # disko Moule
           disko.nixosModules.disko
           ./system-modules/disko-uefi-lvm-on-luks.nix
@@ -343,31 +224,7 @@
         specialArgs = inputs;
 
         modules = [
-          # This is not a complete NixOS configuration and you need to reference
-          # your normal configuration here.
-          #./system
-          ./hosts/NixOS-Testing
-
-          #./system-modules/amdcpu.nix
-          #./system-modules/amdgpu.nix
-          ./system-modules/autostart.nix
-          ./system-modules/flatpak.nix
-          ./system-modules/fonts.nix
-          #./system-modules/gdm.nix
-          #./system-modules/gnome.nix
-          ./system-modules/hardware-configuration.nix
-          ./system-modules/hyprland.nix
-          ./system-modules/kdeconnect.nix
-          ./system-modules/mullvad.nix
-          #./system-modules/nasmount.nix
-          ./system-modules/plasma6.nix
-          ./system-modules/printing.nix
-          ./system-modules/protonmail-bridge.nix
-          ./system-modules/python.nix
-          ./system-modules/sddm.nix
-          ./system-modules/theme.nix
-          ./system-modules/theme-latte.nix
-          #./system-modules/wireguard-client.nix
+          
 
           # disko Moule
           disko.nixosModules.disko

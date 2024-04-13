@@ -26,6 +26,10 @@
           example = pkgs.zsh;
           description = "Set the default shell."
         };
+        settings = lib.mkOption {
+          default = {};
+          description = "The default settings per user.";
+        };
       };
     };
   };
