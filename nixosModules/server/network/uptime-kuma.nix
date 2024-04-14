@@ -5,8 +5,8 @@
     server.network.uptime-kuma = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable Uptime Kuma.";
       };
     };

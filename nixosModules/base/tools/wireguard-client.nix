@@ -26,7 +26,7 @@
           # Determines the IP address and subnet of the client's end of the tunnel interface.
           ips = [ "10.75.0.202/24" ];
           listenPort = 59595; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-          privateKeyFile = config.sops.secrets."wireguard/home/privateKey".path;;
+          privateKeyFile = config.sops.secrets."wireguard/home/privateKey".path;
           # Path to the private key file.
           #
           # Note: The private key can also be included inline via the privateKey option,

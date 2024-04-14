@@ -5,8 +5,8 @@
     io.bluetooth = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable Bluetooth support.";
       };
     };

@@ -5,8 +5,8 @@
     system.user = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Setup the system user.";
       };
       defaultuser = {
@@ -24,7 +24,7 @@
           type = lib.types.package;
           default = pkgs.bash;
           example = pkgs.zsh;
-          description = "Set the default shell."
+          description = "Set the default shell.";
         };
         settings = lib.mkOption {
           default = {};
@@ -49,7 +49,7 @@
         "lp"
       ];
       initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
-      shell = ${config.nixos.system.user.defaultuser.shll};
+      shell = config.nixos.system.user.defaultuser.shell;
     };
   };
 }

@@ -5,9 +5,9 @@
     system.powermanagement = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
-        description = "Enable Docker virtualisation.";
+        default = false;
+        example = true;
+        description = "Enable powermanagment options.";
       };
       profiles = {
         powersave = lib.mkOption {
@@ -18,16 +18,16 @@
         };
         balance = lib.mkOption {
           type = lib.types.bool;
-          default = true;
-          example = false;
+          default = false;
+          example = true;
           description = "Enables balance profile.";
         };
-        performance  = lib.mkOption {
+        performance = lib.mkOption {
           type = lib.types.bool;
           default = false;
           example = true;
           description = "Enables performance profile.";
-        }
+        };
       };
     };
   };
@@ -44,26 +44,10 @@
     powerManagement.enable = true;
     services.power-profiles-daemon.enable = true;
 
-    powersave = lib.mkIf config.nixos.system.powermanagement.powersave {
-      powerManagement = {
-        cpuFreqGovernor = "powersave";
-        scsiLinkPolicy = "min_power";
-        powertop.enable = true;
-      };
-    };
-
-    balance = lib.mkIf config.nixos.system.powermanagement.balance {
-      powerManagement = {
-        cpuFreqGovernor = "ondemand";
-        scsiLinkPolicy = "max_performance";
-      };
-    };
-
-    performance = lib.mkIf config.nixos.system.powermanagement.performance {
-      powerManagement = {
-        cpuFreqGovernor = "performance";
-        scsiLinkPolicy = "max_performance";
-      };
+    powerManagement = {
+      cpuFreqGovernor = lib.mkIf config.nixos.system.powermanagement.profiles.powersave "powersave" 
+        (lib.mkIf config.nixos.system.powermanagement.profiles.balance "ondemand" "performance");
+      scsiLinkPolicy = lib.mkIf config.nixos.system.powermanagement.profiles.powersave "min_power" "max_performance";
     };
   };
 }

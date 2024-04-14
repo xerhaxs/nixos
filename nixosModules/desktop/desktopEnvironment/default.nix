@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./cinnamon.nix
+    ./gnome.nix
+    ./plasma5-bigscreen.nix
+    ./plasma5.nix
+    ./plasma6.nix
+    ./xfce.nix
+  ];
+
   options.nixos = {
     desktop.desktopEnvironment = {
       enable = lib.mkOption {
@@ -13,13 +22,13 @@
   };
 
   config = lib.mkIf config.nixos.desktop.desktopEnvironment.enable {
-    imports = [
-      ./cinnamon.nix
-      ./gnome.nix
-      ./plasma5-bigscreen.nix
-      ./plasma5.nix
-      ./plasma6.nix
-      ./xfce.nix
-    ];
+    nixos.desktop.desktopEnvironment = {
+      cinnamon.enable = false;
+      gnome.enable = false;
+      plasma5-bigscreen.enable = false;
+      plasma5.enable = false;
+      plasma6.enable = true;
+      xfce.enable = false;
+    };
   };
 }

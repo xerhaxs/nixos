@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     userEnvironment.autostart.steam = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable steam autostart.";
@@ -14,7 +12,7 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.autostart.steam.enable {
+  config = lib.mkIf config.nixos.userEnvironment.autostart.steam.enable {
     systemd.user.services.${config.nixos.system.user.defaultuser.name} = {
       script = ''
         flatpak run com.valvesoftware.Steam

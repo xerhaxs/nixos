@@ -5,8 +5,8 @@
     userEnvironment.kdeconnect = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable kdeconnect.";
       };
     };
@@ -16,7 +16,6 @@
     programs.kdeconnect.enable = true;
     networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
     networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
-    };
   };
 }
 

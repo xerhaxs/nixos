@@ -1,23 +1,24 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
+  imports = [
+    ./protonmail-bridge.nix
+    ./steam.nix
+  ];
+
   options.nixos = {
     userEnvironment.autostart = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        example = false;
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
         description = "Enable autostart modules bundle.";
       };
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.autostart.enable {
-    imports = [
-      ./protonmail-bridge.nix
-      ./steam.nix
-    ];
+  config = lib.mkIf config.nixos.userEnvironment.autostart.enable {
+    protonmail-bridge.enable = false;
+    steam.enable = false;
   };
 }
