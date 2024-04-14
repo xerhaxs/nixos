@@ -1,22 +1,28 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./bluetooth.nix
+    ./input.nix
+    ./razer.nix
+  ];
+
   options.nixos = {
     io = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable io modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.nixos.io.enable {
-    imports = [
-      ./bluetooth.nix
-      ./input.nix
-      ./razer.nix
-    ];
+    nixos.io = {
+      bluetooth.enable = true;
+      input.enable = true;
+      razer.enable = true;
+    };
   };
 }

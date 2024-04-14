@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -7,8 +7,6 @@
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
-    ./sddm.nix
-    ./user.nix
     ./xserver.nix
   ];
 }

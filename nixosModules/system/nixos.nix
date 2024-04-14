@@ -5,8 +5,8 @@
     system.nixos = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable the default NixOS settings.";
       };
     };
@@ -40,13 +40,13 @@
     };
 
     system.stateVersion = "24.05";
+
+    environment.systemPackages = with pkgs; [
+      nix-output-monitor # nix related
+      nix-prefetch
+      nixos-generators
+    ];
+
+    programs.nix-index.enable = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    nix-output-monitor # nix related
-    nix-prefetch
-    nixos-generators
-  ];
-
-  programs.nix-index.enable = true;
 }

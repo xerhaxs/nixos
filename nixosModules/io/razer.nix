@@ -18,7 +18,7 @@
       devicesOffOnScreensaver = true;
       mouseBatteryNotifier = true;
       syncEffectsEnabled = true;
-      users = [ "${nixos.system.users.defaultuser.name}" ];
+      users = [ "${config.nixos.system.users.defaultuser.name}" ];
     };
     environment.systemPackages = with pkgs; [
       razergenie

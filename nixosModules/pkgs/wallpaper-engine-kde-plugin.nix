@@ -76,7 +76,7 @@ in
     };
   };
 
-  config = lib.mkIf config.nixos.pkgs.wallpaper-engine-kde-plugin.enable {
+  config = lib.mkIf (config.nixos.pkgs.wallpaper-engine-kde-plugin.enable && config.nixos.desktop.desktopEnvironment.plasma5.enable) {
     environment.systemPackages = with pkgs; with libsForQt5; [
       wallpaper-engine-kde-plugin
       qt5.qtwebsockets

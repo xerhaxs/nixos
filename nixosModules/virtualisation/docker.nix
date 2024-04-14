@@ -10,21 +10,13 @@
         description = "Enable Docker virtualisation.";
       };
     };
-    virtualisation.docker.enableNvidia = {
-      default = false;
-      example = true;
-      enableIf = [
-        { option = "hardware.nvidia.enable"; value = true; 
-          option = "nixos.virtualisation.docker.enable"; value = true; }
-      ];
-      description = "Enable nvidia support if needed.";
-    };
   };
 
   config = lib.mkIf config.nixos.virtualisation.docker.enable {
-    virtualisation.docker.enable = {
+    virtualisation.docker = {
       enable = true;
       enableOnBoot = true;
+      enableNvidia = lib.mkIf (config.hardware.nvidia.enable && config.nixos.virtualisation.docker.enable) true;
     };
   };
 }

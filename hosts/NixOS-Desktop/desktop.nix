@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  homeManager.applications.enable = true;
+  #homeManager.applications.enable = true;
 
   nixos.base.tools.syncthing.enable = true;
 
@@ -15,7 +15,7 @@
     };
     windowManager = {
       hyprland.enable = true;
-    }
+    };
   };
 
   nixos.hardware = {
@@ -23,7 +23,7 @@
     amdgpu.enable = true;
   };
 
-  nixos.server.enable = true;
+  nixos.server.enable = lib.mkDefault true;
 
   nixos.system.nasmount.enable = true;
 

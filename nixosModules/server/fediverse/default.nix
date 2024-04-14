@@ -1,30 +1,44 @@
 { config, lib, pkgs, ... }:
 
 { 
+  imports = [
+    ./freshrss.nix
+    ./gitea.nix
+    ./invidious.nix
+    ./lemmy.nix
+    ./libreddit.nix
+    ./mastodon.nix
+    ./moneronode.nix
+    ./nitter.nix
+    ./peertube.nix
+    ./pixelfed.nix
+    ./searxng.nix
+  ];
+
   options.nixos = {
     server.fediverse = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable fediverse modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.nixos.server.fediverse.enable {
-    imports = [
-      ./freshrss.nix
-      ./gitea.nix
-      ./invidious.nix
-      ./lemmy.nix
-      ./libreddit.nix
-      ./mastodon.nix
-      ./moneronode.nix
-      ./nitter.nix
-      ./peertube.nix
-      ./pixelfed.nix
-      ./searxng.nix
-    ];
+    nixos.server.fediverse = {
+      freshrss.enable = true;
+      gitea.enable = true;
+      invidious.enable = true;
+      lemmy.enable = true;
+      libreddit.enable = true;
+      mastodon.enable = true;
+      moneronode.enable = true;
+      nitter.enable = true;
+      peertube.enable = true;
+      pixelfed.enable = true;
+      searxng.enable = true;
+    };
   };
 }

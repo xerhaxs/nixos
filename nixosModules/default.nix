@@ -1,6 +1,20 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./base
+    ./desktop
+    #./disko
+    ./hardware
+    ./io
+    ./pkgs
+    ./server
+    ./system
+    ./theme
+    ./userEnvironment
+    ./virtualisation
+  ];
+
   options.nixos = {
     nixosModules = {
       enable = lib.mkOption {
@@ -13,18 +27,20 @@
   };
 
   config = lib.mkIf config.nixos.nixosModules.enable {
-    imports = [
-      ./base
-      ./desktop
-      ./disko
-      ./hardware
-      ./io
-      ./pkgs
-      ./server
-      ./system
-      ./theme
-      ./userEnvironment
-      ./virtualisation
-    ];
+    nixos = {
+      base.enable = true;
+      desktop.enable = true;
+      #disko.enable = false;
+      hardware.enable = false;
+      io.enable = true;
+      pkgs.enable = false;
+      server.enable = false;
+      system.enable = true;
+      theme.enable = false;
+      userEnvironment.enable = false;
+      virtualisation.enable = true;
+    };
   };
+
+  #nixos.nixosModules.enable = true;
 }

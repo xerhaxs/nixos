@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   options.nixos = {
     userEnvironment.autostart.protonmail-bridge = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         example = true;
         description = "Enable protonmail-bridge autostart.";
@@ -14,8 +12,8 @@ with lib;
     };
   };
 
-  config = mkIf config.nixos.userEnvironment.autostart.protonmail-bridge.enable {
-    systemd.user.services.${nixos.system.user.defaultuser.name} = {
+  config = lib.mkIf config.nixos.userEnvironment.autostart.protonmail-bridge.enable {
+    systemd.user.services.${config.nixos.system.user.defaultuser.name} = {
       script = ''
         protonmail-bridge -n
       '';

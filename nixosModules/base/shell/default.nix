@@ -1,22 +1,28 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./bash.nix
+    ./fish.nix
+    ./zsh.nix
+  ];
+
   options.nixos = {
     base.shell = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable shell modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.nixos.base.shell.enable {
-    imports = [
-      ./bash.nix
-      ./fish.nix
-      ./zsh.nix
-    ];
+    nixos.base.shell = {
+      bash.enable = true;
+      fish.enable = false;
+      zsh.enable = false;
+    };
   };
 }
