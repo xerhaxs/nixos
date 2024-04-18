@@ -18,6 +18,8 @@
       element-desktop
       signal-desktop
       telegram-desktop
+      mumble
+      teamspeak_client
     ];
   };
 }

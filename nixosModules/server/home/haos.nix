@@ -13,14 +13,14 @@
   };
 
   config = lib.mkIf config.nixos.server.home.haos.enable {
-    virualisation = {
-      diskSize = 32768;
-      diskImage = "/mount/Data/Datein/Downloads/nixos/hosts/desktop/server/haos_ova-11.5.qcow2";
-      cores = 4;
-      graphics = true;
-      useEFIBoot = true;
-      memorySize = 2048;
-      useSecureBoot = false;
-    };
+    #virtualisation = {
+    #  diskSize = 32768;
+    #  diskImage = "/mount/Data/Datein/Downloads/nixos/hosts/desktop/server/haos_ova-11.5.qcow2";
+    #  cores = 2;
+    #  graphics = true;
+    #  useEFIBoot = true;
+    #  memorySize = 2048;
+    #  useSecureBoot = false;
+    #};
   };
 }

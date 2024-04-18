@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sops-nix, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.nixos = {
@@ -16,12 +16,6 @@
     #systemd.services.webdav.serviceConfig.EnvironmentFile = [ 
     #  config.sops.secrets.changeme_env.path 
     #];
-    
-
-    # sopes-nix Module
-    imports = [ 
-      sops-nix.nixosModules.sops
-    ];
 
     environment.systemPackages = with pkgs; [
       sops

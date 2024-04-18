@@ -10,7 +10,7 @@
     ./pkgs
     ./server
     ./system
-    ./theme
+    #./theme
     ./userEnvironment
     ./virtualisation
   ];
@@ -36,7 +36,7 @@
       pkgs.enable = false;
       server.enable = false;
       system.enable = true;
-      theme.enable = false;
+      #theme.enable = false;
       userEnvironment.enable = false;
       virtualisation.enable = true;
     };

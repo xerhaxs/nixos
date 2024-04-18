@@ -11,7 +11,7 @@
     };
     displayManager = {
       defaultSession = "plasma";
-      sddm.enable = true;
+      sddm.enable = lib.mkDefault true;
     };
     windowManager = {
       hyprland.enable = true;
@@ -27,7 +27,7 @@
 
   nixos.system.nasmount.enable = true;
 
-  nixos.system.powerManagement.profiles.performance = lib.mkDefault true;
+  nixos.system.powermanagement.profiles.performance = lib.mkDefault true;
 
   nixos.system.user.defaultuser = {
     name = "jf";

@@ -18,7 +18,6 @@
       enableCompletion = true;
       enableBashCompletion = true;
       autosuggestions.enable = true;
-      enableZshIntegration = true;
       syntaxHighlighting = {
         enable = true;
         highlighters = [ "main" ];

@@ -9,10 +9,12 @@
     ./libreddit.nix
     ./mastodon.nix
     ./moneronode.nix
+    ./murmur.nix
     ./nitter.nix
     ./peertube.nix
     ./pixelfed.nix
     ./searxng.nix
+    ./teamspeak.nix
   ];
 
   options.nixos = {
@@ -35,10 +37,12 @@
       libreddit.enable = true;
       mastodon.enable = true;
       moneronode.enable = true;
+      murmur.enable = true;
       nitter.enable = true;
       peertube.enable = true;
       pixelfed.enable = true;
       searxng.enable = true;
+      teamspeak.enable = true;
     };
   };
 }

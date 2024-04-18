@@ -2,6 +2,13 @@
 
 
 {
+  imports = [
+    (builtins.fetchTarball {
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/master/nixos-mailserver-master.tar.gz";
+      sha256 = "sha256:1hmkm5fx8q6ax4r8d62jb2i2lxpgihb922qd6wwfrkz7l1f2iyyg";
+    })
+  ];
+
   options.nixos = {
     server.home.mailserver = {
       enable = lib.mkOption {
@@ -14,13 +21,6 @@
   };
 
   config = lib.mkIf config.nixos.server.home.mailserver.enable {
-    imports = [
-      (builtins.fetchTarball {
-        url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/master/nixos-mailserver-master.tar.gz";
-        sha256 = "sha256:0zwpqrd5znba7av2xsk9c8qyhxnad69abbsqg7m4l3yy4hhwrzxj";
-      })
-    ];
-
     mailserver = {
       enable = true;
       fqdn = "mail.bitsync.icu";

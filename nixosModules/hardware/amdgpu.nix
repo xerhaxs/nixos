@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    hardwrae.amdgpu = {
+    hardware.amdgpu = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
