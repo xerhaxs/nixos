@@ -7,7 +7,7 @@
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable powermanagment options.";
+        description = "Enable powermanagement options.";
       };
       profiles = {
         powersave = lib.mkOption {
@@ -32,7 +32,7 @@
     };
   };
 
-  config = {
+  config.nixos.system.powermanagement = {
     enable = lib.mkIf config.nixos.system.powermanagement.enable {
       services.upower = {
         enable = true;

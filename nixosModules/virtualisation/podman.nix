@@ -15,7 +15,7 @@
   config = lib.mkIf config.nixos.virtualisation.podman.enable {
     virtualisation.podman = {
       enable = true;
-      enableNvidia = lib.mkIf (config.hardware.nvidia.enable && config.nixos.virtualisation.podman.enable) true;
+      enableNvidia = lib.mkIf (config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.podman.enable) true;
     };
   };
 }

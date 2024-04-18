@@ -27,7 +27,7 @@
       gnome.enable = false;
       plasma5-bigscreen.enable = false;
       plasma5.enable = false;
-      plasma6.enable = true;
+      plasma6.enable = false;
       xfce.enable = false;
     };
   };

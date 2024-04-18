@@ -41,6 +41,4 @@
       virtualisation.enable = true;
     };
   };
-
-  #nixos.nixosModules.enable = true;
 }

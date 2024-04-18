@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.folder.name.enable {
+  config = lib.mkIf config.nixos.system.cron.enable {
     services.cron = {
       enable = true;
     };

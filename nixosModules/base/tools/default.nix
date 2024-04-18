@@ -27,7 +27,7 @@
       git.enable = true;
       htop.enable = true;
       #openvpn-client.enable = true;
-      syncthing.enable = true;
+      syncthing.enable = false;
       #wireguard-client.enable = true;
     };
   };

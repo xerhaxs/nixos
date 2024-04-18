@@ -29,5 +29,9 @@
 
       extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
     };
+
+    environment.systemPackages = with pkgs; [
+      nvtopPackages.intel
+    ];
   };
 }

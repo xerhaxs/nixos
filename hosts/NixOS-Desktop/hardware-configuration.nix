@@ -14,17 +14,17 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/mapper/crypt-root";
+    device = lib.mkDefault "/dev/mapper/crypt-root";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/UEFI";
+    device = lib.mkDefault "/dev/disk/by-label/UEFI";
     fsType = "vfat";
   };
 
   fileSystems."/home" = {
-    device = "/dev/mapper/crypt-home";
+    device = lib.mkDefault "/dev/mapper/crypt-home";
     fsType = "ext4";
   };
 

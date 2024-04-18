@@ -1,21 +1,26 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./home.nix
+    ./sessionVariables.nix
+  ];
+
   options.homeManager = {
     home = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable home modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.homeManager.home.enable {
-    imports = [
-      ./home.nix
-      ./sessionVariables.nix
-    ];
+    homeManager.home = {
+      home.enable = true;
+      sessionVariables.enable = true;
+    };
   };
 }

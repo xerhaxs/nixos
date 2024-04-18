@@ -16,7 +16,7 @@
     virtualisation.docker = {
       enable = true;
       enableOnBoot = true;
-      enableNvidia = lib.mkIf (config.hardware.nvidia.enable && config.nixos.virtualisation.docker.enable) true;
+      enableNvidia = lib.mkIf (config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.docker.enable) true;
     };
   };
 }
