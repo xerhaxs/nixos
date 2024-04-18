@@ -1,21 +1,26 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./awesome
+    ./hyprland
+  ];
+
   options.homeManager = {
     desktop.windowManager = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable windowManager modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.homeManager.desktop.windowManager.enable {
-    imports = [
-      ./awesome
-      ./hyprland
-    ];
+    homeManager.desktop.windowManager = {
+      awesome.enable = false;
+      hyprland.enable = false;
+    };
   };
 }

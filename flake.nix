@@ -111,6 +111,15 @@
           #flatpak.nixosModules.default
           #plasma-manager.nixosModules.plasma-manager
 
+          #home-manager.nixosModules.home-manager
+          #{
+          #  home-manager = {
+          #    useGlobalPkgs = true;
+          #    useUserPackages = true;
+          #    extraSpecialArgs = specialArgs;
+          #    users.jf = import ./homeModules/default.nix;
+          #  };
+          #}
         ];
       };
 

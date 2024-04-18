@@ -9,19 +9,19 @@
         example = true;
         description = "Enable system locals.";
       };
-      lang = {
+      lang = lib.mkOption {
         type = lib.types.str;
         default = "en_US.UTF-8";
       };
-      local = {
+      local = lib.mkOption {
         type = lib.types.str;
         default = "de_DE.UTF-8";
       };
-      timezone = {
-        type = lib.types.str;
+      timezone = lib.mkOption {
+        type = lib.types.anything;
         default = "Europe/Berlin";
       };
-      consolekbd = {
+      consolekbd = lib.mkOption {
         type = lib.types.str;
         default = "de";
       };
@@ -30,7 +30,7 @@
 
   config = lib.mkIf config.nixos.system.locals.enable {
     time.timeZone = "${config.nixos.system.locals.timezone}";
-  
+
     i18n.defaultLocale = "${config.nixos.system.locals.lang}";
   
     i18n.extraLocaleSettings = {

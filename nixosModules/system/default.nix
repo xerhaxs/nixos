@@ -10,9 +10,9 @@
     ./dconf.nix
     ./firewall.nix
     ./fonts.nix
+    ./locals.nix
     ./mount.nix
     ./nasmount.nix
-    ./locals.nix
     ./networking.nix
     ./nixos.nix
     ./nixosvm.nix

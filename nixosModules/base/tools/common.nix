@@ -93,7 +93,6 @@
       btop  # replacement of htop/nmon
       iftop # network monitoring
       iotop # io monitoring
-      nvtop # nvidia monitoring
       pv # replacement of cp
 
       # system call monitoring

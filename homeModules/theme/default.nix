@@ -1,21 +1,26 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./theme-latte.nix
+    ./theme-mocha.nix
+  ];
+
   options.homeManager = {
     theme = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable theme modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.homeManager.theme.enable {
-    imports = [
-      ./theme-latte.nix
-      ./theme-mocha.nix
-    ];
+    homeManager.theme = {
+      theme-latte = false;
+      theme-mocha = false;
+    };
   };
 }
