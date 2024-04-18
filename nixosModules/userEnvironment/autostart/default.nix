@@ -18,7 +18,9 @@
   };
 
   config = lib.mkIf config.nixos.userEnvironment.autostart.enable {
-    protonmail-bridge.enable = false;
-    steam.enable = false;
+    nixos.userEnvironment.autostart = {
+      protonmail-bridge.enable = false;
+      steam.enable = false;
+    };
   };
 }

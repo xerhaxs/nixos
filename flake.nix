@@ -49,7 +49,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, flatpak, ... }:
+  outputs = inputs@{ self, nixpkgs, disko, nur, nixos-generators, home-manager, plasma-manager, sops-nix, flatpak, ... }:
     let
       system = "x86_64-linux";
       specialArgs = {
@@ -63,7 +63,7 @@
         system = "x86_64-linux";
         modules = [
           
-
+          sops-nix.nixosModules.sops
           # disko Moule
           disko.nixosModules.disko
           ./system-modules/disko-bios-lvm-on-luks.nix
@@ -98,6 +98,7 @@
         modules = [
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
+          sops-nix.nixosModules.sops
 
           # disko Moule
           disko.nixosModules.disko
@@ -107,7 +108,7 @@
           #}
 
           nur.nixosModules.nur
-          flatpak.nixosModules.default
+          #flatpak.nixosModules.default
           #plasma-manager.nixosModules.plasma-manager
 
         ];

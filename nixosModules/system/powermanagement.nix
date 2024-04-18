@@ -32,22 +32,40 @@
     };
   };
 
-  config = lib.mkIf config.nixos.system.powermanagement.enable {
-    services.upower = {
-      enable = true;
-      ignoreLid = false;
-      criticalPowerAction = "HybridSleep";
-      percentageAction = 2;
-      percentageCritical = 5;
-      percentageLow = 10;
+  config = {
+    enable = lib.mkIf config.nixos.system.powermanagement.enable {
+      services.upower = {
+        enable = true;
+        ignoreLid = false;
+        criticalPowerAction = "HybridSleep";
+        percentageAction = 2;
+        percentageCritical = 5;
+        percentageLow = 10;
+      };
+      powerManagement.enable = true;
+      services.power-profiles-daemon.enable = true;
     };
-    powerManagement.enable = true;
-    services.power-profiles-daemon.enable = true;
 
-    powerManagement = {
-      cpuFreqGovernor = lib.mkIf config.nixos.system.powermanagement.profiles.powersave "powersave" 
-        (lib.mkIf config.nixos.system.powermanagement.profiles.balance "ondemand" "performance");
-      scsiLinkPolicy = lib.mkIf config.nixos.system.powermanagement.profiles.powersave "min_power" "max_performance";
+    profiles.powersave = lib.mkIf config.nixos.system.powermanagement.profiles.powersave {
+      powerManagement = {
+        cpuFreqGovernor = "powersave";
+        scsiLinkPolicy = "min_power";
+        powertop.enable = true;
+      };
+    };
+
+    profiles.balance = lib.mkIf config.nixos.system.powermanagement.profiles.balance {
+      powerManagement = {
+        cpuFreqGovernor = "ondemand";
+        scsiLinkPolicy = "max_performance";
+      };
+    };
+
+    profiles.performance = lib.mkIf config.nixos.system.powermanagement.profiles.performance {
+      powerManagement = {
+        cpuFreqGovernor = "performance";
+        scsiLinkPolicy = "max_performance";
+      };
     };
   };
 }

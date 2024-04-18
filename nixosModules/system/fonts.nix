@@ -15,11 +15,11 @@
   config = lib.mkIf config.nixos.system.fonts.enable {
     fonts = {
       fontDir.enable = true;
+      enableGhostscriptFonts = false;
       fontconfig = {
         enable = true;
         allowBitmaps = false;
         hinting.enable = true;
-        enableGhostscriptFonts = false;
         subpixel.rgba = "rgb";
         defaultFonts = {
           emoji = [ "openmoji-color" "Noto Color Emoji" ];

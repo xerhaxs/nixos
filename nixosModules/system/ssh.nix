@@ -16,16 +16,16 @@
     services.openssh = {
       enable = true;
       startWhenNeeded = true;
-      X11Forwarding = false;
       openFirewall = true;
       settings = {
         PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "yes";
+        X11Forwarding = false;
       };
     };
 
-    services.sshd = {
+    services.sshguard = {
       enable = true;
       services = [ "sshd" ];
       whitelist = [ 
@@ -34,5 +34,7 @@
       ];
       blocktime = 120;
     };
+
+    services.sshd.enable = true;
   };
 }

@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    io.bluetooth = {
+    io.input = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.io.bluetooth.enable {
+  config = lib.mkIf config.nixos.io.input.enable {
     services.xserver = {
       libinput = {
         enable = true;

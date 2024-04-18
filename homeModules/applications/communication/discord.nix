@@ -16,7 +16,7 @@
     programs.discocss = {
       enable = true;
       discordAlias = true;
-      discordPackage = pkgs.webcord;
+      discordPackage = pkgs.armcord; # pkgs.webcord
     };
   };
 }

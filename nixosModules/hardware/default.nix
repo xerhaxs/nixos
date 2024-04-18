@@ -8,6 +8,7 @@
     ./intelcpu.nix
     ./intelgpu.nix
     ./nvidiagpu.nix
+    ./openrgb.nix
   ];
 
   options.nixos = {

@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    network.wireguard-server = {
+    server.network.wireguard-server = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;

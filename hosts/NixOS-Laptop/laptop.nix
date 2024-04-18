@@ -25,7 +25,7 @@
 
   nixos.system.nasmount.enable = true;
 
-  nixos.system.powerManagement.profiles.powersave = lib.mkDefault true;
+  nixos.system.powermanagement.profiles.powersave = lib.mkDefault true;
 
   nixos.system.user.defaultuser = {
     name = "jf";

@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    server.fediverse.webdav = {
+    server.fileshare.webdav = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.webdav.enable {
+  config = lib.mkIf config.nixos.server.fileshare.webdav.enable {
     systemd.services.webdav.serviceConfig.EnvironmentFile = [ 
       config.sops.secrets."webdav/users/admin/username".path
       config.sops.secrets."webdav/users/admin/password".path 

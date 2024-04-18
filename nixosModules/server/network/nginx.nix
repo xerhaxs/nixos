@@ -322,6 +322,28 @@
           #  proxyPass = "http://localhost:8000";
           #};
         };
+
+        "murmur.bitsync.icu" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:64738";
+          };
+        };
+        
+        "teamspeak.bitsync.icu" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:10011";
+          };
+        };
       };
     };
 
