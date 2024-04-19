@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 {
   imports = [
@@ -19,8 +19,8 @@
 
   config = lib.mkIf config.homeManager.theme.enable {
     homeManager.theme = {
-      theme-latte = true;
-      theme-mocha = true;
+      catppuccin-latte = lib.mkIf osConfig.nixos.theme.catppuccin-latte.enable true;
+      catppuccin-mocha = lib.mkIf osConfig.nixos.theme.catppuccin-mocha.enable true;
     };
   };
 }
