@@ -54,14 +54,13 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, nixos-generators, nix-colors, ... }:
+  outputs = inputs@{ self, nixpkgs, nur, nixos-generators, ... }:
     let
 
       system = "x86_64-linux";
 
       specialArgs = {
         inherit inputs;
-        inherit nix-colors;
       };
       
     in {

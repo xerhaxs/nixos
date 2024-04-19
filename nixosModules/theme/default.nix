@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, nix-colors, pkgs, ... }:
 
 {
   imports = [
+    nix-colors.nixosModules.default
+    ./color-scheme.nix
     ./theme-latte.nix
     ./theme-mocha.nix
     ./theme-papirus-icons.nix

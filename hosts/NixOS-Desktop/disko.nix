@@ -1,11 +1,5 @@
-{ config, disko, lib, pkgs, ... }: 
+{ config, lib, pkgs, ... }: 
 
 { 
-  imports = [
-    disko.nixosModules.disko
-  ];
-
-  {
-    _module.args.disks = [ "/dev/nvme0n1" ];
-  }
+  _module.args.disks = [ "/dev/nvme0n1" ];
 }
