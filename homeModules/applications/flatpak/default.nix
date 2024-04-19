@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./flatpak.nix
+  ];
+
   options.homeManager = {
     applications.flatpak = {
       enable = lib.mkOption {
@@ -13,8 +17,8 @@
   };
 
   config = lib.mkIf config.homeManager.applications.flatpak.enable {
-    imports = [
-      ./flatpak.nix
-    ];
+    homeManager.applications.flatpak = {
+      flatpak.enable = true;
+    };
   };
 }

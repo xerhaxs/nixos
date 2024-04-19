@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./mullvad.nix
+    ./protonvpn.nix
+  ];
+
   options.homeManager = {
     applications.vpn = {
       enable = lib.mkOption {
@@ -13,9 +18,9 @@
   };
 
   config = lib.mkIf config.homeManager.applications.vpn.enable {
-    imports = [
-      ./mullvad.nix
-      ./protonvpn.nix
-    ];
+    homeManager.applications.vpn = {
+      mullvad.enable = true;
+      protonvpn.enable = true;
+    };
   };
 }

@@ -1,20 +1,24 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./fonts.nix
+  ];
+
   options.homeManager = {
     base.fonts = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable fonts modules bundle.";
       };
     };
   };
 
   config = lib.mkIf config.homeManager.base.fonts.enable {
-    imports = [
-      ./fonts.nix
-    ];
+    homeManager.base.fonts = {
+      fonts.enable = true;
+    };
   };
 }

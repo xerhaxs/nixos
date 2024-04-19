@@ -50,7 +50,7 @@
       powerManagement = {
         cpuFreqGovernor = "powersave";
         scsiLinkPolicy = "min_power";
-        powertop.enable = true;
+        powertop.enable = false;
       };
     };
 
@@ -58,6 +58,7 @@
       powerManagement = {
         cpuFreqGovernor = "ondemand";
         scsiLinkPolicy = "max_performance";
+        powertop.enable = false;
       };
     };
 
@@ -65,6 +66,7 @@
       powerManagement = {
         cpuFreqGovernor = "performance";
         scsiLinkPolicy = "max_performance";
+        powertop.enable = false;
       };
     };
   };

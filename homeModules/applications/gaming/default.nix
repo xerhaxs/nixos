@@ -1,6 +1,14 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./antimicrox.nix
+    ./heoric.nix
+    ./mangohud.nix
+    ./prismlauncher.nix
+    ./steam.nix
+  ];
+
   options.homeManager = {
     applications.gaming = {
       enable = lib.mkOption {
@@ -13,12 +21,12 @@
   };
 
   config = lib.mkIf config.homeManager.applications.gaming.enable {
-    imports = [
-      ./antimicrox.nix
-      ./heoric.nix
-      ./mangohud.nix
-      ./prismlauncher.nix
-      ./steam.nix
-    ];
+    homeManager.applications.gaming = {
+      antimicrox.enable = false;
+      heroic.enable = true;
+      mangohud.enable = true;
+      prismlauncher.enable = true;
+      steam.enable = true;
+    };
   };
 }

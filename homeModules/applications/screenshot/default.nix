@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./flameshot.nix
+  ];
+
   options.homeManager = {
     applications.screenshot = {
       enable = lib.mkOption {
@@ -13,8 +17,8 @@
   };
 
   config = lib.mkIf config.homeManager.applications.screenshot.enable {
-    imports = [
-      ./flameshot.nix
-    ];
+    homeManager.applications.screenshot = {
+      flameshot.enable = true;
+    };
   };
 }
