@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./3dprinting.nix
+    ./ai.nix
+    ./audio.nix
+    ./compiler.nix
+    ./image.nix
+    ./video.nix
+  ];
+
   options.homeManager = {
     applications.editing = {
       enable = lib.mkOption {
@@ -13,13 +22,13 @@
   };
 
   config = lib.mkIf config.homeManager.applications.editing.enable {
-    imports = [
-      ./3dprinting.nix
-      ./ai.nix
-      ./audio.nix
-      ./compiler.nix
-      ./image.nix
-      ./video.nix
-    ];
+    homeManager.applications.editing = {
+      3dprinting.enable = true;
+      ai.enable = true;
+      audio.enable = true;
+      compiler.enable = true;
+      image.enable = true;
+      video.enable = true;
+    };
   };
 }

@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./alacritty.nix
+    ./kitty.nix
+  ];
+
   options.homeManager = {
     applications.terminal = {
       enable = lib.mkOption {
@@ -13,9 +18,9 @@
   };
 
   config = lib.mkIf config.homeManager.applications.terminal.enable {
-    imports = [
-      ./alacritty.nix
-      ./kitty.nix
-    ];
+    homeManager.applications.terminal = {
+      alacritty.enable = false;
+      kitty.enable = true;
+    };
   };
 }

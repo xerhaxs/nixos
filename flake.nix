@@ -98,6 +98,7 @@
         modules = [
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
+          
           sops-nix.nixosModules.sops
 
           # disko Moule
@@ -111,13 +112,28 @@
           #flatpak.nixosModules.default
           #plasma-manager.nixosModules.plasma-manager
 
+          home-manager.nixosModules.home-manager 
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+
+              extraSpecialArgs = {
+                inherit inputs;
+                outputs = inputs.self.outputs;
+              };
+
+              users.jf = import ./hosts/NixOS-Desktop/home/default.nix;
+            };
+          }
+
           #home-manager.nixosModules.home-manager
           #{
           #  home-manager = {
           #    useGlobalPkgs = true;
           #    useUserPackages = true;
           #    extraSpecialArgs = specialArgs;
-          #    users.jf = import ./homeModules/default.nix;
+          #    users.jf = import ./hosts/NixOS-Desktop/home.nix;
           #  };
           #}
         ];

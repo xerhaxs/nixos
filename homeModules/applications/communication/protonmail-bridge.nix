@@ -5,8 +5,8 @@
     applications.communication.protonmail-bridge = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable Protonmail bridge.";
       };
     };

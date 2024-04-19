@@ -12,15 +12,15 @@
   options.homeManager = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = false;
-      example = true;
+      default = true;
+      example = false;
       description = "Enable homeManager modules bundle.";
     };
   };
 
   config = lib.mkIf config.homeManager.enable {
     homeManager = {
-      applications.enable = true;
+      applications.enable = false;
       base.enable = true;
       desktop.enable = true;
       home.enable = true;

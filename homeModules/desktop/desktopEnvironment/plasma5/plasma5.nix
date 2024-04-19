@@ -1,22 +1,22 @@
 { config, lib, pkgs, plasma-manager, ... }:
 
 {
+  imports = [
+    plasma-manager.homeManagerModules.plasma-manager
+  ];
+
   options.homeManager = {
     desktop.desktopEnvironment.plasma5.plasma5 = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable plasma5.";
       };
     };
   };
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma5.plasma5.enable {
-    imports = [
-      plasma-manager.homeManagerModules.plasma-manager
-    ];
-
     home.packages = with pkgs; with libsForQt5; [
       filelight
       maliit-keyboard

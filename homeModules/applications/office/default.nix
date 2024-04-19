@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./financial.nix
+    ./office.nix
+  ];
+
   options.homeManager = {
     applications.office = {
       enable = lib.mkOption {
@@ -13,9 +18,9 @@
   };
 
   config = lib.mkIf config.homeManager.applications.office.enable {
-    imports = [
-      ./financial.nix
-      ./office.nix
-    ];
+    homeManager.applications.office = {
+      financial.enable = true;
+      office.enable = true;
+    };
   };
 }

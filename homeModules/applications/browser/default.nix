@@ -1,6 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./brave.nix
+    ./firefox.nix
+    ./librewolf.nix
+    ./tor.nix
+  ];
+
   options.homeManager = {
     applications.browser = {
       enable = lib.mkOption {
@@ -13,11 +20,11 @@
   };
 
   config = lib.mkIf config.homeManager.applications.browser.enable {
-    imports = [
-      ./brave.nix
-      ./firefox.nix
-      ./librewolf.nix
-      ./tor.nix
-    ];
+    homeManager.applications.browser = {
+      brave.enable = true;
+      firefox.enable = true;
+      librewolf.enable = true;
+      tor.enable = true;
+    };
   };
 }

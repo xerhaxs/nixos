@@ -5,8 +5,8 @@
     applications.gaming.heroic = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable heroic.";
       };
     };

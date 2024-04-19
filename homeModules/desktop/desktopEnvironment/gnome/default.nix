@@ -1,21 +1,26 @@
 { config, lib, osConfig, pkgs, ... }:
 
 {
+  imports = [
+    ./dconf.nix
+    ./gnome.nix
+  ];
+
   options.homeManager = {
     desktop.desktopEnvironment.gnome = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Enable gnome modules bundle.";
       };
     };
   };
 
   config = lib.mkIf (config.homeManager.desktop.desktopEnvironment.gnome.enable && osConfig.nixos.desktop.desktopEnvironment.gnome.enable) {
-    imports = [
-      ./dconf.nix
-      ./gnome.nix
-    ];
+    homeManager.desktop.desktopEnvironment.gnome = {
+      dconf.enable = true;
+      gnome.enable = true;
+    };
   };
 }

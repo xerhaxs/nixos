@@ -1,6 +1,17 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./diff.nix
+    ./hex.nix
+    ./java.nix
+    ./jetbrains.nix
+    ./pulsar.nix
+    ./raspberry.nix
+    ./virtualisation.nix
+    ./vscodium.nix
+  ];
+
   options.homeManager = {
     applications.development = {
       enable = lib.mkOption {
@@ -13,15 +24,15 @@
   };
 
   config = lib.mkIf config.homeManager.applications.development.enable {
-    imports = [
-      ./diff.nix
-      ./hex.nix
-      ./java.nix
-      ./jetbrains.nix
-      ./pulsar.nix
-      ./raspberry.nix
-      ./virtualisation.nix
-      ./vscodium.nix
-    ];
+    homeManager.applications.development = {
+      diff.enable = false;
+      hex.enable = false;
+      java.enable = true;
+      jetbrains.enable = true;
+      pulsar.enable = false;
+      raspberry.enable = true;
+      virtualisation.enable = true;
+      vscodium.enable = true;
+    };
   };
 }
