@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  {
   options.homeManager = {
     applications.communication.social = {
       enable = lib.mkOption {

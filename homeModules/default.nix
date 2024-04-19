@@ -1,30 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, home-manager, pkgs, specialArgs, ... }:
 
 {
   imports = [
-    ./applications
-    ./base
-    ./desktop
-    ./home
-    ./theme
+    home-manager.nixosModules.home-manager 
   ];
+  
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
 
-  options.homeManager = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      example = false;
-      description = "Enable homeManager modules bundle.";
-    };
-  };
+    extraSpecialArgs = specialArgs;
 
-  config = lib.mkIf config.homeManager.enable {
-    homeManager = {
-      applications.enable = false;
-      base.enable = true;
-      desktop.enable = true;
-      home.enable = true;
-      theme.enable = true;
-    };
+    users.${config.nixos.system.user.defaultuser.name} = import ./homemanager.nix;
   };
 }

@@ -1,6 +1,10 @@
 { config, lib, osConfig, pkgs, ... }:
 
 {
+  imports = [
+    ../../hosts/${osConfig.networking.hostName}/home/default.nix
+  ];
+
   options.homeManager = {
     home.home = {
       enable = lib.mkOption {

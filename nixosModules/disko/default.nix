@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }: 
+{ config, disko, lib, pkgs, ... }: 
 
 { 
   imports = [
+    disko.nixosModules.disko
     ./disko-bios-lvm-on-luks.nix
     ./disko-uefi-lvm-on-luks.nix
   ];

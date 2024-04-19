@@ -19,8 +19,8 @@
 
   config = lib.mkIf config.homeManager.theme.enable {
     homeManager.theme = {
-      theme-latte = false;
-      theme-mocha = false;
+      theme-latte = true;
+      theme-mocha = true;
     };
   };
 }

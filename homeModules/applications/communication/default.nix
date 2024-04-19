@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ./brave.nix
-    ./firefox.nix
-    ./librewolf.nix
-    ./tor.nix
+    ./discord.nix
+    ./protonmail-bridge.nix
+    ./social.nix
+    ./thunderbird.nix
   ];
 
   options.homeManager = {
