@@ -23,7 +23,7 @@
 
   config = lib.mkIf config.homeManager.applications.editing.enable {
     homeManager.applications.editing = {
-      3dprinting.enable = true;
+      "3dprinting".enable = true;
       ai.enable = true;
       audio.enable = true;
       compiler.enable = true;

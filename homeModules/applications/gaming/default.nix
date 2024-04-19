@@ -3,7 +3,7 @@
 {
   imports = [
     ./antimicrox.nix
-    ./heoric.nix
+    ./heroic.nix
     ./mangohud.nix
     ./prismlauncher.nix
     ./steam.nix
