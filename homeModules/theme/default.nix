@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./theme-latte.nix
-    ./theme-mocha.nix
+    ./catppuccin-latte.nix
+    ./catppuccin-mocha.nix
   ];
 
   options.homeManager = {
