@@ -76,7 +76,7 @@
           #}
 
           # nur repo
-          nur.nixosModules.nur
+          #nur.nixosModules.nur
         ];
       };
 
@@ -86,9 +86,10 @@
         specialArgs = inputs;
 
         modules = [
+          nur.nixosModules.nur
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
-          ./homeModules/default.nix
+          ./homeModules/homemanager.nix
           
           # disko Moule
           #disko.nixosModules.disko
@@ -97,7 +98,7 @@
           #  _module.args.disks = [ "/dev/nvme0n1" ];
           #}
 
-          nur.nixosModules.nur
+          
         ];
       };
 
@@ -117,7 +118,7 @@
           #}
 
           # nur repo
-          nur.nixosModules.nur
+          #nur.nixosModules.nur
         ];
       };
 
@@ -147,7 +148,7 @@
           #}
 
           # nur repo
-          nur.nixosModules.nur
+          #nur.nixosModules.nur
         ];
       };
 
@@ -166,7 +167,7 @@
           #}
 
           # nur repo
-          nur.nixosModules.nur
+          #nur.nixosModules.nur
         ];
       };
 
@@ -186,7 +187,7 @@
           #}
 
           # nur repo
-          nur.nixosModules.nur
+          #nur.nixosModules.nur
         ];
       };
     };

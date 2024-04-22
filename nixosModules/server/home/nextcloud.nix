@@ -16,7 +16,7 @@
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud28;
-      home = "/mount/Data/Datein/Server/nextcloud";
+      home = "/var/lib/nextcloud";
       hostName = "nextcloud.bitsync.icu";
       https = true;
       extraAppsEnable = true;
@@ -28,7 +28,7 @@
       config = {
         dbtype = "pgsql";
         dbuser = "nextcloud";
-        dbhost = "/mount/Data/Datein/Server/nextcloud-postgresql";
+        dbhost = "${config.services.nextcloud.home}/dbhost";
         dbname = "nextcloud";
         dbpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
         adminuser = "admin";

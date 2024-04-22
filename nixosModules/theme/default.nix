@@ -1,11 +1,10 @@
-{ config, lib, nix-colors, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
-    nix-colors.nixosModules.default
-    ./color-scheme.nix
-    ./theme-latte.nix
-    ./theme-mocha.nix
+    #./color-scheme.nix
+    #./catppuccin-latte.nix
+    #./catppuccin-mocha.nix
     ./theme-papirus-icons.nix
     ./theme-plymouth.nix
   ];
@@ -22,8 +21,8 @@
   };
 
   config = lib.mkIf config.nixos.theme.enable {
-    theme-latte.enable = false;
-    theme-mocha.enable = true;
+    #catppuccin-latte.enable = false;
+    #catppuccin-mocha.enable = true;
     theme-papirus-icons.enable = true;
     theme-plymouth.enable = true;
   };

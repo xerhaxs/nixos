@@ -60,6 +60,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] setup ranger with theming
 - [ ] USB Bootdrive with NixOS and files
 - [ ] Plasma6 HDR test
+- [ ] encrypted Swap Partition for Hybrid Sleep
 
 
 - [ ] Server config

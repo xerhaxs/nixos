@@ -16,7 +16,7 @@
     services.nzbget = {
       enable = true;
       settings = {
-        MainDir = "/mount/Data/Datein/Downloads/NZB Download/";
+        MainDir = "/var/lib/nzbget/download";
         ControlPort = "6789";
         ControlUsername = "admin";
         ControlPassword = "CHANGEME";

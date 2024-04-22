@@ -22,7 +22,7 @@
       defaultUser = "admin";
       passwordFile = config.sops.secrets."freshrss/users/defaultUser/password".path;
       language = "de";
-      dataDir = "/mount/Data/Datein/Server/freshrss";
+      dataDir = "/var/lib/freshrss";
       baseUrl = "https://freshrss.bitsync.icu";
       virtualHost = "freshrss.bitsync.icu";
       database = {
