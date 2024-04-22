@@ -21,7 +21,7 @@
 
     services.gitea = {
       enable = true;
-      #stateDir = "/var/lib/gitea";
+      stateDir = "/var/lib/gitea";
       useWizard = false; # should may be changed
       settings = {
         session.COOKIE_SECURE = true;

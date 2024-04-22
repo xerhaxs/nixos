@@ -19,46 +19,58 @@ let
 in
 
 {
-  boot.loader.grub.theme = catppuccin-grub + "/${latte-grub}";
-
-  boot.plymouth = {
-    enable = true;
-    font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
-    themePackages = with pkgs; [
-      (catppuccin-plymouth.override {variant = "latte";})
-    ];
-    theme = "catppuccin-latte";
+  options.nixos = {
+    theme.catppuccin-latte = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = "Enable catppuccin-latte.";
+      };
+    };
   };
 
-  services.xserver.displayManager.sddm.theme = catppuccin-sddm + "/${latte-sddm}";
+  config = lib.mkIf config.nixos.theme.catppuccin-latte.enable {
+    boot.loader.grub.theme = catppuccin-grub + "/${latte-grub}";
 
-  environment.systemPackages = with pkgs; [
-    #(catppuccin.override {
-    #  accents = [ "mauve" ];
-    #  variant = [ "latte" ];
-    #})
+    boot.plymouth = {
+      font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
+      themePackages = with pkgs; [
+        (catppuccin-plymouth.override {variant = "latte";})
+      ];
+      theme = "catppuccin-latte";
+    };
 
-    (catppuccin-kde.override {
-      accents = [ "blue" ];
-      flavour = [ "latte" ];
-      winDecStyles = [ "modern" ];
-    })
+    services.xserver.displayManager.sddm.theme = catppuccin-sddm + "/${latte-sddm}";
 
-    (catppuccin-gtk.override {
-      accents = [ "blue" ];
-      size = "standard";
-      tweaks = [ "rimless" "normal" ]; # You can also specify multiple tweaks here
-      variant = "latte";
-    })
+    environment.systemPackages = with pkgs; [
+      #(catppuccin.override {
+      #  accents = [ "mauve" ];
+      #  variant = [ "latte" ];
+      #})
 
-    #(catppuccin-cursors.override {
-    #  dimensions.color = [ "Lavender" ];
-    #  dimensions.palette = [ "latte" ];
-    #})
+      (catppuccin-kde.override {
+        accents = [ "blue" ];
+        flavour = [ "latte" ];
+        winDecStyles = [ "modern" ];
+      })
 
-    (catppuccin-papirus-folders.override {
-      accent = "blue";
-      flavor = "latte";
-    })
-  ];
+      (catppuccin-gtk.override {
+        accents = [ "blue" ];
+        size = "standard";
+        tweaks = [ "rimless" "normal" ]; # You can also specify multiple tweaks here
+        variant = "latte";
+      })
+
+      #(catppuccin-cursors.override {
+      #  dimensions.color = [ "Lavender" ];
+      #  dimensions.palette = [ "latte" ];
+      #})
+
+      (catppuccin-papirus-folders.override {
+        accent = "blue";
+        flavor = "latte";
+      })
+    ];
+  };
 }

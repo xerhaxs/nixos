@@ -15,7 +15,7 @@
   config = lib.mkIf config.nixos.server.fediverse.moneronode.enable {
     services.monero = {
       enable = true;
-      #dataDir = "/var/lib/moneronode";
+      dataDir = "/var/lib/moneronode";
 
       rpc = {
         user = "admin";

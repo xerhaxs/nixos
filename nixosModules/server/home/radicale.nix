@@ -35,7 +35,7 @@
         };
 
         storage = {
-          filesystem_folder = "/mount/Data/Datein/Server/radicale";
+          filesystem_folder = "/var/lib/radicale/";
         };
       };
     };

@@ -23,12 +23,12 @@
       settings = {
         address = "127.0.0.1";
         port = 9123;
-        scope = "/mount/Data/Datein/Server/webdav/public";
+        scope = "/srv/public";
         modify = true;
         auth = true;
         users = [
           {
-            scope = "/mount/Data/Datein/Server/webdav/private/admin";
+            scope = "/srv/private/admin";
             username = "{env}ENV_USERNAME";
             password = "{env}ENV_PASSWORD";
           }

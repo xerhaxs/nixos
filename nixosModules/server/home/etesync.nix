@@ -28,13 +28,13 @@
       settings = {
         allowed_hosts.allowed_host1 = "etesync.bitsync.icu";
         global = {
-            #secret_file = "/mount/Data/Datein/Server/serversecrets/etesync";
             name = "etebase";
             user = "etebase";
             password = "CHANGEME";
             secret_file = "config.sops.secrets."etesync/secret".path";
-            static_root = "/mount/Data/Datein/Server/etesync/static/";
-            media_root = "/mount/Data/Datein/Server/etesync/";
+            dataDir = "/var/lib/etebase-server";
+            static_root = "${config.services.etebase-server.dataDir}/static";
+            media_root = "${config.services.etebase-server.dataDir}/media";
             language_code = "en-us";
             time_zone = "Europe/Berlin";
         };
