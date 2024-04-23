@@ -2,11 +2,9 @@
 
 {
   imports = [
-    #./color-scheme.nix
-    #./catppuccin-latte.nix
-    #./catppuccin-mocha.nix
-    ./theme-papirus-icons.nix
-    ./theme-plymouth.nix
+    ./catppuccin.nix
+    ./dracula.nix
+    ./theme.nix
   ];
 
   options.nixos = {
@@ -21,9 +19,8 @@
   };
 
   config = lib.mkIf config.nixos.theme.enable {
-    #catppuccin-latte.enable = false;
-    #catppuccin-mocha.enable = true;
-    theme-papirus-icons.enable = true;
-    theme-plymouth.enable = true;
+    catppuccin.enable = true;
+    dracula.enable = true;
+    theme.enable = true;
   };
 }

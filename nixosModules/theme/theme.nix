@@ -9,14 +9,6 @@ let
         rev = "main"; # commit hash or tag
         sha256 = ""; #sha256 = lib.fakeSha256;
       };
-      
-      plymouth = {
-        font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
-        themePackages = with pkgs; [
-          (catppuccin-plymouth.override {variant = "${config.nixos.theme.theme}";})
-        ];
-        theme = "${config.nixos.theme.theme}";
-      };
 
       sddm = pkgs.fetchFromGitHub {
         owner = "catppuccin";
@@ -115,6 +107,63 @@ in
           ];
           default = "mocha";
         };
+
+        size = {
+          type = lib.types.enum [
+            "standard"
+            "compact"
+          ];
+          default = "standard";
+        };
+
+        tweaks = {
+          type = lib.types.enum [
+            "black"
+            "rimless"
+            "normal"
+          ];
+          default = "normal";
+        };
+        
+        winDecStyles = {
+          type = lib.types.enum [
+            "modern"
+            "classic"
+          ];
+          default = "modern";
+        };
+
+        accent = {
+          type = lib.types.enum [
+            "Blue"
+            "Dark"
+            "Flamingo"
+            "Green"
+            "Lavender"
+            "Light"
+            "Maroon"
+            "Mauve"
+            "Peach"
+            "Pink"
+            "Red"
+            "Rosewater"
+            "Sapphire"
+            "Sky"
+            "Teal"
+            "Yellow"
+          ];
+          default = "Mauve";
+        };
+
+        grub = {
+          type = lib.types.str;
+          default = "src/catppuccin-${config.nixos.theme.theme.catppuccin.flavor}";
+        };
+
+        sddm = {
+          type = lib.types.str;
+          default = "src/catppuccin-${config.nixos.theme.theme.catppuccin.flavor}";
+        };
       };
     };
   };
@@ -126,24 +175,14 @@ in
       catppuccin = { 
         enable = config.nixos.theme.theme.colorscheme == "catppuccin";
         flavor = config.nixos.theme.theme.catppuccin.flavor;
+        accent = config.nixos.theme.theme.catppuccin.accent;
         colorscheme = colorScheme.catppuccin.${config.nixos.theme.theme.catppuccin.flavor};
-        plymouth = 
       };
 
       dracula = {
         enable = config.nixos.theme.theme.colorscheme == "dracula";
         colorscheme = colorScheme.dracula;
-        plymouth = 
       };
-
-    boot.plymouth = {
-      theme = plymouth;
-      themePackages = plymouth-pkgs;
     };
-
-    environment.systemPackages = with pkgs; [
-      papirus-icon-theme
-    ];
-
   };
 }
