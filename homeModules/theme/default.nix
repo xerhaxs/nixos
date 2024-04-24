@@ -5,7 +5,6 @@
     nix-colors.homeManagerModules.default
     ./catppuccin.nix
     ./dracula.nix
-    ./theme.nix
   ];
 
   options.homeManager = {
@@ -21,9 +20,8 @@
 
   config = lib.mkIf config.homeManager.theme.enable {
     homeManager.theme = {
-      catppuccin.enable = lib.mkIf osConfig.nixos.theme.theme.colorscheme == "catppuccin" true;
-      dracula.enable = lib.mkIf osConfig.nixos.theme.theme.colorscheme == "dracula" true;
-      theme.enable = true;
+      catppuccin.enable = true;
+      dracula.enable = true;
     };
   };
 }

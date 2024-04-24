@@ -3,7 +3,7 @@
 {
   wayland.windowManager.hyprland = {
     settings = {
-      monitor = "DP-1,3840x1600@144,0x0,1,bitdepth,10";
+      monitor = ",1600x900@60,0x0,1,bitdepth,8";
     };
   };
 }

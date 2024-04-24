@@ -28,7 +28,7 @@
     services.sshguard = {
       enable = true;
       services = [ "sshd" ];
-      whitelist = [ 
+      whitelist = [
         "10.75.0.40"
         "10.75.0.80"
       ];

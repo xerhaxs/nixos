@@ -10,6 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.kernelModules = [ "wl" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/boot" = lib.mkForce {

@@ -15,7 +15,7 @@
   config = lib.mkIf config.homeManager.applications.sync.barrier.enable {
     services.barrier.client = {
       enable = true;
-      enableCrypot = true;
+      enableCrypto = true;
       enableDragDrop = true;
     };
   };

@@ -3,8 +3,9 @@
 {
   imports = [
     ./bootloader.nix
+    ./configuration.nix
+    ./disko.nix
     ./hardware-configuration.nix
-    ./laptop.nix
     ./networking.nix
   ];
 }

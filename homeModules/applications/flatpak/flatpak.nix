@@ -1,8 +1,8 @@
-{ config, lib, pkgs, flatpak, ... }:
+{ config, flatpaks, lib, pkgs, ... }:
 
 {
   imports = [
-    flatpak.nixosModules.default
+    flatpaks.homeManagerModules.default
   ];
 
   options.homeManager = {
@@ -18,14 +18,13 @@
 
   config = lib.mkIf config.homeManager.applications.flatpak.flatpak.enable {
     services.flatpak = {
-      enable = true;
       deduplicate = true;
-      recycle-generation = false;
-      update = {
-        auto.enable = true;
-        onActivation = true;
-        onCalendar = "weekly";
-      };
+      #recycle-generation = false;
+      #update = {
+      #  auto.enable = true;
+      #  onActivation = true;
+      #  onCalendar = "weekly";
+      #};
 
       remotes = {
       "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";

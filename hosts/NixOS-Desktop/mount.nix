@@ -23,29 +23,26 @@
     device = "/dev/mapper/data";
     fsType = "ext4";
     options = [
-#        "defaults"
-#        "nofail"
-        "auto"
+      "defaults"
+      "auto"
     ];
   };
 
   fileSystems."/mount/Games" = {
     device = "/dev/mapper/games";
     fsType = "ext4";
-	options = [
-        "defaults"
-#        "nofail"
-        "auto"
+	  options = [
+      "defaults"
+      "auto"
     ];
   };
 
   fileSystems."/mount/Backup" = {
     device = "/dev/mapper/backup";
     fsType = "ext4";
-	options = [
-        "defaults"
-#        "nofail"
-        "auto"
+	  options = [
+      "defaults"
+      "auto"
     ];
   };
 

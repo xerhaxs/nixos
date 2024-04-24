@@ -49,8 +49,10 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    flatpak = {
+    flatpaks = {
       url = "github:GermanBread/declarative-flatpak/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 
@@ -66,17 +68,15 @@
     in {
     nixosConfigurations = {
       NixOS-Crafter = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          # disko Moule
-          #disko.nixosModules.disko
-          #./system-modules/disko-bios-lvm-on-luks.nix
-          #{
-          #  _module.args.disks = [ "/dev/sda" ];
-          #}
+        inherit system;
 
-          # nur repo
-          #nur.nixosModules.nur
+        specialArgs = inputs;
+
+        modules = [
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Crafter/default.nix
+          ./homeModules/homemanager.nix
         ];
       };
 
@@ -90,40 +90,11 @@
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
           ./homeModules/homemanager.nix
-          
-          # disko Moule
-          #disko.nixosModules.disko
-          #./system-modules/disko-uefi-lvm-on-luks.nix
-          #{
-          #  _module.args.disks = [ "/dev/nvme0n1" ];
-          #}
-
-          
-        ];
-      };
-
-      NixOS-Gaming = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
-        specialArgs = inputs;
-
-        modules = [
-          
-          
-          # disko Moule
-          #disko.nixosModules.disko
-          #./system-modules/disko-uefi-lvm-on-luks.nix
-          #{
-          #  _module.args.disks = [ "/dev/nvme0n1" ];
-          #}
-
-          # nur repo
-          #nur.nixosModules.nur
         ];
       };
 
       NixOS-ISO = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
 
         specialArgs = inputs;
 
@@ -133,61 +104,28 @@
       };
 
       NixOS-Laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
 
         specialArgs = inputs;
 
         modules = [
-          
-
-          # disko Moule
-          #disko.nixosModules.disko
-          #./system-modules/disko-uefi-lvm-on-luks.nix
-          #{
-          #  _module.args.disks = [ "/dev/nvme0n1" ];
-          #}
-
-          # nur repo
-          #nur.nixosModules.nur
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Laptop/default.nix
+          ./homeModules/homemanager.nix
         ];
       };
 
       NixOS-Server = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
 
         specialArgs = inputs;
 
         modules = [
-          
-          # disko Moule
-          #disko.nixosModules.disko
-          #./system-modules/disko-uefi-lvm-on-luks.nix
-          #{
-          #  _module.args.disks = [ "/dev/sda" "/dev/sdb" ];
-          #}
-
-          # nur repo
-          #nur.nixosModules.nur
-        ];
-      };
-
-      NixOS-Testing = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
-        specialArgs = inputs;
-
-        modules = [
-          
-
-          # disko Moule
-          #disko.nixosModules.disko
-          #./system-modules/disko-uefi-lvm-on-luks.nix
-          #{
-          #  _module.args.disks = [ "/dev/nvme0n1" ];
-          #}
-
-          # nur repo
-          #nur.nixosModules.nur
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Server/default.nix
+          ./homeModules/homemanager.nix
         ];
       };
     };
