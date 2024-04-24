@@ -14,7 +14,7 @@
 
   services.nextcloud.home = lib.mkDefault "/mount/Data/Datein/Server/nextcloud";
 
-  services.radicale.storage.filesystem_folder = lib.mkDefault "/mount/Data/Datein/Server/radicale";
+  services.radicale.settings.storage.filesystem_folder = lib.mkDefault "/mount/Data/Datein/Server/radicale";
 
   services.nzbget.settings.MainDir = lib.mkDefault "/mount/Data/Datein/Downloads/NZB Download/";
 }

@@ -19,8 +19,10 @@
   };
 
   config = lib.mkIf config.nixos.theme.enable {
-    catppuccin.enable = true;
-    dracula.enable = true;
-    theme.enable = true;
+    nixos.theme = {
+      catppuccin.enable = true;
+      dracula.enable = true;
+      theme.enable = true;
+    };
   };
 }

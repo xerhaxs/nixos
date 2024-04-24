@@ -61,6 +61,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] USB Bootdrive with NixOS and files
 - [ ] Plasma6 HDR test
 - [ ] encrypted Swap Partition for Hybrid Sleep
+- [ ] enable AV1 Encoding in OBS
 
 
 - [ ] Server config
