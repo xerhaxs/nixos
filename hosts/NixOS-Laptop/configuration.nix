@@ -28,5 +28,5 @@
     pass = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
   };
 
-  nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.enable = lib.mkDefault true;
 }
