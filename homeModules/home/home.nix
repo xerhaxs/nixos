@@ -18,8 +18,8 @@
 
   config = lib.mkIf config.homeManager.home.home.enable {
     home = {
-      username = "${osConfig.system.user.defaultuser.name}";
-      homeDirectory = "/home/" + osConfig.system.user.defaultuser.name;
+      username = "${osConfig.nixos.system.user.defaultuser.name}";
+      homeDirectory = "/home/${osConfig.nixos.system.user.defaultuser.name}";
       stateVersion = "24.05";
     };
 

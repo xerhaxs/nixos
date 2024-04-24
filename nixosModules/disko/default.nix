@@ -20,8 +20,8 @@
 
   config = lib.mkIf config.nixos.disko.enable {
     nixos.disko = {
-      disko-bios-lvm-on-luks = false;
-      disko-uefi-lvm-on-luks = false;
+      disko-bios-lvm-on-luks.enable = false;
+      disko-uefi-lvm-on-luks.enable = false;
     };
   };
 }

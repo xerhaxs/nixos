@@ -21,13 +21,11 @@
     amdgpu.enable = true;
   };
 
-  nixos.server.enable = lib.mkDefault true;
-
-  nixos.system.powermanagement.profiles.performance = lib.mkDefault true;
+  nixos.system.powermanagement.profiles.powersave = lib.mkDefault true;
 
   nixos.system.user.defaultuser = {
     name = "jf";
-    pass = "$y$j9T$SaLqQo3ZViOa2ZU7Nr6Zz/$qXmVVTq1ulEv4dloO28JLrGGObyoXYH.smVr7UoL7v0";
+    pass = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
   };
 
   nixos.userEnvironment.enable = true;

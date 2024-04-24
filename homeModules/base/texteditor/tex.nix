@@ -19,7 +19,8 @@
 
     programs.texlive = {
       enable = true;
-      packageSet = pkgs.texliveFull;
+      package = pkgs.texlive; # texliveFull
+      packageSet = pkgs.texlive;
     };
   };
 }

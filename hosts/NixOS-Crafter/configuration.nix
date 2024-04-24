@@ -17,17 +17,15 @@
   };
 
   nixos.hardware = {
-    amdcpu.enable = true;
-    amdgpu.enable = true;
+    intelcpu.enable = true;
+    intelgpu.enable = true;
   };
-
-  nixos.server.enable = lib.mkDefault true;
 
   nixos.system.powermanagement.profiles.performance = lib.mkDefault true;
 
   nixos.system.user.defaultuser = {
-    name = "jf";
-    pass = "$y$j9T$SaLqQo3ZViOa2ZU7Nr6Zz/$qXmVVTq1ulEv4dloO28JLrGGObyoXYH.smVr7UoL7v0";
+    name = "crafter";
+    pass = "$y$j9T$jm4Ok07L9BMRmMMjIh6/v0$R1lQzhy9WB.bGHrGVAogBhuK2b3EtjZPwQRwC9LhaCD";
   };
 
   nixos.userEnvironment.enable = true;

@@ -4,7 +4,7 @@
   imports = [
     ./base
     ./desktop
-    #./disko
+    ./disko
     ./hardware
     ./io
     ./pkgs
@@ -30,7 +30,7 @@
     nixos = {
       base.enable = true;
       desktop.enable = true;
-      #disko.enable = false;
+      disko.enable = false;
       hardware.enable = false;
       io.enable = true;
       pkgs.enable = false;
