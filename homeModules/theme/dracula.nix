@@ -1,14 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 let
   dracula = {
-    plymouth = pkgs.fetchFromGitHub {
-      owner = "dracula";
-      repo = "plymouth";
-      rev = "main"; # commit hash or tag
-      sha256 = ""; #sha256 = lib.fakeSha256;
-    };
-
     palette = {
       base00 = "#282936"; #background
       base01 = "#3a3c4e";
@@ -31,7 +24,7 @@ let
 in
 
 {
-  options.nixos = {
+  options.homeManager = {
     theme.dracula = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -42,18 +35,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.theme.dracula.enable && config.nixos.theme.theme.colorscheme == "dracula") {
-    environment.systemPackages = with pkgs; [
-      dracula-theme
-      dracula-icon-theme
-    ];
+  config = lib.mkIf (osConfig.nixos.theme.dracula.enable && osConfig.nixos.theme.theme.colorscheme == "dracula") {
 
-    boot.plymouth = lib.mkIf config.boot.plymouth.enable {
-      font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
-      themePackages = with pkgs; [
-          dracula.plymouth
-        ];
-      theme = "dracula";
-    };
   };
 }
