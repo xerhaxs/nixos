@@ -23,7 +23,7 @@
   };
 
   config = lib.mkIf config.nixos.server.network.enable {
-      nixos.server.network = {
+    nixos.server.network = {
       adguard.enable = true;
       dnsmasq.enable = false;
       networking.enable = true;

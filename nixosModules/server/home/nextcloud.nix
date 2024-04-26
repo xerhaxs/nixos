@@ -26,14 +26,13 @@
       maxUploadSize = "8192M";
 
       config = {
-        dbtype = "pgsql";
-        dbuser = "nextcloud";
-        dbhost = "${config.services.nextcloud.home}/dbhost";
-        dbname = "nextcloud";
-        dbpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
+      #  dbtype = "pgsql";
+      #  dbuser = "nextcloud";
+      #  dbhost = "${config.services.nextcloud.home}/run/postgresql";
+      #  dbname = "nextcloud";
+      #  dbpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
         adminuser = "admin";
-        adminpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
-        
+        adminpassFile = config.sops.secrets."nextcloud/users/admin/password".path;  
       };
     
       settings = {
@@ -44,19 +43,19 @@
       };
     };
 
-    services.postgresql = {
-      enable = true;
-      ensureDatabases = [ "nextcloud" ];
-      ensureUsers = [ {
-        name = "nextcloud";
-          ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
-      } ];
-    };
+    #services.postgresql = {
+    #  enable = true;
+    #  ensureDatabases = [ "nextcloud" ];
+    #  ensureUsers = [ {
+    #    name = "nextcloud";
+    #    ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+    #  } ];
+    #};
 
-    systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-      after = ["postgresql.service"];
-    };
+    #systemd.services."nextcloud-setup" = {
+    #  requires = ["postgresql.service"];
+    #  after = ["postgresql.service"];
+    #};
   };
 }
 

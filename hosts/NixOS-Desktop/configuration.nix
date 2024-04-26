@@ -1,18 +1,18 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.base.tools.syncthing.enable = lib.mkDefault true;
+  nixos.base.tools.syncthing.enable = lib.mkForce true;
 
   nixos.desktop = {
     desktopEnvironment = {
-      plasma6.enable = lib.mkDefault true;
+      plasma6.enable = lib.mkForce true;
     };
     displayManager = {
       defaultSession = "plasma";
-      sddm.enable = lib.mkDefault true;
+      sddm.enable = lib.mkForce true;
     };
     windowManager = {
-      hyprland.enable = lib.mkDefault true;
+      hyprland.enable = lib.mkForce true;
     };
   };
 
@@ -21,14 +21,14 @@
     amdgpu.enable = true;
   };
 
-  nixos.server.enable = lib.mkDefault true;
+  nixos.server.enable = lib.mkForce true;
 
-  nixos.system.powermanagement.profiles.performance = lib.mkDefault true;
+  nixos.system.powermanagement.profiles.performance = lib.mkForce true;
 
   nixos.system.user.defaultuser = {
     name = "jf";
-    pass = "$y$j9T$SaLqQo3ZViOa2ZU7Nr6Zz/$qXmVVTq1ulEv4dloO28JLrGGObyoXYH.smVr7UoL7v0";
+    pass = "$y$j9T$NIfKOLrAK89gT5XGx20xK1$wrK821uQS6HRoh6FBlifDpJ2qakLfIWv8C8vyEwnpT/";
   };
 
-  nixos.userEnvironment.enable = lib.mkDefault true;
+  nixos.userEnvironment.enable = lib.mkForce true;
 }

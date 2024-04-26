@@ -15,23 +15,21 @@
   config = lib.mkIf config.homeManager.applications.communication.thunderbird.enable {
     programs.thunderbird = {
       enable = true;
-    #  settings = { };
 
-    #  profiles = {
-    #    "mail@mail.com" = {
-    #      isDefault = true;
-    #      settigns = {
-    #        "mail.spellcheck.inline" = true;
-    #      };
-    #    };
+      settings = {
+        #"general.useragent.override" = "";
+        "privacy.donottrackheader.enabled" = true;
+      };
 
-    #    "mail2@mail.com" = {
-    #      isDefault = false;
-    #      settigns = {
-    #        "mail.spellcheck.inline" = true;
-    #      };
-    #    };
-    #  };
+      profiles = {
+        "jf" = {
+          isDefault = true;
+          name = "jf";
+          settings = {
+            "mail.spellcheck.inline" = true;
+          };
+        };
+      };
     };
 
     #accounts.email = {

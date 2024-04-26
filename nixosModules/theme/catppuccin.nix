@@ -6,14 +6,14 @@ let
       owner = "catppuccin";
       repo = "grub";
       rev = "main"; # commit hash or tag
-      sha256 = ""; #sha256 = lib.fakeSha256;
+      sha256 = lib.fakeSha256; #sha256 = lib.fakeSha256;
     };
 
     sddm = pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "sddm";
       rev = "main"; # commit hash or tag
-      sha256 = ""; #sha256 = lib.fakeSha256;
+      sha256 = lib.fakeSha256; #sha256 = lib.fakeSha256;
     };
   };
 in
@@ -94,19 +94,19 @@ in
       (catppuccin.override {
         accent = [ "${config.nixos.theme.catppuccin.accent}" ];
         variant = [ "${config.nixos.theme.catppuccin.flavor}" ];
-        themeList = [
-          "bat"
-          "bottom"
-          "btop"
-          "hyprland"
-          "k9s"
-          "kvantum"
-          "lazygit"
-          "plymouth"
-          "refind"
-          "rofi"
-          "waybar"
-        ];
+        #themeList = [
+        #  "bat"
+        #  "bottom"
+        #  "btop"
+        #  "hyprland"
+        #  "k9s"
+        #  "kvantum"
+        #  "lazygit"
+        #  "plymouth"
+        #  "refind"
+        #  "rofi"
+        #  "waybar"
+        #];
       })
 
       (catppuccin-kde.override {
@@ -141,7 +141,7 @@ in
     boot.plymouth = lib.mkIf config.boot.plymouth.enable {
       font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
       themePackages = with pkgs; [
-          (catppuccin-plymouth.override {variant = "${config.nixos.theme.catppuccin.flavor}";})
+         (catppuccin-plymouth.override {variant = "${config.nixos.theme.catppuccin.flavor}";})
         ];
       theme = "catppuccin-${config.nixos.theme.catppuccin.flavor}";
     };

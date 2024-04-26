@@ -15,6 +15,7 @@
   config = lib.mkIf config.nixos.server.fediverse.mastodon.enable {
     services.mastodon = {
       enable = true;
+      streamingProcesses = 8;
     };
   };
 }
