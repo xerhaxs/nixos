@@ -62,6 +62,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] Plasma6 HDR test
 - [ ] encrypted Swap Partition for Hybrid Sleep
 - [ ] enable AV1 Encoding in OBS
+- [ ] Nextcloud Database setup (postgresql)
+- [ ] Find network blocklist error with gog
 
 
 - [ ] Server config

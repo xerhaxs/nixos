@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   environment.etc.crypttab = {
@@ -17,6 +17,23 @@
   #    preLVM = true;
   #  };
   #};
+
+  nixos.system.mount.enable = lib.mkForce false;
+
+  fileSystems."/" = lib.mkForce {
+    device = lib.mkForce "/dev/mapper/crypt-root";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = lib.mkForce {
+    device = lib.mkForce "/dev/disk/by-label/UEFI";
+    fsType = "vfat";
+  };
+
+  fileSystems."/home" = lib.mkForce {
+    device = lib.mkForce "/dev/mapper/crypt-home";
+    fsType = "ext4";
+  };
 
   # Internal Storage
   fileSystems."/mount/Data" = {

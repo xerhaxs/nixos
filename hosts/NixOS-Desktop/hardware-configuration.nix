@@ -13,26 +13,11 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = lib.mkDefault "/dev/mapper/crypt-root";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = lib.mkDefault "/dev/disk/by-label/UEFI";
-    fsType = "vfat";
-  };
-
-  fileSystems."/home" = {
-    device = lib.mkDefault "/dev/mapper/crypt-home";
-    fsType = "ext4";
-  };
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkForce "x86_64-linux";
 }

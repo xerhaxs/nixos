@@ -28,9 +28,9 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      #age.keyFile = "${config.xdg.userDirs.documents}/Wichtige Datein/sops/age/keys.txt";
+      age.keyFile = "${config.xdg.userDirs.documents}/Wichtige Datein/sops/age/keys.txt";
       #age.keyFile = "/mount/Data/Datein/Dokumente/Wichtige Datein/sops/age/keys.txt";
-      age.keyFile = "/home/jf/Dokumente/Wichtige Datein/sops/age/keys.txt";
+      #age.keyFile = "/home/jf/Dokumente/Wichtige Datein/sops/age/keys.txt";
 
       secrets = {
         changeme = { };
@@ -45,12 +45,12 @@
         "homeassistant/longitude" = { };
         "homeassistant/latitude" = { };
 
-        #"mailserver/users/admin/email" = { };
-        #"mailserver/users/admin/password" = { };
-        #"mailserver/users/jf/email" = { };
-        #"mailserver/users/jf/password" = { };
-        #"mailserver/users/xerhaxs/email" = { };
-        #"mailserver/users/xerhaxs/password" = { };
+        "mailserver/users/admin/email" = { };
+        "mailserver/users/admin/password" = { };
+        "mailserver/users/jf/email" = { };
+        "mailserver/users/jf/password" = { };
+        "mailserver/users/xerhaxs/email" = { };
+        "mailserver/users/xerhaxs/password" = { };
 
         "monero/users/username" = { };
         "monero/users/password" = { };
