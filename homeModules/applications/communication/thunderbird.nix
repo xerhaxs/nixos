@@ -24,7 +24,6 @@
       profiles = {
         "jf" = {
           isDefault = true;
-          name = "jf";
           settings = {
             "mail.spellcheck.inline" = true;
           };

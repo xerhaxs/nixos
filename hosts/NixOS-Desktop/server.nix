@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  nixos.server.enable = lib.mkForce true;
+
   services.freshrss.dataDir = lib.mkForce "/mount/Data/Datein/Server/freshrss";
 
   services.webdav.settings = {
@@ -19,10 +21,15 @@
   services.nzbget.settings.MainDir = lib.mkForce "/mount/Data/Datein/Downloads/NZB Download/";
 
   nixos.server = {
-    home.mailserver.enable = lib.mkForce false;
+    home = {
+      mailserver.enable = lib.mkForce false;
+      etesync.enable = lib.mkForce false;
+    };
     fediverse = {
       peertube.enable = lib.mkForce false;
+      pixelfed.enable = lib.mkForce false;
+      mastodon.enable =lib.mkForce false;
+      lemmy.enable = lib.mkForce false;
     };
-    network.wireguard-server = lib.mkForce false;
   };
 }
