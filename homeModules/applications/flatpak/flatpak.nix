@@ -31,7 +31,7 @@
       };
       
       packages = [
-        "com.github.tchx84.Flatseal"
+        "flathub:app/com.github.tchx84.Flatseal//stable"
       ];
 
       overrides = {

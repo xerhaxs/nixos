@@ -13,17 +13,14 @@
   };
 
   config = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
-    services.xserver = {
-      enable = true;
-      displayManager = {
-        sddm = {
-          enable = true;
-          autoNumlock = true;
-          wayland.enable = true;
-          enableHidpi = false;
-        };
-        defaultSession = "${config.nixos.desktop.displayManager.defaultSession}";
+    services.displayManager = {
+      sddm = {
+        enable = true;
+        autoNumlock = true;
+        wayland.enable = true;
+        enableHidpi = false;
       };
+      defaultSession = "${config.nixos.desktop.displayManager.defaultSession}";
     };
   };
 }
