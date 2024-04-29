@@ -75,6 +75,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   - [ ] setup haos vm
   - [ ] setup OpenVPN Server config
   - [ ] setup WireGuardVPN Server config
+  - [ ] setup mailserver
 
 
 

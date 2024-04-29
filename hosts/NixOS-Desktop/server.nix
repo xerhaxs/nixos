@@ -22,8 +22,13 @@
 
   nixos.server = {
     home = {
-      mailserver.enable = lib.mkForce false;
+      #mailserver.enable = lib.mkForce false;
       etesync.enable = lib.mkForce false;
+      haos.enable = lib.mkForce false;
+      homeassistant.enable = lib.mkForce false;
+    };
+    network = {
+      adguard.enable = lib.mkForce false;
     };
     fediverse = {
       peertube.enable = lib.mkForce false;
