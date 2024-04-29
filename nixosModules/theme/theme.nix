@@ -10,7 +10,7 @@
         description = "Enable themeset.";
       };
 
-      colorscheme = {
+      colorscheme = lib.mkOption {
         type = lib.types.enum [
           "catppuccin"
           "dracula"
