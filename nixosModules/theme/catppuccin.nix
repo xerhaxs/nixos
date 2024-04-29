@@ -6,14 +6,14 @@ let
       owner = "catppuccin";
       repo = "grub";
       rev = "main"; # commit hash or tag
-      sha256 = lib.fakeSha256; #sha256 = lib.fakeSha256;
+      sha256 = "sha256-e8XFWebd/GyX44WQI06Cx6sOduCZc5z7/YhweVQGMGY="; #sha256 = lib.fakeSha256;
     };
 
     sddm = pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "sddm";
       rev = "main"; # commit hash or tag
-      sha256 = lib.fakeSha256; #sha256 = lib.fakeSha256;
+      sha256 = "sha256-TMElu+90/qtk4ipwfoALt7vKxxB9wxW81ZVbTfZI4kA="; #sha256 = lib.fakeSha256;
     };
   };
 in
@@ -28,7 +28,7 @@ in
         description = "Enable catppuccin theme.";
       };
 
-      flavor = {
+      flavor = lib.mkOption {
         type = lib.types.enum [
           "latte"
           "frappe"
@@ -38,7 +38,7 @@ in
         default = "mocha";
       };
 
-      size = {
+      size = lib.mkOption {
         type = lib.types.enum [
           "standard"
           "compact"
@@ -46,16 +46,16 @@ in
         default = "standard";
       };
 
-      tweaks = {
+      tweaks = lib.mkOption {
         type = lib.types.enum [
           "black"
           "rimless"
           "normal"
         ];
-        default = "'rimless' 'normal'";
+        default = "normal";
       };
       
-      winDecStyles = {
+      winDecStyles = lib.mkOption {
         type = lib.types.enum [
           "modern"
           "classic"
@@ -63,37 +63,47 @@ in
         default = "modern";
       };
 
-      accent = {
+      accent = lib.mkOption {
         type = lib.types.enum [
-          "Blue"
-          "Dark"
-          "Flamingo"
-          "Green"
-          "Lavender"
-          "Light"
-          "Maroon"
-          "Mauve"
-          "Peach"
-          "Pink"
-          "Red"
-          "Rosewater"
-          "Sapphire"
-          "Sky"
-          "Teal"
-          "Yellow"
+          "blue"
+          "dark"
+          "flamingo"
+          "green"
+          "lavender"
+          "light"
+          "maroon"
+          "mauve"
+          "peach"
+          "pink"
+          "red"
+          "rosewater"
+          "sapphire"
+          "sky"
+          "teal"
+          "yellow"
         ];
-        default = "Mauve";
+        default = "mauve";
+      };
+
+      prefer = lib.mkOption {
+        type = lib.types.enum [
+          "Dark"
+          "Light"
+        ];
+        default = "Dark";
       };
     };
   };
 
   config = lib.mkIf (config.nixos.theme.catppuccin.enable && config.nixos.theme.theme.colorscheme == "catppuccin") {
+    nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "latte") "Light";
+
     environment.systemPackages = with pkgs; [
       papirus-icon-theme
 
-      (catppuccin.override {
-        accent = [ "${config.nixos.theme.catppuccin.accent}" ];
-        variant = [ "${config.nixos.theme.catppuccin.flavor}" ];
+      #(catppuccin.override {
+      #  accent = [ "${config.nixos.theme.catppuccin.accent}" ];
+      #  variant = [ "${config.nixos.theme.catppuccin.flavor}" ];
         #themeList = [
         #  "bat"
         #  "bottom"
@@ -107,7 +117,7 @@ in
         #  "rofi"
         #  "waybar"
         #];
-      })
+      #})
 
       (catppuccin-kde.override {
         accents = [ "${config.nixos.theme.catppuccin.accent}" ];
@@ -117,25 +127,22 @@ in
 
       (catppuccin-gtk.override {
         accents = [ "${config.nixos.theme.catppuccin.accent}" ];
-        size = [ "${config.nixos.theme.catppuccin.size}" ];
+        size = "${config.nixos.theme.catppuccin.size}";
         tweaks = [ "${config.nixos.theme.catppuccin.tweaks}" ];
         variant = "${config.nixos.theme.catppuccin.flavor}";
       })
 
-      (catppuccin-cursors.override {
-        dimensions.color = [ "${config.nixos.theme.catppuccin.accent}" ];
-        dimensions.palette = [ "${config.nixos.theme.catppuccin.flavor}" ];
-      })
+      catppuccin-cursors
 
       (catppuccin-papirus-folders.override {
         accent = "${config.nixos.theme.catppuccin.accent}";
         flavor = "${config.nixos.theme.catppuccin.flavor}";
       })
 
-      (catppuccin-kvantum.override {
-        accent = "${config.nixos.theme.catppuccin.accent}";
-        variant = "${config.nixos.theme.catppuccin.flavor}";
-      })
+      #(catppuccin-kvantum.override {
+      #  accent = "${config.nixos.theme.catppuccin.accent}";
+      #  variant = "${config.nixos.theme.catppuccin.flavor}";
+      #})
     ];
 
     boot.plymouth = lib.mkIf config.boot.plymouth.enable {
@@ -146,8 +153,8 @@ in
       theme = "catppuccin-${config.nixos.theme.catppuccin.flavor}";
     };
 
-    boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable catppuccin.grub + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme";
+    boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
-    services.xserver.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable catppuccin.sddm + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}";
+    services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}");
   };
 }

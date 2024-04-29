@@ -64,6 +64,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] enable AV1 Encoding in OBS
 - [ ] Nextcloud Database setup (postgresql)
 - [ ] Find network blocklist error with gog
+- [ ] setup gamescope for hdr in games
 
 
 - [ ] Server config

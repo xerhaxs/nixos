@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixos.io.input.enable {
-    services.xserver = {
+    services = {
       libinput = {
         enable = true;
         mouse = {

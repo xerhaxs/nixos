@@ -45,7 +45,7 @@ in
     gtk = {
       enable = true;
       theme = {
-        name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+        name = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.tweaks}-${osConfig.nixos.theme.catppuccin.accent}-${osConfig.nixos.theme.catppuccin.prefer}";
         package = pkgs.catppuccin-gtk.override {
           accents = [ "${osConfig.nixos.theme.catppuccin.accent}" ];
           size = "${osConfig.nixos.theme.catppuccin.size}";
@@ -60,27 +60,27 @@ in
       };
 
       cursorTheme = {
-        name = "Catppuccin-Mocha-Dark-Cursors";
-        package = pkgs.catppuccin-cursors.mochaDark;
+        name = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
+        package = pkgs.catppuccin-cursors."${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.prefer}";
         size = 24;
       };
 
       gtk3.extraConfig = {
-        Settings = ''
-          gtk-application-prefer-dark-theme=1
+        Settings = lib.strings.toLower ''
+          gtk-application-prefer-${osConfig.nixos.theme.catppuccin.prefer}-theme=1
         '';
       };
 
       gtk4.extraConfig = {
-        Settings = ''
-          gtk-application-prefer-dark-theme=1
+        Settings = lib.strings.toLower ''
+          gtk-application-prefer-${osConfig.nixos.theme.catppuccin.prefer}-theme=1
         '';
       };
     };
 
     programs.vscode = {
       userSettings = {
-        "workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
       };
     };
 
