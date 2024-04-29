@@ -5,7 +5,7 @@
   imports = [
     (builtins.fetchTarball {
       url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/master/nixos-mailserver-master.tar.gz";
-      sha256 = "sha256:1hmkm5fx8q6ax4r8d62jb2i2lxpgihb922qd6wwfrkz7l1f2iyyg";
+      sha256 = "sha256:13my11k72fiz4lg5s68mr24l4fbnb3ngma51gny1ivd79x434f0z";
     })
   ];
 
@@ -28,16 +28,16 @@
 
       # A list of all login accounts. To create the password hashes, use
       # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
-      loginAccounts = {
-        "example@mail.com" = {
-          hashedPasswordFile = "EXAMPLE-PASSWORD.txt";
-          aliases = [ "example-alias@mail.com" ];
-        };
-        "example2@mail.com" = {
-          hashedPasswordFile = "EXAMPLE2-PASSWORD.txt";
-          aliases = [ "example-alias@mail.com" ];
-        };
-      };
+      #loginAccounts = {
+      #  "example@mail.com" = {
+      #    hashedPasswordFile = "EXAMPLE-PASSWORD.txt";
+      #    aliases = [ "example-alias@mail.com" ];
+      #  };
+      #  "example2@mail.com" = {
+      #    hashedPasswordFile = "EXAMPLE2-PASSWORD.txt";
+      #    aliases = [ "example-alias@mail.com" ];
+      #  };
+      #};
 
       # Use Let's Encrypt certificates. Note that this needs to set up a stripped
       # down nginx and opens port 80.

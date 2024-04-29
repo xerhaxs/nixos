@@ -49,6 +49,8 @@
         "mailserver/users/admin/password" = { };
         "mailserver/users/jf/email" = { };
         "mailserver/users/jf/password" = { };
+        "mailserver/users/sirmorton/email" = { };
+        "mailserver/users/sirmorton/password" = { };
         "mailserver/users/xerhaxs/email" = { };
         "mailserver/users/xerhaxs/password" = { };
 
@@ -80,9 +82,9 @@
 
         "synology-nas/user" = { };
 
-        "syncthing/NixOS-Desktop" = { };
-        "syncthing/NixOS-Laptop" = { };
-        "syncthing/GraphenOS" = { };
+        "syncthing/nixosdesktop" = { };
+        "syncthing/nixoslaptop" = { };
+        "syncthing/graphenos" = { };
 
         "wireguard/home/privateKey" = { };
         "wireguard/home/presharedKey" = { };

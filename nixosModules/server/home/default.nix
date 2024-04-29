@@ -30,8 +30,8 @@
     nixos.server.home = {
       etesync.enable = true;
       firefoxsync.enable = true;
-      #haos.enable = true;
-      #homeassistant.enable = true;
+      haos.enable = true;
+      homeassistant.enable = true;
       jellyfin.enable = true;
       mailserver.enable = true;
       nextcloud.enable = true;
