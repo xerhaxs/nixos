@@ -8,6 +8,5 @@
     ./locals.nix
     ./networking.nix
     ./sddm.nix
-    ./user.nix
   ];
 }

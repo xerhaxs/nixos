@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  console.keyMap = lib.mkDefault "sg";
+  console.keyMap = lib.mkForce "sg";
   
-  nixos.system.locals.consolekbd = lib.mkDefault "ch";
+  nixos.system.locals.consolekbd = lib.mkForce "ch";
 }

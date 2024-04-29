@@ -6,8 +6,8 @@
 
   boot.loader.grub = {
     device = lib.mkForce "/dev/disk/by-partlabel/BOOT";
-    efiSupport = lib.mkDefault false;
-    efiInstallAsRemovable = lib.mkDefault true;
+    efiSupport = lib.mkForce false;
+    efiInstallAsRemovable = lib.mkForce true;
     gfxmodeBios = "1600x900";
     gfxpayloadBios = "text";
   };
