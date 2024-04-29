@@ -9,6 +9,11 @@ let
       sha256 = "sha256-e8XFWebd/GyX44WQI06Cx6sOduCZc5z7/YhweVQGMGY="; #sha256 = lib.fakeSha256;
     };
 
+    sddm-background = pkgs.fetchurl {
+      url = "https://wallpapercave.com/wp/wp6058967.jpg";
+      sha256 = lib.fakeSha256;
+    };
+
     sddm = pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "sddm";
@@ -155,6 +160,14 @@ in
 
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
-    services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}");
+    services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "pertheme/${config.nixos.theme.catppuccin.flavor}.conf");
+    #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin-sddm.override {
+    #  flavor = "${config.nixos.theme.catppuccin.flavor}";
+    #  font = "DejaVu Sans";
+    #  fontSize = 10;
+    #  background = sddm-background;
+    #  #background = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Desktopbilder/Tiere/wp6058967-3763783450.jpg"
+    #  loginBackground = true;
+    #})
   };
 }
