@@ -1,8 +1,8 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   services.xserver.displayManager = {
-    sddm.wayland.enable = pkgs.lib.mkDefault false;
-    defaultSession = pkgs.lib.mkDefault "plasma";
+    sddm.wayland.enable = lib.mkForce false;
+    defaultSession = lib.mkForce "plasma";
   };
 }
