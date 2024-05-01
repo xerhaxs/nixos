@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.base.tools.syncthing.enable = lib.mkForce true;
+  nixos.base.tools.syncthing.enable = lib.mkForce false;
 
   nixos.desktop = {
     desktopEnvironment = {

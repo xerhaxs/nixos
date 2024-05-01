@@ -103,6 +103,19 @@
         ];
       };
 
+      NixOS-Framework = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Framework/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
+
       NixOS-Laptop = nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -116,6 +129,19 @@
         ];
       };
 
+      NixOS-Live = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Live/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
+
       NixOS-Server = nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -125,6 +151,32 @@
           nur.nixosModules.nur
           ./nixosModules/default.nix
           ./hosts/NixOS-Server/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
+
+      NixOS-Server2 = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Server2/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
+
+      NixOS-Test = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          nur.nixosModules.nur
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Test/default.nix
           ./homeModules/homemanager.nix
         ];
       };

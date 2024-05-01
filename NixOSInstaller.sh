@@ -80,10 +80,12 @@ function_select_host() {
     CHOSEN_HOST=$(whiptail --nocancel --title "Host System" --menu "Chose which host system to install." 32 128 10 \
         "NixOS-Crafter" "Configuration for Workshop" \
         "NixOS-Desktop" "Configuration for Desktop PC" \
-        "NixOS-Gaming" "Configuration for Gaming PC" \
+        "NixOS-Framework" "Configuration for Framework Laptop" \
         "NixOS-Laptop" "Configuration for Laptop" \
+		"NixOS-Live" "Configuration for Live Setup" \
         "NixOS-Server" "Configuration for Server" \
-        "NixOS-Testing" "Configuration for Testing" \
+		"NixOS-Server2" "Configuration for Server2" \
+        "NixOS-Test" "Configuration for Test" \
 		3>&1 1>&2 2>&3)
 
 	echo "$CHOSEN_HOST"

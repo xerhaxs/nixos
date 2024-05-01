@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.server.enable = lib.mkForce false;
+  nixos.server.enable = lib.mkForce true;
 
   services.freshrss.dataDir = lib.mkForce "/mount/Data/Datein/Server/freshrss";
 
