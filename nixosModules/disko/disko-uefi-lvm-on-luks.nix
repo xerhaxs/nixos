@@ -41,9 +41,9 @@
                 content = {
                   name = "crypt";
                   type = "luks";
-                  extraOpenArgs = [
-                    "--timeout 10"
-                  ];
+                  #extraOpenArgs = [
+                  #  "--timeout 10"
+                  #];
                   settings = {
                     keyFile = "/tmp/secret.key";
                     #keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
@@ -65,7 +65,7 @@
                     "--key-size 512"
                     "--pbkdf argon2id"
                     # use true random data from /dev/random, will block until enough entropy is available
-                    "--use-random"
+                    #"--use-random"
                   ];
                 };
               };
