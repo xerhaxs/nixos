@@ -44,13 +44,30 @@
                   extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
                   settings = {
                     keyFile = "/tmp/secret.key";
+                    keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
+                    keyFileOffset = 512 * 128; # match the `bs * skip` of the `dd` command
+                    fallbackToPassword = true;
                     allowDiscards = true;
                   };
+                  initrdUnlock = true;
                   additionalKeyFiles = [ "/tmp/keyfile.key" ];
                   content = {
                     type = "lvm_pv";
                     vg = "crypt";
                   };
+                  extraFormatArgs = [
+                    "--type luks2"
+                    "--cipher aes-xts-plain64"
+                    "--hash sha512"
+                    "--iter-time 5000"
+                    "--key-size 256"
+                    "--pbkdf argon2id"
+                    # use true random data from /dev/random, will block until enough entropy is available
+                    "--use-random"
+                  ];
+                  extraOpenArgs = [
+                    "--timeout 10"
+                  ];
                 };
                 #initrdUnlock = true;
               };

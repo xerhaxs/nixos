@@ -19,7 +19,8 @@
   config = lib.mkIf config.homeManager.home.home.enable {
     home = {
       username = "${osConfig.nixos.system.user.defaultuser.name}";
-      homeDirectory = "/home/${osConfig.nixos.system.user.defaultuser.name}";
+      #homeDirectory = "/home/${osConfig.nixos.system.user.defaultuser.name}";
+      homeDirectory = "/home/jf";
       stateVersion = "24.05";
     };
 
