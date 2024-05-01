@@ -42,9 +42,6 @@
                   name = "crypt";
                   type = "luks";
                   extraOpenArgs = [
-                    "--cipher aes-xts-plain64"
-                    "--key-size 512"
-                    "--hash sha512"
                     "--timeout 10"
                   ];
                   settings = {
@@ -64,14 +61,13 @@
                     "--type luks2"
                     "--cipher aes-xts-plain64"
                     "--hash sha512"
-                    "--iter-time 5000"
-                    "--key-size 256"
+                    "--iter-time 2000"
+                    "--key-size 512"
                     "--pbkdf argon2id"
                     # use true random data from /dev/random, will block until enough entropy is available
-                    "--use-random"
+                    #"--use-random"
                   ];
                 };
-                #initrdUnlock = true;
               };
             };
           };
