@@ -5,6 +5,7 @@
     ./autostart
     ./flatpak.nix
     ./gamemode.nix
+    ./gamescope.nix
     ./kdeconnect.nix
     ./mullvad.nix
     ./printing.nix
@@ -27,7 +28,8 @@
     nixos.userEnvironment = {
       autostart.enable = true;
       flatpak.enable = true;
-      gamemode.enable = false;
+      gamemode.enable = true;
+      gamescope.enable = true;
       kdeconnect.enable = true;
       mullvad.enable = true;
       printing.enable = true;
