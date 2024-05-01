@@ -16,6 +16,11 @@
     };
   };
 
+  nixos.theme.catppuccin = {
+    accent = "blue";
+    flavor = "latte";
+  };
+
   nixos.hardware = {
     amdcpu.enable = true;
     amdgpu.enable = true;

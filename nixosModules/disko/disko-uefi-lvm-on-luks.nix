@@ -30,9 +30,9 @@
                   type = "filesystem";
                   format = "vfat";
                   mountpoint = "/boot";
-                  #mountOptions = [
-                  #  "defaults"
-                  #];
+                  mountOptions = [
+                    "defaults"
+                  ];
                 };
               };
               luks = {
@@ -69,9 +69,9 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
-                #mountOptions = [
-                #  "defaults"
-                #];
+                mountOptions = [
+                  "defaults"
+                ];
               };
             };
             home = {
@@ -82,9 +82,6 @@
                 format = "ext4";
                 mountpoint = "/home";
               };
-            };
-            raw = {
-              size = "10M";
             };
           };
         };
