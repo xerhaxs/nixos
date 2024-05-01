@@ -51,7 +51,7 @@
                     keyFile = "/tmp/secret.key";
                     keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
                     keyFileOffset = 512 * 128; # match the `bs * skip` of the `dd` command
-                    fallbackToPassword = true;
+                    #fallbackToPassword = true;
                     allowDiscards = true;
                   };
                   initrdUnlock = true;
