@@ -52,7 +52,7 @@
                     vg = "crypt";
                   };
                 };
-                initrdUnlock = true;
+                #initrdUnlock = true;
               };
             };
           };
@@ -82,6 +82,9 @@
                 format = "ext4";
                 mountpoint = "/home";
               };
+            };
+            raw = {
+              size = "10M";
             };
           };
         };
