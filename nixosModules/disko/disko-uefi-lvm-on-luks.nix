@@ -45,7 +45,7 @@
                     "--timeout 10"
                   ];
                   settings = {
-                    #keyFile = "/tmp/secret.key";
+                    keyFile = "/tmp/secret.key";
                     #keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
                     #keyFileOffset = 512 * 128; # match the `bs * skip` of the `dd` command
                     #fallbackToPassword = true;
@@ -65,7 +65,7 @@
                     "--key-size 512"
                     "--pbkdf argon2id"
                     # use true random data from /dev/random, will block until enough entropy is available
-                    #"--use-random"
+                    "--use-random"
                   ];
                 };
               };
