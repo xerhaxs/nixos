@@ -41,7 +41,12 @@
                 content = {
                   name = "crypt";
                   type = "luks";
-                  extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
+                  extraOpenArgs = [
+                    "--cipher aes-xts-plain64"
+                    "--key-size 512"
+                    "--hash sha512"
+                    "--timeout 10"
+                  ];
                   settings = {
                     keyFile = "/tmp/secret.key";
                     keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
@@ -64,9 +69,6 @@
                     "--pbkdf argon2id"
                     # use true random data from /dev/random, will block until enough entropy is available
                     "--use-random"
-                  ];
-                  extraOpenArgs = [
-                    "--timeout 10"
                   ];
                 };
                 #initrdUnlock = true;
