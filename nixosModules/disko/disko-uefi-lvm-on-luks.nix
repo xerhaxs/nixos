@@ -51,7 +51,7 @@
                     #fallbackToPassword = true;
                     allowDiscards = true;
                   };
-                  initrdUnlock = true;
+                  #initrdUnlock = true;
                   additionalKeyFiles = [ "/tmp/keyfile.key" ];
                   content = {
                     type = "lvm_pv";
