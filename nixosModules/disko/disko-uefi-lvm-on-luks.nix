@@ -42,12 +42,12 @@
                   name = "crypt";
                   type = "luks";
                   extraOpenArgs = [
-                    "--timeout 10"
+                    #"--timeout 10"
                   ];
                   settings = {
                     keyFile = "/tmp/secret.key";
-                    keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
-                    keyFileOffset = 512 * 128; # match the `bs * skip` of the `dd` command
+                    #keyFileSize = 512 * 64; # match the `bs * count` of the `dd` command
+                    #keyFileOffset = 512 * 128; # match the `bs * skip` of the `dd` command
                     #fallbackToPassword = true;
                     allowDiscards = true;
                   };
