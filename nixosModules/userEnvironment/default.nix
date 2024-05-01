@@ -10,6 +10,7 @@
     ./mullvad.nix
     ./printing.nix
     ./samba-client.nix
+    ./steam.nix
     ./xdgmime.nix
   ];
 
@@ -34,6 +35,7 @@
       mullvad.enable = true;
       printing.enable = true;
       samba-client.enable = true;
+      steam.enable = false;
       xdgmime.enable = true;
     };
   };
