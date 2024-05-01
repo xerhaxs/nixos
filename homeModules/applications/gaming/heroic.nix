@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.homeManager.applications.gaming.heroic.enable {
-    home.packages = [
+    home.packages = with pkgs; [
       heroic-unwrapped
     ];
     #services.flatpak = {
