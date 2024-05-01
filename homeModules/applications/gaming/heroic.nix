@@ -13,9 +13,9 @@
   };
 
   config = lib.mkIf config.homeManager.applications.gaming.heroic.enable {
-    #home.packages = with pkgs; [
-      #heroic-unwrapped
-    #];
+    home.packages = with pkgs; [
+      heroic-unwrapped
+    ];
     #services.flatpak = {
     #  packages = [
     #    "flathub:app/com.heroicgameslauncher.hgl//stable"
