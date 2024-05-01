@@ -3,6 +3,8 @@
 This is my personal NixOS configuration.
 I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below.
 
+This config is still in development (see ToDo).
+
 ### Installation / Usage
 
 ```
