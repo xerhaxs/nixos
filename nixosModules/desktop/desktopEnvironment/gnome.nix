@@ -23,6 +23,10 @@
       gnome.gnome-settings-daemon
     ];
 
+    programs.kdeconnect = {
+      package = lib.mkForce pkgs.gnomeExtensions.gsconnect;
+    };
+
     environment = {
       gnome.excludePackages = with pkgs; with gnome; [
         cheese

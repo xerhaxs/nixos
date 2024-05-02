@@ -16,8 +16,8 @@
     services.syncthing = {
       enable = true;
       systemService = true;
-      #user = "${user}";
-      #group = "root";
+      user = "${config.nixos.system.user.defaultuser.name}";
+      group = "users";
       dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
       configDir = config.services.syncthing.dataDir + "/.config/syncthing";
       overrideDevices = true;
