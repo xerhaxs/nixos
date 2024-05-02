@@ -64,7 +64,6 @@
                     "--iter-time 2000"
                     "--key-size 512"
                     "--pbkdf argon2id"
-                    # use true random data from /dev/random, will block until enough entropy is available
                     "--use-random"
                   ];
                 };

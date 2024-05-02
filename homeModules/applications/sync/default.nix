@@ -26,7 +26,7 @@
       kdeconnect.enable = true;
       nextcloud-client.enable = true;
       onionshare.enable = true;
-      syncthing.enable = lib.mkIf osConfig.nixos.base.tools.syncthing.enable true;
+      syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };
   };
 }
