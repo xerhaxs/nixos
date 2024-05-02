@@ -24,7 +24,7 @@
     amdgpu.enable = true;
   };
 
-  nixos.system.powermanagement.profiles.performance = lib.mkForce true;
+  nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
 
   nixos.system.user.defaultuser = {
     name = "jf";
