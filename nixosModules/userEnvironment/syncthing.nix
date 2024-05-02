@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    base.tools.syncthing = {
+    userEnvironment.syncthing = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.base.tools.syncthing.enable {
+  config = lib.mkIf config.nixos.userEnvironment.syncthing.enable {
     services.syncthing = {
       enable = true;
       systemService = true;

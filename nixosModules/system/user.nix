@@ -39,8 +39,7 @@
       name = "${config.nixos.system.user.defaultuser.name}";
       isNormalUser = true;
       group = "users";
-      #home = "/home/${config.nixos.system.user.defaultuser.name}";
-      home = "/home/jf";
+      home = "/home/${config.nixos.system.user.defaultuser.name}";
       description = "${config.nixos.system.user.defaultuser.name}";
       extraGroups = [
         "networkmanager"
@@ -50,8 +49,7 @@
         "lp"
       ];
       initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
-      shell = pkgs.bash;
-      #shell = config.nixos.system.user.defaultuser.shell;
+      shell = config.nixos.system.user.defaultuser.shell;
     };
   };
 }

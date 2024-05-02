@@ -6,7 +6,6 @@
     ./git.nix
     ./htop.nix
     ./openvpn-client.nix
-    ./syncthing.nix
     ./wireguard-client.nix
   ];
 
@@ -27,7 +26,6 @@
       git.enable = true;
       htop.enable = true;
       #openvpn-client.enable = true;
-      syncthing.enable = false;
       #wireguard-client.enable = true;
     };
   };

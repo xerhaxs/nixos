@@ -6,7 +6,7 @@
     ./kdeconnect.nix
     ./nextcloud-client.nix
     ./onionshare.nix
-    ./syncthing.nix
+    #./syncthing.nix
   ];
 
   options.homeManager = {
@@ -26,7 +26,7 @@
       kdeconnect.enable = true;
       nextcloud-client.enable = true;
       onionshare.enable = true;
-      syncthing.enable = lib.mkIf osConfig.nixos.base.tools.syncthing.enable true;
+      #syncthing.enable = lib.mkIf osConfig.nixos.base.tools.syncthing.enable true;
     };
   };
 }

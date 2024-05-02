@@ -11,6 +11,7 @@
     ./printing.nix
     ./samba-client.nix
     ./steam.nix
+    #./syncthing.nix
     ./xdgmime.nix
   ];
 
@@ -36,6 +37,7 @@
       printing.enable = true;
       samba-client.enable = true;
       steam.enable = false;
+      #syncthing.enable = true;
       xdgmime.enable = true;
     };
   };
