@@ -23,6 +23,8 @@
       platformTheme = "kde";
     };
 
+    programs.kdeconnect.package = lib.mkForce pkgs.kdePackages.kdeconnect-kde;
+
     environment = {
       plasma6.excludePackages = with pkgs; with kdePackages; [
         elisa
