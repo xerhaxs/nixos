@@ -27,8 +27,8 @@
   nixos.system.powermanagement.profiles.performance = lib.mkForce true;
 
   nixos.system.user.defaultuser = {
-    name = "jf";
-    pass = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
+    name = "dummy";
+    pass = "$y$j9T$GjZ/YRVelFtyOEzczGRs31$Br/TC2Bdb7GIeHwwOxlV9KA.shIgz42l2ye.Suuyue/";
   };
 
   nixos.userEnvironment.enable = lib.mkForce false;

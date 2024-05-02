@@ -16,10 +16,5 @@
     home.packages = with pkgs; [
       heroic-unwrapped
     ];
-    #services.flatpak = {
-    #  packages = [
-    #    "flathub:app/com.heroicgameslauncher.hgl//stable"
-    #  ];
-    #};
   };
 }
