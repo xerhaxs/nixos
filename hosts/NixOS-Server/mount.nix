@@ -3,7 +3,7 @@
 {
   boot.initrd.luks.devices = {
    "crypt2" = {
-      device = "/dev/disk/by-partlabel/disk-VAR-luks";
+      device = "/dev/disk/by-partlabel/disk-VAR-LUKS2";
       keyFile = "/root/keyfile.key";
       preLVM = true;
     };

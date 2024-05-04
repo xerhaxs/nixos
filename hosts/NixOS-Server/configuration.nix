@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.base.tools.syncthing.enable = lib.mkForce true;
-
   nixos.hardware = {
     intelcpu.enable = true;
     intelgpu.enable = true;

@@ -11,21 +11,34 @@
           type = "gpt";
           partitions = {
             luks = {
-              name = "CRYPT2";
+              name = "LUKS2";
               size = "100%";
               content = {
-                name = "LUKS2";
+                name = "system2";
                 type = "luks";
-                extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
+                extraOpenArgs = [
+                  "--timeout 10"
+                ];
                 settings = {
                   keyFile = "/tmp/secret.key";
                   allowDiscards = true;
                 };
+                initrdUnlock = true;
                 additionalKeyFiles = [ "/tmp/keyfile.key" ];
                 content = {
                   type = "lvm_pv";
                   vg = "crypt2";
                 };
+                extraFormatArgs = [
+                  "--type luks2"
+                  "--cipher aes-xts-plain64"
+                  "--hash sha512"
+                  "--iter-time 2000"
+                  "--key-size 512"
+                  "--pbkdf argon2id"
+                  "--use-random"
+                  "--label LUKS2"
+                ];
               };
             };
           };
@@ -46,6 +59,7 @@
               mountOptions = [
                 "defaults"
               ];
+              extraArgs = [ "-L var" ];
             };
           };
         };

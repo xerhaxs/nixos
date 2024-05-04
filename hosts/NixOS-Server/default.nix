@@ -9,5 +9,6 @@
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
+    ./server.nix
   ];
 }
