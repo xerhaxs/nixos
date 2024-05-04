@@ -7,6 +7,5 @@
     ./hardware-configuration.nix
     ./locals.nix
     ./networking.nix
-    ./sddm.nix
   ];
 }

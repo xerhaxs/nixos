@@ -1,18 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.base.tools.syncthing.enable = lib.mkForce true;
-
   nixos.desktop = {
     desktopEnvironment = {
       plasma6.enable = lib.mkForce true;
     };
     displayManager = {
-      defaultSession = "plasma";
+      defaultSession = "plasmax11";
       sddm.enable = lib.mkForce true;
-    };
-    windowManager = {
-      hyprland.enable = lib.mkForce true;
     };
   };
 
