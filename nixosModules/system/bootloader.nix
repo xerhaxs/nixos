@@ -60,8 +60,8 @@
     boot.initrd.systemd.enable = true;
 
     boot.initrd.luks.devices = {
-      "crypt" = {
-        device = "/dev/disk/by-partlabel/disk-SYSTEM-crypt";
+      "system" = {
+        device = "/dev/disk/by-label/LUKS";
         preLVM = true;
         #fallbackToPassword = true;
       };

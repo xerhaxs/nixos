@@ -16,7 +16,7 @@
     disko.devices = {
       disk = {
         vda = {
-          name = "SYSTEM";
+          name = "NIXOS";
           type = "disk";
           device = builtins.elemAt disks 0;
           content = {
@@ -37,7 +37,7 @@
                 };
               };
               luks = {
-                name = "crypt";
+                name = "luks";
                 size = "100%";
                 content = {
                   name = "crypt";
@@ -56,7 +56,7 @@
                   additionalKeyFiles = [ "/tmp/keyfile.key" ];
                   content = {
                     type = "lvm_pv";
-                    vg = "crypt";
+                    vg = "system";
                   };
                   extraFormatArgs = [
                     "--type luks2"
@@ -75,7 +75,7 @@
         };
       };
       lvm_vg = {
-        crypt = {
+        system = {
           type = "lvm_vg";
           lvs = {
             swap = {

@@ -14,17 +14,17 @@
 
   config = lib.mkIf config.nixos.system.mount.enable {
     fileSystems."/" = {
-      device = "/dev/crypt/root";
+      device = "/dev/mapper/crypt-root";
       fsType = "ext4";
     };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-partlabel/disk-SYSTEM-BOOT";
+      device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
 
     fileSystems."/home" = {
-      device = "/dev/crypt/home";
+      device = "/dev/mapper/crypt-home";
       fsType = "ext4";
     };
   };
