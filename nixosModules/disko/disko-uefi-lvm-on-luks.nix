@@ -95,8 +95,8 @@
                 mountOptions = [
                   "defaults"
                 ];
+                extraFormatArgs = [ "--label root" ];
               };
-              extraFormatArgs = [ "--label ROOT" ];
             };
             home = {
               name = "home";
