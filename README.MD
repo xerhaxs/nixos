@@ -78,6 +78,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   - [ ] setup WireGuardVPN Server config
   - [ ] setup mailserver
 
+Prefetch URLs and sha: nix-prefetch-url --unpack https://URL.com oder lib.fakeSha256
+
 
 
 

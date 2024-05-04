@@ -83,8 +83,8 @@
               content = {
                 type = "swap";
                 resumeDevice = true;
+                extraFormatArgs = [ "--label SWAP" ];
               };
-              extraFormatArgs = [ "--label SWAP" ];
             };
             root = {
               name = "root";
