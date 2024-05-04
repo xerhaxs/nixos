@@ -33,6 +33,7 @@
                   mountOptions = [
                     "defaults"
                   ];
+                  extraArgs = [ "-label boot" ];
                 };
               };
               luks = {
@@ -83,6 +84,7 @@
               content = {
                 type = "swap";
                 resumeDevice = true;
+                extraArgs = [ "-label swap" ];
               };
             };
             root = {
@@ -95,7 +97,7 @@
                 mountOptions = [
                   "defaults"
                 ];
-                extraArgs = [ "--label root" ];
+                extraArgs = [ "-label root" ];
               };
             };
             home = {
@@ -105,6 +107,7 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/home";
+                extraArgs = [ "-label home" ];
               };
             };
           };
