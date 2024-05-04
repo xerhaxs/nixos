@@ -61,7 +61,7 @@
 
     boot.initrd.luks.devices = {
       "system" = {
-        device = lib.mkDefault "/dev/disk/by-label/LUKS";
+        device = "/dev/disk/by-label/LUKS";
         preLVM = true;
       };
     };

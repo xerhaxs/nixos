@@ -19,7 +19,7 @@
     };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-label/BOOT";
+      device = "/dev/disk/by-partlabel/disk-NIXOS-UEFI;
       fsType = "vfat";
     };
 
