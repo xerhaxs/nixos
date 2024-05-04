@@ -23,7 +23,7 @@
             type = "gpt";
             partitions = {
               ESP = {
-                name = "UEFI";
+                name = "BOOT";
                 type = "EF00";
                 size = "500M";
                 content = {
@@ -37,7 +37,7 @@
                 };
               };
               luks = {
-                name = "luks";
+                name = "LUKS";
                 size = "100%";
                 content = {
                   name = "system";

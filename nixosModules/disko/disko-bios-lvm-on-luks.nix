@@ -16,7 +16,7 @@
     disko.devices = {
       disk = {
         vda = {
-          name = "SYSTEM";
+          name = "NIXOS";
           type = "disk";
           device = builtins.elemAt disks 0;
           content = {
@@ -35,27 +35,41 @@
                   mountOptions = [
                     "defaults"
                   ];
+                  extraArgs = [ "-n BOOT" ];
                 };
               }
               {
-                name = "CRYPT";
+                name = "LUKS";
                 start = "500M";
                 end = "100%";
                 part-type = "primary";
                 bootable = true;
                 content = {
-                  name = "LUKS";
+                  name = "system";
                   type = "luks";
-                  extraOpenArgs = [ "--cipher aes-xts-plain64" "--key-size 512" "--hash sha512" ];
+                  extraOpenArgs = [
+                    "--timeout 10"
+                  ];
                   settings = {
                     keyFile = "/tmp/secret.key";
                     allowDiscards = true;
                   };
+                  initrdUnlock = true;
                   additionalKeyFiles = [ "/tmp/keyfile.key" ];
                   content = {
                     type = "lvm_pv";
                     vg = "crypt";
                   };
+                  extraFormatArgs = [
+                    "--type luks2"
+                    "--cipher aes-xts-plain64"
+                    "--hash sha512"
+                    "--iter-time 2000"
+                    "--key-size 512"
+                    "--pbkdf argon2id"
+                    "--use-random"
+                    "--label LUKS"
+                  ];
                 };
               }
             ];
@@ -66,6 +80,15 @@
         crypt = {
           type = "lvm_vg";
           lvs = {
+            swap = {
+              name = "swap";
+              size = "32G";
+              content = {
+                type = "swap";
+                resumeDevice = true;
+                extraArgs = [ "-L swap" ];
+              };
+            };
             root = {
               name = "root";
               size = "40%FREE";
@@ -76,6 +99,7 @@
                 mountOptions = [
                   "defaults"
                 ];
+                extraArgs = [ "-L root" ];
               };
             };
             home = {
@@ -85,6 +109,7 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/home";
+                extraArgs = [ "-L home" ];
               };
             };
           };

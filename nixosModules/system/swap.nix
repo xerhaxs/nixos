@@ -19,15 +19,6 @@
       #  device = "/var/lib/swapfile";
       #  size = 4*1024;
       #}
-      #{
-      #  device = "/dev/mapper/crypt-swap";
-      #  encrypted = {
-      #    enable = true;
-      #    keyFile = "/sysroot/root/keyfile.key";
-      #    label = "SWAP";
-      #    blkDev = "/dev/disk/by-label/LUKS";
-      #  };
-      #}
     ];
   };
 }
