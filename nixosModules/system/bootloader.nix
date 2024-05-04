@@ -63,7 +63,6 @@
       "system" = {
         device = "/dev/disk/by-label/LUKS";
         preLVM = true;
-        #fallbackToPassword = true;
       };
     };
 
