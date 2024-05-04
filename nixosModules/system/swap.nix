@@ -22,7 +22,7 @@
         device = "/dev/crypt/swap";
         encrypted = {
           enable = true;
-          keyFile = "/mnt-root/root/keyfile.key";
+          keyFile = "/sysroot/root/keyfile.key";
           label = "SWAP";
           blkDev = "/dev/disk/by-partlabel/disk-SYSTEM-SWAP";
         };
