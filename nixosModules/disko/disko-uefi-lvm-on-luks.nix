@@ -37,7 +37,7 @@
                 };
               };
               luks = {
-                name = "LUKS";
+                name = "luks";
                 size = "100%";
                 content = {
                   name = "system";
