@@ -83,7 +83,6 @@
               content = {
                 type = "swap";
                 resumeDevice = true;
-                extraFormatArgs = [ "--label SWAP" ];
               };
             };
             root = {
@@ -97,6 +96,7 @@
                   "defaults"
                 ];
               };
+              extraFormatArgs = [ "--label ROOT" ];
             };
             home = {
               name = "home";
