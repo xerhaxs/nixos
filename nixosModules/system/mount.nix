@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.nixos.system.mount.enable {
     fileSystems."/" = {
-      device = "/dev/crypt/root";
+      device = "/dev/disk/by-label/root";
       fsType = "ext4";
     };
 
@@ -24,7 +24,7 @@
     };
 
     fileSystems."/home" = {
-      device = "/dev/crypt/home";
+      device = "/dev/disk/by-label/home";
       fsType = "ext4";
     };
   };

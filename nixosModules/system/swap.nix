@@ -14,19 +14,20 @@
 
   config = lib.mkIf config.nixos.system.swap.enable {
     swapDevices = [
+      { device = "/dev/disk/by-label/swap"; }
       #{
       #  device = "/var/lib/swapfile";
       #  size = 4*1024;
       #}
-      {
-        device = "/dev/mapper/crypt-swap";
-        encrypted = {
-          enable = true;
-          keyFile = "/sysroot/root/keyfile.key";
-          label = "SWAP";
-          blkDev = "/dev/disk/by-label/LUKS";
-        };
-      }
+      #{
+      #  device = "/dev/mapper/crypt-swap";
+      #  encrypted = {
+      #    enable = true;
+      #    keyFile = "/sysroot/root/keyfile.key";
+      #    label = "SWAP";
+      #    blkDev = "/dev/disk/by-label/LUKS";
+      #  };
+      #}
     ];
   };
 }
