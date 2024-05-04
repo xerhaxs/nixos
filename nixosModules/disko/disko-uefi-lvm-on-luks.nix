@@ -40,7 +40,7 @@
                 name = "luks";
                 size = "100%";
                 content = {
-                  name = "crypt";
+                  name = "system";
                   type = "luks";
                   extraOpenArgs = [
                     "--timeout 10"
@@ -56,7 +56,7 @@
                   additionalKeyFiles = [ "/tmp/keyfile.key" ];
                   content = {
                     type = "lvm_pv";
-                    vg = "system";
+                    vg = "crypt";
                   };
                   extraFormatArgs = [
                     "--type luks2"
@@ -75,7 +75,7 @@
         };
       };
       lvm_vg = {
-        system = {
+        crypt = {
           type = "lvm_vg";
           lvs = {
             swap = {
