@@ -132,7 +132,7 @@ in
       };
 
       hostFiles = [
-        #StevenBlack
+        StevenBlack
         malware
         phishing
         ransomware

@@ -65,6 +65,7 @@
                     "--key-size 512"
                     "--pbkdf argon2id"
                     "--use-random"
+                    "--label LUKS"
                   ];
                 };
               };
@@ -76,6 +77,15 @@
         crypt = {
           type = "lvm_vg";
           lvs = {
+            swap = {
+              name = "swap";
+              size = "32G";
+              content = {
+                type = "swap";
+                resumeDevice = true;
+              };
+              extraFormatArgs = [ "--label SWAP" ];
+            };
             root = {
               name = "root";
               size = "40%FREE";

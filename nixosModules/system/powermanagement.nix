@@ -37,8 +37,7 @@
       services.upower = {
         enable = true;
         ignoreLid = false;
-        criticalPowerAction = "PowerOff";
-        #criticalPowerAction = "HybridSleep";
+        criticalPowerAction = "HybridSleep";
         percentageAction = 2;
         percentageCritical = 5;
         percentageLow = 10;
