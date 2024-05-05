@@ -18,7 +18,7 @@
         vda = {
           name = "NIXOS";
           type = "disk";
-          device = builtins.elemAt disks 0;
+          device = "/dev/sda"; #builtins.elemAt disks 0;
           content = {
             type = "table";
             format = "gpt";
