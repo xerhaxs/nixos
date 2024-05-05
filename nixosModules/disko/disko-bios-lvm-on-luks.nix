@@ -21,7 +21,7 @@
           device = builtins.elemAt disks 0;
           content = {
             type = "table";
-            format = "mbr";
+            format = "msdos";
             partitions = [
               {
                 name = "BOOT";
