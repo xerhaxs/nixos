@@ -24,7 +24,7 @@
             format = "gpt";
             partitions = [
               {
-                name = "ESP";
+                name = "BOOT";
                 start = "1M";
                 end = "500M";
                 bootable = true;
@@ -35,14 +35,14 @@
                   mountOptions = [
                     "defaults"
                   ];
-                  extraArgs = [ "-n BOOT" ];
+                  #extraArgs = [ "-n BOOT" ];
                 };
               }
               {
                 name = "LUKS";
                 start = "500M";
                 end = "100%";
-                part-type = "primary";
+                #part-type = "primary";
                 bootable = true;
                 content = {
                   name = "system";
