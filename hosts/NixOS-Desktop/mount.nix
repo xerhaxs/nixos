@@ -6,12 +6,12 @@
     text = ''
       data       /dev/disk/by-label/CRYPTDATA 	    /root/keyfile 	luks
       games      /dev/disk/by-label/CRYPTGAMES 	    /root/keyfile 	luks
-      backup     /dev/disk/by-label/CRYPTBACKUP 	/root/keyfile 	luks
+      backup     /dev/disk/by-label/CRYPTBACKUP 	  /root/keyfile 	luks
     '';
   };
 
   nixos.system.mount.enable = lib.mkForce false;
-  
+
   fileSystems."/mount/Data" = {
     device = "/dev/mapper/data";
     fsType = "ext4";
