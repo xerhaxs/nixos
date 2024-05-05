@@ -90,8 +90,6 @@
             root = {
               name = "root";
               size = "40%FREE";
-              part-type = "primary";
-              bootable = true;
               content = {
                 type = "filesystem";
                 format = "ext4";
