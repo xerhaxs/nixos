@@ -19,7 +19,7 @@
     };
 
     fileSystems."/boot" = {
-      device = lib.mkForce "/dev/disk/by-partlabel/disk-NIXOS-BOOT"; # "/dev/disk/by-label/BOOT";
+      device = lib.mkDefault "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
       fsType = "vfat";
     };
 
