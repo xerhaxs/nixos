@@ -21,7 +21,7 @@
           device = builtins.elemAt disks 0;
           content = {
             type = "table";
-            format = "gpt";
+            format = "mbr";
             partitions = [
               {
                 name = "BOOT";
@@ -42,6 +42,8 @@
                 name = "LUKS";
                 start = "500M";
                 end = "100%";
+                part-type = "primary";
+                bootable = true;
                 content = {
                   name = "system";
                   type = "luks";
