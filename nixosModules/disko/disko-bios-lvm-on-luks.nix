@@ -1,6 +1,10 @@
-{ config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
+{ config, disko, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
   
 {
+  imports = [
+    disko.nixosModules.disko
+  ];
+
   options.nixos = {
     disko.disko-bios-lvm-on-luks = {
       enable = lib.mkOption {
@@ -21,7 +25,7 @@
           device = builtins.elemAt disks 0;
           content = {
             type = "table";
-            format = "gpt";
+            format = "mbr";
             partitions = [
               {
                 name = "ESP";

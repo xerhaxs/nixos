@@ -1,5 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "1920x1200x32";
+  boot.loader.efi.canTouchEfiVariables = false;
+  
+  boot.loader.grub = {
+    device = lib.mkForce "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
+    efiSupport = lib.mkForce false;
+    efiInstallAsRemovable = lib.mkForce false;
+    gfxmodeBios = "1600x900";
+    gfxpayloadBios = "text";
+  };
 }

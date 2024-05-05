@@ -20,8 +20,8 @@
   };
 
   nixos.hardware = {
-    amdcpu.enable = true;
-    amdgpu.enable = true;
+    intelcpu.enable = true;
+    intelgpu.enable = true;
   };
 
   nixos.system.powermanagement.profiles.performance = lib.mkForce true;
