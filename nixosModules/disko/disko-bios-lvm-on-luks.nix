@@ -42,8 +42,6 @@
                 name = "LUKS";
                 start = "500M";
                 end = "100%";
-                part-type = "primary";
-                bootable = true;
                 content = {
                   name = "system";
                   type = "luks";
@@ -92,6 +90,8 @@
             root = {
               name = "root";
               size = "40%FREE";
+              part-type = "primary";
+              bootable = true;
               content = {
                 type = "filesystem";
                 format = "ext4";
