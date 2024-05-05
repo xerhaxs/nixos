@@ -24,7 +24,7 @@
             format = "gpt";
             partitions = [
               {
-                name = "BOOT";
+                name = "ESP";
                 start = "1M";
                 end = "500M";
                 bootable = true;
