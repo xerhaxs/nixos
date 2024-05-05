@@ -3,14 +3,11 @@
 {
   nixos.desktop = {
     desktopEnvironment = {
-      plasma6.enable = lib.mkForce false;
+      plasma6.enable = lib.mkForce true;
     };
     displayManager = {
-      defaultSession = "plasma";
-      sddm.enable = lib.mkForce false;
-    };
-    windowManager = {
-      hyprland.enable = lib.mkForce false;
+      defaultSession = "plasmax11";
+      sddm.enable = lib.mkForce true;
     };
   };
 
@@ -28,7 +25,7 @@
 
   nixos.system.user.defaultuser = {
     name = "crafter";
-    pass = "$y$j9T$NGE6b.r/2wiEsu42u31ay/$gzDPnUYKu7hv2YUvSiS0699rfojQFuBE5Hmdg8iXre4";
+    pass = "$y$j9T$jm4Ok07L9BMRmMMjIh6/v0$R1lQzhy9WB.bGHrGVAogBhuK2b3EtjZPwQRwC9LhaCD";
   };
 
   nixos.userEnvironment.enable = lib.mkForce false;
