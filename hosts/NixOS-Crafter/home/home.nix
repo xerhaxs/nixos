@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  homeManager.applications.enable = lib.mkDefault true;
+  homeManager.applications.enable = lib.mkForce false;
 }
