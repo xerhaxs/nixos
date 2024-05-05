@@ -11,6 +11,11 @@
     };
   };
 
+  nixos.theme.catppuccin = {
+    accent = "red";
+    flavor = "frappe";
+  };
+
   nixos.hardware = {
     intelcpu.enable = true;
     intelgpu.enable = true;
@@ -23,5 +28,5 @@
     pass = "$y$j9T$jm4Ok07L9BMRmMMjIh6/v0$R1lQzhy9WB.bGHrGVAogBhuK2b3EtjZPwQRwC9LhaCD";
   };
 
-  nixos.userEnvironment.enable = lib.mkForce true;
+  nixos.userEnvironment.enable = lib.mkForce false;
 }
