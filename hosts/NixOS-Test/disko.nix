@@ -23,15 +23,15 @@
                 mountOptions = [
                   "defaults"
                 ];
-                #extraArgs = [ "-n BOOT" ];
+                extraArgs = [ "-n BOOT" ];
               };
             }
             {
               name = "LUKS";
               start = "500M";
               end = "100%";
-              #part-type = "primary";
-              #bootable = true;
+              part-type = "primary";
+              bootable = true;
               content = {
                 name = "system";
                 type = "luks";
@@ -42,22 +42,22 @@
                   keyFile = "/tmp/secret.key";
                   allowDiscards = true;
                 };
-                #initrdUnlock = true;
+                initrdUnlock = true;
                 additionalKeyFiles = [ "/tmp/keyfile.key" ];
                 content = {
                   type = "lvm_pv";
                   vg = "crypt";
                 };
-                #extraFormatArgs = [
-                #  "--type luks2"
-                #  "--cipher aes-xts-plain64"
-                #  "--hash sha512"
-                #  "--iter-time 2000"
-                #  "--key-size 512"
-                #  "--pbkdf argon2id"
-                #  "--use-random"
-                #  "--label LUKS"
-                #];
+                extraFormatArgs = [
+                  "--type luks2"
+                  "--cipher aes-xts-plain64"
+                  "--hash sha512"
+                  "--iter-time 2000"
+                  "--key-size 512"
+                  "--pbkdf argon2id"
+                  "--use-random"
+                  "--label LUKS"
+                ];
               };
             }
           ];
