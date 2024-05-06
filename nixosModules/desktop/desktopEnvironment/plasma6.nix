@@ -30,7 +30,7 @@
         elisa
         spectacle
         kwalletmanager
-        reeze
+        breeze
         breeze-icons
         breeze-gtk
         oxygen
@@ -44,16 +44,38 @@
         kaccounts-providers
         kaccounts-integration
         plasma-browser-integration
+        plasma-pa
+        plasma-nm
+        plasma-disks
+        partitionmanager
+        plasma5support
+        plasma-desktop
+        plasma-activities
+        plasma-thunderbolt
+        plasma-integration
+        plasma-systemmonitor
+        plasma-activities-stats
+        plasma-wayland-protocols
+        libplasma
+        systemsettings
+        powerdevil
+        kpipewire
+        bluedevil
+        kdeplasma-addons
+        kaccounts-integration
+        akonadi
+        filelight
+        maliit-keyboard
+        soundkonverter
+        libksysguard
+        merkuro
         #kwayland-integration
         #sddm-kcm
-        #libsForQt5.akonadi
-        #libsForQt5.akonadi-import-wizard
-        #libsForQt5.plasma-browser-integration
         #libsForQt5.kwin-tiling
         #libsForQt5.bismuth
-        #libsForQt5.qt5.qtdeclarative
-        #libsForQt5.qt5.qtwebchannel
-        #plasma-framework
+        qtdeclarative
+        qtwebchannel
+        #libsForQt5.plasma-framework
         #gst_all_1.gst-libav
       ];
     };

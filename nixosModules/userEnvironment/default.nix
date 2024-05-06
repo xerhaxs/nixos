@@ -12,7 +12,6 @@
     ./samba-client.nix
     ./steam.nix
     ./syncthing.nix
-    ./xdgmime.nix
   ];
 
   options.nixos = {
@@ -38,7 +37,6 @@
       samba-client.enable = true;
       steam.enable = false;
       syncthing.enable = true;
-      xdgmime.enable = true;
     };
   };
 }

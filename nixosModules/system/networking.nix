@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-xEDFCAFUl2ft4A5KwkUeyyg+FiEH4fc4IIgj7D9e9Qs="; #sha256 = lib.fakeSha256;
+    hash = "sha256-CofDsVC4JOZN4c44T9cN9g2Chhy3Y7s13KLaqEzuwVY="; #sha256 = lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -132,7 +132,7 @@ in
       };
 
       hostFiles = [
-        #StevenBlack
+        StevenBlack
         malware
         phishing
         ransomware

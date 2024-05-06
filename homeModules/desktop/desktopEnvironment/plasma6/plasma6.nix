@@ -18,13 +18,8 @@
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
     home.packages = with pkgs; with kdePackages; [
-      filelight
-      maliit-keyboard
-      soundkonverter
       discover
       kate
-      libksysguard
-      merkuro
     ];
 
     programs.plasma = {

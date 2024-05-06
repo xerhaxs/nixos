@@ -15,6 +15,18 @@ sudo -i
 curl -L https://raw.githubusercontent.com/xerhaxs/nixos/main/NixOSInstaller.sh | bash
 ```
 
+### Set Keyfile.key for drives
+
+```
+cryptsetup luksKillSlot /dev/disk/by-label/CRYPTDATA 1
+cryptsetup luksKillSlot /dev/disk/by-label/CRYPTGAMES 1
+cryptsetup luksKillSlot /dev/disk/by-label/CRYPTBACKUP 1
+
+cryptsetup luksAddKey /dev/disk/by-label/CRYPTDATA keyfile.key
+cryptsetup luksAddKey /dev/disk/by-label/CRYPTGAMES keyfile.key
+cryptsetup luksAddKey /dev/disk/by-label/CRYPTBACKUP keyfile.key
+```
+
 ### If you need to create your own keys for sops:
 
 ```

@@ -9,6 +9,6 @@
     ./mount.nix
     ./networking.nix
     #./server.nix
-    #./xserver.nix
+    ./xserver.nix
   ];
 }

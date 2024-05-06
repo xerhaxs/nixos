@@ -15,8 +15,11 @@
   config = lib.mkIf config.homeManager.applications.gaming.mangohud.enable {
     programs.mangohud = {
       enable = true;
-      enableSessionWide = true;
+      enableSessionWide = false;
       #settigns = { };
     };
+    home.packages = with pkgs; [
+      mangohud
+    ];
   };
 }

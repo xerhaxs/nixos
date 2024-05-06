@@ -4,9 +4,9 @@
   environment.etc.crypttab = {
     enable = true;
     text = ''
-      data       /dev/disk/by-label/CRYPTDATA 	    /root/keyfile 	luks
-      games      /dev/disk/by-label/CRYPTGAMES 	    /root/keyfile 	luks
-      backup     /dev/disk/by-label/CRYPTBACKUP 	  /root/keyfile 	luks
+      data       /dev/disk/by-label/CRYPTDATA 	    /root/keyfile.key 	luks
+      games      /dev/disk/by-label/CRYPTGAMES 	    /root/keyfile.key 	luks
+      backup     /dev/disk/by-label/CRYPTBACKUP 	  /root/keyfile.key 	luks
     '';
   };
 

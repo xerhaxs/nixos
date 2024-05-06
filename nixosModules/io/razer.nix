@@ -16,7 +16,7 @@
     hardware.openrazer = {
       enable = true;
       devicesOffOnScreensaver = true;
-      mouseBatteryNotifier = true;
+      batteryNotifier.enable = true;
       syncEffectsEnabled = true;
       users = [ "${config.nixos.system.user.defaultuser.name}" ];
     };
