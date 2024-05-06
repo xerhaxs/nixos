@@ -7,6 +7,7 @@
     ./disko.nix
     ./hardware-configuration.nix
     ./locals.nix
+    ./mount.nix
     ./networking.nix
   ];
 }

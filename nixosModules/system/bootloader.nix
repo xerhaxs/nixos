@@ -61,8 +61,8 @@
 
     boot.initrd.luks.devices = {
       "system" = {
-        device = lib.mkForce "/dev/disk/by-label/LUKS"; # "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
         preLVM = true;
+        device = lib.mkDefault "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
       };
     };
 

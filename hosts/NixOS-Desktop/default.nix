@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
-    ./xserver.nix
+    #./server.nix
+    #./xserver.nix
   ];
 }
