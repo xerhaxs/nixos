@@ -4,7 +4,7 @@
   imports = [
     ./bluetooth.nix
     ./input.nix
-    ./razer.nix
+    #./razer.nix
   ];
 
   options.nixos = {
@@ -22,7 +22,7 @@
     nixos.io = {
       bluetooth.enable = true;
       input.enable = true;
-      razer.enable = true;
+      #razer.enable = true;
     };
   };
 }

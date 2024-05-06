@@ -17,7 +17,7 @@
       enable = true;
       package = pkgs.vscodium;
       enableExtensionUpdateCheck = true;
-      enableUpdateCheck = false;
+      enableUpdateCheck = true;
       userSettings = {
         "files.autoSave" = "off";
         "[nix]"."editor.tabSize" = 2;
