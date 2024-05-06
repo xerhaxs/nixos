@@ -4,7 +4,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
   
   boot.loader.grub = {
-    device = lib.mkForce "/dev/disk/by-label/BOOT";
+    device = lib.mkForce "/dev/sda1";
     efiSupport = lib.mkForce false;
     efiInstallAsRemovable = lib.mkForce false;
     gfxmodeBios = "1600x900";
