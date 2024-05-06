@@ -13,6 +13,10 @@
   };
 
   config = lib.mkIf config.nixos.desktop.xserver.enable {
+    services.xserver = {
+      enable = true;
+    };
+
     services.xserver.excludePackages = with pkgs; [
       xterm
     ];

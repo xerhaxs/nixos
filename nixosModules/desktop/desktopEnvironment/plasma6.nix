@@ -29,15 +29,15 @@
       plasma6.excludePackages = with pkgs; with kdePackages; [
         elisa
         spectacle
-        #kwalletmanager
-        #breeze
-        #breeze-icons
-        #breeze-gtk
-        #oxygen
-        #oxygen-icons5
-        #oxygen-sounds
-        #plasma-workspace-wallpapers
-        #plasma-welcome
+        kwalletmanager
+        reeze
+        breeze-icons
+        breeze-gtk
+        oxygen
+        oxygen-icons5
+        oxygen-sounds
+        plasma-workspace-wallpapers
+        plasma-welcome
       ];
 
       systemPackages = with pkgs; with kdePackages; [
