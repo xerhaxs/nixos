@@ -23,6 +23,8 @@
         "[nix]"."editor.tabSize" = 2;
         "update.mode" = "none";
         "git.enableSmartCommit" = true;
+        "git.autofetch" = true;
+        "diffEditor.maxComputationTime" = 0;
       };
 
       extensions = with pkgs.vscode-extensions; [

@@ -18,8 +18,5 @@
       enableSessionWide = false;
       #settigns = { };
     };
-    home.packages = with pkgs; [
-      mangohud
-    ];
   };
 }

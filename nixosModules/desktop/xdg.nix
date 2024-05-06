@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 
-
 let
   browser = [ "firefox.desktop" ];
   chrome = [ "brave-browser.desktop" ];

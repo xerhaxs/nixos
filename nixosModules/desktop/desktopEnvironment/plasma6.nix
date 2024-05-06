@@ -69,12 +69,13 @@
         soundkonverter
         libksysguard
         merkuro
+        kate
         #kwayland-integration
         #sddm-kcm
         #libsForQt5.kwin-tiling
         #libsForQt5.bismuth
-        qtdeclarative
-        qtwebchannel
+        #qtdeclarative
+        #qtwebchannel
         #libsForQt5.plasma-framework
         #gst_all_1.gst-libav
       ];

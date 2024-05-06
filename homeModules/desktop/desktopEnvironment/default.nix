@@ -21,10 +21,10 @@
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.enable {
     homeManager.desktop.desktopEnvironment = {
-      gnome.enable = false;
-      plasma5.enable = false;
-      plasma6.enable = false;
-      xfce.enable = false;
+      gnome.enable = true;
+      plasma5.enable = true;
+      plasma6.enable = true;
+      xfce.enable = true;
     };
   };
 }
