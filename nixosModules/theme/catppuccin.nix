@@ -160,7 +160,7 @@ in
 
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
-    services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "pertheme/${config.nixos.theme.catppuccin.flavor}.conf");
+    #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "pertheme/${config.nixos.theme.catppuccin.flavor}.conf");
     #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin-sddm.override {
     #  flavor = "${config.nixos.theme.catppuccin.flavor}";
     #  font = "DejaVu Sans";

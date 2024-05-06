@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.gaming.heroic.enable {
     home.packages = with pkgs; [
-      heroic-unwrapped
+      heroic
     ];
   };
 }

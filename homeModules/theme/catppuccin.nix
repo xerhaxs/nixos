@@ -11,6 +11,8 @@ let
   latte = "base16/frappe.yaml";
   macchiato = "base16/macchiato.yaml";
   mocha = "base16/mocha.yaml";
+
+  #vscode-theme = lib.strings.toUpper "(builtins.substring 0 1 ${osConfig.nixos.theme.catppuccin.flavor})" + "(lib.strings.substring 0 (builtins.stringLength ${osConfig.nixos.theme.catppuccin.flavor}) ${osConfig.nixos.theme.catppuccin.flavor})";
 in
 
 {
@@ -31,16 +33,16 @@ in
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-macchiato" macchiato;
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-mocha" mocha;
 
-    qt = {
-      enable = true;
-      platformTheme.name = "kde";
-      style.package = pkgs.catppuccin-kde.override {
-        accents = [ "${osConfig.nixos.theme.catppuccin.accent}" ];
-        flavour = [ "${osConfig.nixos.theme.catppuccin.flavor}" ];
-        winDecStyles = [ "${osConfig.nixos.theme.catppuccin.winDecStyles}" ];
-      };
+    #qt = {
+      #enable = true;
+      #platformTheme.name = "kde";
+      #style.package = pkgs.catppuccin-kde.override {
+      #  accents = [ "${osConfig.nixos.theme.catppuccin.accent}" ];
+      #  flavour = [ "${osConfig.nixos.theme.catppuccin.flavor}" ];
+      #  winDecStyles = [ "${osConfig.nixos.theme.catppuccin.winDecStyles}" ];
+      #};
       #style.name = "catppuccin-mocha-kde";
-    };
+    #};
 
     gtk = {
       enable = true;
@@ -78,11 +80,11 @@ in
       };
     };
 
-    programs.vscode = {
-      userSettings = {
-        "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
-      };
-    };
+    #programs.vscode = {
+    #  userSettings = {
+    #    "workbench.colorTheme" = "Catppuccin";
+    #  };
+    #};
 
     xdg.configFile = {
       "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";

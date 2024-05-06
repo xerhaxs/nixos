@@ -35,7 +35,7 @@
       mullvad.enable = true;
       printing.enable = true;
       samba-client.enable = true;
-      steam.enable = false;
+      steam.enable = true;
       syncthing.enable = true;
     };
   };
