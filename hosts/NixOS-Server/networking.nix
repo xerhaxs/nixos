@@ -14,6 +14,6 @@
       };
     };
 
-    useDHCP = lib.mkForce false;
+    useDHCP = lib.mkForce true;
   };
 }
