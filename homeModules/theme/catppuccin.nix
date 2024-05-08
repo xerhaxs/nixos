@@ -11,8 +11,6 @@ let
   latte = "base16/frappe.yaml";
   macchiato = "base16/macchiato.yaml";
   mocha = "base16/mocha.yaml";
-
-  #vscode-theme = lib.strings.toUpper "(builtins.substring 0 1 ${osConfig.nixos.theme.catppuccin.flavor})" + "(lib.strings.substring 0 (builtins.stringLength ${osConfig.nixos.theme.catppuccin.flavor}) ${osConfig.nixos.theme.catppuccin.flavor})";
 in
 
 {
@@ -33,38 +31,50 @@ in
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-macchiato" macchiato;
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-mocha" mocha;
 
-    #qt = {
-      #enable = true;
-      #platformTheme.name = "kde";
-      #style.package = pkgs.catppuccin-kde.override {
-      #  accents = [ "${osConfig.nixos.theme.catppuccin.accent}" ];
-      #  flavour = [ "${osConfig.nixos.theme.catppuccin.flavor}" ];
-      #  winDecStyles = [ "${osConfig.nixos.theme.catppuccin.winDecStyles}" ];
-      #};
-      #style.name = "catppuccin-mocha-kde";
-    #};
+    qt = {
+      enable = true;
+      platformTheme.name = "kde";
+      style.package = pkgs.catppuccin-kde.override {
+        accents = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.accent}" ];
+        flavour = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.flavor}" ];
+        winDecStyles = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.winDecStyles}" ];
+      };
+      #style.name = "catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-kde";
+    };
 
     gtk = {
       enable = true;
       theme = {
-        name = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.tweaks}-${osConfig.nixos.theme.catppuccin.accent}-${osConfig.nixos.theme.catppuccin.prefer}";
+        name = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-Standard-${osConfig.nixos.theme.catppuccin.accent}-${osConfig.nixos.theme.catppuccin.prefer}";
         package = pkgs.catppuccin-gtk.override {
-          accents = [ "${osConfig.nixos.theme.catppuccin.accent}" ];
-          size = "${osConfig.nixos.theme.catppuccin.size}";
-          tweaks = [ "${osConfig.nixos.theme.catppuccin.tweaks}" ];
-          variant = "${osConfig.nixos.theme.catppuccin.flavor}";
+          accents = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.accent}" ];
+          size = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.size}";
+          tweaks = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.tweaks}" ];
+          variant = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}";
         };
       };
 
       iconTheme = {
-        name = "papirus-icon-theme";
+        name = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
         package = pkgs.papirus-icon-theme;
       };
 
       cursorTheme = {
         name = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
-        package = pkgs.catppuccin-cursors."${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.prefer}";
+        package = pkgs.catppuccin-cursors.${lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}" + "${osConfig.nixos.theme.catppuccin.prefer}"};
         size = 24;
+      };
+
+      gtk2 = {
+        configLocation = "${config.home.homeDirectory}/.config/gtk-2.0/gtkrc";
+        extraConfig = ''
+          gtk-enable-animations=1
+          gtk-primary-button-warps-slider=1
+          gtk-toolbar-style=3
+          gtk-menu-images=1
+          gtk-button-images=1
+          gtk-sound-theme-name="ocean"
+        '';
       };
 
       gtk3.extraConfig = {
@@ -80,11 +90,11 @@ in
       };
     };
 
-    #programs.vscode = {
-    #  userSettings = {
-    #    "workbench.colorTheme" = "Catppuccin";
-    #  };
-    #};
+    programs.vscode = {
+      userSettings = {
+        "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
+      };
+    };
 
     programs.thunderbird = lib.mkIf config.homeManager.applications.communication.thunderbird.enable {
       settings = {

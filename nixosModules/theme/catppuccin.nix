@@ -35,59 +35,60 @@ in
 
       flavor = lib.mkOption {
         type = lib.types.enum [
-          "latte"
-          "frappe"
-          "macchiato"
-          "mocha"
+          "Latte"
+          "Frappe"
+          "Macchiato"
+          "Mocha"
         ];
-        default = "mocha";
+        default = "Mocha";
       };
 
       size = lib.mkOption {
         type = lib.types.enum [
-          "standard"
-          "compact"
+          "Standard"
+          "Compact"
         ];
-        default = "standard";
+        default = "Standard";
       };
 
       tweaks = lib.mkOption {
         type = lib.types.enum [
-          "black"
-          "rimless"
-          "normal"
+          "Black"
+          "Rimless"
+          "Normal"
+          "Float"
         ];
-        default = "normal";
+        default = "Normal";
       };
       
       winDecStyles = lib.mkOption {
         type = lib.types.enum [
-          "modern"
-          "classic"
+          "Modern"
+          "Classic"
         ];
-        default = "modern";
+        default = "Modern";
       };
 
       accent = lib.mkOption {
         type = lib.types.enum [
-          "blue"
-          "dark"
-          "flamingo"
-          "green"
-          "lavender"
-          "light"
-          "maroon"
-          "mauve"
-          "peach"
-          "pink"
-          "red"
-          "rosewater"
-          "sapphire"
-          "sky"
-          "teal"
-          "yellow"
+          "Blue"
+          "Dark"
+          "Flamingo"
+          "Green"
+          "Lavender"
+          "Light"
+          "Maroon"
+          "Mauve"
+          "Peach"
+          "Pink"
+          "Red"
+          "Rosewater"
+          "Sapphire"
+          "Sky"
+          "Teal"
+          "Yellow"
         ];
-        default = "mauve";
+        default = "Mauve";
       };
 
       prefer = lib.mkOption {
@@ -125,40 +126,42 @@ in
       #})
 
       (catppuccin-kde.override {
-        accents = [ "${config.nixos.theme.catppuccin.accent}" ];
-        flavour = [ "${config.nixos.theme.catppuccin.flavor}" ];
-        winDecStyles = [ "${config.nixos.theme.catppuccin.winDecStyles}" ];
+        accents = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.accent}" ];
+        flavour = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.flavor}" ];
+        winDecStyles = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.winDecStyles}" ];
       })
 
       (catppuccin-gtk.override {
-        accents = [ "${config.nixos.theme.catppuccin.accent}" ];
-        size = "${config.nixos.theme.catppuccin.size}";
-        tweaks = [ "${config.nixos.theme.catppuccin.tweaks}" ];
-        variant = "${config.nixos.theme.catppuccin.flavor}";
+        accents = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.accent}" ];
+        size = lib.strings.toLower "${config.nixos.theme.catppuccin.size}";
+        tweaks = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.tweaks}" ];
+        variant = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
       })
 
       catppuccin-cursors
 
       (catppuccin-papirus-folders.override {
-        accent = "${config.nixos.theme.catppuccin.accent}";
-        flavor = "${config.nixos.theme.catppuccin.flavor}";
+        accent = lib.strings.toLower "${config.nixos.theme.catppuccin.accent}";
+        flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
       })
 
-      #(catppuccin-kvantum.override {
-      #  accent = "${config.nixos.theme.catppuccin.accent}";
-      #  variant = "${config.nixos.theme.catppuccin.flavor}";
-      #})
+      (catppuccin-kvantum.override {
+        accent = "${config.nixos.theme.catppuccin.accent}";
+        variant = "${config.nixos.theme.catppuccin.flavor}";
+      })
     ];
 
     boot.plymouth = lib.mkIf config.boot.plymouth.enable {
       font = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
       themePackages = with pkgs; [
-         (catppuccin-plymouth.override {variant = "${config.nixos.theme.catppuccin.flavor}";})
-        ];
-      theme = "catppuccin-${config.nixos.theme.catppuccin.flavor}";
+        (catppuccin-plymouth.override {
+          variant = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+        })
+      ];
+      theme = lib.strings.toLower "catppuccin-${config.nixos.theme.catppuccin.flavor}";
     };
 
-    boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
+    boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + lib.strings.toLower "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
     #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "pertheme/${config.nixos.theme.catppuccin.flavor}.conf");
     #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin-sddm.override {
