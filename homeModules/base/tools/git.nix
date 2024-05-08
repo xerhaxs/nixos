@@ -18,5 +18,9 @@
       userName = "xerhaxs";
       userEmail = "xerhaxs@protonmail.com";
     };
+
+    home.packages = with pkgs; [
+      bfg-repo-cleaner
+    ];
   };
 }
