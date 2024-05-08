@@ -15,7 +15,7 @@
   config = lib.mkIf config.homeManager.applications.sync.syncthing.enable {
     services.syncthing = {
       enable = true;
-      tray.enable = false;
+      tray.enable = true;
       extraOptions = [
         "--gui-theme=black"
       ];

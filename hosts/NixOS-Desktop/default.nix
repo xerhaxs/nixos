@@ -9,6 +9,7 @@
     ./mount.nix
     ./networking.nix
     #./server.nix
+    ./syncthing.nix
     ./xserver.nix
   ];
 }

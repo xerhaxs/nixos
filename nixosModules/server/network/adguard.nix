@@ -18,10 +18,9 @@
       openFirewall = false;
       allowDHCP = false;
       mutableSettings = true;
+      port = 3333;
+      host = "0.0.0.0";
       settings = {
-        bind_port = 3333;
-        bind_host = "0.0.0.0";
-
         users = {
           name = "admin";
           password = "$2b$05$SQtHP4cmWpSeC9Zyz8K1q.ntk2glUlqvBUy3vj.X8LWEv9mHEhHJO";
