@@ -64,6 +64,7 @@
         kdeplasma-addons
         kaccounts-integration
         akonadi
+        akonadi-calendar-tools
         filelight
         maliit-keyboard
         soundkonverter

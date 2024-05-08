@@ -65,7 +65,8 @@ in
           #settings = {};
         };
         extraPortals = with pkgs; [
-          xdg-desktop-portal-kde
+          #xdg-desktop-portal
+          #xdg-desktop-portal-kde
           xdg-desktop-portal-gtk
         ];
         config.common.default = "*";
