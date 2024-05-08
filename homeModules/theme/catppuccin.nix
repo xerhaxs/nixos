@@ -33,7 +33,7 @@ in
 
     qt = {
       enable = true;
-      platformTheme.name = "kde";
+      #platformTheme.name = "kde";
       style.package = pkgs.catppuccin-kde.override {
         accents = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.accent}" ];
         flavour = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.flavor}" ];
