@@ -23,7 +23,7 @@
       dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
       configDir = config.services.syncthing.dataDir + "/.config/syncthing";
       overrideDevices = false;
-      overrideFolders = false; 
+      overrideFolders = true; 
       openDefaultPorts = true;
 
       settings = {
@@ -37,16 +37,9 @@
 
         gui = {
           user = "${config.nixos.system.user.defaultuser.name}";
-          password = "CHAGNEME";
-          theme = "black";
+          password = "CHANGEME";
+          theme = lib.strings.toLower "black";
           tls = true;
-        };
-
-        devices = {
-          "NixOS-Desktop" = { id = "GJBFJEC-CUEZR5R-JSXR4TC-SL7YEMY-7XN3KED-TN2BUWQ-XFXRUEY-53GRVQD"; };
-          "NixOS-Framework" = { id = "D3M37EV-OQ2WP7T-3PFWSDE-E7DQ74B-LSCQ6DL-75GFL2B-6KBRSAQ-POCUWQH"; };
-          "NixOS-Laptop" = { id = "TZIANB3-KBIIN5E-4ADBVLO-6MSC3WJ-U3CTUVW-ERAW4NC-FCKT7KE-KX6ZBQ4"; };
-          "GraphenOS" = { id = "NLYJGXH-QP27NVE-4JOX67Q-4XNQHG2-2RGX5LX-I6GL5XN-WU3EVG2-KWM6VQI"; };
         };
       };
     };
