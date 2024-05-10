@@ -12,8 +12,8 @@
   };
 
   nixos.theme.catppuccin = {
-    accent = "red";
-    flavor = "frappe";
+    accent = "Red";
+    flavor = "Frappe";
   };
 
   nixos.hardware = {
