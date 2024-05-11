@@ -14,7 +14,7 @@
       #  #} ];
       #};
 
-      wlp3s0 = {
+      wlp1s0 = {
         useDHCP = true;
       };
     };

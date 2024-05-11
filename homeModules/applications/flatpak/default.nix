@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 {
   imports = [
@@ -18,7 +18,7 @@
 
   config = lib.mkIf config.homeManager.applications.flatpak.enable {
     homeManager.applications.flatpak = {
-      flatpak.enable = true;
+      flatpak.enable = lib.mkIf osConfig.nixos.userEnvironment.flatpak.enable true;
     };
   };
 }

@@ -40,5 +40,9 @@
       i2c.enable = true;
       sensor.iio.enable = true;
     };
+
+    services.fprintd = {
+      enable = true;
+    };
   };
 }

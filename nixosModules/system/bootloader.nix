@@ -72,6 +72,17 @@
 
     services.fwupd.enable = true;
 
+    environment.etc."fwupd/fwupd.conf" = lib.mkForce {
+      enable = true;
+      text = ''
+        [fwupd]                                                                                                                                                                                                                                
+        DisabledDevices=
+        DisabledPlugins=
+        EspLocation=/boot/EFI
+        TestDevices=false
+      '';
+    };
+
     services.acpid.enable = true;
 
     environment.systemPackages = [

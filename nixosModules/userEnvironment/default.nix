@@ -28,7 +28,7 @@
   config = lib.mkIf config.nixos.userEnvironment.enable {
     nixos.userEnvironment = {
       autostart.enable = true;
-      flatpak.enable = true;
+      flatpak.enable = false;
       gamemode.enable = true;
       gamescope.enable = true;
       kdeconnect.enable = true;
