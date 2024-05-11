@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 {
   imports = [
@@ -33,7 +33,7 @@
       communication.enable = true;
       development.enable = true;
       editing.enable = true;
-      flatpak.enable = true;
+      flatpak.enable = lib.mkIf osConfig.nixos.userEnvironment.flatpak.enable true;
       gaming.enable = true;
       media.enable = true;
       office.enable = true;
