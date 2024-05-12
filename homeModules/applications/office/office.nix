@@ -21,6 +21,9 @@
       hunspellDicts.en_US
       hyphen
       kdePackages.ghostwriter
+      pandoc
+      multimarkdown
+      cmark
       kile
       languagetool
       libreoffice

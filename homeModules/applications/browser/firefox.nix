@@ -1064,7 +1064,7 @@ in
             "LEO Eng-Deu"
             "Wikipedia (en)"
           ];
-          #Default = "DuckDuckGo";
+          Default = "DuckDuckGo";
         };
 
         #Handlers = {};

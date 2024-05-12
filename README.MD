@@ -58,7 +58,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] create NixOS Hardend Config
 - [ ] write killswitch for server with rapi
 - [ ] move secrets to privat repo and create new secrets
-- [ ] bring normcap + handbrake to work
+- [X] bring normcap + handbrake to work
 - [ ] setup bash
 - [ ] setup zsh
 - [ ] setup fish
