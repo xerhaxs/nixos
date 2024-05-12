@@ -14,9 +14,9 @@
       #  #} ];
       #};
 
-      wlp1s0 = {
-        useDHCP = true;
-      };
+      #wlp1s0 = {
+      #  useDHCP = true;
+      #};
     };
 
     useDHCP = lib.mkForce true;

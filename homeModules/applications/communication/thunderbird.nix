@@ -39,36 +39,12 @@
       profiles = {
         "default" = {
           isDefault = true;
-          settings = {
-            "mail.spellcheck.inline" = true;
-          };
         };
       };
     };
 
     accounts.email = {
       maildirBasePath = "${config.xdg.userDirs.documents}/Mails";
-      accounts = {
-        "mail@bla.com" = {
-          signature.text = ''
-          Mit freundlichen Grüßen
-          
-          '';
-          primary = true;
-          realName = "";
-          userName = "";
-          address = "";
-          aliases = [
-            
-          ];
-          folders = {
-            drafts = "Drafts";
-            #inbox = "";
-            sent = "Sent";
-            #trash = "";
-          };
-        };
-      };
     };
   };
 }

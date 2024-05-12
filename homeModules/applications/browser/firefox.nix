@@ -811,9 +811,10 @@ in
         pipewireSupport = true;
         alsaSupport = true;
         }) {});
+
       nativeMessagingHosts = with pkgs; [
         keepassxc
-        libsForQt5.plasma-browser-integration
+        kdePackages.plasma-browser-integration
       ];
 
       policies = {
@@ -1048,6 +1049,11 @@ in
                 keyword = "proton";
                 url = "https://account.proton.me/switch";
               }
+              {
+                name = "Teams";
+                keyword = "teams";
+                url = "https://teams.microsoft.com";
+              }
             ];
           }
         ];
@@ -1081,6 +1087,7 @@ in
         default = {
           id = 0;
           isDefault = true;
+          containersForce = true;
           containers = {
             ChatGPT = {
               color = "red";
@@ -1095,6 +1102,7 @@ in
           };
           settings = arkenfox-js;
           search = {
+            force = true;
             engines = {
               "Nix Packages" = {
                 urls = [{
@@ -1239,6 +1247,7 @@ in
 
         work = {
           id = 1;
+          containersForce = true;
           containers = {
             ChatGPT = {
               color = "red";
@@ -1268,6 +1277,7 @@ in
         
         school = {
           id = 2;
+          containersForce = true;
           containers = {
             Teams = {
               color = "red";
@@ -1302,6 +1312,7 @@ in
         
         entertainment = {
           id = 3;
+          containersForce = true;
           containers = {
             Netflix = {
               color = "red";
@@ -1342,6 +1353,7 @@ in
 
         privacy = {
           id = 4;
+          containersForce = true;
           settings = {
             "privacy.donottrackheader.enabled" = true;
             "privacy.globalprivacycontrol.enabled" = true;
@@ -1360,6 +1372,7 @@ in
 
         hacking = {
           id = 5;
+          containersForce = true;
           settings = {
             "privacy.donottrackheader.enabled" = true;
             "privacy.globalprivacycontrol.enabled" = true;

@@ -41,8 +41,8 @@
       sensor.iio.enable = true;
     };
 
-    services.fprintd = {
-      enable = true;
-    };
+    services.fprintd.enable = true;
+
+    services.hardware.bolt.enable = true;
   };
 }
