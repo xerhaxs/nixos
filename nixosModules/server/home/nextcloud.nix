@@ -15,7 +15,7 @@
   config = lib.mkIf config.nixos.server.home.nextcloud.enable {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       home = "/var/lib/nextcloud";
       hostName = "nextcloud.bitsync.icu";
       https = true;
