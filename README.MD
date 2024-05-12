@@ -49,11 +49,11 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] Add Gnome Config
 - [ ] Complete Plasma Config
 - [ ] Setup Firefox + Librewolf + Brave in config
-- [ ] Make Syncthing declerativ
+- [X] Make Syncthing declerativ
 - [ ] Add HomeAssistant VM
 - [ ] Setup Crafter Laptop
 - [ ] Selvhost captive portal service + add to network manager and firefox
-- [ ] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
+- [X] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
 - [ ] Add a custom Homepage for nginx#
 - [ ] create NixOS Hardend Config
 - [ ] write killswitch for server with rapi
@@ -73,10 +73,11 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] setup emacs, helix, neovim, vim + theming
 - [ ] setup ranger with theming
 - [ ] USB Bootdrive with NixOS and files
-- [ ] encrypted Swap Partition for Hybrid Sleep
+- [X] encrypted Swap Partition for Hybrid Sleep
 - [ ] enable AV1 Encoding in OBS
 - [ ] Nextcloud Database setup (postgresql)
 - [ ] setup gamescope for hdr in games
+- [ ] bring fwupd to work
 
 
 - [ ] Server config

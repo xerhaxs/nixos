@@ -68,7 +68,11 @@
         "nginx/acme/api_key" = { };
 
         "nzbget/control/username" = { };
-        "nzbget/control/password" = { }; 
+        "nzbget/control/password" = { };
+
+        "peertube/secret"  = { };
+        "peertube/smtppassword" = { };
+        "peertube/password" = { };
 
         "pufferpanel/users/admin/email" = { };
         "pufferpanel/users/admin/password" = { };

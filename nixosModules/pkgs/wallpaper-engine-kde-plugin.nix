@@ -76,17 +76,17 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.pkgs.wallpaper-engine-kde-plugin.enable && config.nixos.desktop.desktopEnvironment.plasma5.enable) {
-    environment.systemPackages = with pkgs; with libsForQt5; [
+  config = lib.mkIf (config.nixos.pkgs.wallpaper-engine-kde-plugin.enable && config.nixos.desktop.desktopEnvironment.plasma6.enable) {
+    environment.systemPackages = with pkgs; [
       wallpaper-engine-kde-plugin
-      qt5.qtwebsockets
+      kdePackages.qtwebsockets
       (python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))
     ];
 
     system.activationScripts = {
       wallpaper-engine-kde-plugin.text = ''
         wallpaperenginetarget=share/plasma/wallpapers/com.github.casout.wallpaperEngineKde
-        ln -s ${wallpaper-engine-kde-plugin}/$wallpaperenginetarget /home/${config.nixos.user.defaultuser.name}/.local/$wallpaperenginetarget
+        ln -s ${wallpaper-engine-kde-plugin}/$wallpaperenginetarget /home/${config.nixos.system.user.defaultuser.name}/.local/$wallpaperenginetarget
       '';
     };
   };

@@ -33,7 +33,7 @@
       disko.enable = false;
       hardware.enable = false;
       io.enable = true;
-      pkgs.enable = false;
+      pkgs.enable = true;
       server.enable = false;
       system.enable = true;
       theme.enable = true;

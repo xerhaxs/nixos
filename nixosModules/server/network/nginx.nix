@@ -344,6 +344,17 @@
             proxyPass = "http://localhost:10011";
           };
         };
+
+        "peertube.bitsync.icu" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:9000";
+          };
+        };
       };
     };
 
