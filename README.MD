@@ -40,6 +40,18 @@ $ nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/
 nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ```
 
+## ToDo after installation
+
+- enable syncthing
+- move sops keys to device
+- login protonmail-bridge
+- login in thunderbird
+- login to discord, signal, telegram, teams
+- import bookmarks
+- set brave browser settings
+- login to heroic and steam
+- login to mullvad and protonvpn
+
 ### ToDo
 
 - [ ] Setup Hyrpland with Waybar and Swaylock

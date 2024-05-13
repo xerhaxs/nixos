@@ -437,7 +437,7 @@ let
   ### [SECTION 4500]: RFP (resistFingerprinting)
 
   # enable RFP
-  "privacy.resistFingerprinting" = true;
+  "privacy.resistFingerprinting" = false;
   "privacy.resistFingerprinting.pbmode" = true;
 
   # set new window size rounding max values [FF55+]
@@ -822,6 +822,69 @@ in
 
         DontCheckDefaultBrowser = true;
         EnterprisePoliciesEnabled = true;
+
+        DisableFeedbackCommands = true;
+        DisableFirefoxAccounts = true;
+        DisableFirefoxStudies = true;
+        DisableFormHistory = true;
+        DisablePocket = true;
+        DisableSafeMode = true;
+        DisableSetDesktopBackground = true;
+
+        DisableSecurityBypass = {
+          InvalidCertificate = false;
+          SafeBrowsing = false;
+        }; 
+
+        DisableTelemetry = true;
+        DNSOverHTTPS = "Enabled";
+
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+          EmailTracking = true;
+          Exceptions = [
+          #
+          ];
+        };
+        
+        FirefoxHome = {
+          Search = true;
+          TopSites = false;
+          SponsoredTopSites = false;
+          Highlights = true;
+          Pocket = false;
+          SponsoredPocket = false;
+          Snippets = false;
+          Locked = false;
+        };
+
+        GoToIntranetSiteForSingleWordEntryInAddressBar = false;
+        HardwareAcceleration = true;
+        PasswordManagerEnabled = false;
+        PrimaryPassword = false;
+        RequestedLocales = [ "de-DE" "en-US" ];
+
+        PrintingEnabled = true;
+
+        UserMessaging = {
+          WhatsNew = false;
+          ExtensionRecommendations = false;
+          FeatureRecommendations = false;
+          UrlbarInterventions = false;
+          SkipOnboarding = true;
+          MoreFromMozilla = false;
+        };
+
+        FirefoxSuggest = {
+          WebSuggestions = false;
+          SponsoredSuggestions = false;
+          ImproveSuggest = true;
+          Locked = true;
+        };
+
         ExtensionSettings = {
           # Get Extension IDs about:debugging#/runtime/this-firefox
 
@@ -874,7 +937,7 @@ in
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma_integration/latest.xpi";
           };
           "addon@simplelogin" = {
-            "installation_mode" = "normal_installed";
+            "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/simplelogin/latest.xpi";
           };
           "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" = {
@@ -905,6 +968,10 @@ in
           #  "installation_mode" = "normal_installed";
           #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/view_page_archive/latest.xpi";
           #};
+          "support@netflux.me" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/netflux/latest.xpi";
+          };
         };
 
         #"uBlock0@raymondhill.net".adminSettings = {
@@ -1002,17 +1069,6 @@ in
         # };
         #};
 
-        FirefoxHome = {
-          Search = true;
-          TopSites = false;
-          SponsoredTopSites = false;
-          Highlights = true;
-          Pocket = false;
-          SponsoredPocket = false;
-          Snippets = false;
-          Locked = false;
-        };
-
         ManagedBookmarks = [
           {
             toplevel_name = "Managed";
@@ -1074,13 +1130,6 @@ in
         };
 
         #Handlers = {};
-
-        GoToIntranetSiteForSingleWordEntryInAddressBar = false;
-        HardwareAcceleration = true;
-        PasswordManagerEnabled = false;
-        PrimaryPassword = false;
-        PopupBlocking.Default = true;
-        RequestedLocales = [ "de-DE" "en-US" ];
       };
 
       profiles = {
@@ -1238,7 +1287,7 @@ in
                 {
                   name = "wiki";
                   tags = [ "wiki" "nix" ];
-                  url = "https://nixos.wiki/";
+                  url = "https://wiki.nixos.org/";
                 }
               ];
             }
