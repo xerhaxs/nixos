@@ -34,6 +34,10 @@
         "datareporting.healthreport.uploadEnabled" = false;
         "mail.e2ee.auto_enable" = true;
         "mail.e2ee.auto_disable" = true;
+        "mailnews.default_news_sort_order" = 2;
+        "mailnews.default_news_sort_type" = 18;
+        "mailnews.default_sort_order" = 2;
+        "mailnews.default_sort_type" = 18;
       };
 
       profiles = {

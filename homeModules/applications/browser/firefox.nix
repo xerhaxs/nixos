@@ -500,7 +500,7 @@ let
   #"browser.urlbar.suggest.history" = false;
   #"browser.urlbar.suggest.bookmark" = false;
   #"browser.urlbar.suggest.openpage" = false;
-  #"browser.urlbar.suggest.topsites" = false;
+  "browser.urlbar.suggest.topsites" = false;
 
   # disable location bar dropdown
   #"browser.urlbar.maxRichResults = 0;
@@ -830,6 +830,7 @@ in
         DisablePocket = true;
         DisableSafeMode = true;
         DisableSetDesktopBackground = true;
+        NoDefaultBookmarks = true;
 
         DisableSecurityBypass = {
           InvalidCertificate = false;
@@ -854,11 +855,11 @@ in
           Search = true;
           TopSites = false;
           SponsoredTopSites = false;
-          Highlights = true;
+          Highlights = false;
           Pocket = false;
           SponsoredPocket = false;
           Snippets = false;
-          Locked = false;
+          Locked = true;
         };
 
         GoToIntranetSiteForSingleWordEntryInAddressBar = false;
@@ -868,6 +869,8 @@ in
         RequestedLocales = [ "de-DE" "en-US" ];
 
         PrintingEnabled = true;
+
+        EncryptedMediaExtensions = true;
 
         UserMessaging = {
           WhatsNew = false;
@@ -881,7 +884,7 @@ in
         FirefoxSuggest = {
           WebSuggestions = false;
           SponsoredSuggestions = false;
-          ImproveSuggest = true;
+          ImproveSuggest = false;
           Locked = true;
         };
 
@@ -890,7 +893,7 @@ in
 
           #"{60f82f00-9ad5-4de5-b31c-b16a47c51558}" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/cookie_quick_manager/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/cookie-quick-manager/latest.xpi";
           #};
           "addon@darkreader.org" = {
             "installation_mode" = "force_installed";
@@ -898,7 +901,7 @@ in
           };
           "@testpilot-containers" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/multi_account_containers/latest.xpi";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi";
           };
           "floccus@handmadeideas.org" = {
             "installation_mode" = "force_installed";
@@ -910,15 +913,15 @@ in
           };
           #"1094918@gmail.com" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ins_downloader/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ins-downloader/latest.xpi";
           #};
           "keepassxc-browser@keepassxc.org" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc_browser/latest.xpi";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
           };
           #"kiwix-html5-listed@kiwix.org" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latestkiwix_offline/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latestkiwix-offline/latest.xpi";
           #};
           #"7esoorv3@alefvanoon.anonaddy.me" = {
           #  "installation_mode" = "normal_installed";
@@ -934,7 +937,7 @@ in
           #};
           "plasma-browser-integration@kde.org" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma_integration/latest.xpi";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
           };
           "addon@simplelogin" = {
             "installation_mode" = "force_installed";
@@ -950,15 +953,15 @@ in
           };
           #"{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/user_agent_string_switcher/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi";
           #};
           #"{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/video_downloadhelper/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi";
           #};
           #"{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/vimium_ff/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
           #};
           "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
             "installation_mode" = "force_installed";
@@ -966,7 +969,7 @@ in
           };
           #"{d07ccf11-c0cd-4938-a265-2a4d6ad01189}" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/view_page_archive/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/view-page-archive/latest.xpi";
           #};
           "support@netflux.me" = {
             "installation_mode" = "force_installed";
@@ -974,145 +977,148 @@ in
           };
         };
 
-        #"uBlock0@raymondhill.net".adminSettings = {
-        #  userSettings = rec {
-        #    advancedUserEnabled = true;
-        #    uiTheme = "auto";
-        #    uiAccentCustom = true;
-        #    cloudStorageEnabled = false;
-        #    importedLists = [
-        #      "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
-        #    ];
-        #    externalLists = lib.concatStringsSep "\n" importedLists;
-        #    popupPanelSections = 63;
-        #  };
-        #  selectedFilterLists = [
-        #    "user-filters"
-        #    "ublock-filters"
-        #    "ublock-badware"
-        #    "ublock-privacy"
-        #    "ublock-quick-fixes"
-        #    "ublock-unbreak"
-        #    "easylist"
-        #    "adguard-spyware"
-        #    "easyprivacy"
-        #    "urlhaus-1"
-        #    "plowe-0"
-        #    "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
-        #  ];
-        #};
-
-        #"keepassxc-browser@keepassxc.org".adminSettings = {
-        #  autoReconnect = true;
-        #  afterFillSorting = "sortByMatchingCredentials";
-        #  afterFillSortingTotp = "sortByRelevantEntry";
-        #  autoCompleteUsernames = true;
-        #  showGroupNameInAutocomplete = true;
-        #  autoFillAndSend = false;
-        #  autoFillSingleEntry = false;
-        #  autoFillSingleTotp = true;
-        #  autoRetrieveCredentials = true;
-        #  autoSubmit = true;
-        #  checkUpdateKeePassXC = 0;
-        #  clearCredentialsTimeout = 10;
-        #  colorTheme = "system";
-        #  credentialSorting = "sortByGroupAndTitle";
-        #  defaultGroupAlwaysAsk = true;
-        #  downloadFaviconAfterSave = true;
-        #  passkeys = true;
-        #  passkeysFallback = true;
-        #  saveDomainOnly = false;
-        #  showGettingStartedGuideAlert = true;
-        #  showTroubleshootingGuideAlert = true;
-        #  showLoginFormIcon = true;
-        #  showLoginNotifications = true;
-        #  showNotifications = true;
-        #  useMonochromeToolbarIcon = false;
-        #  showOTPIcon = true;
-        #  useObserver = true;
-        #  usePredefinedSites = true;
-        #  usePasswordGeneratorIcons = true;
-        #};
-
-        #"{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
-        #  scripts = {
-        #    "Simple YouTube Age Restriction Bypass" = {
-        #     custom = {
-        #       origInclude = true;
-        ##       origExclude = true;
-        #       origMatch = true;
-        #       origExcludeMatch = true;
-        #       homepageURL = "https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass?tab=readme-ov-file";
-        #       lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
-        #     };
-        #     config = {
-        #       enabled = 1;
-        #       shouldUpdate = 1;
-        #       removed = 0;
-        #     };
-        #   };
-        # };
-        # settings = {
-        #   isApplied = true;
-        #   autoUpdate = 1;
-        #   updateEnabledScriptsOnly = false;
-        #   exportValues = true;
-        #   closeAfterInstall = false;
-        #   editAfterInstall = false;
-        #   autoReload = true;
-        #   importScriptData = false;
-        #   importSettings = false;
-        #   notifyUpdates = false;
-        #   notifyUpdatesGlobal = false;
-        #   defaultInjectInto = "auto";
-        #   showAdvanced = true;
-        # };
-        #};
-
-        ManagedBookmarks = [
-          {
-            toplevel_name = "Managed";
-          }
-          {
-            name = "NixOS Changelog";
-            keyword = "changelog";
-            url = "https://nixos.org/manual/nixos/unstable/release-notes";
-            toolbar = true;
-          }
-          {
-            name = "Nix Packages";
-            keyword = "changelog";
-            url = "https://search.nixos.org/packages";
-            toolbar = true;
-          }
-          {
-            name = "Nix Options";
-            keyword = "changelog";
-            url = "https://search.nixos.org/options";
-            toolbar = true;
-          }
-          {
-            name = "Home Manager Options";
-            keyword = "changelog";
-            url = "https://home-manager-options.extranix.com/";
-            toolbar = true;
-          }
-          {
-            name = "Work";
-            children = [
-              {
-                name = "Proton";
-                keyword = "proton";
-                url = "https://account.proton.me/switch";
-              }
-              {
-                name = "Teams";
-                keyword = "teams";
-                url = "https://teams.microsoft.com";
-              }
+        "3rdparty".Extensions = {
+          "uBlock0@raymondhill.net".adminSettings = {
+            userSettings = rec {
+              advancedUserEnabled = true;
+              uiTheme = "auto";
+              uiAccentCustom = true;
+              uiAccentCustom0 = "#8839ef";
+              cloudStorageEnabled = false;
+              importedLists = [
+                "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
+              ];
+              externalLists = lib.concatStringsSep "\n" importedLists;
+              popupPanelSections = 63;
+              tooltipsDisabled = true;
+            };
+            selectedFilterLists = [
+              "user-filters"
+              "ublock-filters"
+              "ublock-badware"
+              "ublock-privacy"
+              "ublock-quick-fixes"
+              "ublock-unbreak"
+              "easylist"
+              "adguard-spyware"
+              "easyprivacy"
+              "urlhaus-1"
+              "plowe-0"
+              "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
             ];
-          }
-        ];
+          };
+
+          "keepassxc-browser@keepassxc.org".adminSettings = {
+            autoReconnect = true;
+            afterFillSorting = "sortByMatchingCredentials";
+            afterFillSortingTotp = "sortByRelevantEntry";
+            autoCompleteUsernames = true;
+            showGroupNameInAutocomplete = true;
+            autoFillAndSend = false;
+            autoFillSingleEntry = false;
+            autoFillSingleTotp = true;
+            autoRetrieveCredentials = true;
+            autoSubmit = true;
+            checkUpdateKeePassXC = 3;
+            clearCredentialsTimeout = 10;
+            colorTheme = "system";
+            credentialSorting = "sortByGroupAndTitle";
+            defaultGroupAlwaysAsk = true;
+            downloadFaviconAfterSave = true;
+            passkeys = true;
+            passkeysFallback = true;
+            saveDomainOnly = true;
+            showGettingStartedGuideAlert = true;
+            showTroubleshootingGuideAlert = true;
+            showLoginFormIcon = true;
+            showLoginNotifications = true;
+            showNotifications = true;
+            useMonochromeToolbarIcon = false;
+            showOTPIcon = true;
+            useObserver = true;
+            usePredefinedSites = true;
+            usePasswordGeneratorIcons = true;
+          };
+
+          "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
+            scripts = rec {
+              "Simple YouTube Age Restriction Bypass" = {
+               custom = {
+                 origInclude = true;
+                 origExclude = true;
+                 origMatch = true;
+                 origExcludeMatch = true;
+                 lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
+               };
+               config = {
+                 enabled = 1;
+                 shouldUpdate = 1;
+                 removed = 0;
+               };
+             };
+           };
+           settings = {
+             isApplied = true;
+             autoUpdate = 1;
+             updateEnabledScriptsOnly = false;
+             exportValues = true;
+             closeAfterInstall = false;
+             editAfterInstall = false;
+             autoReload = true;
+             importScriptData = true;
+             importSettings = true;
+             notifyUpdates = false;
+             notifyUpdatesGlobal = false;
+             defaultInjectInto = "auto";
+             showAdvanced = true;
+           };
+          };
+        };
+
+        #ManagedBookmarks = [
+        #  {
+        #    toplevel_name = "Managed";
+        #  }
+        #  {
+        #    name = "NixOS Changelog";
+        #    keyword = "changelog";
+        #    url = "https://nixos.org/manual/nixos/unstable/release-notes";
+        #    toolbar = true;
+        #  }
+        #  {
+        #    name = "Nix Packages";
+        #    keyword = "changelog";
+        #    url = "https://search.nixos.org/packages";
+        #    toolbar = true;
+        #  }
+        #  {
+        #    name = "Nix Options";
+        #    keyword = "changelog";
+        #    url = "https://search.nixos.org/options";
+        #    toolbar = true;
+        #  }
+        #  {
+        #    name = "Home Manager Options";
+        #    keyword = "changelog";
+        #    url = "https://home-manager-options.extranix.com/";
+        #    toolbar = true;
+        #  }
+        #  {
+        #    name = "Work";
+        #    children = [
+        #      {
+        #        name = "Proton";
+        #        keyword = "proton";
+        #        url = "https://account.proton.me/switch";
+        #      }
+        #      {
+        #        name = "Teams";
+        #        keyword = "teams";
+        #        url = "https://teams.microsoft.com";
+        #      }
+        #    ];
+        #  }
+        #];
 
         SearchEngines = {
           #Add = [];
@@ -1263,35 +1269,8 @@ in
             ];
 
             default = "DuckDuckGo";
+            privateDefault = "DuckDuckGo";
           };
-
-          bookmarks = [
-            {
-              name = "wikipedia";
-              tags = [ "wiki" ];
-              keyword = "wiki";
-              url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
-            }
-            {
-              name = "kernel.org";
-              url = "https://www.kernel.org";
-            }
-            {
-              name = "Nix sites";
-              toolbar = true;
-              bookmarks = [
-                {
-                  name = "homepage";
-                  url = "https://nixos.org/";
-                }
-                {
-                  name = "wiki";
-                  tags = [ "wiki" "nix" ];
-                  url = "https://wiki.nixos.org/";
-                }
-              ];
-            }
-          ];
         };
 
         work = {
@@ -1309,19 +1288,12 @@ in
               id = 3;
             };
           };
-          settings = {
-            "privacy.donottrackheader.enabled" = true;
-            "privacy.globalprivacycontrol.enabled" = true;
-            "widget.use-xdg-desktop-portal.mime-handler" = 1;
-            "widget.use-xdg-desktop-portal.file-picker" = 1;
-            "browser.backspace_action" = 0;
-            #"webgl.disabled" = true;
-            #"network.http.referer.XOriginPolicy" = 2;
-            "security.OCSP.require" = false;
-            "dom.security.https_only_mode" = true;
-            "browser.download.always_ask_before_handling_new_types" = true;
-            "privacy.fingerprintingProtection" = true;
-          };
+          settings = lib.mkMerge [
+            {
+              
+            }
+            arkenfox-js
+          ];
         };
         
         school = {
@@ -1338,25 +1310,27 @@ in
               icon = "fence";
               id = 2;
             };
-            Standardsicherung = {
-              color = "red";
-              icon = "fence";
-              id = 3;
-            };
           };
-          settings = {
-            "privacy.donottrackheader.enabled" = true;
-            "privacy.globalprivacycontrol.enabled" = true;
-            "widget.use-xdg-desktop-portal.mime-handler" = 1;
-            "widget.use-xdg-desktop-portal.file-picker" = 1;
-            "browser.backspace_action" = 0;
-            #"webgl.disabled" = true;
-            #"network.http.referer.XOriginPolicy" = 2;
-            "security.OCSP.require" = false;
-            "dom.security.https_only_mode" = true;
-            "browser.download.always_ask_before_handling_new_types" = true;
-            "privacy.fingerprintingProtection" = true;
-          };
+          settings = lib.mkMerge [
+            {
+              "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
+            }
+            arkenfox-js
+          ];
+          bookmarks = [
+            {
+              name = "Teams";
+              tags = [ "teams" ];
+              keyword = "teams";
+              url = "https://teams.microsoft.com";
+            }
+            {
+              name = "WebUntis";
+              tags = [ "untis" ];
+              keyword = "untis";
+              url = "https://webuntis.com";
+            }
+          ];
         };
         
         entertainment = {
@@ -1384,57 +1358,54 @@ in
               id = 4;
             };
           };
-          settings = {
-            "privacy.donottrackheader.enabled" = true;
-            "privacy.globalprivacycontrol.enabled" = true;
-            "widget.use-xdg-desktop-portal.mime-handler" = 1;
-            "widget.use-xdg-desktop-portal.file-picker" = 1;
-            "browser.backspace_action" = 0;
-            #"webgl.disabled" = true;
-            #"network.http.referer.XOriginPolicy" = 2;
-            "security.OCSP.require" = false;
-            "dom.security.https_only_mode" = true;
-            "browser.download.always_ask_before_handling_new_types" = true;
-            "privacy.fingerprintingProtection" = true;
-            "privacy.sanitize.sanitizeOnShutdown" = false;
-          };
+          settings = lib.mkMerge [
+            {
+              "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
+            }
+            arkenfox-js
+          ];
+          bookmarks = [
+            {
+              name = "Netflix";
+              tags = [ "netflix" ];
+              keyword = "netflix";
+              url = "https://netflix.com/de";
+            }
+            {
+              name = "Disney";
+              tags = [ "disney" ];
+              keyword = "disney";
+              url = "https://www.disneyplus.com";
+            }
+            {
+              name = "Twitch";
+              tags = [ "twitch" ];
+              keyword = "twitch";
+              url = "https://twitch.tv";
+            }
+          ];
         };
 
         privacy = {
           id = 4;
           containersForce = true;
-          settings = {
-            "privacy.donottrackheader.enabled" = true;
-            "privacy.globalprivacycontrol.enabled" = true;
-            "widget.use-xdg-desktop-portal.mime-handler" = 1;
-            "widget.use-xdg-desktop-portal.file-picker" = 1;
-            "browser.backspace_action" = 0;
-            "webgl.disabled" = true;
-            "network.http.referer.XOriginPolicy" = 2;
-            "security.OCSP.require" = true;
-            "dom.security.https_only_mode" = true;
-            "browser.download.always_ask_before_handling_new_types" = true;
-            "privacy.fingerprintingProtection" = true;
-            "privacy.resistFingerprinting" = true;
-          };
+          settings = lib.mkMerge [
+            {
+              "privacy.resistFingerprinting" = lib.mkDefault true;
+            }
+            arkenfox-js
+          ];
         };
 
         hacking = {
           id = 5;
           containersForce = true;
-          settings = {
-            "privacy.donottrackheader.enabled" = true;
-            "privacy.globalprivacycontrol.enabled" = true;
-            "widget.use-xdg-desktop-portal.mime-handler" = 1;
-            "widget.use-xdg-desktop-portal.file-picker" = 1;
-            "browser.backspace_action" = 0;
-            #"webgl.disabled" = true;
-            #"network.http.referer.XOriginPolicy" = 2;
-            "security.OCSP.require" = false;
-            "dom.security.https_only_mode" = true;
-            "browser.download.always_ask_before_handling_new_types" = true;
-            "privacy.fingerprintingProtection" = true;
-          };
+          settings = lib.mkMerge [
+            {
+              "privacy.fingerprintingProtection" = lib.mkDefault true;
+            }
+            arkenfox-js
+          ];
         };
       };
     };
