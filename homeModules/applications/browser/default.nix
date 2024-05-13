@@ -21,9 +21,9 @@
 
   config = lib.mkIf config.homeManager.applications.browser.enable {
     homeManager.applications.browser = {
-      brave.enable = true;
+      brave.enable = false;
       firefox.enable = true;
-      librewolf.enable = true;
+      librewolf.enable = false;
       tor.enable = true;
     };
   };

@@ -888,9 +888,38 @@ in
           Locked = true;
         };
 
+        Cookies = {
+          Allow = [
+            "https://openai.com/"
+            "http://openai.com/"
+            "https://chatgpt.com"
+            "http://chatgpt.com"
+            "https://microsoft.com"
+            "https://microsoft.com"
+            "https://teams.microsoft.com"
+            "http://teams.microsoft.com"
+            "https://microsoftonline.com"
+            "https://microsoftonline.com"
+            "https://webuntis.com"
+            "http://webuntis.com"
+            "https://netflix.com/"
+            "http://netflix.com/"
+            "https://www.disneyplus.com/"
+            "http://www.disneyplus.com/"
+            "https://www.twitch.tv/"
+            "http://www.twitch.tv/"
+            "https://www.instagram.com/"
+            "http://www.instagram.com/"
+          ];
+        };
+
         ExtensionSettings = {
           # Get Extension IDs about:debugging#/runtime/this-firefox
 
+          "CookieAutoDelete@kennydo.com" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/cookie-autodelete/latest.xpi";
+          };
           #"{60f82f00-9ad5-4de5-b31c-b16a47c51558}" = {
           #  "installation_mode" = "normal_installed";
           #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/cookie-quick-manager/latest.xpi";
@@ -921,7 +950,7 @@ in
           };
           #"kiwix-html5-listed@kiwix.org" = {
           #  "installation_mode" = "normal_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latestkiwix-offline/latest.xpi";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/kiwix-offline/latest.xpi";
           #};
           #"7esoorv3@alefvanoon.anonaddy.me" = {
           #  "installation_mode" = "normal_installed";
@@ -978,6 +1007,14 @@ in
         };
 
         "3rdparty".Extensions = {
+          "CookieAutoDelete@kennydo.com".adminSettings = {
+            settings = [
+              {
+                activeMode = true;
+              }
+            ];
+          };
+
           "uBlock0@raymondhill.net".adminSettings = {
             userSettings = rec {
               advancedUserEnabled = true;
@@ -1144,15 +1181,45 @@ in
           isDefault = true;
           containersForce = true;
           containers = {
+            Proton = {
+              color = "purple";
+              icon = "fingerprint";
+              id = 1;
+            };
             ChatGPT = {
-              color = "red";
+              color = "yellow";
               icon = "fence";
               id = 2;
             };   
-            Proton = {
-              color = "blue";
-              icon = "fingerprint";
+            Teams = {
+              color = "orange";
+              icon = "fence";
               id = 3;
+            };
+            WebUntis = {
+              color = "orange";
+              icon = "fence";
+              id = 4;
+            };
+            Netflix = {
+              color = "red";
+              icon = "fence";
+              id = 5;
+            };
+            Disney = {
+              color = "red";
+              icon = "fence";
+              id = 6;
+            };
+            Twitch = {
+              color = "red";
+              icon = "fence";
+              id = 7;
+            };
+            Facebook = {
+              color = "red";
+              icon = "fence";
+              id = 8;
             };
           };
           settings = arkenfox-js;
@@ -1280,12 +1347,12 @@ in
             ChatGPT = {
               color = "red";
               icon = "fence";
-              id = 2;
+              id = 1;
             };   
             Proton = {
               color = "blue";
               icon = "fingerprint";
-              id = 3;
+              id = 2;
             };
           };
           settings = lib.mkMerge [
@@ -1411,4 +1478,3 @@ in
     };
   };
 }
-
