@@ -60,7 +60,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] Make Thunderbird decleartiv
 - [ ] Add Gnome Config
 - [ ] Complete Plasma Config
-- [ ] Setup Firefox + Librewolf + Brave in config
+- [X] Setup Firefox + Librewolf + Brave in config
 - [X] Make Syncthing declerativ
 - [ ] Add HomeAssistant VM
 - [ ] Setup Crafter Laptop
@@ -78,7 +78,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] WireguardVPN Client
 - [ ] setup helix + vim theming
 - [ ] default editor für EDITOR env in hm + nixos
-- [ ] kiwix addon firefox
+- [X] kiwix addon firefox
 - [ ] create protonmail-bridge module
 - [ ] setup diff tools in hm
 - [ ] theme starship
