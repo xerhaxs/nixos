@@ -14,9 +14,6 @@
 
   config = lib.mkIf config.nixos.base.tools.common.enable {
     environment.systemPackages = with pkgs; [
-      # password manager
-      keepassxc
-      
       # fetchers
       neofetch
       cpufetch

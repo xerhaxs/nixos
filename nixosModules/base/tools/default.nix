@@ -5,6 +5,7 @@
     ./common.nix
     ./git.nix
     ./htop.nix
+    ./keepassxc.nix
     ./openvpn-client.nix
     ./wireguard-client.nix
   ];
@@ -25,6 +26,7 @@
       common.enable = true;
       git.enable = true;
       htop.enable = true;
+      keepassxc.enable = true;
       #openvpn-client.enable = true;
       #wireguard-client.enable = true;
     };
