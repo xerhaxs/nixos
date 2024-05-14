@@ -637,7 +637,7 @@ let
   "dom.push.enabled" = false;
 
   # disable WebRTC (Web Real-Time Communication)
-  "media.peerconnection.enabled" = false;
+  "media.peerconnection.enabled" = true;
 
   ### [SECTION 8000]: DON'T BOTHER: FINGERPRINTING
   # reset items useless for anti-fingerprinting
