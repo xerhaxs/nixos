@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-CofDsVC4JOZN4c44T9cN9g2Chhy3Y7s13KLaqEzuwVY="; #sha256 = lib.fakeSha256;
+    hash = "sha256-xD/QCWFa1xgG9LgaiBFH+J/iVwVcjAMN0To1/FYPOG0="; #sha256 = lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -86,9 +86,20 @@ in
 
   config = lib.mkIf config.nixos.system.networking.enable {
     networking = {
-      networkmanager.enable = true;
+      networkmanager = {
+        enable = true;
+        dns = "default";
+        wifi = {
+          scanRandMacAddress = true;
+          powersave = true;
+          macAddress = "random";
+        };
+      };
       
-      wireless.userControlled.enable = true;
+      wireless = {
+        enable = false;
+        userControlled.enable = true;
+      };
 
       enableIPv6 = false;
 
@@ -147,8 +158,6 @@ in
         #oisd-small
         #oisd-big
       ];
-
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
       defaultGateway = "10.75.0.1";
 

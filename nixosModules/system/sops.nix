@@ -93,7 +93,7 @@
         "wireguard/home/privateKey" = { };
         "wireguard/home/presharedKey" = { };
 
-        wifi = { };
+        "wifi" = { };
       };
     };
   };

@@ -17,43 +17,49 @@
       keepassxc
     ];
 
-    systemd.services.keepassxc.preStart = ''
-      if [ ! -f $HOME/.config/keepassxc/keepassxc.ini ]; then
-        mkdir -p $HOME/.config/keepassxc
-        echo "
-          [General]
-          ConfigVersion=2
-          MinimizeAfterUnlock=false
+    systemd.user.services.keepassxc = {
+      enable = true;
 
-          [Browser]
-          AllowExpiredCredentials=true
-          CustomProxyLocation=
-          Enabled=true
-          SearchInAllDatabases=true
+      serviceConfig = {
+        ExecStart = ''
+          if [ ! -f $HOME/.config/keepassxc/keepassxc.ini ]; then
+            mkdir -p $HOME/.config/keepassxc
+            echo "
+              [General]
+              ConfigVersion=2
+              MinimizeAfterUnlock=false
 
-          [GUI]
-          ApplicationTheme=classic
-          MinimizeOnClose=true
-          MinimizeOnStartup=true
-          MinimizeToTray=true
-          ShowTrayIcon=true
-          TrayIconAppearance=monochrome-light
+              [Browser]
+              AllowExpiredCredentials=true
+              CustomProxyLocation=
+              Enabled=true
+              SearchInAllDatabases=true
 
-          [PasswordGenerator]
-          AdditionalChars=
-          AdvancedMode=true
-          ExcludedChars=
-          Length=128
-          Logograms=true
+              [GUI]
+              ApplicationTheme=classic
+              MinimizeOnClose=true
+              MinimizeOnStartup=true
+              MinimizeToTray=true
+              ShowTrayIcon=true
+              TrayIconAppearance=monochrome-light
 
-          [Security]
-          ClearSearch=true
-          HideTotpPreviewPanel=true
-          IconDownloadFallback=true
-          LockDatabaseIdle=false
-          LockDatabaseIdleSeconds=900
-        " > $HOME/.config/keepassxc/keepassxc.ini
-      fi
-    '';
+              [PasswordGenerator]
+              AdditionalChars=
+              AdvancedMode=true
+              ExcludedChars=
+              Length=128
+              Logograms=true
+
+              [Security]
+              ClearSearch=true
+              HideTotpPreviewPanel=true
+              IconDownloadFallback=true
+              LockDatabaseIdle=false
+              LockDatabaseIdleSeconds=900
+            " > $HOME/.config/keepassxc/keepassxc.ini
+          fi
+        '';
+      };
+    };
   };
 }

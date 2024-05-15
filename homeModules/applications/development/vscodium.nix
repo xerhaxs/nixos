@@ -16,7 +16,7 @@
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
-      enableExtensionUpdateCheck = true;
+      enableExtensionUpdateCheck = false;
       enableUpdateCheck = true;
       userSettings = {
         "files.autoSave" = "off";
