@@ -19,17 +19,194 @@
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
     programs.plasma = {
       enable = true;
+      overrideConfig = true;
 
-      #workspace = {
-      #  clickItemTo = "select";
-      #  lookAndFeel = "org.kde.breezedark.desktop";
-      #  cursorTheme = 
-      #};
+      workspace = {
+        clickItemTo = "select";
+        tooltipDelay = 5;
+        theme = "breeze-dark"; # plasma-apply-desktoptheme --list-themes
+        colorScheme = "CatppuccinMochaMauve"; # plasma-apply-colorscheme --list-schemes
+        cursorTheme = "Catppuccin-Mocha-Dark-Cursors"; # plasma-apply-cursortheme --list-themes
+        lookAndFeel = "Catppuccin-Mocha-Mauve"; # plasma-apply-lookandfeel --list
+        iconTheme = "Papirus-Dark";
+        wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/52338778943_9704c200b4_o.png";
+      };
 
+      windows = {
+        allowWindowsToRememberPositions = true;
+      };
+
+      startup = {
+
+      };
+
+      kwin = {
+        titlebarButtons.right = [
+          "minimize"
+          "maximize"
+          "close"
+        ];
+        titlebarButtons.left = [
+          "keep-above-windows"
+        ];
+
+        effects = {
+          blurEnabled.enable = true;
+          dimscreenEnabled.enable = true;
+          kwin4_effect_dimscreenEnabled.enable = true;
+          kwin4_effect_translucencyEnabled.enable = true;
+          translucencyEnabled.enable = true;
+        };
+
+        virtualDesktops = {
+          animation = "fade";
+          rows = 2;
+          desktop  = [
+            "Desktop 1"
+            "Desktop 2"
+            "Desktop 3"
+            "Desktop 4"
+          ];
+          number = 4;
+        };
+      };
+
+      hotkeys.commands."launch-kitty" = {
+        name = "Launch Kitty";
+        key = "Meta+Return";
+        command = "kitty";
+      };
+
+      panels = [
+        {
+          location = "top";
+          alignment = "center";
+          lengthMode = "fill";
+          height = 48;
+          hiding = "dodgewindows";
+          floating = true;
+
+          widgets = [
+            # We can configure the widgets by adding the name and config
+            # attributes. For example to add the the kickoff widget and set the
+            # icon to "nix-snowflake-white" use the below configuration. This will
+            # add the "icon" key to the "General" group for the widget in
+            # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
+            {
+              name = "org.kde.plasma.kickoff";
+              config = {
+                General = {
+                  icon = "nix-snowflake-white";
+                  favoritesPortedToKAstats = true;
+                  systemFavorites = "suspend\\,hibernate\\,reboot\\,shutdown";
+                };
+              };
+            }
+
+            {
+              name = "org.kde.plasma.trash";
+            }
+
+            {
+              name = "org.kde.plasma.notes";
+              config = {
+                General = {
+                  color = "translucent-light";
+                  fontSize = "12";
+                };
+              };
+            }
+
+            {
+              name = "org.kde.plasma.colorpicker";
+            }
+
+            "org.kde.plasma.panelspacer"
+
+            {
+              name = "org.kde.plasma.icontasks";
+              config = {
+                General.launchers = [
+                  "applications:virt-manager.desktop"
+                  "applications:qalculate-gtk.desktop"
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:firefox.desktop"
+                  "applications:torbrowser.desktop"
+                  "applications:thunderbird.desktop"
+                  "applications:org.kde.kate.desktop"
+                  "applications:codium.desktop"
+                  "applications:signal-desktop.desktop"
+                  "applications:org.telegram.desktop.desktop"
+                  "applications:armcord.desktop"
+                  "applications:org.kde.kmymoney.desktop"
+                  "applications:org.kde.kile.desktop"
+                  "applications:writer.desktop"
+                  "applications:calc.desktop"
+                  "applications:impress.desktop"
+                  "applications:com.obsproject.Studio.desktop"
+                  "applications:blender.desktop"
+                  "applications:com.ultimaker.cura.desktop"
+                  "applications:org.clementine_player.Clementine.desktop"
+                  "applications:fluent-reader.desktop"
+                  "applications:freetube.desktop"
+                  "applications:org.prismlauncher.PrismLauncher.desktop"
+                  "applications:com.heroicgameslauncher.hgl.desktop"
+                  "applications:steam.desktop"
+                  "applications:mullvad-vpn.desktop"
+                ];
+              };
+            }
+
+            "org.kde.plasma.panelspacer"
+
+            {
+              name = "org.kde.plasma.systemtray";
+            }
+
+            {
+              name = "org.kde.plasma.digitalclock";
+              config = {
+                Appearance = {
+                  dateFormat = "isoDate";
+                  enabledCalendarPlugins = "alternatecalendar,astronomicalevents,holidaysevents";
+                  showSeconds = "Always";
+                  showWeekNumbers = true;
+                  use24hFormat = 2;
+                };
+              };
+            }
+          ];
+        }
+
+        {
+          location = "center";
+          height = 26;
+          widgets = [
+            "org.kde.plasma.appmenu"
+          ];
+        }
+      ];
+
+
+      #
+      # Some mid-level settings:
+      #
+      shortcuts = {
+        kwin = {
+          "Expose" = "Meta+,";
+          "Switch Window Down" = "Meta+J";
+          "Switch Window Left" = "Meta+H";
+          "Switch Window Right" = "Meta+L";
+          "Switch Window Up" = "Meta+K";
+        };
+      };
+
+
+      #
+      # Some low-level settings:
+      #
 
       shortcuts = {
-        "ActivityManager"."switch-to-activity-5c4c68ee-c12f-4871-913b-02986e74f663" = [ ];
-        "ActivityManager"."switch-to-activity-c9062dca-e143-49ed-95a4-7bc4399f9c6f" = [ ];
         "Clementine"."next_album" = "Shift+Media Next";
         "Clementine"."next_track" = [ ];
         "Clementine"."play_pause" = [ ];
@@ -42,7 +219,6 @@
         "kcm_touchpad"."Disable Touchpad" = "Touchpad Off";
         "kcm_touchpad"."Enable Touchpad" = "Touchpad On";
         "kcm_touchpad"."Toggle Touchpad" = ["Touchpad Toggle" "Meta+Ctrl+Zenkaku Hankaku"];
-        "khotkeys"."{d03619b6-9b3c-48cc-9d9c-a2aadb485550}" = [ ];
         "kmix"."decrease_microphone_volume" = "Microphone Volume Down";
         "kmix"."decrease_volume" = "Volume Down";
         "kmix"."decrease_volume_small" = "Shift+Volume Down";
@@ -268,7 +444,7 @@
         "services/normcap.desktop"."_launch" = "Meta+Print";
         "services/org.flameshot.Flameshot.desktop"."Capture" = "Print";
         "services/org.kde.dolphin.desktop"."_launch" = "Meta+F";
-        "services/org.kde.krunner.desktop"."_launch" = ["Meta+Space" "" "Alt+Space" "Alt+F2" "Search"];
+        "services/org.kde.krunner.desktop"."_launch" = ["Meta+R" "Meta+Space" "" "Alt+Space" "Alt+F2" "Search"];
         "services/org.kde.plasma-systemmonitor.desktop"."_launch" = "Ctrl+Shift+Esc";
         "services/org.kde.spectacle.desktop"."ActiveWindowScreenShot" = [ ];
         "services/org.kde.spectacle.desktop"."FullScreenScreenShot" = "Ctrl+Print";
@@ -280,6 +456,7 @@
         "services/org.kde.spectacle.desktop"."_launch" = [ ];
       };
       configFile = {
+        "plasmaparc"."General"."VolumeStep" = 1;
         "baloofilerc"."General"."dbVersion" = 2;
         "baloofilerc"."General"."exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.venv,venv,core-dumps,lost+found";
         "baloofilerc"."General"."exclude filters version" = 8;
@@ -299,11 +476,10 @@
         "dolphinrc"."IconsMode"."PreviewSize" = 48;
         "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
         "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
+        "dolphinrc"."MainWindow"."MenuBar" = "Disabled";
+        "dolphinrc"."MainWindow"."ToolBarsMovable" = "Disabled";
         "dolphinrc"."PreviewSettings"."Plugins" = "audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mltpreview,mobithumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs";
         "dolphinrc"."VersionControl"."enabledPlugins" = "Git";
-        "kactivitymanagerdrc"."activities"."5c4c68ee-c12f-4871-913b-02986e74f663" = "Default";
-        "kactivitymanagerdrc"."activities"."c9062dca-e143-49ed-95a4-7bc4399f9c6f" = "Default";
-        "kactivitymanagerdrc"."main"."currentActivity" = "c9062dca-e143-49ed-95a4-7bc4399f9c6f";
         "kcminputrc"."Keyboard"."NumLock" = 0;
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Mouse"."PointerAccelerationProfile" = 1;
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad"."ClickMethod" = 2;
@@ -314,11 +490,11 @@
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad"."TapToClick" = true;
         "kcminputrc"."Libinput/13364/1553/Keychron Keychron Q1 Pro Mouse"."PointerAccelerationProfile" = 1;
         "kcminputrc"."Libinput/5426/171/Razer Razer Basilisk V3 Pro"."PointerAccelerationProfile" = 1;
-        "kcminputrc"."Mouse"."cursorTheme" = "Catppuccin-Mocha-Dark-Cursors";
         "kcminputrc"."Tmp"."update_info" = "delete_cursor_old_default_size.upd:DeleteCursorOldDefaultSize";
         "kded5rc"."Module-browserintegrationreminder"."autoload" = false;
         "kded5rc"."Module-device_automounter"."autoload" = false;
         "kded5rc"."PlasmaBrowserIntegration"."shownCount" = 4;
+        "kded6rc"."PlasmaBrowserIntegration"."shownCount" = 4;
         "kdeglobals"."DirSelect Dialog"."DirSelectDialog Size" = "844,598";
         "kdeglobals"."General"."AllowKDEAppsToRememberWindowPositions" = true;
         "kdeglobals"."General"."BrowserApplication" = "librewolf.desktop";
@@ -326,7 +502,6 @@
         "kdeglobals"."General"."TerminalService" = "kitty.desktop";
         "kdeglobals"."KDE"."ScrollbarLeftClickNavigatesByPage" = false;
         "kdeglobals"."KDE"."ShowDeleteCommand" = true;
-        "kdeglobals"."KDE"."SingleClick" = false;
         "kdeglobals"."KFileDialog Settings"."Allow Expansion" = true;
         "kdeglobals"."KFileDialog Settings"."Automatically select filename extension" = true;
         "kdeglobals"."KFileDialog Settings"."Breadcrumb Navigation" = true;
@@ -335,7 +510,7 @@
         "kdeglobals"."KFileDialog Settings"."PathCombo Completionmode" = 5;
         "kdeglobals"."KFileDialog Settings"."Preview Width" = 0;
         "kdeglobals"."KFileDialog Settings"."Show Bookmarks" = true;
-        "kdeglobals"."KFileDialog Settings"."Show Full Path" = false;
+        "kdeglobals"."KFileDialog Settings"."Show Full Path" = true;
         "kdeglobals"."KFileDialog Settings"."Show Inline Previews" = true;
         "kdeglobals"."KFileDialog Settings"."Show Preview" = true;
         "kdeglobals"."KFileDialog Settings"."Show Speedbar" = true;
@@ -347,12 +522,12 @@
         "kdeglobals"."KFileDialog Settings"."Speedbar Width" = 138;
         "kdeglobals"."KFileDialog Settings"."View Style" = "DetailTree";
         "kdeglobals"."PreviewSettings"."MaximumRemoteSize" = 0;
-        "kdeglobals"."WM"."activeBackground" = "239,241,245";
-        "kdeglobals"."WM"."activeBlend" = "76,79,105";
-        "kdeglobals"."WM"."activeForeground" = "76,79,105";
-        "kdeglobals"."WM"."inactiveBackground" = "220,224,232";
-        "kdeglobals"."WM"."inactiveBlend" = "108,111,133";
-        "kdeglobals"."WM"."inactiveForeground" = "108,111,133";
+        #"kdeglobals"."WM"."activeBackground" = "239,241,245";
+        #"kdeglobals"."WM"."activeBlend" = "76,79,105";
+        #"kdeglobals"."WM"."activeForeground" = "76,79,105";
+        #"kdeglobals"."WM"."inactiveBackground" = "220,224,232";
+        #"kdeglobals"."WM"."inactiveBlend" = "108,111,133";
+        #"kdeglobals"."WM"."inactiveForeground" = "108,111,133";
         "kglobalshortcutsrc"."ActivityManager"."_k_friendly_name" = "Activity Manager";
         "kglobalshortcutsrc"."Clementine"."_k_friendly_name" = "Clementine";
         "kglobalshortcutsrc"."KDE Keyboard Layout Switcher"."_k_friendly_name" = "Keyboard Layout Switcher";
@@ -379,7 +554,7 @@
         "khotkeysrc"."Data_1_1"."Name" = "Search";
         "khotkeysrc"."Data_1_1"."Type" = "SIMPLE_ACTION_DATA";
         "khotkeysrc"."Data_1_1Actions"."ActionsCount" = 1;
-        "khotkeysrc"."Data_1_1Actions0"."CommandURL" = "http://google.com";
+        "khotkeysrc"."Data_1_1Actions0"."CommandURL" = "http://duckduckgo.com";
         "khotkeysrc"."Data_1_1Actions0"."Type" = "COMMAND_URL";
         "khotkeysrc"."Data_1_1Conditions"."Comment" = "";
         "khotkeysrc"."Data_1_1Conditions"."ConditionsCount" = 0;
@@ -387,7 +562,6 @@
         "khotkeysrc"."Data_1_1Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_1_1Triggers0"."Key" = "";
         "khotkeysrc"."Data_1_1Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_1_1Triggers0"."Uuid" = "{d03619b6-9b3c-48cc-9d9c-a2aadb485550}";
         "khotkeysrc"."Data_2"."Comment" = "This group contains various examples demonstrating most of the features of KHotkeys. (Note that this group and all its actions are disabled by default.)";
         "khotkeysrc"."Data_2"."DataCount" = 8;
         "khotkeysrc"."Data_2"."Enabled" = false;
@@ -420,7 +594,6 @@
         "khotkeysrc"."Data_2_1Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_1Triggers0"."Key" = "Ctrl+Alt+I";
         "khotkeysrc"."Data_2_1Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_1Triggers0"."Uuid" = "{a254b52f-ec00-4111-bc8c-62e57f19e55d}";
         "khotkeysrc"."Data_2_2"."Comment" = "After pressing Alt+Ctrl+H the input of 'Hello' will be simulated, as if you typed it.  This is especially useful if you have call to frequently type a word (for instance, 'unsigned').  Every keypress in the input is separated by a colon ':'. Note that the keypresses literally mean keypresses, so you have to write what you would press on the keyboard. In the table below, the left column shows the input and the right column shows what to type.\n\n\"enter\" (i.e. new line)                Enter or Return\na (i.e. small a)                          A\nA (i.e. capital a)                       Shift+A\n: (colon)                                  Shift+;\n' '  (space)                              Space";
         "khotkeysrc"."Data_2_2"."Enabled" = false;
         "khotkeysrc"."Data_2_2"."Name" = "Type 'Hello'";
@@ -435,7 +608,6 @@
         "khotkeysrc"."Data_2_2Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_2Triggers0"."Key" = "Ctrl+Alt+H";
         "khotkeysrc"."Data_2_2Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_2Triggers0"."Uuid" = "{a49a96ff-2d61-4b10-9988-dc6445ac73a0}";
         "khotkeysrc"."Data_2_3"."Comment" = "This action runs Konsole, after pressing Ctrl+Alt+T.";
         "khotkeysrc"."Data_2_3"."Enabled" = false;
         "khotkeysrc"."Data_2_3"."Name" = "Run Konsole";
@@ -449,7 +621,6 @@
         "khotkeysrc"."Data_2_3Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_3Triggers0"."Key" = "Ctrl+Alt+T";
         "khotkeysrc"."Data_2_3Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_3Triggers0"."Uuid" = "{ea2faa2d-36be-4c63-9877-4a50bfb76db2}";
         "khotkeysrc"."Data_2_4"."Comment" = "Read the comment on the \"Type 'Hello'\" action first.\n\nQt Designer uses Ctrl+F4 for closing windows.  In KDE, however, Ctrl+F4 is the shortcut for going to virtual desktop 4, so this shortcut does not work in Qt Designer.  Further, Qt Designer does not use KDE's standard Ctrl+W for closing the window.\n\nThis problem can be solved by remapping Ctrl+W to Ctrl+F4 when the active window is Qt Designer. When Qt Designer is active, every time Ctrl+W is pressed, Ctrl+F4 will be sent to Qt Designer instead. In other applications, the effect of Ctrl+W is unchanged.\n\nWe now need to specify three things: A new shortcut trigger on 'Ctrl+W', a new keyboard input action sending Ctrl+F4, and a new condition that the active window is Qt Designer.\nQt Designer seems to always have title 'Qt Designer by Trolltech', so the condition will check for the active window having that title.";
         "khotkeysrc"."Data_2_4"."Enabled" = false;
         "khotkeysrc"."Data_2_4"."Name" = "Remap Ctrl+W to Ctrl+F4 in Qt Designer";
@@ -476,7 +647,6 @@
         "khotkeysrc"."Data_2_4Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_4Triggers0"."Key" = "Ctrl+W";
         "khotkeysrc"."Data_2_4Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_4Triggers0"."Uuid" = "{b888ded1-4d37-47b2-b8f1-dda8d64ebfbe}";
         "khotkeysrc"."Data_2_5"."Comment" = "By pressing Alt+Ctrl+W a D-Bus call will be performed that will show the minicli. You can use any kind of D-Bus call, just like using the command line 'qdbus' tool.";
         "khotkeysrc"."Data_2_5"."Enabled" = false;
         "khotkeysrc"."Data_2_5"."Name" = "Perform D-Bus call 'qdbus org.kde.krunner /App display'";
@@ -493,7 +663,6 @@
         "khotkeysrc"."Data_2_5Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_5Triggers0"."Key" = "Ctrl+Alt+W";
         "khotkeysrc"."Data_2_5Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_5Triggers0"."Uuid" = "{9d3a5546-589f-4d2e-8e04-df9a87dedf6b}";
         "khotkeysrc"."Data_2_6"."Comment" = "Read the comment on the \"Type 'Hello'\" action first.\n\nJust like the \"Type 'Hello'\" action, this one simulates keyboard input, specifically, after pressing Ctrl+Alt+B, it sends B to XMMS (B in XMMS jumps to the next song). The 'Send to specific window' checkbox is checked and a window with its class containing 'XMMS_Player' is specified; this will make the input always be sent to this window. This way, you can control XMMS even if, for instance, it is on a different virtual desktop.\n\n(Run 'xprop' and click on the XMMS window and search for WM_CLASS to see 'XMMS_Player').";
         "khotkeysrc"."Data_2_6"."Enabled" = false;
         "khotkeysrc"."Data_2_6"."Name" = "Next in XMMS";
@@ -519,7 +688,6 @@
         "khotkeysrc"."Data_2_6Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_6Triggers0"."Key" = "Ctrl+Alt+B";
         "khotkeysrc"."Data_2_6Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_6Triggers0"."Uuid" = "{4b487c32-72f1-44a3-bff8-9b08c2a1125b}";
         "khotkeysrc"."Data_2_7"."Comment" = "Konqueror in KDE3.1 has tabs, and now you can also have gestures.\n\nJust press the middle mouse button and start drawing one of the gestures, and after you are finished, release the mouse button. If you only need to paste the selection, it still works, just click the middle mouse button. (You can change the mouse button to use in the global settings).\n\nRight now, there are the following gestures available:\nmove right and back left - Forward (Alt+Right)\nmove left and back right - Back (Alt+Left)\nmove up and back down  - Up (Alt+Up)\ncircle counterclockwise - Reload (F5)\n\nThe gesture shapes can be entered by performing them in the configuration dialog. You can also look at your numeric pad to help you: gestures are recognized like a 3x3 grid of fields, numbered 1 to 9.\n\nNote that you must perform exactly the gesture to trigger the action. Because of this, it is possible to enter more gestures for the action. You should try to avoid complicated gestures where you change the direction of mouse movement more than once.  For instance, 45654 or 74123 are simple to perform, but 1236987 may be already quite difficult.\n\nThe conditions for all gestures are defined in this group. All these gestures are active only if the active window is Konqueror (class contains 'konqueror').";
         "khotkeysrc"."Data_2_7"."DataCount" = 4;
         "khotkeysrc"."Data_2_7"."Enabled" = false;
@@ -625,7 +793,6 @@
         "khotkeysrc"."Data_2_8Triggers"."TriggersCount" = 1;
         "khotkeysrc"."Data_2_8Triggers0"."Key" = "Meta+E";
         "khotkeysrc"."Data_2_8Triggers0"."Type" = "SHORTCUT";
-        "khotkeysrc"."Data_2_8Triggers0"."Uuid" = "{41e826a9-f9aa-4287-9b57-d4303e2cb3f3}";
         "khotkeysrc"."Data_3"."Comment" = "Basic Konqueror gestures.";
         "khotkeysrc"."Data_3"."DataCount" = 14;
         "khotkeysrc"."Data_3"."Enabled" = true;
@@ -896,10 +1063,9 @@
         "kiorc"."Confirmations"."ConfirmTrash" = false;
         "kiorc"."Executable scripts"."behaviourOnLaunch" = "alwaysAsk";
         "krunnerrc"."Plugins"."baloosearchEnabled" = true;
-        "kscreenlockerrc"."Greeter.Wallpaper.org.kde.image.General"."Image" = "/home/jf/Bilder/Desktopbilder/Artworks/titanfall-2-concept-art-do.jpg";
-        "kscreenlockerrc"."Greeter.Wallpaper.org.kde.image.General"."PreviewImage" = "/home/jf/Bilder/Desktopbilder/Artworks/titanfall-2-concept-art-do.jpg";
-        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = "/mount/Data/Datein/Bilder/Desktopbilder/The Witcher/21:1/2812711.jpg";
-        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."PreviewImage" = "/mount/Data/Datein/Bilder/Desktopbilder/The Witcher/21:1/2812711.jpg";
+        "krunnerrc"."General"."FreeFloating" = true;
+        "krunnerrc"."General"."historyBehavior" = "ImmediateCompletion";
+        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = "${config.xdg.userDirs.pictures}/Desktopbilder/The Witcher/21:1/2812711.jpg";
         "kservicemenurc"."Show"."compressfileitemaction" = true;
         "kservicemenurc"."Show"."extractfileitemaction" = true;
         "kservicemenurc"."Show"."forgetfileitemaction" = true;
@@ -917,13 +1083,8 @@
         "kservicemenurc"."Show"."wallpaperfileitemaction" = true;
         "ksmserverrc"."General"."loginMode" = "emptySession";
         "ksplashrc"."KSplash"."Engine" = "none";
+        "ksplashrc"."KSplash"."Theme" = "none";
         "kwalletrc"."Wallet"."First Use" = false;
-        "kwinrc"."Desktops"."Id_1" = "24f39fe7-dcfd-4315-89d2-68f8b4b40512";
-        "kwinrc"."Desktops"."Id_2" = "90eeba97-33da-4509-82de-b8f6367d32f1";
-        "kwinrc"."Desktops"."Id_3" = "4f356bf0-bd75-450d-ba9b-4fc5e2aa36a8";
-        "kwinrc"."Desktops"."Id_4" = "90a7fbf4-6b56-4ec8-a3dc-149acb3257e0";
-        "kwinrc"."Desktops"."Number" = 4;
-        "kwinrc"."Desktops"."Rows" = 2;
         "kwinrc"."Effect-overview"."TouchBorderActivate" = 4;
         "kwinrc"."Effect-windowview"."BorderActivateAll" = 9;
         "kwinrc"."ElectricBorders"."BottomRight" = "ShowDesktop";
@@ -939,9 +1100,6 @@
         "kwinrc"."TabBox"."LayoutName" = "thumbnail_grid";
         "kwinrc"."TabBoxAlternative"."LayoutName" = "big_icons";
         "kwinrc"."Tiling"."padding" = 4;
-        "kwinrc"."Tiling.26f0b82c-cac0-5a36-8664-ac865e36894a"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-        "kwinrc"."Tiling/8c703df0-f18e-534d-a91b-fa4a59ae5355"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.23984375},{\"width\":0.5635416666666648},{\"width\":0.19661458333333326}]}";
-        "kwinrc"."Tiling/da36822f-8fbf-5eaa-b7a2-b370f6277c1e"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
         "kwinrc"."TouchEdges"."Left" = "ApplicationLauncher";
         "kwinrc"."TouchEdges"."Right" = "LockScreen";
         "kwinrc"."TouchEdges"."Top" = "KRunner";
@@ -952,6 +1110,7 @@
         "kwinrc"."org.kde.kdecoration2"."ButtonsOnLeft" = "F";
         "kxkbrc"."Layout"."LayoutList" = "de";
         "kxkbrc"."Layout"."Use" = true;
+        "plasma_calendar_holiday_regions"."General"."selectedRegions" = "de_de";
         "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
         "plasma-localerc"."Formats"."LC_ADDRESS" = "de_DE.UTF-8";
         "plasma-localerc"."Formats"."LC_MEASUREMENT" = "de_DE.UTF-8";
@@ -962,8 +1121,206 @@
         "plasma-localerc"."Formats"."LC_TELEPHONE" = "de_DE.UTF-8";
         "plasma-localerc"."Formats"."LC_TIME" = "de_DE.UTF-8";
         "plasmanotifyrc"."Notifications"."LowPriorityHistory" = true;
-        "plasmarc"."Wallpapers"."usersWallpapers" = "/home/jf/Bilder/Desktopbilder/Artworks/wallpapersden.com_retro-lab-scifi-artwork_1920x1302.jpg";
+        "plasmanotifyrc"."DoNotDisturb"."WhenScreensMirrored" = false;
         "systemsettingsrc"."KFileDialog Settings"."detailViewIconSize" = 64;
+        "systemsettingsrc"."MainWindow"."MenuBar" = "Disabled";
+        "kactivitymanagerd-pluginsrc"."Plugin-org.kde.ActivityManager.Resources.Scoring"."keep-history-for" = 1;
+        "konsolerc"."KonsoleWindow"."ShowWindowTitleOnTitleBar" = true;
+        "konsolerc"."MainWindow"."ToolBarsMovable" = "Disabled";
+        "konsolerc"."TabBar"."CloseTabOnMiddleMouseButton" = true;
+        "konsolerc"."UiSettings"."ColorScheme" = "";
+        "katerc"."General"."Allow Tab Scrolling" = true;
+        "katerc"."General"."Auto Hide Tabs" = false;
+        "katerc"."General"."Close After Last" = false;
+        "katerc"."General"."Close documents with window" = true;
+        "katerc"."General"."Days Meta Infos" = 30;
+        "katerc"."General"."Diff Show Style" = 0;
+        "katerc"."General"."Elide Tab Text" = false;
+        "katerc"."General"."Expand Tabs" = false;
+        "katerc"."General"."Icon size for left and right sidebar buttons" = 32;
+        "katerc"."General"."Modified Notification" = false;
+        "katerc"."General"."Mouse back button action" = 0;
+        "katerc"."General"."Mouse forward button action" = 0;
+        "katerc"."General"."Open New Tab To The Right Of Current" = false;
+        "katerc"."General"."Output History Limit" = 100;
+        "katerc"."General"."Recent File List Entry Count" = 10;
+        "katerc"."General"."Restore Window Configuration" = true;
+        "katerc"."General"."Save Meta Infos" = true;
+        "katerc"."General"."Show Full Path in Title" = false;
+        "katerc"."General"."Show Menu Bar" = true;
+        "katerc"."General"."Show Status Bar" = true;
+        "katerc"."General"."Show Symbol In Navigation Bar" = true;
+        "katerc"."General"."Show Tab Bar" = true;
+        "katerc"."General"."Show Tabs Close Button" = true;
+        "katerc"."General"."Show Url Nav Bar" = true;
+        "katerc"."General"."Show output view for message type" = 1;
+        "katerc"."General"."Show text for left and right sidebar" = false;
+        "katerc"."General"."Show welcome view for new window" = true;
+        "katerc"."General"."Startup Session" = "new";
+        "katerc"."General"."Stash new unsaved files" = true;
+        "katerc"."General"."Stash unsaved file changes" = false;
+        "katerc"."General"."Sync section size with tab positions" = false;
+        "katerc"."General"."Tab Double Click New Document" = true;
+        "katerc"."General"."Tab Middle Click Close Document" = true;
+        "katerc"."General"."Tabbar Tab Limit" = 0;
+        "katerc"."KTextEditor Document"."Allow End of Line Detection" = true;
+        "katerc"."KTextEditor Document"."Auto Detect Indent" = true;
+        "katerc"."KTextEditor Document"."Auto Reload If State Is In Version Control" = true;
+        "katerc"."KTextEditor Document"."Auto Save" = false;
+        "katerc"."KTextEditor Document"."Auto Save Interval" = 0;
+        "katerc"."KTextEditor Document"."Auto Save On Focus Out" = false;
+        "katerc"."KTextEditor Document"."BOM" = false;
+        "katerc"."KTextEditor Document"."Backup Local" = false;
+        "katerc"."KTextEditor Document"."Backup Prefix" = ;
+        "katerc"."KTextEditor Document"."Backup Remote" = false;
+        "katerc"."KTextEditor Document"."Backup Suffix" = ~;
+        "katerc"."KTextEditor Document"."Camel Cursor" = true;
+        "katerc"."KTextEditor Document"."Encoding" = "UTF-8";
+        "katerc"."KTextEditor Document"."End of Line" = 0;
+        "katerc"."KTextEditor Document"."Indent On Backspace" = true;
+        "katerc"."KTextEditor Document"."Indent On Tab" = true;
+        "katerc"."KTextEditor Document"."Indent On Text Paste" = true;
+        "katerc"."KTextEditor Document"."Indentation Mode" = "normal";
+        "katerc"."KTextEditor Document"."Indentation Width" = 2;
+        "katerc"."KTextEditor Document"."Keep Extra Spaces" = false;
+        "katerc"."KTextEditor Document"."Line Length Limit" = 10000;
+        "katerc"."KTextEditor Document"."Newline at End of File" = true;
+        "katerc"."KTextEditor Document"."On-The-Fly Spellcheck" = true;
+        "katerc"."KTextEditor Document"."Overwrite Mode" = false;
+        "katerc"."KTextEditor Document"."PageUp/PageDown Moves Cursor" = false;
+        "katerc"."KTextEditor Document"."Remove Spaces" = 1;
+        "katerc"."KTextEditor Document"."ReplaceTabsDyn" = true;
+        "katerc"."KTextEditor Document"."Show Spaces" = 0;
+        "katerc"."KTextEditor Document"."Show Tabs" = true;
+        "katerc"."KTextEditor Document"."Smart Home" = true;
+        "katerc"."KTextEditor Document"."Swap Directory" = ;
+        "katerc"."KTextEditor Document"."Swap File Mode" = 1;
+        "katerc"."KTextEditor Document"."Swap Sync Interval" = 15;
+        "katerc"."KTextEditor Document"."Tab Handling" = 2;
+        "katerc"."KTextEditor Document"."Tab Width" = 4;
+        "katerc"."KTextEditor Document"."Trailing Marker Size" = 1;
+        "katerc"."KTextEditor Document"."Word Wrap" = true;
+        "katerc"."KTextEditor Document"."Word Wrap Column" = 80;
+        "katerc"."KTextEditor Renderer"."Animate Bracket Matching" = false;
+        "katerc"."KTextEditor Renderer"."Auto Color Theme Selection" = true;
+        "katerc"."KTextEditor Renderer"."Color Theme" = "Catppuccin Mocha";
+        "katerc"."KTextEditor Renderer"."Line Height Multiplier" = 1;
+        "katerc"."KTextEditor Renderer"."Show Indentation Lines" = true;
+        "katerc"."KTextEditor Renderer"."Show Whole Bracket Expression" = true;
+        "katerc"."KTextEditor Renderer"."Word Wrap Marker" = true;
+        "katerc"."KTextEditor View"."Allow Mark Menu" = true;
+        "katerc"."KTextEditor View"."Auto Brackets" = true;
+        "katerc"."KTextEditor View"."Auto Center Lines" = 0;
+        "katerc"."KTextEditor View"."Auto Completion" = true;
+        "katerc"."KTextEditor View"."Auto Completion Preselect First Entry" = true;
+        "katerc"."KTextEditor View"."Backspace Remove Composed Characters" = false;
+        "katerc"."KTextEditor View"."Bookmark Menu Sorting" = 0;
+        "katerc"."KTextEditor View"."Bracket Match Preview" = true;
+        "katerc"."KTextEditor View"."Default Mark Type" = 1;
+        "katerc"."KTextEditor View"."Dynamic Word Wrap" = true;
+        "katerc"."KTextEditor View"."Dynamic Word Wrap Align Indent" = 80;
+        "katerc"."KTextEditor View"."Dynamic Word Wrap At Static Marker" = false;
+        "katerc"."KTextEditor View"."Dynamic Word Wrap Indicators" = 1;
+        "katerc"."KTextEditor View"."Dynamic Wrap not at word boundaries" = false;
+        "katerc"."KTextEditor View"."Enable Accessibility" = true;
+        "katerc"."KTextEditor View"."Enable Tab completion" = false;
+        "katerc"."KTextEditor View"."Enter To Insert Completion" = true;
+        "katerc"."KTextEditor View"."Fold First Line" = false;
+        "katerc"."KTextEditor View"."Folding Bar" = true;
+        "katerc"."KTextEditor View"."Folding Preview" = true;
+        "katerc"."KTextEditor View"."Icon Bar" = false;
+        "katerc"."KTextEditor View"."Input Mode" = 0;
+        "katerc"."KTextEditor View"."Keyword Completion" = true;
+        "katerc"."KTextEditor View"."Line Modification" = true;
+        "katerc"."KTextEditor View"."Line Numbers" = true;
+        "katerc"."KTextEditor View"."Max Clipboard History Entries" = 20;
+        "katerc"."KTextEditor View"."Maximum Search History Size" = 100;
+        "katerc"."KTextEditor View"."Mouse Paste At Cursor Position" = false;
+        "katerc"."KTextEditor View"."Multiple Cursor Modifier" = 134217728;
+        "katerc"."KTextEditor View"."Persistent Selection" = false;
+        "katerc"."KTextEditor View"."Scroll Bar Marks" = false;
+        "katerc"."KTextEditor View"."Scroll Bar Mini Map All" = true;
+        "katerc"."KTextEditor View"."Scroll Bar Mini Map Width" = 60;
+        "katerc"."KTextEditor View"."Scroll Bar MiniMap" = true;
+        "katerc"."KTextEditor View"."Scroll Bar Preview" = true;
+        "katerc"."KTextEditor View"."Scroll Past End" = false;
+        "katerc"."KTextEditor View"."Search/Replace Flags" = 140;
+        "katerc"."KTextEditor View"."Shoe Line Ending Type in Statusbar" = false;
+        "katerc"."KTextEditor View"."Show Documentation With Completion" = true;
+        "katerc"."KTextEditor View"."Show File Encoding" = true;
+        "katerc"."KTextEditor View"."Show Folding Icons On Hover Only" = true;
+        "katerc"."KTextEditor View"."Show Line Count" = true;
+        "katerc"."KTextEditor View"."Show Scrollbars" = 0;
+        "katerc"."KTextEditor View"."Show Statusbar Dictionary" = true;
+        "katerc"."KTextEditor View"."Show Statusbar Highlighting Mode" = true;
+        "katerc"."KTextEditor View"."Show Statusbar Input Mode" = true;
+        "katerc"."KTextEditor View"."Show Statusbar Line Column" = true;
+        "katerc"."KTextEditor View"."Show Statusbar Tab Settings" = true;
+        "katerc"."KTextEditor View"."Show Word Count" = true;
+        "katerc"."KTextEditor View"."Smart Copy Cut" = true;
+        "katerc"."KTextEditor View"."Statusbar Line Column Compact Mode" = true;
+        "katerc"."KTextEditor View"."Text Drag And Drop" = true;
+        "katerc"."KTextEditor View"."User Sets Of Chars To Enclose Selection" = ;
+        "katerc"."KTextEditor View"."Vi Input Mode Steal Keys" = false;
+        "katerc"."KTextEditor View"."Vi Relative Line Numbers" = false;
+        "katerc"."KTextEditor View"."Word Completion" = true;
+        "katerc"."KTextEditor View"."Word Completion Minimal Word Length" = 3;
+        "katerc"."KTextEditor View"."Word Completion Remove Tail" = true;
+        "katerc"."Konsole"."AutoSyncronize" = true;
+        "katerc"."Konsole"."KonsoleEscKeyBehaviour" = true;
+        "katerc"."Konsole"."KonsoleEscKeyExceptions" = "vi,vim,nvim,git";
+        "katerc"."Konsole"."RemoveExtension" = false;
+        "katerc"."Konsole"."RunPrefix" = ;
+        "katerc"."Konsole"."SetEditor" = false;
+        "katerc"."filetree"."editShade" = 183,220,246;
+        "katerc"."filetree"."listMode" = false;
+        "katerc"."filetree"."shadingEnabled" = true;
+        "katerc"."filetree"."showCloseButton" = false;
+        "katerc"."filetree"."showFullPathOnRoots" = false;
+        "katerc"."filetree"."showToolbar" = true;
+        "katerc"."filetree"."sortRole" = 0;
+        "katerc"."lspclient"."AllowedServerCommandLines" = ;
+        "katerc"."lspclient"."AutoHover" = true;
+        "katerc"."lspclient"."AutoImport" = true;
+        "katerc"."lspclient"."BlockedServerCommandLines" = ;
+        "katerc"."lspclient"."CompletionDocumentation" = true;
+        "katerc"."lspclient"."CompletionParens" = true;
+        "katerc"."lspclient"."Diagnostics" = true;
+        "katerc"."lspclient"."FormatOnSave" = false;
+        "katerc"."lspclient"."HighlightGoto" = true;
+        "katerc"."lspclient"."IncrementalSync" = false;
+        "katerc"."lspclient"."InlayHints" = false;
+        "katerc"."lspclient"."Messages" = true;
+        "katerc"."lspclient"."ReferencesDeclaration" = true;
+        "katerc"."lspclient"."SemanticHighlighting" = true;
+        "katerc"."lspclient"."ServerConfiguration" = ;
+        "katerc"."lspclient"."SignatureHelp" = true;
+        "katerc"."lspclient"."SymbolDetails" = false;
+        "katerc"."lspclient"."SymbolExpand" = true;
+        "katerc"."lspclient"."SymbolSort" = false;
+        "katerc"."lspclient"."SymbolTree" = true;
+        "katerc"."lspclient"."TypeFormatting" = true;
+        "soundkonverterrc"."General"."defaultFormat" = "Last used";
+        "soundkonverterrc"."General"."defaultProfile" = "Last used";
+        "soundkonverterrc"."General"."lastFormat" = "flac";
+        "soundkonverterrc"."General"."lastProfile" = "Lossless";
+        "soundkonverterrc"."General"."lastOutputDirectoryMode" = "";
+        "ktrashrc"."/home/jf/.local/share/Trash"."Days" = 7;
+        "ktrashrc"."/home/jf/.local/share/Trash"."Percent" = 10;
+        "ktrashrc"."/home/jf/.local/share/Trash"."UseSizeLimit" = true;
+        "ktrashrc"."/home/jf/.local/share/Trash"."UseTimeLimit" = true;
+        "ktrashrc"."/mount/Backup/.Trash-1000"."Days" = 7;
+        "ktrashrc"."/mount/Backup/.Trash-1000"."Percent" = 10;
+        "ktrashrc"."/mount/Backup/.Trash-1000"."UseSizeLimit" = true;
+        "ktrashrc"."/mount/Backup/.Trash-1000"."UseTimeLimit" = true;
+        "ktrashrc"."/mount/Data/.Trash-1000"."Days" = 7;
+        "ktrashrc"."/mount/Data/.Trash-1000"."Percent" = 10;
+        "ktrashrc"."/mount/Data/.Trash-1000"."UseSizeLimit" = true;
+        "ktrashrc"."/mount/Data/.Trash-1000"."UseTimeLimit" = true;
+        "ktrashrc"."/mount/Games/.Trash-1000"."Days" = 7;
+        "ktrashrc"."/mount/Games/.Trash-1000"."Percent" = 10;
+        "ktrashrc"."/mount/Games/.Trash-1000"."UseSizeLimit" = true;
+        "ktrashrc"."/mount/Games/.Trash-1000"."UseTimeLimit" = true;
       };
     };
   };
