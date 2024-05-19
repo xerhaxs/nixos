@@ -441,8 +441,8 @@ let
   "privacy.resistFingerprinting.pbmode" = true;
 
   # set new window size rounding max values [FF55+]
-  "privacy.window.maxInnerWidth" = 1600;
-  "privacy.window.maxInnerHeight" = 900;
+  #"privacy.window.maxInnerWidth" = 1600;
+  #"privacy.window.maxInnerHeight" = 900;
 
   # disable mozAddonManager Web API [FF57+]
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
@@ -451,7 +451,7 @@ let
   # "privacy.resistFingerprinting.letterboxing" = true;
 
   # experimental RFP [FF91+]
-  "browser.display.use_system_colors" = false;
+  "browser.display.use_system_colors" = true;
 
   # enforce non-native widget theme
   "widget.non-native-theme.enabled" = true;
@@ -813,7 +813,7 @@ in
         }) {});
 
       nativeMessagingHosts = with pkgs; [
-        keepassxc
+        #keepassxc
         kdePackages.plasma-browser-integration
       ];
 
@@ -846,9 +846,7 @@ in
           Cryptomining = true;
           Fingerprinting = true;
           EmailTracking = true;
-          Exceptions = [
-          #
-          ];
+          Exceptions = [ ];
         };
         
         FirefoxHome = {
@@ -1045,37 +1043,37 @@ in
             ];
           };
 
-          "keepassxc-browser@keepassxc.org".adminSettings = {
-            autoReconnect = true;
-            afterFillSorting = "sortByMatchingCredentials";
-            afterFillSortingTotp = "sortByRelevantEntry";
-            autoCompleteUsernames = true;
-            showGroupNameInAutocomplete = true;
-            autoFillAndSend = false;
-            autoFillSingleEntry = false;
-            autoFillSingleTotp = true;
-            autoRetrieveCredentials = true;
-            autoSubmit = true;
-            checkUpdateKeePassXC = 3;
-            clearCredentialsTimeout = 10;
-            colorTheme = "system";
-            credentialSorting = "sortByGroupAndTitle";
-            defaultGroupAlwaysAsk = true;
-            downloadFaviconAfterSave = true;
-            passkeys = true;
-            passkeysFallback = true;
-            saveDomainOnly = true;
-            showGettingStartedGuideAlert = true;
-            showTroubleshootingGuideAlert = true;
-            showLoginFormIcon = true;
-            showLoginNotifications = true;
-            showNotifications = true;
-            useMonochromeToolbarIcon = false;
-            showOTPIcon = true;
-            useObserver = true;
-            usePredefinedSites = true;
-            usePasswordGeneratorIcons = true;
-          };
+          #"keepassxc-browser@keepassxc.org".adminSettings = {
+          #  autoReconnect = true;
+          #  afterFillSorting = "sortByMatchingCredentials";
+          #  afterFillSortingTotp = "sortByRelevantEntry";
+          #  autoCompleteUsernames = true;
+          #  showGroupNameInAutocomplete = true;
+          #  autoFillAndSend = false;
+          #  autoFillSingleEntry = false;
+          #  autoFillSingleTotp = true;
+          #  autoRetrieveCredentials = true;
+          #  autoSubmit = true;
+          #  checkUpdateKeePassXC = 3;
+          #  clearCredentialsTimeout = 10;
+          #  colorTheme = "system";
+          #  credentialSorting = "sortByGroupAndTitle";
+          #  defaultGroupAlwaysAsk = true;
+          #  downloadFaviconAfterSave = true;
+          #  passkeys = true;
+          #  passkeysFallback = true;
+          #  saveDomainOnly = true;
+          #  showGettingStartedGuideAlert = true;
+          #  showTroubleshootingGuideAlert = true;
+          #  showLoginFormIcon = true;
+          #  showLoginNotifications = true;
+          #  showNotifications = true;
+          #  useMonochromeToolbarIcon = false;
+          #  showOTPIcon = true;
+          #  useObserver = true;
+          #  usePredefinedSites = true;
+          #  usePasswordGeneratorIcons = true;
+          #};
 
           "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
             scripts = rec {

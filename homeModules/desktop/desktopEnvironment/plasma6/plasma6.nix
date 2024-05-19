@@ -23,7 +23,7 @@
 
       workspace = {
         clickItemTo = "select";
-        tooltipDelay = 5;
+        tooltipDelay = 30;
         theme = "breeze-dark"; # plasma-apply-desktoptheme --list-themes
         colorScheme = "CatppuccinMochaMauve"; # plasma-apply-colorscheme --list-schemes
         cursorTheme = "Catppuccin-Mocha-Dark-Cursors"; # plasma-apply-cursortheme --list-themes
@@ -50,18 +50,10 @@
           "keep-above-windows"
         ];
 
-        effects = {
-          blurEnabled.enable = true;
-          dimscreenEnabled.enable = true;
-          kwin4_effect_dimscreenEnabled.enable = true;
-          kwin4_effect_translucencyEnabled.enable = true;
-          translucencyEnabled.enable = true;
-        };
-
         virtualDesktops = {
           animation = "fade";
           rows = 2;
-          desktop  = [
+          names = [
             "Desktop 1"
             "Desktop 2"
             "Desktop 3"
@@ -83,7 +75,7 @@
           alignment = "center";
           lengthMode = "fill";
           height = 48;
-          hiding = "dodgewindows";
+          hiding = "none";
           floating = true;
 
           widgets = [
@@ -97,7 +89,7 @@
               config = {
                 General = {
                   icon = "nix-snowflake-white";
-                  favoritesPortedToKAstats = true;
+                  favoritesPortedToKAstats = "true";
                   systemFavorites = "suspend\\,hibernate\\,reboot\\,shutdown";
                 };
               };
@@ -170,8 +162,8 @@
                   dateFormat = "isoDate";
                   enabledCalendarPlugins = "alternatecalendar,astronomicalevents,holidaysevents";
                   showSeconds = "Always";
-                  showWeekNumbers = true;
-                  use24hFormat = 2;
+                  showWeekNumbers = "true";
+                  use24hFormat = "2";
                 };
               };
             }
@@ -191,15 +183,15 @@
       #
       # Some mid-level settings:
       #
-      shortcuts = {
-        kwin = {
-          "Expose" = "Meta+,";
-          "Switch Window Down" = "Meta+J";
-          "Switch Window Left" = "Meta+H";
-          "Switch Window Right" = "Meta+L";
-          "Switch Window Up" = "Meta+K";
-        };
-      };
+      #shortcuts = {
+      #  kwin = {
+      #    "Expose" = "Meta+,";
+      #    "Switch Window Down" = "Meta+J";
+      #    "Switch Window Left" = "Meta+H";
+      #    "Switch Window Right" = "Meta+L";
+      #    "Switch Window Up" = "Meta+K";
+      #  };
+      #};
 
 
       #
@@ -1170,10 +1162,6 @@
         "katerc"."KTextEditor Document"."Auto Save Interval" = 0;
         "katerc"."KTextEditor Document"."Auto Save On Focus Out" = false;
         "katerc"."KTextEditor Document"."BOM" = false;
-        "katerc"."KTextEditor Document"."Backup Local" = false;
-        "katerc"."KTextEditor Document"."Backup Prefix" = ;
-        "katerc"."KTextEditor Document"."Backup Remote" = false;
-        "katerc"."KTextEditor Document"."Backup Suffix" = ~;
         "katerc"."KTextEditor Document"."Camel Cursor" = true;
         "katerc"."KTextEditor Document"."Encoding" = "UTF-8";
         "katerc"."KTextEditor Document"."End of Line" = 0;
@@ -1193,9 +1181,6 @@
         "katerc"."KTextEditor Document"."Show Spaces" = 0;
         "katerc"."KTextEditor Document"."Show Tabs" = true;
         "katerc"."KTextEditor Document"."Smart Home" = true;
-        "katerc"."KTextEditor Document"."Swap Directory" = ;
-        "katerc"."KTextEditor Document"."Swap File Mode" = 1;
-        "katerc"."KTextEditor Document"."Swap Sync Interval" = 15;
         "katerc"."KTextEditor Document"."Tab Handling" = 2;
         "katerc"."KTextEditor Document"."Tab Width" = 4;
         "katerc"."KTextEditor Document"."Trailing Marker Size" = 1;
@@ -1260,7 +1245,6 @@
         "katerc"."KTextEditor View"."Smart Copy Cut" = true;
         "katerc"."KTextEditor View"."Statusbar Line Column Compact Mode" = true;
         "katerc"."KTextEditor View"."Text Drag And Drop" = true;
-        "katerc"."KTextEditor View"."User Sets Of Chars To Enclose Selection" = ;
         "katerc"."KTextEditor View"."Vi Input Mode Steal Keys" = false;
         "katerc"."KTextEditor View"."Vi Relative Line Numbers" = false;
         "katerc"."KTextEditor View"."Word Completion" = true;
@@ -1270,19 +1254,15 @@
         "katerc"."Konsole"."KonsoleEscKeyBehaviour" = true;
         "katerc"."Konsole"."KonsoleEscKeyExceptions" = "vi,vim,nvim,git";
         "katerc"."Konsole"."RemoveExtension" = false;
-        "katerc"."Konsole"."RunPrefix" = ;
         "katerc"."Konsole"."SetEditor" = false;
-        "katerc"."filetree"."editShade" = 183,220,246;
         "katerc"."filetree"."listMode" = false;
         "katerc"."filetree"."shadingEnabled" = true;
         "katerc"."filetree"."showCloseButton" = false;
         "katerc"."filetree"."showFullPathOnRoots" = false;
         "katerc"."filetree"."showToolbar" = true;
         "katerc"."filetree"."sortRole" = 0;
-        "katerc"."lspclient"."AllowedServerCommandLines" = ;
         "katerc"."lspclient"."AutoHover" = true;
         "katerc"."lspclient"."AutoImport" = true;
-        "katerc"."lspclient"."BlockedServerCommandLines" = ;
         "katerc"."lspclient"."CompletionDocumentation" = true;
         "katerc"."lspclient"."CompletionParens" = true;
         "katerc"."lspclient"."Diagnostics" = true;
@@ -1293,7 +1273,6 @@
         "katerc"."lspclient"."Messages" = true;
         "katerc"."lspclient"."ReferencesDeclaration" = true;
         "katerc"."lspclient"."SemanticHighlighting" = true;
-        "katerc"."lspclient"."ServerConfiguration" = ;
         "katerc"."lspclient"."SignatureHelp" = true;
         "katerc"."lspclient"."SymbolDetails" = false;
         "katerc"."lspclient"."SymbolExpand" = true;
