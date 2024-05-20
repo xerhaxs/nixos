@@ -19,16 +19,11 @@
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
     programs.plasma = {
       enable = true;
-      overrideConfig = false;
+      overrideConfig = true;
 
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        theme = "default"; # plasma-apply-desktoptheme --list-themes
-        colorScheme = "CatppuccinMochaMauve"; # plasma-apply-colorscheme --list-schemes
-        cursorTheme = "Catppuccin-Mocha-Dark-Cursors"; # plasma-apply-cursortheme --list-themes
-        lookAndFeel = "Catppuccin-Mocha-Mauve"; # plasma-apply-lookandfeel --list
-        iconTheme = "Papirus-Dark";
         wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/52338778943_9704c200b4_o.png";
       };
 
@@ -444,6 +439,7 @@
         "services/org.kde.spectacle.desktop"."WindowUnderCursorScreenShot" = [ ];
         "services/org.kde.spectacle.desktop"."_launch" = [ ];
       };
+      
       configFile = {
         "plasmaparc"."General"."VolumeStep" = 1;
         "baloofilerc"."General"."dbVersion" = 2;
@@ -486,7 +482,6 @@
         "kded6rc"."PlasmaBrowserIntegration"."shownCount" = 4;
         "kdeglobals"."DirSelect Dialog"."DirSelectDialog Size" = "844,598";
         "kdeglobals"."General"."AllowKDEAppsToRememberWindowPositions" = true;
-        "kdeglobals"."General"."ColorScheme" = "CatppuccinMochaMauve";
         "kdeglobals"."General"."BrowserApplication" = "librewolf.desktop";
         "kdeglobals"."General"."TerminalApplication" = "kitty";
         "kdeglobals"."General"."TerminalService" = "kitty.desktop";
@@ -1186,7 +1181,6 @@
         "katerc"."KTextEditor Document"."Word Wrap Column" = 80;
         "katerc"."KTextEditor Renderer"."Animate Bracket Matching" = false;
         "katerc"."KTextEditor Renderer"."Auto Color Theme Selection" = true;
-        "katerc"."KTextEditor Renderer"."Color Theme" = "Catppuccin Mocha";
         "katerc"."KTextEditor Renderer"."Line Height Multiplier" = 1;
         "katerc"."KTextEditor Renderer"."Show Indentation Lines" = true;
         "katerc"."KTextEditor Renderer"."Show Whole Bracket Expression" = true;
