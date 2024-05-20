@@ -19,12 +19,12 @@
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
     programs.plasma = {
       enable = true;
-      overrideConfig = true;
+      overrideConfig = false;
 
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        theme = "breeze-dark"; # plasma-apply-desktoptheme --list-themes
+        theme = "default"; # plasma-apply-desktoptheme --list-themes
         colorScheme = "CatppuccinMochaMauve"; # plasma-apply-colorscheme --list-schemes
         cursorTheme = "Catppuccin-Mocha-Dark-Cursors"; # plasma-apply-cursortheme --list-themes
         lookAndFeel = "Catppuccin-Mocha-Mauve"; # plasma-apply-lookandfeel --list
@@ -153,6 +153,11 @@
 
             {
               name = "org.kde.plasma.systemtray";
+              config = {
+                General = {
+                  hiddenItems = "KDE Connect Indicator,org.kde.plasma.clipboard";
+                };
+              };
             }
 
             {
@@ -167,14 +172,6 @@
                 };
               };
             }
-          ];
-        }
-
-        {
-          location = "center";
-          height = 26;
-          widgets = [
-            "org.kde.plasma.appmenu"
           ];
         }
       ];
@@ -489,6 +486,7 @@
         "kded6rc"."PlasmaBrowserIntegration"."shownCount" = 4;
         "kdeglobals"."DirSelect Dialog"."DirSelectDialog Size" = "844,598";
         "kdeglobals"."General"."AllowKDEAppsToRememberWindowPositions" = true;
+        "kdeglobals"."General"."ColorScheme" = "CatppuccinMochaMauve";
         "kdeglobals"."General"."BrowserApplication" = "librewolf.desktop";
         "kdeglobals"."General"."TerminalApplication" = "kitty";
         "kdeglobals"."General"."TerminalService" = "kitty.desktop";
@@ -1096,7 +1094,7 @@
         "kwinrc"."TouchEdges"."Right" = "LockScreen";
         "kwinrc"."TouchEdges"."Top" = "KRunner";
         "kwinrc"."Wayland"."InputMethod[$e]" = "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
-        "kwinrc"."Wayland"."InputMethod\x5b$e\x5d" = "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
+        "kwinrc"."Wayland"."InputMethodx5b$ex5" = "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
         "kwinrc"."Wayland"."VirtualKeyboardEnabled" = true;
         "kwinrc"."Xwayland"."Scale" = 1;
         "kwinrc"."org.kde.kdecoration2"."ButtonsOnLeft" = "F";

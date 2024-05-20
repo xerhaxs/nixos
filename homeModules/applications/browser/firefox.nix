@@ -441,8 +441,8 @@ let
   "privacy.resistFingerprinting.pbmode" = true;
 
   # set new window size rounding max values [FF55+]
-  #"privacy.window.maxInnerWidth" = 1600;
-  #"privacy.window.maxInnerHeight" = 900;
+  "privacy.window.maxInnerWidth" = 2200;
+  "privacy.window.maxInnerHeight" = 1200;
 
   # disable mozAddonManager Web API [FF57+]
   "privacy.resistFingerprinting.block_mozAddonManager" = true;
