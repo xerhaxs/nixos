@@ -17,7 +17,15 @@
       enable = true;
       package = pkgs.rofi-wayland;
       catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
-      terminal = pkgs.kitty;
+      #terminal = pkgs.kitty;
+
+      plugins = with pkgs; [
+        rofi-calc
+        rofi-bluetooth
+        rofi-screenshot
+        rofi-power-menu
+        rofi-file-browser
+      ];
 
       #settings = {
       #  modi = "run,drun,window";

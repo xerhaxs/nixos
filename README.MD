@@ -55,7 +55,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 ### ToDo
 
-- [ ] Setup Hyrpland with Waybar and Swaylock / hyprlock + wofi theme
+- [ ] Setup Hyrpland with Waybar and Swaylock / hyprlock + rofi
 - [X] Move the server configuration from Desktop to Nuc
 - [X] Add a general testing configuration for interested people
 - [X] Make Thunderbird decleartiv

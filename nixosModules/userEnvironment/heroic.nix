@@ -91,7 +91,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.heroic.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.applications.gaming.heroic.enable) {
+  config = lib.mkIf (config.nixos.userEnvironment.heroic.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.gaming.heroic.enable) {
     systemd.user.services.heroicConfigChecker = {
       description = "Check and create Heroic config if not present";
 
