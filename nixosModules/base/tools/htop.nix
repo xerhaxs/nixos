@@ -7,7 +7,7 @@
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable Htop.";
+        description = "Enable htop.";
       };
     };
   };

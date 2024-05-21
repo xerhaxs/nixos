@@ -4,7 +4,6 @@
   imports = [
     ./emacs.nix
     ./helix.nix
-    ./neovim.nix
     ./tex.nix
     ./vim.nix
   ];
@@ -24,7 +23,6 @@
     homeManager.base.texteditor = {
       emacs.enable = false;
       helix.enable = true;
-      neovim.enable = false;
       tex.enable = true;
       vim.enable = true;
     };

@@ -2,22 +2,21 @@
 
 {
   options.homeManager = {
-    base.texteditor.helix = {
+    base.tools.btop = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable helix.";
+        description = "Enable btop.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.base.texteditor.helix.enable {
-    programs.helix = {
+  config = lib.mkIf config.homeManager.base.tools.btop.enable {
+    programs.btop = {
       enable = true;
       catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
-      #settings = { };
-      #languages = { };
+      #settings = {};
     };
   };
 }

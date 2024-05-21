@@ -2,18 +2,18 @@
 
 {
   options.nixos = {
-    base.shell.console = {
+    base.tools.ubstop = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable console.";
+        description = "Enable ubstop.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.base.shell.console.enable {
-    console = {
+  config = lib.mkIf config.nixos.base.tools.ubstop.enable {
+    programs.ubstop = {
       enable = true;
     };
   };

@@ -26,6 +26,7 @@
       plasma5.excludePackages = with pkgs; with libsForQt5; [
         elisa
         spectacle
+        konsole
         kwalletmanager
         breeze-qt5
         breeze-gtk

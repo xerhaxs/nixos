@@ -4,6 +4,7 @@
   imports = [
     ./dunst.nix
     ./hyprland.nix
+    ./swaylock.nix
     ./waybar.nix
     ./wofi.nix
   ];
@@ -23,6 +24,7 @@
     homeManager.desktop.windowManager.hyprland = {
       dunst.enable = true;
       hyprland.enable = true;
+      swaylock.enable = true;
       waybar.enable = true;
       wofi.enable = true;
     };

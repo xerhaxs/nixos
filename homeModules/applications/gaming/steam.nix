@@ -13,6 +13,8 @@
   };
 
   config = lib.mkIf config.homeManager.applications.gaming.steam.enable {
-    
+    home.packages = with pkgs; [
+      steam
+    ];
   };
 }

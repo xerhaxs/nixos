@@ -13,10 +13,9 @@
   };
 
   config = lib.mkIf config.homeManager.applications.terminal.alacritty.enable {
-    # alacritty - a cross-platform, GPU-accelerated terminal emulator
     programs.alacritty = {
       enable = true;
-      # custom settings
+      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       settings = {
         env.TERM = "xterm-256color";
         font = {

@@ -6,7 +6,7 @@
     ./heroic.nix
     ./mangohud.nix
     ./prismlauncher.nix
-    #./steam.nix
+    ./steam.nix
   ];
 
   options.homeManager = {
@@ -26,7 +26,7 @@
       heroic.enable = true;
       mangohud.enable = true;
       prismlauncher.enable = true;
-      #steam.enable = true;
+      steam.enable = false;
     };
   };
 }

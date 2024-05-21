@@ -3,6 +3,7 @@
 {
   imports = [
     ./backup.nix
+    ./btop.nix
     ./common.nix
     ./git.nix
     ./ranger.nix
@@ -23,6 +24,7 @@
   config = lib.mkIf config.homeManager.base.tools.enable {
     homeManager.base.tools = {
       backup.enable = true;
+      btop.enable = true;
       common.enable = true;
       git.enable = true;
       ranger.enable = true;

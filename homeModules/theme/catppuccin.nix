@@ -1,4 +1,4 @@
-{ config, lib, osConfig, pkgs, ... }:
+{ catppuccin, config, lib, osConfig, pkgs, ... }:
 
 let
   catppuccin-base16 = pkgs.fetchFromGitHub {
@@ -14,6 +14,10 @@ let
 in
 
 {
+  imports = [
+    catppuccin.homeManagerModules.catppuccin
+  ];
+
   options.homeManager = {
     theme.catppuccin = {
       enable = lib.mkOption {
@@ -26,6 +30,8 @@ in
   };
 
   config = lib.mkIf (osConfig.nixos.theme.catppuccin.enable && osConfig.nixos.theme.theme.colorscheme == "catppuccin") {
+    catppuccin.flavour = ${osConfig.nixos.theme.catppuccin.flavor};
+
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-frappe" (catppuccin-base16/frappe);
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-latte" latte;
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-macchiato" macchiato;
@@ -37,7 +43,7 @@ in
         colorScheme = "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-colorscheme --list-schemes
         cursorTheme = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-Dark-Cursors"; # plasma-apply-cursortheme --list-themes
         lookAndFeel = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-lookandfeel --list
-        iconTheme = "Papirus-Dark";
+        iconTheme = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
       };
       
       configFile = {

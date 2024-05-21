@@ -29,6 +29,7 @@
       plasma6.excludePackages = with pkgs; with kdePackages; [
         elisa
         spectacle
+        konsole
         kwalletmanager
         breeze
         breeze-icons

@@ -15,6 +15,7 @@
   config = lib.mkIf config.homeManager.applications.communication.protonmail-bridge.enable {
     home.packages = with pkgs; [
       protonmail-bridge
+      protonmail-bridge-gui
     ];
   };
 }

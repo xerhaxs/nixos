@@ -7,6 +7,7 @@
     ./htop.nix
     ./keepassxc.nix
     ./openvpn-client.nix
+    ./ubstop.nix
     ./wireguard-client.nix
   ];
 
@@ -28,6 +29,7 @@
       htop.enable = true;
       keepassxc.enable = true;
       #openvpn-client.enable = true;
+      ubstop.enable = true;
       #wireguard-client.enable = true;
     };
   };

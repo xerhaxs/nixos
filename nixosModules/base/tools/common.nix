@@ -86,10 +86,10 @@
       # productivity
       glow # markdown previewer in terminal
       hugo # static site generator
-
-      btop  # replacement of htop/nmon
+      
       iftop # network monitoring
       iotop # io monitoring
+
       pv # replacement of cp
 
       # system call monitoring

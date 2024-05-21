@@ -3,6 +3,7 @@
 {
   imports = [
     ./bash.nix
+    ./console.nix
     ./fish.nix
     ./zsh.nix
   ];
@@ -21,6 +22,7 @@
   config = lib.mkIf config.nixos.base.shell.enable {
     nixos.base.shell = {
       bash.enable = true;
+      console.enable = true;
       fish.enable = false;
       zsh.enable = false;
     };

@@ -3,7 +3,9 @@
 {
   imports = [
     ./bash.nix
+    ./fish.nix
     ./starship.nix
+    ./zsh.nix
   ];
 
   options.homeManager = {
@@ -20,7 +22,9 @@
   config = lib.mkIf config.homeManager.base.shell.enable {
     homeManager.base.shell = {
       bash.enable = lib.mkIf osConfig.nixos.base.shell.bash.enable true;
+      fish.enable = lib.mkIf osConfig.nixos.base.shell.fish.enable true;
       starship.enable = true;
+      zsh.enable = lib.mkIf osConfig.nixos.base.shell.zsh.enable true;
     };
   };
 }

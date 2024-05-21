@@ -2,22 +2,23 @@
 
 {
   options.homeManager = {
-    base.texteditor.helix = {
+    desktop.windowManager.hyprland.swaylock = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable helix.";
+        description = "Enable swaylock.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.base.texteditor.helix.enable {
-    programs.helix = {
+  config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.swaylock.enable {  
+    programs.swaylock = {
       enable = true;
       catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
-      #settings = { };
-      #languages = { };
+      settings = {
+        show-failed-attempts = true;
+      };
     };
   };
 }

@@ -22,6 +22,7 @@
         vimPlugins.nerdtree
         vimPlugins.vim-airline
         vimPlugins.wilder-nvim
+        vimPlugins.catppuccin-vim
       ];  
       extraConfig = ''
   set wildmenu
@@ -113,38 +114,6 @@
       syntax reset
   endif
 
-  let g:colors_name='catppuccin_mocha'
-  set t_Co=256
-
-  let s:rosewater = "#F5E0DC"
-  let s:flamingo = "#F2CDCD"
-  let s:pink = "#F5C2E7"
-  let s:mauve = "#CBA6F7"
-  let s:red = "#F38BA8"
-  let s:maroon = "#EBA0AC"
-  let s:peach = "#FAB387"
-  let s:yellow = "#F9E2AF"
-  let s:green = "#A6E3A1"
-  let s:teal = "#94E2D5"
-  let s:sky = "#89DCEB"
-  let s:sapphire = "#74C7EC"
-  let s:blue = "#89B4FA"
-  let s:lavender = "#B4BEFE"
-
-  let s:text = "#CDD6F4"
-  let s:subtext1 = "#BAC2DE"
-  let s:subtext0 = "#A6ADC8"
-  let s:overlay2 = "#9399B2"
-  let s:overlay1 = "#7F849C"
-  let s:overlay0 = "#6C7086"
-  let s:surface2 = "#585B70"
-  let s:surface1 = "#45475A"
-  let s:surface0 = "#313244"
-
-  let s:base = "#1E1E2E"
-  let s:mantle = "#181825"
-  let s:crust = "#11111B"
-
   function! s:hi(group, guisp, guifg, guibg, gui, cterm)
     let cmd = ""
     if a:guisp != ""
@@ -166,8 +135,6 @@
       exec "hi " . a:group . cmd
     endif
   endfunction
-
-
 
   call s:hi("Normal", "NONE", s:text, s:base, "NONE", "NONE")
   call s:hi("Visual", "NONE", "NONE", s:surface1,"bold", "bold")
@@ -259,6 +226,8 @@
   hi link StatusLineTermNC StatusLineNC
   hi link Terminal Normal
   hi link Ignore Comment
+
+  let g:lightline = {'colorscheme': 'cattppuccin_${osConfig.nixos.theme.catppuccin.flavor}'}
       '';
     };
   };

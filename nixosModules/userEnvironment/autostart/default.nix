@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./protonmail-bridge.nix
     ./steam.nix
   ];
 
@@ -19,7 +18,6 @@
 
   config = lib.mkIf config.nixos.userEnvironment.autostart.enable {
     nixos.userEnvironment.autostart = {
-      protonmail-bridge.enable = false;
       steam.enable = false;
     };
   };

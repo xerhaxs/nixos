@@ -55,18 +55,18 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ### ToDo
 
 - [ ] Setup Hyrpland with Waybar and Swaylock
-- [ ] Move the server configuration from Desktop to Nuc
-- [ ] Add a general testing configuration for interested people
-- [ ] Make Thunderbird decleartiv
+- [X] Move the server configuration from Desktop to Nuc
+- [X] Add a general testing configuration for interested people
+- [X] Make Thunderbird decleartiv
 - [ ] Add Gnome Config
-- [ ] Complete Plasma Config
+- [X] Complete Plasma Config
 - [X] Setup Firefox + Librewolf + Brave in config
 - [X] Make Syncthing declerativ
 - [ ] Add HomeAssistant VM
 - [ ] Setup Crafter Laptop
 - [ ] Selvhost captive portal service + add to network manager and firefox
 - [X] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
-- [ ] Add a custom Homepage for nginx#
+- [ ] Add a custom Homepage for nginx
 - [ ] create NixOS Hardend Config
 - [ ] write killswitch for server with rapi
 - [ ] move secrets to privat repo and create new secrets
@@ -76,19 +76,19 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] setup fish
 - [ ] OpenVPN Client
 - [ ] WireguardVPN Client
-- [ ] setup helix + vim theming
+- [X] setup helix + vim theming
 - [ ] default editor für EDITOR env in hm + nixos
 - [X] kiwix addon firefox
-- [ ] create protonmail-bridge module
-- [ ] setup diff tools in hm
-- [ ] theme starship
+- [X] create protonmail-bridge module
+- [X] setup diff tools in hm
+- [X] theme starship
 - [ ] setup emacs, helix, neovim, vim + theming
-- [ ] setup ranger with theming
+- [X] setup ranger with theming
 - [ ] USB Bootdrive with NixOS and files
 - [X] encrypted Swap Partition for Hybrid Sleep
-- [ ] enable AV1 Encoding in OBS
+- [X] enable AV1 Encoding in OBS
 - [ ] Nextcloud Database setup (postgresql)
-- [ ] setup gamescope for hdr in games
+- [X] setup gamescope for hdr in games
 - [ ] bring fwupd to work
 
 

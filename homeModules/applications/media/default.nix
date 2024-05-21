@@ -6,6 +6,7 @@
     ./clients.nix
     ./ffmpeg.nix
     ./mediaplayer.nix
+    ./mpv.nix
     ./obs-studio.nix
   ];
 
@@ -26,6 +27,7 @@
       clients.enable = true;
       ffmpeg.enable = true;
       mediaplayer.enable = true;
+      mpv.enable = true;
       obs-studio.enable = true;
     };
   };

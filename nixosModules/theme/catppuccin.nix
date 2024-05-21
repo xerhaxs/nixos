@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ catppuccin, config, lib, pkgs, ... }:
 
 let
   catppuccin = {
@@ -14,16 +14,17 @@ let
       sha256 = lib.fakeSha256;
     };
 
-    sddm = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "sddm";
-      rev = "main"; # commit hash or tag
-      sha256 = "sha256-TMElu+90/qtk4ipwfoALt7vKxxB9wxW81ZVbTfZI4kA="; #sha256 = lib.fakeSha256;
-    };
+    obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config./obs-studio/themes";
+    heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config./heroic/themes";
+    flavorToLower = lib.strings.toLower ${config.nixos.theme.catppuccin.flavor};
   };
 in
 
 {
+  imports = [
+    catppuccin.nixosModules.catppuccin
+  ];
+
   options.nixos = {
     theme.catppuccin = {
       enable = lib.mkOption {
@@ -102,7 +103,47 @@ in
   };
 
   config = lib.mkIf (config.nixos.theme.catppuccin.enable && config.nixos.theme.theme.colorscheme == "catppuccin") {
+    catppuccin.flavour = "${config.nixos.theme.catppuccin.flavor}";
+    
     nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "latte") "Light";
+
+    systemd.user.services.obsThemeChecker = { #lib.mkIf (${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable) {
+      description = "Check and download OBS theme if not present";
+
+      serviceConfig = {
+        ExecStart = ''
+          if [ ! -d "${catppuccin.obsThemesDir}" ]; then
+            mkdir -p "${catppuccin.obsThemesDir}"
+          fi
+
+          if ! ls ${catppuccin.obsThemesDir}/*.qss 1> /dev/null 2>&1; then
+            curl -L https://raw.githubusercontent.com/catppuccin/obs/main/themes/Catppuccin%20${config.nixos.theme.catppuccin.flavor}.qss -o ${catppuccin.obsThemesDir}/Catppuccin\ ${config.nixos.theme.catppuccin.flavor}.qss
+          fi
+        '';
+        Type = "oneshot";
+      };
+
+      wantedBy = [ "default.target" ];
+    };
+
+    systemd.user.services.heroicThemeChecker = { #lib.mkIf (${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable) {
+      description = "Check and download Heroic theme if not present";
+
+      serviceConfig = {
+        ExecStart = ''
+          if [ ! -d "${catppuccin.heroicThemesDir}" ]; then
+            mkdir -p "${catppuccin.heroicThemesDir}"
+          fi
+
+          if ! ls ${catppuccin.heroicThemesDir}/*.qss 1> /dev/null 2>&1; then
+            curl -L https://raw.githubusercontent.com/catppuccin/heroic/main/themes/catppuccin-${catppuccin.flavorToLower}.css -o ${catppuccin.heroicThemesDir}/catppuccin-${catppuccin.flavorToLower}.qss
+          fi
+        '';
+        Type = "oneshot";
+      };
+
+      wantedBy = [ "default.target" ];
+    };
 
     environment.systemPackages = with pkgs; [
       papirus-icon-theme
@@ -163,14 +204,20 @@ in
 
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + lib.strings.toLower "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
-    #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin.sddm + "pertheme/${config.nixos.theme.catppuccin.flavor}.conf");
-    #services.displayManager.sddm.theme = lib.mkIf config.nixos.desktop.displayManager.sddm.enable (catppuccin-sddm.override {
-    #  flavor = "${config.nixos.theme.catppuccin.flavor}";
-    #  font = "DejaVu Sans";
-    #  fontSize = 10;
-    #  background = sddm-background;
-    #  #background = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Desktopbilder/Tiere/wp6058967-3763783450.jpg"
-    #  loginBackground = true;
-    #})
+    services.displayManager.sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
+      catppuccin = {
+        enable = true;
+        flavour = "${config.nixos.theme.catppuccin.flavor}";
+        accent = "${config.nixos.theme.catppuccin.accent}";
+        font = "DejaVu Sans";
+        fontSize = 10;
+        background = catppuccin.sddm-background;
+        loginBackground = true;
+      };
+    };
+
+    console = lib.mkIf config.nixos.base.shell.console.enable {
+      catppuccin.enable = true;
+    };
   };
 }
