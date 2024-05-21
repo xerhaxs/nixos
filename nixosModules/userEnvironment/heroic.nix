@@ -5,7 +5,7 @@ let
   homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
   configDir = "${homeDir}/.config/heroic";
   configFile = "${configDir}/config.json";
-  flavor = lib.strings.toLower ${config.nixos.theme.catppuccin.flavor};
+  flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
   configContent = ''
     {
       "defaultSettings": {
@@ -21,10 +21,10 @@ let
         "checkForUpdatesOnStartup": true,
         "autoUpdateGames": true,
         "customWinePaths": [],
-        "defaultInstallPath": "${xdg.userDirs.extraConfig.XDG_GAMES_DIR}/Heroic",
+        "defaultInstallPath": "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.XDG_GAMES_DIR}/Heroic",
         "libraryTopSection": "disabled",
-        "defaultSteamPath": "${xdg.userDirs.extraConfig.XDG_GAMES_DIR}/Steam",
-        "defaultWinePrefix": "${xdg.userDirs.extraConfig.XDG_GAMES_DIR}/Heroic/Wine",
+        "defaultSteamPath": "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.XDG_GAMES_DIR}/Steam",
+        "defaultWinePrefix": "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.XDG_GAMES_DIR}/Heroic/Wine",
         "hideChangelogsOnStartup": false,
         "language": "de",
         "maxWorkers": 0,
@@ -91,7 +91,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.heroic.enable && ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.gaming.heroic.enable}) {
+  config = lib.mkIf (config.nixos.userEnvironment.heroic.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.applications.gaming.heroic.enable) {
     systemd.user.services.heroicConfigChecker = {
       description = "Check and create Heroic config if not present";
 

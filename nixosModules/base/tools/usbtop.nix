@@ -2,18 +2,18 @@
 
 {
   options.nixos = {
-    base.tools.ubstop = {
+    base.tools.usbtop = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable ubstop.";
+        description = "Enable usbtop.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.base.tools.ubstop.enable {
-    programs.ubstop = {
+  config = lib.mkIf config.nixos.base.tools.usbtop.enable {
+    programs.usbtop = {
       enable = true;
     };
   };

@@ -66,7 +66,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, nixos-generators, ... }:
+  outputs = inputs@{ self, nixpkgs, catppuccin, nur, nixos-generators, ... }:
     let
 
       system = "x86_64-linux";
@@ -97,6 +97,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
           ./homeModules/homemanager.nix

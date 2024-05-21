@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 {
   options.homeManager = {
@@ -227,7 +227,7 @@
   hi link Terminal Normal
   hi link Ignore Comment
 
-  let g:lightline = {'colorscheme': 'cattppuccin_${osConfig.nixos.theme.catppuccin.flavor}'}
+  let g:lightline = {'colorscheme': 'catppuccin_${osConfig.nixos.theme.catppuccin.flavor}'}
       '';
     };
   };

@@ -6,7 +6,7 @@
     ./hyprland.nix
     ./swaylock.nix
     ./waybar.nix
-    ./wofi.nix
+    ./rofi.nix
   ];
 
   options.homeManager = {
@@ -26,7 +26,7 @@
       hyprland.enable = true;
       swaylock.enable = true;
       waybar.enable = true;
-      wofi.enable = true;
+      rofi.enable = true;
     };
   };
 }

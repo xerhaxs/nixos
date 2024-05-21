@@ -1,4 +1,4 @@
-{ catppuccin, config, lib, pkgs, ... }:
+{ config, lib, pkgs, catppuccin, ... }:
 
 let
   catppuccin = {
@@ -16,14 +16,14 @@ let
 
     obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config./obs-studio/themes";
     heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config./heroic/themes";
-    flavorToLower = lib.strings.toLower ${config.nixos.theme.catppuccin.flavor};
+    flavorToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
   };
 in
 
 {
-  imports = [
-    catppuccin.nixosModules.catppuccin
-  ];
+  #imports = [
+  #  catppuccin.nixosModules.catppuccin
+  #];
 
   options.nixos = {
     theme.catppuccin = {
@@ -103,7 +103,7 @@ in
   };
 
   config = lib.mkIf (config.nixos.theme.catppuccin.enable && config.nixos.theme.theme.colorscheme == "catppuccin") {
-    catppuccin.flavour = "${config.nixos.theme.catppuccin.flavor}";
+    catppuccin.flavour = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
     
     nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "latte") "Light";
 
@@ -207,8 +207,6 @@ in
     services.displayManager.sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
       catppuccin = {
         enable = true;
-        flavour = "${config.nixos.theme.catppuccin.flavor}";
-        accent = "${config.nixos.theme.catppuccin.accent}";
         font = "DejaVu Sans";
         fontSize = 10;
         background = catppuccin.sddm-background;

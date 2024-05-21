@@ -46,7 +46,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - move sops keys to device
 - login protonmail-bridge
 - login in thunderbird
-- login to discord, signal, telegram, teams
+- login to discord, signal, telegram, teams, netflix, disney, chatgpt, simplelogin
+- setup firefox containers + keepassxc setttings + delet cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
 - import bookmarks
 - set brave browser settings
 - login to heroic and steam
@@ -54,7 +55,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 ### ToDo
 
-- [ ] Setup Hyrpland with Waybar and Swaylock
+- [ ] Setup Hyrpland with Waybar and Swaylock / hyprlock + wofi theme
 - [X] Move the server configuration from Desktop to Nuc
 - [X] Add a general testing configuration for interested people
 - [X] Make Thunderbird decleartiv
@@ -71,9 +72,9 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [ ] write killswitch for server with rapi
 - [ ] move secrets to privat repo and create new secrets
 - [X] bring normcap + handbrake to work
-- [ ] setup bash
-- [ ] setup zsh
-- [ ] setup fish
+- [X] setup bash
+- [X] setup zsh
+- [X] setup fish
 - [ ] OpenVPN Client
 - [ ] WireguardVPN Client
 - [X] setup helix + vim theming
@@ -82,7 +83,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - [X] create protonmail-bridge module
 - [X] setup diff tools in hm
 - [X] theme starship
-- [ ] setup emacs, helix, neovim, vim + theming
+- [X] setup emacs, helix, neovim, vim + theming
+- [ ] setup emacs
 - [X] setup ranger with theming
 - [ ] USB Bootdrive with NixOS and files
 - [X] encrypted Swap Partition for Hybrid Sleep
