@@ -16,7 +16,7 @@
 
   nixos.theme.catppuccin = {
     accent = "Blue";
-    flavor = "Latte";
+    flavor = "Frappe";
   };
 
   nixos.hardware = {
