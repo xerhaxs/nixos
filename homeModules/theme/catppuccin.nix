@@ -30,7 +30,7 @@ in
   };
 
   config = lib.mkIf (osConfig.nixos.theme.catppuccin.enable && osConfig.nixos.theme.theme.colorscheme == "catppuccin") {
-    catppuccin.flavour = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}";
+    catppuccin.flavor = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}";
 
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-frappe" (catppuccin-base16/frappe);
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-latte" latte;
