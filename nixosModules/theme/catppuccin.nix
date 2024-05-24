@@ -105,7 +105,7 @@ in
   config = lib.mkIf (config.nixos.theme.catppuccin.enable && config.nixos.theme.theme.colorscheme == "catppuccin") {
     catppuccin.flavour = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
     
-    nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "latte") "Light";
+    nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";
 
     systemd.user.services.obsThemeChecker = { #lib.mkIf (${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable) {
       description = "Check and download OBS theme if not present";
