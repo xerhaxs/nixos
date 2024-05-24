@@ -25,7 +25,7 @@
       barrier.enable = false;
       kdeconnect.enable = true;
       nextcloud-client.enable = true;
-      onionshare.enable = true;
+      onionshare.enable = false;
       syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };
   };

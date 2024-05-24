@@ -28,7 +28,7 @@
       languagetool
       libreoffice
       mythes
-      normcap
+      #normcap
       #onlyoffice-bin
       rnote
       #xournalpp
