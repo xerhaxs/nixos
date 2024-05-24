@@ -21,10 +21,6 @@ let
 in
 
 {
-  #imports = [
-  #  catppuccin.nixosModules.catppuccin
-  #];
-
   options.nixos = {
     theme.catppuccin = {
       enable = lib.mkOption {

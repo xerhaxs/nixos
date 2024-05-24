@@ -84,6 +84,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Crafter/default.nix
           ./homeModules/homemanager.nix
@@ -121,6 +122,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Framework/default.nix
           ./homeModules/homemanager.nix
@@ -134,6 +136,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Laptop/default.nix
           ./homeModules/homemanager.nix
@@ -147,6 +150,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Live/default.nix
           ./homeModules/homemanager.nix
@@ -160,6 +164,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server/default.nix
           ./homeModules/homemanager.nix
@@ -173,6 +178,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server2/default.nix
           ./homeModules/homemanager.nix
@@ -186,6 +192,7 @@
 
         modules = [
           nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Test/default.nix
           ./homeModules/homemanager.nix
