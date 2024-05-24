@@ -21,9 +21,9 @@ let
 in
 
 {
-  #imports = [
-  #  catppuccin.nixosModules.catppuccin
-  #];
+  imports = [
+    catppuccin.nixosModules.catppuccin
+  ];
 
   options.nixos = {
     theme.catppuccin = {
