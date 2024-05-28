@@ -473,6 +473,8 @@
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad"."PointerAccelerationProfile" = 2;
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad"."ScrollFactor" = 1.5;
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad"."TapToClick" = true;
+        "kcminputrc"."Libinput"."PIXA3854:00 093A:0274 Touchpad"."NaturalScroll" = true;
+        "kcminputrc"."Libinput"."PIXA3854:00 093A:0274 Touchpad"."ScrollFactor" = 2;
         "kcminputrc"."Libinput/13364/1553/Keychron Keychron Q1 Pro Mouse"."PointerAccelerationProfile" = 1;
         "kcminputrc"."Libinput/5426/171/Razer Razer Basilisk V3 Pro"."PointerAccelerationProfile" = 1;
         "kcminputrc"."Tmp"."update_info" = "delete_cursor_old_default_size.upd:DeleteCursorOldDefaultSize";

@@ -91,8 +91,8 @@ in
         dns = "default";
         wifi = {
           scanRandMacAddress = true;
-          powersave = true;
-          macAddress = "random";
+          powersave = false;
+          macAddress = "stable"; #"random";
         };
       };
       

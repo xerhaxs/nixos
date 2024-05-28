@@ -5,21 +5,21 @@
   
     hostName = "NixOS-Framework";
       
-    interfaces = {
-      eth0 = {
-        useDHCP = true;
+    #interfaces = {
+      #eth0 = {
+        #useDHCP = true;
         #ipv4.addresses = [ {
         #  address = "10.75.0.40";
         #  prefixLength = 24;
         #} ];
-      };
+      #};
 
-      wlp1s0 = {
-        useDHCP = true;
-      };
-    };
+      #wlp1s0 = {
+      #  useDHCP = true;
+      #};
+    #};
 
-    useDHCP = lib.mkForce false;
+    useDHCP = lib.mkForce true;
 
     #wireless = {
     #  environmentFile = config.sops.secrets."wifi".path;
