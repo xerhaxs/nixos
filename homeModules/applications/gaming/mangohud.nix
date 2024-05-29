@@ -130,8 +130,8 @@
         # io_write
 
         ### Display system vram / ram / swap space usage
-        # vram
-        # ram
+        vram = true;
+        ram = true;
         # swap
 
         ### Display per process memory usage
@@ -157,7 +157,7 @@
         frametime = true;
         # frame_count
         ## fps_metrics takes a list of decimal values or the value avg
-        # fps_metrics=avg,0.01
+        fps_metrics = [ "avg" "0.01" ];
 
         ### Display GPU throttling status based on Power, current, temp or "other"
         ## Only shows if throttling is currently happening
@@ -187,13 +187,13 @@
 
         ### Gamescope related options
         ## Display the status of FSR (only works in gamescope)
-        # fsr
+        fsr = true;
         ## Hides the sharpness info for the `fsr` option (only available in gamescope)
         # hide_fsr_sharpness
         ## Shows the graph of gamescope app frametimes and latency (only on gamescope obviously)
         # debug
         ## Display the status of HDR (only works in gamescope)
-        # hdr
+        hdr = true;
         ## Display the current refresh rate (only works in gamescope)
         # refresh_rate
 
@@ -264,7 +264,7 @@
         # text_outline_thickness = 1.5
 
         ### Change the hud position
-        # position=top-left
+        position = "top-left";
 
         ### Change the corner roundness
         # round_corners=0

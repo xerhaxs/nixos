@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+  domain = "m4rx.cc";
+in
+
 {
   options.nixos = {
     server.network.nginx = {
@@ -24,7 +28,7 @@
       recommendedTlsSettings = true;
 
       virtualHosts = {
-      #"bitsync.icu" = {
+      #"${domain}" = {
       #  forceSSL = true;
       #  enableACME = true;
       #  acmeRoot = null;
@@ -33,7 +37,7 @@
       #  root = "/mount/Data/Datein/Server/startpage/index.html";
       #};
 
-        "nextcloud.bitsync.icu" = {
+        "nextcloud.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -44,7 +48,7 @@
           #};
         };
 
-        "vaultwarden.bitsync.icu" = {
+        "vaultwarden.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -55,7 +59,7 @@
           #};
         };
 
-        "dav.bitsync.icu" = {
+        "dav.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -66,7 +70,7 @@
           };
         };
 
-        "radicale.bitsync.icu" = {
+        "radicale.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -82,7 +86,7 @@
           };
         };
 
-        "searxng.bitsync.icu" = {
+        "searxng.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -93,7 +97,7 @@
           };
         };
 
-        "invidious.bitsync.icu" = {
+        "invidious.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -104,7 +108,7 @@
           };
         };
 
-        "libreddit.bitsync.icu" = {
+        "libreddit.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -115,7 +119,7 @@
           };
         };
 
-        "nzbget.bitsync.icu" = {
+        "nzbget.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -126,7 +130,7 @@
           };
         };
 
-        "nzbhydra2.bitsync.icu" = {
+        "nzbhydra2.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -137,7 +141,7 @@
           };
         };
 
-        "radarr.bitsync.icu" = {
+        "radarr.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -148,7 +152,7 @@
           };
         };
 
-        "sonarr.bitsync.icu" = {
+        "sonarr.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -159,7 +163,7 @@
           };
         };
 
-        "lidarr.bitsync.icu" = {
+        "lidarr.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -170,7 +174,7 @@
           };
         };
 
-        "readarr.bitsync.icu" = {
+        "readarr.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -181,7 +185,7 @@
           };
         };
 
-        "homeassistant.bitsync.icu" = {
+        "homeassistant.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -193,7 +197,7 @@
           };
         };
 
-        "freshrss.bitsync.icu" = {
+        "freshrss.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -201,7 +205,7 @@
           http2 = false;
         };
 
-        "firefoxsync.bitsync.icu" = {
+        "firefoxsync.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -212,7 +216,7 @@
           };
         };
 
-        "nitter.bitsync.icu" = {
+        "nitter.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -223,7 +227,7 @@
           };
         };
 
-        "jellyfin.bitsync.icu" = {
+        "jellyfin.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -234,7 +238,7 @@
           };
         };
 
-        "pufferpanel.bitsync.icu" = {
+        "pufferpanel.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -245,7 +249,7 @@
           };
         };
 
-        "pufferpanel-sftp.bitsync.icu" = {
+        "pufferpanel-sftp.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -256,7 +260,7 @@
           };
         };
 
-        "uptime-kuma.bitsync.icu" = {
+        "uptime-kuma.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -267,7 +271,7 @@
           };
         };
 
-        "etesync.bitsync.icu" = {
+        "etesync.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -278,7 +282,7 @@
           };
         };
 
-        "monero.bitsync.icu" = {
+        "monero.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -289,7 +293,7 @@
           };
         };
 
-        "adguard.bitsync.icu" = {
+        "adguard.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -300,7 +304,7 @@
           };
         };
 
-        "gitea.bitsync.icu" = {
+        "gitea.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -311,7 +315,7 @@
           };
         };
 
-        "onlyoffice.bitsync.icu" = {
+        "onlyoffice.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -323,7 +327,7 @@
           #};
         };
 
-        "murmur.bitsync.icu" = {
+        "murmur.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -334,7 +338,7 @@
           };
         };
         
-        "teamspeak.bitsync.icu" = {
+        "teamspeak.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -345,7 +349,7 @@
           };
         };
 
-        "peertube.bitsync.icu" = {
+        "peertube.${domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
@@ -364,7 +368,7 @@
       defaults = {
         dnsResolver = "9.9.9.9";
         email = "among_clavicle129@slmail.me";
-        dnsProvider = "ionos";
+        dnsProvider = "cloudflare";
         dnsPropagationCheck = true;
         renewInterval = "daily";
         environmentFile = config.sops.secrets."nginx/acme/api_key".path;

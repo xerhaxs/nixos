@@ -3,6 +3,7 @@
 {
   imports = [
     ./autostart
+    ./config
     ./flatpak.nix
     ./gamemode.nix
     ./gamescope.nix
@@ -29,6 +30,7 @@
   config = lib.mkIf config.nixos.userEnvironment.enable {
     nixos.userEnvironment = {
       autostart.enable = true;
+      config.enable = true;
       flatpak.enable = false;
       gamemode.enable = true;
       gamescope.enable = true;

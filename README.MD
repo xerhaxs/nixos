@@ -56,11 +56,12 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ### ToDo
 
 - [ ] Setup Hyrpland with Waybar and Swaylock / hyprlock + rofi
+- [X] backintime setup files
 - [ ] Firefox +  Thunderbird theme
-- [ ] touchpad settings in plasma config
+- [X] touchpad settings in plasma config
 - [ ] energy settings in plasma config
 - [ ] monitor settings in plasma config
-- [ ] lock screen, kate, dolphin settings in plasma manager
+- [ ] lock screen, kymymoney, kate, dolphin settings in plasma manager
 - [X] Move the server configuration from Desktop to Nuc
 - [X] Add a general testing configuration for interested people
 - [X] Make Thunderbird decleartiv

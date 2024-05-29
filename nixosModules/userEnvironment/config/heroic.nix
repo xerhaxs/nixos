@@ -81,7 +81,7 @@ in
 
 {
   options.nixos = {
-    userEnvironment.heroic = {
+    userEnvironment.config.heroic = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -91,24 +91,23 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.heroic.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.gaming.heroic.enable) {
-    systemd.user.services.heroicConfigChecker = {
+  config = lib.mkIf (config.nixos.userEnvironment.config.heroic.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.gaming.heroic.enable) {
+    systemd.services.heroicConfigChecker = {
       description = "Check and create Heroic config if not present";
 
-      serviceConfig = {
-        ExecStart = ''
-          if [ ! -d "${configDir}" ]; then
-            mkdir -p "${configDir}"
-          fi
+      script = ''
+        if [ ! -d "${configDir}" ]; then
+          mkdir -p "${configDir}"
+        fi
 
-          if [ ! -f "${configFile}" ]; then
-            echo '${configContent}' > "${configFile}"
-          fi
-        '';
-        Type = "oneshot";
-      };
+        if [ ! -f "${configFile}" ]; then
+          echo '${configContent}' > "${configFile}"
+        fi
 
-      wantedBy = [ "default.target" ];
+        chown -R ${config.nixos.system.user.defaultuser.name}:users ${configDir}
+      '';
+
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }

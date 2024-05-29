@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+  preferToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.prefer}";
+in
+
 {
   options.nixos = {
     base.tools.keepassxc = {
@@ -17,49 +21,53 @@
       keepassxc
     ];
 
-    systemd.user.services.keepassxc = {
-      enable = true;
+    systemd.services.keepassxcConfigChecker = {
+      description = "Check and create Keepassxc config if not present";
 
-      serviceConfig = {
-        ExecStart = ''
-          if [ ! -f $HOME/.config/keepassxc/keepassxc.ini ]; then
-            mkdir -p $HOME/.config/keepassxc
-            echo "
-              [General]
-              ConfigVersion=2
-              MinimizeAfterUnlock=false
+      script = ''
+        if [ ! -f ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc/keepassxc.ini ]; then
+          mkdir -p ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc
+          echo "
+            [General]
+            BackupBeforeSave=true
+            ConfigVersion=2
+            MinimizeAfterUnlock=false
 
-              [Browser]
-              AllowExpiredCredentials=true
-              CustomProxyLocation=
-              Enabled=true
-              SearchInAllDatabases=true
+            [Browser]
+            AllowExpiredCredentials=true
+            Browser_AllowLocalhostWithPasskeys=true
+            CustomProxyLocation=
+            Enabled=true
+            SearchInAllDatabases=true
 
-              [GUI]
-              ApplicationTheme=classic
-              MinimizeOnClose=true
-              MinimizeOnStartup=true
-              MinimizeToTray=true
-              ShowTrayIcon=true
-              TrayIconAppearance=monochrome-light
+            [GUI]
+            ApplicationTheme=classic
+            MinimizeOnClose=true
+            MinimizeOnStartup=true
+            MinimizeToTray=true
+            ShowTrayIcon=true
+            TrayIconAppearance=monochrome-${preferToLower}
 
-              [PasswordGenerator]
-              AdditionalChars=
-              AdvancedMode=true
-              ExcludedChars=
-              Length=128
-              Logograms=true
+            [PasswordGenerator]
+            AdditionalChars=
+            AdvancedMode=true
+            ExcludedChars=
+            Length=128
+            Logograms=true
 
-              [Security]
-              ClearSearch=true
-              HideTotpPreviewPanel=true
-              IconDownloadFallback=true
-              LockDatabaseIdle=false
-              LockDatabaseIdleSeconds=900
-            " > $HOME/.config/keepassxc/keepassxc.ini
-          fi
-        '';
-      };
+            [Security]
+            ClearSearch=true
+            HideTotpPreviewPanel=true
+            IconDownloadFallback=true
+            LockDatabaseIdle=false
+            LockDatabaseIdleSeconds=900
+          " > ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc/keepassxc.ini
+        fi
+
+        chown -R ${config.nixos.system.user.defaultuser.name}:users ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc
+      '';
+
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }

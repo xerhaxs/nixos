@@ -26,6 +26,7 @@
 
     home.packages = with pkgs; [
       bfg-repo-cleaner
+      gh
     ];
   };
 }

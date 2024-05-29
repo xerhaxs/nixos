@@ -16,6 +16,8 @@
     home.packages = with pkgs; [
       kmymoney
       monero-gui
+      gnucash
+      skrooge
     ];
   };
 }

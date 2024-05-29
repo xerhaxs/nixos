@@ -14,8 +14,8 @@ let
       sha256 = lib.fakeSha256;
     };
 
-    obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config./obs-studio/themes";
-    heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config./heroic/themes";
+    obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/obs-studio/themes";
+    heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/heroic/themes";
     flavorToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
   };
 in
@@ -103,42 +103,40 @@ in
     
     nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";
 
-    systemd.user.services.obsThemeChecker = { #lib.mkIf (${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable) {
+    systemd.services.obsThemeChecker = { #lib.mkIf config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable {
       description = "Check and download OBS theme if not present";
 
-      serviceConfig = {
-        ExecStart = ''
-          if [ ! -d "${catppuccin.obsThemesDir}" ]; then
-            mkdir -p "${catppuccin.obsThemesDir}"
-          fi
+      script = ''
+        if [ ! -d "${catppuccin.obsThemesDir}" ]; then
+          mkdir -p "${catppuccin.obsThemesDir}"
+        fi
 
-          if ! ls ${catppuccin.obsThemesDir}/*.qss 1> /dev/null 2>&1; then
-            curl -L https://raw.githubusercontent.com/catppuccin/obs/main/themes/Catppuccin%20${config.nixos.theme.catppuccin.flavor}.qss -o ${catppuccin.obsThemesDir}/Catppuccin\ ${config.nixos.theme.catppuccin.flavor}.qss
-          fi
-        '';
-        Type = "oneshot";
-      };
+        if ! ls ${catppuccin.obsThemesDir}/*.qss 1> /dev/null 2>&1; then
+          curl -L https://raw.githubusercontent.com/catppuccin/obs/main/themes/Catppuccin%20${config.nixos.theme.catppuccin.flavor}.qss -o ${catppuccin.obsThemesDir}/Catppuccin\ ${config.nixos.theme.catppuccin.flavor}.qss
+        fi
+      '';
 
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "multi-user.target" ];
+
+      path = with pkgs; [ curl ];
     };
 
-    systemd.user.services.heroicThemeChecker = { #lib.mkIf (${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable) {
+    systemd.services.heroicThemeChecker = { #lib.mkIf config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.homeManager.applications.media.obs-studio.enable {
       description = "Check and download Heroic theme if not present";
+      
+      script = ''
+        if [ ! -d "${catppuccin.heroicThemesDir}" ]; then
+          mkdir -p "${catppuccin.heroicThemesDir}"
+        fi
 
-      serviceConfig = {
-        ExecStart = ''
-          if [ ! -d "${catppuccin.heroicThemesDir}" ]; then
-            mkdir -p "${catppuccin.heroicThemesDir}"
-          fi
+        if ! ls ${catppuccin.heroicThemesDir}/*.css 1> /dev/null 2>&1; then
+          curl -L https://raw.githubusercontent.com/catppuccin/heroic/main/themes/catppuccin-${catppuccin.flavorToLower}.css -o ${catppuccin.heroicThemesDir}/catppuccin-${catppuccin.flavorToLower}.css
+        fi
+      '';
 
-          if ! ls ${catppuccin.heroicThemesDir}/*.qss 1> /dev/null 2>&1; then
-            curl -L https://raw.githubusercontent.com/catppuccin/heroic/main/themes/catppuccin-${catppuccin.flavorToLower}.css -o ${catppuccin.heroicThemesDir}/catppuccin-${catppuccin.flavorToLower}.qss
-          fi
-        '';
-        Type = "oneshot";
-      };
+      wantedBy = [ "multi-user.target" ];
 
-      wantedBy = [ "default.target" ];
+      path = with pkgs; [ curl ];
     };
 
     environment.systemPackages = with pkgs; [
