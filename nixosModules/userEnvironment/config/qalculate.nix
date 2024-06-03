@@ -161,7 +161,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.config.qalculate.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.qalculate.enable) {
+  config = lib.mkIf (config.nixos.userEnvironment.config.qalculate.enable) {
     systemd.services.qalculateConfigChecker = {
       description = "Check and create qalculate config if not present";
 

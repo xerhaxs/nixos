@@ -7,7 +7,7 @@
     ./haos.nix
     ./homeassistant.nix
     ./jellyfin.nix
-    ./mailserver.nix
+    #./mailserver.nix
     ./nextcloud.nix
     ./onlyoffice.nix
     ./pufferpanel.nix
@@ -33,7 +33,7 @@
       haos.enable = true;
       homeassistant.enable = true;
       jellyfin.enable = true;
-      mailserver.enable = true;
+      #mailserver.enable = true;
       nextcloud.enable = true;
       onlyoffice.enable = true;
       pufferpanel.enable = true;

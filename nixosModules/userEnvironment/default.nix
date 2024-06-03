@@ -7,7 +7,6 @@
     ./flatpak.nix
     ./gamemode.nix
     ./gamescope.nix
-    ./heroic.nix
     ./kdeconnect.nix
     ./mullvad.nix
     ./printing.nix
@@ -34,7 +33,6 @@
       flatpak.enable = false;
       gamemode.enable = true;
       gamescope.enable = true;
-      heroic.enable = true;
       kdeconnect.enable = true;
       mullvad.enable = true;
       printing.enable = true;

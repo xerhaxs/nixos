@@ -224,7 +224,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.config.clementine.enable && lib.mkIf (pkgs ? pkgs.clementine)) {
+  config = lib.mkIf (config.nixos.userEnvironment.config.clementine.enable) {
     systemd.services.clementineConfigChecker = {
       description = "Check and create Clementine config if not present";
 

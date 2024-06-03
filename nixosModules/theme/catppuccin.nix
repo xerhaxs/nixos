@@ -9,11 +9,6 @@ let
       sha256 = "sha256-e8XFWebd/GyX44WQI06Cx6sOduCZc5z7/YhweVQGMGY="; #sha256 = lib.fakeSha256;
     };
 
-    sddm-background = pkgs.fetchurl {
-      url = "https://wallpapercave.com/wp/wp6058967.jpg";
-      sha256 = lib.fakeSha256;
-    };
-
     obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/obs-studio/themes";
     heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/heroic/themes";
     flavorToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
@@ -202,8 +197,7 @@ in
       catppuccin = {
         enable = true;
         font = "DejaVu Sans";
-        fontSize = 10;
-        background = catppuccin.sddm-background;
+        background = "https://wallpapercave.com/wp/wp6058967.jpg";
         loginBackground = true;
       };
     };
