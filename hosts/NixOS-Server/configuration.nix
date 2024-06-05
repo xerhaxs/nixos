@@ -2,13 +2,13 @@
 
 {
   nixos.hardware = {
-    intelcpu.enable = true;
-    intelgpu.enable = true;
+    amdcpu.enable = true;
+    amdgpu.enable = true;
   };
 
   nixos.server.enable = lib.mkForce true;
 
-  nixos.system.powermanagement.profiles.performance = lib.mkForce true;
+  nixos.system.powermanagement.profiles.balance = lib.mkForce true;
 
   nixos.system.user.defaultuser = {
     name = "admin";
