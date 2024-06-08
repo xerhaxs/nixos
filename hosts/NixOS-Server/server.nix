@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.server.enable = lib.mkForce true;
+  nixos.server.enable = lib.mkForce false;
 
   nixos.server = {
     home = {
