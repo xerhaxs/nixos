@@ -5,6 +5,7 @@
     disko.nixosModules.disko
     ./disko-bios-lvm-on-luks.nix
     ./disko-uefi-lvm-on-luks.nix
+    ./disko-uefi-lvm.nix
     ./disko-uefi-zfs.nix
   ];
 
@@ -23,6 +24,7 @@
     nixos.disko = {
       disko-bios-lvm-on-luks.enable = false;
       disko-uefi-lvm-on-luks.enable = false;
+      disko-uefi-lvm.nix.enable = false;
       disko-uefi-zfs.enable = false;
     };
   };

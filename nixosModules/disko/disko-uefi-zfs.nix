@@ -43,45 +43,6 @@
                   name = "system";
                   type = "zfs";
                   pool = "zroot";
-                  #extraOpenArgs = [
-                  #  "--timeout 10"
-                  #];
-                  #settings = {
-                  #  keyFile = "/tmp/secret.key";
-                  #  allowDiscards = true;
-                  #};
-                  #initrdUnlock = true;
-                  #additionalKeyFiles = [ "/tmp/keyfile.key" ];
-                  #content = {
-                  #  type = "lvm_pv";
-                  #  vg = "crypt";
-                  #};
-                  #extraFormatArgs = [
-                  #  "--type luks2"
-                  #  "--cipher aes-xts-plain64"
-                  #  "--hash sha512"
-                  #  "--iter-time 2000"
-                  #  "--key-size 512"
-                  #  "--pbkdf argon2id"
-                  #  "--use-random"
-                  #  "--label LUKS"
-                  #];
-                };
-              };
-            };
-          };
-        };
-        vdb = {
-          type = "disk";
-          device = builtins.elemAt disks 1;
-          content = {
-            type = "gpt";
-            partitions = {
-              zfs = {
-                size = "100%";
-                content = {
-                  type = "zfs";
-                  pool = "zroot";
                 };
               };
             };
@@ -93,7 +54,7 @@
           type = "zpool";
           mode = "mirror";
           rootFsOptions = {
-            compression = "zstd";
+            compression = "lz4";
             "com.sun:auto-snapshot" = "false";
           };
           mountpoint = "/";
@@ -143,45 +104,45 @@
           };
         };
       };
-      lvm_vg = {
-        crypt = {
-          type = "lvm_vg";
-          lvs = {
-            swap = {
-              name = "swap";
-              size = "32G";
-              content = {
-                type = "swap";
-                resumeDevice = true;
-                extraArgs = [ "-L swap" ];
-              };
-            };
-            root = {
-              name = "root";
-              size = "40%FREE";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-                mountOptions = [
-                  "defaults"
-                ];
-                extraArgs = [ "-L root" ];
-              };
-            };
-            home = {
-              name = "home";
-              size = "100%FREE";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/home";
-                extraArgs = [ "-L home" ];
-              };
-            };
-          };
-        };
-      };
+      #lvm_vg = {
+      #  crypt = {
+      #    type = "lvm_vg";
+      #    lvs = {
+      #      swap = {
+      #        name = "swap";
+      #        size = "32G";
+      #        content = {
+      #          type = "swap";
+      #          resumeDevice = true;
+      #          extraArgs = [ "-L swap" ];
+      #        };
+      #      };
+      #      root = {
+      #        name = "root";
+      #        size = "40%FREE";
+      #        content = {
+      #          type = "filesystem";
+      #          format = "ext4";
+      #          mountpoint = "/";
+      #          mountOptions = [
+      #            "defaults"
+      #          ];
+      #          extraArgs = [ "-L root" ];
+      #        };
+      #      };
+      #      home = {
+      #        name = "home";
+      #        size = "100%FREE";
+      #        content = {
+      #          type = "filesystem";
+      #          format = "ext4";
+      #          mountpoint = "/home";
+      #          extraArgs = [ "-L home" ];
+      #        };
+      #      };
+      #    };
+      #  };
+      #};
     };
   };
 }

@@ -101,7 +101,7 @@ in
         userControlled.enable = true;
       };
 
-      enableIPv6 = false;
+      enableIPv6 = true;
 
       useDHCP = true;
 
