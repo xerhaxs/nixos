@@ -36,35 +36,12 @@
                   extraArgs = [ "-n BOOT" ];
                 };
               };
-              luks = {
-                name = "LUKS";
+              primary = {
+                name = "SYSTEM";
                 size = "100%";
                 content = {
-                  name = "system";
-                  type = "luks";
-                  extraOpenArgs = [
-                    "--timeout 10"
-                  ];
-                  settings = {
-                    keyFile = "/tmp/secret.key";
-                    allowDiscards = true;
-                  };
-                  initrdUnlock = true;
-                  additionalKeyFiles = [ "/tmp/keyfile.key" ];
-                  content = {
-                    type = "lvm_pv";
-                    vg = "crypt";
-                  };
-                  extraFormatArgs = [
-                    "--type luks2"
-                    "--cipher aes-xts-plain64"
-                    "--hash sha512"
-                    "--iter-time 2000"
-                    "--key-size 512"
-                    "--pbkdf argon2id"
-                    "--use-random"
-                    "--label LUKS"
-                  ];
+                  type = "lvm_pv";
+                  vg = "pool";
                 };
               };
             };
@@ -72,21 +49,12 @@
         };
       };
       lvm_vg = {
-        crypt = {
+        pool = {
           type = "lvm_vg";
           lvs = {
-            swap = {
-              name = "swap";
-              size = "32G";
-              content = {
-                type = "swap";
-                resumeDevice = true;
-                extraArgs = [ "-L swap" ];
-              };
-            };
             root = {
               name = "root";
-              size = "40%FREE";
+              size = "75%FREE";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -99,7 +67,7 @@
             };
             home = {
               name = "home";
-              size = "100%FREE";
+              size = "25%FREE";
               content = {
                 type = "filesystem";
                 format = "ext4";

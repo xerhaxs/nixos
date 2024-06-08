@@ -24,7 +24,7 @@
     nixos.disko = {
       disko-bios-lvm-on-luks.enable = false;
       disko-uefi-lvm-on-luks.enable = false;
-      disko-uefi-lvm.nix.enable = false;
+      disko-uefi-lvm.enable = false;
       disko-uefi-zfs.enable = false;
     };
   };
