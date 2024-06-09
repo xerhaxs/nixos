@@ -1,5 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  #boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "1920x1200x32";
+  boot.initrd.luks.devices = {
+    "system" = {
+      preLVM = true;
+      device = lib.mkForce "/dev/disk/by-partlabel/disk-NIXOS-SYSTEM";
+    };
+  };
 }

@@ -107,7 +107,7 @@ in
 
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
-        "10.75.0.10" = [
+        "10.75.0.11" = [
           "adguard.bitsync.icu"
           "dav.bitsync.icu"
           "etesync.bitsync.icu"
@@ -135,11 +135,16 @@ in
           "uptime-kuma.bitsync.icu"
           "vaultwarden.bitsync.icu"
         ];
-        "10.75.0.65" = [ 
-          "haos.bitsync.icu" 
-          "tmjf.duckdns.org"
+        #"10.75.0.67" = [
+        #  "flolserver.m4rx.cc"
+        #  "pufferpanel.m4rx.cc"
+        #  "map.m4rx.cc"
+        #  "analytics.m4rx.cc"
+        #];
+        "10.75.0.71" = [ 
+          "haos.m4rx.cc" 
         ];
-        "10.75.0.120" = [ "proxmox.bitsync.icu" ];
+        "10.75.0.10" = [ "proxmox.m4rx.cc" ];
       };
 
       hostFiles = [

@@ -1,16 +1,13 @@
 { config, lib,  pkgs, ... }:
 
 {
-  boot.initrd.luks.devices = {
-   "crypt2" = {
-      device = "/dev/disk/by-partlabel/disk-VAR-LUKS2";
-      keyFile = "/root/keyfile.key";
-      preLVM = true;
-    };
+  fileSystems."/" = {
+    device = lib.mkForce "/dev/pool/root";
+    fsType = "ext4";
   };
 
-  fileSystems."/var" = {
-    device = "/dev/crypt2/var";
+  fileSystems."/home" = {
+    device = lib.mkForce "/dev/pool/home";
     fsType = "ext4";
   };
 }
