@@ -7,7 +7,7 @@
     #./disko-var-lvm-on-luks.nix
     ./disko.nix
     ./hardware-configuration.nix
-    #./mount.nix
+    ./mount.nix
     ./networking.nix
     ./server.nix
   ];
