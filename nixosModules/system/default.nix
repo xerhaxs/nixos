@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./appimage.nix
     ./audio.nix
     ./bootloader.nix
     ./clamav.nix
@@ -38,6 +39,7 @@
 
   config = lib.mkIf config.nixos.system.enable {
     nixos.system = {
+      appimage.enable = true;
       audio.enable = true;
       bootloader.enable = true;
       clamav.enable = true;

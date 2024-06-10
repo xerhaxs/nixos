@@ -17,7 +17,6 @@
       aqbanking
       kmymoney
       monero-gui
-      gnucash
     ];
   };
 }

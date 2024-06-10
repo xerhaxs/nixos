@@ -135,12 +135,12 @@ in
           "uptime-kuma.bitsync.icu"
           "vaultwarden.bitsync.icu"
         ];
-        #"10.75.0.67" = [
-        #  "flolserver.m4rx.cc"
-        #  "pufferpanel.m4rx.cc"
-        #  "map.m4rx.cc"
-        #  "analytics.m4rx.cc"
-        #];
+        "10.75.0.67" = [
+          #"flolserver.m4rx.cc"
+          "pufferpanel.m4rx.cc"
+          "map.m4rx.cc"
+          "analytics.m4rx.cc"
+        ];
         "10.75.0.71" = [ 
           "haos.m4rx.cc" 
         ];
