@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-L8nFGULjC+Yk6jBd2nD49pdq91lTUpU1xHzfcGNKpmg="; #sha256 = lib.fakeSha256;
+    hash = "sha256-+vae778m/Uw2QJ71E7yeSIpJ3iZAOLM5rl55A/uUDxw="; #sha256 = lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -107,6 +107,29 @@ in
 
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
+        "10.75.0.186" = [
+          "ytdl.m4rx.cc"
+          "freshrss.m4rx.cc"
+          "rss.m4rx.cc"
+          "invidious.m4rx.cc"
+          "libreddit.m4rx.cc"
+          "lidarr.m4rx.cc"
+          "nextcloud.m4rx.cc"
+          "nitter.m4rx.cc"
+          "nzbget.m4rx.cc"
+          "nzbhydra.m4rx.cc"
+          "pihole.m4rx.cc"
+          "radarr.m4rx.cc"
+          "sonarr.m4rx.cc"
+          "readarr.m4rx.cc"
+          "searx.m4rx.cc"
+          "searxng.m4rx.cc"
+          "search.m4rx.cc"
+          "uptime.m4rx.cc"
+          "kuma.m4rx.cc"
+          "jellyfin.m4rx.cc"
+          "collabora.m4rx.cc"
+        ];
         "10.75.0.11" = [
           "adguard.bitsync.icu"
           "dav.bitsync.icu"

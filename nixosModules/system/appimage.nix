@@ -15,6 +15,6 @@
   config = lib.mkIf config.nixos.system.appimage.enable {
     environment.systemPackages = with pkgs; [
       appimage-run
-    ]
+    ];
   };
 }
