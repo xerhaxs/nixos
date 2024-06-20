@@ -28,8 +28,6 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      #age.keyFile = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/Wichtige Datein/sops/age/keys.txt";
-      #age.keyFile = "/mount/Data/Datein/Dokumente/Wichtige Datein/sops/age/keys.txt";
       age.keyFile = "/home/${config.nixos.system.user.defaultuser.name}/.config/sops/age/keys.txt";
 
       secrets = {
@@ -84,7 +82,9 @@
         "webdav/users/admin/username" = { };
         "webdav/users/admin/password" = { };
 
-        "synology-nas/user" = { };
+        "synologynas-smb/user" = { };
+
+        "truenas-smb/user" = { };
 
         "syncthing/nixosdesktop" = { };
         "syncthing/nixoslaptop" = { };

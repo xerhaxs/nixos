@@ -13,6 +13,6 @@
   };
 
   config = lib.mkIf config.nixos.userEnvironment.nfs-client.enable {
-    services.autofs.enable = true;
+
   };
 }

@@ -25,6 +25,7 @@
         "git.enableSmartCommit" = true;
         "git.autofetch" = true;
         "diffEditor.maxComputationTime" = 0;
+        "cSpell.language" = "de,en";
       };
 
       extensions = with pkgs.vscode-extensions; [

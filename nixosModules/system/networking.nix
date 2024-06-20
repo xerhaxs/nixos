@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-+vae778m/Uw2QJ71E7yeSIpJ3iZAOLM5rl55A/uUDxw="; #sha256 = lib.fakeSha256;
+    hash = "sha256-UxY9MHl6umBRT1mz7uVU/HooJAqPjZaeC2nKMXfOoc4="; #sha256 = lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -129,34 +129,7 @@ in
           "kuma.m4rx.cc"
           "jellyfin.m4rx.cc"
           "collabora.m4rx.cc"
-        ];
-        "10.75.0.11" = [
-          "adguard.bitsync.icu"
-          "dav.bitsync.icu"
-          "etesync.bitsync.icu"
-          "firefoxsync.bitsync.icu"
-          "freshrss.bitsync.icu"
-          "gitea.bitsync.icu"
-          "homeassistant.bitsync.icu"
-          "invidious.bitsync.icu"
-          "jellyfin.bitsync.icu"
-          "libreddit.bitsync.icu"
-          "lidarr.bitsync.icu"
-          "monero.bitsync.icu"
-          "nextcloud.bitsync.icu"
-          "nitter.bitsync.icu"
-          "nzbget.bitsync.icu"
-          "nzbhydra2.bitsync.icu"
-          "onlyoffice.bitsync.icu"
-          "pufferpanel-sftp.bitsync.icu"
-          "pufferpanel.bitsync.icu"
-          "radarr.bitsync.icu"
-          "radicale.bitsync.icu"
-          "readarr.bitsync.icu"
-          "searxng.bitsync.icu"
-          "sonarr.bitsync.icu"
-          "uptime-kuma.bitsync.icu"
-          "vaultwarden.bitsync.icu"
+          "syncthing.m4rx.cc"
         ];
         "10.75.0.67" = [
           #"flolserver.m4rx.cc"
@@ -189,7 +162,7 @@ in
 
       defaultGateway = "10.75.0.1";
 
-      nameservers = [ "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
+      nameservers = [ "10.75.0.71" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
     };
   };
 }

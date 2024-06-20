@@ -19,6 +19,7 @@
       mediathekview
       nuclear
       qbittorrent
+      jellyfin-media-player
     ];
   };
 }

@@ -1052,7 +1052,7 @@
         "krunnerrc"."Plugins"."baloosearchEnabled" = true;
         "krunnerrc"."General"."FreeFloating" = true;
         "krunnerrc"."General"."historyBehavior" = "ImmediateCompletion";
-        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = "${config.xdg.userDirs.pictures}/Desktopbilder/The Witcher/21:1/2812711.jpg";
+        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = "${config.xdg.userDirs.pictures}/Desktopbilder/The Witcher/21-9/2812711.jpg";
         "kservicemenurc"."Show"."compressfileitemaction" = true;
         "kservicemenurc"."Show"."extractfileitemaction" = true;
         "kservicemenurc"."Show"."forgetfileitemaction" = true;
