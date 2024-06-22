@@ -31,10 +31,6 @@
       cups-kyocera-ecosys-m2x35-40-p2x35-40dnw
     ];
 
-    #services.printing.drivers = [
-    #  (writeTextDir "share/cups/model/KyoceraECOSYSP2040dn.PPD" (builtins.readFile ../pkgs/KyoceraECOSYSP2040dn.PPD))
-    #];
-
     hardware.sane = {
       enable = true;
       openFirewall = true;

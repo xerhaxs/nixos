@@ -56,6 +56,7 @@
         plasma-systemmonitor
         plasma-activities-stats
         plasma-wayland-protocols
+        print-manager
         libplasma
         systemsettings
         powerdevil
