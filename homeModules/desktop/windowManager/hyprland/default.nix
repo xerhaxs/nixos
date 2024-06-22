@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./dunst.nix
+    #./dunst.nix
     ./hyprland.nix
     ./swaylock.nix
     ./waybar.nix
@@ -22,7 +22,7 @@
 
   config = lib.mkIf (config.homeManager.desktop.windowManager.hyprland.enable && osConfig.nixos.desktop.windowManager.hyprland.enable) {
     homeManager.desktop.windowManager.hyprland = {
-      dunst.enable = true;
+      #dunst.enable = true;
       hyprland.enable = true;
       swaylock.enable = true;
       waybar.enable = true;
