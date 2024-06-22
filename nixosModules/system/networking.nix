@@ -141,6 +141,7 @@ in
           "haos.m4rx.cc" 
         ];
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
+        #"10.75.0.28" = [ "" ];
       };
 
       hostFiles = [
