@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.nixos.base.shell.bash.enable {
     programs.bash = {
-      enableCompletion = true;
+      completion.enable = true;
       blesh.enable = false;
       vteIntegration = true;
       #shellAliases = { };
