@@ -45,8 +45,14 @@
           "keep-above-windows"
         ];
 
+        effects = {
+          desktopSwitching.animation = "fade";
+          translucency.enable = true;
+          blur.enable = true;
+          dimAdminMode.enable = true;
+        };
+
         virtualDesktops = {
-          animation = "fade";
           rows = 2;
           names = [
             "Desktop 1"

@@ -61,7 +61,7 @@ in
       portal = {
         enable = true;
         wlr = {
-          enable = lib.mkDefault true;
+          enable = lib.mkForce false;
           #settings = {};
         };
         extraPortals = with pkgs; [

@@ -41,7 +41,7 @@ in
       workspace = {
         theme = "default"; # plasma-apply-desktoptheme --list-themes
         colorScheme = "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-colorscheme --list-schemes
-        cursorTheme = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors"; # plasma-apply-cursortheme --list-themes
+        cursor.theme = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors"; # plasma-apply-cursortheme --list-themes
         lookAndFeel = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-lookandfeel --list
         iconTheme = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
       };
