@@ -27,6 +27,15 @@
       ];
     };
 
+    hardware.amdgpu = {
+      opencl.enable = true;
+      initrd.enable = true;
+      amdvlk = {
+        enable = true;
+        support32Bit.enable = true;
+      };
+    };
+
     # Tell Xorg to use the amd driver
     services.xserver = {
       enable = true;
@@ -37,10 +46,6 @@
     systemd.tmpfiles.rules = [
       "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
     ];
-
-    #environment.variables.AMD_VULKAN_ICD = "RADV";
-
-    #environment.variables.VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
 
     environment.systemPackages = with pkgs; [
       nvtopPackages.amd
