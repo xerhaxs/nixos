@@ -130,6 +130,7 @@ in
           "jellyfin.m4rx.cc"
           "collabora.m4rx.cc"
           "syncthing.m4rx.cc"
+          "kiwix.m4rx.cc"
         ];
         "10.75.0.67" = [
           #"flolserver.m4rx.cc"
