@@ -40,7 +40,7 @@
       printing.enable = true;
       samba-client.enable = true;
       steam.enable = true;
-      syncthing.enable = false;
+      syncthing.enable = true;
     };
   };
 }

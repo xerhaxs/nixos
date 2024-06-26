@@ -34,6 +34,7 @@
       eza # A modern replacement for ‘ls’
       fzf # A command-line fuzzy finder
       gparted
+      gptfdisk
       inetutils
       jq # A lightweight and flexible command-line JSON processor
       killall

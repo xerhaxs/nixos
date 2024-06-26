@@ -482,7 +482,7 @@ let
   "permissions.memory_only" = true;
 
   # disable intermediate certificate caching [FF41+] [RESTART]
-  "security.nocertdb" = true;
+  #"security.nocertdb" = true; # Broken
 
   # disable favicons in history and bookmarks
   #"browser.chrome.site_icons" = false;
@@ -717,9 +717,6 @@ let
   "identity.fxaccounts.enabled" = false;
   "identity.fxaccounts.oauth.enabled" = false;
   "identity.fxaccounts.toolbar.enabled" = false;
-
-  # setup custom sync server
-  "identity.sync.tokenserver.uri" = "https://firefoxsync.bitsync.icu/1.0/sync/1.5";
 
   # disable pocket integration
   "extensions.pocket.enabled" = false;
