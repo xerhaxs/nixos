@@ -7,6 +7,7 @@
       "NixOS-Framework" = { id = "WHYZC63-JGGKAUV-EQAB3BE-65RUAQX-FVI7N4B-TIP25KW-J3VBW5C-XFHIDAG"; };
       "NixOS-Laptop" = { id = "TZIANB3-KBIIN5E-4ADBVLO-6MSC3WJ-U3CTUVW-ERAW4NC-FCKT7KE-KX6ZBQ4"; };
       "GraphenOS" = { id = "NLYJGXH-QP27NVE-4JOX67Q-4XNQHG2-2RGX5LX-I6GL5XN-WU3EVG2-KWM6VQI"; };
+      "TrueNAS" = { id = "LMEZBBC-HF2UMGH-OKVAIGH-XG3JVYW-GWW5CZQ-7C547HZ-GTRWGRA-7PB7OQR"; };
     };
 
     folders = {
@@ -17,7 +18,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive"; # receiveonly sendonly sendandreceive
-        devices = [ "NixOS-Framework" "NixOS-Laptop" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "Dokumente" = {
         enable = true;
@@ -26,7 +27,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive";
-        devices = [ "NixOS-Framework" "NixOS-Laptop" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "Downloads" = {
         enable = true;
@@ -35,7 +36,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive";
-        devices = [ "NixOS-Framework" "NixOS-Laptop" "GraphenOS" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "GraphenOS" "TrueNAS" ];
       };
       "Musik" = {
         enable = true;
@@ -44,7 +45,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive";
-        devices = [ "NixOS-Framework" "NixOS-Laptop" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "Videos" = {
         enable = false;
@@ -53,7 +54,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive";
-        devices = [ "NixOS-Framework" "NixOS-Laptop" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
 
       "Sops" = {
@@ -63,7 +64,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive";
-        devices = [ "NixOS-Framework" "NixOS-Laptop" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "FreeTube" = {
         enable = true;
@@ -72,7 +73,7 @@
         fsWatcherEnabled = true;
         ignorePerms = true;
         type = "sendandreceive";
-        devices = [ "NixOS-Framework" "NixOS-Laptop" ];
+        devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
 
       "Pixel 6a Dokumente" = {
