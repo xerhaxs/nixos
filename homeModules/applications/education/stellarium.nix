@@ -2,23 +2,19 @@
 
 {
   options.homeManager = {
-    applications.editing."3dprinting" = {
+    applications.education.stellarium = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable 3D-printing tools.";
+        description = "Enable stellarium.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.editing."3dprinting".enable {
+  config = lib.mkIf config.homeManager.applications.education.stellarium.enable {
     home.packages = with pkgs; [
-      blender-hip
-      cura
-      #curaengine
+      stellarium
     ];
   };
 }
-
-

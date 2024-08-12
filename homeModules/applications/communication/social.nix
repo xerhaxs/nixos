@@ -17,6 +17,7 @@
       element-desktop
       signal-desktop
       telegram-desktop
+      whatsapp-for-linux
       mumble
       teamspeak_client
     ];

@@ -13,6 +13,7 @@
   };
 
   config = lib.mkIf config.nixos.base.texteditor.vim.enable {
+    programs.vim.enable = true;
     programs.vim.defaultEditor = true;
   };
 }

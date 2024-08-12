@@ -56,7 +56,7 @@
       vulkan-tools
       wayland-utils
       wlr-randr
-      woeusb-ng # A windows image writer for linux
+      woeusb # A windows image writer for linux
 
       # networking tools
       aria2 # A lightweight multi-protocol & multi-source command-line download utility

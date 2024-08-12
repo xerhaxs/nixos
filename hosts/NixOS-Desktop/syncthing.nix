@@ -17,7 +17,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive"; # receiveonly sendonly sendandreceive
+        type = "sendreceive"; # receiveonly sendonly sendreceive
         devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "Dokumente" = {
@@ -26,7 +26,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "Downloads" = {
@@ -35,7 +35,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "NixOS-Framework" "NixOS-Laptop" "GraphenOS" "TrueNAS" ];
       };
       "Musik" = {
@@ -44,7 +44,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "Videos" = {
@@ -53,7 +53,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
 
@@ -63,7 +63,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
       "FreeTube" = {
@@ -72,7 +72,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "NixOS-Framework" "NixOS-Laptop" "TrueNAS" ];
       };
 
@@ -91,7 +91,7 @@
         rescanIntervalS = 60;
         fsWatcherEnabled = true;
         ignorePerms = true;
-        type = "sendandreceive";
+        type = "sendreceive";
         devices = [ "GraphenOS" ];
       };
       "Pixel 6a Hörbücher" = {
