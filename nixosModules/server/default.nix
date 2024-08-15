@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./fediverse
-    ./fileshare
+    #./fediverse
+    #./fileshare
     ./home
     ./network
     ./usenet
@@ -22,8 +22,8 @@
 
   config = lib.mkIf config.nixos.server.enable {
     nixos.server = {
-      fediverse.enable = true;
-      fileshare.enable = true;
+      #fediverse.enable = true;
+      #fileshare.enable = true;
       home.enable = true;
       network.enable = true;
       usenet.enable = true;

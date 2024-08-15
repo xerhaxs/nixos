@@ -2,13 +2,13 @@
 
 { 
   imports = [
-    ./adguard.nix
-    ./dnsmasq.nix
+    #./adguard.nix
+    #./dnsmasq.nix
     ./networking.nix
     ./nginx.nix
     ./openvpn-server.nix
-    ./uptime-kuma.nix
-    ./wireguard-server.nix
+    #./uptime-kuma.nix
+    #./wireguard-server.nix
   ];
 
   options.nixos = {
@@ -24,13 +24,13 @@
 
   config = lib.mkIf config.nixos.server.network.enable {
     nixos.server.network = {
-      adguard.enable = true;
-      dnsmasq.enable = false;
+      #adguard.enable = true;
+      #dnsmasq.enable = false;
       networking.enable = true;
       nginx.enable = true;
-      openvpn-server.enable = true;
+      #openvpn-server.enable = true;
       uptime-kuma.enable = true;
-      wireguard-server.enable = true;
+      #wireguard-server.enable = true;
     };
   };
 }

@@ -2,17 +2,17 @@
 
 { 
   imports = [
-    ./etesync.nix
-    ./firefoxsync.nix
-    ./haos.nix
-    ./homeassistant.nix
+    #./etesync.nix
+    #./firefoxsync.nix
+    #./haos.nix
+    #./homeassistant.nix
     ./jellyfin.nix
     #./mailserver.nix
     ./nextcloud.nix
-    ./onlyoffice.nix
-    ./pufferpanel.nix
+    #./onlyoffice.nix
+    #./pufferpanel.nix
     ./radicale.nix
-    ./vaultwarden.nix
+    #./vaultwarden.nix
   ];
 
   options.nixos = {
@@ -28,15 +28,15 @@
 
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
-      etesync.enable = true;
-      firefoxsync.enable = true;
-      haos.enable = true;
-      homeassistant.enable = true;
+      #etesync.enable = true;
+      #firefoxsync.enable = true;
+      #haos.enable = true;
+      #homeassistant.enable = true;
       jellyfin.enable = true;
       #mailserver.enable = true;
       nextcloud.enable = true;
-      onlyoffice.enable = true;
-      pufferpanel.enable = true;
+      #onlyoffice.enable = true;
+      #pufferpanel.enable = true;
       radicale.enable = true;
     };
   };
