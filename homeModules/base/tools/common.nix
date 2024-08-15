@@ -15,6 +15,7 @@
   config = lib.mkIf config.homeManager.base.tools.common.enable {
     home.packages = with pkgs; [
       qalculate-gtk
+      gnome-disk-utility
     ];
   };
 }

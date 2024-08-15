@@ -17,9 +17,9 @@
       fluent-reader
       freetube
       mediathekview
-      nuclear
+      #nuclear
       qbittorrent
-      jellyfin-media-player
+      #jellyfin-media-player
     ];
   };
 }
