@@ -52,6 +52,15 @@
         pool = {
           type = "lvm_vg";
           lvs = {
+            swap = {
+              name = "swap";
+              size = "32G";
+              content = {
+                type = "swap";
+                resumeDevice = true;
+                extraArgs = [ "-L swap" ];
+              };
+            };
             root = {
               name = "root";
               size = "75%FREE";
