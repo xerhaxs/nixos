@@ -8,4 +8,6 @@
   environment.systemPackages = [
     pkgs.kdePackages.frameworkintegration
   ];
+
+  services.fprintd.enable = true;
 }
