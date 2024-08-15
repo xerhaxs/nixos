@@ -15,13 +15,17 @@
   config = lib.mkIf config.homeManager.applications.media.mpv.enable {
     programs.mpv = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
+      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable false; # to have black bars next to the player
       config = {
         profile = "gpu-hq";
         force-window = true;
         ytdl-format = "bestvideo+bestaudio";
         cache-default = 4000000;
       };
+
+      scripts = with pkgs; [
+        mpvScripts.dynamic-crop
+      ];
     };
   };
 }
