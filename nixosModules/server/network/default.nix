@@ -6,7 +6,7 @@
     #./dnsmasq.nix
     ./networking.nix
     ./nginx.nix
-    ./openvpn-server.nix
+    #./openvpn-server.nix
     #./uptime-kuma.nix
     #./wireguard-server.nix
   ];
@@ -29,7 +29,7 @@
       networking.enable = true;
       nginx.enable = true;
       #openvpn-server.enable = true;
-      uptime-kuma.enable = true;
+      #uptime-kuma.enable = true;
       #wireguard-server.enable = true;
     };
   };

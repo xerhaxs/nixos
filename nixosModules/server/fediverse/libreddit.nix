@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixos.server.fediverse.libreddit.enable {
-    services.libreddit = {
+    services.redlib = {
       enable = true;
       address = "127.0.0.1";
       port = 8975;
