@@ -3,6 +3,8 @@
 {
   nixos.server.enable = false;
 
+  services.xserver.displayManager.startx.enable = true;
+
   nixos.server.usenet.enable = lib.mkForce true;
 
   networking.firewall.enable = lib.mkForce false;

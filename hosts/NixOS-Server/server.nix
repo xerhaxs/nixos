@@ -3,6 +3,8 @@
 {
   nixos.server.enable = lib.mkForce true;
 
+  services.xserver.displayManager.startx.enable = true;
+
   nixos.desktop.enable = lib.mkForce false;
 
   #nixos.server = {
