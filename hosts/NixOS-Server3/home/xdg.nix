@@ -1,13 +1,12 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   xdg.userDirs = {
     desktop = "${config.home.homeDirectory}/Desktop";
-    documents = "${config.home.homeDirectory}/Dokumente";
+    documents = "${config.home.homeDirectory}/Documents";
     download = "${config.home.homeDirectory}/Downloads";
-    music = "${config.home.homeDirectory}/Musik";
-    pictures = "${config.home.homeDirectory}/Bilder";
+    music = "${config.home.homeDirectory}/Music";
+    pictures = "${config.home.homeDirectory}/Pictures";
     videos = "${config.home.homeDirectory}/Videos";
   };
 }
-
