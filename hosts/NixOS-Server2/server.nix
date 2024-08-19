@@ -3,5 +3,5 @@
 {
   nixos.server.enable = false;
 
-  nixos.server.game.enable = true;
+  nixos.server.game.enable = lib.mkForce true;
 }

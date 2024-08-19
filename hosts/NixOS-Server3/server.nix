@@ -3,7 +3,7 @@
 {
   nixos.server.enable = false;
 
-  nixos.server.usenet.enable = true;
+  nixos.server.usenet.enable = lib.mkForce true;
 
   networking.firewall.enable = lib.mkForce false;
 
