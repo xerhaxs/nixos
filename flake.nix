@@ -185,6 +185,20 @@
         ];
       };
 
+      NixOS-Server3 = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          nur.nixosModules.nur
+          catppuccin.nixosModules.catppuccin
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Server3/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
+
       NixOS-Test = nixpkgs.lib.nixosSystem {
         inherit system;
 

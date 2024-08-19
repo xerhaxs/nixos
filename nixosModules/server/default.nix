@@ -4,6 +4,7 @@
   imports = [
     #./fediverse
     #./fileshare
+    ./game
     ./home
     ./network
     ./usenet
@@ -24,6 +25,7 @@
     nixos.server = {
       #fediverse.enable = true;
       #fileshare.enable = true;
+      game.enable = false;
       home.enable = true;
       network.enable = true;
       usenet.enable = true;

@@ -3,7 +3,7 @@
 {
   networking = {
 
-    hostName = "NixOS-Server2";
+    hostName = "NixOS-Server3";
 
     #interfaces = {  
     #  enp5s0 = {

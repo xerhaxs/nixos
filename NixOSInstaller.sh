@@ -85,6 +85,7 @@ function_select_host() {
 		"NixOS-Live" "Configuration for Live Setup" \
         "NixOS-Server" "Configuration for Server" \
 		"NixOS-Server2" "Configuration for Server2" \
+		"NixOS-Server3" "Configuration for Server3" \
         "NixOS-Test" "Configuration for Test" \
 		3>&1 1>&2 2>&3)
 
