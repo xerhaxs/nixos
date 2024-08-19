@@ -3,17 +3,17 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-5vsxJQ6AklbfxDscm1uT+tIMWMNJSWeaAJFurDJviX4="; #sha256 = lib.fakeSha256;
+    hash = "sha256-BB0PFRlQtzur2MbM23j9YISqA0e5wrrp2y0Ykq5UXh4="; #sha256 = lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/malware.txt";
-    hash = "sha256-aAIehA/aFUG6lF1H03kQsf2q1uv4g3Jz6bGpr9wBWkU=";
+    hash = "sha256-HWNBa8k34NLDetBgQGaxrnp5VhC9EnZStFr/4ndceC4=";
   };
 
   phishing = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/phishing.txt";
-    hash = "sha256-2Vl48tkBVYd+j7ZmYPZCr2rccAqT1dBmxQUcd/WXMRM=";
+    hash = "sha256-ls6xrZZk8VvGcqFDgloaMM82qDVfAJuAGJJvwry9dOw=";
   };
 
   ransomware = pkgs.fetchurl {
@@ -43,7 +43,7 @@ let
 
   smart-tv = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
-    hash = "sha256-viJsZskvaz1EQxjcZ8CEpznluGDS8WkFIOLUYP5Ksgs=";
+    hash = "sha256-aRYCciflduufxGpFi7HvM6FApZQU0YjpcmAWvdSWaus=";
   };
 
   adobe = pkgs.fetchurl {
