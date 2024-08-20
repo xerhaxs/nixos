@@ -28,7 +28,8 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      age.keyFile = "/home/${config.nixos.system.user.defaultuser.name}/.config/sops/age/keys.txt";
+      age.keyFile = "/root/keys.txt";
+      #age.keyFile = "/home/${config.nixos.system.user.defaultuser.name}/.config/sops/age/keys.txt";
 
       secrets = {
         changeme = { };
