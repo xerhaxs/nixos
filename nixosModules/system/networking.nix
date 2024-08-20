@@ -107,7 +107,7 @@ in
 
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
-        "10.75.0.186" = [
+        "10.75.0.21" = [
           "ytdl.m4rx.cc"
           "freshrss.m4rx.cc"
           "rss.m4rx.cc"
@@ -126,13 +126,13 @@ in
           "syncthing.m4rx.cc"
           "kiwix.m4rx.cc"
         ];
-        "10.75.0.67" = [
+        "10.75.0.22" = [
           #"flolserver.m4rx.cc"
           "pufferpanel.m4rx.cc"
           "map.m4rx.cc"
           "analytics.m4rx.cc"
         ];
-        "10.75.0.68" = [
+        "10.75.0.23" = [
           "lidarr.m4rx.cc"
           "nzbget.m4rx.cc"
           "nzbhydra.m4rx.cc"
@@ -144,7 +144,6 @@ in
           "haos.m4rx.cc" 
         ];
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
-        #"10.75.0.28" = [ "" ];
       };
 
       hostFiles = [

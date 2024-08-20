@@ -14,7 +14,7 @@
       };
     };
 
-    useDHCP = lib.mkForce true;
+    useDHCP = lib.mkForce false;
 
     defaultGateway = "10.75.0.1";
   };
