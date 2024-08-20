@@ -113,15 +113,9 @@ in
           "rss.m4rx.cc"
           "invidious.m4rx.cc"
           "libreddit.m4rx.cc"
-          "lidarr.m4rx.cc"
           "nextcloud.m4rx.cc"
           "nitter.m4rx.cc"
-          "nzbget.m4rx.cc"
-          "nzbhydra.m4rx.cc"
           "pihole.m4rx.cc"
-          "radarr.m4rx.cc"
-          "sonarr.m4rx.cc"
-          "readarr.m4rx.cc"
           "searx.m4rx.cc"
           "searxng.m4rx.cc"
           "search.m4rx.cc"
@@ -137,6 +131,14 @@ in
           "pufferpanel.m4rx.cc"
           "map.m4rx.cc"
           "analytics.m4rx.cc"
+        ];
+        "10.75.0.68" = [
+          "lidarr.m4rx.cc"
+          "nzbget.m4rx.cc"
+          "nzbhydra.m4rx.cc"
+          "radarr.m4rx.cc"
+          "sonarr.m4rx.cc"
+          "readarr.m4rx.cc"
         ];
         "10.75.0.71" = [ 
           "haos.m4rx.cc" 

@@ -18,8 +18,8 @@
       settings = {
         MainDir = "/var/lib/nzbget/download";
         ControlPort = "6789";
-        ControlUsername = "admin";
-        ControlPassword = "CHANGEME";
+        #ControlUsername = "admin";
+        #ControlPassword = "CHANGEME";
       };
     };
 
