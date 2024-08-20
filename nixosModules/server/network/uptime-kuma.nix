@@ -21,5 +21,20 @@
         PORT = "8765";
       };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "uptime-kuma.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:8765";
+          };
+        };
+      };
+    };
   };
 }

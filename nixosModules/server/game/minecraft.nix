@@ -18,5 +18,10 @@
       eula = true;
       openFirewall = true;
     };
+
+    services.nginx = {
+      virtualHosts = {
+      };
+    };
   };
 }

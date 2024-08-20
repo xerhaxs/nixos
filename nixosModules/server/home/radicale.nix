@@ -39,5 +39,25 @@
         };
       };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "radicale.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:5232/";
+            extraConfig = ''
+              proxy_set_header  X-Script-Name /;
+              proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_pass_header Authorization;
+            '';
+          };
+        };
+      };
+    };
   };
 }

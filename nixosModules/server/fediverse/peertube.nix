@@ -43,5 +43,20 @@
         createLocally = true;
       };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "peertube.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:9000";
+          };
+        };
+      };
+    };
   };
 }

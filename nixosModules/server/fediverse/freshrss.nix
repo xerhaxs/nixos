@@ -33,5 +33,17 @@
         user = "freshrss";
       };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "freshrss.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+        };
+      };
+    };
   };
 }

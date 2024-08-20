@@ -41,5 +41,31 @@
         jre
       ];
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "pufferpanel.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:9090";
+          };
+        };
+
+        "pufferpanel-sftp.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:5657";
+          };
+        };
+      };
+    };
   };
 }

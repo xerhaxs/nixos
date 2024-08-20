@@ -17,9 +17,25 @@
       enable = true;
       openFirewall = false;
     };
+
     services.botamusique.settings.server = {
       host = "localhost";
       port = "64738";
+    };
+
+    services.nginx = {
+      virtualHosts = {
+        "murmur.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:64738";
+          };
+        };
+      };
     };
   };
 }

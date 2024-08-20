@@ -58,5 +58,20 @@
       #  schema_version = 20;
       };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "adguard.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:3333";
+          };
+        };
+      };
+    };
   };
 }

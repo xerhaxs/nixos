@@ -116,5 +116,21 @@
     nixpkgs.config.permittedInsecurePackages = [
       "openssl-1.1.1w" # Allow insecure and outdated openssl1.1.1 version for home assistant
     ];
+
+    services.nginx = {
+      virtualHosts = {
+        "homeassistant.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:8123";
+            proxyWebsockets = true;
+          };
+        };
+      };
+    };
   };
 }

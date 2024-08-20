@@ -22,5 +22,20 @@
         ControlPassword = "CHANGEME";
       };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "nzbget.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:6789";
+          };
+        };
+      };
+    };
   };
 }

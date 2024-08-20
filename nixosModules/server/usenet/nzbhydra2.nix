@@ -17,5 +17,21 @@
       enable = true;
       openFirewall = false;
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "nzbhydra2.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:5076";
+          };
+        };
+      };
+    };    
   };
 }
+

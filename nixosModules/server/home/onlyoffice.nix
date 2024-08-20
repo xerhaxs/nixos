@@ -23,5 +23,21 @@
     };
 
     networking.enableIPv6 = lib.mkForce true;
+
+    services.nginx = {
+      virtualHosts = {
+        "onlyoffice.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          #listen = [ { addr = "127.0.0.1"; port = 8000; } ];
+          #locations."/" = {
+          #  proxyPass = "http://localhost:8000";
+          #};
+        };
+      };
+    };
   };
 }

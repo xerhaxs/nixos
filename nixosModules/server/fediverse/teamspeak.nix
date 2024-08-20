@@ -19,5 +19,20 @@
       queryPort = 10011;
       openFirewall = false;
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "teamspeak.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:10011";
+          };
+        };
+      };
+    };
   };
 }

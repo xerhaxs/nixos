@@ -18,5 +18,20 @@
       openFirewall = false;
       #dataDir = "";
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "readarr.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:8787";
+          };
+        };
+      };
+    };
   };
 }
