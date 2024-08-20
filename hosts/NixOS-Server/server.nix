@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.server.enable = true;
+  nixos.server.enable = lib.mkDefault true;
 
   services.xserver.displayManager.startx.enable = true;
 
