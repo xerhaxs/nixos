@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.server.enable = lib.mkForce true;
+  nixos.server.enable = true;
 
   services.xserver.displayManager.startx.enable = true;
 
-  nixos.desktop.enable = lib.mkForce false;
+  nixos.server.usenet.enable = false;
 
   #nixos.server = {
   #  home = {
