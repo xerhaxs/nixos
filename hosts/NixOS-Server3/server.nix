@@ -11,6 +11,21 @@
 
   services.mullvad-vpn.enable = true;
 
+  users.groups = {
+    nzbget = { # uid = 245
+      gid = 100;
+    }; 
+    sonarr = { # uid = 274;
+      gid = 100;
+    };
+    radarr = { # uid = 275;
+      gid = 100;
+    };
+    lidarr = { # uid = 306;
+      gid = 100;
+    };
+  };
+
   environment.systemPackages = [
     pkgs.mullvad
   ];
