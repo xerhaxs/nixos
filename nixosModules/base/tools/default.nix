@@ -5,6 +5,7 @@
     ./common.nix
     ./git.nix
     ./htop.nix
+    ./java.nix
     ./keepassxc.nix
     ./openvpn-client.nix
     ./usbtop.nix
@@ -27,6 +28,7 @@
       common.enable = true;
       git.enable = true;
       htop.enable = true;
+      java.enable = true;
       keepassxc.enable = true;
       #openvpn-client.enable = true;
       usbtop.enable = true;
