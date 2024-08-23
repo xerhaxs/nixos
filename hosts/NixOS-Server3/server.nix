@@ -13,11 +13,11 @@
 
   users.groups.truenas = {
     members = [
-      "nzbget"
+      "lidarr"
+      "radarr"
       "sabnzbd"
       "sonarr"
-      "radarr"
-      "lidarr"
+      "nzbget"
     ];
   };
 

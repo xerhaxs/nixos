@@ -108,37 +108,38 @@ in
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
         "10.75.0.186" = [
-          "ytdl.m4rx.cc"
+          "collabora.m4rx.cc"
           "freshrss.m4rx.cc"
-          "rss.m4rx.cc"
           "invidious.m4rx.cc"
+          "jellyfin.m4rx.cc"
+          "kiwix.m4rx.cc"
+          "kuma.m4rx.cc"
           "libreddit.m4rx.cc"
           "nextcloud.m4rx.cc"
           "nitter.m4rx.cc"
           "pihole.m4rx.cc"
+          "rss.m4rx.cc"
+          "search.m4rx.cc"
           "searx.m4rx.cc"
           "searxng.m4rx.cc"
-          "search.m4rx.cc"
-          "uptime.m4rx.cc"
-          "kuma.m4rx.cc"
-          "jellyfin.m4rx.cc"
-          "collabora.m4rx.cc"
           "syncthing.m4rx.cc"
-          "kiwix.m4rx.cc"
+          "uptime.m4rx.cc"
+          "ytdl.m4rx.cc"
         ];
         "10.75.0.22" = [
-          #"flolserver.m4rx.cc"
-          "pufferpanel.m4rx.cc"
-          "map.m4rx.cc"
           "analytics.m4rx.cc"
+          #"flolserver.m4rx.cc"
+          "map.m4rx.cc"
+          "pufferpanel.m4rx.cc"
         ];
         "10.75.0.23" = [
           "lidarr.m4rx.cc"
           "nzbget.m4rx.cc"
           "nzbhydra.m4rx.cc"
           "radarr.m4rx.cc"
-          "sonarr.m4rx.cc"
           "readarr.m4rx.cc"
+          "sabnzbd.m4rx.cc"
+          "sonarr.m4rx.cc"
         ];
         "10.75.0.71" = [ 
           "haos.m4rx.cc" 

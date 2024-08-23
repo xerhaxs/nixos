@@ -18,10 +18,10 @@
 
     hosts = {
       "127.0.0.1" = lib.mkDefault [
-        "flolserver.m4rx.cc"
-        "pufferpanel.m4rx.cc"
-        "map.m4rx.cc"
         "analytics.m4rx.cc"
+        "map.m4rx.cc"
+        "pufferpanel.m4rx.cc"
+        "flolserver.m4rx.cc"
       ];
     };
   };

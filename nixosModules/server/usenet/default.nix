@@ -7,6 +7,7 @@
     ./nzbhydra2.nix
     ./radarr.nix
     ./readarr.nix
+    ./sabnzbd.nix
     ./sonarr.nix
   ];
 
@@ -28,6 +29,7 @@
       nzbhydra2.enable = true;
       radarr.enable = true;
       readarr.enable = true;
+      sabnzbd.enable = true;
       sonarr.enable = true;
     };
   };
