@@ -14,6 +14,7 @@
   users.groups.truenas = {
     members = [
       "nzbget"
+      "sabnzbd"
       "sonarr"
       "radarr"
       "lidarr"
