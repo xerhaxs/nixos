@@ -20,7 +20,7 @@
 
     services.nginx = {
       virtualHosts = {
-        "nzbhydra2.${config.nixos.server.network.nginx.domain}" = {
+        "nzbhydra.${config.nixos.server.network.nginx.domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;
