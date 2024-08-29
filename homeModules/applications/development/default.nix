@@ -3,6 +3,7 @@
 {
   imports = [
     ./diff.nix
+    ./dotnet-sdk.nix
     ./hex.nix
     ./java.nix
     ./jetbrains.nix
@@ -26,6 +27,7 @@
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
       diff.enable = false;
+      dotnet-sdk.enable = true;
       hex.enable = false;
       java.enable = true;
       jetbrains.enable = true;

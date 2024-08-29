@@ -40,6 +40,9 @@
         #hediet.vscode-drawio
         james-yu.latex-workshop
         alefragnani.bookmarks
+        ms-dotnettools.csharp
+        #muhammad-sammy.csharp
+        ms-dotnettools.vscode-dotnet-runtime
       ];
     };
   };
