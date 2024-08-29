@@ -13,8 +13,8 @@
   };
 
   config = lib.mkIf config.homeManager.applications.development.dotnet-sdk.enable {
-    home.package = with pkgs; [
+    home.packages = with pkgs; [
       dotnet-sdk
-    ]
+    ];
   };
 }
