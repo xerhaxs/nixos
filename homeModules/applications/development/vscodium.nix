@@ -15,7 +15,10 @@
   config = lib.mkIf config.homeManager.applications.development.vscodium.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium;
+      #package = pkgs.vscodium;
+      package = (pkgs.vscodium.overrideAttrs (oldAttrs: {
+        buildInputs = oldAttrs.buildInputs ++ [ pkgs.dotnet-sdk ];
+      }));
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = true;
       userSettings = {
@@ -41,7 +44,6 @@
         james-yu.latex-workshop
         alefragnani.bookmarks
         ms-dotnettools.csharp
-        #muhammad-sammy.csharp
         ms-dotnettools.vscode-dotnet-runtime
       ];
     };
