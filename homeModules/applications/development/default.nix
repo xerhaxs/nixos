@@ -4,6 +4,7 @@
   imports = [
     ./diff.nix
     ./dotnet-sdk.nix
+    ./geany.nix
     ./hex.nix
     ./java.nix
     ./jetbrains.nix
@@ -28,6 +29,7 @@
     homeManager.applications.development = {
       diff.enable = false;
       dotnet-sdk.enable = true;
+      geany.enable = true;
       hex.enable = false;
       java.enable = true;
       jetbrains.enable = true;

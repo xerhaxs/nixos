@@ -16,6 +16,12 @@
     home.packages = with pkgs; [
       jetbrains.idea-community
       jetbrains.pycharm-community
+      jetbrains.rider
+      #jetbrains.clion
+      #jetbrains.rust-rover
+      #jetbrains.aqua
+      #jetbrains.pycharm-professional
+      #jetbrains.idea-ultimate
     ];
   };
 }
