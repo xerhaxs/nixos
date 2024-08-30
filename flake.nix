@@ -60,7 +60,7 @@
     };
 
     flatpaks = {
-      url = "github:GermanBread/declarative-flatpak/stable";
+      url = "github:GermanBread/declarative-flatpak/stable-v3";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
