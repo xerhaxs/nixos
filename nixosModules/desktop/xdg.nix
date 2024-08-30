@@ -4,9 +4,9 @@ let
   browser = [ "firefox.desktop" ];
   chrome = [ "brave-browser.desktop" ];
   filemanager = [ "org.kde.dolphin.desktop"] ;
-  mediaplayer = [ "vlc.desktop" ];
+  mediaplayer = [ "mpv.desktop" ];
   videoplayer = [ "mpv.desktop" ];
-  musicplayer = [ "org.clementine_player.Clementine.desktop" ];
+  musicplayer = [ "mpv.desktop" ];
   pdfviewer = [ "org.kde.okular.desktop" ];
   imageviewer = [ "org.kde.gwenview.desktop" ];
   editor = [ "org.kde.kate.desktop" ];

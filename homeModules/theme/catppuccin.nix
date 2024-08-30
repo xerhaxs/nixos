@@ -111,6 +111,13 @@ in
       };
     };
 
+    home.pointerCursor = {
+      gtk.enable = true;
+      name = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
+      package = pkgs.catppuccin-cursors.${lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}" + "${osConfig.nixos.theme.catppuccin.prefer}"};
+      size = 24;
+    };
+
     programs.vscode = {
       userSettings = {
         "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
