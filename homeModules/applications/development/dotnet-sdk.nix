@@ -15,8 +15,7 @@
   config = lib.mkIf config.homeManager.applications.development.dotnet-sdk.enable {
     home.packages = with pkgs; [
       #msbuild
-      dotnet-sdk
-      #monoDLLFixer
+      dotnetCorePackages.sdk_8_0_3xx
       icu
       mono
     ];
