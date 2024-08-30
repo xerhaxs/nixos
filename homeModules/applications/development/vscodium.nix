@@ -15,10 +15,10 @@
   config = lib.mkIf config.homeManager.applications.development.vscodium.enable {
     programs.vscode = {
       enable = true;
-      #package = pkgs.vscodium;
-      package = (pkgs.vscodium.overrideAttrs (oldAttrs: {
-        buildInputs = oldAttrs.buildInputs ++ [ pkgs.dotnet-sdk ];
-      }));
+      package = pkgs.vscodium;
+      #package = (pkgs.vscodium.overrideAttrs (oldAttrs: {
+      #  buildInputs = oldAttrs.buildInputs ++ [ pkgs.dotnet-sdk ];
+      #}));
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = true;
       userSettings = {
