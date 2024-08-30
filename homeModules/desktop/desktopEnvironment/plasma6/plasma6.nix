@@ -130,6 +130,7 @@
                   "applications:codium.desktop"
                   "applications:signal-desktop.desktop"
                   "applications:org.telegram.desktop.desktop"
+                  "applications:com.github.eneshecan.WhatsAppForLinux.desktop"
                   "applications:armcord.desktop"
                   "applications:org.kde.kmymoney.desktop"
                   "applications:org.kde.kile.desktop"
