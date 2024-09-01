@@ -50,7 +50,7 @@ in
       acceptTerms = true;
       preliminarySelfsigned = true;
       defaults = {
-        dnsResolver = "1.1.1.1:53";
+        dnsResolver = "1.1.1.1";
         email = "among_clavicle129@slmail.me";
         dnsProvider = "cloudflare";
         dnsPropagationCheck = true;
