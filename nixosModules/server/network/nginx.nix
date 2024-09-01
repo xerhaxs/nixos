@@ -34,7 +34,7 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      virtualHosts = {
+      #virtualHosts = {
         #"${config.nixos.server.network.nginx.domain}" = {
         #  forceSSL = true;
         #  enableACME = true;
@@ -43,7 +43,7 @@ in
         #  http2 = false;
         #  root = "/mount/Data/Datein/Server/startpage/index.html";
         #};
-      };
+      #};
     };
 
     security.acme = {
