@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-aa8gZ2u7sq2FYbBUA4BQ5cBVb/lqgMs2qWsUPG2eul0="; #sha256 = lib.fakeSha256;
+    hash = "sha256-fsJ51J1iJ7PbWE90GIAKh5ihQZQdhuio93srRgfIqBQ="; #sha256 = lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -127,20 +127,20 @@ in
           "ytdl.m4rx.cc"
         ];
         #"10.75.0.22" = [
-        #  "analytics.m4rx.cc"
+         # "analytics.m4rx.cc"
           #"flolserver.m4rx.cc"
-        #  "map.m4rx.cc"
-        #  "pufferpanel.m4rx.cc"
-        #];
-        #"10.75.0.23" = [
-        #  "lidarr.m4rx.cc"
-        #  "nzbget.m4rx.cc"
-        #  "nzbhydra.m4rx.cc"
-        #  "radarr.m4rx.cc"
-        #  "readarr.m4rx.cc"
-        #  "sabnzbd.m4rx.cc"
-        #  "sonarr.m4rx.cc"
-        #];
+          #"map.m4rx.cc"
+          #"pufferpanel.m4rx.cc"
+        ];
+        "10.75.0.23" = [
+          "lidarr.m4rx.cc"
+          "nzbget.m4rx.cc"
+          "nzbhydra.m4rx.cc"
+          "radarr.m4rx.cc"
+          "readarr.m4rx.cc"
+          "sabnzbd.m4rx.cc"
+          "sonarr.m4rx.cc"
+        ];
         "10.75.0.71" = [ 
           "haos.m4rx.cc" 
         ];
