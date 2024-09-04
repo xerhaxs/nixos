@@ -2,7 +2,7 @@
 
 { 
   imports = [
-    ./minecraft.nix
+    #./minecraft.nix
   ];
 
   options.nixos = {
@@ -18,7 +18,7 @@
 
   config = lib.mkIf config.nixos.server.game.enable {
     nixos.server.game = {
-      minecraft.enable = true;
+      #minecraft.enable = true;
     };
   };
 }

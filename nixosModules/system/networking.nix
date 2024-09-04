@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-fsJ51J1iJ7PbWE90GIAKh5ihQZQdhuio93srRgfIqBQ="; #sha256 = lib.fakeSha256;
+    hash = "sha256-aa8gZ2u7sq2FYbBUA4BQ5cBVb/lqgMs2qWsUPG2eul0="; #sha256 lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -126,11 +126,11 @@ in
           "uptime.m4rx.cc"
           "ytdl.m4rx.cc"
         ];
-        #"10.75.0.22" = [
-         # "analytics.m4rx.cc"
+        "10.75.0.22" = [
+          "analytics.m4rx.cc"
           #"flolserver.m4rx.cc"
-          #"map.m4rx.cc"
-          #"pufferpanel.m4rx.cc"
+          "map.m4rx.cc"
+          "pufferpanel.m4rx.cc"
         ];
         "10.75.0.23" = [
           "lidarr.m4rx.cc"
@@ -166,7 +166,7 @@ in
 
       defaultGateway = "10.75.0.1";
 
-      nameservers = [ "1.1.1.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ]; # "10.75.0.71" "10.75.0.1" 
+      nameservers = [ "10.75.0.71" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
     };
   };
 }
