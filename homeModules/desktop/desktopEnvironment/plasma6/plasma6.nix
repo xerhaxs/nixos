@@ -1186,14 +1186,14 @@
         "katerc"."KTextEditor Document"."Tab Handling" = 2;
         "katerc"."KTextEditor Document"."Tab Width" = 4;
         "katerc"."KTextEditor Document"."Trailing Marker Size" = 1;
-        "katerc"."KTextEditor Document"."Word Wrap" = true;
+        "katerc"."KTextEditor Document"."Word Wrap" = false;
         "katerc"."KTextEditor Document"."Word Wrap Column" = 80;
         "katerc"."KTextEditor Renderer"."Animate Bracket Matching" = false;
         "katerc"."KTextEditor Renderer"."Auto Color Theme Selection" = true;
         "katerc"."KTextEditor Renderer"."Line Height Multiplier" = 1;
         "katerc"."KTextEditor Renderer"."Show Indentation Lines" = true;
         "katerc"."KTextEditor Renderer"."Show Whole Bracket Expression" = true;
-        "katerc"."KTextEditor Renderer"."Word Wrap Marker" = true;
+        "katerc"."KTextEditor Renderer"."Word Wrap Marker" = false;
         "katerc"."KTextEditor View"."Allow Mark Menu" = true;
         "katerc"."KTextEditor View"."Auto Brackets" = true;
         "katerc"."KTextEditor View"."Auto Center Lines" = 0;
@@ -1206,7 +1206,7 @@
         "katerc"."KTextEditor View"."Dynamic Word Wrap" = true;
         "katerc"."KTextEditor View"."Dynamic Word Wrap Align Indent" = 80;
         "katerc"."KTextEditor View"."Dynamic Word Wrap At Static Marker" = false;
-        "katerc"."KTextEditor View"."Dynamic Word Wrap Indicators" = 1;
+        "katerc"."KTextEditor View"."Dynamic Word Wrap Indicators" = 0;
         "katerc"."KTextEditor View"."Dynamic Wrap not at word boundaries" = false;
         "katerc"."KTextEditor View"."Enable Accessibility" = true;
         "katerc"."KTextEditor View"."Enable Tab completion" = false;
