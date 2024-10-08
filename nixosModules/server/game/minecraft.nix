@@ -5,8 +5,6 @@
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  
-
   options.nixos = {
     server.game.minecraft = {
       enable = lib.mkOption {
