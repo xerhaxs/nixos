@@ -107,7 +107,7 @@ in
 
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
-        "10.75.0.186" = [
+        "10.75.0.21" = [
           "collabora.m4rx.cc"
           "freshrss.m4rx.cc"
           "invidious.m4rx.cc"
