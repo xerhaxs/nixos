@@ -111,7 +111,6 @@
       cmatrix # matrix prompt for the terminal
       hollywood # hollywood hacking prompt for the terminal
       asciiquarium # aquarium in the terminal
-      tmux
     ];
   };
 }

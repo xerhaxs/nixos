@@ -5,6 +5,7 @@
     ./bash.nix
     ./console.nix
     ./fish.nix
+    ./tmux.nix
     ./zsh.nix
   ];
 
@@ -24,6 +25,7 @@
       bash.enable = true;
       console.enable = true;
       fish.enable = false;
+      tmux.enable = true;
       zsh.enable = false;
     };
   };
