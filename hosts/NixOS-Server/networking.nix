@@ -3,7 +3,7 @@
 {
   networking = {
 
-    hostName = "NixOS-Server";
+    hostName = "NixOS-Server1";
 
     interfaces = {  
       ens18 = {

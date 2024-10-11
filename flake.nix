@@ -161,7 +161,7 @@
         ];
       };
 
-      NixOS-Server = nixpkgs.lib.nixosSystem {
+      NixOS-Server1 = nixpkgs.lib.nixosSystem {
         inherit system;
 
         specialArgs = inputs;
