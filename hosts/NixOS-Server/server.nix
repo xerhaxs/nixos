@@ -5,9 +5,9 @@
 
   nixos.server.network.nginx.enable = true;
 
-  nixos.server.home.nextcloud = true;
+  #nixos.server.home.jellyfin = true;
 
-  nixos.server.home.jellyfin = true;
+  nixos.server.home.nextcloud = true;
 
   networking.firewall.enable = lib.mkForce false; # only for testing purpos
 

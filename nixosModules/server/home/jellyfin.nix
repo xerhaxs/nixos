@@ -32,7 +32,7 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
-          locations."/" = {
+          locations."/" = { 
             proxyPass = "http://localhost:8096";
           };
         };
