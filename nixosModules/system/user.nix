@@ -48,6 +48,7 @@
         "scanner"
         "lp"
         "truenas"
+        "minecraft"
       ];
       initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
       shell = config.nixos.system.user.defaultuser.shell;
