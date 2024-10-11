@@ -14,7 +14,6 @@
 
   config = lib.mkIf config.nixos.base.tools.common.enable {
     environment.systemPackages = with pkgs; [
-
       # fetchers
       neofetch
       cpufetch
@@ -112,6 +111,7 @@
       cmatrix # matrix prompt for the terminal
       hollywood # hollywood hacking prompt for the terminal
       asciiquarium # aquarium in the terminal
+      tmux
     ];
   };
 }

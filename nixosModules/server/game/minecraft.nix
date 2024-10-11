@@ -1,5 +1,7 @@
 { config, lib, pkgs, nix-minecraft, ... }:
 
+# minecraft server shell with 'tmux -S /run/minecraft/servername.sock'
+
 {
   imports = [ 
     nix-minecraft.nixosModules.minecraft-servers

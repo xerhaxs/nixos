@@ -7,8 +7,6 @@
 
   nixos.server.usenet.enable = true;
 
-  networking.firewall.enable = lib.mkForce false; # only for testing purpos
-
   services.mullvad-vpn.enable = true;
 
   users.groups.truenas = {
