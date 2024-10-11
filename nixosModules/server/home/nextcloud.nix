@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    server.home.nextcloud = {
+    server.home.nextcloud = {                             
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     #  owner = "nextcloud";
     #};
 
-    environment.etc."nextcloud-admin-pass".text = config.sops.secrets."nextcloud/users/admin/password".path;
+    environment.etc."nextcloud-admin-pass".text = "test";
 
     services.nextcloud = {
       enable = true;
