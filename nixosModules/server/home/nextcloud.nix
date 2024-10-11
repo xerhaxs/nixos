@@ -17,7 +17,7 @@
       enable = true;
       package = pkgs.nextcloud29;
       home = "/var/lib/nextcloud";
-      hostName = "nextcloud.bitsync.icu";
+      hostName = "nextcloud.${config.nixos.server.network.nginx.domain}";
       https = true;
       extraAppsEnable = true;
       autoUpdateApps.enable = true;
