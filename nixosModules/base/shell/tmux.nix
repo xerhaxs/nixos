@@ -18,7 +18,7 @@
       enable = true;
       terminal = "screen-256color";
       clock24 = true;
-      secureSocket = false;
+      secureSocket = true;
     };
   };
 }
