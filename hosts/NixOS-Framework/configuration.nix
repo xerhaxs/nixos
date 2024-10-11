@@ -14,10 +14,10 @@
     };
   };
 
-  nixos.theme.catppuccin = {
-    accent = "Blue";
-    flavor = "Latte";
-  };
+  #nixos.theme.catppuccin = {
+  #  accent = "Blue";
+  #  flavor = "Latte";
+  #};
 
   nixos.hardware = {
     amdcpu.enable = true;
