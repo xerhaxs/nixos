@@ -13,12 +13,6 @@
   };
 
   config = lib.mkIf config.nixos.server.home.jellyfin.enable {
-    #environment.systemPackages = with pkgs; [
-    #  jellyfin
-    #  jellyfin-web
-    #  jellyfin-ffmpeg
-    #];
-
     services.jellyfin = {
       enable = true;
       openFirewall = false;

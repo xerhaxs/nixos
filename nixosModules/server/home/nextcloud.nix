@@ -13,9 +13,9 @@
   };
 
   config = lib.mkIf config.nixos.server.home.nextcloud.enable {
-    #sops.secrets."nextcloud/users/admin/password" = {
-    #  owner = "nextcloud";
-    #};
+    sops.secrets."nextcloud/users/admin/password" = {
+      owner = "nextcloud";
+    };
 
     environment.etc."nextcloud-admin-pass".text = "test";
 
@@ -38,8 +38,7 @@
       #  dbname = "nextcloud";
       #  dbpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
         adminuser = "admin";
-        adminpassFile = "/etc/nextcloud-admin-pass";
-        #adminpassFile = config.sops.secrets."nextcloud/users/admin/password".path;  
+        adminpassFile = config.sops.secrets."nextcloud/users/admin/password".path;  
       };
     
       settings = {
