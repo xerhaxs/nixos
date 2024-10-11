@@ -13,6 +13,10 @@
   };
 
   config = lib.mkIf config.nixos.server.home.nextcloud.enable {
+    sops.secrets."nextcloud/users/admin/password" = {
+      owner = "nextcloud";
+    };
+
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud30;
@@ -25,15 +29,15 @@
       configureRedis = true;
       maxUploadSize = "8192M";
 
-      #config = {
+      config = {
       #  dbtype = "pgsql";
       #  dbuser = "nextcloud";
       #  dbhost = "${config.services.nextcloud.home}/run/postgresql";
       #  dbname = "nextcloud";
       #  dbpassFile = config.sops.secrets."nextcloud/users/admin/password".path;
-      #  adminuser = "admin";
-      #  adminpassFile = config.sops.secrets."nextcloud/users/admin/password".path;  
-      #};
+        adminuser = "admin";
+        adminpassFile = config.sops.secrets."nextcloud/users/admin/password".path;  
+      };
     
       settings = {
         overwriteprotocol = "https";

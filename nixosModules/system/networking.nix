@@ -122,7 +122,6 @@ in
           "search.m4rx.cc"
           "searx.m4rx.cc"
           "searxng.m4rx.cc"
-          "syncthing.m4rx.cc"
           "uptime.m4rx.cc"
           "ytdl.m4rx.cc"
         ];
@@ -143,6 +142,10 @@ in
         ];
         "10.75.0.71" = [ 
           "haos.m4rx.cc" 
+        ];
+        "10.75.0.186" = [
+          "syncthing.m4rx.cc"
+          "truenas.m4rx.cc"
         ];
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
       };
