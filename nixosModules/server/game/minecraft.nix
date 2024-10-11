@@ -52,7 +52,7 @@
             function-permission-level = 2;
             gamemode = "survival";
             generate-structures = true;
-            generator-settings = {};
+            ##generator-settings = {};
             hardcore = false;
             hide-online-players = false;
             #initial-disabled-packs=
@@ -124,7 +124,7 @@
             function-permission-level = 2;
             gamemode = "creative";
             generate-structures = true;
-            generator-settings = {};
+            #generator-settings = {};
             hardcore = false;
             hide-online-players = false;
             #initial-disabled-packs=
@@ -196,7 +196,7 @@
             function-permission-level = 2;
             gamemode = "survival";
             generate-structures = true;
-            generator-settings = {};
+            #generator-settings = {};
             hardcore = false;
             hide-online-players = false;
             #initial-disabled-packs=
@@ -268,7 +268,7 @@
             function-permission-level = 2;
             gamemode = "creative";
             generate-structures = true;
-            generator-settings = {};
+            #generator-settings = {};
             hardcore = false;
             hide-online-players = false;
             #initial-disabled-packs=
@@ -346,7 +346,7 @@
             function-permission-level = 2;
             gamemode = "survival";
             generate-structures = true;
-            generator-settings = {};
+            #generator-settings = {};
             hardcore = false;
             hide-online-players = false;
             #initial-disabled-packs=
