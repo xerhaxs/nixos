@@ -1,6 +1,6 @@
 { config, lib, pkgs, nix-minecraft, ... }:
 
-# minecraft server shell with 'tmux -S /run/minecraft/servername.sock'
+# minecraft server shell with 'tmux -S /run/minecraft/servername.sock attach'
 
 {
   imports = [ 
