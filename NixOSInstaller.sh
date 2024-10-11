@@ -83,7 +83,7 @@ function_select_host() {
         "NixOS-Framework" "Configuration for Framework Laptop" \
         "NixOS-Laptop" "Configuration for Laptop" \
 		"NixOS-Live" "Configuration for Live Setup" \
-        "NixOS-Server" "Configuration for Server" \
+        "NixOS-Server1" "Configuration for Server1" \
 		"NixOS-Server2" "Configuration for Server2" \
 		"NixOS-Server3" "Configuration for Server3" \
         "NixOS-Test" "Configuration for Test" \
