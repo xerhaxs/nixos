@@ -1,11 +1,19 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.server.enable = lib.mkDefault true;
-
   services.xserver.displayManager.startx.enable = true;
 
-  nixos.server.usenet.enable = false;
+  nixos.server.network.nginx.enable = true;
+
+  nixos.server.home.nextcloud = true;
+
+  nixos.server.home.jellyfin = true;
+
+  networking.firewall.enable = lib.mkForce false; # only for testing purpos
+
+  #nixos.server.enable = lib.mkDefault true;
+
+  #nixos.server.usenet.enable = false;
 
   #nixos.server = {
   #  home = {
