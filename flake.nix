@@ -171,7 +171,7 @@
           nur.nixosModules.nur
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
-          ./hosts/NixOS-Server/default.nix
+          ./hosts/NixOS-Server1/default.nix
           ./homeModules/homemanager.nix
         ];
       };
