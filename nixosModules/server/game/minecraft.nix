@@ -1,8 +1,8 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, nix-minecraft, ... }:
 
 {
-  imports = [
-    inputs.nix-minecraft.nixosModules.minecraft-servers
+  imports = [ 
+    nix-minecraft.nixosModules.minecraft-servers
   ];
 
   options.nixos = {
@@ -18,10 +18,10 @@
 
   config = lib.mkIf config.nixos.server.game.minecraft.enable {
     nixpkgs.overlays = [ 
-      inputs.nix-minecraft.overlay 
+      nix-minecraft.overlay
     ];
-
-    services.minecraft-server = {
+    
+    services.minecraft-servers = {
       enable = true;
       eula = true;
 

@@ -1,4 +1,4 @@
-{ catppuccin, config, lib, pkgs, ... }:
+{ config, lib, pkgs, catppuccin, ... }:
 
 let
   catppuccin = {
