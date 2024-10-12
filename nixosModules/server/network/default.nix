@@ -3,6 +3,7 @@
 { 
   imports = [
     #./adguard.nix
+    ./ddclient.nix
     #./dnsmasq.nix
     ./networking.nix
     ./nginx.nix
@@ -25,6 +26,7 @@
   config = lib.mkIf config.nixos.server.network.enable {
     nixos.server.network = {
       #adguard.enable = true;
+      ddclient.enable = true;
       #dnsmasq.enable = false;
       networking.enable = true;
       nginx.enable = true;

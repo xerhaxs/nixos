@@ -34,6 +34,8 @@
         changeme = { };
         changeme_env = { };
 
+        "cloudflare/api_key" = { };
+
         "etesync/secret" = { };
         "etesync/users/admin/username" = { };
         "etesync/users/admin/password" = { };
