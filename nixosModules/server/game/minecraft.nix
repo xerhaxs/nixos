@@ -403,7 +403,56 @@
 
     services.nginx = {
       virtualHosts = {
-
+        "flolserver.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:25565";
+          };
+        };
+        "creativeserver.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:25566";
+          };
+        };
+        "pvpserver.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:25567";
+          };
+        };
+        "testserver.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:25568";
+          };
+        };
+        "silverageserver.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:25569";
+          };
+        };
       };
     };
   };
