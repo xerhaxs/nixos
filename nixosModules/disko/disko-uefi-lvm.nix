@@ -33,7 +33,7 @@
                   mountOptions = [
                     "defaults"
                   ];
-                  extraArgs = [ "-n boot" ];
+                  extraArgs = [ "-n BOOT" ];
                 };
               };
               primary = {
