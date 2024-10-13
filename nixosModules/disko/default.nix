@@ -7,6 +7,7 @@
     ./disko-uefi-lvm-on-luks.nix
     ./disko-uefi-lvm.nix
     ./disko-uefi-zfs.nix
+    ./disko-var-lvm-on-luks.nix
   ];
 
   options.nixos = {
@@ -26,6 +27,7 @@
       disko-uefi-lvm-on-luks.enable = false;
       disko-uefi-lvm.enable = false;
       disko-uefi-zfs.enable = false;
+      disko-var-lvm-on-luks.enable = false;
     };
   };
 }
