@@ -22,8 +22,8 @@
       group = "users";
       dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
       configDir = config.services.syncthing.dataDir + "/.config/syncthing";
-      overrideDevices = true;
-      overrideFolders = true; 
+      overrideDevices = false;
+      overrideFolders = false; 
       openDefaultPorts = true;
 
       settings = {
