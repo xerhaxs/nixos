@@ -18,10 +18,13 @@
 
     hosts = {
       "127.0.0.1" = lib.mkDefault [
-        "analytics.m4rx.cc"
-        "map.m4rx.cc"
-        "pufferpanel.m4rx.cc"
-        "flolserver.m4rx.cc"
+        "flolserver.${config.nixos.server.network.nginx.domain}"
+        "creativeserver.${config.nixos.server.network.nginx.domain}"
+        "pvpserver.${config.nixos.server.network.nginx.domain}"
+        "testserver.${config.nixos.server.network.nginx.domain}"
+        "silverageserver.${config.nixos.server.network.nginx.domain}"
+        "bluemap.${config.nixos.server.network.nginx.domain}"
+        "map.${config.nixos.server.network.nginx.domain}"
       ];
     };
   };

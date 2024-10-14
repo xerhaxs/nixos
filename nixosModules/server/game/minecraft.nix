@@ -105,7 +105,7 @@
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
-          package = pkgs.fabricServers.fabric-1_21;
+          package = pkgs.fabricServers.fabric-1_20_6;
           serverProperties = {
             #"&4&lFür=eine sozialistische Weltrevolution in Kreativ\!";
             accepts-transfers = false;
@@ -249,12 +249,12 @@
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
-          package = pkgs.fabricServers.fabric-1_21;
+          package = pkgs.fabricServers.fabric-1_20_6;
           serverProperties = {
             #"&4&lFür=eine getestete sozialistische Weltrevolution\!";
             accepts-transfers = false;
             allow-flight = true;
-            allow-nether = true;
+            allow-nether = true;1_
             broadcast-console-to-ops = true;
             broadcast-rcon-to-ops = true;
             difficulty = "hard";
@@ -396,11 +396,6 @@
       };
     };
 
-    #services.bluemap = {
-    #  enable = true;
-    #  eula = true;
-    #}
-
     services.nginx = {
       virtualHosts = {
         "flolserver.${config.nixos.server.network.nginx.domain}" = {
@@ -453,15 +448,37 @@
             proxyPass = "http://localhost:25569";
           };
         };
+        "bluemap.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:8100";
+          };
+        };
+        "map.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:8100";
+          };
+        };
       };
     };
 
     services.ddclient.domains = [
       "flolserver.${config.nixos.server.network.nginx.domain}"
-      "creativeserver.${config.nixos.server.network.nginx.domain}"
-      "pvpserver.${config.nixos.server.network.nginx.domain}"
-      "testserver.${config.nixos.server.network.nginx.domain}"
-      "silverageserver.${config.nixos.server.network.nginx.domain}"
+      #"creativeserver.${config.nixos.server.network.nginx.domain}"
+      #"pvpserver.${config.nixos.server.network.nginx.domain}"
+      #"testserver.${config.nixos.server.network.nginx.domain}"
+      #"silverageserver.${config.nixos.server.network.nginx.domain}"
+      "bluemap.${config.nixos.server.network.nginx.domain}"
+      "map.${config.nixos.server.network.nginx.domain}"
     ];
   };
 }
