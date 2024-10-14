@@ -5,31 +5,29 @@
 
     hostName = "NixOS-Server2";
 
-    #interfaces = {  
-    #  ens18 = {
-    #    ipv4.addresses = [ {
-    #      address = "10.75.0.22";
-    #      prefixLength = 24;
-    #    } ];
-    #  };
-    #};
+    interfaces = {  
+      ens18 = {
+        ipv4.addresses = [ {
+          address = "10.75.0.22";
+          prefixLength = 24;
+        } ];
+      };
+    };
 
-    useDHCP = lib.mkForce true;
+    useDHCP = lib.mkForce false;
 
-    dhcpcd.IPv6rs = lib.mkForce true;
+    dhcpcd.IPv6rs = true;
 
-    nameservers = lib.mkForce [ "1.1.1.1" "2606:4700:4700::1111" ];
-
-    #hosts = {
-    #  "127.0.0.1" = lib.mkDefault [
-    #    "flolserver.${config.nixos.server.network.nginx.domain}"
-    #    "creativeserver.${config.nixos.server.network.nginx.domain}"
-    #    "pvpserver.${config.nixos.server.network.nginx.domain}"
-    #    "testserver.${config.nixos.server.network.nginx.domain}"
-    #    "silverageserver.${config.nixos.server.network.nginx.domain}"
-    #    "bluemap.${config.nixos.server.network.nginx.domain}"
-    #    "map.${config.nixos.server.network.nginx.domain}"
-    #  ];
-    #};
+    hosts = {
+      "127.0.0.1" = lib.mkDefault [
+        "flolserver.${config.nixos.server.network.nginx.domain}"
+        "creativeserver.${config.nixos.server.network.nginx.domain}"
+        "pvpserver.${config.nixos.server.network.nginx.domain}"
+        "testserver.${config.nixos.server.network.nginx.domain}"
+        "silverageserver.${config.nixos.server.network.nginx.domain}"
+        "bluemap.${config.nixos.server.network.nginx.domain}"
+        "map.${config.nixos.server.network.nginx.domain}"
+      ];
+    };
   };
 }

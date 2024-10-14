@@ -24,14 +24,14 @@
     ];
 
     services.minecraft-server = {
-      enable = true;
+      enable = false;
       eula = true;
-      jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=true -Djava.net.preferIPv6Addresses=false -Dlog4j2.formatMsgNoLookups=true";
+      jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
       package = pkgs.minecraftServers.vanilla-1_20_6;
     };
 
     services.minecraft-servers = {
-      enable = false;
+      enable = true;
       eula = true;
 
       servers = {
@@ -480,10 +480,6 @@
 
     services.ddclient.domains = [
       "flolserver.${config.nixos.server.network.nginx.domain}"
-      #"creativeserver.${config.nixos.server.network.nginx.domain}"
-      #"pvpserver.${config.nixos.server.network.nginx.domain}"
-      #"testserver.${config.nixos.server.network.nginx.domain}"
-      #"silverageserver.${config.nixos.server.network.nginx.domain}"
       "bluemap.${config.nixos.server.network.nginx.domain}"
       "map.${config.nixos.server.network.nginx.domain}"
     ];
