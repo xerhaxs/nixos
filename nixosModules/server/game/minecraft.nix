@@ -320,7 +320,7 @@
         #  enable = true;
         #  package = pkgs.vanillaServers.vanilla-;
         #  jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
-        #};
+        #};sha256-25/5edFiAh/9bgtXyCMogjZ4yDirhmiFOfwJPjCPXCY=
 
         silverageserver = {
           enable = true;
