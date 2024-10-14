@@ -14,20 +14,18 @@
       };
     };
 
-    useDHCP = lib.mkForce false;
+    useDHCP = lib.mkForce true;
 
-    dhcpcd.IPv6rs = true;
-
-    hosts = {
-      "127.0.0.1" = lib.mkDefault [
-        "flolserver.${config.nixos.server.network.nginx.domain}"
-        "creativeserver.${config.nixos.server.network.nginx.domain}"
-        "pvpserver.${config.nixos.server.network.nginx.domain}"
-        "testserver.${config.nixos.server.network.nginx.domain}"
-        "silverageserver.${config.nixos.server.network.nginx.domain}"
-        "bluemap.${config.nixos.server.network.nginx.domain}"
-        "map.${config.nixos.server.network.nginx.domain}"
-      ];
-    };
+    #hosts = {
+    #  "127.0.0.1" = lib.mkDefault [
+    #    "flolserver.${config.nixos.server.network.nginx.domain}"
+    #    "creativeserver.${config.nixos.server.network.nginx.domain}"
+    ##    "pvpserver.${config.nixos.server.network.nginx.domain}"
+    #    "testserver.${config.nixos.server.network.nginx.domain}"
+    #    "silverageserver.${config.nixos.server.network.nginx.domain}"
+    #    "bluemap.${config.nixos.server.network.nginx.domain}"
+    #    "map.${config.nixos.server.network.nginx.domain}"
+    #  ];
+    #};
   };
 }
