@@ -405,6 +405,13 @@
 
     services.nginx = {
       virtualHosts = {
+        "test.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+        };
         "flolserver.${config.nixos.server.network.nginx.domain}" = {
           forceSSL = true;
           enableACME = true;
