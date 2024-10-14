@@ -254,7 +254,7 @@
             #"&4&lFür=eine getestete sozialistische Weltrevolution\!";
             accepts-transfers = false;
             allow-flight = true;
-            allow-nether = true;1_
+            allow-nether = true;
             broadcast-console-to-ops = true;
             broadcast-rcon-to-ops = true;
             difficulty = "hard";
