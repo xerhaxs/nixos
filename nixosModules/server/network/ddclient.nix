@@ -22,5 +22,10 @@
       protocol = "cloudflare";
       passwordFile = config.sops.secrets."cloudflare/api_key".path;
     };
+
+    services.keepalived = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 }
