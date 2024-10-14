@@ -23,8 +23,15 @@
       nix-minecraft.overlay
     ];
 
-    services.minecraft-servers = {
+    services.minecraft-server = {
       enable = true;
+      eula = true;
+      jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
+      package = pkgs.minecraftServers.vanilla-1-20;
+    };
+
+    services.minecraft-servers = {
+      enable = false;
       eula = true;
 
       servers = {
@@ -62,7 +69,7 @@
             level-name = "world";
             #level-seed=
             level-type = "minecraft\:normal";
-            log-ips = false;
+            log-ips = true;
             max-chained-neighbor-updates = 1000000;
             max-players = 1917;
             max-tick-time = 60000;
@@ -84,7 +91,7 @@
             #resource-pack-id=
             #resource-pack-prompt=
             #resource-pack-sha1=
-            server-ip = "0.0.0.0";
+            #server-ip = "0.0.0.0";
             server-port = 25565;
             simulation-distance = 10;
             snooper-enabled = false;
