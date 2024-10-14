@@ -101,7 +101,7 @@
         };
 
         creativeserver = {
-          enable = true;
+          enable = false;
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
@@ -173,7 +173,7 @@
         };
 
         pvpserver = {
-          enable = true;
+          enable = false;
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
@@ -245,7 +245,7 @@
         };
 
         testserver = {
-          enable = true;
+          enable = false;
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
@@ -323,7 +323,7 @@
         #};sha256-25/5edFiAh/9bgtXyCMogjZ4yDirhmiFOfwJPjCPXCY=
 
         silverageserver = {
-          enable = true;
+          enable = false;
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";

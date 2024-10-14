@@ -8,4 +8,6 @@
   nixos.server.network.ddclient.enable = true;
 
   nixos.server.game.enable = true;
+
+  nixos.system.nasmount.enable = lib.mkDefault false;
 }
