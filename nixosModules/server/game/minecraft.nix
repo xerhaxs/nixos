@@ -74,10 +74,10 @@
             player-idle-timeout = 0;
             prevent-proxy-connections = false;
             pvp = true;
-            query.port = 25565;
+            query-port = 25565;
             rate-limit = 0;
             #rcon.password=
-            rcon.port = 25575;
+            rcon-port = 25575;
             region-file-compression = "deflate";
             require-resource-pack = false;
             #resource-pack=
