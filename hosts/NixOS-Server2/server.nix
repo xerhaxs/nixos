@@ -10,4 +10,6 @@
   nixos.server.game.enable = true;
 
   nixos.system.nasmount.enable = lib.mkDefault false;
+
+  networking.firewall.enable = lib.mkForce false;
 }
