@@ -9,5 +9,7 @@
 
   nixos.server.game.enable = true;
 
-  nixos.system.nasmount.enable = lib.mkDefault false;
+  nixos.system.nasmount.enable = lib.mkForce false;
+
+  services.sshguard.enable = lib.mkForce false;
 }
