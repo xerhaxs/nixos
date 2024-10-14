@@ -406,11 +406,11 @@
     services.nginx = {
       virtualHosts = {
         "flolserver.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
+          #forceSSL = true;
           enableACME = true;
           acmeRoot = null;
-          kTLS = true;
-          http2 = false;
+          #kTLS = true;
+          #http2 = false;
           locations."/" = { 
             proxyPass = "http://localhost:25565";
           };
