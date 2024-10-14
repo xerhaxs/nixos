@@ -18,6 +18,8 @@
 
     dhcpcd.IPv6rs = true;
 
+    nameservers = [ "1.1.1.1" "2606:4700:4700::1111" ];
+
     hosts = {
       "127.0.0.1" = lib.mkDefault [
         "flolserver.${config.nixos.server.network.nginx.domain}"
