@@ -125,16 +125,16 @@ in
           "uptime.m4rx.cc"
           "ytdl.m4rx.cc"
         ];
-        "10.75.0.22" = [
-          "analytics.m4rx.cc"
-          "flolserver.m4rx.cc"
-          "creativeserver.m4rx.cc"
-          "pvpserver.m4rx.cc"
-          "testserver.m4rx.cc"
-          "silverageserver.m4rx.cc"
-          "map.m4rx.cc"
-          "pufferpanel.m4rx.cc"
-        ];
+        #"10.75.0.22" = [
+        #  "analytics.m4rx.cc"
+        #  "flolserver.m4rx.cc"
+        #  "creativeserver.m4rx.cc"
+        #  "pvpserver.m4rx.cc"
+        #  "testserver.m4rx.cc"
+        #  "silverageserver.m4rx.cc"
+        #  "map.m4rx.cc"
+        #  "pufferpanel.m4rx.cc"
+        #];
         "10.75.0.23" = [
           "lidarr.m4rx.cc"
           "nzbget.m4rx.cc"
