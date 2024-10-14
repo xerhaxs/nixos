@@ -26,7 +26,7 @@
     services.minecraft-server = {
       enable = true;
       eula = true;
-      jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
+      jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=true -Djava.net.preferIPv6Addresses=false -Dlog4j2.formatMsgNoLookups=true";
       package = pkgs.minecraftServers.vanilla-1_20_6;
     };
 
