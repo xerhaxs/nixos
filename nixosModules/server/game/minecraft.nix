@@ -91,7 +91,7 @@
             #resource-pack-id=
             #resource-pack-prompt=
             #resource-pack-sha1=
-            #server-ip = "0.0.0.0";
+            server-ip = "0.0.0.0";
             server-port = 25565;
             simulation-distance = 10;
             snooper-enabled = false;
