@@ -24,7 +24,7 @@
         obs-3d-effect
         obs-backgroundremoval
         obs-gstreamer
-        obs-multi-rtmp
+        #obs-multi-rtmp
         obs-pipewire-audio-capture
         obs-scale-to-sound
         obs-source-clone
