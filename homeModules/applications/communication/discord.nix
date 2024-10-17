@@ -14,13 +14,13 @@
 
   config = lib.mkIf config.homeManager.applications.communication.discord.enable {
     home.packages = with pkgs; [
-      armcord
+      legcord
     ];
 
     #programs.discocss = {
     #  enable = true;
     #  discordAlias = true;
-    #  discordPackage = pkgs.armcord; # pkgs.webcord
+    #  discordPackage = pkgs.legcord; # pkgs.webcord
     #};
   };
 }

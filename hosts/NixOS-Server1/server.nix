@@ -13,7 +13,7 @@
 
   #nixos.server.enable = lib.mkDefault true;
 
-  #nixos.server.usenet.enable = false;
+  nixos.server.usenet.enable = false;
 
   #nixos.server = {
   #  home = {
