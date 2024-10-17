@@ -144,7 +144,7 @@ in
           "sabnzbd.m4rx.cc"
           "sonarr.m4rx.cc"
         ];
-        "10.75.0.71" = [ 
+        "10.75.0.25" = [ 
           "haos.m4rx.cc"
           "homeassistant.m4rx.cc"
         ];

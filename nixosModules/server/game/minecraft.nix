@@ -28,6 +28,7 @@
       eula = true;
       jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
       package = pkgs.minecraftServers.vanilla-1_20_6;
+      openFirewall = true;
     };
 
     services.minecraft-servers = {
@@ -405,56 +406,56 @@
 
     services.nginx = {
       virtualHosts = {
-        "flolserver.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:25565";
-          };
-        };
-        "creativeserver.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:25566";
-          };
-        };
-        "pvpserver.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:25567";
-          };
-        };
-        "testserver.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:25568";
-          };
-        };
-        "silverageserver.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:25569";
-          };
-        };
+        #"flolserver.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:25565";
+        #  };
+        #};
+        #"creativeserver.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:25566";
+        #  };
+        #};
+        #"pvpserver.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:25567";
+        #  };
+        #};
+        #"testserver.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:25568";
+        #  };
+        #};
+        #"silverageserver.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:25569";
+        #  };
+        #};
         "bluemap.${config.nixos.server.network.nginx.domain}" = {
           forceSSL = true;
           enableACME = true;
