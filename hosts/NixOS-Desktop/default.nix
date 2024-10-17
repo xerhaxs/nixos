@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
-    ./syncthing.nix
+    #./syncthing.nix
     ./xserver.nix
   ];
 }
