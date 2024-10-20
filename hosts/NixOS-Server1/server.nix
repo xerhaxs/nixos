@@ -9,7 +9,7 @@
 
   #nixos.server.home.nextcloud.enable = true;
 
-  networking.firewall.enable = lib.mkForce false; # only for testing purpos
+  #networking.firewall.enable = lib.mkForce false; # only for testing purpos
 
   #nixos.server.enable = lib.mkDefault true;
 
