@@ -3,13 +3,11 @@
 {
   services.xserver.displayManager.startx.enable = true;
 
-  #nixos.server.network.nginx.enable = true;
+  nixos.server.network.nginx.enable = true;
 
   #nixos.server.home.jellyfin.enable = true;
 
   #nixos.server.home.nextcloud.enable = true;
-
-  #networking.firewall.enable = lib.mkForce false; # only for testing purpos
 
   #nixos.server.enable = lib.mkDefault true;
 
