@@ -39,5 +39,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "onlyoffice.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

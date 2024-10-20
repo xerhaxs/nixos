@@ -50,5 +50,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "dav.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

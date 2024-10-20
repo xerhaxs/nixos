@@ -33,5 +33,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "lidarr.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

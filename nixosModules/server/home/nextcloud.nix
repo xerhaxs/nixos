@@ -77,6 +77,10 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "nextcloud.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }
 

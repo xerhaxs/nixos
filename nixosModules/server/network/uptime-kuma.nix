@@ -34,7 +34,22 @@
             proxyPass = "http://localhost:8765";
           };
         };
+        "kuma.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:8765";
+          };
+        };
       };
     };
+
+    services.ddclient.domains = [
+      "uptime-kuma.${config.nixos.server.network.nginx.domain}"
+      "kuma.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

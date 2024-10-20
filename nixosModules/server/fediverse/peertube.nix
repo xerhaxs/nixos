@@ -58,5 +58,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "peertube.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

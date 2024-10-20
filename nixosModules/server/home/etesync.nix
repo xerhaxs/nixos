@@ -55,5 +55,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "etesync.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

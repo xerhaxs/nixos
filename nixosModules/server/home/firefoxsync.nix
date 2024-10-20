@@ -43,5 +43,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "firefoxsync.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

@@ -33,5 +33,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "radarr.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

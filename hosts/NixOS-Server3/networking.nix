@@ -11,6 +11,10 @@
           address = "10.75.0.23";
           prefixLength = 24;
         } ];
+        ipv6.addresses = [ {
+          address = "2001:16b8:a400:cc00:be24:11ff:fef2:1e0f";
+          prefixLength = 64;
+        } ];
       };
     };
 

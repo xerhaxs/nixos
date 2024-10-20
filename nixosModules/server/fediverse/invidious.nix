@@ -92,5 +92,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "invidious.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

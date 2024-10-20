@@ -37,5 +37,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "nzbget.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

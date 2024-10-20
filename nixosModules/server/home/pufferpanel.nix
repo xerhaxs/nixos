@@ -67,5 +67,10 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "pufferpanel.${config.nixos.server.network.nginx.domain}"
+      "pufferpanel-sftp.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

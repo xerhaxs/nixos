@@ -132,5 +132,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "homeassistant.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

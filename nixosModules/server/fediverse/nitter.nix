@@ -50,5 +50,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "nitter.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

@@ -34,5 +34,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "teamspeak.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

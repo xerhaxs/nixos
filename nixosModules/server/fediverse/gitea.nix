@@ -58,5 +58,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "gitea.${config.nixos.server.network.nginx.domain}"
+    ];
   }; 
 }

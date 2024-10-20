@@ -41,5 +41,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "vaultwarden.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

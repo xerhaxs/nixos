@@ -45,5 +45,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "freshrss.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

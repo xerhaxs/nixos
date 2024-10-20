@@ -5,6 +5,8 @@
 
   nixos.server.network.nginx.enable = true;
 
+  nixos.server.network.ddclient.enable = true;
+
   nixos.server.usenet.enable = true;
 
   services.mullvad-vpn.enable = true;

@@ -73,5 +73,9 @@
         };
       };
     };
+
+    services.ddclient.domains = [
+      "adguard.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }
