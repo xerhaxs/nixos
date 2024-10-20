@@ -19,7 +19,7 @@ in
   options.nixos = {
     theme.catppuccin = {
       enable = lib.mkOption {
-        type = lib.types.bool;
+        type = lib.types.bool;    
         default = false;
         example = true;
         description = "Enable catppuccin theme.";

@@ -11,5 +11,5 @@
 
   nixos.system.nasmount.enable = lib.mkForce false;
 
-  networking.firewall.enable = lib.mkForce false; # only for testing purpos
+  #networking.firewall.enable = lib.mkForce false; # only for testing purpos
 }
