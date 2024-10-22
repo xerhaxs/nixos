@@ -9,7 +9,7 @@
 
   nixos.server.game.enable = true;
 
-  #nixos.system.nasmount.enable = lib.mkForce false;
+  nixos.system.nasmount.enable = lib.mkForce false;
 
   #networking.firewall.enable = lib.mkForce false; # only for testing purpos
 }

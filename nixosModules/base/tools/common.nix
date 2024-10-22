@@ -90,6 +90,7 @@
       
       iftop # network monitoring
       iotop # io monitoring
+      tcpdump
 
       pv # replacement of cp
 
