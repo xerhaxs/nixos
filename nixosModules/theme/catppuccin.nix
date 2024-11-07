@@ -176,8 +176,8 @@ in
       })
 
       (catppuccin-kvantum.override {
-        accent = "${config.nixos.theme.catppuccin.accent}";
-        variant = "${config.nixos.theme.catppuccin.flavor}";
+        accent = lib.strings.toLower "${config.nixos.theme.catppuccin.accent}";
+        variant = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
       })
     ];
 

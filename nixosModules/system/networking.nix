@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-NsmIbKrngrwXJtYioBHNpc2B4IwQxVhE3sEgI6Q9tfM="; #sha256 lib.fakeSha256;
+    hash = "sha256-5FncjQnW4MT+6dmwX101hgJeVXGLZJD7Dxdc7CSNe88="; #sha256 lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
@@ -43,7 +43,7 @@ let
 
   smart-tv = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
-    hash = "sha256-aRYCciflduufxGpFi7HvM6FApZQU0YjpcmAWvdSWaus=";
+    hash = "sha256-jCsuPWVuJSO4m9p98lHGDI9mlVXReruMTaUc0CYDsXw=";
   };
 
   adobe = pkgs.fetchurl {

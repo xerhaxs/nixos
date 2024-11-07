@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.editing."3dprinting".enable {
     home.packages = with pkgs; [
-      blender-hip
+      #blender-hip
       #cura
       #curaengine
     ];

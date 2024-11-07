@@ -15,11 +15,12 @@
   config = lib.mkIf config.homeManager.base.texteditor.tex.enable {
     home.packages = with pkgs; [
       lmodern
+      texliveFull
     ];
 
     programs.texlive = {
       enable = true;
-      packageSet = pkgs.texlive; # texliveFull
+      package = pkgs.texlive;
     };
   };
 }
