@@ -25,6 +25,7 @@
       multimarkdown
       cmark
       kile
+      scribus
       languagetool
       libreoffice
       mythes

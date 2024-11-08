@@ -18,10 +18,9 @@
       texliveFull
     ];
 
-    programs.texlive = {
-      enable = true;
-      package = pkgs.texlive;
-    };
+    #programs.texlive = {
+    #  enable = true;
+    #};
   };
 }
 
