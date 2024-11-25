@@ -5,40 +5,28 @@
 
   nixos.server.network.nginx.enable = true;
 
-  nixos.server.home.jellyfin.enable = true;
-
-  nixos.server.home.nextcloud.enable = true;
-
-  nixos.server.home.collabora.enable = true;
-
-  nixos.server.home.firefoxsync.enable = true;
-
-  nixos.server.fediverse = {
-    freshrss.enable = true;
-    gitea.enable = true;
-    invidious.enable = true;
-
-  };
-
   #nixos.server.enable = lib.mkDefault true;
 
   nixos.server.usenet.enable = false;
 
-  #nixos.server = {
-  #  home = {
-  #    #mailserver.enable = lib.mkForce false;
-  #    etesync.enable = lib.mkForce false;
-  #    haos.enable = lib.mkForce false;
-  #    homeassistant.enable = lib.mkForce false;
-  #  };
-  #  network = {
-  #    adguard.enable = lib.mkForce false;
-  #  };
-  #  fediverse = {
-  #    peertube.enable = lib.mkForce false;
-  #    pixelfed.enable = lib.mkForce false;
-  #    mastodon.enable =lib.mkForce false;
-  #    lemmy.enable = lib.mkForce false;
-  #  };
-  #};
+  nixos.server = {
+    home = {
+      collabora.enable = true;
+      firefoxsync.enable = true;
+      jellyfin.enable = true;
+      nextcloud.enable = true;
+      #mailserver.enable = lib.mkForce false;
+      #etesync.enable = lib.mkForce false;
+      #haos.enable = lib.mkForce false;
+      #homeassistant.enable = lib.mkForce false;
+    };
+    network = {
+      #adguard.enable = lib.mkForce false;
+    };
+    fediverse = {
+      freshrss.enable = true;
+      gitea.enable = true;
+      invidious.enable = true;
+    };
+  };
 }

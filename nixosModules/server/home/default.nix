@@ -3,16 +3,16 @@
 { 
   imports = [
     ./collabora.nix
-    #./etesync.nix
+    ./etesync.nix
     ./firefoxsync.nix
     #./haos.nix
     #./homeassistant.nix
     ./jellyfin.nix
     #./mailserver.nix
     ./nextcloud.nix
-    #./onlyoffice.nix
+    ./onlyoffice.nix
     ./radicale.nix
-    #./vaultwarden.nix
+    ./vaultwarden.nix
   ];
 
   options.nixos = {

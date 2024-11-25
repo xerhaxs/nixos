@@ -3,7 +3,7 @@
 {
   imports = [
     ./fediverse
-    #./fileshare
+    ./fileshare
     ./game
     ./home
     ./network
