@@ -20,9 +20,9 @@
       #haos.enable = lib.mkForce false;
       #homeassistant.enable = lib.mkForce false;
     };
-    network = {
-      #adguard.enable = lib.mkForce false;
-    };
+    #network = {
+    #  #adguard.enable = lib.mkForce false;
+    #};
     fediverse = {
       freshrss.enable = true;
       gitea.enable = true;
