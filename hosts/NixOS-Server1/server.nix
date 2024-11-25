@@ -11,6 +11,7 @@
 
   nixos.server = {
     home = {
+      radicale.enable = true;
       collabora.enable = true;
       firefoxsync.enable = true;
       jellyfin.enable = true;
