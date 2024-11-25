@@ -23,8 +23,8 @@
       passwordFile = config.sops.secrets."freshrss/users/defaultUser/password".path;
       language = "de";
       dataDir = "/var/lib/freshrss";
-      baseUrl = "http://freshrss.${config.nixos.server.network.nginx.domain}";
-      virtualHost = "freshrss";
+      baseUrl = "127.0.0.1";
+      #virtualHost = "";
       database = {
         type = "sqlite";
         port = 3306;
