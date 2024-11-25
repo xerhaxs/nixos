@@ -110,7 +110,9 @@ in
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
         "10.75.0.21" = [
           "collabora.m4rx.cc"
+          "firefoxsync.m4rx.cc"
           "freshrss.m4rx.cc"
+          "gitea.m4rx.cc"
           "invidious.m4rx.cc"
           "jellyfin.m4rx.cc"
           "kiwix.m4rx.cc"

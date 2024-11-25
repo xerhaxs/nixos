@@ -16,9 +16,6 @@
     services.invidious = {
       enable = true;
       port = 3000;
-  #    external_port = 443;
-  #    host_binding = "127.0.0.1";
-  #    nginx.enable = true;
       domain = "invidious.${config.nixos.server.network.nginx.domain}";
       settings = {
         https_only = true;
@@ -66,7 +63,7 @@
           video_loop = false;
           quality = "dash";
           quality_dash = "best";
-          speed = 1.25;
+          speed = 1.5;
           volume = 100;
           vr_mode = true;
           save_player_pos = true;

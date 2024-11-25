@@ -29,7 +29,7 @@
           PROTOCOL = "http";
           HTTP_PORT = 3005;
           HTTP_ADDR = "localhost";
-          DOMAIN = "gitea.bitsync.icu";
+          DOMAIN = "gitea.${config.nixos.server.network.nginx.domain}";
         };
       };
 

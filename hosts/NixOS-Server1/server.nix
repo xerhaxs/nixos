@@ -13,9 +13,12 @@
 
   nixos.server.home.firefoxsync.enable = true;
 
-  nixos.server.fediverse.invidious.enable = true;
+  nixos.server.fediverse = {
+    freshrss.enable = true;
+    gitea.enable = true;
+    invidious.enable = true;
 
-  #nixos.server.fediverse.invidious.enable = true;
+  };
 
   #nixos.server.enable = lib.mkDefault true;
 

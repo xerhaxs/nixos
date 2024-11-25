@@ -71,9 +71,6 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
-          #locations."/" = {
-          #  proxyPass = "http://localhost:8080";
-          #};
         };
       };
     };

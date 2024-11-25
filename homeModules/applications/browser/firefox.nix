@@ -727,6 +727,9 @@ let
   # always display bookmarks toolbar
   "browser.toolbars.bookmarks.visibility" = "always";
 
+  # Firefox Sync Server
+  "identity.sync.tokenserver.uri" = "https://firefoxsync.m4rx.cc/1.0/sync/1.5";
+
   # customize firefox toolbars
   "browser.uiCustomization.state" = {
     "placements" = {
@@ -1270,9 +1273,9 @@ in
               };
 
               "Such-O-Mat" = {
-                urls = [{ template = "https://searxng.bitsync.icu/search/{searchTerms}"; }];
+                urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
                 definedAliases = [ "@s" ];
-                iconUpdateURL = "https://searxng.bitsync.icu/favicon";
+                iconUpdateURL = "https://searxng.m4rx.cc/favicon";
               };
 
               "DuckDuckGo" = {
