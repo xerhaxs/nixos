@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    server.home.pufferpanel = {
+    server.game.pufferpanel = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.pufferpanel.enable {
+  config = lib.mkIf config.nixos.server.game.pufferpanel.enable {
     systemd.services.pufferpanel.serviceConfig.EnvironmentFile = [ 
       config.sops.secrets."pufferpanel/users/admin/email".path
       config.sops.secrets."pufferpanel/users/admin/password".path 

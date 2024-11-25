@@ -11,8 +11,7 @@
     #./mailserver.nix
     ./nextcloud.nix
     #./onlyoffice.nix
-    #./pufferpanel.nix
-    #./radicale.nix
+    ./radicale.nix
     #./vaultwarden.nix
   ];
 
@@ -38,8 +37,8 @@
       #mailserver.enable = true;
       nextcloud.enable = true;
       #onlyoffice.enable = true;
-      #pufferpanel.enable = true;
-      #radicale.enable = true;
+      radicale.enable = true;
+      #vaultwarden.enable = true;
     };
   };
 }
