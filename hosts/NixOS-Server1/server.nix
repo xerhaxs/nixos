@@ -28,6 +28,8 @@
       freshrss.enable = true;
       gitea.enable = true;
       invidious.enable = true;
+      lemmy.enable = true;
+      libreddit.enable = true;
     };
   };
 }

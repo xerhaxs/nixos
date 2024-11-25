@@ -15,6 +15,33 @@
   config = lib.mkIf config.nixos.server.fediverse.lemmy.enable {
     services.lemmy = {
       enable = true;
+      adminPasswordFile = config.sops.secrets."lemmy/users/admin/password".path;
+      ui = {
+        port = 8537;
+      };
+      settings = {
+        port = 8536;
+        captcha.enabled = false;
+      };
     };
+
+    services.nginx = {
+      virtualHosts = {
+        "lemmy.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:8537";
+          };
+        };
+      };
+    };
+
+    services.ddclient.domains = [
+      "lemmy.${config.nixos.server.network.nginx.domain}"
+    ];
   };
 }

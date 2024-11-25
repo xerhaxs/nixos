@@ -29,16 +29,16 @@
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
       collabora.enable = true;
-      #etesync.enable = true;
+      etesync.enable = true;
       firefoxsync.enable = true;
       #haos.enable = true;
       #homeassistant.enable = true;
       jellyfin.enable = true;
       #mailserver.enable = true;
       nextcloud.enable = true;
-      #onlyoffice.enable = true;
+      onlyoffice.enable = true;
       radicale.enable = true;
-      #vaultwarden.enable = true;
+      vaultwarden.enable = true;
     };
   };
 }

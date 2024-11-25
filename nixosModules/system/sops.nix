@@ -45,6 +45,8 @@
         "homeassistant/longitude" = { };
         "homeassistant/latitude" = { };
 
+        "lemmy/users/admin/password" = { };
+
         "mailserver/users/admin/email" = { };
         "mailserver/users/admin/password" = { };
         "mailserver/users/jf/email" = { };
