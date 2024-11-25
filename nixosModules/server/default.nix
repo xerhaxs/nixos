@@ -2,7 +2,7 @@
 
 {
   imports = [
-    #./fediverse
+    ./fediverse
     #./fileshare
     ./game
     ./home
@@ -23,7 +23,7 @@
 
   config = lib.mkIf config.nixos.server.enable {
     nixos.server = {
-      #fediverse.enable = true;
+      fediverse.enable = true;
       #fileshare.enable = true;
       game.enable = false;
       home.enable = true;
