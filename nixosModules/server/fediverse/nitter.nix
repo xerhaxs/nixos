@@ -19,9 +19,9 @@
       
       server = {
         hostname = "nitter.${config.nixos.server.network.nginx.domain}";
-        address = "127.0.0.1";
+        address = "0.0.0.0";
         port = 8970;
-        https = true;
+        https = false;
       };
 
       preferences = {

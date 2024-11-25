@@ -33,7 +33,7 @@
 
       settings = {
         listen = {
-          hostname = "0.0.0.0";
+          hostname = "localhost";
         };
         log = {
           level = "debug";
