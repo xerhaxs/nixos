@@ -30,6 +30,14 @@
       invidious.enable = true;
       lemmy.enable = true;
       libreddit.enable = true;
+      #mastodon.enable = true;
+      moneronode.enable = true;
+      murmur.enable = true;
+      nitter.enable = true;
+      peertube.enable = true;
+      pixelfed.enable = true;
+      searxng.enable = true;
+      teamspeak.enable = true;
     };
   };
 }

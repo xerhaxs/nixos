@@ -20,6 +20,7 @@
         port = 8537;
       };
       settings = {
+        hostname = "lemmy.m4rx.cc";
         port = 8536;
         captcha.enabled = false;
       };

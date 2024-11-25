@@ -21,6 +21,7 @@
       localDomain = "localhost";
       listenHttp = 9000;
       listenWeb = 443;
+      database.host = "localhost";
       #dataDirs [
       #  "/opt/peertube/storage"
       #  "/var/cache/peertube"

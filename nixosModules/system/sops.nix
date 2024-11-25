@@ -76,6 +76,8 @@
         "peertube/smtppassword" = { };
         "peertube/password" = { };
 
+        "pixelfed/password" = { };
+
         "pufferpanel/users/admin/email" = { };
         "pufferpanel/users/admin/password" = { };
 
