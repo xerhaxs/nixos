@@ -15,7 +15,7 @@
   config = lib.mkIf config.nixos.server.home.onlyoffice.enable {
     services.onlyoffice = {
       enable = true;
-      hostname = "onlyoffice.bitsync.icu";
+      hostname = "onlyoffice.${config.nixos.server.network.nginx.domain}";
       enableExampleServer = true;
       jwtSecretFile = null;
       examplePort = 8000;

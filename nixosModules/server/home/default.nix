@@ -2,8 +2,9 @@
 
 { 
   imports = [
+    ./collabora.nix
     #./etesync.nix
-    #./firefoxsync.nix
+    ./firefoxsync.nix
     #./haos.nix
     #./homeassistant.nix
     ./jellyfin.nix
@@ -28,8 +29,9 @@
 
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
+      collabora.enable = true;
       #etesync.enable = true;
-      #firefoxsync.enable = true;
+      firefoxsync.enable = true;
       #haos.enable = true;
       #homeassistant.enable = true;
       jellyfin.enable = true;

@@ -9,6 +9,8 @@
 
   nixos.server.home.nextcloud.enable = true;
 
+  nixos.server.home.collabora.enable = true;
+
   nixos.server.fediverse.invidious.enable = true;
 
   #nixos.server.fediverse.invidious.enable = true;

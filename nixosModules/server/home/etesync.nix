@@ -26,7 +26,7 @@
       openFirewall = false;
       
       settings = {
-        allowed_hosts.allowed_host1 = "etesync.bitsync.icu";
+        allowed_hosts.allowed_host1 = "etesync.${config.nixos.server.network.nginx.domain}";
         global = {
             name = "etebase";
             user = "etebase";

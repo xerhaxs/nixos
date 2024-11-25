@@ -19,7 +19,7 @@
   #    external_port = 443;
   #    host_binding = "127.0.0.1";
   #    nginx.enable = true;
-      domain = "invidious.bitsync.icu";
+      domain = "invidious.${config.nixos.server.network.nginx.domain}";
       settings = {
         https_only = true;
         hsts = true;

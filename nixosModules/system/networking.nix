@@ -109,7 +109,7 @@ in
         "10.75.0.1" = [ "fritz.box" ];
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
         "10.75.0.21" = [
-          #"collabora.m4rx.cc"
+          "collabora.m4rx.cc"
           "freshrss.m4rx.cc"
           "invidious.m4rx.cc"
           "jellyfin.m4rx.cc"
@@ -149,11 +149,11 @@ in
           "homeassistant.m4rx.cc"
         ];
         "10.75.0.186" = [
-          "collabora.m4rx.cc"
+          #"collabora.m4rx.cc"
           "filebrowser.m4rx.cc"
           #"jellyfin.m4rx.cc"
           "nas.m4rx.cc"
-          "nextcloud.m4rx.cc"
+          #"nextcloud.m4rx.cc"
           "syncthing.m4rx.cc"
           "truenas.m4rx.cc"
         ];

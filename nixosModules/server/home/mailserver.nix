@@ -23,8 +23,8 @@
   config = lib.mkIf config.nixos.server.home.mailserver.enable {
     mailserver = {
       enable = true;
-      fqdn = "mail.bitsync.icu";
-      domains = [ "bitsync.icu" ];
+      fqdn = "mail.${config.nixos.server.network.nginx.domain}";
+      domains = [ "${config.nixos.server.network.nginx.domain}" ];
 
       # A list of all login accounts. To create the password hashes, use
       # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
