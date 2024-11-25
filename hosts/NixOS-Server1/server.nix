@@ -11,6 +11,8 @@
 
   nixos.server.home.collabora.enable = true;
 
+  nixos.server.home.firefoxsync.enable = true;
+
   nixos.server.fediverse.invidious.enable = true;
 
   #nixos.server.fediverse.invidious.enable = true;
