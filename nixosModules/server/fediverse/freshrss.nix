@@ -24,7 +24,7 @@
       language = "de";
       dataDir = "/var/lib/freshrss";
       baseUrl = "http://freshrss.${config.nixos.server.network.nginx.domain}";
-      #virtualHost = "freshrss.${config.nixos.server.network.nginx.domain}";
+      virtualHost = "freshrss";
       database = {
         type = "sqlite";
         port = 3306;
