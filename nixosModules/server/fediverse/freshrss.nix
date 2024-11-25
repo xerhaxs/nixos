@@ -23,8 +23,8 @@
       passwordFile = config.sops.secrets."freshrss/users/defaultUser/password".path;
       language = "de";
       dataDir = "/var/lib/freshrss";
-      baseUrl = "https://freshrss.bitsync.icu";
-      virtualHost = "freshrss.bitsync.icu";
+      baseUrl = "https://${config.nixos.server.network.nginx.domain}";
+      virtualHost = "freshrss.${config.nixos.server.network.nginx.domain}";
       database = {
         type = "sqlite";
         port = 3306;
@@ -42,6 +42,9 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
+          locations."/" = {
+            proxyPass = "http://localhost:3306/";
+          };
         };
       };
     };
