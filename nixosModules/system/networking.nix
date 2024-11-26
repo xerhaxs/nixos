@@ -108,6 +108,33 @@ in
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
+        "10.75.0.20" = [
+          "collabora.m4rx.cc"
+          "filebrowser.m4rx.cc"
+          "freshrss.m4rx.cc"
+          "gitea.m4rx.cc"
+          "invidious.m4rx.cc"
+          "jellyfin.m4rx.cc"
+          "kuma.m4rx.cc"
+          #"lidarr.m4rx.cc"
+          "nas.m4rx.cc"
+          "nextcloud.m4rx.cc"
+          "portainer.m4rx.cc"
+          #"radarr.m4rx.cc"
+          #"readarr.m4rx.cc"
+          "rss.m4rx.cc"
+          "samba.m4rx.cc"
+          "search.m4rx.cc"
+          "searx.m4rx.cc"
+          "searxng.m4rx.cc"
+          #"sonarr.m4rx.cc"
+          "syncthing.m4rx.cc"
+          "truenas.m4rx.cc"
+          "uptime.m4rx.cc"
+          "vaultwarden.m4rx.cc"
+          "webdav.m4rx.cc"
+          "ytdl.m4rx.cc"
+        ];
         "10.75.0.21" = [
           "adguard.m4rx.cc"
           #"collabora.m4rx.cc"
@@ -142,7 +169,6 @@ in
           #"uptime.m4rx.cc"
           #"vaultwarden.m4rx.cc"
           #"webdav.m4rx.cc"
-          "ytdl.m4rx.cc"
         ];
         "10.75.0.22" = [
           #"bluemap.4rx.cc"
@@ -155,42 +181,17 @@ in
           #"testserver.m4rx.cc"
         ];
         "10.75.0.23" = [
-          #"lidarr.m4rx.cc"
+          "lidarr.m4rx.cc"
           "nzbget.m4rx.cc"
           "nzbhydra.m4rx.cc"
-          #"radarr.m4rx.cc"
-          #"readarr.m4rx.cc"
+          "radarr.m4rx.cc"
+          "readarr.m4rx.cc"
           "sabnzbd.m4rx.cc"
-          #"sonarr.m4rx.cc"
+          "sonarr.m4rx.cc"
         ];
         "10.75.0.25" = [ 
           "haos.m4rx.cc"
           "homeassistant.m4rx.cc"
-        ];
-        "10.75.0.186" = [
-          "collabora.m4rx.cc"
-          "filebrowser.m4rx.cc"
-          "freshrss.m4rx.cc"
-          "gitea.m4rx.cc"
-          "invidious.m4rx.cc"
-          "jellyfin.m4rx.cc"
-          "kuma.m4rx.cc"
-          "lidarr.m4rx.cc"
-          "nas.m4rx.cc"
-          "nextcloud.m4rx.cc"
-          "radarr.m4rx.cc"
-          "readarr.m4rx.cc"
-          "rss.m4rx.cc"
-          "samba.m4rx.cc"
-          "search.m4rx.cc"
-          "searx.m4rx.cc"
-          "searxng.m4rx.cc"
-          "sonarr.m4rx.cc"
-          "syncthing.m4rx.cc"
-          "truenas.m4rx.cc"
-          "uptime.m4rx.cc"
-          "vaultwarden.m4rx.cc"
-          "webdav.m4rx.cc"
         ];
       };
 

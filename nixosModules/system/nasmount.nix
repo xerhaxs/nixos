@@ -32,37 +32,37 @@ in
     };
 
     #fileSystems."/mount/document" = {
-    #  device = "10.75.0.186:/document";
+    #  device = "10.75.0.20:/document";
     #  fsType = "nfs";
     #  options = truenas-options;
     #};
     fileSystems."/mount/truenas/music" = {
-      device = "//10.75.0.186/music";
+      device = "//10.75.0.20/music";
       fsType = "cifs";
       options = truenas-options;
     };
     fileSystems."/mount/truenas/photo" = {
-      device = "//10.75.0.186/photo";
+      device = "//10.75.0.20/photo";
       fsType = "cifs";
       options = truenas-options;
     };
     fileSystems."/mount/truenas/video" = {
-      device = "//10.75.0.186/video";
+      device = "//10.75.0.20/video";
       fsType = "cifs";
       options = truenas-options;
     };
     fileSystems."/mount/truenas/jf" = {
-      device = "//10.75.0.186/jf";
+      device = "//10.75.0.20/jf";
       fsType = "cifs";
       options = truenas-options;
     };
     fileSystems."/mount/truenas/document" = {
-      device = "//10.75.0.186/document";
+      device = "//10.75.0.20/document";
       fsType = "cifs";
       options = truenas-options;
     };
     fileSystems."/mount/truenas/backup" = {
-      device = "//10.75.0.186/backup";
+      device = "//10.75.0.20/backup";
       fsType = "cifs";
       options = truenas-options;
     };
