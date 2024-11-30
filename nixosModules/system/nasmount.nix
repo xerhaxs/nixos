@@ -66,6 +66,11 @@ in
       fsType = "cifs";
       options = truenas-options;
     };
+    fileSystems."/mount/truenas/games" = {
+      device = "//10.75.0.20/games";
+      fsType = "cifs";
+      options = truenas-options;
+    };
 
     networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   };
