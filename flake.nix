@@ -88,7 +88,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Crafter/default.nix
@@ -102,7 +102,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
@@ -126,7 +126,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Framework/default.nix
@@ -140,7 +140,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Laptop/default.nix
@@ -154,7 +154,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Live/default.nix
@@ -168,7 +168,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server1/default.nix
@@ -182,7 +182,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server2/default.nix
@@ -196,7 +196,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server3/default.nix
@@ -210,7 +210,7 @@
         specialArgs = inputs;
 
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Test/default.nix
