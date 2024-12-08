@@ -16,5 +16,9 @@
     programs.adb = {
       enable = true;
     };
+
+    environment.systemPackages = [
+      pkgs.android-udev-rules
+    ];
   };
 }
