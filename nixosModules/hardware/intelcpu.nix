@@ -13,18 +13,18 @@
   };
 
   config = lib.mkIf config.nixos.hardware.intelcpu.enable {
-    #boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
+    boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
     boot.kernelModules = [ "kvm-intel" ];
-    #boot.initrd.availableKernelModules = [ "snd-hda-intel" ];
+    boot.initrd.availableKernelModules = [ "snd-hda-intel" ];
     
     hardware = {
-      #enableAllFirmware = true;
+      enableAllFirmware = true;
       enableRedistributableFirmware = true;
       cpu.intel.updateMicrocode = true;
     };
 
-    #environment.systemPackages = [
-    #  pkgs.microcodeIntel
-    #];
+    environment.systemPackages = [
+      pkgs.microcodeIntel
+    ];
   };
 }

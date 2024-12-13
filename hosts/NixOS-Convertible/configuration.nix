@@ -9,9 +9,9 @@
       defaultSession = "plasma";
       sddm.enable = lib.mkForce true;
     };
-    #windowManager = {
-    #  hyprland.enable = lib.mkForce true;
-    #};
+    windowManager = {
+      hyprland.enable = lib.mkForce true;
+    };
   };
 
   nixos.theme.catppuccin = {
@@ -21,7 +21,7 @@
 
   nixos.hardware = {
     intelcpu.enable = true;
-    #intelgpu.enable = true;
+    intelgpu.enable = true;
   };
 
   nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
