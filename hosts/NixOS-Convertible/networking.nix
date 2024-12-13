@@ -19,7 +19,7 @@
       #};
     #};
 
-    #useDHCP = lib.mkForce true;
+    useDHCP = lib.mkForce true;
 
     #wireless = {
     #  environmentFile = config.sops.secrets."wifi".path;
