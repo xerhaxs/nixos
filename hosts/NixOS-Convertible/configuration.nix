@@ -9,9 +9,9 @@
       defaultSession = "plasma";
       sddm.enable = lib.mkForce true;
     };
-    windowManager = {
-      hyprland.enable = lib.mkForce true;
-    };
+    #windowManager = {
+    #  hyprland.enable = lib.mkForce true;
+    #};
   };
 
   nixos.theme.catppuccin = {
