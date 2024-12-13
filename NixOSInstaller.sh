@@ -78,6 +78,7 @@ function_select_user_credentials() {
 # Function to set the host
 function_select_host() {
     CHOSEN_HOST=$(whiptail --nocancel --title "Host System" --menu "Chose which host system to install." 32 128 10 \
+		"NixOS-Convertible" "Configuration for Convertible" \
         "NixOS-Crafter" "Configuration for Workshop" \
         "NixOS-Desktop" "Configuration for Desktop PC" \
         "NixOS-Framework" "Configuration for Framework Laptop" \
