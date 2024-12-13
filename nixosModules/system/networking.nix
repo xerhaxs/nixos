@@ -3,7 +3,7 @@
 let
   StevenBlack = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    hash = "sha256-JvFY0lv+XCTOsSK3bJi3bEQGdbFEYdCUaH23KVXSMjU="; #sha256 lib.fakeSha256;
+    hash = "sha256-xlCIVoLhDSGsrmoQL70A4WEGbIriPnLhx5noRwYQLhQ="; #sha256 lib.fakeSha256;
   };
 
   malware = pkgs.fetchurl {
