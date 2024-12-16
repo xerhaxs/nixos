@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./linux-wallpaperengine
+    #./linux-wallpaperengine.nix
     ./wallpaper-engine-kde-plugin.nix
   ];
 
@@ -19,6 +19,7 @@
 
   config = lib.mkIf config.nixos.pkgs.enable {
     nixos.pkgs = {
+      #linux-wallpaperengine.enable = true;
       wallpaper-engine-kde-plugin.enable = false;
     };
   };
