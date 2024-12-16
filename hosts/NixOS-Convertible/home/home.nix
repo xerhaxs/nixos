@@ -2,5 +2,6 @@
 
 {
   homeManager.applications.enable = lib.mkForce true;
-  homeManager.desktop.enable = lib.mkForce false;
+  homeManager.desktop.desktopEnvironment.enable = lib.mkForce false;
+  homeManager.desktop.windowManager.enable = lib.mkForce false;
 }
