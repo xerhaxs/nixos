@@ -24,7 +24,21 @@
     intelgpu.enable = true;
   };
 
-  nixos.system.powermanagement.enable = lib.mkForce false;
+  nixos.system = {
+    audio.enable = lib.mkForce false;
+    powermanagement.enable = lib.mkForce false;
+  };
+
+  nixos.io = {
+    bluetooth.enable = lib.mkForce false;
+    input.enable = lib.mkForce false;
+    razer.enable = lib.mkForce false;
+  };
+
+  nixos.hardware = {
+    corectrl.enable = lib.mkForce false;
+    openrgb.enable = lib.mkForce false;
+  };
 
   nixos.system.user.defaultuser = {
     name = "jf";
