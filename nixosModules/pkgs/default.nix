@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./linux-wallpaperengine.nix
+    #./linux-wallpaperengine.nix
     ./wallpaper-engine-kde-plugin.nix
   ];
 
