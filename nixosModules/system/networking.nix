@@ -103,7 +103,7 @@ in
 
       enableIPv6 = true;
 
-      useDHCP = true;
+      useDHCP = false;
 
       hosts = {
         "10.75.0.1" = [ "fritz.box" ];
