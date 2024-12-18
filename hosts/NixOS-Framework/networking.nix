@@ -18,8 +18,8 @@
       };
     };
 
-    defaultGateway.interface = "enp5s0";
-    defaultGateway6.interface = "enp5s0";
+    defaultGateway.interface = "eth0";
+    defaultGateway6.interface = "eth0";
 
     #wireless = {
     #  environmentFile = config.sops.secrets."wifi".path;
