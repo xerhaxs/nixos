@@ -18,8 +18,7 @@
       };
     };
 
-    useDHCP = lib.mkForce false;
-
-    defaultGateway = "10.75.0.1";
+    defaultGateway.interface = "enp5s0";
+    defaultGateway6.interface = "enp5s0";
   };
 }
