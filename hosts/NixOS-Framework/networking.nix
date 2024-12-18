@@ -5,21 +5,21 @@
   
     hostName = "NixOS-Framework";
       
-    #interfaces = {
-      #eth0 = {
-        #useDHCP = true;
-        #ipv4.addresses = [ {
-        #  address = "10.75.0.40";
-        #  prefixLength = 24;
+    interfaces = {  
+      eth0 = {
+        ipv4.addresses = [ {
+          address = "10.75.0.85";
+          prefixLength = 24;
+        } ];
+        #ipv6.addresses = [ {
+        #  address = "2001:16b8:a400:cc00:80e6:a492:a930:d14c";
+        #  prefixLength = 64;
         #} ];
-      #};
+      };
+    };
 
-      #wlp1s0 = {
-      #  useDHCP = true;
-      #};
-    #};
-
-    useDHCP = lib.mkForce true;
+    defaultGateway.interface = "enp5s0";
+    defaultGateway6.interface = "enp5s0";
 
     #wireless = {
     #  environmentFile = config.sops.secrets."wifi".path;

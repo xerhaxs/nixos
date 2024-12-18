@@ -31,8 +31,8 @@ let
     "text/plain" = editor;
     "text/markdown"= editor;
     "text/html" = editor;
-    "audio/*" = mediaplayer;
-    "video/*" = mediaplayer;
+    "audio/*" = musicplayer;
+    "video/*" = videoplayer;
     "image/*" = imageviewer;
     "application/json" = browser;
     "application/pdf" = pdfviewer;

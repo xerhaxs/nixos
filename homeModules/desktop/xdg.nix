@@ -17,11 +17,11 @@
       enable = true;
       cacheHome = config.home.homeDirectory + "/.local/cache";
 
-      mimeApps = {
-        enable = true;
-        defaultApplications = osConfig.xdg.mime.defaultApplications;
-        associations.added = osConfig.xdg.mime.addedAssociations;
-      };
+      #mimeApps = {
+      #  enable = true;
+      #  defaultApplications = osConfig.xdg.mime.defaultApplications;
+      #  associations.added = osConfig.xdg.mime.addedAssociations;
+      #};
 
       userDirs = {
         enable = true;
