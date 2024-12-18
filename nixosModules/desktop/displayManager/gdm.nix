@@ -17,7 +17,7 @@
       displayManager = {
         gdm = {
           enable = true;
-          banner = "Hello World!";
+          #banner = "Hello World!";
           wayland = true;
           autoSuspend = true;
           #settings = {};

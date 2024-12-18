@@ -7,10 +7,11 @@
     };
     displayManager = {
       defaultSession = "plasma";
-      sddm.enable = lib.mkForce true;
+      sddm.enable = lib.mkForce false;
+      gdm.enable = lib.mkForce true;
     };
     windowManager = {
-      hyprland.enable = lib.mkForce false;
+      hyprland.enable = lib.mkForce true;
     };
   };
 
