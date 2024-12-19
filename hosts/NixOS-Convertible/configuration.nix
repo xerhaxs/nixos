@@ -8,7 +8,6 @@
     displayManager = {
       defaultSession = "plasma";
       sddm.enable = lib.mkForce true;
-      gdm.enable = lib.mkForce false;
     };
     windowManager = {
       hyprland.enable = lib.mkForce true;

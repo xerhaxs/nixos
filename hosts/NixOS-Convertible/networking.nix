@@ -21,8 +21,6 @@
     defaultGateway.interface = "eth0";
     defaultGateway6.interface = "eth0";
 
-    #useDHCP = lib.mkForce true;
-
     #wireless = {
     #  environmentFile = config.sops.secrets."wifi".path;
     #  networks = {
