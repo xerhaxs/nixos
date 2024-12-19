@@ -19,7 +19,7 @@
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
     programs.plasma = {
       enable = true;
-      overrideConfig = false;
+      overrideConfig = true;
 
       workspace = {
         clickItemTo = "select";

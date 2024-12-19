@@ -7,7 +7,7 @@ let
   mediaplayer = [ "mpv.desktop;" ];
   videoplayer = [ "mpv.desktop;" ];
   musicplayer = [ "mpv.desktop;" ];
-  pdfviewer = [ "org.kde.okular.desktop"; ];
+  pdfviewer = [ "org.kde.okular.desktop;" ];
   imageviewer = [ "org.kde.gwenview.desktop;" ];
   editor = [ "org.kde.kate.desktop;" ];
   freetube = [ "freetube.desktop;" ];

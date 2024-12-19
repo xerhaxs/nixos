@@ -23,6 +23,8 @@
         associations.added = osConfig.xdg.mime.addedAssociations;
       };
 
+      configFile."mimeapps.list" = lib.mkIf config.xdg.mimeApps.enable { force = true; };
+
       userDirs = {
         enable = true;
         createDirectories = true;
