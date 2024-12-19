@@ -1,18 +1,18 @@
 { config, lib, pkgs, ... }:
 
 let
-  browser = [ "firefox.desktop" ];
-  chrome = [ "brave-browser.desktop" ];
-  filemanager = [ "org.kde.dolphin.desktop"] ;
-  mediaplayer = [ "mpv.desktop" ];
-  videoplayer = [ "mpv.desktop" ];
-  musicplayer = [ "mpv.desktop" ];
-  pdfviewer = [ "org.kde.okular.desktop" ];
-  imageviewer = [ "org.kde.gwenview.desktop" ];
-  editor = [ "org.kde.kate.desktop" ];
-  freetube = [ "freetube.desktop" ];
-  signal = [ "signal-desktop.desktop" ];
-  discord = [ "com.discordapp.Discord.desktop" ];
+  browser = [ "firefox.desktop;" ];
+  chrome = [ "brave-browser.desktop;" ];
+  filemanager = [ "org.kde.dolphin.desktop;"] ;
+  mediaplayer = [ "mpv.desktop;" ];
+  videoplayer = [ "mpv.desktop;" ];
+  musicplayer = [ "mpv.desktop;" ];
+  pdfviewer = [ "org.kde.okular.desktop"; ];
+  imageviewer = [ "org.kde.gwenview.desktop;" ];
+  editor = [ "org.kde.kate.desktop;" ];
+  freetube = [ "freetube.desktop;" ];
+  signal = [ "signal-desktop.desktop;" ];
+  discord = [ "com.discordapp.Discord.desktop;" ];
 
   associations = {
     "application/x-extension-htm" = browser;
