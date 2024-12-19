@@ -20,6 +20,7 @@
 
     home.packages = with pkgs; [
       nextcloud-client
+      nextcloud-talk-desktop
     ];
   };
 }
