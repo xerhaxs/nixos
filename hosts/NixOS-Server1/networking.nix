@@ -18,8 +18,6 @@
       };
     };
 
-    useDHCP = lib.mkForce false;
-
     hosts = {
       "127.0.0.1" = lib.mkDefault [
         "collabora.m4rx.cc"
