@@ -19,10 +19,10 @@
     flavor = "Mocha";
   };
 
-  #nixos.hardware = {
-  #  intelcpu.enable = true;
-  #  intelgpu.enable = true;
-  #};
+  nixos.hardware = {
+    intelcpu.enable = true;
+    intelgpu.enable = true;
+  };
 
   nixos.system = {
     powermanagement.enable = lib.mkForce false;
