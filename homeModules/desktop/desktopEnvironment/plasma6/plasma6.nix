@@ -130,7 +130,7 @@
                   "applications:codium.desktop"
                   "applications:signal-desktop.desktop"
                   "applications:org.telegram.desktop.desktop"
-                  "applications:com.github.xeco23.WasIstLos"
+                  "applications:com.github.xeco23.WasIstLos.desktop"
                   "applications:legcord.desktop"
                   "applications:org.kde.kmymoney.desktop"
                   "applications:org.kde.kile.desktop"
@@ -146,7 +146,8 @@
                   "applications:org.prismlauncher.PrismLauncher.desktop"
                   "applications:com.heroicgameslauncher.hgl.desktop"
                   "applications:steam.desktop"
-                  "applications:mullvad-vpn.desktop"
+                  #"applications:mullvad-vpn.desktop"
+                  "applications:protonvpn-app.desktop"
                 ];
               };
             }
