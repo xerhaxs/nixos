@@ -21,6 +21,10 @@
 
   services.mullvad-vpn.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    protonvpn-cli
+  ];
+
   users.groups.truenas = {
     members = [
       "lidarr"
