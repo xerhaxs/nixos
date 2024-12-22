@@ -22,7 +22,7 @@
   services.mullvad-vpn.enable = true;
 
   environment.systemPackages = with pkgs; [
-    protonvpn-cli
+    protonvpn-gui
     mullvad
   ];
 
