@@ -39,6 +39,7 @@
       name = "${config.nixos.system.user.defaultuser.name}";
       isNormalUser = true;
       group = "users";
+      createHome = true;
       home = "/home/${config.nixos.system.user.defaultuser.name}";
       description = "${config.nixos.system.user.defaultuser.name}";
       extraGroups = [

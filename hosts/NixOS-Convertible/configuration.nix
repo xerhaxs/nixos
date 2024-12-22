@@ -37,7 +37,7 @@
 
   nixos.system.user.defaultuser = {
     name = "jf";
-    pass = "$y$j9T$78ZJbkD949MLi7rdkwu6p0$lWZLpYlDMOF3By4TWffCfrSftRJDfekrkAVU8I5KUP3";
+    pass = "$y$j9T$S9GUmOvHiLeQKWHtuGIMx0$.AHr5Ej3c.Bq/AYHO5Yp5T8/21LI81CdaxEm.q/GJg/";
   };
 
   nixos.userEnvironment.enable = lib.mkForce true;
