@@ -7,7 +7,7 @@
 
   nixos.server.network.ddclient.enable = true;
 
-  #nixos.server.usenet.enable = true;
+  nixos.server.usenet.enable = false;
 
   nixos.server.usenet = {
     lidarr.enable = false;
