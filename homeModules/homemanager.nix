@@ -9,6 +9,8 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
+    #backupFileExtension = "hm-conflict.bck";
+
     extraSpecialArgs = specialArgs;
 
     users.${config.nixos.system.user.defaultuser.name} = import ./default.nix;

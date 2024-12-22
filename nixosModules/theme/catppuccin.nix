@@ -6,7 +6,7 @@ let
       owner = "catppuccin";
       repo = "grub";
       rev = "main"; # commit hash or tag
-      sha256 = "sha256-bDw+W69jeSiE1VBdQqqaeZf7OqCN7q5XYJ5+94PILXE="; #sha256 = lib.fakeSha256;
+      sha256 = "sha256-20D1EcV8SWOd5BLdAc6FaQu3onha0+aS5yA/GK8Ra0g="; #sha256 = lib.fakeSha256;
     };
 
     obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/obs-studio/themes";
@@ -133,6 +133,10 @@ in
 
       path = with pkgs; [ curl ];
     };
+
+    system.activationScripts.deleteGtkrc = ''
+      rm -f /home/jf/.config/gtk-2.0/gtkrc
+    '';
 
     environment.systemPackages = with pkgs; [
       papirus-icon-theme

@@ -29,7 +29,7 @@ in
     };
   };
 
-  config = lib.mkIf (osConfig.nixos.theme.catppuccin.enable && osConfig.nixos.theme.theme.colorscheme == "catppuccin") {
+  config = lib.mkIf (osConfig.nixos.theme.catppuccin.enable && osConfig.nixos.theme.theme.colorscheme == "catppuccin") {   
     catppuccin.flavor = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}";
 
     #colorScheme = nix-colors.lib.schemeFromYAML "catppuccin-frappe" (catppuccin-base16/frappe);
@@ -66,7 +66,7 @@ in
     gtk = {
       enable = true;
       theme = {
-        name = lib.strings.toLower "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}-${osConfig.nixos.theme.catppuccin.prefer}+normal";
+        name = lib.strings.toLower "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}-${osConfig.nixos.theme.catppuccin.size}+normal";
         package = pkgs.catppuccin-gtk.override {
           accents = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.accent}" ];
           size = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.size}";
@@ -89,12 +89,12 @@ in
       gtk2 = {
         configLocation = "${config.home.homeDirectory}/.config/gtk-2.0/gtkrc";
         extraConfig = ''
-          gtk-enable-animations = 1
-          gtk-primary-button-warps-slider = 1
-          gtk-toolbar-style = 3
-          gtk-menu-images = 1
-          gtk-button-images = 1
-          gtk-sound-theme-name = "ocean"
+          gtk-enable-animations=1
+          gtk-primary-button-warps-slider=1
+          gtk-toolbar-style=3
+          gtk-menu-images=1
+          gtk-button-images=1
+          gtk-sound-theme-name="ocean"
         '';
       };
 
