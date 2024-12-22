@@ -32,7 +32,7 @@
       #normcap
       #onlyoffice-bin
       rnote
-      #xournalpp
+      xournalpp
     ];
   };
 }

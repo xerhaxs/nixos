@@ -196,7 +196,7 @@ in
     services.displayManager.sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
       catppuccin = {
         enable = true;
-        font = "DejaVu Sans";
+        font = "Noto Sans";
         background = "https://wallpapercave.com/wp/wp6058967.jpg";
         loginBackground = true;
       };

@@ -23,9 +23,9 @@
         subpixel.rgba = "rgb";
         defaultFonts = {
           emoji = [ "openmoji-color" "Noto Color Emoji" ];
-          serif = [ "DejaVu Serif" ];
-          sansSerif = [ "DejaVu Sans" ];
-          monospace = [ "Nerd Font" "DejaVu Sans Mono" ];
+          serif = [ "Noto Serif" ];
+          sansSerif = [ "Noto Sans" ];
+          monospace = [ "Nerd Font" "Noto Sans Mono" ];
         };
       };
       packages = with pkgs; [

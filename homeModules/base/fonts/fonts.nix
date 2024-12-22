@@ -16,7 +16,7 @@
     fonts.fontconfig.enable = true;
 
     gtk.font = {
-      name = "DejaVu Sans";
+      name = "Noto Sans";
       package = pkgs.dejavu_fonts;
       size = 10;
     };
