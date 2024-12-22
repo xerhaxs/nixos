@@ -23,6 +23,7 @@
 
   environment.systemPackages = with pkgs; [
     protonvpn-cli
+    mullvad
   ];
 
   users.groups.truenas = {
@@ -34,8 +35,4 @@
       "nzbget"
     ];
   };
-
-  environment.systemPackages = [
-    pkgs.mullvad
-  ];
 }

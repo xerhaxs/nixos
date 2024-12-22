@@ -24,7 +24,7 @@
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/52338778943_9704c200b4_o.png";
+        wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/The Witcher/21-9/cropped-3840-1600-608887.jpg";
       };
 
       windows = {
