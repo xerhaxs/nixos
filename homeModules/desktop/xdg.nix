@@ -16,7 +16,10 @@
     xdg = {
       enable = true;
       cacheHome = config.home.homeDirectory + "/.local/cache";
-
+      dataHome = config.home.homeDirectory + "/.local/share";
+      configHome = config.home.homeDirectory + "/.config";
+      stateHome = config.home.homeDirectory + "/.local/state";
+      
       mimeApps = {
         enable = true;
         defaultApplications = osConfig.xdg.mime.defaultApplications;
@@ -26,7 +29,7 @@
       #configFile."mimeapps.list".enable = false;
       #dataFile."applications/mimeapps.list".force = true;
 
-      configFile."mimeapps.list" = lib.mkIf config.xdg.mimeApps.enable { force = true; };
+      #configFile."mimeapps.list" = lib.mkIf config.xdg.mimeApps.enable { force = true; };
 
       userDirs = {
         enable = true;
