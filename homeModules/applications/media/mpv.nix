@@ -15,7 +15,6 @@
   config = lib.mkIf config.homeManager.applications.media.mpv.enable {
     programs.mpv = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable false; # to have black bars next to the player
       config = {
         profile = "gpu-hq";
         force-window = true;
@@ -27,6 +26,8 @@
         mpvScripts.dynamic-crop
       ];
     };
+
+    catppuccin.mpv.enable = lib.mkIf config.homeManager.theme.catppuccin.enable false; # to have black bars next to the player
   };
 }
 

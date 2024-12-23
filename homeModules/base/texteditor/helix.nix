@@ -15,9 +15,10 @@
   config = lib.mkIf config.homeManager.base.texteditor.helix.enable {
     programs.helix = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       #settings = { };
       #languages = { };
     };
+
+    catppuccin.helix.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

@@ -15,7 +15,6 @@
 
     nix-colors = {
       url = "github:misterio77/nix-colors";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {
@@ -40,7 +39,6 @@
 
     catppuccin = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
@@ -50,7 +48,6 @@
     
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-minecraft = {
@@ -65,7 +62,7 @@
     };
 
     flatpaks = {
-      url = "github:GermanBread/declarative-flatpak/stable-v3";
+      url = "github:GermanBread/declarative-flatpak/dev";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

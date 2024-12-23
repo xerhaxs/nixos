@@ -15,9 +15,10 @@
   config = lib.mkIf config.homeManager.applications.terminal.kitty.enable {
     programs.kitty = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       shellIntegration.enableBashIntegration = true;
       #settings = {};
     };
+
+    catppuccin.kitty.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

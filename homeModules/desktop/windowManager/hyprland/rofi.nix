@@ -16,7 +16,6 @@
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       #terminal = pkgs.kitty;
 
       plugins = with pkgs; [
@@ -43,5 +42,7 @@
       #  sidebar-mode = true;
       #};
     };
+
+    catppuccin.rofi.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

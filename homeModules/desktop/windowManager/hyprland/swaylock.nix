@@ -15,10 +15,11 @@
   config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.swaylock.enable {  
     programs.swaylock = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       settings = {
         show-failed-attempts = true;
       };
     };
+
+    catppuccin.swaylock.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

@@ -94,7 +94,18 @@ in
   };
 
   config = lib.mkIf (config.nixos.theme.catppuccin.enable && config.nixos.theme.theme.colorscheme == "catppuccin") {
-    catppuccin.flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+    catppuccin = {
+      flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+
+      sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
+        enable = true;
+        font = "Noto Sans";
+        background = "https://wallpapercave.com/wp/wp6058967.jpg";
+        loginBackground = true;
+      };
+    
+      tty.enable = lib.mkIf config.nixos.base.shell.console.enable true;
+    };
     
     nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";
 
@@ -196,18 +207,5 @@ in
     };
 
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + lib.strings.toLower "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
-
-    services.displayManager.sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
-      catppuccin = {
-        enable = true;
-        font = "Noto Sans";
-        background = "https://wallpapercave.com/wp/wp6058967.jpg";
-        loginBackground = true;
-      };
-    };
-
-    console = lib.mkIf config.nixos.base.shell.console.enable {
-      catppuccin.enable = true;
-    };
   };
 }

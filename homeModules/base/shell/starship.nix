@@ -16,8 +16,9 @@
     programs.starship = {
       enable = true;
       enableBashIntegration = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       #settings = { };
     };
+
+    catppuccin.starship.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

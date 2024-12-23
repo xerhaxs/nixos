@@ -2,7 +2,7 @@
 
 {
   imports = [
-    flatpaks.homeManagerModules.default
+    flatpaks.homeManagerModules.declarative-flatpak
   ];
 
   options.homeManager = {

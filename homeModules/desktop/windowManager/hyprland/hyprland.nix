@@ -15,7 +15,6 @@
   config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.hyprland.enable {  
     wayland.windowManager.hyprland = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       xwayland.enable = true;
       sourceFirst = true;
       systemd.enable = true;
@@ -226,6 +225,8 @@
 
       plugins = [];
     };
+
+    catppuccin.hyprland.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }
 
