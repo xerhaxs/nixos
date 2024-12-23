@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
 # Check whether the script is executed with root privileges
-if [ "$(id -u)" != "0" ]; then
-    echo "The script requires root privileges to run."
-    exit 1
-fi
+#if [ "$(id -u)" != "0" ]; then
+#    echo "The script requires root privileges to run."
+#    exit 1
+#fi
 
 # Simple NixOS installation script
 sudo nix-env -iA nixos.newt nixos.openssl
