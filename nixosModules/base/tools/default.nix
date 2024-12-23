@@ -29,11 +29,11 @@
       android.enable = true;
       common.enable = true;
       git.enable = true;
-      htop.enable = false;
+      htop.enable = true;
       java.enable = false;
-      keepassxc.enable = false;
+      keepassxc.enable = true;
       #openvpn-client.enable = true;
-      usbtop.enable = false;
+      usbtop.enable = true;
       #wireguard-client.enable = true;
     };
   };
