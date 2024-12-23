@@ -7,7 +7,7 @@
     ./git.nix
     ./htop.nix
     ./java.nix
-    ./keepassxc.nix
+    #./keepassxc.nix
     ./openvpn-client.nix
     ./usbtop.nix
     ./wireguard-client.nix
@@ -31,7 +31,7 @@
       git.enable = true;
       htop.enable = true;
       java.enable = true;
-      keepassxc.enable = true;
+      #keepassxc.enable = true;
       #openvpn-client.enable = true;
       usbtop.enable = true;
       #wireguard-client.enable = true;
