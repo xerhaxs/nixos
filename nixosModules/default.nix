@@ -3,16 +3,16 @@
 {
   imports = [
     ./base
-    ./desktop
+    #./desktop
     ./disko
     ./hardware
-    ./io
-    ./pkgs
+    #./io
+    #./pkgs
     ./server
     ./system
     ./theme
-    #./userEnvironment
-    #./virtualisation
+    ./userEnvironment
+    ./virtualisation
   ];
 
   options.nixos = {
@@ -29,11 +29,11 @@
   config = lib.mkIf config.nixos.nixosModules.enable {
     nixos = {
       base.enable = true;
-      desktop.enable = true;
+      #desktop.enable = true;
       disko.enable = false;
       hardware.enable = false;
-      io.enable = true;
-      pkgs.enable = true;
+      #io.enable = true;
+      #pkgs.enable = true;
       server.enable = false;
       system.enable = true;
       theme.enable = true;
