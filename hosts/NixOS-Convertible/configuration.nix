@@ -1,18 +1,18 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.desktop = {
-    desktopEnvironment = {
-      plasma6.enable = lib.mkForce true;
-    };
-    displayManager = {
-      defaultSession = "plasma";
-      sddm.enable = lib.mkForce true;
-    };
-    windowManager = {
-      hyprland.enable = lib.mkForce true;
-    };
-  };
+  #nixos.desktop = {
+  #  desktopEnvironment = {
+  #    plasma6.enable = lib.mkForce true;
+  #  };
+  #  displayManager = {
+  #    defaultSession = "plasma";
+  #    sddm.enable = lib.mkForce true;
+  #  };
+  #  windowManager = {
+  #    hyprland.enable = lib.mkForce true;
+  #  };
+  #};
 
   nixos.theme.catppuccin = {
     accent = "Mauve";
