@@ -11,8 +11,8 @@
     ./server
     ./system
     ./theme
-    ./userEnvironment
-    ./virtualisation
+    #./userEnvironment
+    #./virtualisation
   ];
 
   options.nixos = {
