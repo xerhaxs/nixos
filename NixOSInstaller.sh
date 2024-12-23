@@ -132,7 +132,7 @@ chown root:root /mnt/root/keyfile.key
 
 nixos-generate-config --root /mnt
 #nixos-install --no-root-passwd
-nixos-install --no-root-passwd --impure --keep-going --flake $INSTALLATION_TARGET
+nixos-install --no-root-passwd --impure --keep-going --flake $INSTALLATION_TARGET --accept-flake-config
 
 PASSWORD="";
 PASSWORD_CHECK="";
