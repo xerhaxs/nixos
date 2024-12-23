@@ -7,9 +7,9 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # Simple NixOS installation script
-nix-env -iA nixos.newt nixos.openssl
+sudo nix-env -iA nixos.newt nixos.openssl
 
-loadkeys de
+sudo loadkeys de
 
 ## Function to detect and set a password
 function_password() {
@@ -110,29 +110,29 @@ function_select_host
 ## Wipe the disk
 if [[ $WIPE = true ]]; then
 	echo "Wiping disk..."
-	dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
+	sudo dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
 fi
 
 # Create keyfile for encryption without password
-openssl genrsa -out /tmp/keyfile.key 4096
+sudo openssl genrsa -out /tmp/keyfile.key 4096
 
-echo -n "$DISKPASS" > /tmp/secret.key
+sudo echo -n "$DISKPASS" > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos/main#$CHOSEN_HOST"
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
 
-mkdir /mnt/root
+sudo mkdir /mnt/root
 
-mv /tmp/secret.key /mnt/root/secret.key
-chmod -v 0400 /mnt/root/secret.key
-chown root:root /mnt/root/secret.key
+sudo mv /tmp/secret.key /mnt/root/secret.key
+sudo chmod -v 0400 /mnt/root/secret.key
+sudo chown root:root /mnt/root/secret.key
 
-mv /tmp/keyfile.key /mnt/root/keyfile.key
-chmod -v 0400 /mnt/root/keyfile.key
-chown root:root /mnt/root/keyfile.key
+sudo mv /tmp/keyfile.key /mnt/root/keyfile.key
+sudo chmod -v 0400 /mnt/root/keyfile.key
+sudo chown root:root /mnt/root/keyfile.key
 
-nixos-generate-config --root /mnt
-#nixos-install --no-root-passwd
-nixos-install --no-root-passwd --impure --keep-going --flake $INSTALLATION_TARGET
+sudo nixos-generate-config --root /mnt
+#sudo nixos-install --no-root-passwd
+sudo nixos-install --no-root-passwd --impure --keep-going --flake $INSTALLATION_TARGET
 
 PASSWORD="";
 PASSWORD_CHECK="";
