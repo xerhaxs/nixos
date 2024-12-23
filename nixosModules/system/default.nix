@@ -15,7 +15,7 @@
     ./mount.nix
     ./nasmount.nix
     ./networking.nix
-    #./nh.nix
+    ./nh.nix
     ./nixos.nix
     ./nixosvm.nix
     ./powermanagement.nix
@@ -52,7 +52,7 @@
       mount.enable = true;
       nasmount.enable = true;
       networking.enable = true;
-      #nh.enable = true;
+      nh.enable = true;
       nixos.enable = true;
       nixosvm.enable = true;
       powermanagement.enable = true;
