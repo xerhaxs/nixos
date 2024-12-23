@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
 # Check whether the script is executed with root privileges
-#if [ "$(id -u)" != "0" ]; then
-#    echo "The script requires root privileges to run."
-#    exit 1
-#fi
+if [ "$(id -u)" != "0" ]; then
+    echo "The script requires root privileges to run."
+    exit 1
+fi
 
 # Simple NixOS installation script
-sudo nix-env -iA nixos.newt nixos.openssl
+nix-env -iA nixos.newt nixos.openssl
 
-sudo loadkeys de
+loadkeys de
 
 ## Function to detect and set a password
 function_password() {
@@ -110,29 +110,29 @@ function_select_host
 ## Wipe the disk
 if [[ $WIPE = true ]]; then
 	echo "Wiping disk..."
-	sudo dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
+	dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
 fi
 
 # Create keyfile for encryption without password
-sudo openssl genrsa -out /tmp/keyfile.key 4096
+openssl genrsa -out /tmp/keyfile.key 4096
 
-sudo echo -n "$DISKPASS" > /tmp/secret.key
+echo -n "$DISKPASS" > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos/main#$CHOSEN_HOST"
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
 
-sudo mkdir /mnt/root
+mkdir /mnt/root
 
-sudo mv /tmp/secret.key /mnt/root/secret.key
-sudo chmod -v 0400 /mnt/root/secret.key
-sudo chown root:root /mnt/root/secret.key
+mv /tmp/secret.key /mnt/root/secret.key
+chmod -v 0400 /mnt/root/secret.key
+chown root:root /mnt/root/secret.key
 
-sudo mv /tmp/keyfile.key /mnt/root/keyfile.key
-sudo chmod -v 0400 /mnt/root/keyfile.key
-sudo chown root:root /mnt/root/keyfile.key
+mv /tmp/keyfile.key /mnt/root/keyfile.key
+chmod -v 0400 /mnt/root/keyfile.key
+chown root:root /mnt/root/keyfile.key
 
-sudo nixos-generate-config --root /mnt
-#sudo nixos-install --no-root-passwd
-sudo nixos-install --no-root-passwd --impure --keep-going --flake $INSTALLATION_TARGET
+nixos-generate-config --root /mnt
+#nixos-install --no-root-passwd
+nixos-install --no-root-passwd --impure --keep-going --flake $INSTALLATION_TARGET
 
 PASSWORD="";
 PASSWORD_CHECK="";
