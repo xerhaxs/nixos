@@ -89,7 +89,7 @@
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Convertible/default.nix
-          ./homeModules/homemanager.nix
+          #./homeModules/homemanager.nix
         ];
       };
 

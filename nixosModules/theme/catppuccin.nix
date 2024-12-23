@@ -145,9 +145,9 @@ in
       path = with pkgs; [ curl ];
     };
 
-    #system.activationScripts.deleteGtkrc = ''
-    #  rm -f /home/jf/.config/gtk-2.0/gtkrc
-    #'';
+    system.activationScripts.deleteGtkrc = ''
+      rm -f /home/jf/.config/gtk-2.0/gtkrc
+    '';
 
     environment.systemPackages = with pkgs; [
       papirus-icon-theme
