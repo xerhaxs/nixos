@@ -14,9 +14,9 @@
 
   config = lib.mkIf config.homeManager.applications.development.jetbrains.enable {
     home.packages = with pkgs; [
-      jetbrains.idea-community
-      jetbrains.pycharm-community
-      jetbrains.rider
+      #jetbrains.idea-community
+      #jetbrains.pycharm-community
+      #jetbrains.rider
       #jetbrains.clion
       #jetbrains.rust-rover
       #jetbrains.aqua

@@ -17,6 +17,7 @@
       blender-hip
       #cura
       #curaengine
+      curaengine_stable
     ];
   };
 }
