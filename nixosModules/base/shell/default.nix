@@ -22,10 +22,10 @@
 
   config = lib.mkIf config.nixos.base.shell.enable {
     nixos.base.shell = {
-      bash.enable = true;
-      console.enable = true;
-      fish.enable = false;
-      tmux.enable = true;
+      bash.enable = false; #
+      console.enable = false; #
+      fish.enable = false; 
+      tmux.enable = false; #
       zsh.enable = false;
     };
   };

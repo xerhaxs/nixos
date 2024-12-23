@@ -28,17 +28,17 @@
 
   config = lib.mkIf config.nixos.nixosModules.enable {
     nixos = {
-      base.enable = false;
-      desktop.enable = false;
+      base.enable = true;
+      desktop.enable = true;
       disko.enable = true;
-      hardware.enable = false;
-      io.enable = false;
-      pkgs.enable = false;
+      hardware.enable = true;
+      io.enable = true;
+      pkgs.enable = true;
       server.enable = false;
       system.enable = true;
-      theme.enable = false;
+      theme.enable = true;
       userEnvironment.enable = false;
-      virtualisation.enable = false;
+      virtualisation.enable = true;
     };
   };
 }
