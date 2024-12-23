@@ -28,7 +28,7 @@
 
   config = lib.mkIf config.nixos.nixosModules.enable {
     nixos = {
-      base.enable = true;
+      base.enable = false;
       desktop.enable = false;
       disko.enable = false;
       hardware.enable = false;
