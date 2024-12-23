@@ -30,8 +30,8 @@
       common.enable = true;
       git.enable = true;
       htop.enable = true;
-      java.enable = false;
-      keepassxc.enable = true;
+      java.enable = true;
+      keepassxc.enable = false;
       #openvpn-client.enable = true;
       usbtop.enable = true;
       #wireguard-client.enable = true;
