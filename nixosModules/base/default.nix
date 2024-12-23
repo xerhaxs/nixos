@@ -21,8 +21,8 @@
   config = lib.mkIf config.nixos.base.enable {
     nixos.base = {
       shell.enable = true;
-      texteditor.enable = false; #
-      tools.enable = false; #
+      texteditor.enable = true; #
+      tools.enable = true; #
     };
   };
 }
