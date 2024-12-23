@@ -37,8 +37,8 @@
       server.enable = false;
       system.enable = true;
       theme.enable = true;
-      userEnvironment.enable = false;
-      virtualisation.enable = true;
+      #userEnvironment.enable = false;
+      #virtualisation.enable = true;
     };
   };
 }
