@@ -30,7 +30,7 @@
     nixos = {
       base.enable = false;
       desktop.enable = false;
-      disko.enable = false;
+      disko.enable = true;
       hardware.enable = false;
       io.enable = false;
       pkgs.enable = false;
