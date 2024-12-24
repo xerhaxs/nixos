@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    kdePackages.webcamoid
+    #kdePackages.kamoso
+    webcamoid
   ];
 }
