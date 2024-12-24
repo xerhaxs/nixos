@@ -64,6 +64,7 @@ in
           " > ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc/keepassxc.ini
         fi
 
+        chown -R ${config.nixos.system.user.defaultuser.name}:users ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/
         chown -R ${config.nixos.system.user.defaultuser.name}:users ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc
       '';
 
