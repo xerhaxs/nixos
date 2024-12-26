@@ -1,7 +1,7 @@
 { config, disks ? [ "/dev/vda" ], lib, pkgs, ... }: 
 
 { 
-  #nixos.disko.disko-uefi-lvm-on-luks.enable = lib.mkForce true;
+  nixos.disko.disko-uefi-lvm-on-luks.enable = lib.mkForce false;
   _module.args.disks = [ "/dev/sda" ];
 
   disko.devices = {
