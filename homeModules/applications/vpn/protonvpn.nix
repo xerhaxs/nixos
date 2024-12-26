@@ -15,7 +15,7 @@
   config = lib.mkIf config.homeManager.applications.vpn.protonvpn.enable {
     home.packages = with pkgs; [
       protonvpn-gui
-      protonvpn-cli_2
+      protonvpn-cli
     ];
   };
 }
