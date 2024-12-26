@@ -238,7 +238,7 @@
           nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
-          ./hosts/NixOS-Test/default.nix
+          ./hosts/NixOS-Workshop/default.nix
           ./homeModules/homemanager.nix
         ];
       };
