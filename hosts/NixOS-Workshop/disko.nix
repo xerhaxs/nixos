@@ -2,5 +2,5 @@
 
 { 
   nixos.disko.disko-uefi-lvm-on-luks.enable = lib.mkForce true;
-  _module.args.disks = [ "/dev/nvme0n1" ];
+  _module.args.disks = [ "/dev/sda" ];
 }
