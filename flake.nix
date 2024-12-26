@@ -228,6 +228,20 @@
           ./homeModules/homemanager.nix
         ];
       };
+
+      NixOS-Workshop = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          nur.modules.nixos.default
+          catppuccin.nixosModules.catppuccin
+          ./nixosModules/default.nix
+          ./hosts/NixOS-Test/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
     };
   };
 }
