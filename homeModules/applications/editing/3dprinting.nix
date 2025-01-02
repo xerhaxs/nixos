@@ -16,6 +16,7 @@
     home.packages = with pkgs; [
       blender-hip
       orca-slicer
+      freecad-wayland
       #cura
       #curaengine
       #curaengine_stable
