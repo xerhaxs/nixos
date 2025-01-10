@@ -24,7 +24,7 @@
     amdgpu.enable = true;
   };
 
-  #nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
+  nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
 
   nixos.system = {
     powermanagement.enable = lib.mkForce false;
