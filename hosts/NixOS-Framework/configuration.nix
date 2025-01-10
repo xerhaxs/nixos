@@ -27,7 +27,7 @@
   nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
 
   nixos.system = {
-    powermanagement.enable = lib.mkForce false;
+    powermanagement.enable = lib.mkForce true;
   };
 
   nixos.hardware = {

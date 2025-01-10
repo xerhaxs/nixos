@@ -23,7 +23,7 @@
         rofi-bluetooth
         rofi-screenshot
         rofi-power-menu
-        rofi-file-browser
+        #rofi-file-browser
       ];
 
       #settings = {
