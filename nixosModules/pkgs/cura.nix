@@ -1,30 +1,33 @@
-{ config, lib, pkgs, appimageTools, fetchurl, ... }:
+{ config, lib, pkgs, ... }:
+
+let
+  version = "5.9.0";
+  pname = "cura5";
+
+  src = pkgs.fetchurl {
+    url = "https://github.com/Ultimaker/Cura/releases/download/${version}/UltiMaker-Cura-${version}-linux-X64.AppImage";
+    hash = "sha256-17h2wy2l9djzcinmnjmi2c7d2y661f6p1dqk97ay7cqrrrw5afs9"; # Hier die tatsächliche Hash-Wert einfügen, z.B. sha256.
+  };
+
+  meta = {
+    description = "3D printer / slicing GUI built on top of the Uranium framework";
+    homepage = "https://github.com/Ultimaker/Cura";
+    downloadPage = "https://github.com/Ultimaker/Cura/releases";
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "cura"; # Hauptprogramm für Exec in der Desktop-Datei definieren
+  };
+
+  appimageContents = appimageTools.extractType1 { inherit pname src meta; };
+in
 
 {
-environment.systemPackages = with pkgs; [
-    (let cura5 = appimageTools.wrapType2 rec {
-      name = "cura5";
-      version = "5.9.0";
-      src = fetchurl {
-        url = "https://github.com/Ultimaker/Cura/releases/download/${version}/UltiMaker-Cura-${version}-linux-modern.AppImage";
-        hash = ";
-      };
-      extraPkgs = pkgs: with pkgs; [ ];
-    }; in writeScriptBin "cura" ''
-      #! ${pkgs.bash}/bin/bash
-      # AppImage version of Cura loses current working directory and treats all paths relateive to $HOME.
-      # So we convert each of the files passed as argument to an absolute path.
-      # This fixes use cases like `cd /path/to/my/files; cura mymodel.stl anothermodel.stl`.
-      args=()
-      for a in "$@"; do
-        if [ -e "$a" ]; then
-          a="$(realpath "$a")"
-        fi
-        args+=("$a")
-      done
-      exec "${cura5}/bin/cura5" "''${args[@]}"
-    '')
-    ...
-  ];
-}
+  
+  pkgs.appimageTools.wrapType2 = {
+    inherit pname version src;
 
+    extraInstallCommands = ''
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+    '';
+  };
+}

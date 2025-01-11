@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./cura.nix
+    #./cura.nix
     #./linux-wallpaperengine.nix
     ./wallpaper-engine-kde-plugin.nix
   ];
