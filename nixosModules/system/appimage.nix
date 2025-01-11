@@ -13,8 +13,9 @@
   };
 
   config = lib.mkIf config.nixos.system.appimage.enable {
-    environment.systemPackages = with pkgs; [
-      appimage-run
-    ];
+    programs.appimage.enable = {
+      enable = true;
+      binfmt = true;
+    }
   };
 }
