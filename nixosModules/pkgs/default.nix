@@ -21,7 +21,7 @@
   config = lib.mkIf config.nixos.pkgs.enable {
     nixos.pkgs = {
       #linux-wallpaperengine.enable = true;
-      wallpaper-engine-kde-plugin.enable = false;
+      wallpaper-engine-kde-plugin.enable = true;
     };
   };
 }

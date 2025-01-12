@@ -1,7 +1,7 @@
 { config, lib, pkgs, ...}:
 
 let 
-  # References: https://github.com/brianIcke/nixos-conf/blob/226c97d1b78a527eb0126a7012e27d935d4b4da0/system/BrianTUX/pkgs/wallpaper-engine-plasma-plugin.nix#L37
+  # References: https://gist.github.com/BBArikL/b389c4592d636380523e03ac423b77b3
   glslang-submodule = with pkgs; stdenv.mkDerivation {
     name = "glslang";
     installPhase = ''
@@ -15,36 +15,46 @@ let
     };
   };
 
-  #wallpaper-engine-kde-plugin = with pkgs; stdenv.mkDerivation rec {
-  #  pname = "wallpaper-engine-kde-plugin";
-  #  version = "0.5.4";
-  #  src = fetchFromGitHub {
-  #    owner = "catsout";
-  #    repo = pname;
-  #    rev = "f972b2a24c9c3cc2d3e4f41d2ebd14f1473cebdf";
-  #    sha256 = "BVtTnJA1RLUU/Tj7WI/80ja4pI8NezHCjKvB72VjrZk=";
-  #    fetchSubmodules = true;
-  #  };
-
   wallpaper-engine-kde-plugin = with pkgs; stdenv.mkDerivation rec {
     pname = "wallpaperEngineKde";
-    version = "91d8e25c0c94b4919f3d110c1f22727932240b3c";
+    version = "96230de92f1715d3ccc5b9d50906e6a73812a00a";
     src = fetchFromGitHub {
       owner = "Jelgnum";
       repo = "wallpaper-engine-kde-plugin";
       rev = version;
-      hash = "sha256-ff3U/TXr9umQeVHiqfEy38Wau5rJuMeJ3G/CZ9VE++g=";
+      hash = "sha256-vkWEGlDQpfJ3fAimJHZs+aX6dh/fLHSRy2tLEsgu/JU=";
       fetchSubmodules = true;
         };
 
     nativeBuildInputs = [
-      cmake extra-cmake-modules glslang-submodule pkg-config gst_all_1.gst-libav shaderc
+      cmake
+      kdePackages.extra-cmake-modules
+      glslang-submodule
+      pkg-config
+      gst_all_1.gst-libav
+      shaderc
+      ninja
     ];
 
     buildInputs = [
-      mpv lz4 vulkan-headers vulkan-tools vulkan-loader
+      mpv
+      lz4
+      vulkan-headers
+      vulkan-tools
+      vulkan-loader
     ] 
-    ++ (with libsForQt5; with qt5; [plasma-framework qtwebsockets qtwebchannel qtx11extras qtdeclarative])
+    ++ (with kdePackages; with qt6Packages; [
+      qtbase
+      qt6.full
+      kpackage
+      kdeclarative
+      libplasma
+      qtwebsockets
+      qtwebengine
+      qtwebchannel
+      qtmultimedia
+      qtdeclarative
+    ])
     ++ [(python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))];
 
     cmakeFlags = [ "-DUSE_PLASMAPKG=OFF" ];
@@ -80,13 +90,16 @@ in
     environment.systemPackages = with pkgs; [
       wallpaper-engine-kde-plugin
       kdePackages.qtwebsockets
+      kdePackages.qtwebchannel
       (python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))
     ];
 
     system.activationScripts = {
       wallpaper-engine-kde-plugin.text = ''
-        wallpaperenginetarget=share/plasma/wallpapers/com.github.casout.wallpaperEngineKde
-        ln -s ${wallpaper-engine-kde-plugin}/$wallpaperenginetarget /home/${config.nixos.system.user.defaultuser.name}/.local/$wallpaperenginetarget
+        wallpaperenginetarget=/share/plasma/wallpapers/com.github.catsout.wallpaperEngineKde
+        mkdir -p /home/${config.nixos.system.user.defaultuser.name}/.local/share/plasma/wallpapers
+        chown -R ${config.nixos.system.user.defaultuser.name}:users /home/${config.nixos.system.user.defaultuser.name}/.local/share/plasma
+        ln -sf ${wallpaper-engine-kde-plugin}/$wallpaperenginetarget /home/${config.nixos.system.user.defaultuser.name}/.local/$wallpaperenginetarget
       '';
     };
   };
