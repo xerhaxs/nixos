@@ -119,6 +119,7 @@ in
           "lidarr.m4rx.cc"
           "nas.m4rx.cc"
           "nextcloud.m4rx.cc"
+          "ollama.m4rx.cc"
           "portainer.m4rx.cc"
           "radarr.m4rx.cc"
           "readarr.m4rx.cc"
