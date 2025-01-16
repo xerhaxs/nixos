@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./bottles.nix
     ./diff.nix
     ./dotnet-sdk.nix
     ./geany.nix
@@ -27,6 +28,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
+      bottles.enable = true;
       diff.enable = false;
       dotnet-sdk.enable = true;
       geany.enable = true;
