@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./arduino.nix
     ./bottles.nix
     ./diff.nix
     ./dotnet-sdk.nix
@@ -28,6 +29,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
+      arduino.enable = true;
       bottles.enable = true;
       diff.enable = false;
       dotnet-sdk.enable = true;
