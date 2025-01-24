@@ -10,6 +10,7 @@
     ./jellyfin.nix
     #./mailserver.nix
     ./nextcloud.nix
+    ./ollama.nix
     ./onlyoffice.nix
     ./radicale.nix
     ./vaultwarden.nix
@@ -36,6 +37,7 @@
       jellyfin.enable = true;
       #mailserver.enable = true;
       nextcloud.enable = true;
+      ollama.enable = false;
       onlyoffice.enable = true;
       radicale.enable = true;
       vaultwarden.enable = true;

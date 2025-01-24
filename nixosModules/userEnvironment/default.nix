@@ -10,6 +10,7 @@
     ./kdeconnect.nix
     ./mullvad.nix
     ./nfs-client.nix
+    ./ollama.nix
     ./printing.nix
     ./samba-client.nix
     ./steam.nix
@@ -37,6 +38,7 @@
       kdeconnect.enable = true;
       mullvad.enable = true;
       nfs-client.enable = true;
+      ollama.enable = true;
       printing.enable = true;
       samba-client.enable = true;
       steam.enable = true;
