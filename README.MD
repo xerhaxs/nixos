@@ -1,7 +1,7 @@
 # NixOS Configuration
 
 This is my personal NixOS configuration.
-I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below.
+I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below. Keep in mind, that this config is tailored for my personal setup. So you need to change the config for your system.
 
 This config is still in development (see ToDo).
 
@@ -52,63 +52,5 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 - set brave browser settings
 - login to heroic and steam
 - login to mullvad and protonvpn
-
-### ToDo
-
-- [ ] Setup Hyrpland with Waybar and Swaylock / hyprlock + rofi
-- [X] backintime setup files
-- [ ] Firefox +  Thunderbird theme
-- [X] touchpad settings in plasma config
-- [ ] energy settings in plasma config
-- [ ] monitor settings in plasma config
-- [ ] lock screen, kymymoney, kate, dolphin settings in plasma manager
-- [X] Move the server configuration from Desktop to Nuc
-- [X] Add a general testing configuration for interested people
-- [X] Make Thunderbird decleartiv
-- [ ] Add Gnome Config
-- [X] Complete Plasma Config
-- [X] Setup Firefox + Librewolf + Brave in config
-- [X] Make Syncthing declerativ
-- [ ] Add HomeAssistant VM
-- [ ] Setup Crafter Laptop
-- [ ] Selvhost captive portal service + add to network manager and firefox
-- [X] Find out blocked url used for heoric games launcher blocked by ads and steven blocklist
-- [ ] Add a custom Homepage for nginx
-- [ ] create NixOS Hardend Config
-- [ ] write killswitch for server with rapi
-- [ ] move secrets to privat repo and create new secrets
-- [X] bring normcap + handbrake to work
-- [X] setup bash
-- [X] setup zsh
-- [X] setup fish
-- [ ] OpenVPN Client
-- [ ] WireguardVPN Client
-- [X] setup helix + vim theming
-- [ ] default editor für EDITOR env in hm + nixos
-- [X] kiwix addon firefox
-- [X] create protonmail-bridge module
-- [X] setup diff tools in hm
-- [X] theme starship
-- [X] setup emacs, helix, neovim, vim + theming
-- [ ] setup emacs
-- [X] setup ranger with theming
-- [ ] USB Bootdrive with NixOS and files
-- [X] encrypted Swap Partition for Hybrid Sleep
-- [X] enable AV1 Encoding in OBS
-- [ ] Nextcloud Database setup (postgresql)
-- [X] setup gamescope for hdr in games
-- [ ] bring fwupd to work
-
-
-- [ ] Server config
-  - [ ] setup lemmy
-  - [ ] setup mastodon
-  - [ ] setup moneronode
-  - [ ] setup peertube
-  - [ ] setup pixelfed
-  - [ ] setup haos vm
-  - [ ] setup OpenVPN Server config
-  - [ ] setup WireGuardVPN Server config
-  - [ ] setup mailserver
 
 Prefetch URLs and sha: nix-prefetch-url --unpack https://URL.com oder lib.fakeSha256
