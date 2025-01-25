@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ./mount.nix
     ./networking.nix
+    ./ollama.nix
     #./syncthing.nix
     ./xserver.nix
   ];
