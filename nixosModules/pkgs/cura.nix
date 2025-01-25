@@ -6,7 +6,7 @@ let
 
   src = pkgs.fetchurl {
     url = "https://github.com/Ultimaker/Cura/releases/download/${version}/UltiMaker-Cura-${version}-linux-X64.AppImage";
-    hash = "sha256-17h2wy2l9djzcinmnjmi2c7d2y661f6p1dqk97ay7cqrrrw5afs9"; # Hier die tatsächliche Hash-Wert einfügen, z.B. sha256.
+    hash = "sha256-17h2wy2l9djzcinmnjmi2c7d2y661f6p1dqk97ay7cqrrrw5afs9";
   };
 
   meta = {
@@ -14,7 +14,7 @@ let
     homepage = "https://github.com/Ultimaker/Cura";
     downloadPage = "https://github.com/Ultimaker/Cura/releases";
     platforms = [ "x86_64-linux" ];
-    mainProgram = "cura"; # Hauptprogramm für Exec in der Desktop-Datei definieren
+    mainProgram = "cura";
   };
 
   appimageContents = appimageTools.extractType1 { inherit pname src meta; };
