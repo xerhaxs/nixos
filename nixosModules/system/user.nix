@@ -43,6 +43,7 @@
       home = "/home/${config.nixos.system.user.defaultuser.name}";
       description = "${config.nixos.system.user.defaultuser.name}";
       extraGroups = [
+        "dialout"
         "networkmanager"
         "wheel"
         "libvirtd"
