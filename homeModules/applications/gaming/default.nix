@@ -4,6 +4,7 @@
   imports = [
     ./antimicrox.nix
     ./heroic.nix
+    ./lutris.nix
     ./mangohud.nix
     ./prismlauncher.nix
     ./steam.nix
@@ -24,6 +25,7 @@
     homeManager.applications.gaming = {
       antimicrox.enable = false;
       heroic.enable = true;
+      lutris.enable = true;
       mangohud.enable = true;
       prismlauncher.enable = true;
       steam.enable = false;
