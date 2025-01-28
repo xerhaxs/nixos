@@ -15,6 +15,7 @@
   config = lib.mkIf config.homeManager.applications.development.arduino.enable {
     home.packages = with pkgs; [
       arduino-ide
+      esphome
     ];
   };
 }
