@@ -40,7 +40,7 @@
         exec-once = [
           "waybar"
           "dunst"
-          "rofi"
+          #"rofi -show run"
           "keepassxc %f"
           "protonmail-bridge --noninteractive"
           "flameshot"
@@ -53,8 +53,6 @@
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
           
         general = {
-          sensitivity = 1;
-          
           layout = "dwindle";
           
           gaps_in = 5;
@@ -108,7 +106,7 @@
 
         master = {
           # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-          new_is_master = true;
+          new_status = "master";
         };
 
         gestures = {
@@ -155,7 +153,7 @@
           "$mainMod SHIFT, Q, exit,"
           "$mainMod, E, exec, dolphin"
           "$mainMod, V, togglefloating,"
-          "$mainMod, R, exec, rofi --show drun"
+          "$mainMod, R, exec, rofi -show drun"
           "$mainMod, P, pseudo," # dwindle
           "$mainMod, J, togglesplit," # dwindle
 

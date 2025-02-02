@@ -16,7 +16,7 @@
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      #terminal = pkgs.kitty;
+      terminal = "kitty";
 
       plugins = with pkgs; [
         rofi-calc
@@ -26,7 +26,9 @@
         #rofi-file-browser
       ];
 
-      #settings = {
+      location = "center";
+
+      extraConfig = {
       #  modi = "run,drun,window";
       #  #icon-theme = "Oranchelo";
       #  show-icons = true;
@@ -40,7 +42,7 @@
       #  display-window = " 﩯  Window";
       #  display-Network = " 󰤨  Network";
       #  sidebar-mode = true;
-      #};
+      };
     };
 
     catppuccin.rofi.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
