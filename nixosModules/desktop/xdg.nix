@@ -69,7 +69,7 @@ in
           #xdg-desktop-portal-kde
           xdg-desktop-portal-gtk
         ];
-        config.common.default = "*";
+        config.common.default = "gtk";
       };
 
       mime = {
