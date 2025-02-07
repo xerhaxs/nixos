@@ -72,7 +72,7 @@ in
           xdg-desktop-portal-gtk
         ];
         config.common.default = "*";
-        xdgOpenUsePortal = true;
+        #xdgOpenUsePortal = true;
       };
 
       mime = {
