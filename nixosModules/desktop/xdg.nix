@@ -65,11 +65,14 @@ in
           #settings = {};
         };
         extraPortals = with pkgs; [
-          #xdg-desktop-portal
-          #xdg-desktop-portal-kde
+          xdg-desktop-portal
+        #  xdg-desktop-portal-wlr
+        #  xdg-desktop-portal-kde
+        #  xdg-desktop-portal-gnome
           xdg-desktop-portal-gtk
         ];
-        config.common.default = "gtk";
+        config.common.default = "*";
+        xdgOpenUsePortal = true;
       };
 
       mime = {

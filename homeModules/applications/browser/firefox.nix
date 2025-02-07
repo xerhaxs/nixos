@@ -675,7 +675,7 @@ let
 
   # mime system handler
   "widget.use-xdg-desktop-portal.mime-handler" = 1;
-  "widget.use-xdg-desktop-portal.file-picker" = 1;
+  "widget.use-xdg-desktop-portal.file-picker" = 0;
 
   # go back with backspace
   "browser.backspace_action" = 0;
