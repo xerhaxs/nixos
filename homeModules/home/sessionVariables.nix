@@ -16,7 +16,7 @@ options.homeManager = {
     home.sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
       MOZ_ENABLE_WAYLAND = "1";
-      GTK_USE_PORTAL = "0";
+      #GTK_USE_PORTAL = "0";
     };
   };
 }

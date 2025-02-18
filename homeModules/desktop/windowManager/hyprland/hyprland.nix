@@ -152,10 +152,12 @@
           "$mainMod, Q, killactive,"
           "$mainMod SHIFT, Q, exit,"
           "$mainMod, E, exec, dolphin"
-          "$mainMod, V, togglefloating,"
+          "$mainMod, F, togglefloating,"
           "$mainMod, R, exec, rofi -show drun"
           "$mainMod, P, pseudo," # dwindle
           "$mainMod, J, togglesplit," # dwindle
+
+          "$mainMod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # rofi clipboard"
 
           # Move focus with mainMod + arrow keys
           "$mainMod, left, movefocus, l"
@@ -221,7 +223,9 @@
         ];
       };
 
-      plugins = [];
+      plugins = with pkgs; [
+        hyprlandPlugins.hyprgrass
+      ];
     };
 
     catppuccin.hyprland.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;

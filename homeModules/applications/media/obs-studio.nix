@@ -17,7 +17,7 @@
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
         #advanced-scene-switcher
-        droidcam-obs
+        #droidcam-obs
         input-overlay
         input-overlay
         looking-glass-obs
