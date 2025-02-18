@@ -10,7 +10,7 @@
       sddm.enable = lib.mkForce true;
     };
     windowManager = {
-      hyprland.enable = lib.mkForce true;
+      hyprland.enable = lib.mkForce false; # change
     };
   };
 
@@ -27,4 +27,13 @@
   };
 
   nixos.userEnvironment.enable = lib.mkForce true;
+
+
+  environment.systemPackages = with pkgs; [
+    dunst
+    rofi-wayland
+    swaylock
+    waybar
+    hyprland
+  ];
 }

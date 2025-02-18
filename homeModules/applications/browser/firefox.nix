@@ -675,7 +675,7 @@ let
 
   # mime system handler
   "widget.use-xdg-desktop-portal.mime-handler" = 1;
-  "widget.use-xdg-desktop-portal.file-picker" = 0;
+  #"widget.use-xdg-desktop-portal.file-picker" = 0;
 
   # go back with backspace
   "browser.backspace_action" = 0;
@@ -805,6 +805,10 @@ in
   };
 
   config = lib.mkIf config.homeManager.applications.browser.firefox.enable {
+    home.packages = with pkgs; [
+      firefoxpwa
+    ];
+
     programs.firefox = {
       enable = true;
       package = (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { 
@@ -815,6 +819,7 @@ in
       nativeMessagingHosts = with pkgs; [
         #keepassxc
         kdePackages.plasma-browser-integration
+        firefoxpwa
       ];
 
       policies = {
@@ -1005,6 +1010,10 @@ in
           "vpn@proton.ch" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/proton_vpn_firefox_extension/latest.xpi";
+          };
+          "firefoxpwa@filips.si" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/pwas_for_firefox/latest.xpi";
           };
         };
 
@@ -1475,6 +1484,127 @@ in
             }
             arkenfox-js
           ];
+        };
+
+        pwatemplate = {
+          id = 9;
+          containersForce = true;
+          settings = arkenfox-js;
+          search = {
+            force = true;
+            engines = {
+              "Nix Packages" = {
+                urls = [{
+                  template = "https://search.nixos.org/packages";
+                  params = [
+                    { name = "channel"; value = "unstable"; }
+                    { name = "type"; value = "packages"; }
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                }];
+                definedAliases = [ "@np" ];
+                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              };
+
+              "Nix Options" = {
+                urls = [{
+                  template = "https://search.nixos.org/options";
+                  params = [
+                    { name = "channel"; value = "unstable"; }
+                    { name = "type"; value = "packages"; }
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                }];
+                definedAliases = [ "@no" ];
+                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              };
+
+              "Home Manager Options" = {
+                urls = [{
+                  template = "https://home-manager-options.extranix.com/";
+                  params = [
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                }];
+                definedAliases = [ "@hm" ];
+                iconUpdateURL = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
+              };
+
+              "NixOS Wiki" = {
+                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@nw" ];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+              };
+
+              "Such-O-Mat" = {
+                urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
+                definedAliases = [ "@s" ];
+                iconUpdateURL = "https://searxng.m4rx.cc/favicon";
+              };
+
+              "DuckDuckGo" = {
+                urls = [{ template = "https://duckduckgo.com"; }];
+                params = [
+                    { name = "q"; value = "{searchTerms}"; }
+                  ];
+                definedAliases = [ "@d" ];
+                iconUpdateURL = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
+              };
+
+              "Brave" = {
+                urls = [{ template = "https://search.brave.com/search"; }];
+                params = [
+                    { name = "q"; value = "{searchTerms}"; }
+                  ];
+                definedAliases = [ "@b" ];
+                iconUpdateURL = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
+              };
+
+              "Qwant" = {
+                urls = [{ template = "https://www.qwant.com/"; }];
+                params = [
+                    { name = "q"; value = "{searchTerms}"; }
+                  ];
+                definedAliases = [ "@b" ];
+                iconUpdateURL = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
+              };
+
+              "Startpage" = {
+                urls = [{ template = "https://www.startpage.com/sp/search"; }];
+                params = [
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                definedAliases = [ "@sp" ];
+                iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
+              };
+
+              "MetaGer" = {
+                urls = [{ template = "https://metager.org/meta/meta.ger3"; }];
+                params = [
+                    { name = "eingabe"; value = "{searchTerms}"; }
+                  ];
+                definedAliases = [ "@m" ];
+                iconUpdateURL = "https://icons.duckduckgo.com/ip3/metager.org.ico";
+              };
+            };
+
+            order = [
+              "Suck-O-Mat"
+              "DuckDuckGo"
+              "Brave"
+              "Qwant"
+              "Startpage"
+              "MetaGer"
+              "Nix Packages"
+              "Nix Options"
+              "Home Manager Options"
+              "NixOS Wiki"
+            ];
+
+            default = "DuckDuckGo";
+            privateDefault = "DuckDuckGo";
+          };
         };
       };
     };
