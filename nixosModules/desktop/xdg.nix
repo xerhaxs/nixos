@@ -71,7 +71,7 @@ in
         #  xdg-desktop-portal-gnome
           xdg-desktop-portal-gtk
         ];
-        #config.common.default = "kde";
+        config.common.default = "kde";
         #xdgOpenUsePortal = true;
       };
 
