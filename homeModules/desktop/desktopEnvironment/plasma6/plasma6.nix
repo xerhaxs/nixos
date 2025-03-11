@@ -17,6 +17,10 @@
   };
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
+    home.packages = with pkgs; [
+      kdePackages.partitionmanager
+    ];
+
     programs.plasma = {
       enable = true;
       overrideConfig = false;

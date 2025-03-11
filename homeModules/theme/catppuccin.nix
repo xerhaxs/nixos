@@ -118,7 +118,7 @@ in
       size = 24;
     };
 
-    programs.vscode = {
+    programs.vscode.profiles.default = {
       userSettings = {
         "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
       };

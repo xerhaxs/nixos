@@ -217,7 +217,7 @@
           #", XF86BrightnessAdjust, exec,"
 
           "$mainMod SUPERALT, -, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          "$mainMod, /, exec, wpctl set-default 44"
+          "$mainMod, /, exec, wpctl set-default 46"
           "$mainMod, *, exec, wpctl set-default 45"
           "$mainMod, +, exec, wpctl set-default 47"
         ];

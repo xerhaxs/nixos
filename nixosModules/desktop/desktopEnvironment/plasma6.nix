@@ -34,7 +34,7 @@
         breeze-icons
         breeze-gtk
         oxygen
-        oxygen-icons5
+        oxygen-icons
         oxygen-sounds
         plasma-workspace-wallpapers
         plasma-welcome
@@ -47,7 +47,6 @@
         plasma-pa
         plasma-nm
         plasma-disks
-        partitionmanager
         plasma5support
         plasma-desktop
         plasma-activities

@@ -42,13 +42,13 @@
       ripgrep # recursively searches directories for a regex pattern
       wget
       yq-go # yaml processer https://github.com/mikefarah/yq
+      testdisk
 
       clinfo
       fwupd
       glxinfo
       imagemagick
       lv
-      partition-manager
       poppler_utils
       rsync
       vcftools

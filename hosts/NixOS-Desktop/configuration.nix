@@ -29,11 +29,15 @@
   nixos.userEnvironment.enable = lib.mkForce true;
 
 
+  programs.hyprland.enable = true;
+  programs.hyprland.xwayland.enable = true;
   environment.systemPackages = with pkgs; [
     dunst
     rofi-wayland
-    swaylock
+    hyprlock
     waybar
     hyprland
+    swww
+    hyprlandPlugins.hyprgrass
   ];
 }
