@@ -1271,29 +1271,29 @@ in
                   ];
                 }];
                 definedAliases = [ "@hm" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
               };
 
               "NixOS Wiki" = {
                 urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@nw" ];
-                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                icon = "https://nixos.wiki/favicon.png";
               };
 
               "Such-O-Mat" = {
                 urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
                 definedAliases = [ "@s" ];
-                iconUpdateURL = "https://searxng.m4rx.cc/favicon";
+                icon = "https://searxng.m4rx.cc/favicon";
               };
 
-              "DuckDuckGo" = {
+              "ddg" = {
                 urls = [{ template = "https://duckduckgo.com"; }];
                 params = [
                     { name = "q"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@d" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
               };
 
               "Brave" = {
@@ -1302,16 +1302,16 @@ in
                     { name = "q"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@b" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
               };
 
-              "Qwant" = {
+              "qwant" = {
                 urls = [{ template = "https://www.qwant.com/"; }];
                 params = [
                     { name = "q"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@b" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
               };
 
               "Startpage" = {
@@ -1320,7 +1320,7 @@ in
                     { name = "query"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@sp" ];
-                iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
+                icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
               };
 
               "MetaGer" = {
@@ -1329,15 +1329,15 @@ in
                     { name = "eingabe"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@m" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/metager.org.ico";
+                icon = "https://icons.duckduckgo.com/ip3/metager.org.ico";
               };
             };
 
             order = [
               "Suck-O-Mat"
-              "DuckDuckGo"
+              "ddg"
               "Brave"
-              "Qwant"
+              "qwant"
               "Startpage"
               "MetaGer"
               "Nix Packages"
@@ -1346,8 +1346,8 @@ in
               "NixOS Wiki"
             ];
 
-            default = "DuckDuckGo";
-            privateDefault = "DuckDuckGo";
+            default = "ddg";
+            privateDefault = "ddg";
           };
         };
 
@@ -1395,20 +1395,23 @@ in
             }
             arkenfox-js
           ];
-          bookmarks = [
-            {
-              name = "Teams";
-              tags = [ "teams" ];
-              keyword = "teams";
-              url = "https://teams.microsoft.com";
-            }
-            {
-              name = "WebUntis";
-              tags = [ "untis" ];
-              keyword = "untis";
-              url = "https://webuntis.com";
-            }
-          ];
+          bookmarks = {
+            force = true;
+            settings = [
+              {
+                name = "Teams";
+                tags = [ "teams" ];
+                keyword = "teams";
+                url = "https://teams.microsoft.com";
+              }
+              {
+                name = "WebUntis";
+                tags = [ "untis" ];
+                keyword = "untis";
+                url = "https://webuntis.com";
+              }
+            ];
+          };
         };
         
         entertainment = {
@@ -1442,26 +1445,29 @@ in
             }
             arkenfox-js
           ];
-          bookmarks = [
-            {
-              name = "Netflix";
-              tags = [ "netflix" ];
-              keyword = "netflix";
-              url = "https://netflix.com/de";
-            }
-            {
-              name = "Disney";
-              tags = [ "disney" ];
-              keyword = "disney";
-              url = "https://www.disneyplus.com";
-            }
-            {
-              name = "Twitch";
-              tags = [ "twitch" ];
-              keyword = "twitch";
-              url = "https://twitch.tv";
-            }
-          ];
+          bookmarks = {
+            force = true;
+            settings = [
+              {
+                name = "Netflix";
+                tags = [ "netflix" ];
+                keyword = "netflix";
+                url = "https://netflix.com/de";
+              }
+              {
+                name = "Disney";
+                tags = [ "disney" ];
+                keyword = "disney";
+                url = "https://www.disneyplus.com";
+              }
+              {
+                name = "Twitch";
+                tags = [ "twitch" ];
+                keyword = "twitch";
+                url = "https://twitch.tv";
+              }
+            ];
+          };
         };
 
         privacy = {
@@ -1527,29 +1533,29 @@ in
                   ];
                 }];
                 definedAliases = [ "@hm" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
               };
 
               "NixOS Wiki" = {
                 urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@nw" ];
-                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                icon = "https://nixos.wiki/favicon.png";
               };
 
               "Such-O-Mat" = {
                 urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
                 definedAliases = [ "@s" ];
-                iconUpdateURL = "https://searxng.m4rx.cc/favicon";
+                icon = "https://searxng.m4rx.cc/favicon";
               };
 
-              "DuckDuckGo" = {
+              "ddg" = {
                 urls = [{ template = "https://duckduckgo.com"; }];
                 params = [
                     { name = "q"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@d" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
               };
 
               "Brave" = {
@@ -1558,16 +1564,16 @@ in
                     { name = "q"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@b" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
               };
 
-              "Qwant" = {
+              "qwant" = {
                 urls = [{ template = "https://www.qwant.com/"; }];
                 params = [
                     { name = "q"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@b" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
+                icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
               };
 
               "Startpage" = {
@@ -1576,7 +1582,7 @@ in
                     { name = "query"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@sp" ];
-                iconUpdateURL = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
+                icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
               };
 
               "MetaGer" = {
@@ -1585,15 +1591,15 @@ in
                     { name = "eingabe"; value = "{searchTerms}"; }
                   ];
                 definedAliases = [ "@m" ];
-                iconUpdateURL = "https://icons.duckduckgo.com/ip3/metager.org.ico";
+                icon = "https://icons.duckduckgo.com/ip3/metager.org.ico";
               };
             };
 
             order = [
               "Suck-O-Mat"
-              "DuckDuckGo"
+              "ddg"
               "Brave"
-              "Qwant"
+              "qwant"
               "Startpage"
               "MetaGer"
               "Nix Packages"
@@ -1602,8 +1608,8 @@ in
               "NixOS Wiki"
             ];
 
-            default = "DuckDuckGo";
-            privateDefault = "DuckDuckGo";
+            default = "ddg";
+            privateDefault = "ddg";
           };
         };
       };

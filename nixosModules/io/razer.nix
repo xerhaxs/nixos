@@ -13,13 +13,13 @@
   };
 
   config = lib.mkIf config.nixos.io.razer.enable {
-    hardware.openrazer = {
-      enable = true;
-      devicesOffOnScreensaver = true;
-      batteryNotifier.enable = true;
-      syncEffectsEnabled = true;
-      users = [ "${config.nixos.system.user.defaultuser.name}" ];
-    };
+    #hardware.openrazer = {
+    #  enable = true;
+    #  devicesOffOnScreensaver = true;
+    #  batteryNotifier.enable = true;
+    #  syncEffectsEnabled = true;
+    #  users = [ "${config.nixos.system.user.defaultuser.name}" ];
+    #};
     environment.systemPackages = with pkgs; [
       razergenie
     ];
