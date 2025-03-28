@@ -1180,7 +1180,7 @@ in
             "LEO Eng-Deu"
             "Wikipedia (en)"
           ];
-          Default = "DuckDuckGo";
+          Default = "ddg";
         };
 
         #Handlers = {};
@@ -1288,37 +1288,37 @@ in
               };
 
               "ddg" = {
-                urls = [{ template = "https://duckduckgo.com"; }];
-                params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
+                urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
+                #params = [
+                #    { name = "q"; value = "{searchTerms}"; }
+                #  ];
                 definedAliases = [ "@d" ];
                 icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
               };
 
               "Brave" = {
-                urls = [{ template = "https://search.brave.com/search"; }];
-                params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
+                urls = [{ template = "https://search.brave.com/search?q={searchTerms}"; }];
+                #params = [
+                #    { name = "q"; value = "{searchTerms}"; }
+                #  ];
                 definedAliases = [ "@b" ];
                 icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
               };
 
               "qwant" = {
-                urls = [{ template = "https://www.qwant.com/"; }];
-                params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
-                definedAliases = [ "@b" ];
+                urls = [{ template = "https://www.qwant.com/?q={searchTerms}"; }];
+                #params = [
+                #    { name = "q"; value = "{searchTerms}"; }
+                #  ];
+                definedAliases = [ "@q" ];
                 icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
               };
 
               "Startpage" = {
-                urls = [{ template = "https://www.startpage.com/sp/search"; }];
-                params = [
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
+                urls = [{ template = "https://www.startpage.com/sp/search?q={searchTerms}"; }];
+                #params = [
+                #    { name = "query"; value = "{searchTerms}"; }
+                #  ];
                 definedAliases = [ "@sp" ];
                 icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
               };
@@ -1550,37 +1550,37 @@ in
               };
 
               "ddg" = {
-                urls = [{ template = "https://duckduckgo.com"; }];
-                params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
+                urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
+                #params = [
+                #    { name = "q"; value = "{searchTerms}"; }
+                #  ];
                 definedAliases = [ "@d" ];
                 icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
               };
 
               "Brave" = {
-                urls = [{ template = "https://search.brave.com/search"; }];
-                params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
+                urls = [{ template = "https://search.brave.com/search?q={searchTerms}"; }];
+                #params = [
+                #    { name = "q"; value = "{searchTerms}"; }
+                #  ];
                 definedAliases = [ "@b" ];
                 icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
               };
 
               "qwant" = {
-                urls = [{ template = "https://www.qwant.com/"; }];
-                params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
-                definedAliases = [ "@b" ];
+                urls = [{ template = "https://www.qwant.com/?q={searchTerms}"; }];
+                #params = [
+                #    { name = "q"; value = "{searchTerms}"; }
+                #  ];
+                definedAliases = [ "@q" ];
                 icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
               };
 
               "Startpage" = {
-                urls = [{ template = "https://www.startpage.com/sp/search"; }];
-                params = [
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
+                urls = [{ template = "https://www.startpage.com/sp/search?q={searchTerms}"; }];
+                #params = [
+                #    { name = "query"; value = "{searchTerms}"; }
+                #  ];
                 definedAliases = [ "@sp" ];
                 icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
               };
