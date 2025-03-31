@@ -15,7 +15,7 @@ in
 
 {
   imports = [
-    catppuccin.homeManagerModules.catppuccin
+    catppuccin.homeModules.catppuccin
   ];
 
   options.homeManager = {
