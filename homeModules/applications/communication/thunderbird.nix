@@ -22,12 +22,12 @@
 
           settings = {
             # === Setup Mail Accounts ===
-            "mail.accountmanager.accounts" = "account1,account2,account3";
+            "mail.accountmanager.accounts" = "account1,account3,account4,account2";
 
             # === General UI and behavior settings ===
-            "intl.locale.requested" = "en-US";                # UI language
+            "intl.locale.requested" = "de-DE";                # UI language
             "spellchecker.dictionary" = "de-DE";              # Spellcheck language
-            "intl.regional_prefs.use_os_locales" = false;     # Don't use OS locale
+            "intl.regional_prefs.use_os_locales" = true;     # Don't use OS locale
             "intl.regional_prefs.locales" = "de-DE";          # Use metric etc.
 
             "mailnews.default_sort_type" = 18;  # Sort by date
@@ -36,7 +36,7 @@
             "mailnews.default_news_sort_order" = 2;
 
             "mail.thread_structures_with_ids" = false;  # No message grouping
-            "mail.ui.tableView" = true; # table view
+            "mail.ui.tableView" = false; # table view
             "mailnews.default_view_flags" = 0;
 
             "mail.folder.views.version" = 1;                # Folder pane view
@@ -82,9 +82,9 @@
             "thunderbird.policies.runOncePerModification.extensionsInstall" = "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/german-dictionary-de_de-for-sp/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/filelink-nextcloud-owncloud/latest/latest.xpi";
           };
 
-          extraConfig = ''
-            lockPref("extensions.autoDisableScopes", 0);
-          '';
+          #extraConfig = ''
+          #  lockPref("extensions.autoDisableScopes", 0);
+          #'';
         };
       };
     };
