@@ -21,6 +21,9 @@
           isDefault = true;
 
           settings = {
+            # === Setup Mail Accounts ===
+            "mail.accountmanager.accounts" = "account1,account2,account3";
+
             # === General UI and behavior settings ===
             "intl.locale.requested" = "en-US";                # UI language
             "spellchecker.dictionary" = "de-DE";              # Spellcheck language
@@ -73,15 +76,15 @@
             "mail.e2ee.auto_enable" = true;
             "mail.e2ee.auto_disable" = true;
 
-            # Optional user-agent override
-            # "general.useragent.override" = "";
+            ## Optional user-agent override
+            "general.useragent.override" = "";
 
             "thunderbird.policies.runOncePerModification.extensionsInstall" = "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/german-dictionary-de_de-for-sp/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/filelink-nextcloud-owncloud/latest/latest.xpi";
           };
 
-          #extraConfig = ''
-          #  lockPref("extensions.autoDisableScopes", 0);
-          #'';
+          extraConfig = ''
+            lockPref("extensions.autoDisableScopes", 0);
+          '';
         };
       };
     };
