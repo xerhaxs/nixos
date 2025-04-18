@@ -56,6 +56,10 @@
         "mailserver/users/xerhaxs/email" = { };
         "mailserver/users/xerhaxs/password" = { };
 
+        "thunderbird/email1" = { };
+        "thunderbird/email2" = { };
+        "thunderbird/email3" = { };
+
         "monero/users/username" = { };
         "monero/users/password" = { };
         "monero/users/address" = { };

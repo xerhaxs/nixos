@@ -30,6 +30,7 @@
           "git.autofetch" = true;
           "diffEditor.maxComputationTime" = 0;
           "cSpell.language" = "en,de";
+          "window.titleBarStyle" = "native";
         };
 
         extensions = with pkgs.vscode-extensions; [
