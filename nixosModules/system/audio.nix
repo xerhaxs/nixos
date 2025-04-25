@@ -37,6 +37,24 @@
       pulse.enable = true;
       jack.enable = true;
       wireplumber.enable = true;
+
+      extraConfig.pipewire-pulse = {
+        "pulse.rules" = [
+          {
+            matches = [ 
+              { 
+                "application.process.binary" = "wine64-preloader";
+              }
+            ];
+            
+            actions = {
+              update-props = {
+                pulse.min.quantum = "1024/48000";
+              };
+            };
+          }
+        ];
+      };
     };
   
     environment.systemPackages = with pkgs; [
