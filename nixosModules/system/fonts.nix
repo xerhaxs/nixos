@@ -54,7 +54,6 @@
         nerd-fonts.overpass
         nerd-fonts.open-dyslexic
         nerd-fonts.noto
-        nerd-fonts.mplus
         nerd-fonts.mononoki
         nerd-fonts.monoid
         nerd-fonts.monofur

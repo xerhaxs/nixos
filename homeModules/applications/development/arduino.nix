@@ -16,7 +16,7 @@
     home.packages = with pkgs; [
       arduino-ide
       esphome
-      fritzing
+      #fritzing
     ];
   };
 }
