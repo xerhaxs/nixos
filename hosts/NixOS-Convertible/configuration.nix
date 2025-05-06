@@ -10,7 +10,7 @@
       sddm.enable = lib.mkForce true;
     };
     windowManager = {
-      hyprland.enable = lib.mkForce true;
+      hyprland.enable = lib.mkForce false;
     };
   };
 
