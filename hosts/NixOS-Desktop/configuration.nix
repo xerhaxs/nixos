@@ -10,7 +10,7 @@
       sddm.enable = lib.mkForce true;
     };
     windowManager = {
-      hyprland.enable = lib.mkForce false; # change
+      hyprland.enable = lib.mkForce true; # change
     };
   };
 
@@ -28,15 +28,15 @@
 
   nixos.userEnvironment.enable = lib.mkForce true;
 
-  programs.hyprland.enable = true;
-  programs.hyprland.xwayland.enable = true;
-  environment.systemPackages = with pkgs; [
-    dunst
-    rofi-wayland
-    hyprlock
-    waybar
-    hyprland
-    swww
-    hyprlandPlugins.hyprgrass
-  ];
+  #programs.hyprland.enable = true;
+  #programs.hyprland.xwayland.enable = true;
+  #environment.systemPackages = with pkgs; [
+  #  dunst
+  #  rofi-wayland
+  #  hyprlock
+  #  waybar
+  #  hyprland
+  #  swww
+  #  hyprlandPlugins.hyprgrass
+  #];
 }
