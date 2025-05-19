@@ -8,7 +8,7 @@ let
 
   malware = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/malware.txt";
-    hash = "sha256-HWNBa8k34NLDetBgQGaxrnp5VhC9EnZStFr/4ndceC4=";
+    hash = "sha256-01WcEqy3R5zebjT17Pk5vtYbPERfq+UwgHBHgYzbwNo=";
   };
 
   phishing = pkgs.fetchurl {

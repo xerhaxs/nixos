@@ -52,7 +52,7 @@
       poppler_utils
       rsync
       vcftools
-      ventoy
+      #ventoy
       vulkan-tools
       wayland-utils
       wlr-randr
