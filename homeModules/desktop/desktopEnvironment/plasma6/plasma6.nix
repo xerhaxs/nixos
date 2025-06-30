@@ -132,7 +132,7 @@
                   "applications:thunderbird.desktop"
                   "applications:org.kde.kate.desktop"
                   "applications:codium.desktop"
-                  "applications:signal-desktop.desktop"
+                  "applications:signal.desktop"
                   "applications:org.telegram.desktop.desktop"
                   "applications:com.github.xeco23.WasIstLos.desktop"
                   "applications:legcord.desktop"
