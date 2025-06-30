@@ -15,8 +15,10 @@
   config = lib.mkIf config.nixos.hardware.corectrl.enable {
     programs.corectrl = {
       enable = true;
-      gpuOverclock.enable = true;
-      gpuOverclock.ppfeaturemask = "0xfff7ffff";
+    };
+    hardware.amdgpu.overdrive = {
+      enable = true;
+      ppfeaturemask = "0xfff7ffff";
     };
   };
 }

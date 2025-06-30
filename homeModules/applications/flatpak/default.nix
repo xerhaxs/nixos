@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./flatpak.nix
+    #./flatpak.nix
   ];
 
   options.homeManager = {
@@ -16,9 +16,9 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.flatpak.enable {
-    homeManager.applications.flatpak = {
-      flatpak.enable = true;
-    };
-  };
+  #config = lib.mkIf config.homeManager.applications.flatpak.enable {
+    #homeManager.applications.flatpak = {
+      #flatpak.enable = true;
+    #};
+  #};
 }
