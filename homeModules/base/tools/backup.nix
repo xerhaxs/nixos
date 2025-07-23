@@ -15,7 +15,7 @@
   config = lib.mkIf config.homeManager.base.tools.backup.enable {
     home.packages = with pkgs; [
       backintime
-      grsync
+      #grsync
     ];
   };
 }

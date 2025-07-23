@@ -835,7 +835,7 @@ in
         DisablePocket = true;
         DisableSafeMode = true;
         DisableSetDesktopBackground = true;
-        NoDefaultBookmarks = true;
+        NoDefaultBookmarks = lib.mkDefault true;
 
         DisableSecurityBypass = {
           InvalidCertificate = false;

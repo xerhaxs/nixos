@@ -120,6 +120,7 @@ in
           "nas.m4rx.cc"
           "nextcloud.m4rx.cc"
           "ollama.m4rx.cc"
+          "pihole.m4rx.cc"
           "portainer.m4rx.cc"
           "radarr.m4rx.cc"
           "readarr.m4rx.cc"
@@ -158,7 +159,6 @@ in
           "nitter.m4rx.cc"
           "onlyoffice.m4rx.cc"
           "peertube.m4rx.cc"
-          "pihole.m4rx.cc"
           "pixelfed.m4rx"
           "radicale.m4rx.cc"
           #"rss.m4rx.cc"
@@ -216,7 +216,7 @@ in
       defaultGateway = "10.75.0.1";
       defaultGateway6 = "fe80::1";
 
-      nameservers = [ "10.75.0.25" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
+      nameservers = [ "10.75.0.20" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
     };
   };
 }
