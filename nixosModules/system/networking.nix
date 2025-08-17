@@ -101,7 +101,7 @@ in
         userControlled.enable = true;
       };
 
-      enableIPv6 = true;
+      enableIPv6 = false;
 
       useDHCP = false;
 
@@ -216,7 +216,7 @@ in
       defaultGateway = "10.75.0.1";
       defaultGateway6 = "fe80::1";
 
-      nameservers = [ "10.75.0.20" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
+      #nameservers = [ "10.75.0.20" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
     };
   };
 }
