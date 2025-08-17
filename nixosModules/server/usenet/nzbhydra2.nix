@@ -15,7 +15,7 @@
   config = lib.mkIf config.nixos.server.usenet.nzbhydra2.enable {
     services.nzbhydra2 = {
       enable = true;
-      openFirewall = false;
+      openFirewall = true;
     };
 
     services.nginx = {
