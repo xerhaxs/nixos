@@ -33,9 +33,9 @@
       };
     };   
 
-    services.ddclient.domains = [
-      "nzbhydra.${config.nixos.server.network.nginx.domain}"
-    ]; 
+    #services.ddclient.domains = [
+    #  "nzbhydra.${config.nixos.server.network.nginx.domain}"
+    #]; 
   };
 }
 
