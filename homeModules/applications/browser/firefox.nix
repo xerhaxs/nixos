@@ -699,6 +699,9 @@ let
   # prefer system print dialog
   "print.prefer_system_dialog" = true;
 
+  # show full url in urlbar
+  "browser.urlbar.trimURLs" = false;
+
   # warn on close
   "browser.tabs.warnOnClose" = true;
 
