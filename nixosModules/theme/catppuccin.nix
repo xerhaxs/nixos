@@ -6,7 +6,7 @@ let
       owner = "catppuccin";
       repo = "grub";
       rev = "main"; # commit hash or tag
-      sha256 = "sha256-20D1EcV8SWOd5BLdAc6FaQu3onha0+aS5yA/GK8Ra0g="; #sha256 = lib.fakeSha256;
+      sha256 = "sha256-jgM22pvCQvb0bjQQXoiqGMgScR9AgCK3OfDF5Ud+/mk="; #sha256 = lib.fakeSha256;
     };
 
     obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/obs-studio/themes";
