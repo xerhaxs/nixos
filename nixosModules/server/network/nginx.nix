@@ -57,5 +57,8 @@ in
         environmentFile = config.sops.secrets."nginx/acme/api_key".path;
       };
     };
+
+    systemd.services."acme-fixperms".wants = [ "bind.service" ];
+    systemd.services."acme-fixperms".after = [ "bind.service" ];
   };
 }
