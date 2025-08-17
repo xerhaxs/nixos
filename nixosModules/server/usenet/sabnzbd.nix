@@ -15,6 +15,7 @@
   config = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
     services.sabnzbd = {
       enable = true;
+      openFirewall = true;
       configFile = "/var/lib/sabnzbd/sabnzbd.ini";
     };
 

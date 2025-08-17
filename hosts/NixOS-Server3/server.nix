@@ -11,7 +11,7 @@
 
   nixos.server.usenet = {
     lidarr.enable = false;
-    nzbget.enable = true;
+    nzbget.enable = false;
     nzbhydra2.enable = true;
     radarr.enable = false;
     readarr.enable = false;
@@ -22,7 +22,6 @@
   services.mullvad-vpn.enable = true;
 
   environment.systemPackages = with pkgs; [
-    protonvpn-cli_2
     mullvad
   ];
 
