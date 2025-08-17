@@ -49,16 +49,13 @@ in
     security.acme = {
       acceptTerms = true;
       defaults = {
-        dnsResolver = "1.1.1.1";
         email = "among_clavicle129@slmail.me";
+        dnsResolver = "1.1.1.1";
         dnsProvider = "cloudflare";
         dnsPropagationCheck = true;
         renewInterval = "daily";
         environmentFile = config.sops.secrets."nginx/acme/api_key".path;
       };
     };
-
-    systemd.services."acme-fixperms".wants = [ "bind.service" ];
-    systemd.services."acme-fixperms".after = [ "bind.service" ];
   };
 }
