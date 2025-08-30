@@ -68,7 +68,7 @@
         akonadi-calendar-tools
         filelight
         maliit-keyboard
-        soundkonverter
+        #soundkonverter
         libksysguard
         merkuro
         kate

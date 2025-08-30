@@ -19,15 +19,15 @@
       userEmail = "xerhaxs@protonmail.com";
     };
 
-    programs.gitui = {
-      enable = true;
-    };
+    #programs.gitui = {
+    #  enable = true;
+    #};
 
     home.packages = with pkgs; [
       bfg-repo-cleaner
       gh
     ];
 
-    catppuccin.gitui.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
+    #catppuccin.gitui.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }
