@@ -111,7 +111,8 @@ function_select_host
 ## Wipe the disk
 if [[ $WIPE = true ]]; then
 	echo "Wiping disk..."
-	dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
+	shred -v -n 3 -z $CHOSEN_DRIVE 
+	#dd if=/dev/zero of=$CHOSEN_DRIVE status=progress
 fi
 
 # Create keyfile for encryption without password

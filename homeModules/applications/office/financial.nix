@@ -14,8 +14,8 @@
 
   config = lib.mkIf config.homeManager.applications.office.financial.enable {
     home.packages = with pkgs; [
-      #aqbanking
-      #kmymoney
+      aqbanking
+      kmymoney
       monero-gui
     ];
   };

@@ -18,11 +18,7 @@
       userName = "xerhaxs";
       userEmail = "xerhaxs@protonmail.com";
     };
-
-    #programs.gitui = {
-    #  enable = true;
-    #};
-
+    
     home.packages = with pkgs; [
       bfg-repo-cleaner
       gh

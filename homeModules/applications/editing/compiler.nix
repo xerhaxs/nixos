@@ -15,8 +15,7 @@
   config = lib.mkIf config.homeManager.applications.editing.compiler.enable {
     home.packages = with pkgs; [
       gst_all_1.gst-libav
-      handbrake
-      freac
+      #handbrake
       ffmpeg
     ];
   };

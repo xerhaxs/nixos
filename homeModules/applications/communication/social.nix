@@ -19,7 +19,7 @@
       telegram-desktop
       whatsapp-for-linux
       mumble
-      teamspeak_client
+      teamspeak6-client
     ];
   };
 }

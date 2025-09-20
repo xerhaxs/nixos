@@ -17,7 +17,8 @@
       fluent-reader
       freetube
       mediathekview
-      kiwix
+      #kiwix
+      kiwix-tools
       #nuclear
       qbittorrent
       #jellyfin-media-player
