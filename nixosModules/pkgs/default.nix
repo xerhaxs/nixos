@@ -4,7 +4,7 @@
   imports = [
     #./cura.nix
     #./linux-wallpaperengine.nix
-    ./wallpaper-engine-kde-plugin.nix
+    #./wallpaper-engine-kde-plugin.nix
   ];
 
   options.nixos = {
@@ -21,7 +21,7 @@
   config = lib.mkIf config.nixos.pkgs.enable {
     nixos.pkgs = {
       #linux-wallpaperengine.enable = true;
-      wallpaper-engine-kde-plugin.enable = true;
+      #wallpaper-engine-kde-plugin.enable = true;
     };
   };
 }
