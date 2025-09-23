@@ -36,7 +36,6 @@
           hostName = "localhost";
         };
       };
-    };
 
     services.nginx = {
       virtualHosts = {
