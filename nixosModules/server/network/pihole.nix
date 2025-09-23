@@ -16,7 +16,6 @@
     services = {
         pihole-ftl = {
           enable = true;
-          user = "admin";
           lists = [
             {
               url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
