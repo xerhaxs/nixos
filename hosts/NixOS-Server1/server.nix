@@ -23,7 +23,7 @@
       #adguard.enable = lib.mkForce false;
       pihole.enable = lib.mkForce true;
     };
-  #  fediverse = {
+    fediverse = {
   #    freshrss.enable = true;
   #    gitea.enable = true;
       invidious.enable = true;
