@@ -3,11 +3,11 @@
 {
   services.xserver.displayManager.startx.enable = true;
 
-  #nixos.server.network.nginx.enable = true;
+  nixos.server.network.nginx.enable = true;
 
-  #nixos.server.network.ddclient.enable = true;
+  nixos.server.network.ddclient.enable = true;
 
-  #nixos.server = {
+  nixos.server = {
   #  home = {
   #    radicale.enable = true;
   #    collabora.enable = true;
@@ -18,14 +18,15 @@
       #etesync.enable = lib.mkForce false;
       #haos.enable = lib.mkForce false;
       #homeassistant.enable = lib.mkForce false;
-  #  };
-    #network = {
-    #  #adguard.enable = lib.mkForce false;
     #};
+    network = {
+      #adguard.enable = lib.mkForce false;
+      pihole.enable = lib.mkForce true;
+    };
   #  fediverse = {
   #    freshrss.enable = true;
   #    gitea.enable = true;
-  #    invidious.enable = true;
+      invidious.enable = true;
   #    lemmy.enable = true;
   #    libreddit.enable = true;
       #mastodon.enable = true;
@@ -36,6 +37,6 @@
   #    pixelfed.enable = true;
   #    searxng.enable = true;
   #    teamspeak.enable = true;
-  #  };
-  #};
+    };
+  };
 }
