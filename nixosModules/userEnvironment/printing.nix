@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./sane-extra-config.nix
+  ];
+
   options.nixos = {
     userEnvironment.printing = {
       enable = lib.mkOption {
@@ -33,8 +37,18 @@
 
     hardware.sane = {
       enable = true;
-      openFirewall = true;
+      openFirewall = false;
+      extraConfig."genesys" = ''
+        # Canon 4400F
+        # Disabled to prevent possible physical damage due to overheating (#436)
+        usb 0x04a9 0x2228
+      '';
+      extraBackends = [ pkgs.sane-airscan ];
     };
+
+    services.udev.packages = [ pkgs.sane-airscan ];
+
+    services.ipp-usb.enable = true;
 
     #networking.firewall = {
     #  allowedTCPPorts = [ 53 139 443 445 515 631 9100 9101 9102 22000 ];

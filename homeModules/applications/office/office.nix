@@ -32,6 +32,7 @@
       #normcap
       #onlyoffice-bin
       rnote
+      kdePackages.skanlite
       xournalpp
     ];
   };
