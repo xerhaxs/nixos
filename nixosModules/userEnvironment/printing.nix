@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./sane-extra-config.nix
+    ../pkgs/sane-extra-config.nix
   ];
 
   options.nixos = {
@@ -38,12 +38,12 @@
     hardware.sane = {
       enable = true;
       openFirewall = false;
+      extraBackends = [ pkgs.sane-airscan ];
       extraConfig."genesys" = ''
-        # Canon 4400F
+        # Enable Canon 4400F
         # Disabled to prevent possible physical damage due to overheating (#436)
         usb 0x04a9 0x2228
       '';
-      extraBackends = [ pkgs.sane-airscan ];
     };
 
     services.udev.packages = [ pkgs.sane-airscan ];

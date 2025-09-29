@@ -15,12 +15,12 @@ let
   saneConfig = pkgs.mkSaneConfig { paths = backends; };
 
   saneExtraConfig = pkgs.runCommand "sane-extra-config" {} ''
-    cp -Lr '${pkgs.mkSaneConfig { paths = [ pkgs.sane-backends ]; }}'/etc/sane.d $out
+    cp -Lr '${saneConfig}'/etc/sane.d $out
     chmod +w $out
     ${concatMapStrings (c: ''
       f="$out/${c.name}.conf"
       [ ! -e "$f" ] || chmod +w "$f"
-      cat ${builtins.toFile "" (c.value + "\n")} >>"$f"
+      cat ${builtins.toFile "sane-config-part" (c.value + "\n")} >>"$f"
       chmod -w "$f"
     '') (mapAttrsToList nameValuePair cfg.extraConfig)}
     chmod -w $out
