@@ -22,6 +22,9 @@
       startWhenNeeded = false;
       browsing = true;
       openFirewall = true;
+      drivers = with pkgs; [
+        cups-kyocera-ecosys-m2x35-40-p2x35-40dnw
+      ];
     };
 
     services.avahi = {
@@ -31,14 +34,11 @@
       openFirewall = true;
     };
 
-    environment.systemPackages = with pkgs; [
-      cups-kyocera-ecosys-m2x35-40-p2x35-40dnw
-    ];
-
     hardware.sane = {
       enable = true;
       openFirewall = false;
       extraBackends = [ pkgs.sane-airscan ];
+      disabledDefaultBackends = [ "escl" ];
       extraConfig."genesys" = ''
         # Enable Canon 4400F
         # Disabled to prevent possible physical damage due to overheating (#436)
