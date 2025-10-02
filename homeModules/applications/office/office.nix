@@ -29,10 +29,20 @@
       languagetool
       libreoffice
       mythes
-      #normcap
-      #onlyoffice-bin
       rnote
-      kdePackages.skanlite
+      #naps2
+      (symlinkJoin {
+        name = "skanpage-with-tesseract";
+        paths = [ kdePackages.skanpage ];
+        buildInputs = [ makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/skanpage \
+            --prefix PATH : ${tesseract}/bin \
+            --set TESSDATA_PREFIX ${tesseract}/share/tessdata
+        '';
+      })
+      kdePackages.spectacle
+      tesseract
       xournalpp
     ];
   };
