@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixos.hardware.amdcpu.enable {
-    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
+    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" "video=efifb:off" ];
     boot.kernelModules = [ "kvm-amd" ];
     
     hardware = {

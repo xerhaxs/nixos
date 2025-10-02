@@ -13,15 +13,28 @@
   };
 
   config = lib.mkIf config.nixos.virtualisation.kvm.enable {
-    virtualisation.libvirtd = {
-      enable = true;
-      #allowedBridges = [];
-      onShutdown = "suspend";
-      qemu = {
-        swtpm.enable = true;
-        ovmf.enable = true;
-        runAsRoot = false; # may can cause problems
+    virtualisation = {
+      libvirtd = {
+        enable = true;
+        #allowedBridges = [];
+        onBoot = "ignore";
+        onShutdown = "suspend";
+        qemu = {
+          swtpm.enable = true;
+          ovmf = {
+            enable = true;
+            packages = [(pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd];
+          };
+          runAsRoot = false; # may can cause problems
+        };
+        hooks.qemu = {
+          "win11gpu" = ./vm-win11gpu-hook.sh;
+        };
       };
+      spiceUSBRedirection.enable = true;
     };
 
     programs.virt-manager.enable = true;
