@@ -1,0 +1,225 @@
+# Thanks to:
+# https://gitlab.com/risingprismtv/single-gpu-passthrough/
+# https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
+# https://www.reddit.com/r/VFIO/comments/p4kmxr/tips_for_single_gpu_passthrough_on_nixos/
+
+#!/usr/bin/env bash
+
+readonly GUEST_NAME="$1"
+readonly HOOK_NAME="$2"
+readonly STATE_NAME="$3"
+
+## Adds current time to var for use in echo for a cleaner log and script ##
+DATE=$(date +"%m/%d/%Y %R:%S :")
+
+## Sets dispmgr var as null ##
+DISPMGR="null"
+
+################################## Script Start ##################################
+
+function stop_display_manager_if_running {
+    ## Get display manager on systemd based distros ##
+    if [[ -x /run/systemd/system ]] && echo "$DATE Distro is using Systemd"; then
+        DISPMGR="$(grep 'ExecStart=' /etc/systemd/system/display-manager.service | awk -F'/' '{print $(NF-0)}')"
+        echo "$DATE Display Manager = $DISPMGR"
+    fi
+        ## Stop display manager using systemd ##
+        if systemctl is-active --quiet "$DISPMGR.service"; then
+            grep -qsF "$DISPMGR" "/tmp/vfio-store-display-manager" || echo "$DISPMGR" >/tmp/vfio-store-display-manager
+            systemctl stop "$DISPMGR.service"
+            systemctl isolate multi-user.target
+        fi
+
+        while systemctl is-active --quiet "$DISPMGR.service"; do
+            sleep "1"
+        done
+        return
+    fi
+}
+
+function kde-clause {
+
+    echo "$DATE Display Manager = display-manager"
+
+    ## Stop display manager using systemd ##
+    if systemctl is-active --quiet "display-manager.service"; then
+    
+        grep -qsF "display-manager" "/tmp/vfio-store-display-manager"  || echo "display-manager" >/tmp/vfio-store-display-manager
+        systemctl stop "display-manager.service"
+    fi
+
+        while systemctl is-active --quiet "display-manager.service"; do
+                sleep 2
+        done
+    return
+}
+
+function start_hook() {
+  echo "$DATE Beginning of Startup!"
+
+  ####################################################################################################################
+  ## Checks to see if your running KDE. If not it will run the function to collect your display manager.            ##
+  ## Have to specify the display manager because kde is weird and uses display-manager even though it returns sddm. ##
+  ####################################################################################################################
+
+  if pgrep -l "plasma" | grep "plasmashell"; then
+      echo "$DATE Display Manager is KDE, running KDE clause!"
+      kde-clause
+      else
+          echo "$DATE Display Manager is not KDE!"
+          stop_display_manager_if_running
+  fi
+
+  ## Unbind EFI-Framebuffer ##
+  if test -e "/tmp/vfio-is-nvidia"; then
+      rm -f /tmp/vfio-is-nvidia
+      else
+          test -e "/tmp/vfio-is-amd"
+          rm -f /tmp/vfio-is-amd
+  fi
+
+  sleep "1"
+
+  ##############################################################################################################################
+  ## Unbind VTconsoles if currently bound (adapted and modernised from https://www.kernel.org/doc/Documentation/fb/fbcon.txt) ##
+  ##############################################################################################################################
+  if test -e "/tmp/vfio-bound-consoles"; then
+      rm -f /tmp/vfio-bound-consoles
+  fi
+  for (( i = 0; i < 16; i++))
+  do
+    if test -x /sys/class/vtconsole/vtcon"${i}"; then
+        if [ "$(grep -c "frame buffer" /sys/class/vtconsole/vtcon"${i}"/name)" = 1 ]; then
+          echo 0 > /sys/class/vtconsole/vtcon"${i}"/bind
+            echo "$DATE Unbinding Console ${i}"
+            echo "$i" >> /tmp/vfio-bound-consoles
+        fi
+    fi
+  done
+
+  sleep "1"
+
+  if lspci -nn | grep -e VGA | grep -s NVIDIA ; then
+      echo "$DATE System has an NVIDIA GPU"
+      grep -qsF "true" "/tmp/vfio-is-nvidia" || echo "true" >/tmp/vfio-is-nvidia
+      echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind
+
+      ## Unload NVIDIA GPU drivers ##
+      modprobe -r nvidia_uvm
+      modprobe -r nvidia_drm
+      modprobe -r nvidia_modeset
+      modprobe -r nvidia
+      modprobe -r i2c_nvidia_gpu
+      modprobe -r drm_kms_helper
+      modprobe -r drm
+
+      echo "$DATE NVIDIA GPU Drivers Unloaded"
+  fi
+
+  if lspci -nn | grep -e VGA | grep -s AMD ; then
+      echo "$DATE System has an AMD GPU"
+      grep -qsF "true" "/tmp/vfio-is-amd" || echo "true" >/tmp/vfio-is-amd
+      echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind
+
+      ## Unload AMD GPU drivers ##
+      modprobe -r drm_kms_helper
+      modprobe -r amdgpu
+      modprobe -r radeon
+      modprobe -r drm
+
+      echo "$DATE AMD GPU Drivers Unloaded"
+  fi
+
+  ## Load VFIO-PCI driver ##
+  modprobe vfio
+  modprobe vfio_pci
+  modprobe vfio_iommu_type1
+
+  echo "$DATE End of Startup!"
+}
+
+
+################################## Script Stop ###################################
+
+function revert_hook() {
+  ## Unload VFIO-PCI driver ##
+  modprobe -r vfio_pci
+  modprobe -r vfio_iommu_type1
+  modprobe -r vfio
+
+  if grep -q "true" "/tmp/vfio-is-nvidia" ; then
+
+      ## Load NVIDIA drivers ##
+      echo "$DATE Loading NVIDIA GPU Drivers"
+      
+      modprobe drm
+      modprobe drm_kms_helper
+      modprobe i2c_nvidia_gpu
+      modprobe nvidia
+      modprobe nvidia_modeset
+      modprobe nvidia_drm
+      modprobe nvidia_uvm
+
+      echo "$DATE NVIDIA GPU Drivers Loaded"
+  fi
+
+  if  grep -q "true" "/tmp/vfio-is-amd" ; then
+
+      ## Load NVIDIA drivers ##
+      echo "$DATE Loading AMD GPU Drivers"
+      
+      modprobe drm
+      modprobe amdgpu
+      modprobe radeon
+      modprobe drm_kms_helper
+      
+      echo "$DATE AMD GPU Drivers Loaded"
+  fi
+
+  ## Restart Display Manager ##
+  input="/tmp/vfio-store-display-manager"
+  while read -r DISPMGR; do
+    if command -v systemctl; then
+
+      ## Make sure the variable got collected ##
+      echo "$DATE Var has been collected from file: $DISPMGR"
+
+      systemctl start "$DISPMGR.service"
+
+    else
+      if command -v sv; then
+        sv start "$DISPMGR"
+      fi
+    fi
+  done < "$input"
+
+  ############################################################################################################
+  ## Rebind VT consoles (adapted and modernised from https://www.kernel.org/doc/Documentation/fb/fbcon.txt) ##
+  ############################################################################################################
+
+  input="/tmp/vfio-bound-consoles"
+  while read -r consoleNumber; do
+    if test -x /sys/class/vtconsole/vtcon"${consoleNumber}"; then
+        if [ "$(grep -c "frame buffer" "/sys/class/vtconsole/vtcon${consoleNumber}/name")" \
+            = 1 ]; then
+      echo "$DATE Rebinding console ${consoleNumber}"
+      echo 1 > /sys/class/vtconsole/vtcon"${consoleNumber}"/bind
+        fi
+    fi
+  done < "$input"
+
+  echo "$DATE End of Teardown!"
+}
+
+# I am not using the script from Passthrough-Post
+# because hooks option saves it to /var/lib/libvirt/hooks/qemu.d.
+# It's simpler to just rewrite it for NixOS.
+if [[ "$GUEST_NAME" != "win11gpu" ]]; then
+  exit 0
+fi
+
+if [[ "$HOOK_NAME" == "prepare" && "$STATE_NAME" == "begin" ]]; then
+  start_hook
+elif [[ "$HOOK_NAME" == "release" && "$STATE_NAME" == "end" ]]; then
+  revert_hook
+fi
