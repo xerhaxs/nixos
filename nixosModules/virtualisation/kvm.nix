@@ -41,6 +41,8 @@
       spiceUSBRedirection.enable = true;
     };
 
+    #"/var/lib/libvirt/vgabios/patched.rom".source = ./patched.rom;
+
     programs.virt-manager.enable = true;
 
     environment.systemPackages = with pkgs; [

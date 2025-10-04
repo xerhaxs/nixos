@@ -15,15 +15,15 @@
   config = lib.mkIf config.nixos.system.bootloader.enable {
     # Bootloader
     boot.initrd.availableKernelModules = [ "sr_mod" ];
-    boot.kernelParams = [ "quiet" "splash" "loglevel=3" "udev.log-priority=3" "vt.global_cursor_default=1" ]; # "video=efifb:off" "console=null"
+    boot.kernelParams = [ "quiet" "splash" "loglevel=3" "udev.log-priority=3" "vt.global_cursor_default=1" ];
     boot.kernelModules = [ "fuse" ];
     boot.initrd.kernelModules = [ "dm-snapshot" ];
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback vendor-reset ];
     
     boot.extraModprobeConfig = ''
-      options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback
+      options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback vendor-reset
     '';
 
     security.polkit.enable = true;
