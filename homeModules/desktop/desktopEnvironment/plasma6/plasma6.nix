@@ -144,7 +144,7 @@
                   "applications:impress.desktop"
                   "applications:com.github.flxzt.rnote.desktop"
                   "applications:com.obsproject.Studio.desktop"
-                  "applications:blender.desktop"
+                  #"applications:blender.desktop"
                   #"applications:com.ultimaker.cura.desktop"
                   "applications:org.clementine_player.Clementine.desktop"
                   "applications:fluent-reader.desktop"
@@ -152,8 +152,8 @@
                   "applications:org.prismlauncher.PrismLauncher.desktop"
                   "applications:com.heroicgameslauncher.hgl.desktop"
                   "applications:steam.desktop"
-                  #"applications:mullvad-vpn.desktop"
-                  "applications:protonvpn-app.desktop"
+                  "applications:mullvad-vpn.desktop"
+                  #"applications:protonvpn-app.desktop"
                 ];
               };
             }
