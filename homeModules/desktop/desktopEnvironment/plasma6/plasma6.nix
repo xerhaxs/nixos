@@ -439,7 +439,7 @@
         "plasmashell"."switch to previous activity" = [ ];
         "plasmashell"."toggle do not disturb" = [ ];
         "services/kitty.desktop"."_launch" = "Meta+Return";
-        "services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Print";
+        "services/org.flameshot.Flameshot.desktop"."Capture" = "Print";
         "services/org.kde.dolphin.desktop"."_launch" = "Meta+F";
         "services/org.kde.krunner.desktop"."_launch" = [ "Meta+R" "Meta+Space" "Alt+Space" "Alt+F2" "Search"];
         "services/org.kde.plasma-systemmonitor.desktop"."_launch" = "Ctrl+Shift+Esc";
@@ -450,7 +450,7 @@
         "services/org.kde.spectacle.desktop"."RecordWindow" = [ ];
         "services/org.kde.spectacle.desktop"."RectangularRegionScreenShot" = [ ];
         "services/org.kde.spectacle.desktop"."WindowUnderCursorScreenShot" = [ ];
-        "services/org.kde.spectacle.desktop"."_launch" = "Print";
+        "services/org.kde.spectacle.desktop"."_launch" = "Meta+Print";
       };
       
       configFile = {

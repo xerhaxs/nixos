@@ -2,7 +2,7 @@
 
 let
   browser = [ "firefox.desktop;" ];
-  chrome = [ "brave-browser.desktop;" ];
+  chrome = [ "chromium.desktop;" ];
   filemanager = [ "org.kde.dolphin.desktop;"] ;
   mediaplayer = [ "mpv.desktop;" ];
   videoplayer = [ "mpv.desktop;" ];
