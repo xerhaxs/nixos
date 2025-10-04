@@ -467,7 +467,7 @@
         "dolphinrc"."General"."BrowseThroughArchives" = true;
         "dolphinrc"."General"."ShowFullPath" = true;
         "dolphinrc"."General"."ShowFullPathInTitlebar" = true;
-        "dolphinrc"."General"."ShowToolTips" = true;
+        "dolphinrc"."General"."ShowToolTips" = false;
         "dolphinrc"."General"."SplitView" = true;
         "dolphinrc"."General"."UseTabForSwitchingSplitView" = true;
         "dolphinrc"."IconsMode"."IconSize" = 22;

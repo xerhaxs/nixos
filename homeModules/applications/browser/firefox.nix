@@ -1018,6 +1018,10 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/pwas_for_firefox/latest.xpi";
           };
+          "a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/user_agent_string_switcher/latest.xpi";
+          };
         };
 
         "3rdparty".Extensions = {
