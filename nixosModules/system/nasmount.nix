@@ -71,6 +71,11 @@ in
       fsType = "cifs";
       options = truenas-options;
     };
+    fileSystems."/mount/truenas/public" = {
+      device = "//10.75.0.20/public";
+      fsType = "cifs";
+      options = truenas-options;
+    };
 
     networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   };
