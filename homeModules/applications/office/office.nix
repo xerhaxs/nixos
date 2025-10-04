@@ -14,6 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.office.office.enable {
     home.packages = with pkgs; [
+      cmark
       gImageReader
       hunspell
       hunspellDicts.de_DE
@@ -21,16 +22,15 @@
       hunspellDicts.en_US
       hyphen
       kdePackages.ghostwriter
-      pandoc
-      multimarkdown
-      cmark
       kile
-      scribus
       languagetool
       libreoffice
+      multimarkdown
       mythes
-      rnote
       #naps2
+      pandoc
+      rnote
+      scribus
       (symlinkJoin {
         name = "skanpage-with-tesseract";
         paths = [ kdePackages.skanpage ];
@@ -41,7 +41,6 @@
             --set TESSDATA_PREFIX ${tesseract}/share/tessdata
         '';
       })
-      kdePackages.spectacle
       tesseract
       xournalpp
     ];
