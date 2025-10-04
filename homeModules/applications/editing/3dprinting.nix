@@ -18,6 +18,7 @@
       blender-hip
       #orca-slicer
       freecad-wayland
+      cura-appimage
       #cura
       #curaengine
       #curaengine_stable
