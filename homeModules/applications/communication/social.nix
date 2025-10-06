@@ -16,6 +16,7 @@
     home.packages = with pkgs; [
       element-desktop
       signal-desktop-bin
+      briar-desktop
       telegram-desktop
       whatsapp-for-linux
       mumble

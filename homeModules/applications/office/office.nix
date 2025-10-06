@@ -31,6 +31,7 @@
       pandoc
       rnote
       scribus
+      #kdePackages.skanlite
       (symlinkJoin {
         name = "skanpage-with-tesseract";
         paths = [ kdePackages.skanpage ];
