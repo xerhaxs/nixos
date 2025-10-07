@@ -16,6 +16,7 @@
     home.packages = with pkgs; [
       qalculate-gtk
       gnome-disk-utility
+      exiftool
     ];
   };
 }
