@@ -1,7 +1,7 @@
 # NixOS Configuration
 
 This is my personal NixOS configuration.
-I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below. Keep in mind, that this config is tailored for my personal setup. So you need to change the config for your system.
+I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below. **Keep in mind, that this config is tailored for my personal setup. So you need to change the config for your system.**
 
 This config is still in development (see ToDo).
 
@@ -40,17 +40,94 @@ $ nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/
 nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ```
 
-## ToDo after installation
+## ToDo List
 
-- enable syncthing
-- move sops keys to device
-- login protonmail-bridge
-- login in thunderbird
-- login to discord, signal, telegram, teams, netflix, disney, chatgpt, simplelogin
-- setup firefox containers + keepassxc setttings + delet cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
-- import bookmarks
-- set brave browser settings
-- login to heroic and steam
-- login to mullvad and protonvpn
+* [ ] Device Config
+  * [ ] Setup Syncthing Config declarative
+  * [ ] Install Single GPU Passthrough to Windows 11 VM
+    * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
+    * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
+    * [ ] 
+    * [ ] https://wiki.nixos.org/wiki/PCI_passthrough
+    * [ ] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
+  * [ ] Setup Secure Boot https://github.com/nix-community/lanzaboote
+  * [ ] Extended secret provisioning https://github.com/polygon/scalpel
+  * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
+  * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
+  
+* [ ] User application setup in Home Manager
+  * [ ] Firefox
+    * [ ] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
+    * [ ] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/
+  * [ ] Config setup of Steam
+  * [ ] Config setup of Heroic
+  * [ ] Config setup of Prism Launcher
+  * [ ] Config setup of Rnote
+  * [ ] Config setup of Xournal++
 
-Prefetch URLs and sha: nix-prefetch-url --unpack https://URL.com oder lib.fakeSha256
+* [ ] Hyprland setup
+  * [ ] Touch setup https://github.com/horriblename/hyprgrass
+  * [ ] https://github.com/vollowx-archived/arch-dotfiles?tab=readme-ov-file
+  * [ ] https://github.com/hyprwm/hyprpaper
+  * [ ] https://github.com/end-4/dots-hyprland
+  * [ ] https://wiki.hypr.land/Useful-Utilities/Status-Bars/
+  * [ ] https://wiki.hypr.land/FAQ/#how-do-i-screenshot
+  * [ ] https://github.com/hyprwm/contrib
+  * [ ] https://sr.ht/~kennylevinsen/wlsunset/
+  * [ ] https://sr.ht/~exec64/imv/
+  * [ ] https://github.com/ArtsyMacaw/wlogout
+  * [ ] https://wiki.hypr.land/Configuring/Variables/
+  * [ ] https://sr.ht/~emersion/kanshi/
+  * [ ] https://wiki.hypr.land/Useful-Utilities/Wallpapers/
+  * [ ] https://www.reddit.com/r/hyprland/comments/15lbp0i/waypaper_gui_wallpaper_setter_for_wayland/
+  * [ ] https://github.com/LGFae/swww
+  * [ ] https://github.com/XNM1/linux-nixos-hyprland-config-dotfiles/tree/main/home/.config
+
+* [ ] Server config
+  * [ ] Internal Server
+    * [ ] Caddy, insted of Nginx
+    * [ ] Homepage https://gethomepage.dev/
+    * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
+    * [ ] Jellyfin
+    * [ ] Radical https://radicale.org/v3.html
+    * [ ] WebDav for Bookmarksync
+    * [ ] PiHole
+    * [ ] Invidous
+    * [ ] Libreddit
+    * [ ] Lemmy
+    * [ ] Nitter
+    * [ ] Nitter
+    * [ ] SearxNG
+    * [ ] FreshRSS
+    * [ ] Gitea -> local pull instance from public smb share with syncthing?
+    * [ ] SMB / NFS Share
+    * [ ] Lidarr (Config setup)
+    * [ ] NZBHydra2 (Config setup)
+    * [ ] Radarr (Config setup)
+    * [ ] Readarr (Config setup)
+    * [ ] Sonarr (Config setup)
+    * [ ] Sabnzbd (Config setup)
+    * [ ] AI Tools
+      * [ ] https://itsfoss.com/local-ai-image-tools/
+      * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
+      * [ ] Ollama
+  * [ ] External Server
+    * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
+    * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow
+    * [ ] WireGuard
+    * [ ] Matrix.org
+    * [ ] Murmur or Teamspeak
+    * [ ] Minecraft / Pufferpanel
+    * [ ] Nextcloud / Collabora
+  
+  * [ ] 
+
+## Usefull stuff
+- IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307
+- Prefetch URLs and sha: nix-prefetch-url --unpack https://URL.com or use lib.fakeSha256
+- 
+
+## Credits
+
+Thanks to:
+https://github.com/ryan4yin/nix-config/blob/main/README.md
