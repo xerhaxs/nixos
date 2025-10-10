@@ -47,18 +47,19 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] Install Single GPU Passthrough to Windows 11 VM
     * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
     * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
-    * [ ] 
     * [ ] https://wiki.nixos.org/wiki/PCI_passthrough
     * [ ] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
   * [ ] Setup Secure Boot https://github.com/nix-community/lanzaboote
   * [ ] Extended secret provisioning https://github.com/polygon/scalpel
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
+  * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
     * [ ] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
     * [ ] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/
+    * [ ] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/
   * [ ] Config setup of Steam
   * [ ] Config setup of Heroic
   * [ ] Config setup of Prism Launcher
@@ -81,7 +82,13 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] https://wiki.hypr.land/Useful-Utilities/Wallpapers/
   * [ ] https://www.reddit.com/r/hyprland/comments/15lbp0i/waypaper_gui_wallpaper_setter_for_wayland/
   * [ ] https://github.com/LGFae/swww
+  * [ ] https://github.com/Alexays/Waybar
   * [ ] https://github.com/XNM1/linux-nixos-hyprland-config-dotfiles/tree/main/home/.config
+  * [ ] https://github.com/horriblename/hyprgrass
+  * [ ] https://github.com/end-4/dots-hyprland/blob/archive/hybrid/.config/hypr/keybinds.conf
+  * [ ] https://streamable.com/4oogot
+  * [ ] https://github.com/catppuccin/hyprland
+  * [ ] https://github.com/catppuccin/waybar
 
 * [ ] Server config
   * [ ] Internal Server
