@@ -6,6 +6,7 @@
     ./kdeconnect.nix
     ./nextcloud-client.nix
     ./onionshare.nix
+    ./rclone.nix
     ./syncthing.nix
   ];
 
@@ -26,6 +27,7 @@
       kdeconnect.enable = true;
       nextcloud-client.enable = true;
       onionshare.enable = false;
+      rclone.enable = true;
       syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };
   };

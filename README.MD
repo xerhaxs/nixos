@@ -43,7 +43,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ## ToDo List
 
 * [ ] Device Config
-  * [ ] Setup Syncthing Config declarative
+  * [ ] Rclone Setup https://rclone.org/protondrive/
+  * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html
   * [ ] Install Single GPU Passthrough to Windows 11 VM
     * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
     * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
@@ -54,6 +55,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
   * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
+  * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
+  * [ ] 
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
@@ -91,7 +94,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] https://github.com/catppuccin/waybar
 
 * [ ] Server config
-  * [ ] Internal Server
+  * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
     * [ ] Caddy, insted of Nginx
     * [ ] Homepage https://gethomepage.dev/
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
@@ -126,8 +129,6 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] Murmur or Teamspeak
     * [ ] Minecraft / Pufferpanel
     * [ ] Nextcloud / Collabora
-  
-  * [ ] 
 
 ## Usefull stuff
 - IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307
