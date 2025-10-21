@@ -16,6 +16,11 @@
     services = {
         pihole-ftl = {
           enable = true;
+          
+          openFirewallDNS = true;
+          openFirewallDHCP = true;
+          openFirewallWebserver = true;
+
           lists = [
             {
               url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
@@ -305,7 +310,7 @@
               #       configuration file. This is useful if you want to manually configure the
               #       listening mode in auxiliary configuration files. This option is really meant
               #       for advanced users only, support for this option may be limited.
-              listeningMode = "ALL"; ### CHANGED (env), default = "LOCAL"
+              listeningMode = "LOCAL"; ### CHANGED (env), default = "LOCAL"
 
               # Log DNS queries and replies to pihole.log
               queryLogging = true;
@@ -524,202 +529,199 @@
                 interval = 60;
               };
             };
-          webserver = {
-            # On which domain is the web interface served?
-            #
-            # Possible values are:
-            #     <valid domain>
-            domain = "localhost"; # Default pi.hole
-
-            # Webserver access control list (ACL) allowing for restrictions to be put on the list
-            # of IP addresses which have access to the web server. [...]
-            #
-            # Possible values are:
-            #     <valid ACL>
-            acl = "";
-
-            # Ports to be used by the webserver.
-            # [...]
-            #
-            # Possible values are:
-            #     comma-separated list of <[ip_address:]port>
-            #port = "20720"; ### CHANGED (env), default = "80o,443os,[::]:80o,[::]:443os"
-
-            # Maximum number of worker threads allowed.
-            # The Pi-hole web server handles each incoming connection in a separate thread. [...]
-            threads = 50;
-
-            # Additional HTTP headers added to the web server responses.
-            # [...]
-            #
-            # Possible values are:
-            #     array of HTTP headers
-            headers = [
-              "X-DNS-Prefetch-Control: off"
-              "Content-Security-Policy: default-src 'self' 'unsafe-inline';"
-              "X-Frame-Options: DENY"
-              "X-XSS-Protection: 0"
-              "X-Content-Type-Options: nosniff"
-              "Referrer-Policy: strict-origin-when-cross-origin"
-            ];
-
-            # Should the web server serve all files in webserver.paths.webroot directory? If
-            # disabled, only files within the path defined through webserver.paths.webhome and
-            # /api will be served.
-            serve_all = false;
-
-            session = {
-              # Session timeout in seconds. If a session is inactive for more than this time, it will
-              # be terminated. [...]
-              timeout = 1800;
-
-              # Should Pi-hole backup and restore sessions from the database? This is useful if you
-              # want to keep your sessions after a restart of the web interface.
-              restore = true;
-            };
-
-            #tls = {
-              # Path to the TLS (SSL) certificate file. All directories along the path must be
-              # readable and accessible by the user running FTL (typically 'pihole'). [...]
+            webserver = {
+              # On which domain is the web interface served?
               #
               # Possible values are:
-              #     <valid TLS certificate file (*.pem)>
-              #cert = "/etc/pihole/tls.pem";
-            #};
+              #     <valid domain>
+              domain = "localhost"; # Default pi.hole
 
-            #paths = {
-              # Server root on the host
+              # Webserver access control list (ACL) allowing for restrictions to be put on the list
+              # of IP addresses which have access to the web server. [...]
               #
               # Possible values are:
-              #     <valid path>
-              #webroot = "/var/www/html";
+              #     <valid ACL>
+              acl = "";
 
-              # Sub-directory of the root containing the web interface
-              #
-              # Possible values are:
-              #     <valid subpath>, both slashes are needed!
-              #webhome = "/admin/";
-
-              # Prefix where the web interface is served
+              # Ports to be used by the webserver.
               # [...]
               #
               # Possible values are:
-              #     valid URL prefix or empty
-              #prefix = "";
-            #};
+              #     comma-separated list of <[ip_address:]port>
+              #port = "20720"; ### CHANGED (env), default = "80o,443os,[::]:80o,[::]:443os"
 
-            interface = {
-              # Should the web interface use the boxed layout?
-              boxed = true;
+              # Maximum number of worker threads allowed.
+              # The Pi-hole web server handles each incoming connection in a separate thread. [...]
+              threads = 50;
 
-              # Theme used by the Pi-hole web interface
-              #
-              # Possible values are:
-              #   - "default-auto"
-              #   - "default-light"
-              #   - "default-dark"
-              #   - "default-darker"
-              #   - "high-contrast"
-              #   - "high-contrast-dark"
-              #   - "lcars"
-              theme = "default-auto";
-            };
-
-            api = {
-              # Number of concurrent sessions allowed for the API. If the number of sessions exceeds
-              # this value, no new sessions will be allowed until the number of sessions drops due
-              # to session expiration or logout. [...]
-              max_sessions = 16;
-
-              # Should FTL prettify the API output (add extra spaces, newlines and indentation)?
-              prettyJSON = false;
-
-              # API password hash
-              #
-              # Possible values are:
-              #     <valid Pi-hole password hash>
-              pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU="; ### CHANGED, default = ""
-
-              # Pi-hole 2FA TOTP secret. When set to something different than "", 2FA authentication
-              # will be enforced for the API and the web interface. [...]
-              #
-              # Possible values are:
-              #     <valid TOTP secret (20 Bytes in Base32 encoding)>
-              totp_secret = "";
-
-              # Pi-hole application password.
-              # After you turn on two-factor (2FA) verification and set up an Authenticator app, you
-              # may run into issues if you use apps or other services that don't support two-step
-              # verification. [...]
-              #
-              # Possible values are:
-              #     <valid Pi-hole password hash>
-              app_pwhash = "";
-
-              # Should application password API sessions be allowed to modify config settings?
-              # Setting this to true allows third-party applications using the application password
-              # to modify settings, e.g., the upstream DNS servers, DHCP server settings, or
-              # changing passwords. [...]
-              app_sudo = false;
-
-              # Should FTL create a temporary CLI password? This password is stored in clear in
-              # /etc/pihole and can be used by the CLI (pihole ...  commands) to authenticate
-              # against the API. [...]
-              cli_pw = true;
-
-              # Array of clients to be excluded from certain API responses (regex):
-              # - Query Log (/api/queries)
-              # - Top Clients (/api/stats/top_clients)
+              # Additional HTTP headers added to the web server responses.
               # [...]
-              # Possible values are:
-              #     array of regular expressions describing clients
-              excludeClients = [];
-
-              # Array of domains to be excluded from certain API responses (regex):
-              # - Query Log (/api/queries)
-              # - Top Clients (/api/stats/top_domains)
-              # Note that backslashes "\" need to be escaped, i.e. "\\" in this setting
-              #
-              # Example: [ "(^|\\.)\\.google\\.de$", "\\.pi-hole\\.net$" ]
               #
               # Possible values are:
-              #     array of regular expressions describing domains
-              excludeDomains = [];
+              #     array of HTTP headers
+              headers = [
+                "X-DNS-Prefetch-Control: off"
+                "Content-Security-Policy: default-src 'self' 'unsafe-inline';"
+                "X-Frame-Options: DENY"
+                "X-XSS-Protection: 0"
+                "X-Content-Type-Options: nosniff"
+                "Referrer-Policy: strict-origin-when-cross-origin"
+              ];
 
-              # How much history should be imported from the database and returned by the API
-              # [seconds]? (max 24*60*60 = 86400)
-              maxHistory = 86400;
+              # Should the web server serve all files in webserver.paths.webroot directory? If
+              # disabled, only files within the path defined through webserver.paths.webhome and
+              # /api will be served.
+              serve_all = false;
 
-              # Up to how many clients should be returned in the activity graph endpoint
-              # (/api/history/clients)? [...]
-              maxClients = 10;
+              session = {
+                # Session timeout in seconds. If a session is inactive for more than this time, it will
+                # be terminated. [...]
+                timeout = 1800;
 
-              # How should the API compute the most active clients? If set to true, the API will
-              # return the clients with the most queries globally (within 24 hours). [...]
-              client_history_global_max = true;
+                # Should Pi-hole backup and restore sessions from the database? This is useful if you
+                # want to keep your sessions after a restart of the web interface.
+                restore = true;
+              };
 
-              # Allow destructive API calls (e.g. restart DNS server, flush logs, ...)
-              allow_destructive = true;
-
-              temp = {
-                # Which upper temperature limit should be used by Pi-hole? Temperatures above this
-                # limit will be shown as "hot". The number specified here is in the unit defined below
-                limit = 60.000000;
-
-                # Which temperature unit should be used for temperatures processed by FTL?
+              #tls = {
+                # Path to the TLS (SSL) certificate file. All directories along the path must be
+                # readable and accessible by the user running FTL (typically 'pihole'). [...]
                 #
                 # Possible values are:
-                #   - "C"
-                #   - "F"
-                #   - "K"
-                unit = "C";
+                #     <valid TLS certificate file (*.pem)>
+                #cert = "/etc/pihole/tls.pem";
+              #};
+
+              #paths = {
+                # Server root on the host
+                #
+                # Possible values are:
+                #     <valid path>
+                #webroot = "/var/www/html";
+
+                # Sub-directory of the root containing the web interface
+                #
+                # Possible values are:
+                #     <valid subpath>, both slashes are needed!
+                #webhome = "/admin/";
+
+                # Prefix where the web interface is served
+                # [...]
+                #
+                # Possible values are:
+                #     valid URL prefix or empty
+                #prefix = "";
+              #};
+
+              interface = {
+                # Should the web interface use the boxed layout?
+                boxed = true;
+
+                # Theme used by the Pi-hole web interface
+                #
+                # Possible values are:
+                #   - "default-auto"
+                #   - "default-light"
+                #   - "default-dark"
+                #   - "default-darker"
+                #   - "high-contrast"
+                #   - "high-contrast-dark"
+                #   - "lcars"
+                theme = "default-auto";
+              };
+
+              api = {
+                # Number of concurrent sessions allowed for the API. If the number of sessions exceeds
+                # this value, no new sessions will be allowed until the number of sessions drops due
+                # to session expiration or logout. [...]
+                max_sessions = 16;
+
+                # Should FTL prettify the API output (add extra spaces, newlines and indentation)?
+                prettyJSON = false;
+
+                # API password hash
+                #
+                # Possible values are:
+                #     <valid Pi-hole password hash>
+                pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU="; ### CHANGED, default = ""
+
+                # Pi-hole 2FA TOTP secret. When set to something different than "", 2FA authentication
+                # will be enforced for the API and the web interface. [...]
+                #
+                # Possible values are:
+                #     <valid TOTP secret (20 Bytes in Base32 encoding)>
+                totp_secret = "";
+
+                # Pi-hole application password.
+                # After you turn on two-factor (2FA) verification and set up an Authenticator app, you
+                # may run into issues if you use apps or other services that don't support two-step
+                # verification. [...]
+                #
+                # Possible values are:
+                #     <valid Pi-hole password hash>
+                app_pwhash = "";
+
+                # Should application password API sessions be allowed to modify config settings?
+                # Setting this to true allows third-party applications using the application password
+                # to modify settings, e.g., the upstream DNS servers, DHCP server settings, or
+                # changing passwords. [...]
+                app_sudo = false;
+
+                # Should FTL create a temporary CLI password? This password is stored in clear in
+                # /etc/pihole and can be used by the CLI (pihole ...  commands) to authenticate
+                # against the API. [...]
+                cli_pw = true;
+
+                # Array of clients to be excluded from certain API responses (regex):
+                # - Query Log (/api/queries)
+                # - Top Clients (/api/stats/top_clients)
+                # [...]
+                # Possible values are:
+                #     array of regular expressions describing clients
+                excludeClients = [];
+
+                # Array of domains to be excluded from certain API responses (regex):
+                # - Query Log (/api/queries)
+                # - Top Clients (/api/stats/top_domains)
+                # Note that backslashes "\" need to be escaped, i.e. "\\" in this setting
+                #
+                # Example: [ "(^|\\.)\\.google\\.de$", "\\.pi-hole\\.net$" ]
+                #
+                # Possible values are:
+                #     array of regular expressions describing domains
+                excludeDomains = [];
+
+                # How much history should be imported from the database and returned by the API
+                # [seconds]? (max 24*60*60 = 86400)
+                maxHistory = 86400;
+
+                # Up to how many clients should be returned in the activity graph endpoint
+                # (/api/history/clients)? [...]
+                maxClients = 10;
+
+                # How should the API compute the most active clients? If set to true, the API will
+                # return the clients with the most queries globally (within 24 hours). [...]
+                client_history_global_max = true;
+
+                # Allow destructive API calls (e.g. restart DNS server, flush logs, ...)
+                allow_destructive = true;
+
+                temp = {
+                  # Which upper temperature limit should be used by Pi-hole? Temperatures above this
+                  # limit will be shown as "hot". The number specified here is in the unit defined below
+                  limit = 60.000000;
+
+                  # Which temperature unit should be used for temperatures processed by FTL?
+                  #
+                  # Possible values are:
+                  #   - "C"
+                  #   - "F"
+                  #   - "K"
+                  unit = "C";
+                };
               };
             };
           };
-        };
-          openFirewallDNS = true;
-          openFirewallDHCP = true;
-          openFirewallWebserver = true;
         };
         pihole-web = {
           enable = true;
