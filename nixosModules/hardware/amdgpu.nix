@@ -19,19 +19,11 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [
-        amdvlk
-        driversi686Linux.amdvlk
-      ];
     };
 
     hardware.amdgpu = {
       opencl.enable = true;
       initrd.enable = true;
-      amdvlk = {
-        enable = true;
-        support32Bit.enable = true;
-      };
     };
 
     # Tell Xorg to use the amd driver
