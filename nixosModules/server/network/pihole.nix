@@ -17,12 +17,60 @@
         pihole-ftl = {
           enable = true;
           lists = [
-            "StevenBlack" = {
-              enable = true;
-              description = "StevenBlack";
+            {
               url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
               type = "block";
-            };
+              enabled = true;
+              description = "StevenBlack";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/malware.txt";
+              type = "block";
+              enabled = true;
+              description = "Malware";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/phishing.txt";
+              type = "block";
+              enabled = true;
+              description = "Phishing";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/ransomware.txt";
+              type = "block";
+              enabled = true;
+              description = "Ransomware";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/scam.txt";
+              type = "block";
+              enabled = true;
+              description = "Scam";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/tiktok.txt";
+              type = "block";
+              enabled = true;
+              description = "TikTok";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/tracking.txt";
+              type = "block";
+              enabled = true;
+              description = "Tracking";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
+              type = "block";
+              enabled = true;
+              description = "Smart-TV";
+            }
+            {
+              url = "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt";
+              type = "block";
+              enabled = true;
+              description = "AmazonFireTV";
+            }
           ];
 
           privacyLevel = 0;
