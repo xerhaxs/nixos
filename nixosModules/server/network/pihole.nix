@@ -18,14 +18,15 @@
           enable = true;
           lists = [
             {
-              url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-              url = "https://blocklistproject.github.io/Lists/malware.txt";
-              url = "https://blocklistproject.github.io/Lists/phishing.txt";
-              url = "https://blocklistproject.github.io/Lists/ransomware.txt";
-              url = "https://blocklistproject.github.io/Lists/scam.txt";
-              url = "https://blocklistproject.github.io/Lists/tiktok.txt";
-              url = "https://blocklistproject.github.io/Lists/tracking.txt" ;
-              url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
+              url = "
+              https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+              https://blocklistproject.github.io/Lists/malware.txt
+              https://blocklistproject.github.io/Lists/phishing.txt
+              https://blocklistproject.github.io/Lists/ransomware.txt
+              https://blocklistproject.github.io/Lists/scam.txt
+              https://blocklistproject.github.io/Lists/tiktok.txt
+              https://blocklistproject.github.io/Lists/tracking.txt
+              https://blocklistproject.github.io/Lists/smart-tv.txt";
             }
           ];
           privacyLevel = 0;
