@@ -16,62 +16,14 @@
     services = {
         pihole-ftl = {
           enable = true;
-          lists = [ {
+          lists = [
             "StevenBlack" = {
               enable = true;
               description = "StevenBlack";
               url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
               type = "block";
             };
-            "Malware" = {
-              enable = true;
-              description = "Malware";
-              url = "https://blocklistproject.github.io/Lists/malware.txt";
-              type = "block";
-            };
-            "Phishing" = {
-              enable = true;
-              description = "Phishing";
-              url = "https://blocklistproject.github.io/Lists/phishing.txt";
-              type = "block";
-            };
-            "Ransomware" = {
-              enable = true;
-              description = "Ransomware";
-              url = "https://blocklistproject.github.io/Lists/ransomware.txt";
-              type = "block";
-            };
-            "Scam" = {
-              enable = true;
-              description = "Scam";
-              url = "https://blocklistproject.github.io/Lists/scam.txt";
-              type = "block";
-            };
-            "TikTok" = {
-              enable = true;
-              description = "TikTok";
-              url = "https://blocklistproject.github.io/Lists/tiktok.txt";
-              type = "block";
-            };
-            "Tracking" = {
-              enable = true;
-              description = "Tracking";
-              url = "https://blocklistproject.github.io/Lists/tracking.txt";
-              type = "block";
-            };
-            "Smart-TV" = {
-              enable = true;
-              description = "Smart-TV";
-              url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
-              type = "block";
-            };
-            "AmazonFireTV" = {
-              enable = true;
-              description = "AmazonFireTV";
-              url = "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt";
-              type = "block";
-            };
-        } ];
+          ];
 
           privacyLevel = 0;
           settings = {
