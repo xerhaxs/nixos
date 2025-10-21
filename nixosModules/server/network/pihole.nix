@@ -17,18 +17,62 @@
         pihole-ftl = {
           enable = true;
           lists = [
-            {
-              url = "
-              https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-              https://blocklistproject.github.io/Lists/malware.txt
-              https://blocklistproject.github.io/Lists/phishing.txt
-              https://blocklistproject.github.io/Lists/ransomware.txt
-              https://blocklistproject.github.io/Lists/scam.txt
-              https://blocklistproject.github.io/Lists/tiktok.txt
-              https://blocklistproject.github.io/Lists/tracking.txt
-              https://blocklistproject.github.io/Lists/smart-tv.txt";
-            }
+            "StevenBlack" = {
+              enable = true;
+              description = "StevenBlack";
+              url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+              type = "block";
+            };
+            "Malware" = {
+              enable = true;
+              description = "Malware";
+              url = "https://blocklistproject.github.io/Lists/malware.txt";
+              type = "block";
+            };
+            "Phishing" = {
+              enable = true;
+              description = "Phishing";
+              url = "https://blocklistproject.github.io/Lists/phishing.txt";
+              type = "block";
+            };
+            "Ransomware" = {
+              enable = true;
+              description = "Ransomware";
+              url = "https://blocklistproject.github.io/Lists/ransomware.txt";
+              type = "block";
+            };
+            "Scam" = {
+              enable = true;
+              description = "Scam";
+              url = "https://blocklistproject.github.io/Lists/scam.txt";
+              type = "block";
+            };
+            "TikTok" = {
+              enable = true;
+              description = "TikTok";
+              url = "https://blocklistproject.github.io/Lists/tiktok.txt";
+              type = "block";
+            };
+            "Tracking" = {
+              enable = true;
+              description = "Tracking";
+              url = "https://blocklistproject.github.io/Lists/tracking.txt";
+              type = "block";
+            };
+            "Smart-TV" = {
+              enable = true;
+              description = "Smart-TV";
+              url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
+              type = "block";
+            };
+            "AmazonFireTV" = {
+              enable = true;
+              description = "AmazonFireTV";
+              url = "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt";
+              type = "block";
+            };
           ];
+
           privacyLevel = 0;
           settings = {
             dns = {
@@ -48,7 +92,6 @@
                 "10.75.0.20 nextcloud.m4rx.cc"
                 "10.75.0.20 syncthing.m4rx.cc"
                 "10.75.0.20 jellyfin.m4rx.cc"
-                "10.75.0.20 ytdl.m4rx.cc"
                 "10.75.0.20 freshrss.m4rx.cc"
                 "10.75.0.20 rss.m4rx.cc"
                 "10.75.0.20 invidious.m4rx.cc"
@@ -62,28 +105,19 @@
                 "10.75.0.20 searx.m4rx.cc"
                 "10.75.0.20 searxng.m4rx.cc"
                 "10.75.0.20 search.m4rx.cc"
-                "10.75.0.20 uptime.m4rx.cc"
-                "10.75.0.20 kuma.m4rx.cc"
-                "10.75.0.20 collabora.m4rx.cc"
                 "10.75.0.21 kiwix.m4rx.cc"
                 "10.75.0.20 ollama.m4rx.cc"
-                "10.75.0.20 portainer.m4rx.cc"
                 "10.75.0.10 proxmox.m4rx.cc"
                 "10.75.0.25 haos.m4rx.cc"
                 "10.75.0.25 homeassistant.m4rx.cc"
                 "10.75.0.20 nas.m4rx.cc"
                 "10.75.0.20 truenas.m4rx.cc"
-                "10.75.0.20 vaultwarden.m4rx.cc"
                 "10.75.0.20 gitea.m4rx.cc"
-                "10.75.0.20 filebrowser.m4rx.cc"
                 "10.75.0.30 pufferpanel.m4rx.cc"
                 "10.75.0.30 flolserver.m4rx.cc"
                 "10.75.0.30 map.m4rx.cc"
                 "10.75.0.30 bluemap.m4rx.cc"
                 "10.75.0.20 nginx.m4rx.cc"
-                "10.75.0.20 nginxproxymanager.m4rx.cc"
-                "10.75.0.20 proxymanager.m4rx.cc"
-                "10.75.0.20 homepage.m4rx.cc"
                 "10.75.0.23 sabnzbd.m4rx.cc"
               ];
               
