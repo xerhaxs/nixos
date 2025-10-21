@@ -16,7 +16,7 @@
     services = {
         pihole-ftl = {
           enable = true;
-          lists = [
+          lists = [ {
             "StevenBlack" = {
               enable = true;
               description = "StevenBlack";
@@ -71,7 +71,7 @@
               url = "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt";
               type = "block";
             };
-          ];
+        } ];
 
           privacyLevel = 0;
           settings = {
