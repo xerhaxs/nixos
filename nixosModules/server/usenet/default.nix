@@ -3,7 +3,6 @@
 { 
   imports = [
     ./lidarr.nix
-    ./nzbget.nix
     ./nzbhydra2.nix
     ./radarr.nix
     ./readarr.nix
@@ -25,7 +24,6 @@
   config = lib.mkIf config.nixos.server.usenet.enable {
     nixos.server.usenet = {
       lidarr.enable = true;
-      nzbget.enable = true;
       nzbhydra2.enable = true;
       radarr.enable = true;
       readarr.enable = true;

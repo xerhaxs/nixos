@@ -7,12 +7,9 @@
     ./invidious.nix
     ./lemmy.nix
     ./libreddit.nix
-    ./mastodon.nix
     ./moneronode.nix
     ./murmur.nix
     ./nitter.nix
-    ./peertube.nix
-    ./pixelfed.nix
     ./searxng.nix
     ./teamspeak.nix
   ];
@@ -35,12 +32,9 @@
       invidious.enable = true;
       lemmy.enable = true;
       libreddit.enable = true;
-      mastodon.enable = true;
       moneronode.enable = true;
       murmur.enable = true;
       nitter.enable = true;
-      peertube.enable = true;
-      pixelfed.enable = true;
       searxng.enable = true;
       teamspeak.enable = true;
     };

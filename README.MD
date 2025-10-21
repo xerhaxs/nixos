@@ -43,7 +43,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ## ToDo List
 
 * [ ] Device Config
-  * [ ] Rclone Setup https://rclone.org/protondrive/
+  * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx
   * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html
   * [ ] Install Single GPU Passthrough to Windows 11 VM
     * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home

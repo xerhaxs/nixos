@@ -14,6 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.sync.rclone.enable {
     home.packages = with pkgs; [
+      rclone
       rclone-ui
     ];
   };

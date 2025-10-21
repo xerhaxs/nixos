@@ -2,18 +2,9 @@
 
 { 
   imports = [
-    ./collabora.nix
-    ./etesync.nix
-    ./firefoxsync.nix
-    #./haos.nix
-    #./homeassistant.nix
     ./jellyfin.nix
-    #./mailserver.nix
-    ./nextcloud.nix
     ./ollama.nix
-    ./onlyoffice.nix
     ./radicale.nix
-    ./vaultwarden.nix
   ];
 
   options.nixos = {
@@ -29,18 +20,9 @@
 
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
-      collabora.enable = true;
-      etesync.enable = true;
-      firefoxsync.enable = true;
-      #haos.enable = true;
-      #homeassistant.enable = true;
       jellyfin.enable = true;
-      #mailserver.enable = true;
-      nextcloud.enable = true;
       ollama.enable = false;
-      onlyoffice.enable = true;
       radicale.enable = true;
-      vaultwarden.enable = true;
     };
   };
 }
