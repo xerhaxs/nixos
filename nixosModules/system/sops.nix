@@ -36,29 +36,7 @@
 
         "cloudflare/api_key" = { };
 
-        "etesync/secret" = { };
-        "etesync/users/admin/username" = { };
-        "etesync/users/admin/password" = { };
-
-        "firefoxsync/secret" = { };
-
-        "homeassistant/longitude" = { };
-        "homeassistant/latitude" = { };
-
         "lemmy/users/admin/password" = { };
-
-        "mailserver/users/admin/email" = { };
-        "mailserver/users/admin/password" = { };
-        "mailserver/users/jf/email" = { };
-        "mailserver/users/jf/password" = { };
-        "mailserver/users/sirmorton/email" = { };
-        "mailserver/users/sirmorton/password" = { };
-        "mailserver/users/xerhaxs/email" = { };
-        "mailserver/users/xerhaxs/password" = { };
-
-        "thunderbird/email1" = { };
-        "thunderbird/email2" = { };
-        "thunderbird/email3" = { };
 
         "monero/users/username" = { };
         "monero/users/password" = { };
@@ -67,17 +45,8 @@
         "freshrss/users/defaultUser/username" = { };
         "freshrss/users/defaultUser/password" = { };
 
-        "nextcloud/users/admin/username" = { };
-        "nextcloud/users/admin/password" = { };
-
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
-
-        "peertube/secret"  = { };
-        "peertube/smtppassword" = { };
-        "peertube/password" = { };
-
-        "pixelfed/password" = { };
 
         "pufferpanel/users/admin/email" = { };
         "pufferpanel/users/admin/password" = { };
@@ -88,8 +57,6 @@
 
         "webdav/users/admin/username" = { };
         "webdav/users/admin/password" = { };
-
-        "synologynas-smb/user" = { };
 
         "truenas-smb/user" = { };
 
