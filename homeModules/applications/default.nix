@@ -7,7 +7,6 @@
     ./development
     ./editing
     ./education
-    ./flatpak
     ./gaming
     ./media
     ./office
@@ -35,7 +34,6 @@
       development.enable = true;
       editing.enable = true;
       education.enable = true;
-      flatpak.enable = lib.mkIf osConfig.nixos.userEnvironment.flatpak.enable true;
       gaming.enable = true;
       media.enable = true;
       office.enable = true;

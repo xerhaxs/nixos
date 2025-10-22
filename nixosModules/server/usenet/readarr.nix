@@ -33,9 +33,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "readarr.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

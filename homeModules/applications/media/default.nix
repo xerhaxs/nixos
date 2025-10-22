@@ -8,6 +8,7 @@
     ./mediaplayer.nix
     ./mpv.nix
     ./obs-studio.nix
+    ./yt-dlp.nix
   ];
 
   options.homeManager = {
@@ -29,6 +30,7 @@
       mediaplayer.enable = true;
       mpv.enable = true;
       obs-studio.enable = true;
+      yt-dlp.enable = true
     };
   };
 }

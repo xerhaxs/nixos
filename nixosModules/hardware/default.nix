@@ -24,8 +24,8 @@
 
   config = lib.mkIf config.nixos.hardware.enable {
     nixos.hardware = {
-      corectrl.enable = true;
-      openrgb.enable = true;
+      corectrl.enable = false;
+      openrgb.enable = false;
     };
   };
 }

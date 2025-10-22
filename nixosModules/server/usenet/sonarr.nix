@@ -33,9 +33,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "sonarr.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./awesome
     ./hyprland
   ];
 
@@ -19,7 +18,6 @@
 
   config = lib.mkIf config.homeManager.desktop.windowManager.enable {
     homeManager.desktop.windowManager = {
-      awesome.enable = true;
       hyprland.enable = true;
     };
   };

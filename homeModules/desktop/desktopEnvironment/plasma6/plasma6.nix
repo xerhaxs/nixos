@@ -18,6 +18,8 @@
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
     home.packages = with pkgs; with kdePackages; [
+      libksysguard
+      maliit-keyboard
       partitionmanager
       spectacle
     ];

@@ -17,7 +17,7 @@
       enable = true;
       gamescopeSession.enable = true;
       remotePlay.openFirewall = false;
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
     };
 
     hardware.steam-hardware.enable = true;

@@ -29,13 +29,15 @@
       unzip
       xz
       zip
+      zstd
 
       # utils
       eza # A modern replacement for ‘ls’
       fzf # A command-line fuzzy finder
+      pv # replacement of cp
+      parted
       gparted
       gptfdisk
-      inetutils
       jq # A lightweight and flexible command-line JSON processor
       killall
       putty
@@ -49,21 +51,18 @@
       glxinfo
       imagemagick
       lv
-      poppler_utils
       rsync
-      vcftools
-      #ventoy
-      vulkan-tools
-      wayland-utils
-      wlr-randr
-      woeusb # A windows image writer for linux
 
       # networking tools
+      inetutils
       aria2 # A lightweight multi-protocol & multi-source command-line download utility
       dnsutils  # `dig` + `nslookup`
       ipcalc  # it is a calculator for the IPv4/v6 addresses
       iperf3
       ipfetch
+      iftop # network monitoring
+      iotop # io monitoring
+      tcpdump
       ldns # replacement of `dig`, it provide the command `drill`
       mtr # A network diagnostic tool
       nmap # A utility for network discovery and security auditing
@@ -72,27 +71,18 @@
 
       # misc
       cmake
-      cowsay
       file
       gawk
       gnupg
       gnused
       gnutar
       newt # whiptail package for nixos
-      parted
       tree
       which
-      zstd
 
       # productivity
       glow # markdown previewer in terminal
       hugo # static site generator
-      
-      iftop # network monitoring
-      iotop # io monitoring
-      tcpdump
-
-      pv # replacement of cp
 
       # system call monitoring
       lsof # list open files
@@ -112,6 +102,7 @@
       cmatrix # matrix prompt for the terminal
       hollywood # hollywood hacking prompt for the terminal
       asciiquarium # aquarium in the terminal
+      cowsay # generates ASCII art pictures of a cow 
     ];
   };
 }

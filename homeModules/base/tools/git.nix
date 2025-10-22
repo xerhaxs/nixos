@@ -16,7 +16,6 @@
     programs.git = {
       enable = true;
       userName = "xerhaxs";
-      userEmail = "xerhaxs@protonmail.com";
     };
     
     home.packages = with pkgs; [

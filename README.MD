@@ -43,7 +43,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ## ToDo List
 
 * [ ] Device Config
-  * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx
+  * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
   * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html
   * [ ] Install Single GPU Passthrough to Windows 11 VM
     * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
@@ -96,12 +96,13 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
     * [ ] Caddy, insted of Nginx
+    * [ ] Update ddclient config
     * [ ] Homepage https://gethomepage.dev/
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [ ] Jellyfin
     * [ ] Radical https://radicale.org/v3.html
     * [ ] WebDav for Bookmarksync
-    * [ ] PiHole
+    * [x] PiHole
     * [ ] Invidous
     * [ ] Libreddit
     * [ ] Lemmy
@@ -120,7 +121,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
-      * [ ] Ollama
+      * [x] Ollama
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
     * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow

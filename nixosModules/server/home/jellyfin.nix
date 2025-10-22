@@ -32,9 +32,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "jellyfin.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

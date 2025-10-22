@@ -48,9 +48,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "ollama.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

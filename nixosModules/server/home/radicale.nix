@@ -58,9 +58,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "radicale.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

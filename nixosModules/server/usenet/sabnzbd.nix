@@ -33,9 +33,5 @@
         };
       };
     };
-
-    #services.ddclient.domains = [
-    #  "sabnzbd.${config.nixos.server.network.nginx.domain}"
-    #];
   };
 }

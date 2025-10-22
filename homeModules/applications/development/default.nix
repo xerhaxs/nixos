@@ -29,16 +29,16 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
-      arduino.enable = true;
+      arduino.enable = false;
       bottles.enable = true;
       diff.enable = false;
-      dotnet-sdk.enable = true;
-      geany.enable = true;
-      hex.enable = false;
+      dotnet-sdk.enable = false;
+      geany.enable = false;
+      hex.enable = true;
       java.enable = true;
-      jetbrains.enable = true;
+      jetbrains.enable = false;
       pulsar.enable = false;
-      raspberry.enable = true;
+      raspberry.enable = false;
       virtualisation.enable = true;
       vscodium.enable = true;
     };

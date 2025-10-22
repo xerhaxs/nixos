@@ -2,7 +2,7 @@
 
 {
   options.homeManager = {
-    base.tools.yt-dlp = {
+    applications.media.yt-dlp = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.yt-dlp.enable {
+  config = lib.mkIf config.homeManager.applications.media.yt-dlp.enable {
     programs.yt-dlp = {
       enable = true;
       #settings = { };

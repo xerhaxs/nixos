@@ -22,7 +22,7 @@
   config = lib.mkIf config.homeManager.base.texteditor.enable {
     homeManager.base.texteditor = {
       emacs.enable = false;
-      helix.enable = true;
+      helix.enable = false;
       tex.enable = true;
       vim.enable = true;
     };

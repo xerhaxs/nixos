@@ -1,4 +1,4 @@
-{ config, lib, pkgs, flatpak, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.homeManager = {

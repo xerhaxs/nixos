@@ -10,7 +10,7 @@
   nixos.server = {
     home = {
       #jellyfin.enable = true;
-      #ollama.enable = true;
+      ollama.enable = true;
       #radicale.enable = true;
     };
     network = {

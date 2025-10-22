@@ -16,11 +16,5 @@
     home.packages = with pkgs; [
       legcord
     ];
-
-    #programs.discocss = {
-    #  enable = true;
-    #  discordAlias = true;
-    #  discordPackage = pkgs.legcord; # pkgs.webcord
-    #};
   };
 }

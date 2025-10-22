@@ -16,6 +16,24 @@
     services.radarr = {
       enable = true;
       openFirewall = false;
+      #environmentFiles = [];
+      settings = {
+        server = {
+          urlbase = "localhost;"
+        };
+
+        update = {
+          mechanism = "external";
+          automatically = false;
+        };
+
+        log = {
+          analyticsEnabled = false,
+        };
+      };
+
+      port = 7878;
+
       #dataDir = "";
     };
 
@@ -33,9 +51,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "radarr.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

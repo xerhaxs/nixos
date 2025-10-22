@@ -21,7 +21,7 @@
       enable = true;
       startWhenNeeded = false;
       browsing = true;
-      openFirewall = true;
+      openFirewall = false;
       drivers = with pkgs; [
         cups-kyocera-ecosys-m2x35-40-p2x35-40dnw
       ];
@@ -49,11 +49,6 @@
     services.udev.packages = [ pkgs.sane-airscan ];
 
     services.ipp-usb.enable = true;
-
-    #networking.firewall = {
-    #  allowedTCPPorts = [ 53 139 443 445 515 631 9100 9101 9102 22000 ];
-    #  allowedUDPPorts = [ 53 137 161 5353 ];
-    #};
   };
 }
 

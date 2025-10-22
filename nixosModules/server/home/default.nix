@@ -21,7 +21,7 @@
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
       jellyfin.enable = true;
-      ollama.enable = false;
+      ollama.enable = true;
       radicale.enable = true;
     };
   };

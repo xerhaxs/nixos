@@ -19,9 +19,7 @@
       mediathekview
       #kiwix
       kiwix-tools
-      #nuclear
       qbittorrent
-      #jellyfin-media-player
     ];
   };
 }

@@ -8,7 +8,6 @@
     ./htop.nix
     ./java.nix
     ./keepassxc.nix
-    ./openvpn-client.nix
     ./usbtop.nix
     ./wireguard-client.nix
   ];
@@ -32,7 +31,6 @@
       htop.enable = true;
       java.enable = true;
       keepassxc.enable = true;
-      #openvpn-client.enable = true;
       usbtop.enable = true;
       #wireguard-client.enable = true;
     };

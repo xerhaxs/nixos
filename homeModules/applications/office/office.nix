@@ -27,11 +27,10 @@
       libreoffice
       multimarkdown
       mythes
-      #naps2
       pandoc
+      poppler_utils
       rnote
       scribus
-      #kdePackages.skanlite
       (symlinkJoin {
         name = "skanpage-with-tesseract";
         paths = [ kdePackages.skanpage ];
@@ -43,6 +42,7 @@
         '';
       })
       tesseract
+      vcftools # vcf card management tool
       xournalpp
     ];
   };

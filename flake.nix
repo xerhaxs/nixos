@@ -60,10 +60,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    flatpaks = {
-      url = "github:GermanBread/declarative-flatpak/dev";
-    };
   };
 
   outputs = inputs@{ self, nixpkgs, catppuccin, nur, nixos-generators, ... }:

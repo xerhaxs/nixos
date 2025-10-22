@@ -747,9 +747,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "pihole.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

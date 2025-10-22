@@ -109,7 +109,6 @@ in
         "10.75.0.1" = [ "fritz.box" ];
         "10.75.0.10" = [ "proxmox.m4rx.cc" ];
         "10.75.0.20" = [
-          "dav.m4rx.cc"
           "jellyfin.m4rx.cc"
           "lidarr.m4rx.cc"
           "nas.m4rx.cc"
@@ -140,13 +139,10 @@ in
           "searx.m4rx.cc"
           "searxng.m4rx.cc"
           "teamspeak.m4rx.cc"
+          #"dav.m4rx.cc"
           #"gitea.m4rx.cc"
           #"jellyfin.m4rx.cc"
-          #"lidarr.m4rx.cc"
-          #"radarr.m4rx.cc"
-          #"readarr.m4rx.cc"
           #"samba.m4rx.cc"
-          #"sonarr.m4rx.cc"
           #"webdav.m4rx.cc"
         ];
         "10.75.0.22" = [
@@ -162,6 +158,10 @@ in
         "10.75.0.23" = [
           "nzbhydra.m4rx.cc"
           "sabnzbd.m4rx.cc"
+          #"lidarr.m4rx.cc"
+          #"radarr.m4rx.cc"
+          #"readarr.m4rx.cc"
+          #"sonarr.m4rx.cc"
         ];
         "10.75.0.25" = [ 
           "haos.m4rx.cc"

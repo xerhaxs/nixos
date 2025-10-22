@@ -22,9 +22,9 @@
   config = lib.mkIf config.nixos.virtualisation.enable {
     nixos.virtualisation = {
       docker.enable = false;
-      kvm.enable = true;
-      podman.enable = true;
-      waydroid.enable = true;
+      kvm.enable = false;
+      podman.enable = false;
+      waydroid.enable = false;
     };
   };
 }
