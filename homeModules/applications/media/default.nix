@@ -30,7 +30,7 @@
       mediaplayer.enable = true;
       mpv.enable = true;
       obs-studio.enable = true;
-      yt-dlp.enable = true
+      yt-dlp.enable = true;
     };
   };
 }

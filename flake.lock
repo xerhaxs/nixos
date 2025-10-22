@@ -130,22 +130,6 @@
         "type": "github"
       }
     },
-    "flatpaks": {
-      "locked": {
-        "lastModified": 1760427818,
-        "narHash": "sha256-cuJSnek6o1/zAZe3ULxy8646eZDpvfY9k01mtVjRsO8=",
-        "owner": "GermanBread",
-        "repo": "declarative-flatpak",
-        "rev": "b4e8d8e220e1f0bbb3f2da34bf5a19c0a487beb3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "GermanBread",
-        "ref": "dev",
-        "repo": "declarative-flatpak",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -388,7 +372,6 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "disko": "disko",
-        "flatpaks": "flatpaks",
         "home-manager": "home-manager",
         "nix-colors": "nix-colors",
         "nix-minecraft": "nix-minecraft",

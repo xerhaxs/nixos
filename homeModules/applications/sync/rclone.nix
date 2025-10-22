@@ -15,7 +15,6 @@
   config = lib.mkIf config.homeManager.applications.sync.rclone.enable {
     programs.rclone = {
       enable = true;
-      
-    }
+    };
   };
 }

@@ -19,7 +19,8 @@
       #environmentFiles = [];
       settings = {
         server = {
-          urlbase = "localhost;"
+          urlbase = "localhost";
+          port = 7878;
         };
 
         update = {
@@ -28,11 +29,9 @@
         };
 
         log = {
-          analyticsEnabled = false,
+          analyticsEnabled = false;
         };
       };
-
-      port = 7878;
 
       #dataDir = "";
     };

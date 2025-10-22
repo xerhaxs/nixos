@@ -15,7 +15,8 @@
   config = lib.mkIf config.homeManager.base.tools.git.enable {
     programs.git = {
       enable = true;
-      userName = "xerhaxs";
+      settings = {
+      };
     };
     
     home.packages = with pkgs; [
