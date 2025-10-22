@@ -16,6 +16,10 @@
     programs.git = {
       enable = true;
       settings = {
+        user = {
+          name = "xerhaxs";
+          email = "github.wjtpq@slmail.me";
+        };
       };
     };
     

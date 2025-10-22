@@ -22,8 +22,8 @@
       cpu.amd.updateMicrocode = true;
     };
 
-    environment.systemPackages = [
-      pkgs.microcodeAmd
+    environment.systemPackages = with pkgs; [
+      microcodeAmd
     ];
   };
 }

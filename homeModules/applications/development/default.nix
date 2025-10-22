@@ -8,10 +8,10 @@
     ./dotnet-sdk.nix
     ./geany.nix
     ./hex.nix
+    ./imager.nix
     ./java.nix
     ./jetbrains.nix
     ./pulsar.nix
-    ./raspberry.nix
     ./virtualisation.nix
     ./vscodium.nix
   ];
@@ -35,10 +35,10 @@
       dotnet-sdk.enable = false;
       geany.enable = false;
       hex.enable = true;
+      imager.enable = true;
       java.enable = true;
       jetbrains.enable = false;
       pulsar.enable = false;
-      raspberry.enable = false;
       virtualisation.enable = true;
       vscodium.enable = true;
     };

@@ -56,7 +56,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
   * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
   * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
-  * [ ] 
+  * [ ] Remove secrets from home manager git config
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
@@ -130,6 +130,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] Murmur or Teamspeak
     * [ ] Minecraft / Pufferpanel
     * [ ] Nextcloud / Collabora
+    * [ ] User specific nas mount -> remove general user permissions for all nas folders on servers
 
 ## Usefull stuff
 - IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307

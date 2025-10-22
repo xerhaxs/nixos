@@ -22,5 +22,10 @@
       };
       defaultSession = "${config.nixos.desktop.displayManager.defaultSession}";
     };
+
+    environment.systemPackages = with pkgs; [
+      wayland-utils
+      wlr-randr
+    ];
   };
 }
