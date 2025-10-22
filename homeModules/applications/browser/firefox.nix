@@ -1208,7 +1208,7 @@ in
               color = "yellow";
               icon = "fence";
               id = 2;
-            };   
+            };
             Teams = {
               color = "orange";
               icon = "fence";
@@ -1238,6 +1238,11 @@ in
               color = "red";
               icon = "fence";
               id = 8;
+            };
+            GoogleAI = {
+              color = "yellow";
+              icon = "fence";
+              id = 9;
             };
           };
           settings = arkenfox-js;
