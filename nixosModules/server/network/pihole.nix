@@ -18,8 +18,8 @@
           enable = true;
           
           openFirewallDNS = true;
-          openFirewallDHCP = true;
-          openFirewallWebserver = true;
+          openFirewallDHCP = false;
+          openFirewallWebserver = false;
 
           lists = [
             {
@@ -548,7 +548,7 @@
               #
               # Possible values are:
               #     comma-separated list of <[ip_address:]port>
-              #port = "20720"; ### CHANGED (env), default = "80o,443os,[::]:80o,[::]:443os"
+              port = "3334"; ### CHANGED (env), default = "80o,443os,[::]:80o,[::]:443os"
 
               # Maximum number of worker threads allowed.
               # The Pi-hole web server handles each incoming connection in a separate thread. [...]
@@ -723,6 +723,7 @@
             };
           };
         };
+
         pihole-web = {
           enable = true;
           ports = [

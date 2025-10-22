@@ -10,13 +10,14 @@
   nixos.server = {
     home = {
       #jellyfin.enable = true;
+      #ollama.enable = true;
       #radicale.enable = true;
     };
     network = {
       pihole.enable = lib.mkForce true;
     };
     fediverse = {
-      #invidious.enable = true;
+      invidious.enable = true;
     };
   };
 }
