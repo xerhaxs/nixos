@@ -71,6 +71,7 @@
 
       # misc
       cmake
+      php
       file
       gawk
       gnupg

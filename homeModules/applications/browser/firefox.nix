@@ -808,9 +808,9 @@ in
   };
 
   config = lib.mkIf config.homeManager.applications.browser.firefox.enable {
-    home.packages = with pkgs; [
-      firefoxpwa
-    ];
+    #home.packages = with pkgs; [
+    #  firefoxpwa
+    #];
 
     programs.firefox = {
       enable = true;
@@ -822,7 +822,7 @@ in
       nativeMessagingHosts = with pkgs; [
         #keepassxc
         kdePackages.plasma-browser-integration
-        firefoxpwa
+        #firefoxpwa
       ];
 
       policies = {
@@ -998,10 +998,10 @@ in
           #  "installation_mode" = "normal_installed";
           #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
           #};
-          "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
-            "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/latest.xpi";
-          };
+          #"{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/latest.xpi";
+          #};
           #"{d07ccf11-c0cd-4938-a265-2a4d6ad01189}" = {
           #  "installation_mode" = "normal_installed";
           #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/view-page-archive/latest.xpi";
@@ -1010,18 +1010,22 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/netflux/latest.xpi";
           };
-          "vpn@proton.ch" = {
+          #"vpn@proton.ch" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/proton_vpn_firefox_extension/latest.xpi";
+          #};
+          #"firefoxpwa@filips.si" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/pwas_for_firefox/latest.xpi";
+          #};
+          "{c49b13b1-5dee-4345-925e-0c793377e3fa}" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/proton_vpn_firefox_extension/latest.xpi";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/youtube_enhancer_vc/latest.xpi";
           };
-          "firefoxpwa@filips.si" = {
-            "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/pwas_for_firefox/latest.xpi";
-          };
-          "a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7" = {
-            "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/user_agent_string_switcher/latest.xpi";
-          };
+          #"{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/return_youtube_dislikes/latest.xpi";
+          #};
         };
 
         "3rdparty".Extensions = {
@@ -1029,6 +1033,12 @@ in
             settings = [
               {
                 activeMode = true;
+              }
+              {
+                manualNotifications = false;
+              }
+              {
+                showNotificationAfterCleanup = false;
               }
             ];
           };
@@ -1063,70 +1073,93 @@ in
             ];
           };
 
-          #"keepassxc-browser@keepassxc.org".adminSettings = {
-          #  autoReconnect = true;
-          #  afterFillSorting = "sortByMatchingCredentials";
-          #  afterFillSortingTotp = "sortByRelevantEntry";
-          #  autoCompleteUsernames = true;
-          #  showGroupNameInAutocomplete = true;
-          #  autoFillAndSend = false;
-          #  autoFillSingleEntry = false;
-          #  autoFillSingleTotp = true;
-          #  autoRetrieveCredentials = true;
-          #  autoSubmit = true;
-          #  checkUpdateKeePassXC = 3;
-          #  clearCredentialsTimeout = 10;
-          #  colorTheme = "system";
-          #  credentialSorting = "sortByGroupAndTitle";
-          #  defaultGroupAlwaysAsk = true;
-          #  downloadFaviconAfterSave = true;
-          #  passkeys = true;
-          #  passkeysFallback = true;
-          #  saveDomainOnly = true;
-          #  showGettingStartedGuideAlert = true;
-          #  showTroubleshootingGuideAlert = true;
-          #  showLoginFormIcon = true;
-          #  showLoginNotifications = true;
-          #  showNotifications = true;
-          #  useMonochromeToolbarIcon = false;
-          #  showOTPIcon = true;
-          #  useObserver = true;
-          #  usePredefinedSites = true;
-          #  usePasswordGeneratorIcons = true;
-          #};
+          "keepassxc-browser@keepassxc.org".adminSettings = {
+            settings = {
+              autoReconnect = true;
+              afterFillSorting = "sortByMatchingCredentials";
+              afterFillSortingTotp = "sortByRelevantEntry";
+              autoCompleteUsernames = true;
+              showGroupNameInAutocomplete = true;
+              autoFillAndSend = false;
+              autoFillSingleEntry = false;
+              autoFillSingleTotp = true;
+              autoRetrieveCredentials = true;
+              autoSubmit = true;
+              checkUpdateKeePassXC = 0;
+              clearCredentialsTimeout = 10;
+              colorTheme = "system";
+              credentialSorting = "sortByGroupAndTitle";
+              defaultGroupAlwaysAsk = true;
+              downloadFaviconAfterSave = true;
+              passkeys = true;
+              passkeysFallback = true;
+              saveDomainOnly = true;
+              showGettingStartedGuideAlert = true;
+              showTroubleshootingGuideAlert = true;
+              showLoginFormIcon = true;
+              showLoginNotifications = true;
+              showNotifications = true;
+              useMonochromeToolbarIcon = false;
+              showOTPIcon = true;
+              useObserver = true;
+              usePredefinedSites = true;
+              usePasswordGeneratorIcons = false;
+            };
+          };
 
-          "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
-            scripts = rec {
-              "Simple YouTube Age Restriction Bypass" = {
-               custom = {
-                 origInclude = true;
-                 origExclude = true;
-                 origMatch = true;
-                 origExcludeMatch = true;
-                 lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
-               };
-               config = {
-                 enabled = 1;
-                 shouldUpdate = 1;
-                 removed = 0;
-               };
-             };
-           };
-           settings = {
-             isApplied = true;
-             autoUpdate = 1;
-             updateEnabledScriptsOnly = false;
-             exportValues = true;
-             closeAfterInstall = false;
-             editAfterInstall = false;
-             autoReload = true;
-             importScriptData = true;
-             importSettings = true;
-             notifyUpdates = false;
-             notifyUpdatesGlobal = false;
-             defaultInjectInto = "auto";
-             showAdvanced = true;
-           };
+          "{c49b13b1-5dee-4345-925e-0c793377e3fa}".adminSettings = {
+            settings = {
+              enable_automatic_theater_mode = true;
+              enable_automatically_disable_ambient_mode = true;
+              enable_automatically_disable_closed_captions = true;
+              enable_automatically_set_quality = true;
+              enable_default_to_original_audio_track = true;
+              enable_hide_artificial_intelligence_summary = true;
+              enable_hide_paid_promotion_banner = true;
+              enable_hide_playlist_recommendations_from_home_page = true;
+              enable_hide_shorts = true;
+              enable_hide_translate_comment = true;
+              enable_pausing_background_players = false;
+              enable_redirect_remover = true;
+              enable_remaining_time = true;
+              enable_timestamp_peek = true;
+              enable_video_history = true;
+              player_quality = "hd1440";
+            };
+          };
+
+          #"{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".adminSettings = {
+          #  scripts = rec {
+          #    "Simple YouTube Age Restriction Bypass" = {
+          #     custom = {
+          #       origInclude = true;
+          #       origExclude = true;
+          #       origMatch = true;
+          #       origExcludeMatch = true;
+          #       lastInstallURL = "https://raw.githubusercontent.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/main/dist/Simple-YouTube-Age-Restriction-Bypass.user.js";
+          #     };
+          #     config = {
+          #       enabled = 1;
+          #       shouldUpdate = 1;
+          #       removed = 0;
+          #     };
+          #   };
+          # };
+          
+          settings = {
+            isApplied = true;
+            autoUpdate = 1;
+            updateEnabledScriptsOnly = false;
+            exportValues = true;
+            closeAfterInstall = false;
+            editAfterInstall = false;
+            autoReload = true;
+            importScriptData = true;
+            importSettings = true;
+            notifyUpdates = false;
+            notifyUpdatesGlobal = false;
+            defaultInjectInto = "auto";
+            showAdvanced = true;
           };
         };
 

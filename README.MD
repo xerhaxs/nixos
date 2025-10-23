@@ -57,12 +57,14 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
   * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
   * [ ] Remove secrets from home manager git config
+  * [ ] Add a Remote Kill Switch to shutdown every system
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
-    * [ ] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
+    * [x] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
     * [ ] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/
     * [ ] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/
+  * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent
   * [ ] Config setup of Steam
   * [ ] Config setup of Heroic
   * [ ] Config setup of Prism Launcher
@@ -95,6 +97,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
+    * [ ] setup oci container
     * [ ] Caddy, insted of Nginx
     * [ ] Update ddclient config
     * [ ] Homepage https://gethomepage.dev/
