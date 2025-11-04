@@ -51,6 +51,7 @@
         "lp"
         "truenas"
         "minecraft"
+        "docker"
       ];
       initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
       shell = config.nixos.system.user.defaultuser.shell;

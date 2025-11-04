@@ -53,6 +53,7 @@
       virglrenderer
       virtio-win
       win-spice
+      freerdp
     ];
   };
 }

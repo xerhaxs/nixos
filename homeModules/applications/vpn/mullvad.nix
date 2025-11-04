@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.vpn.mullvad.enable {
     home.packages = with pkgs; [
-      #mullvad-browser
+      mullvad-browser
       mullvad-vpn
     ];
   };

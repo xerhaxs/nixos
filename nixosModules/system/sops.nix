@@ -64,9 +64,6 @@
         "syncthing/nixoslaptop" = { };
         "syncthing/graphenos" = { };
 
-        "wireguard/home/privateKey" = { };
-        "wireguard/home/presharedKey" = { };
-
         "wifi" = { };
       };
     };

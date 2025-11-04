@@ -102,6 +102,7 @@ in
       };
 
       enableIPv6 = true;
+      tempAddresses = "default";
 
       useDHCP = false;
 
