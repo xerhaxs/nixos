@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.browser.tor.enable {
     home.packages = with pkgs; [
-      tor-browser-bundle-bin
+      tor-browser
     ];
   };
 }

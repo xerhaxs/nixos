@@ -48,7 +48,7 @@
 
       clinfo
       fwupd
-      glxinfo
+      mesa-demos
       imagemagick
       lv
       rsync

@@ -28,7 +28,7 @@
       multimarkdown
       mythes
       pandoc
-      poppler_utils
+      poppler-utils
       rnote
       scribus
       (symlinkJoin {

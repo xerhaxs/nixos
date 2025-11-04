@@ -18,7 +18,7 @@
       signal-desktop-bin
       briar-desktop
       telegram-desktop
-      whatsapp-for-linux
+      wasistlos
       mumble
       teamspeak6-client
     ];

@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.imager.enable {
     home.packages = with pkgs; [
-      rpi-imager
+      #rpi-imager
       #ventoy
       woeusb # A windows image writer for linux
     ];
