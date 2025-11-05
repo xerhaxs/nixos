@@ -22,11 +22,11 @@
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
         X11Forwarding = false;
-        extraConfig = ''
-          AllowUsers admin jf
-          MaxAuthTries 3
-          LoginGraceTime 30s
-        '';
+        #extraConfig = ''
+        #  AllowUsers admin jf
+        #  MaxAuthTries 3
+        #  LoginGraceTime 30s
+        #'';
       };
     };
 
