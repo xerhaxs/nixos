@@ -16,6 +16,22 @@
     services.lidarr = {
       enable = true;
       openFirewall = false;
+      #environmentFiles = [];
+      settings = {
+        server = {
+          urlbase = "localhost";
+          port = 8686;
+        };
+
+        update = {
+          mechanism = "external";
+          automatically = false;
+        };
+
+        log = {
+          analyticsEnabled = false;
+        };
+      };
       #dataDir = "";
     };
 

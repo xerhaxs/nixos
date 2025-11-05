@@ -32,7 +32,6 @@
           analyticsEnabled = false;
         };
       };
-
       #dataDir = "";
     };
 

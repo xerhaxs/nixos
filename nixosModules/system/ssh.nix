@@ -20,8 +20,13 @@
       settings = {
         PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;
-        PermitRootLogin = "yes";
+        PermitRootLogin = "no";
         X11Forwarding = false;
+        extraConfig = ''
+          AllowUsers admin jf
+          MaxAuthTries 3
+          LoginGraceTime 30s
+        '';
       };
     };
 

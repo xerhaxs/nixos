@@ -7,15 +7,13 @@
 
   nixos.server.network.ddclient.enable = false;
 
-  nixos.server.usenet.enable = false;
-
   nixos.server.usenet = {
-    lidarr.enable = false;
+    lidarr.enable = true;
     nzbhydra2.enable = true;
-    radarr.enable = false;
-    readarr.enable = false;
+    radarr.enable = true;
+    readarr.enable = true;
     sabnzbd.enable = true;
-    sonarr.enable = false;
+    sonarr.enable = true;
   };
 
   services.mullvad-vpn.enable = true;
