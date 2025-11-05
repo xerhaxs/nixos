@@ -20,12 +20,12 @@
 
     hosts = {
       "127.0.0.1" = lib.mkDefault [
-        "nzbhydra.m4rx.cc"
-        "radarr.m4rx.cc"
-        "readarr.m4rx.cc"
-        "sabnzbd.m4rx.cc"
-        "sonarr.m4rx.cc"
-        "lidarr.m4rx.cc"
+        "nzbhydra.${config.nixos.server.network.nginx.domain}"
+        "radarr.${config.nixos.server.network.nginx.domain}"
+        "readarr.${config.nixos.server.network.nginx.domain}"
+        "sabnzbd.${config.nixos.server.network.nginx.domain}"
+        "sonarr.${config.nixos.server.network.nginx.domain}"
+        "lidarr.${config.nixos.server.network.nginx.domain}"
       ];
     };
   };

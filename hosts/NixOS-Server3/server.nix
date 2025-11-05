@@ -5,8 +5,6 @@
 
   nixos.server.network.nginx.enable = true;
 
-  nixos.server.network.ddclient.enable = false;
-
   nixos.server.usenet = {
     lidarr.enable = true;
     nzbhydra2.enable = true;
@@ -26,6 +24,7 @@
     members = [
       "lidarr"
       "radarr"
+      "readarr"
       "sabnzbd"
       "sonarr"
     ];

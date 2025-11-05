@@ -20,20 +20,20 @@
 
     hosts = {
       "127.0.0.1" = lib.mkDefault [
-        "freshrss.m4rx.cc"
-        "invidious.m4rx.cc"
-        "jellyfin.m4rx.cc"
-        #"kiwix.m4rx.cc"
-        "libreddit.m4rx.cc"
-        "ollama.m4rx.cc"
-        "radicale.m4rx.cc"
-        "nitter.m4rx.cc"
-        "pihole.m4rx.cc"
-        "rss.m4rx.cc"
-        "search.m4rx.cc"
-        "searx.m4rx.cc"
-        "searxng.m4rx.cc"
-        #"syncthing.m4rx.cc"
+        "freshrss.${config.nixos.server.network.nginx.domain}"
+        "invidious.${config.nixos.server.network.nginx.domain}"
+        "jellyfin.${config.nixos.server.network.nginx.domain}"
+        #"kiwix.${config.nixos.server.network.nginx.domain}"
+        "libreddit.${config.nixos.server.network.nginx.domain}"
+        "ollama.${config.nixos.server.network.nginx.domain}"
+        "radicale.${config.nixos.server.network.nginx.domain}"
+        "nitter.${config.nixos.server.network.nginx.domain}"
+        "pihole.${config.nixos.server.network.nginx.domain}"
+        "rss.${config.nixos.server.network.nginx.domain}"
+        "search.${config.nixos.server.network.nginx.domain}"
+        "searx.${config.nixos.server.network.nginx.domain}"
+        "searxng.${config.nixos.server.network.nginx.domain}"
+        #"syncthing.${config.nixos.server.network.nginx.domain}"
       ];
     };
   };

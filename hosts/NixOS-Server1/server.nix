@@ -5,8 +5,6 @@
 
   nixos.server.network.nginx.enable = true;
 
-  nixos.server.network.ddclient.enable = true;
-
   nixos.server = {
     home = {
       #jellyfin.enable = true;
