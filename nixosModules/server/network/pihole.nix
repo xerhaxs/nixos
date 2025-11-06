@@ -208,6 +208,10 @@
                 "10.75.0.21 pihole.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 searx.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 searxng.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.22 bluemap.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.22 flolserver.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.22 map.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.22 pufferpanel.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 lidarr.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 nzbhydra.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 radarr.${config.nixos.server.network.nginx.domain}"
@@ -216,10 +220,6 @@
                 "10.75.0.23 sonarr.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.25 haos.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.25 homeassistant.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.30 bluemap.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.30 flolserver.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.30 map.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.30 pufferpanel.${config.nixos.server.network.nginx.domain}"
               ]; ### CHANGED, default = []
 
               # If set, A and AAAA queries for plain names, without dots or domain parts, are never

@@ -100,7 +100,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] setup oci container
     * [ ] Caddy, insted of Nginx
     * [ ] Update ddclient config
-    * [ ] Homepage https://gethomepage.dev/
+    * [ ] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [ ] Jellyfin
     * [ ] Radical https://radicale.org/v3.html
@@ -121,6 +121,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] Readarr (Config setup)
     * [ ] Sonarr (Config setup)
     * [ ] Sabnzbd (Config setup)
+    * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/

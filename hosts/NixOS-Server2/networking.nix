@@ -12,7 +12,7 @@
           prefixLength = 24;
         } ];
         ipv6.addresses = [ {
-          address = "";
+          address = "fe80::5702:f205:97a3:516f";
           prefixLength = 64;
         } ];
       };
@@ -20,13 +20,10 @@
 
     hosts = {
       "127.0.0.1" = lib.mkDefault [
+        "bluemap.4rx.cc"
         "flolserver.${config.nixos.server.network.nginx.domain}"
-        "creativeserver.${config.nixos.server.network.nginx.domain}"
-        "pvpserver.${config.nixos.server.network.nginx.domain}"
-        "testserver.${config.nixos.server.network.nginx.domain}"
-        "silverageserver.${config.nixos.server.network.nginx.domain}"
-        "bluemap.${config.nixos.server.network.nginx.domain}"
         "map.${config.nixos.server.network.nginx.domain}"
+        "pufferpanel.${config.nixos.server.network.nginx.domain}"
       ];
     };
   };
