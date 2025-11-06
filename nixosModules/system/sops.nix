@@ -39,6 +39,8 @@
         "freshrss/users/defaultUser/username" = { };
         "freshrss/users/defaultUser/password" = { };
 
+        "glance/location" = { };
+
         "lemmy/users/admin/password" = { };
 
         "monero/users/username" = { };

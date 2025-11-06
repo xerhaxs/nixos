@@ -30,30 +30,11 @@
                 size = "small";
                 widgets = [
                   {
-                    type = "calendar";
-                    first-day-of-week = "monday";
+                    type = "to-do";
                   }
                   {
-                    type = "rss";
-                    limit = 32;
-                    collapse-after = 3;
-                    cache = "24h";
-                    feeds = [
-                      { url = "https://www.reuters.com/rssFeed/worldNews"; title = "Reuters"; }
-                      { url = "https://www.theguardian.com/world/rss"; title = "The Guardian"; }
-                      { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; }
-                      { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; }
-                      { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; }
-                      { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; }
-                      { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; }
-                      { url = "https://taz.de/rss.xml"; title = "taz.de"; }
-                      { url = "https://restoreprivacy.com/feed/"; title = "RestorePrivacy"; }
-                      { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; }
-                      { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; }
-                      { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; }
-                      { url = "https://www.vice.com/de/rss"; title = "Vice DE"; }
-                      { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; }
-                    ];
+                    type = "calendar";
+                    first-day-of-week = "monday";
                   }
                   {
                     type = "twitch-channels";
@@ -66,13 +47,6 @@
                       "mauriceweber"
                     ];
                   }
-                  {
-                    type = "search";
-                    search-engine = "duckduckgo";
-                  }
-                  {
-                    type = "to-do";
-                  }
                 ];
               }
 
@@ -80,10 +54,41 @@
                 size = "full";
                 widgets = [
                   {
+                    type = "search";
+                    search-engine = "duckduckgo";
+                  }
+                  {
                     type = "group";
                     widgets = [
-                      { type = "hacker-news"; }
-                      { type = "lobsters"; }
+                      {
+                        type = "rss";
+                        title = "News";
+                        limit = 32;
+                        style = "horizontal-cards";
+                        #collapse-after = 3;
+                        feeds = [
+                          { url = "https://www.reuters.com/rssFeed/worldNews"; title = "Reuters"; }
+                          { url = "https://www.theguardian.com/world/rss"; title = "The Guardian"; }
+                          { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; }
+                          { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; }
+                          { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; }
+                          { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; }
+                          { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; }
+                          { url = "https://taz.de/rss.xml"; title = "taz.de"; }
+                          { url = "https://restoreprivacy.com/feed/"; title = "RestorePrivacy"; }
+                          { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; }
+                          { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; }
+                          { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; }
+                          { url = "https://www.vice.com/de/rss"; title = "Vice DE"; }
+                          { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; }
+                        ];
+                      }
+                      { 
+                        type = "hacker-news";
+                      }
+                      {
+                        type = "lobsters";
+                      }
                     ];
                   }
                   {
@@ -110,7 +115,8 @@
                     widgets = [
                       {
                         type = "monitor";
-                        services = [
+                        cache = "1m";
+                        sites = [
                           { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; }
                           { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; }
                           { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; }
@@ -129,7 +135,7 @@
                       {
                         type = "dns-stats";
                         service = "pihole-v6";
-                        url = "https://pihole.${config.nixos.server.network.nginx.domain}/api/v6";
+                        url = "https://pihole.${config.nixos.server.network.nginx.domain}";
                         #password = "${config.sops.secrets."pihole/password".path}";
                         hour-format = "24h";
                       }
@@ -148,6 +154,15 @@
                 size = "small";
                 widgets = [
                   {
+                    type = "clock";
+                    hour-format = "24h";
+                    timezones = [
+                      { timezone = "Europe/Berlin"; label = "Berlin"; }
+                      { timezone = "America/New_York"; label = "New York"; }
+                      { timezone = "Asia/Tokyo"; label = "Tokyo"; }
+                    ];
+                  }
+                  {
                     type = "weather";
                     location = "Berlin, Germany";
                     units = "metric";
@@ -156,17 +171,20 @@
                   {
                     type = "markets";
                     markets = [
-                      { symbol = "SPY"; name = "S&P 500"; }
+                      { symbol = "URTH"; name = "MSCI World ETF"; }
+                      { symbol = "U1IH"; name = "UniGlobal"; }
+                      { symbol = "RHM"; name = " Rheinmetall"; }
                       { symbol = "BTC-USD"; name = "Bitcoin"; }
-                      { symbol = "NVDA"; name = "NVIDIA"; }
-                      { symbol = "AAPL"; name = "Apple"; }
-                      { symbol = "MSFT"; name = "Microsoft"; }
+                      { symbol = "ETH-USD"; name = "Bitcoin"; }
+                      { symbol = "XMR-USD"; name = "Monero"; }
                     ];
                   }
                   {
-                    type = "releases";
-                    cache = "3d";
-                    repositories = [ "xerhaxs/nixos" ];
+                    type = "repository";
+                    repository = [ "xerhaxs/nixos" ];
+                    pull-requests-limit = 5;
+                    issues-limit = 5;
+                    commits-limit = 5;
                   }
                   {
                     type = "bookmarks";
