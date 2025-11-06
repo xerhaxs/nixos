@@ -1,0 +1,205 @@
+{ config, lib, pkgs, ... }:
+
+{
+  options.nixos = {
+    server.home.glance = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = "Enable glance.";
+      };
+    };
+  };
+
+  config = lib.mkIf config.nixos.server.home.glance.enable {
+    services.glance = {
+      enable = true;
+      openFirewall = false;
+      settings = {
+        server = {
+          host = "127.0.0.1";
+          port = 5679;
+        };
+        pages = [
+          {
+            name = "Glance Home";
+            columns = [
+              {
+                size = "small";
+                widgets = [
+                  {
+                    type = "calendar";
+                    first-day-of-week = "monday";
+                  }
+                  {
+                    type = "rss";
+                    limit = 32;
+                    collapse-after = 3;
+                    cache = "24h";
+                    feeds = [
+                      { url = "https://www.reuters.com/rssFeed/worldNews"; title = "Reuters"; }
+                      { url = "https://www.theguardian.com/world/rss"; title = "The Guardian"; }
+                      { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; }
+                      { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; }
+                      { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; }
+                      { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; }
+                      { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; }
+                      { url = "https://taz.de/rss.xml"; title = "taz.de"; }
+                      { url = "https://restoreprivacy.com/feed/"; title = "RestorePrivacy"; }
+                      { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; }
+                      { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; }
+                      { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; }
+                      { url = "https://www.vice.com/de/rss"; title = "Vice DE"; }
+                      { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; }
+                    ];
+                  }
+                  {
+                    type = "twitch-channels";
+                    channels = [
+                      "sparkofphoenixtv"
+                      "thejocraft_live"
+                      "staiy"
+                      "gronkh"
+                      "christitustech"
+                      "mauriceweber"
+                    ];
+                  }
+                  {
+                    type = "search";
+                    engine = "duckduckgo";
+                    placeholder = "Search the web...";
+                  }
+                  {
+                    type = "todo";
+                    title = "To-Do";
+                    items = [
+                      { text = "System-Update prüfen"; done = false; }
+                      { text = "Backups kontrollieren"; done = false; }
+                      { text = "Neue Feeds hinzufügen"; done = false; }
+                    ];
+                  }
+                ];
+              }
+
+              {
+                size = "full";
+                widgets = [
+                  {
+                    type = "group";
+                    widgets = [
+                      { type = "hacker-news"; }
+                      { type = "lobsters"; }
+                    ];
+                  }
+                  {
+                    type = "videos";
+                    channels = [
+                      "UC5NOEUbkLheQcaaRldYW5GA" # Tagesschau
+                      "UChqUTb7kYRX8-EiaN3XFrSQ" # Reuters
+                      "UCLLibJTCy3sXjHLVaDimnpQ" # ARTEde
+                      "UCHnyfMqiRRG1u-2MsSQLbXA" # Veritasium
+                      "UC3swwxiALG5c0Tvom83tPGg" # Two Steps From Hell
+                    ];
+                  }
+                  {
+                    type = "group";
+                    widgets = [
+                      { type = "reddit"; subreddit = "de"; show-thumbnails = true; }
+                      { type = "reddit"; subreddit = "technology"; show-thumbnails = true; }
+                      { type = "reddit"; subreddit = "selfhosted"; show-thumbnails = true; }
+                    ];
+                  }
+                  {
+                    type = "group";
+                    title = "Server Monitoring";
+                    widgets = [
+                      {
+                        type = "service-monitor";
+                        services = [
+                          { name = "Jellyfin"; url = "https://jellyfin.m4rx.cc"; }
+                          { name = "Radarr"; url = "https://radarr.m4rx.cc"; }
+                          { name = "Sonarr"; url = "https://sonarr.m4rx.cc"; }
+                          { name = "Lidarr"; url = "https://lidarr.m4rx.cc"; }
+                          { name = "Readarr"; url = "https://readarr.m4rx.cc"; }
+                          { name = "SABnzbd"; url = "https://sabnzbd.m4rx.cc"; }
+                          { name = "NZBHydra2"; url = "https://nzbhydra2.m4rx.cc"; }
+                          { name = "Nextcloud"; url = "https://nextcloud.m4rx.cc"; }
+                          { name = "Radicale"; url = "https://radicale.m4rx.cc"; }
+                          { name = "Minecraft"; url = "https://minecraft.m4rx.cc"; }
+                          { name = "Ollama"; url = "https://ollama.m4rx.cc"; }
+                          { name = "Pi-hole"; url = "https://pihole.m4rx.cc/admin"; }
+                          { name = "Invidious"; url = "https://invidious.m4rx.cc"; }
+                        ];
+                      }
+                      {
+                        type = "dns-stats";
+                        source = "pihole";
+                        url = "https://pihole.m4rx.cc/api/v6";
+                      }
+                      {
+                        type = "server-stats";
+                        targets = [
+                          { name = "main-server"; url = "https://server.m4rx.cc"; }
+                        ];
+                      }
+                    ];
+                  }
+                ];
+              }
+
+              {
+                size = "small";
+                widgets = [
+                  {
+                    type = "weather";
+                    location = "Berlin, Germany";
+                    units = "metric";
+                    hour-format = "24h";
+                  }
+                  {
+                    type = "markets";
+                    markets = [
+                      { symbol = "SPY"; name = "S&P 500"; }
+                      { symbol = "BTC-USD"; name = "Bitcoin"; }
+                      { symbol = "NVDA"; name = "NVIDIA"; }
+                      { symbol = "AAPL"; name = "Apple"; }
+                      { symbol = "MSFT"; name = "Microsoft"; }
+                    ];
+                  }
+                  {
+                    type = "releases";
+                    cache = "3d";
+                    repositories = [ "xerhaxs/nixos" ];
+                  }
+                  {
+                    type = "bookmarks";
+                    title = "Links";
+                    links = [
+                      { name = "ChatGPT"; url = "https://chat.openai.com"; }
+                    ];
+                  }
+                ];
+              }
+            ];
+          }
+        ];
+      };
+    };
+
+    services.nginx = {
+      virtualHosts = {
+        "glance.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://localhost:5679";
+          };
+        };
+      };
+    };
+  };
+}
