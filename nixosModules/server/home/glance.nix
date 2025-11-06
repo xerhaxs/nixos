@@ -67,17 +67,10 @@
                   }
                   {
                     type = "search";
-                    engine = "duckduckgo";
-                    placeholder = "Search the web...";
+                    search-engine = "duckduckgo";
                   }
                   {
-                    type = "todo";
-                    title = "To-Do";
-                    items = [
-                      { text = "System-Update prüfen"; done = false; }
-                      { text = "Backups kontrollieren"; done = false; }
-                      { text = "Neue Feeds hinzufügen"; done = false; }
-                    ];
+                    type = "to-do";
                   }
                 ];
               }
@@ -115,21 +108,21 @@
                     title = "Server Monitoring";
                     widgets = [
                       {
-                        type = "service-monitor";
+                        type = "monitor";
                         services = [
-                          { name = "Jellyfin"; url = "https://jellyfin.m4rx.cc"; }
-                          { name = "Radarr"; url = "https://radarr.m4rx.cc"; }
-                          { name = "Sonarr"; url = "https://sonarr.m4rx.cc"; }
-                          { name = "Lidarr"; url = "https://lidarr.m4rx.cc"; }
-                          { name = "Readarr"; url = "https://readarr.m4rx.cc"; }
-                          { name = "SABnzbd"; url = "https://sabnzbd.m4rx.cc"; }
-                          { name = "NZBHydra2"; url = "https://nzbhydra2.m4rx.cc"; }
-                          { name = "Nextcloud"; url = "https://nextcloud.m4rx.cc"; }
-                          { name = "Radicale"; url = "https://radicale.m4rx.cc"; }
-                          { name = "Minecraft"; url = "https://minecraft.m4rx.cc"; }
-                          { name = "Ollama"; url = "https://ollama.m4rx.cc"; }
-                          { name = "Pi-hole"; url = "https://pihole.m4rx.cc/admin"; }
-                          { name = "Invidious"; url = "https://invidious.m4rx.cc"; }
+                          { title = "Jellyfin"; url = "https://jellyfin.m4rx.cc"; }
+                          { title = "Radarr"; url = "https://radarr.m4rx.cc"; }
+                          { title = "Sonarr"; url = "https://sonarr.m4rx.cc"; }
+                          { title = "Lidarr"; url = "https://lidarr.m4rx.cc"; }
+                          { title = "Readarr"; url = "https://readarr.m4rx.cc"; }
+                          { title = "SABnzbd"; url = "https://sabnzbd.m4rx.cc"; }
+                          { title = "NZBHydra2"; url = "https://nzbhydra2.m4rx.cc"; }
+                          { title = "Nextcloud"; url = "https://nextcloud.m4rx.cc"; }
+                          { title = "Radicale"; url = "https://radicale.m4rx.cc"; }
+                          { title = "Minecraft"; url = "https://minecraft.m4rx.cc"; }
+                          { title = "Ollama"; url = "https://ollama.m4rx.cc"; }
+                          { title = "Pi-hole"; url = "https://pihole.m4rx.cc/admin"; }
+                          { title = "Invidious"; url = "https://invidious.m4rx.cc"; }
                         ];
                       }
                       {
@@ -137,12 +130,12 @@
                         source = "pihole";
                         url = "https://pihole.m4rx.cc/api/v6";
                       }
-                      {
-                        type = "server-stats";
-                        targets = [
-                          { name = "main-server"; url = "https://server.m4rx.cc"; }
-                        ];
-                      }
+                      #{
+                      #  type = "server-stats";
+                      #  servers = [
+                      #    { name = "NixOS-Server1"; url = "https://server.m4rx.cc"; }
+                      #  ];
+                      #}
                     ];
                   }
                 ];
@@ -176,7 +169,8 @@
                     type = "bookmarks";
                     title = "Links";
                     links = [
-                      { name = "ChatGPT"; url = "https://chat.openai.com"; }
+                      { title = "ChatGPT"; url = "https://chat.openai.com"; }
+                      { title = "Netflix"; url = "https://netflix.com"; }
                     ];
                   }
                 ];
