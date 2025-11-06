@@ -36,17 +36,19 @@
 
         "cloudflare/api_key" = { };
 
+        "freshrss/users/defaultUser/username" = { };
+        "freshrss/users/defaultUser/password" = { };
+
         "lemmy/users/admin/password" = { };
 
         "monero/users/username" = { };
         "monero/users/password" = { };
         "monero/users/address" = { };
 
-        "freshrss/users/defaultUser/username" = { };
-        "freshrss/users/defaultUser/password" = { };
-
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
+
+        "pihole/password" = { };
 
         "radicale/htpasswd" = { };
 

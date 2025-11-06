@@ -16,6 +16,7 @@
     services.glance = {
       enable = true;
       openFirewall = false;
+      environmentFile = "${config.sops.secrets."truenas-smb/user".path}";
       settings = {
         server = {
           host = "127.0.0.1";
@@ -110,30 +111,32 @@
                       {
                         type = "monitor";
                         services = [
-                          { title = "Jellyfin"; url = "https://jellyfin.m4rx.cc"; }
-                          { title = "Radarr"; url = "https://radarr.m4rx.cc"; }
-                          { title = "Sonarr"; url = "https://sonarr.m4rx.cc"; }
-                          { title = "Lidarr"; url = "https://lidarr.m4rx.cc"; }
-                          { title = "Readarr"; url = "https://readarr.m4rx.cc"; }
-                          { title = "SABnzbd"; url = "https://sabnzbd.m4rx.cc"; }
-                          { title = "NZBHydra2"; url = "https://nzbhydra2.m4rx.cc"; }
-                          { title = "Nextcloud"; url = "https://nextcloud.m4rx.cc"; }
-                          { title = "Radicale"; url = "https://radicale.m4rx.cc"; }
-                          { title = "Minecraft"; url = "https://minecraft.m4rx.cc"; }
-                          { title = "Ollama"; url = "https://ollama.m4rx.cc"; }
-                          { title = "Pi-hole"; url = "https://pihole.m4rx.cc/admin"; }
-                          { title = "Invidious"; url = "https://invidious.m4rx.cc"; }
+                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}/admin"; }
+                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; }
                         ];
                       }
                       {
                         type = "dns-stats";
-                        source = "pihole";
-                        url = "https://pihole.m4rx.cc/api/v6";
+                        service = "pihole-v6";
+                        url = "https://pihole.${config.nixos.server.network.nginx.domain}/api/v6";
+                        #password = "${config.sops.secrets."pihole/password".path}";
+                        hour-format = "24h";
                       }
                       #{
                       #  type = "server-stats";
                       #  servers = [
-                      #    { name = "NixOS-Server1"; url = "https://server.m4rx.cc"; }
+                      #    { name = "NixOS-Server1"; url = "https://server.${config.nixos.server.network.nginx.domain}"; }
                       #  ];
                       #}
                     ];
