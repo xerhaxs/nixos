@@ -57,10 +57,6 @@
 
         "truenas-smb/user" = { };
 
-        "syncthing/nixosdesktop" = { };
-        "syncthing/nixoslaptop" = { };
-        "syncthing/graphenos" = { };
-
         "wifi" = { };
       };
     };

@@ -100,7 +100,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] setup oci container
     * [X] Caddy, insted of Nginx -> I'll stay with nginx
     * [ ] Update ddclient config
-    * [ ] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
+    * [X] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [ ] Jellyfin
     * [ ] Radical https://radicale.org/v3.html
