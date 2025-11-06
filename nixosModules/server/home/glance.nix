@@ -181,7 +181,7 @@
                   }
                   {
                     type = "repository";
-                    repository = [ "xerhaxs/nixos" ];
+                    repository = "xerhaxs/nixos";
                     pull-requests-limit = 5;
                     issues-limit = 5;
                     commits-limit = 5;
