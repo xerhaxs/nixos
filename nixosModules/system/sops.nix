@@ -48,9 +48,6 @@
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
 
-        "pufferpanel/users/admin/email" = { };
-        "pufferpanel/users/admin/password" = { };
-
         "radicale/htpasswd" = { };
 
         "searxng/secret" = { };

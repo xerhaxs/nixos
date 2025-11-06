@@ -2,6 +2,7 @@
 
 { 
   imports = [
+    ./glance.nix
     ./jellyfin.nix
     ./ollama.nix
     ./radicale.nix
@@ -20,6 +21,7 @@
 
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
+      glance.enable = true;
       jellyfin.enable = true;
       ollama.enable = true;
       radicale.enable = true;

@@ -8,7 +8,6 @@
   nixos.server.network.ddclient.enable = true;
 
   nixos.server.game.minecraft.enable = true;
-  nixos.server.game.pufferpanel.enable = true;
 
   nixos.system.nasmount.enable = lib.mkForce false;
 }

@@ -42,6 +42,7 @@
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
           package = pkgs.fabricServers.fabric-1_20_6;
+          #whitelist = { };
           serverProperties = {
             #"&4&lFür=eine sozialistische Weltrevolution\!";
             accepts-transfers = false;

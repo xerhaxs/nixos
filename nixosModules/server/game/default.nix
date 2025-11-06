@@ -3,7 +3,6 @@
 { 
   imports = [
     ./minecraft.nix
-    ./pufferpanel.nix
   ];
 
   options.nixos = {
@@ -20,7 +19,6 @@
   config = lib.mkIf config.nixos.server.game.enable {
     nixos.server.game = {
       minecraft.enable = true;
-      pufferpanel.enable = true;
     };
   };
 }

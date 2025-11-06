@@ -7,6 +7,7 @@
 
   nixos.server = {
     home = {
+      glance.enable = true;
       #jellyfin.enable = true;
       ollama.enable = true;
       #radicale.enable = true;

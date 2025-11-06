@@ -23,7 +23,6 @@
         "bluemap.4rx.cc"
         "flolserver.${config.nixos.server.network.nginx.domain}"
         "map.${config.nixos.server.network.nginx.domain}"
-        "pufferpanel.${config.nixos.server.network.nginx.domain}"
       ];
     };
   };

@@ -121,6 +121,7 @@ in
         ];
         "10.75.0.21" = [
           "freshrss.${config.nixos.server.network.nginx.domain}"
+          "glance.${config.nixos.server.network.nginx.domain}"
           "invidious.${config.nixos.server.network.nginx.domain}"
           "kiwix.${config.nixos.server.network.nginx.domain}"
           "lemmy.${config.nixos.server.network.nginx.domain}"
@@ -146,7 +147,6 @@ in
           "bluemap.4rx.cc"
           "flolserver.${config.nixos.server.network.nginx.domain}"
           "map.${config.nixos.server.network.nginx.domain}"
-          "pufferpanel.${config.nixos.server.network.nginx.domain}"
         ];
         "10.75.0.23" = [
           "lidarr.${config.nixos.server.network.nginx.domain}"

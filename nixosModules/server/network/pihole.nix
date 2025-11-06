@@ -192,7 +192,7 @@
               hosts = [
                 "10.75.0.10 proxmox.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 freshrss.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.20 homepage.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.20 glance.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 jellyfin.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 nas.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 nextcloud.${config.nixos.server.network.nginx.domain}"
@@ -211,7 +211,6 @@
                 "10.75.0.22 bluemap.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.22 flolserver.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.22 map.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.22 pufferpanel.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 lidarr.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 nzbhydra.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 radarr.${config.nixos.server.network.nginx.domain}"

@@ -98,7 +98,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
     * [ ] setup oci container
-    * [ ] Caddy, insted of Nginx
+    * [X] Caddy, insted of Nginx -> I'll stay with nginx
     * [ ] Update ddclient config
     * [ ] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
@@ -132,7 +132,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
     * [ ] WireGuard
     * [ ] Matrix.org
     * [ ] Murmur or Teamspeak
-    * [ ] Minecraft / Pufferpanel
+    * [ ] Minecraft
     * [ ] Nextcloud / Collabora
     * [ ] User specific nas mount -> remove general user permissions for all nas folders on servers
 
