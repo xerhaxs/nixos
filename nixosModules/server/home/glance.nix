@@ -62,25 +62,25 @@
                     widgets = [
                       {
                         type = "rss";
-                        title = "News";
+                        title = "RSS Feed";
                         limit = 32;
-                        style = "horizontal-cards";
-                        #collapse-after = 3;
+                        style = "detailed-list";
+                        preserve-order = true;
+                        collapse-after = 5;
                         feeds = [
-                          { url = "https://www.reuters.com/rssFeed/worldNews"; title = "Reuters"; }
-                          { url = "https://www.theguardian.com/world/rss"; title = "The Guardian"; }
-                          { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; }
-                          { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; }
-                          { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; }
-                          { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; }
-                          { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; }
-                          { url = "https://taz.de/rss.xml"; title = "taz.de"; }
-                          { url = "https://restoreprivacy.com/feed/"; title = "RestorePrivacy"; }
-                          { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; }
-                          { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; }
-                          { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; }
-                          { url = "https://www.vice.com/de/rss"; title = "Vice DE"; }
-                          { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; }
+                          { url = "https://www.reuters.com/rssFeed/worldNews"; title = "Reuters"; limit = 3; }
+                          { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; limit = 3; }
+                          { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; limit = 3; }
+                          { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; limit = 3; }
+                          { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; limit = 3; }
+                          { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; limit = 3; }
+                          { url = "https://taz.de/rss.xml"; title = "taz.de"; limit = 3; }
+                          { url = "https://restoreprivacy.com/feed/"; title = "RestorePrivacy"; limit = 3; }
+                          { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; limit = 3; }
+                          { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; limit = 3; }
+                          { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; limit = 3; }
+                          { url = "https://www.vice.com/de/rss"; title = "Vice DE"; limit = 3; }
+                          { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; limit = 3; }
                         ];
                       }
                       { 
@@ -117,19 +117,19 @@
                         type = "monitor";
                         cache = "1m";
                         sites = [
-                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; }
-                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}/admin"; }
-                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; }
+                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/jellyfin.svg"; }
+                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/radarr.svg"; }
+                          { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/sonarr.svg"; }
+                          { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/lidarr.svg"; }
+                          { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/readarr.svg"; }
+                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/sabnzbd.svg"; }
+                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/nzbhydra2.svg"; }
+                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/nextcloud.svg"; }
+                          { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/radicale.svg"; }
+                          { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/minecraft.svg"; allow-insecure = true; }
+                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/ollama.svg"; }
+                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/pi-hole.svg"; }
+                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/invidious.svg"; }
                         ];
                       }
                       {
@@ -175,7 +175,7 @@
                       { symbol = "U1IH"; name = "UniGlobal"; }
                       { symbol = "RHM"; name = " Rheinmetall"; }
                       { symbol = "BTC-USD"; name = "Bitcoin"; }
-                      { symbol = "ETH-USD"; name = "Bitcoin"; }
+                      { symbol = "ETH-USD"; name = "Ethereum"; }
                       { symbol = "XMR-USD"; name = "Monero"; }
                     ];
                   }
