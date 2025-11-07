@@ -16,7 +16,6 @@
     services.glance = {
       enable = true;
       openFirewall = false;
-      environmentFile = "${config.sops.secrets."truenas-smb/user".path}";
       settings = {
         server = {
           host = "127.0.0.1";
@@ -65,22 +64,22 @@
                         title = "RSS Feed";
                         limit = 32;
                         style = "detailed-list";
-                        preserve-order = true;
+                        preserve-order = false;
                         collapse-after = 5;
                         feeds = [
-                          { url = "https://www.reuters.com/rssFeed/worldNews"; title = "Reuters"; limit = 3; }
+                          { url = "https://www.reuters.com/world/"; title = "Reuters"; limit = 3; }
                           { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; limit = 3; }
                           { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; limit = 3; }
                           { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; limit = 3; }
-                          { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; limit = 3; }
-                          { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; limit = 3; }
+                          { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; limit = 1; }
+                          { url = "https://tarnkappe.info/feed"; title = "Tarnkappe.info"; limit = 1; }
+                          { url = "https://www.wired.com/feed/rss"; title = "Wired"; limit = 2; }
+                          { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; limit = 1; }
                           { url = "https://taz.de/rss.xml"; title = "taz.de"; limit = 3; }
-                          { url = "https://restoreprivacy.com/feed/"; title = "RestorePrivacy"; limit = 3; }
                           { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; limit = 3; }
-                          { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; limit = 3; }
+                          { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; limit = 1; }
                           { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; limit = 3; }
-                          { url = "https://www.vice.com/de/rss"; title = "Vice DE"; limit = 3; }
-                          { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; limit = 3; }
+                          { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; limit = 1; }
                         ];
                       }
                       { 
@@ -136,7 +135,7 @@
                         type = "dns-stats";
                         service = "pihole-v6";
                         url = "https://pihole.${config.nixos.server.network.nginx.domain}";
-                        #password = "${config.sops.secrets."pihole/password".path}";
+                        password = builtins.readFile config.sops.secrets."pihole/password".path;
                         hour-format = "24h";
                       }
                       #{
@@ -188,10 +187,14 @@
                   }
                   {
                     type = "bookmarks";
-                    title = "Links";
-                    links = [
-                      { title = "ChatGPT"; url = "https://chat.openai.com"; }
-                      { title = "Netflix"; url = "https://netflix.com"; }
+                    groups = [
+                      {
+                        title = "Links";
+                        links = [
+                          { title = "ChatGPT"; url = "https://chat.openai.com"; }
+                          { title = "Netflix"; url = "https://netflix.com"; }
+                        ];
+                      } 
                     ];
                   }
                 ];
