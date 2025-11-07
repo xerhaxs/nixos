@@ -209,16 +209,13 @@ in
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + lib.strings.toLower "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
     services.glance = lib.mkIf config.services.glance.enable {
-      settings.theme = 
-        [
-          {
+      settings.theme = {
             background-color = "240 21 15";
-            contrast-multiplier = "1.2";
+            contrast-multiplier = 1.2;
             primary-color = "217 92 83";
             positive-color = "115 54 76";
             negative-color = "347 70 65";
-          }
-        ];
+      };
     };
   };
 }
