@@ -124,7 +124,7 @@ in
                         type = "monitor";
                         cache = "1m";
                         sites = [
-                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "${jellyfin}"; }
+                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "di:jellyfin"; }
                           { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = ./icons/png/jellyfin.png; }
                           { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/sonarr.svg"; }
                           { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = ./icons/svg/lidarr.svg; }
