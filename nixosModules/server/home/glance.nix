@@ -40,6 +40,12 @@
                     first-day-of-week = "monday";
                   }
                   {
+                    type = "server-stats";
+                    servers = [
+                      { type = "local"; name = "NixOS-Server1" }
+                    ];
+                  }
+                  {
                     type = "dns-stats";
                     service = "pihole-v6";
                     url = "https://pihole.${config.nixos.server.network.nginx.domain}";
@@ -84,14 +90,13 @@
                           { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; limit = 3; }
                           { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; limit = 3; }
                           { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; limit = 1; }
-                          { url = "https://tarnkappe.info/feed"; title = "Tarnkappe.info"; limit = 1; }
+                          { url = "https://tarnkappe.info/feed"; title = "Tarnkappe.info"; limit = 2; }
                           { url = "https://www.wired.com/feed/rss"; title = "Wired"; limit = 2; }
                           { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; limit = 1; }
                           { url = "https://taz.de/rss.xml"; title = "taz.de"; limit = 3; }
                           { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; limit = 3; }
                           { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; limit = 1; }
                           { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; limit = 3; }
-                          { url = "https://www.philomag.de/rss.xml"; title = "Philosophie Magazin"; limit = 1; }
                         ];
                       }
                       { 
@@ -148,12 +153,6 @@
                           { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "di:minecraft"; allow-insecure = true; }
                         ];
                       }
-                      #{
-                      #  type = "server-stats";
-                      #  servers = [
-                      #    { name = "NixOS-Server1"; url = "https://server.${config.nixos.server.network.nginx.domain}"; }
-                      #  ];
-                      #}
                     ];
                   }
                 ];
