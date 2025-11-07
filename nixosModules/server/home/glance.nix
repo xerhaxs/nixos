@@ -129,7 +129,7 @@
                         cache = "1m";
                         sites = [ # di for Dashboard icons https://github.com/homarr-labs/dashboard-icons
                           { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}"; icon = "di:pi-hole"; }
-                          { title = "Home Assistant"; url = "https://haos.${config.nixos.server.network.nginx.domain}"; icon = "di:home-assistant"}
+                          { title = "Home Assistant"; url = "https://haos.${config.nixos.server.network.nginx.domain}"; icon = "di:home-assistant"; }
                           { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; icon = "di:nextcloud"; }
 
                           { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "di:jellyfin"; }
