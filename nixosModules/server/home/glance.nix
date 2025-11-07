@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+let
+  jellyfin = ./icons/png/jellyfin.png;
+in
+
 {
   options.nixos = {
     server.home.glance = {
@@ -120,8 +124,8 @@
                         type = "monitor";
                         cache = "1m";
                         sites = [
-                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "./icons/png/jellyfin.png"; }
-                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = "../icons/svg/radarr.svg"; }
+                          { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "${jellyfin}"; }
+                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = ./icons/png/jellyfin.png; }
                           { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/sonarr.svg"; }
                           { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = ./icons/svg/lidarr.svg; }
                           { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/readarr.svg"; }
