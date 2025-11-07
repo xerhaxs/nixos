@@ -58,7 +58,7 @@
         };
         pages = [
           {
-            name = "Glance Home";
+            name = "Glance";
             columns = [
               {
                 size = "small";
@@ -203,7 +203,7 @@
                   }
                   {
                     type = "weather";
-                    location = "\{ENV_LOCATION}, Germany";
+                    location = "\{ENV_LOCATION}";
                     units = "metric";
                     hour-format = "24h";
                   }
