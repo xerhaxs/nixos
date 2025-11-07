@@ -43,7 +43,8 @@ let
   "browser.startup.page" = 1;
 
   # set HOME+NEWWINDOW page
-  "browser.startup.homepage" = "about:newtab";
+  #"browser.startup.homepage" = "about:newtab";
+  "browser.startup.homepage" = "https://glance.m4rx.cc/";
 
   # set NEWTAB page
   # true=Firefox Home, false=blank page
