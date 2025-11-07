@@ -123,20 +123,20 @@ in
                       {
                         type = "monitor";
                         cache = "1m";
-                        sites = [
+                        sites = [ # di for Dashboard icons https://github.com/homarr-labs/dashboard-icons
                           { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "di:jellyfin"; }
-                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = ./icons/png/jellyfin.png; }
-                          { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/sonarr.svg"; }
-                          { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = ./icons/svg/lidarr.svg; }
-                          { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/readarr.svg"; }
-                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/sabnzbd.svg"; }
-                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; icon = "icons/svg/nzbhydra2.svg"; }
-                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/nextcloud.svg"; }
-                          { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/radicale.svg"; }
-                          { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/minecraft.svg"; allow-insecure = true; }
-                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/ollama.svg"; }
-                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/pi-hole.svg"; }
-                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "./icons/svg/invidious.svg"; }
+                          { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = "di:radarr"; }
+                          { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; icon = "di:sonarr"; }
+                          { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = "di:lidarr"; }
+                          { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; icon = "di:readarr"; }
+                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; icon = "di:sabnzbd"; }
+                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; icon = "di:nzbhydra2"; }
+                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; icon = "di:nextcloud"; }
+                          { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "di:radicale"; }
+                          { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "di:minecraft"; allow-insecure = true; }
+                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "di:ollama"; }
+                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}"; icon = "di:pi-hole"; }
+                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "di:invidious"; }
                         ];
                       }
                       {
