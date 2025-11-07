@@ -39,7 +39,7 @@
         "freshrss/users/defaultUser/username" = { };
         "freshrss/users/defaultUser/password" = { };
 
-        "glance/location" = { };
+        "glance" = { };
 
         "lemmy/users/admin/password" = { };
 
