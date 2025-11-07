@@ -203,7 +203,7 @@
                   }
                   {
                     type = "weather";
-                    location = "\{ENV_LOCATION}";
+                    location = "\${ENV_LOCATION}";
                     units = "metric";
                     hour-format = "24h";
                   }
