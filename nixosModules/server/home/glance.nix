@@ -13,6 +13,10 @@
   };
 
   config = lib.mkIf config.nixos.server.home.glance.enable {
+    systemd.services.webdav.serviceConfig.EnvironmentFile = [
+      config.sops.secrets."pihole/password".path
+    ];
+
     services.glance = {
       enable = true;
       openFirewall = false;
@@ -135,7 +139,7 @@
                         type = "dns-stats";
                         service = "pihole-v6";
                         url = "https://pihole.${config.nixos.server.network.nginx.domain}";
-                        password = builtins.readFile config.sops.secrets."pihole/password".path;
+                        password = "{env}ENV_PASSWORD";
                         hour-format = "24h";
                       }
                       #{
