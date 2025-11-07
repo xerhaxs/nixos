@@ -1,9 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  jellyfin = ./icons/png/jellyfin.png;
-in
-
 {
   options.nixos = {
     server.home.glance = {
@@ -44,6 +40,13 @@ in
                     first-day-of-week = "monday";
                   }
                   {
+                    type = "dns-stats";
+                    service = "pihole-v6";
+                    url = "https://pihole.${config.nixos.server.network.nginx.domain}";
+                    password = "{env}ENV_PASSWORD";
+                    hour-format = "24h";
+                  }
+                  {
                     type = "twitch-channels";
                     channels = [
                       "sparkofphoenixtv"
@@ -68,6 +71,7 @@ in
                     type = "group";
                     widgets = [
                       {
+                        cache = "5m";
                         type = "rss";
                         title = "RSS Feed";
                         limit = 32;
@@ -111,9 +115,9 @@ in
                   {
                     type = "group";
                     widgets = [
-                      { type = "reddit"; subreddit = "de"; show-thumbnails = true; }
-                      { type = "reddit"; subreddit = "technology"; show-thumbnails = true; }
-                      { type = "reddit"; subreddit = "selfhosted"; show-thumbnails = true; }
+                      { type = "reddit"; subreddit = "de"; show-thumbnails = true; cache = "5m"; }
+                      { type = "reddit"; subreddit = "technology"; show-thumbnails = true; cache = "5m"; }
+                      { type = "reddit"; subreddit = "selfhosted"; show-thumbnails = true; cache = "5m"; }
                     ];
                   }
                   {
@@ -124,27 +128,25 @@ in
                         type = "monitor";
                         cache = "1m";
                         sites = [ # di for Dashboard icons https://github.com/homarr-labs/dashboard-icons
+                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}"; icon = "di:pi-hole"; }
+                          { title = "Home Assistant"; url = "https://haos.${config.nixos.server.network.nginx.domain}"; icon = "di:home-assistant"}
+                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; icon = "di:nextcloud"; }
+
                           { title = "Jellyfin"; url = "https://jellyfin.${config.nixos.server.network.nginx.domain}"; icon = "di:jellyfin"; }
+                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; icon = "di:sabnzbd"; }
+                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; icon = "di:nzbhydra2"; }
+
                           { title = "Radarr"; url = "https://radarr.${config.nixos.server.network.nginx.domain}"; icon = "di:radarr"; }
                           { title = "Sonarr"; url = "https://sonarr.${config.nixos.server.network.nginx.domain}"; icon = "di:sonarr"; }
                           { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = "di:lidarr"; }
+
                           { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; icon = "di:readarr"; }
-                          { title = "SABnzbd"; url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}"; icon = "di:sabnzbd"; }
-                          { title = "NZBHydra2"; url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}"; icon = "di:nzbhydra2"; }
-                          { title = "Nextcloud"; url = "https://nextcloud.${config.nixos.server.network.nginx.domain}"; icon = "di:nextcloud"; }
+                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "di:invidious"; }
+                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "di:ollama"; }
+                          
                           { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "di:radicale"; }
                           { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "di:minecraft"; allow-insecure = true; }
-                          { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "di:ollama"; }
-                          { title = "Pi-hole"; url = "https://pihole.${config.nixos.server.network.nginx.domain}"; icon = "di:pi-hole"; }
-                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "di:invidious"; }
                         ];
-                      }
-                      {
-                        type = "dns-stats";
-                        service = "pihole-v6";
-                        url = "https://pihole.${config.nixos.server.network.nginx.domain}";
-                        password = "{env}ENV_PASSWORD";
-                        hour-format = "24h";
                       }
                       #{
                       #  type = "server-stats";
