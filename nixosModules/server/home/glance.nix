@@ -42,7 +42,7 @@
                   {
                     type = "server-stats";
                     servers = [
-                      { type = "local"; name = "NixOS-Server1" }
+                      { type = "local"; name = "NixOS-Server1"; }
                     ];
                   }
                   {
