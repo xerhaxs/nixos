@@ -50,8 +50,6 @@
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
 
-        "pihole/password" = { };
-
         "radicale/htpasswd" = { };
 
         "searxng/secret" = { };
