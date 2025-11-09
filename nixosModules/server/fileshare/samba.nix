@@ -69,15 +69,19 @@ in
       nmbd.enable = true;
       winbindd.enable = true;
       settings = {
-        workgroup = "WORKGROUP";
-        serverString = "NixOS Secure Samba Server";
-        security = "user";
-        mapToGuest = "Never";
-        "encrypt passwords" = "yes";
-        "smb encrypt" = "required";
-        "min protocol" = "SMB3";
-        "max protocol" = "SMB3";
-        "server signing" = "mandatory";
+        global = {
+          "workgroup" = "WORKGROUP";
+          "serverString" = "NixOS Secure Samba Server";
+          "security" = "user";
+          "encrypt passwords" = "yes";
+          "smb encrypt" = "required";
+          "hosts allow" = "10.75.0. 127.0.0.1 localhost";
+          "hosts deny" = "0.0.0.0/0";
+          "map to guest" = "Never";
+          "min protocol" = "SMB3";
+          "max protocol" = "SMB3";
+          "server signing" = "mandatory";
+        };
 
         shares = {
           public = {
