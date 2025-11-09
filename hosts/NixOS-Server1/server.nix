@@ -7,7 +7,7 @@
 
   nixos.server = {
     fileshare = {
-      samba.enable = true
+      samba.enable = true;
     };
     home = {
       glance.enable = true;
