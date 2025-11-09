@@ -1,5 +1,19 @@
 { config, lib, pkgs, ... }:
 
+let
+  sambaDirs = [
+    { path = "/srv/samba/public"; owner = "root"; group = "tmjf"; mode = "0775"; }
+    { path = "/srv/samba/jf"; owner = "jf"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/meli"; owner = "meli"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/video"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/photo"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/music"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/document"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/games"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/backup"; owner = "haos"; group = "tmjf"; mode = "0770"; }
+  ];
+in
+
 {
   options.nixos = {
     server.fileshare.samba = {
@@ -13,55 +27,155 @@
   };
 
   config = lib.mkIf config.nixos.server.fileshare.samba.enable {
+    users.groups = {
+      tmjf = {};
+      api = {};
+    };
+
+    users.users = {
+      jf = {
+        isNormalUser = false;
+        group = "tmjf";
+        home = "/srv/samba/jf";
+        shell = pkgs.nologin;
+      };
+      meli = {
+        isNormalUser = false;
+        group = "tmjf";
+        home = "/srv/samba/meli";
+        shell = pkgs.nologin;
+      };
+      haos = {
+        isNormalUser = false;
+        group = "api";
+        home = "/srv/samba/backup";
+        shell = pkgs.nologin;
+      };
+    };
+
+    # Verzeichnisse erstellen und Rechte setzen
+    environment.etc."samba-dirs".text = ''
+      ${builtins.concatStringsSep "\n" (map (d: ''
+        mkdir -p ${d.path}
+        chown ${d.owner}:${d.group} ${d.path}
+        chmod ${d.mode} ${d.path}
+      '') sambaDirs)}
+    '';
+
     services.samba = {
       enable = true;
-      securityType = "user";
-      openFirewall = true;
-      nsswins = true;
-      enableNmbd = true;
-      
-      extraConfig = ''
-        workgroup = WORKGROUP
-        server string = smbnix
-        netbios name = smbnix
-        security = user 
-        #use sendfile = yes
-        #max protocol = smb2
-        # note: localhost is the ipv6 localhost ::1
-        hosts allow = 192.168.0. 127.0.0.1 localhost
-        hosts deny = 0.0.0.0/0
-        guest account = nobody
-        map to guest = bad user
-      '';
-      shares = {
-        public = {
-          path = "/mnt/shares/public";
-          browseable = "yes";
-          "read only" = "yes";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "admin";
-          "force group" = "admin";
-        };
-        private = {
-          path = "/mnt/shares/private";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "admin";
-          "force group" = "admin";
+      settings = {
+        workgroup = "WORKGROUP";
+        serverString = "NixOS Secure Samba Server";
+        security = "user";
+        mapToGuest = "Never";
+        encrypt passwords = true;
+        smb encrypt = required;
+        min protocol = SMB3;
+        max protocol = SMB3;
+        server signing = mandatory;
+
+        shares = {
+          public = {
+            path = "/srv/samba/public";
+            browseable = true;
+            writable = true;
+            guestOk = true;
+            create mask = 0664;
+            directory mask = 0775;
+            # Hinweis: Dateigrößenbegrenzung über Filesystem-Quota
+          };
+
+          jf = {
+            path = "/srv/samba/jf";
+            browseable = true;
+            writable = true;
+            validUsers = [ "jf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          meli = {
+            path = "/srv/samba/meli";
+            browseable = true;
+            writable = true;
+            validUsers = [ "meli" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          video = {
+            path = "/srv/samba/video";
+            browseable = true;
+            writable = true;
+            validGroups = [ "tmjf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          photo = {
+            path = "/srv/samba/photo";
+            browseable = true;
+            writable = true;
+            validGroups = [ "tmjf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          music = {
+            path = "/srv/samba/music";
+            browseable = true;
+            writable = true;
+            validGroups = [ "tmjf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          document = {
+            path = "/srv/samba/document";
+            browseable = true;
+            writable = true;
+            validGroups = [ "tmjf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          games = {
+            path = "/srv/samba/games";
+            browseable = true;
+            writable = true;
+            validGroups = [ "tmjf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
+
+          backup = {
+            path = "/srv/samba/backup";
+            browseable = true;
+            writable = true;
+            validUsers = [ "haos" ];
+            validGroups = [ "tmjf" ];
+            create mask = 0660;
+            directory mask = 0770;
+          };
         };
       };
     };
 
+      nsswins = true;
+      smbd.enable = true;
+      nmbd.enable = true;
+      winbindd.enable = true;
+    };
+
     services.samba-wsdd = {
       enable = true;
-      workgroup = "NixOS";
+      workgroup = "TMJF";
       openFirewall = true;
       discovery = true;
     };
+
+    networking.firewall.enable = true;
+    networking.firewall.allowPing = true;
   };
 }
