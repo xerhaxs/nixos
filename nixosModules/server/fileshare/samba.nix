@@ -3,14 +3,14 @@
 let
   sambaDirs = [
     { path = "/srv/samba/public"; owner = "root"; group = "tmjf"; mode = "0775"; }
-    { path = "/srv/samba/jf"; owner = "jf"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/meli"; owner = "meli"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/video"; owner = "root"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/photo"; owner = "root"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/music"; owner = "root"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/document"; owner = "root"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/games"; owner = "root"; group = "tmjf"; mode = "0770"; }
-    { path = "/srv/samba/backup"; owner = "haos"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/jf"; owner = "jf"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/meli"; owner = "meli"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/video"; owner = "root"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/photo"; owner = "root"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/music"; owner = "root"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/document"; owner = "root"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/games"; owner = "root"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/backup"; owner = "haos"; group = "tmjf"; mode = ""0770""; }
   ];
 in
 
@@ -69,94 +69,94 @@ in
         serverString = "NixOS Secure Samba Server";
         security = "user";
         mapToGuest = "Never";
-        "encrypt passwords" = true;
-        "smb encrypt" = required;
-        "min protocol" = SMB3;
-        "max protocol" = SMB3;
-        "server signing" = mandatory;
+        "encrypt passwords" = "true";
+        "smb encrypt" = "required";
+        "min protocol" = "SMB3";
+        "max protocol" = "SMB3";
+        "server signing" = "mandatory";
 
         shares = {
           public = {
             path = "/srv/samba/public";
-            browseable = true;
-            writable = true;
-            guestOk = true;
-            create mask = 0664;
-            directory mask = 0775;
+            "browseable" = "yes";
+            "read only" = "no";
+            "guest ok" = "yes";
+            "create mask" = "0664";
+            "directory mask" = "0775";
             # Hinweis: Dateigrößenbegrenzung über Filesystem-Quota
           };
 
           jf = {
             path = "/srv/samba/jf";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validUsers = [ "jf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           meli = {
             path = "/srv/samba/meli";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validUsers = [ "meli" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           video = {
             path = "/srv/samba/video";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validGroups = [ "tmjf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           photo = {
             path = "/srv/samba/photo";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validGroups = [ "tmjf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           music = {
             path = "/srv/samba/music";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validGroups = [ "tmjf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           document = {
             path = "/srv/samba/document";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validGroups = [ "tmjf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           games = {
             path = "/srv/samba/games";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validGroups = [ "tmjf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
 
           backup = {
             path = "/srv/samba/backup";
-            browseable = true;
-            writable = true;
+            "browseable" = "yes";
+            "read only" = "no";
             validUsers = [ "haos" ];
             validGroups = [ "tmjf" ];
-            create mask = 0660;
-            directory mask = 0770;
+            "create mask" = "0660";
+            "directory mask" = "0770";
           };
         };
       };

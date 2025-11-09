@@ -6,6 +6,9 @@
   nixos.server.network.nginx.enable = true;
 
   nixos.server = {
+    fileshare = {
+      samba.enable = true
+    };
     home = {
       glance.enable = true;
       #jellyfin.enable = true;
