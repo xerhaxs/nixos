@@ -64,6 +64,7 @@ in
 
     services.samba = {
       enable = true;
+      openFirewall = true;
       nsswins = true;
       smbd.enable = true;
       nmbd.enable = true;
