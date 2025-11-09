@@ -7,6 +7,7 @@
     ./common.nix
     ./git.nix
     ./ranger.nix
+    ./termius.nix
   ];
 
   options.homeManager = {
@@ -27,6 +28,7 @@
       common.enable = true;
       git.enable = true;
       ranger.enable = true;
+      termius.nix.enable = true;
     };
   };
 }
