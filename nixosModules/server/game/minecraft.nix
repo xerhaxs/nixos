@@ -1,6 +1,7 @@
 { config, lib, pkgs, nix-minecraft, ... }:
 
 # minecraft server shell with 'tmux -S /run/minecraft/servername.sock attach'
+# man https://github.com/Infinidoge/nix-minecraft?tab=readme-ov-file
 
 {
   imports = [ 

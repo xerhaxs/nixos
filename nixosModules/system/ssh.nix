@@ -20,7 +20,7 @@
       settings = {
         PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;
-        PermitRootLogin = "no";
+        PermitRootLogin = "yes";
         X11Forwarding = false;
       };
     };
