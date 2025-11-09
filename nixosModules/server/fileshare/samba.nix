@@ -83,7 +83,6 @@ in
           "server signing" = "mandatory";
         };
 
-        shares = {
           public = {
             path = "/srv/samba/public";
             "browseable" = "yes";
@@ -165,7 +164,6 @@ in
             "create mask" = "0660";
             "directory mask" = "0770";
           };
-        };
       };
     };
 
