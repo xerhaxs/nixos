@@ -8,7 +8,7 @@
   nixos.server.usenet = {
     lidarr.enable = true;
     nzbhydra2.enable = true;
-    radarr.enable = false;
+    radarr.enable = true;
     readarr.enable = true;
     sabnzbd.enable = true;
     sonarr.enable = true;
