@@ -64,6 +64,10 @@ in
 
     services.samba = {
       enable = true;
+      nsswins = true;
+      smbd.enable = true;
+      nmbd.enable = true;
+      winbindd.enable = true;
       settings = {
         workgroup = "WORKGROUP";
         serverString = "NixOS Secure Samba Server";
@@ -160,12 +164,6 @@ in
           };
         };
       };
-    };
-
-      nsswins = true;
-      smbd.enable = true;
-      nmbd.enable = true;
-      winbindd.enable = true;
     };
 
     services.samba-wsdd = {
