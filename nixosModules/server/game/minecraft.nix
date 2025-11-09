@@ -23,25 +23,24 @@
       nix-minecraft.overlay
     ];
 
-    services.minecraft-server = {
-      enable = false;
-      eula = true;
-      jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
-      package = pkgs.minecraftServers.vanilla-1_20_6;
-      openFirewall = true;
-    };
+    #services.minecraft-server = {
+    #  enable = false;
+    #  eula = true;
+    #  jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
+    #  package = pkgs.minecraftServers.vanilla-1_21_10;
+    #  openFirewall = true;
+    #};
 
     services.minecraft-servers = {
       enable = true;
       eula = true;
-
       servers = {
         flolserver = {
           enable = true;
           autoStart = true;
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
-          package = pkgs.fabricServers.fabric-1_20_6;
+          package = pkgs.fabricServers.fabric-1_21_10;
           whitelist = {
             Ecki_0709 = "a36b2d29-b75c-4958-a7e7-05f65d2dd130";
             FaL4Fl = "8d385243-ee7c-4a95-88f0-f1243d528b7d";
