@@ -13,5 +13,5 @@
     pass = "$y$j9T$MXbWf.peSOtvQQtYvZvuZ.$7XUvmCniT4h4o.SFaGqD29F13RWyGW7bNpBcMpHKHH3";
   };
 
-  services.qemuGuest.enable = true
+  services.qemuGuest.enable = true;
 }
