@@ -8,7 +8,7 @@
     ./kdeconnect.nix
     ./mullvad.nix
     ./nfs-client.nix
-    #./printing.nix
+    ./printing.nix
     ./samba-client.nix
     ./steam.nix
     ./syncthing.nix
@@ -33,7 +33,7 @@
       kdeconnect.enable = true;
       mullvad.enable = true;
       nfs-client.enable = true;
-      #printing.enable = true;
+      printing.enable = true;
       samba-client.enable = true;
       steam.enable = true;
       syncthing.enable = true;
