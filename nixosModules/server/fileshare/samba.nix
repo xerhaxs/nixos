@@ -69,11 +69,11 @@ in
         serverString = "NixOS Secure Samba Server";
         security = "user";
         mapToGuest = "Never";
-        encrypt passwords = true;
-        smb encrypt = required;
-        min protocol = SMB3;
-        max protocol = SMB3;
-        server signing = mandatory;
+        "encrypt passwords" = true;
+        "smb encrypt" = required;
+        "min protocol" = SMB3;
+        "max protocol" = SMB3;
+        "server signing" = mandatory;
 
         shares = {
           public = {
