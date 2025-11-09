@@ -7,7 +7,7 @@
 
   nixos.server = {
     fileshare = {
-      samba.enable = true;
+      samba.enable = false;
     };
     home = {
       glance.enable = true;
@@ -16,7 +16,7 @@
       #radicale.enable = true;
     };
     network = {
-      pihole.enable = lib.mkForce true;
+      pihole.enable = true;
     };
     fediverse = {
       invidious.enable = true;
