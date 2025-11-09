@@ -3,14 +3,14 @@
 let
   sambaDirs = [
     { path = "/srv/samba/public"; owner = "root"; group = "tmjf"; mode = "0775"; }
-    { path = "/srv/samba/jf"; owner = "jf"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/meli"; owner = "meli"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/video"; owner = "root"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/photo"; owner = "root"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/music"; owner = "root"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/document"; owner = "root"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/games"; owner = "root"; group = "tmjf"; mode = ""0770""; }
-    { path = "/srv/samba/backup"; owner = "haos"; group = "tmjf"; mode = ""0770""; }
+    { path = "/srv/samba/jf"; owner = "jf"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/meli"; owner = "meli"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/video"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/photo"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/music"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/document"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/games"; owner = "root"; group = "tmjf"; mode = "0770"; }
+    { path = "/srv/samba/backup"; owner = "haos"; group = "tmjf"; mode = "0770"; }
   ];
 in
 
