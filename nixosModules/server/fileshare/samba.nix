@@ -35,16 +35,19 @@ in
     users.users = {
       jf = {
         isNormalUser = false;
+        isSystemUser = true;
         group = "tmjf";
         home = "/srv/samba/jf";
       };
       meli = {
         isNormalUser = false;
+        isSystemUser = true;
         group = "tmjf";
         home = "/srv/samba/meli";
       };
       haos = {
         isNormalUser = false;
+        isSystemUser = true;
         group = "api";
         home = "/srv/samba/backup";
       };
