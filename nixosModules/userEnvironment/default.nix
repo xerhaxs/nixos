@@ -33,7 +33,7 @@
       kdeconnect.enable = true;
       mullvad.enable = true;
       nfs-client.enable = true;
-      printing.enable = true;
+      printing.enable = false;
       samba-client.enable = true;
       steam.enable = true;
       syncthing.enable = true;

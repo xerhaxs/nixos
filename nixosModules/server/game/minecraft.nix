@@ -42,7 +42,12 @@
           openFirewall = true;
           jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
           package = pkgs.fabricServers.fabric-1_20_6;
-          #whitelist = { };
+          whitelist = {
+
+          };
+          operators = {
+            
+          };
           serverProperties = {
             #"&4&lFür=eine sozialistische Weltrevolution\!";
             accepts-transfers = false;
@@ -95,7 +100,7 @@
             #resource-pack-sha1=
             server-ip = "0.0.0.0";
             server-port = 25565;
-            simulation-distance = 10;
+            simulation-distance = 8;
             snooper-enabled = false;
             spawn-animals = true;
             spawn-monsters = true;

@@ -37,6 +37,4 @@
   };
 
   nixos.userEnvironment.enable = lib.mkForce true;
-
-  nixos.virtualisation.kvm.enable = lib.mkForce true;
 }

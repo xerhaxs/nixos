@@ -62,14 +62,14 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 * [ ] User application setup in Home Manager
   * [ ] Firefox
     * [x] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
-    * [ ] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/
+    * [x] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/ -> seems unnecessary
     * [ ] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/
   * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent
-  * [ ] Config setup of Steam
-  * [ ] Config setup of Heroic
-  * [ ] Config setup of Prism Launcher
-  * [ ] Config setup of Rnote
-  * [ ] Config setup of Xournal++
+  * [ ] Config setup of Steam (write config file)
+  * [ ] Config setup of Heroic (write config file)
+  * [ ] Config setup of Prism Launcher (write config file)
+  * [ ] Config setup of Rnote (write config file)
+  * [ ] Config setup of Xournal++ (write config file)
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass
@@ -97,6 +97,8 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
+    * [ ] full disk encryption on servers
+    * [ ] backup strategy on proxmox
     * [ ] setup oci container
     * [X] Caddy, insted of Nginx -> I'll stay with nginx
     * [ ] Update ddclient config
