@@ -37,19 +37,16 @@ in
         isNormalUser = false;
         group = "tmjf";
         home = "/srv/samba/jf";
-        shell = pkgs.nologin;
       };
       meli = {
         isNormalUser = false;
         group = "tmjf";
         home = "/srv/samba/meli";
-        shell = pkgs.nologin;
       };
       haos = {
         isNormalUser = false;
         group = "api";
         home = "/srv/samba/backup";
-        shell = pkgs.nologin;
       };
     };
 
