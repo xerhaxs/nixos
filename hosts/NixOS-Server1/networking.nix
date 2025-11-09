@@ -6,7 +6,7 @@
     hostName = "NixOS-Server1";
 
     interfaces = {  
-      ens18 = {
+      enp0s18 = {
         ipv4.addresses = [ {
           address = "10.75.0.21";
           prefixLength = 24;
