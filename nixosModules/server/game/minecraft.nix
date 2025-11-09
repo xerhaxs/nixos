@@ -3,6 +3,7 @@
 # minecraft server shell with 'tmux -S /run/minecraft/servername.sock attach'
 # man https://github.com/Infinidoge/nix-minecraft?tab=readme-ov-file
 
+
 {
   imports = [ 
     nix-minecraft.nixosModules.minecraft-servers
@@ -35,6 +36,7 @@
     services.minecraft-servers = {
       enable = true;
       eula = true;
+      dataDir = "/srv/minecraft";
       servers = {
         flolserver = {
           enable = true;
