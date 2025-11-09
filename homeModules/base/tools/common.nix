@@ -14,9 +14,10 @@
 
   config = lib.mkIf config.homeManager.base.tools.common.enable {
     home.packages = with pkgs; [
-      qalculate-gtk
-      gnome-disk-utility
       exiftool
+      gnome-disk-utility
+      putty
+      qalculate-gtk
     ];
   };
 }
