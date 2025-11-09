@@ -73,7 +73,7 @@ in
         serverString = "NixOS Secure Samba Server";
         security = "user";
         mapToGuest = "Never";
-        "encrypt passwords" = "true";
+        "encrypt passwords" = "yes";
         "smb encrypt" = "required";
         "min protocol" = "SMB3";
         "max protocol" = "SMB3";
