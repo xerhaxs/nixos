@@ -98,7 +98,7 @@ in
             path = "/srv/samba/jf";
             "browseable" = "yes";
             "read only" = "no";
-            validUsers = [ "jf" ];
+            "valid users" = "jf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -107,7 +107,7 @@ in
             path = "/srv/samba/meli";
             "browseable" = "yes";
             "read only" = "no";
-            validUsers = [ "meli" ];
+            "valid users" = "meli";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -116,7 +116,7 @@ in
             path = "/srv/samba/video";
             "browseable" = "yes";
             "read only" = "no";
-            validGroups = [ "tmjf" ];
+            "valid users" = "@tmjf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -125,7 +125,7 @@ in
             path = "/srv/samba/photo";
             "browseable" = "yes";
             "read only" = "no";
-            validGroups = [ "tmjf" ];
+            "valid users" = "@tmjf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -134,7 +134,7 @@ in
             path = "/srv/samba/music";
             "browseable" = "yes";
             "read only" = "no";
-            validGroups = [ "tmjf" ];
+            "valid users" = "@tmjf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -143,7 +143,7 @@ in
             path = "/srv/samba/document";
             "browseable" = "yes";
             "read only" = "no";
-            validGroups = [ "tmjf" ];
+            "valid users" = "@tmjf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -152,7 +152,7 @@ in
             path = "/srv/samba/games";
             "browseable" = "yes";
             "read only" = "no";
-            validGroups = [ "tmjf" ];
+            "valid users" = "@tmjf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
@@ -161,8 +161,7 @@ in
             path = "/srv/samba/backup";
             "browseable" = "yes";
             "read only" = "no";
-            validUsers = [ "haos" ];
-            validGroups = [ "tmjf" ];
+            "validUsers" = "haos, @tmjf";
             "create mask" = "0660";
             "directory mask" = "0770";
           };
