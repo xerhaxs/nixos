@@ -15,9 +15,15 @@
   config = lib.mkIf config.nixos.server.fediverse.invidious.enable {
     services.invidious = {
       enable = true;
+      sig-helper = {
+        enable = true;
+        listenAddress = "127.0.0.1:2999";
+      };
       port = 3000;
       domain = "invidious.${config.nixos.server.network.nginx.domain}";
+      external_port = 443;
       settings = {
+        signature_server = "127.0.0.1:2999";
         https_only = true;
         hsts = true;
         popular_enabled = true;
