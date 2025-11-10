@@ -21,11 +21,11 @@
       };
       port = 3000;
       domain = "invidious.${config.nixos.server.network.nginx.domain}";
-      external_port = 443;
       settings = {
         signature_server = "127.0.0.1:2999";
         https_only = true;
         hsts = true;
+        external_port = 443;
         popular_enabled = true;
         statistics_enabled = true;
         registration_enabled = false;
