@@ -15,10 +15,11 @@
   config = lib.mkIf config.nixos.server.fediverse.invidious.enable {
     services.invidious = {
       enable = true;
-      sig-helper = {
-        enable = true;
-        listenAddress = "127.0.0.1:2999";
-      };
+      # sig helper is deprecated -> waiting for nixos pkg update to Invidious companion (see: https://docs.invidious.io/installation/#hardware-requirements)
+      #sig-helper = {
+      #  enable = true;
+      #  listenAddress = "127.0.0.1:2999";
+      #};
       port = 3000;
       domain = "invidious.${config.nixos.server.network.nginx.domain}";
       settings = {

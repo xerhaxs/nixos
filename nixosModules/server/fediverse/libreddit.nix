@@ -18,6 +18,10 @@
       address = "127.0.0.1";
       port = 8975;
       openFirewall = false;
+      settings = {
+        REDLIB_DEFAULT_SHOW_NSFW = "on";
+        
+      };
     };
 
     services.nginx = {

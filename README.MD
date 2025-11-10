@@ -42,6 +42,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 ## ToDo List
 
+* [ ] Make NixOS Offline installation working -> local nixos cache etc.
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
   * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html
