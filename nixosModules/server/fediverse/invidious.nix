@@ -17,12 +17,12 @@
       enable = true;
       sig-helper = {
         enable = true;
-        #listenAddress = "127.0.0.1:2999";
+        listenAddress = "127.0.0.1:2999";
       };
       port = 3000;
       domain = "invidious.${config.nixos.server.network.nginx.domain}";
       settings = {
-        signature_server = "127.0.0.1:2999";
+        #signature_server = "127.0.0.1:2999";
         https_only = true;
         hsts = true;
         external_port = 443;
