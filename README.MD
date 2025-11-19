@@ -40,6 +40,14 @@ $ nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/
 nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ```
 
+### BIOS / Firmware update
+
+```
+fwupdmgr refresh --force
+fwupdmgr get-updates
+fwupdmgr update
+```
+
 ## ToDo List
 
 * [ ] Make NixOS Offline installation working -> local nixos cache etc.
@@ -71,6 +79,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
   * [ ] Config setup of Prism Launcher (write config file)
   * [ ] Config setup of Rnote (write config file)
   * [ ] Config setup of Xournal++ (write config file)
+  * [ ] Miracast / Screensharing in NixOS
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass

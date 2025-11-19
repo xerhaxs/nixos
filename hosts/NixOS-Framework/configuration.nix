@@ -24,12 +24,22 @@
     amdgpu.enable = true;
   };
 
-  nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
-
-  nixos.hardware = {
-    corectrl.enable = lib.mkForce false;
-    openrgb.enable = lib.mkForce false;
+  programs.auto-cpufreq.
+  programs.auto-cpufreq = {
+    enable = true;
+    settings = {
+      charger = {
+        governor = "performance";
+        turbo = "auto";
+      };
+      battery = {
+        governor = "powersave";
+        turbo = "auto";
+      };
+    };
   };
+  #services.power-profiles-daemon.enable = true;
+  #nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
 
   nixos.system.user.defaultuser = {
     name = "jf";
