@@ -38,7 +38,7 @@
       };
     };
   };
-  #services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = lib.mkForce false;
   #nixos.system.powermanagement.profiles.powersave = lib.mkForce true;
 
   nixos.system.user.defaultuser = {
