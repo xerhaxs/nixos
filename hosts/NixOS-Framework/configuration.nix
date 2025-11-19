@@ -25,21 +25,21 @@
   };
 
   # https://wiki.nixos.org/wiki/Laptop
-  #services.auto-cpufreq = {
-  #  enable = true;
-  #  settings = {
-  #    charger = {
-  #      governor = "performance";
-  #      turbo = "auto";
-  #    };
-  #    battery = {
-  #      governor = "powersave";
-  #      turbo = "auto";
-  #    };
-  #  };
-  #};
-  #services.power-profiles-daemon.enable = lib.mkDefault false;
-  powerManagement.powertop.enable = lib.mkForce true;
+  services.auto-cpufreq = {
+    enable = true;
+    settings = {
+      charger = {
+        governor = "performance";
+        turbo = "auto";
+      };
+      battery = {
+        governor = "powersave";
+        turbo = "auto";
+      };
+    };
+  };
+  services.power-profiles-daemon.enable = lib.mkDefault false;
+  #powerManagement.powertop.enable = lib.mkForce true;
   #powerManagement.powertop.postStart = ''
   #  ''${lib.getExe' config.systemd.package "udevadm"} trigger -c bind -s usb -a idVendor=046d -a idProduct=c08c
   #''
