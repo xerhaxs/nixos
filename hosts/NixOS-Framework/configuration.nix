@@ -24,7 +24,7 @@
     amdgpu.enable = true;
   };
 
-  services.auto-cpufreq.
+  # https://wiki.nixos.org/wiki/Laptop
   services.auto-cpufreq = {
     enable = true;
     settings = {
