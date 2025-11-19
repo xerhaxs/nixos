@@ -38,7 +38,7 @@
       };
     };
   };
-  services.power-profiles-daemon.enable = lib.mkDefault false;
+  services.power-profiles-daemon.enable = lib.mkForce false;
   #powerManagement.powertop.enable = lib.mkForce true;
   #powerManagement.powertop.postStart = ''
   #  ''${lib.getExe' config.systemd.package "udevadm"} trigger -c bind -s usb -a idVendor=046d -a idProduct=c08c
