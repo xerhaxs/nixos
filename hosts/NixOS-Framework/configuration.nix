@@ -25,19 +25,19 @@
   };
 
   # https://wiki.nixos.org/wiki/Laptop
-  services.auto-cpufreq = {
-    enable = true;
-    settings = {
-      charger = {
-        governor = "performance";
-        turbo = "auto";
-      };
-      battery = {
-        governor = "powersave";
-        turbo = "auto";
-      };
-    };
-  };
+  #services.auto-cpufreq = {
+  #  enable = true;
+  #  settings = {
+  #    charger = {
+  #      governor = "performance";
+  #      turbo = "auto";
+  #    };
+  #    battery = {
+  #      governor = "powersave";
+  #      turbo = "auto";
+  #    };
+  #  };
+  #};
   #services.power-profiles-daemon.enable = lib.mkDefault false;
   powerManagement.powertop.enable = lib.mkForce true;
   #powerManagement.powertop.postStart = ''
