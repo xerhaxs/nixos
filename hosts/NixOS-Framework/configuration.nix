@@ -38,7 +38,7 @@
   #    };
   #  };
   #};
-  powerManagement.enable = true
+  powerManagement.enable = true;
   #services.power-profiles-daemon.enable = lib.mkForce false;
   #powerManagement.powertop.enable = lib.mkForce true;
   #powerManagement.powertop.postStart = ''
