@@ -24,8 +24,8 @@
     amdgpu.enable = true;
   };
 
-  programs.auto-cpufreq.
-  programs.auto-cpufreq = {
+  services.auto-cpufreq.
+  services.auto-cpufreq = {
     enable = true;
     settings = {
       charger = {
