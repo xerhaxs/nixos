@@ -93,6 +93,13 @@
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
       CPU_MAX_PERF_ON_BAT = 75;
+
+      CPU_MAX_FREQ_ON_AC = 4200000;
+      CPU_MAX_FREQ_ON_BAT = 2800000;
+      #CPU_MIN_FREQ_ON_BAT = 800000;
+
+      SCHED_POWERSAVE_ON_BAT = 1;
+      AHCI_RUNTIME_PM_ON_BAT = "auto";
     };
   };
 
