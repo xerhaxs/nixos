@@ -38,6 +38,11 @@
   #    };
   #  };
   #};
+
+  environment.systemPackages = with  pkgs;[
+    powertop
+  ];
+  
   services.tlp = {
     enable = true;
     settings = {

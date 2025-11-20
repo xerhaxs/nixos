@@ -33,10 +33,6 @@
   };
 
   config.nixos.system.powermanagement = {
-    environment.systemPackages = with  pkgs;[
-      powertop
-    ];
-
     enable = lib.mkIf config.nixos.system.powermanagement.enable {
       services.upower = {
         enable = true;
