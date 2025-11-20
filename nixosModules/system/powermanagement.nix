@@ -33,6 +33,10 @@
   };
 
   config.nixos.system.powermanagement = {
+    environment.systemPackages = with  pkgs;[
+      powertop
+    ];
+
     enable = lib.mkIf config.nixos.system.powermanagement.enable {
       services.upower = {
         enable = true;
@@ -50,7 +54,7 @@
       powerManagement = {
         cpuFreqGovernor = "powersave";
         scsiLinkPolicy = "min_power";
-        powertop.enable = false;
+        powertop.enable = true;
       };
     };
 
@@ -58,7 +62,7 @@
       powerManagement = {
         cpuFreqGovernor = "ondemand";
         scsiLinkPolicy = "max_performance";
-        powertop.enable = false;
+        powertop.enable = true;
       };
     };
 
