@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.media.clients.enable {
     home.packages = with pkgs; [
-      fluent-reader
+      #fluent-reader
       freetube
       mediathekview
       #kiwix

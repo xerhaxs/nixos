@@ -149,7 +149,7 @@
                   #"applications:blender.desktop"
                   #"applications:com.ultimaker.cura.desktop"
                   "applications:org.clementine_player.Clementine.desktop"
-                  "applications:fluent-reader.desktop"
+                  #"applications:fluent-reader.desktop"
                   "applications:freetube.desktop"
                   "applications:org.prismlauncher.PrismLauncher.desktop"
                   "applications:com.heroicgameslauncher.hgl.desktop"
