@@ -2,7 +2,6 @@
 
 { 
   imports = [
-    ./freshrss.nix
     ./gitea.nix
     ./invidious.nix
     ./lemmy.nix
@@ -27,7 +26,6 @@
 
   config = lib.mkIf config.nixos.server.fediverse.enable {
     nixos.server.fediverse = {
-      freshrss.enable = true;
       gitea.enable = true;
       invidious.enable = true;
       lemmy.enable = true;

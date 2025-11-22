@@ -113,14 +113,12 @@ in
           "jellyfin.${config.nixos.server.network.nginx.domain}"
           "nas.${config.nixos.server.network.nginx.domain}"
           "nextcloud.${config.nixos.server.network.nginx.domain}"
-          "rss.${config.nixos.server.network.nginx.domain}"
           "samba.${config.nixos.server.network.nginx.domain}"
           "syncthing.${config.nixos.server.network.nginx.domain}"
           "truenas.${config.nixos.server.network.nginx.domain}"
           "webdav.${config.nixos.server.network.nginx.domain}"
         ];
         "10.75.0.21" = [
-          "freshrss.${config.nixos.server.network.nginx.domain}"
           "glance.${config.nixos.server.network.nginx.domain}"
           "invidious.${config.nixos.server.network.nginx.domain}"
           "kiwix.${config.nixos.server.network.nginx.domain}"
@@ -132,7 +130,6 @@ in
           "ollama.${config.nixos.server.network.nginx.domain}"
           "pihole.${config.nixos.server.network.nginx.domain}"
           "radicale.${config.nixos.server.network.nginx.domain}"
-          "rss.${config.nixos.server.network.nginx.domain}"
           "search.${config.nixos.server.network.nginx.domain}"
           "searx.${config.nixos.server.network.nginx.domain}"
           "searxng.${config.nixos.server.network.nginx.domain}"

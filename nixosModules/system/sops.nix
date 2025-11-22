@@ -36,9 +36,6 @@
 
         "cloudflare/api_key" = { };
 
-        "freshrss/users/defaultUser/username" = { };
-        "freshrss/users/defaultUser/password" = { };
-
         "glance" = { };
 
         "lemmy/users/admin/password" = { };

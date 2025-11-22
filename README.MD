@@ -122,9 +122,8 @@ fwupdmgr update
     * [ ] Libreddit
     * [ ] Lemmy
     * [ ] Nitter
-    * [ ] Nitter
     * [ ] SearxNG
-    * [ ] FreshRSS
+    * [X] FreshRSS -> RSS Feed in Glance
     * [ ] Gitea -> local pull instance from public smb share with syncthing?
     * [ ] SMB / NFS Share
     * [ ] Lidarr (Config setup)

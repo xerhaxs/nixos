@@ -209,12 +209,10 @@
               #     Array of custom DNS records each one in HOSTS form: "IP HOSTNAME"
               hosts = [
                 "10.75.0.10 proxmox.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.20 freshrss.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 glance.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 jellyfin.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 nas.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 nextcloud.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.20 rss.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 syncthing.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 truenas.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 gitea.${config.nixos.server.network.nginx.domain}"
