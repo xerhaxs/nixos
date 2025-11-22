@@ -13,7 +13,7 @@
       glance.enable = true;
       #jellyfin.enable = true;
       ollama.enable = true;
-      #radicale.enable = true;
+      radicale.enable = true;
     };
     network = {
       pihole.enable = true;
