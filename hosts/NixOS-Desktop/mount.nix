@@ -10,8 +10,6 @@
     '';
   };
 
-  #nixos.system.mount.enable = lib.mkForce false;
-
   fileSystems."/mount/Data" = {
     device = "/dev/mapper/data";
     fsType = "ext4";
