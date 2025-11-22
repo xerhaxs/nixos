@@ -110,7 +110,7 @@
                       {
                         cache = "5m";
                         type = "rss";
-                        title = "RSS Feed";
+                        title = "RSS Feed Overview";
                         limit = 32;
                         style = "detailed-list";
                         preserve-order = false;
@@ -128,6 +128,73 @@
                           { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; limit = 3; }
                           { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; limit = 1; }
                           { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; limit = 3; }
+                        ];
+                      }
+                      {
+                        cache = "5m";
+                        type = "rss";
+                        title = "RSS Feed Extended";
+                        limit = 256;
+                        style = "detailed-list";
+                        preserve-order = false;
+                        collapse-after = 5;
+                        feeds = [
+                          { url = "http://newsfeed.zeit.de/index"; title = "ZEIT ONLINE"; limit = 3; }
+                          { url = "http://www.srf.ch/news/bnf/rss/1646"; title = "SRF"; limit = 3; }
+                          { url = "https://anonleaks.net/feed/"; title = "Anonleaks"; limit = 1; }
+                          { url = "https://feeds.feedburner.com/AskVG"; title = "AskVG"; limit = 3; }
+                          { url = "https://fragdenstaat.de/blog/feed/"; title = "FragDenStaat"; limit = 3; }
+                          { url = "https://freiheitsrechte.org/feed/"; title = "Gesellschaft für Freiheitsrechte"; limit = 3; }
+                          { url = "https://fridaysforfuture.de/feed/"; title = "Fridays for Future"; limit = 3; }
+                          { url = "https://hearthis.at/aweb/podcast/"; title = "aweb"; limit = 1; }
+                          { url = "https://itsfoss.com/feed/"; title = "It's FOSS"; limit = 1; }
+                          { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; limit = 3; }
+                          { url = "https://restoreprivacy.com/feed/"; title = "Restore Privacy"; limit = 1; }
+                          { url = "https://rss.golem.de/rss.php?feed=RSS2.0"; title = "Golem.de"; limit = 3; }
+                          { url = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"; title = "New York Times"; limit = 3; }
+                          { url = "https://rss.sueddeutsche.de/rss/Topthemen"; title = "SZ"; limit = 3; }
+                          { url = "https://tarnkappe.info/feed"; title = "Tarnkappe.info"; limit = 2; }
+                          { url = "https://taz.de/rss.xml"; title = "taz.de"; limit = 3; }
+                          { url = "https://winfuture.de/rss/news.rdf"; title = "WinFuture"; limit = 3; }
+                          { url = "https://www.3dcenter.org/frontpage/feed"; title = "3DCenter.org"; limit = 3; }
+                          { url = "https://www.eff.org/rss.xml"; title = "Electronic Frontier Foundation"; limit = 1; }
+                          { url = "https://www.eff.org/rss/updates.xml"; title = "EFF Foundation"; limit = 1; }
+                          { url = "https://www.faz.net/rss/aktuell/"; title = "FAZ"; limit = 3; }
+                          { url = "https://www.handelsblatt.com/contentexport/feed/top-themen/"; title = "Handelsblatt"; limit = 3; }
+                          { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; limit = 3; }
+                          { url = "https://www.kuketz-blog.de/feed/"; title = "Kuketz IT-Blog"; limit = 1; }
+                          { url = "https://www.piratenpartei.de/feed/"; title = "Piratenpartei Deutschland"; limit = 1; }
+                          { url = "https://www.reuters.com/world/"; title = "Reuters"; limit = 3; }
+                          { url = "https://www.reuters.com/world/"; title = "Reuters"; limit = 3; }
+                          { url = "https://www.spiegel.de/index.rss"; title = "DER SPIEGEL"; limit = 3; }
+                          { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; limit = 3; }
+                          { url = "https://www.tagesspiegel.de/contentexport/feed/home"; title = "Tagesspiegel"; limit = 3; }
+                          { url = "https://www.theguardian.com/international/rss"; title = "The Guardian"; limit = 3; }
+                          { url = "https://www.wired.com/feed/rss"; title = "Wired"; limit = 2; }
+                          { url = "https://www.zdf.de/rss/zdf/nachrichten"; title = "ZDFheute"; limit = 3; }
+                        ];
+                      }
+                      {
+                        cache = "5m";
+                        type = "rss";
+                        title = "RSS Feed Linux";
+                        limit = 32;
+                        style = "detailed-list";
+                        preserve-order = false;
+                        collapse-after = 5;
+                        feeds = [
+                          { url = "https://archlinux.org/feeds/news/"; title = "Arch Linux News"; limit = 5; }
+                          { url = "https://archlinux.org/feeds/packages/"; title = "Arch Linux Packages"; limit = 5; }
+                          { url = "https://discourse.nixos.org/c/announcements/8.rss"; title = "NixOS Discourse Announcements"; limit = 5; }
+                          { url = "https://discourse.nixos.org/c/dev/rfc-steering-committee/33.rss"; title = "NixOS Discourse Steering Committee"; limit = 5; }
+                          { url = "https://discourse.nixos.org/c/links/12.rss"; title = "NixOS Discourse"; limit = 5; }
+                          { url = "https://discourse.nixos.org/c/meta/nixos-foundation/47.rss"; title = "NixOS Discourse"; limit = 5; }
+                          { url = "https://discourse.nixos.org/posts.rss"; title = "NixOS Discourse Posts"; limit = 5; }
+                          { url = "https://discourse.nixos.org/t/breaking-changes-announcement-for-unstable/17574.rss"; title = "NixOS Discourse Meta"; limit = 5; }
+                          { url = "https://nixos.org/blog/announcements-rss.xml"; title = "NixOS Discourse Blog Announcements"; limit = 3; }
+                          { url = "https://nixos.org/blog/newsletters-rss.xml"; title = "NixOS Discourse Newsletters"; limit = 3; }
+                          { url = "https://weekly.nixos.org/feeds/all.atom.xml"; title = "NixOS Discourse Weekly"; limit = 1; }
+                          { url = "https://weekly.nixos.org/feeds/all.rss.xml"; title = "NixOS Discourse Weekly"; limit = 1; }
                         ];
                       }
                       { 
