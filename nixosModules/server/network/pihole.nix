@@ -83,13 +83,13 @@
               description = "AmazonFireTV";
             }
             {
-              url = "https://small.oisd.nl/";
+              url = "https://small.oisd.nl";
               type = "block";
               enabled = true;
               description = "OISD Small";
             }
             {
-              url = "https://big.oisd.nl/";
+              url = "https://big.oisd.nl";
               type = "block";
               enabled = true;
               description = "OISD Big";
