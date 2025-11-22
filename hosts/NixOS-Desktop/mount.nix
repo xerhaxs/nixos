@@ -10,7 +10,7 @@
     '';
   };
 
-  nixos.system.mount.enable = lib.mkForce false;
+  #nixos.system.mount.enable = lib.mkForce false;
 
   fileSystems."/mount/Data" = {
     device = "/dev/mapper/data";

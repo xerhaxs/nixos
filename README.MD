@@ -118,7 +118,7 @@ fwupdmgr update
     * [ ] Radical https://radicale.org/v3.html
     * [ ] WebDav for Bookmarksync
     * [x] PiHole
-    * [ ] Invidous
+    * [ ] Invidous -> waiting for nixos pkg update
     * [ ] Libreddit
     * [ ] Lemmy
     * [ ] Nitter
@@ -128,7 +128,7 @@ fwupdmgr update
     * [ ] SMB / NFS Share
     * [ ] Lidarr (Config setup)
     * [ ] NZBHydra2 (Config setup)
-    * [ ] Radarr (Config setup)
+    * [ ] Radarr (Config setup) -> waiting for nixos pkg update
     * [ ] Readarr (Config setup)
     * [ ] Sonarr (Config setup)
     * [ ] Sabnzbd (Config setup)
