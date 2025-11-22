@@ -82,6 +82,24 @@
               enabled = true;
               description = "AmazonFireTV";
             }
+            {
+              url = "https://small.oisd.nl/";
+              type = "block";
+              enabled = true;
+              description = "OISD Small";
+            }
+            {
+              url = "https://big.oisd.nl/";
+              type = "block";
+              enabled = true;
+              description = "OISD Big";
+            }
+            {
+              url = "https://blocklistproject.github.io/Lists/ads.txt";
+              type = "block";
+              enabled = true;
+              description = "Ads";
+            }
           ];
 
           privacyLevel = 0;
