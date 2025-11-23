@@ -1,9 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  keydbUrl = "http://fvonline-db.bplaced.net/fv_download.php?lang=deu";
-in
-
 {
   options.homeManager = {
     applications.editing.compiler = {
@@ -23,10 +19,22 @@ in
       makemkv
     ];
 
-    home.file.".config/aacs/KEYDB.cfg".text = builtins.toString (pkgs.runCommand "keydb" {} ''
-      mkdir -p $out
-      ${pkgs.curl}/bin/curl -L -o keydb.zip ${keydbUrl}
-      ${pkgs.unzip}/bin/unzip -p keydb.zip keydb.cfg > $out/KEYDB.cfg
-    '');
+    # AACS Keys for VLC BlueRay Discs
+    systemd.user.services.keydb = {
+      Unit = {
+        Description = "Download KEYDB.cfg";
+        ConditionPathExists = "!%h/.config/aacs/KEYDB.cfg";
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.bash}/bin/bash -c 'mkdir -p %h/.config/aacs && ${pkgs.curl}/bin/curl -L --progress-bar \"http://fvonline-db.bplaced.net/fv_download.php?lang=deu\" -o /tmp/keydb.zip && ${pkgs.unzip}/bin/unzip -p /tmp/keydb.zip keydb.cfg > %h/.config/aacs/KEYDB.cfg'";
+      };
+    };
+
+    systemd.user.timers.keydb = {
+      Timer.OnCalendar = "weekly";
+      Install.WantedBy = [ "timers.target" ];
+    };
   };
 }
