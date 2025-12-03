@@ -115,8 +115,9 @@ fwupdmgr update
     * [X] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [ ] Jellyfin
-    * [ ] Radical https://radicale.org/v3.html
+    * [X] Radical https://radicale.org/v3.html
     * [ ] WebDav for Bookmarksync
+    * [ ] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS
     * [x] PiHole
     * [ ] Invidous -> waiting for nixos pkg update
     * [ ] Libreddit
