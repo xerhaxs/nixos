@@ -16,13 +16,8 @@
     home.packages = with pkgs; [
       aqbanking
       kmymoney
-      (pkgs.monero-gui.overrideAttrs (old: {
-        buildInputs = old.buildInputs ++ [ pkgs.p2pool ];
-        postInstall = (old.postInstall or "") + ''
-          wrapProgram $out/bin/monero-wallet-gui \
-            --prefix PATH : ${pkgs.p2pool}/bin
-        '';
-      }))
+      monero-gui
+      p2pool
       xmrig
     ];
   };
