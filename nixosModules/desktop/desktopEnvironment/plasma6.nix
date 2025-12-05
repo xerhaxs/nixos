@@ -72,6 +72,7 @@
         merkuro
         kate
         colord-kde
+        #wallpaper-engine-plugin
         #linux-wallpaperengine
       ];
     };
