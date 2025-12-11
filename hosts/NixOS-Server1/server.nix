@@ -20,6 +20,7 @@
     };
     fediverse = {
       invidious.enable = true;
+      searxng.enable = true;
     };
   };
 }
