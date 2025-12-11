@@ -1,7 +1,7 @@
 { config, lib, pkgs, ...}:
 
 let 
-  # References: https://gist.github.com/BBArikL/b389c4592d636380523e03ac423b77b3
+  # References: https://github.com/xerhaxs/nixos/blob/main/nixosModules/pkgs/wallpaper-engine-kde-plugin.nix and https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   glslang-submodule = with pkgs; stdenv.mkDerivation {
     name = "glslang";
     installPhase = ''
@@ -43,17 +43,19 @@ let
       vulkan-tools
       vulkan-loader
     ] 
-    ++ (with kdePackages; with qt6Packages; [
+    ++ (with kdePackages; [
       qtbase
-      qt6.full
-      kpackage
-      kdeclarative
-      libplasma
+      qtsvg
+      qtwayland
+      qtdeclarative
+      qttools
       qtwebsockets
       qtwebengine
       qtwebchannel
       qtmultimedia
-      qtdeclarative
+      kpackage
+      kdeclarative
+      libplasma
     ])
     ++ [(python3.withPackages (python-pkgs: [ python-pkgs.websockets ]))];
 
@@ -86,7 +88,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.pkgs.wallpaper-engine-kde-plugin.enable && config.nixos.desktop.desktopEnvironment.plasma6.enable) {
+  config = lib.mkIf (config.nixos.pkgs.wallpaper-engine-kde-plugin.enable) {
     environment.systemPackages = with pkgs; [
       wallpaper-engine-kde-plugin
       kdePackages.qtwebsockets
@@ -97,9 +99,11 @@ in
     system.activationScripts = {
       wallpaper-engine-kde-plugin.text = ''
         wallpaperenginetarget=/share/plasma/wallpapers/com.github.catsout.wallpaperEngineKde
-        mkdir -p /home/${config.nixos.system.user.defaultuser.name}/.local/share/plasma/wallpapers
-        chown -R ${config.nixos.system.user.defaultuser.name}:users /home/${config.nixos.system.user.defaultuser.name}/.local/share/plasma
-        ln -sf ${wallpaper-engine-kde-plugin}/$wallpaperenginetarget /home/${config.nixos.system.user.defaultuser.name}/.local/$wallpaperenginetarget
+        mkdir -p /home/${builtins.head (builtins.attrNames config.users.users)}/.local/share/plasma/wallpapers
+        chown -R ${builtins.head (builtins.attrNames config.users.users)}:users /home/${builtins.head (builtins.attrNames config.users.users)}/.local/share/plasma
+        if [ ! -e /home/${builtins.head (builtins.attrNames config.users.users)}/.local$wallpaperenginetarget ]; then
+          ln -sf ${wallpaper-engine-kde-plugin}$wallpaperenginetarget /home/${builtins.head (builtins.attrNames config.users.users)}/.local$wallpaperenginetarget
+        fi;
       '';
     };
   };
