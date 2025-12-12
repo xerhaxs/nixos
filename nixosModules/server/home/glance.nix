@@ -248,6 +248,7 @@
                           { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "di:ollama"; }
                           
                           { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "di:radicale"; }
+                          { title = "SearXNG"; url = "https://searxng.${config.nixos.server.network.nginx.domain}"; icon = "di:searxng"; }
                           { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "di:minecraft"; allow-insecure = true; }
                         ];
                       }

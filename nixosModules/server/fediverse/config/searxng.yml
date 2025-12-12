@@ -536,6 +536,7 @@ engines:
   - name: bing
     engine: bing
     shortcut: bi
+    disabled: true
 
   - name: bing images
     engine: bing_images
@@ -815,7 +816,6 @@ engines:
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
-    disabled: true
 
   - name: duckduckgo images
     engine: duckduckgo_extra
@@ -1026,6 +1026,7 @@ engines:
     shortcut: go
     # additional_tests:
     #   android: *test_android
+    disabled: true
 
   - name: google images
     engine: google_images
@@ -2021,7 +2022,6 @@ engines:
     categories: [general, web]
     additional_tests:
       rosebud: *test_rosebud
-    disabled: true
 
   - name: startpage news
     engine: startpage
@@ -2158,7 +2158,6 @@ engines:
     categories: general
     search_type: web
     shortcut: yd
-    disabled: true
 
   - name: yandex images
     engine: yandex
@@ -2178,8 +2177,7 @@ engines:
   - name: yahoo
     engine: yahoo
     shortcut: yh
-    disabled: true
-
+    
   - name: yahoo news
     engine: yahoo_news
     shortcut: yhn
