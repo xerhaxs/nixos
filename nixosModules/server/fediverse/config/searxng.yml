@@ -961,6 +961,7 @@ engines:
     api_path: "api.php"
     search_type: text
     timeout: 10
+    disabled: true
 
   - name: gitlab
     engine: gitlab
@@ -969,6 +970,7 @@ engines:
     about:
       website: https://gitlab.com/
       wikidata_id: Q16639197
+    disabled: true
 
   # - name: gnome
   #   engine: gitlab
@@ -1774,6 +1776,7 @@ engines:
     categories: [general, web]
     additional_tests:
       rosebud: *test_rosebud
+    disabled: true
 
   - name: qwant news
     qwant_categ: news
@@ -1788,6 +1791,7 @@ engines:
     shortcut: qwi
     categories: [images, web]
     network: qwant
+    disabled: true
 
   - name: qwant videos
     qwant_categ: videos
@@ -1795,6 +1799,7 @@ engines:
     shortcut: qwv
     categories: [videos, web]
     network: qwant
+    disabled: true
 
   # - name: library
   #   engine: recoll
