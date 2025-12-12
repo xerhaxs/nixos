@@ -220,7 +220,7 @@ outgoing:
 plugins:
 
   searx.plugins.calculator.SXNGPlugin:
-    active: true
+    active: false
 
   searx.plugins.infinite_scroll.SXNGPlugin:
     active: false
