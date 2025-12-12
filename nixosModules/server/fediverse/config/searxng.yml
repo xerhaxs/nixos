@@ -311,7 +311,7 @@ checker:
     android: &test_android
       matrix:
         query: ['android']
-        lang: ['en', 'de', 'fr', 'zh-CN']
+        lang: ['en', 'de']
       result_container:
         - not_empty
         - ['one_title_contains', 'google']
@@ -456,6 +456,7 @@ engines:
   - name: arch linux wiki
     engine: archlinux
     shortcut: al
+    disabled: true
 
   - name: nixos wiki
     engine: mediawiki
@@ -468,10 +469,12 @@ engines:
     engine: artic
     shortcut: arc
     timeout: 4.0
+    disabled: true
 
   - name: arxiv
     engine: arxiv
     shortcut: arx
+    disabled: true
 
   - name: ask
     engine: ask
@@ -496,6 +499,7 @@ engines:
     engine: bandcamp
     shortcut: bc
     categories: music
+    disabled: true
 
   - name: baidu
     baidu_category: general
@@ -542,6 +546,7 @@ engines:
   - name: bing news
     engine: bing_news
     shortcut: bin
+    disabled: true
 
   - name: bing videos
     engine: bing_videos
@@ -585,6 +590,7 @@ engines:
     engine: openverse
     categories: images
     shortcut: opv
+    disabled: true
 
   - name: media.ccc.de
     engine: ccc_media
@@ -599,6 +605,7 @@ engines:
     shortcut: chef
     # to show premium or plus results too:
     # skip_premium: false
+    disabled: true
 
   # WARNING: links from chinaso.com voilate users privacy
   # Before activate these engines its mandatory to read
@@ -815,7 +822,6 @@ engines:
     categories: [images, web]
     ddg_category: images
     shortcut: ddi
-    disabled: true
 
   - name: duckduckgo videos
     engine: duckduckgo_extra
@@ -939,10 +945,12 @@ engines:
   - name: geizhals
     engine: geizhals
     shortcut: geiz
+    disabled: true
 
   - name: genius
     engine: genius
     shortcut: gen
+    disabled: true
 
   - name: gentoo
     engine: mediawiki
@@ -952,6 +960,7 @@ engines:
     api_path: "api.php"
     search_type: text
     timeout: 10
+    disabled: true
 
   - name: gitlab
     engine: gitlab
@@ -960,6 +969,7 @@ engines:
     about:
       website: https://gitlab.com/
       wikidata_id: Q16639197
+    disabled: true
 
   # - name: gnome
   #   engine: gitlab
@@ -1033,6 +1043,7 @@ engines:
     shortcut: gon
     # additional_tests:
     #   android: *test_android
+    disabled: true
 
   - name: google videos
     engine: google_videos
@@ -1107,6 +1118,7 @@ engines:
     shortcut: crates
     disabled: true
     timeout: 6.0
+    disabled: true
 
   - name: hoogle
     engine: xpath
@@ -1125,6 +1137,7 @@ engines:
       use_official_api: false
       require_api_key: false
       results: JSON
+    disabled: true
 
   - name: il post
     engine: il_post
@@ -1201,29 +1214,34 @@ engines:
       - https://kat.am
     shortcut: kc
     timeout: 4.0
+    disabled: true
 
   - name: lemmy communities
     engine: lemmy
     lemmy_type: Communities
     shortcut: leco
+    disabled: true
 
   - name: lemmy users
     engine: lemmy
     network: lemmy communities
     lemmy_type: Users
     shortcut: leus
+    disabled: true
 
   - name: lemmy posts
     engine: lemmy
     network: lemmy communities
     lemmy_type: Posts
     shortcut: lepo
+    disabled: true
 
   - name: lemmy comments
     engine: lemmy
     network: lemmy communities
     lemmy_type: Comments
     shortcut: lecom
+    disabled: true
 
   - name: library genesis
     engine: xpath
@@ -1272,6 +1290,7 @@ engines:
     shortcut: lv
     # set lingva instance in url, by default it will use the official instance
     # url: https://lingva.thedaviddelta.com
+    disabled: true
 
   - name: lobste.rs
     engine: xpath
@@ -1296,6 +1315,7 @@ engines:
     engine: lucide
     shortcut: luc
     timeout: 3.0
+    disabled: true
 
   - name: marginalia
     engine: marginalia
@@ -1311,12 +1331,14 @@ engines:
     mastodon_type: accounts
     base_url: https://mastodon.social
     shortcut: mau
+    disabled: true
 
   - name: mastodon hashtags
     engine: mastodon
     mastodon_type: hashtags
     base_url: https://mastodon.social
     shortcut: mah
+    disabled: true
 
   # - name: matrixrooms
   #   engine: mrs
@@ -1349,6 +1371,7 @@ engines:
     shortcut: cpan
     disabled: true
     number_of_results: 20
+    disabled: true
 
   # https://docs.searxng.org/dev/engines/offline/search-indexer-engines.html#module-searx.engines.meilisearch
   # - name: meilisearch
@@ -1367,6 +1390,7 @@ engines:
   - name: mixcloud
     engine: mixcloud
     shortcut: mc
+    disabled: true
 
   # MongoDB engine
   # Required dependency: pymongo
@@ -1430,6 +1454,7 @@ engines:
       use_official_api: true
       require_api_key: false
       results: JSON
+    disabled: true
 
   - name: odysee
     engine: odysee
@@ -1460,6 +1485,7 @@ engines:
       use_official_api: false
       require_api_key: false
       results: JSON
+    disabled: true
 
   - name: openairepublications
     engine: json_engine
@@ -1480,6 +1506,7 @@ engines:
       use_official_api: false
       require_api_key: false
       results: JSON
+    disabled: true
 
   - name: openalex
     engine: openalex
@@ -1561,10 +1588,12 @@ engines:
     shortcut: pdb
     # Hide obsolete PDB entries.  Default is not to hide obsolete structures
     #  hide_obsolete: false
+    disabled: true
 
   - name: photon
     engine: photon
     shortcut: ph
+    disabled: true
 
   - name: pinterest
     engine: pinterest
@@ -1577,7 +1606,7 @@ engines:
     piped_filter: videos
     timeout: 3.0
     inactive: true
-
+    disabled: true
     # URL to use as link and for embeds
     frontend_url: https://srv.piped.video
     # Instance will be selected randomly, for more see https://piped-instances.kavin.rocks/
@@ -1593,6 +1622,7 @@ engines:
     piped_filter: music_songs
     timeout: 3.0
     inactive: true
+    disabled: true
 
   - name: piratebay
     engine: piratebay
@@ -1601,6 +1631,7 @@ engines:
     # country
     url: https://thepiratebay.org/
     timeout: 3.0
+    disabled: true
 
   - name: pixabay images
     engine: pixabay
@@ -1645,6 +1676,7 @@ engines:
   - name: podcastindex
     engine: podcastindex
     shortcut: podcast
+    disabled: true
 
   # Required dependency: psychopg2
   #  - name: postgresql
@@ -1719,10 +1751,12 @@ engines:
   - name: pubmed
     engine: pubmed
     shortcut: pub
+    disabled: true
 
   - name: pypi
     shortcut: pypi
     engine: pypi
+    disabled: true
 
   - name: quark
     quark_category: general
@@ -1753,6 +1787,7 @@ engines:
     shortcut: qwn
     categories: news
     network: qwant
+    disabled: true
 
   - name: qwant images
     qwant_categ: images
@@ -1760,6 +1795,7 @@ engines:
     shortcut: qwi
     categories: [images, web]
     network: qwant
+    disabled: true
 
   - name: qwant videos
     qwant_categ: videos
@@ -1767,6 +1803,7 @@ engines:
     shortcut: qwv
     categories: [videos, web]
     network: qwant
+    disabled: true
 
   # - name: library
   #   engine: recoll
@@ -1793,12 +1830,12 @@ engines:
   - name: radio browser
     engine: radio_browser
     shortcut: rb
+    disabled: true
 
   - name: reddit
     engine: reddit
     shortcut: re
     page_size: 25
-    disabled: true
 
   - name: reuters
     engine: reuters
@@ -1868,6 +1905,7 @@ engines:
   - name: sepiasearch
     engine: sepiasearch
     shortcut: sep
+    disabled: true
 
   - name: sogou
     engine: sogou
@@ -1892,6 +1930,7 @@ engines:
   - name: soundcloud
     engine: soundcloud
     shortcut: sc
+    disabled: true
 
   - name: stackoverflow
     engine: stackexchange
@@ -1949,6 +1988,7 @@ engines:
   - name: semantic scholar
     engine: semantic_scholar
     shortcut: se
+    disabled: true
 
   # Spotify needs API credentials
   # - name: spotify
@@ -1975,6 +2015,7 @@ engines:
     # read https://docs.searxng.org/dev/engines/online/springer.html
     api_key: ""
     inactive: true
+    disabled: true
 
   - name: startpage
     engine: startpage
@@ -2014,6 +2055,7 @@ engines:
     base_url:
       - https://solidtorrents.to
       - https://bitsearch.to
+    disabled: true
 
   # For this demo of the sqlite engine download:
   #   https://liste.mediathekview.de/filmliste-v2.db.bz2
@@ -2109,6 +2151,7 @@ engines:
   - name: unsplash
     engine: unsplash
     shortcut: us
+    disabled: true
 
   - name: yandex
     engine: yandex
@@ -2140,6 +2183,7 @@ engines:
   - name: yahoo news
     engine: yahoo_news
     shortcut: yhn
+    disabled: true
 
   - name: youtube
     shortcut: yt
@@ -2323,6 +2367,7 @@ engines:
     engine: translated
     shortcut: tl
     timeout: 5.0
+    disabled: true
     # You can use without an API key, but you are limited to 1000 words/day
     # See: https://mymemory.translated.net/doc/usagelimits.php
     # api_key: ''
@@ -2355,7 +2400,6 @@ engines:
   - name: duden
     engine: duden
     shortcut: du
-    disabled: true
 
   - name: seznam
     shortcut: szn
@@ -2512,6 +2556,7 @@ engines:
     engine: wordnik
     shortcut: wnik
     timeout: 5.0
+    disabled: true
 
   - name: woxikon.de synonyme
     engine: xpath
@@ -2569,6 +2614,7 @@ engines:
   - name: tootfinder
     engine: tootfinder
     shortcut: toot
+    disabled: true
 
   - name: uxwing
     engine: uxwing
@@ -2610,6 +2656,7 @@ engines:
     engine: wttr
     shortcut: wttr
     timeout: 9.0
+    disabled: true
 
   - name: brave
     engine: brave
@@ -2666,6 +2713,7 @@ engines:
   - name: bt4g
     engine: bt4g
     shortcut: bt4g
+    disabled: true
 
   - name: pkg.go.dev
     engine: pkg_go_dev
