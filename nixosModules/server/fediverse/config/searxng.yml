@@ -37,9 +37,9 @@ search:
   # Existing autocomplete backends: "360search", "baidu", "brave", "dbpedia", "duckduckgo", "google", "yandex",
   # "mwmbl", "naver", "seznam", "sogou", "startpage", "stract", "swisscows", "quark", "qwant", "wikipedia" -
   # leave blank to turn it off by default.
-  autocomplete: "duckduckgo"
+  autocomplete: "qwant"
   # minimun characters to type before autocompleter starts
-  autocomplete_min: 4
+  autocomplete_min: 3
   # backend for the favicon near URL in search results.
   # Available resolvers: "allesedv", "duckduckgo", "google", "yandex" - leave blank to turn it off by default.
   favicon_resolver: "duckduckgo"
@@ -331,9 +331,9 @@ categories_as_tabs:
   general:
   images:
   videos:
-  news:
+  #news:
   map:
-  music:
+  #music:
   it:
   science:
   files:
@@ -456,7 +456,6 @@ engines:
   - name: arch linux wiki
     engine: archlinux
     shortcut: al
-    disabled: true
 
   - name: nixos wiki
     engine: mediawiki
@@ -473,8 +472,8 @@ engines:
 
   - name: arxiv
     engine: arxiv
+    categories: "science"
     shortcut: arx
-    disabled: true
 
   - name: ask
     engine: ask
@@ -537,7 +536,6 @@ engines:
   - name: bing
     engine: bing
     shortcut: bi
-    disabled: true
 
   - name: bing images
     engine: bing_images
@@ -551,6 +549,7 @@ engines:
   - name: bing videos
     engine: bing_videos
     shortcut: biv
+    disabled: true
 
   - name: bitchute
     engine: bitchute
@@ -590,7 +589,6 @@ engines:
     engine: openverse
     categories: images
     shortcut: opv
-    disabled: true
 
   - name: media.ccc.de
     engine: ccc_media
@@ -725,6 +723,7 @@ engines:
     engine: deviantart
     shortcut: da
     timeout: 3.0
+    disabled: true
 
   - name: devicons
     engine: devicons
@@ -816,12 +815,14 @@ engines:
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
+    disabled: true
 
   - name: duckduckgo images
     engine: duckduckgo_extra
     categories: [images, web]
     ddg_category: images
     shortcut: ddi
+    disabled: true
 
   - name: duckduckgo videos
     engine: duckduckgo_extra
@@ -960,7 +961,6 @@ engines:
     api_path: "api.php"
     search_type: text
     timeout: 10
-    disabled: true
 
   - name: gitlab
     engine: gitlab
@@ -969,7 +969,6 @@ engines:
     about:
       website: https://gitlab.com/
       wikidata_id: Q16639197
-    disabled: true
 
   # - name: gnome
   #   engine: gitlab
@@ -1037,6 +1036,7 @@ engines:
     #       lang: ['en', 'de', 'fr', 'zh-CN']
     #     result_container:
     #       - ['one_title_contains', 'Salvador']
+    disabled: true
 
   - name: google news
     engine: google_news
@@ -1053,6 +1053,8 @@ engines:
 
   - name: google scholar
     engine: google_scholar
+    categories: "science"
+    categories: 
     shortcut: gos
 
   - name: google play apps
@@ -1220,28 +1222,24 @@ engines:
     engine: lemmy
     lemmy_type: Communities
     shortcut: leco
-    disabled: true
 
   - name: lemmy users
     engine: lemmy
     network: lemmy communities
     lemmy_type: Users
     shortcut: leus
-    disabled: true
 
   - name: lemmy posts
     engine: lemmy
     network: lemmy communities
     lemmy_type: Posts
     shortcut: lepo
-    disabled: true
 
   - name: lemmy comments
     engine: lemmy
     network: lemmy communities
     lemmy_type: Comments
     shortcut: lecom
-    disabled: true
 
   - name: library genesis
     engine: xpath
@@ -1485,7 +1483,6 @@ engines:
       use_official_api: false
       require_api_key: false
       results: JSON
-    disabled: true
 
   - name: openairepublications
     engine: json_engine
@@ -1585,10 +1582,10 @@ engines:
 
   - name: pdbe
     engine: pdbe
+    categories: "science"
     shortcut: pdb
     # Hide obsolete PDB entries.  Default is not to hide obsolete structures
     #  hide_obsolete: false
-    disabled: true
 
   - name: photon
     engine: photon
@@ -1631,7 +1628,6 @@ engines:
     # country
     url: https://thepiratebay.org/
     timeout: 3.0
-    disabled: true
 
   - name: pixabay images
     engine: pixabay
@@ -1750,13 +1746,13 @@ engines:
 
   - name: pubmed
     engine: pubmed
+    categories: "science"
     shortcut: pub
     disabled: true
 
   - name: pypi
     shortcut: pypi
     engine: pypi
-    disabled: true
 
   - name: quark
     quark_category: general
@@ -1777,7 +1773,6 @@ engines:
     engine: qwant
     shortcut: qw
     categories: [general, web]
-    disabled: true
     additional_tests:
       rosebud: *test_rosebud
 
@@ -1787,7 +1782,6 @@ engines:
     shortcut: qwn
     categories: news
     network: qwant
-    disabled: true
 
   - name: qwant images
     qwant_categ: images
@@ -1795,7 +1789,6 @@ engines:
     shortcut: qwi
     categories: [images, web]
     network: qwant
-    disabled: true
 
   - name: qwant videos
     qwant_categ: videos
@@ -1803,7 +1796,6 @@ engines:
     shortcut: qwv
     categories: [videos, web]
     network: qwant
-    disabled: true
 
   # - name: library
   #   engine: recoll
@@ -1842,6 +1834,7 @@ engines:
     shortcut: reu
     # https://docs.searxng.org/dev/engines/online/reuters.html
     # sort_order = "relevance"
+    disabled: true
 
   - name: right dao
     engine: xpath
@@ -1905,7 +1898,6 @@ engines:
   - name: sepiasearch
     engine: sepiasearch
     shortcut: sep
-    disabled: true
 
   - name: sogou
     engine: sogou
@@ -1987,6 +1979,7 @@ engines:
 
   - name: semantic scholar
     engine: semantic_scholar
+    categories: "science"
     shortcut: se
     disabled: true
 
@@ -2024,18 +2017,21 @@ engines:
     categories: [general, web]
     additional_tests:
       rosebud: *test_rosebud
+    disabled: true
 
   - name: startpage news
     engine: startpage
     startpage_categ: news
     categories: [news, web]
     shortcut: spn
+    disabled: true
 
   - name: startpage images
     engine: startpage
     startpage_categ: images
     categories: [images, web]
     shortcut: spi
+    disabled: true
 
   - name: steam
     engine: steam
@@ -2203,6 +2199,7 @@ engines:
   - name: vimeo
     engine: vimeo
     shortcut: vm
+    disabled: true
 
   - name: wiby
     engine: json_engine
@@ -2665,6 +2662,7 @@ engines:
     paging: true
     categories: [general, web]
     brave_category: search
+    disabled: true
     # brave_spellcheck: true
 
   - name: brave.images
@@ -2673,6 +2671,7 @@ engines:
     shortcut: brimg
     categories: [images, web]
     brave_category: images
+    disabled: true
 
   - name: brave.videos
     engine: brave
@@ -2713,7 +2712,6 @@ engines:
   - name: bt4g
     engine: bt4g
     shortcut: bt4g
-    disabled: true
 
   - name: pkg.go.dev
     engine: pkg_go_dev
