@@ -20,7 +20,7 @@
     services.searx = {
       enable = true;
       redisCreateLocally = false;
-      runInUwsgi = false;
+      configureUwsgi = false;
       settingsFile = config/searxng.yml;
       environmentFile = config.sops.secrets."searxng/secret".path;
       settings = {
