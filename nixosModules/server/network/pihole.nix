@@ -222,7 +222,6 @@
                 "10.75.0.21 nitter.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 ollama.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 pihole.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.21 searx.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 searxng.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.22 bluemap.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.22 flolserver.${config.nixos.server.network.nginx.domain}"

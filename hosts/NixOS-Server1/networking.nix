@@ -29,8 +29,6 @@
         "radicale.${config.nixos.server.network.nginx.domain}"
         "nitter.${config.nixos.server.network.nginx.domain}"
         "pihole.${config.nixos.server.network.nginx.domain}"
-        "search.${config.nixos.server.network.nginx.domain}"
-        "searx.${config.nixos.server.network.nginx.domain}"
         "searxng.${config.nixos.server.network.nginx.domain}"
         #"syncthing.${config.nixos.server.network.nginx.domain}"
       ];
