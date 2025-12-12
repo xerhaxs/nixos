@@ -1054,7 +1054,6 @@ engines:
   - name: google scholar
     engine: google_scholar
     categories: "science"
-    categories: 
     shortcut: gos
 
   - name: google play apps
