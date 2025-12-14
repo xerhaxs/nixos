@@ -23,7 +23,7 @@
     homeManager.applications.browser = {
       chromium.enable = true;
       firefox.enable = true;
-      librewolf.enbale = true;
+      librewolf.enable = true;
       tor.enable = true;
     };
   };

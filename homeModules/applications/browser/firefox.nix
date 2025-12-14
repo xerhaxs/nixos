@@ -818,7 +818,7 @@ in
       package = (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { 
         pipewireSupport = true;
         alsaSupport = true;
-        }) {});
+      }) {});
 
       nativeMessagingHosts = with pkgs; [
         #keepassxc
@@ -922,7 +922,6 @@ in
 
         ExtensionSettings = {
           # Get Extension IDs about:debugging#/runtime/this-firefox
-
           "CookieAutoDelete@kennydo.com" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/cookie-autodelete/latest.xpi";
@@ -944,7 +943,7 @@ in
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
           };
           "idcac-pub@guus.ninja" = {
-            "installation_mode" = "normal_installed";
+            "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
           };
           #"1094918@gmail.com" = {

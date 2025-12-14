@@ -1,5 +1,118 @@
 { config, lib, pkgs, ... }:
 
+let
+  customization = {
+    # Translation
+    "browser.translations.panelShown" = true;
+    "browser.translations.neverTranslateLanguages" = "de";
+
+    # set HOME+NEWWINDOW page
+    "browser.startup.homepage" = "https://glance.m4rx.cc/";
+
+    # enable user interaction for security by always asking where to download
+    "browser.download.useDownloadDir" = false;
+
+    # enable downloads panel opening on every download [FF96+]
+    "browser.download.alwaysOpenPanel" = true;
+
+    # enable adding downloads to the system's "recent documents" list
+    "browser.download.manager.addToRecentDocs" = true;
+
+    # enable user interaction for security by always asking how to handle new mimetypes [FF101+]
+    "browser.download.always_ask_before_handling_new_types" = true;
+
+    # set new window size rounding max values [FF55+]
+    "privacy.window.maxInnerWidth" = 2200;
+    "privacy.window.maxInnerHeight" = 1200;
+
+    # mime system handler
+    "widget.use-xdg-desktop-portal.mime-handler" = 1;
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
+
+    # go back with backspace
+    "browser.backspace_action" = 0;
+
+    # enable system titlebar
+    "browser.tabs.inTitlebar" = 0;
+
+    # prefer system print dialog
+    "print.prefer_system_dialog" = true;
+
+    # show full url in urlbar
+    "browser.urlbar.trimURLs" = false;
+
+    # warn on close
+    "browser.tabs.warnOnClose" = true;
+
+    # enable vaapi ffmpeg support
+    "media.ffmpeg.vaapi.enabled" = true;
+
+    # enable enterprise policies
+    "security.enterprise_roots.enabled" = true;
+
+    # always display bookmarks toolbar
+    "browser.toolbars.bookmarks.visibility" = "always";
+
+    # customize firefox toolbars
+    "browser.uiCustomization.state" = {
+      "placements" = {
+        "widget-overflow-fixed-list" = [ ];
+        "unified-extensions-area" = [
+          "addon_darkreader_org-browser-action"
+          "idcac-pub_guus_ninja-browser-action"
+          "plasma-browser-integration_kde_org-browser-action"
+        ];
+        "nav-bar" = [
+          "back-button"
+          "forward-button"
+          "stop-reload-button"
+          "history-panelmenu"
+          "urlbar-container"
+          "search-container"
+          "bookmarks-menu-button"
+          "downloads-button"
+          "privatebrowsing-button"
+          "developer-button"
+          "keepassxc-browser_keepassxc_org-browser-action"
+          "floccus_handmadeideas_org-browser-action"
+          "fxa-toolbar-menu-button"
+          "addon_simplelogin-browser-action"
+          "ublock0_raymondhill_net-browser-action"
+          "unified-extensions-button"
+        ];
+        "toolbar-menubar" = [ "menubar-items" ];
+        "TabsToolbar" = [ 
+          "tabbrowser-tabs"
+          "new-tab-button"
+          "alltabs-button"
+        ];
+        "PersonalToolbar" = [ 
+          "managed-bookmarks"
+          "personal-bookmarks" 
+        ];
+      };
+      "seen" = [
+        "developer-button"
+        "addon_simplelogin-browser-action"
+        "addon_darkreader_org-browser-action"
+        "idcac-pub_guus_ninja-browser-action"
+        "floccus_handmadeideas_org-browser-action"
+        "ublock0_raymondhill_net-browser-action"
+        "keepassxc-browser_keepassxc_org-browser-action"
+        "plasma-browser-integration_kde_org-browser-action"
+      ];
+      "dirtyAreaCache" = [
+        "nav-bar"
+        "PersonalToolbar"
+        "unified-extensions-area"
+        "TabsToolbar"
+      ];
+      "currentVersion" = 20;
+      "newElementCount" = 8;
+    };  
+  };
+in
+
 {
   options.homeManager = {
     applications.browser.librewolf = {
@@ -15,26 +128,40 @@
   config = lib.mkIf config.homeManager.applications.browser.librewolf.enable {
     programs.librewolf = {
       enable = true;
-      package = (pkgs.wrapLibrewolf (pkgs.librewolf-unwrapped.override { 
-        pipewireSupport = true;
-        alsaSupport = true;
-        }) {});
+      #package = pkgs.librewolf-unwrapped.override {
+      #  pipewireSupport = true;
+      #  #alsaSupport = true;
+      #};
 
       nativeMessagingHosts = with pkgs; [
         kdePackages.plasma-browser-integration
       ];
 
       settings = {
+        #"privacy.resistFingerprinting" = false;
+        #"security.OCSP.require" = false;
+        "browser.safebrowsing.malware.enabled" = true;
+        "browser.safebrowsing.phishing.enabled" = true;
+        "browser.safebrowsing.blockedURIs.enabled" = true;
+        "browser.safebrowsing.provider.google4.gethashURL" = "https://safebrowsing.googleapis.com/v4/fullHashes:find?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
+        "browser.safebrowsing.provider.google4.updateURL" = "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
+        "browser.safebrowsing.provider.google.gethashURL" = "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
+        "browser.safebrowsing.provider.google.updateURL" = "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
         "webgl.disabled" = false;
+        "media.eme.enabled" = true;
+        "browser.eme.ui.enabled" = true;
+        "media.autoplay.blocking_policy" = 2;
         "browser.profiles.enabled" = true;
         "cookiebanners.service.mode" = 2;
+        "general.autoScroll" = true;
+        "middlemouse.paste" = false;
       };
 
       policies = {
         DefaultDownloadDirectory = "\${home}/Downloads";
 
-        #DontCheckDefaultBrowser = true;
-        #EnterprisePoliciesEnabled = true;
+        DontCheckDefaultBrowser = true;
+        EnterprisePoliciesEnabled = true;
 
         #DisableFeedbackCommands = true;
         #DisableFirefoxAccounts = true;
@@ -45,10 +172,10 @@
         #DisableSetDesktopBackground = true;
         #NoDefaultBookmarks = lib.mkDefault true;
 
-        #DisableSecurityBypass = {
-        #  InvalidCertificate = false;
-        #  SafeBrowsing = false;
-        #}; 
+        DisableSecurityBypass = {
+          InvalidCertificate = false;
+          SafeBrowsing = false;
+        }; 
 
         #DisableTelemetry = true;
         #DNSOverHTTPS = "Enabled";
@@ -74,14 +201,14 @@
         #};
 
         #GoToIntranetSiteForSingleWordEntryInAddressBar = false;
-        #HardwareAcceleration = true;
+        HardwareAcceleration = true;
         #PasswordManagerEnabled = false;
         #PrimaryPassword = false;
         #RequestedLocales = [ "de-DE" "en-US" ];
 
-        #PrintingEnabled = true;
+        PrintingEnabled = true;
 
-        #EncryptedMediaExtensions = true;
+        EncryptedMediaExtensions = true;
 
         #UserMessaging = {
         #  WhatsNew = false;
@@ -121,15 +248,26 @@
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/torproject-snowflake/latest.xpi";
           };
-          #"uBlock0@raymondhill.net" = {
-          #  "installation_mode" = "force_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          #};
-          "{c49b13b1-5dee-4345-925e-0c793377e3fa}" = {
+          "uBlock0@raymondhill.net" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/youtube_enhancer_vc/latest.xpi";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           };
-        };
+          "idcac-pub@guus.ninja" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
+          };
+          #"addon@darkreader.org" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+          #};
+          #"{c49b13b1-5dee-4345-925e-0c793377e3fa}" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/youtube_enhancer_vc/latest.xpi";
+          #};
+          #"support@netflux.me" = {
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/netflux/latest.xpi";
+          #};
 
           "uBlock0@raymondhill.net".adminSettings = {
             userSettings = rec {
@@ -212,7 +350,7 @@
               enable_remaining_time = true;
               enable_timestamp_peek = true;
               enable_video_history = true;
-              player_quality = "hd1440";
+              player_quality = "4k";
             };
           };
           
@@ -232,30 +370,13 @@
             showAdvanced = true;
           };
         };
-
-        #SearchEngines = {
-        #  #Add = [];
-        #  Remove = [
-        #    "Google"
-        #    "Bing"
-        #    "Amazon.de"
-        #    #"DuckDuckGo"
-        #    "eBay"
-        #    "Ecosia"
-        #    "LEO Eng-Deu"
-        #    "Wikipedia (en)"
-        #  ];
-        #  Default = "ddg";
-        #};
-
-        #Handlers = {};
       };
 
       profiles = {
         default = {
           id = 0;
           isDefault = true;
-          #settings = arkenfox-js;
+          settings = customization;
           search = {
             force = true;
             engines = {
@@ -369,6 +490,7 @@
             {
               "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
             }
+            customization
           ];
           bookmarks = {
             force = true;
@@ -389,6 +511,7 @@
             {
               "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
             }
+            customization
           ];
           bookmarks = {
             force = true;
@@ -415,6 +538,7 @@
             {
               "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
             }
+            customization
           ];
           bookmarks = {
             force = true;
@@ -449,118 +573,9 @@
 
         privacy = {
           id = 4;
-          containersForce = true;
-        };
-
-        pwatemplate = {
-          id = 9;
-          containersForce = true;
-          settings = arkenfox-js;
-          search = {
-            force = true;
-            engines = {
-              "Nix Packages" = {
-                urls = [{
-                  template = "https://search.nixos.org/packages";
-                  params = [
-                    { name = "channel"; value = "unstable"; }
-                    { name = "type"; value = "packages"; }
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
-                definedAliases = [ "@np" ];
-                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              };
-
-              "Nix Options" = {
-                urls = [{
-                  template = "https://search.nixos.org/options";
-                  params = [
-                    { name = "channel"; value = "unstable"; }
-                    { name = "type"; value = "packages"; }
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
-                definedAliases = [ "@no" ];
-                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              };
-
-              "Home Manager Options" = {
-                urls = [{
-                  template = "https://home-manager-options.extranix.com/";
-                  params = [
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
-                definedAliases = [ "@hm" ];
-                icon = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
-              };
-
-              "NixOS Wiki" = {
-                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-                updateInterval = 24 * 60 * 60 * 1000; # every day
-                definedAliases = [ "@nw" ];
-                icon = "https://nixos.wiki/favicon.png";
-              };
-
-              "Such-O-Mat" = {
-                urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
-                definedAliases = [ "@s" ];
-                icon = "https://searxng.m4rx.cc/favicon";
-              };
-
-              "ddg" = {
-                urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
-                #params = [
-                #    { name = "q"; value = "{searchTerms}"; }
-                #  ];
-                definedAliases = [ "@d" ];
-                icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
-              };
-
-              "Brave" = {
-                urls = [{ template = "https://search.brave.com/search?q={searchTerms}"; }];
-                #params = [
-                #    { name = "q"; value = "{searchTerms}"; }
-                #  ];
-                definedAliases = [ "@b" ];
-                icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
-              };
-
-              "qwant" = {
-                urls = [{ template = "https://www.qwant.com/?q={searchTerms}"; }];
-                #params = [
-                #    { name = "q"; value = "{searchTerms}"; }
-                #  ];
-                definedAliases = [ "@q" ];
-                icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
-              };
-
-              "Startpage" = {
-                urls = [{ template = "https://www.startpage.com/sp/search?q={searchTerms}"; }];
-                #params = [
-                #    { name = "query"; value = "{searchTerms}"; }
-                #  ];
-                definedAliases = [ "@sp" ];
-                icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
-              };
-            };
-
-            order = [
-              "Suck-O-Mat"
-              "ddg"
-              "Brave"
-              "qwant"
-              "Startpage"
-              "Nix Packages"
-              "Nix Options"
-              "Home Manager Options"
-              "NixOS Wiki"
-            ];
-
-            default = "ddg";
-            privateDefault = "ddg";
-          };
+          settings = lib.mkMerge [
+            customization
+          ];
         };
       };
     };
