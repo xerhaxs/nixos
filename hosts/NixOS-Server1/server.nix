@@ -6,6 +6,12 @@
   nixos.server.network.nginx.enable = true;
 
   nixos.server = {
+    fediverse = {
+      invidious.enable = true;
+      libreddit.enable = true;
+      nitter.enable = true;
+      searxng.enable = true;
+    };
     fileshare = {
       samba.enable = false;
     };
@@ -17,10 +23,6 @@
     };
     network = {
       pihole.enable = true;
-    };
-    fediverse = {
-      invidious.enable = true;
-      searxng.enable = true;
     };
   };
 }

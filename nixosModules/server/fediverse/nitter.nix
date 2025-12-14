@@ -28,11 +28,19 @@
         autoplayGifs = false;
         bidiSupport = true;
         hideBanner = false;
+        hidePins = false;
+        hideReplies = false;
+        hideTweetStats = false;
         hlsPlayback = true;
+        infiniteScroll = false;
+        mp4Playback = true;
         muteVideos = true;
         replaceReddit = "libreddit.${config.nixos.server.network.nginx.domain}";
         replaceTwitter = "nitter.${config.nixos.server.network.nginx.domain}";
-        replaceYouTube = "invidious.${config.nixos.server.network.nginx.domain}";
+        #replaceYouTube = "invidious.${config.nixos.server.network.nginx.domain}";
+        squareAvatars = false;
+        stickyProfile = true;
+        theme = "Nitter";
       };
     };
 
