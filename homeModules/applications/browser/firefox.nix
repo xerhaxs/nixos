@@ -689,7 +689,7 @@ let
 
   # automaticly deny cookies from cookie banners
   # 1 (reject all) or 2 (reject all or fall back to accept all)
-  "cookiebanners.service.mode" = 1;
+  "cookiebanners.service.mode" = 2;
   "cookiebanners.bannerClicking.enable" = true;
   "cookiebanners.cookieInjector.enabled" = true;
 
@@ -944,7 +944,7 @@ in
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
           };
           "idcac-pub@guus.ninja" = {
-            "installation_mode" = "force_installed";
+            "installation_mode" = "normal_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
           };
           #"1094918@gmail.com" = {

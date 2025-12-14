@@ -4,6 +4,7 @@
   imports = [
     ./chromium.nix
     ./firefox.nix
+    ./librewolf.nix
     ./tor.nix
   ];
 
@@ -22,6 +23,7 @@
     homeManager.applications.browser = {
       chromium.enable = true;
       firefox.enable = true;
+      librewolf.enbale = true;
       tor.enable = true;
     };
   };
