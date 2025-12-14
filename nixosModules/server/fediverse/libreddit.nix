@@ -18,6 +18,7 @@
       address = "127.0.0.1";
       port = 8975;
       openFirewall = false;
+      
       settings = {
         SFW_ONLY = "off"; # ["on", "off"]
         ROBOTS_DISABLE_INDEXING = "on"; # ["on", "off"]

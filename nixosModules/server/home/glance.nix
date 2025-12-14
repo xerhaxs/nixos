@@ -244,11 +244,14 @@
                           { title = "Lidarr"; url = "https://lidarr.${config.nixos.server.network.nginx.domain}"; icon = "di:lidarr"; }
 
                           { title = "Readarr"; url = "https://readarr.${config.nixos.server.network.nginx.domain}"; icon = "di:readarr"; }
-                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "di:invidious"; }
                           { title = "Ollama"; url = "https://ollama.${config.nixos.server.network.nginx.domain}"; icon = "di:ollama"; }
+                          { title = "SearXNG"; url = "https://searxng.${config.nixos.server.network.nginx.domain}"; icon = "di:searxng"; }
+
+                          { title = "Invidious"; url = "https://invidious.${config.nixos.server.network.nginx.domain}"; icon = "di:invidious"; }
+                          { title = "LibReddit"; url = "https://libreddit.${config.nixos.server.network.nginx.domain}"; icon = "di:redlib"; }
+                          { title = "Nitter"; url = "https://nitter.${config.nixos.server.network.nginx.domain}"; icon = "di:nitter"; }
                           
                           { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "di:radicale"; }
-                          { title = "SearXNG"; url = "https://searxng.${config.nixos.server.network.nginx.domain}"; icon = "di:searxng"; }
                           { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "di:minecraft"; allow-insecure = true; }
                         ];
                       }
