@@ -28,8 +28,8 @@ in
         ];
         default = "dns-01";
         example = "http-01";
-        description = "Set the default ACME challenge."
-      }
+        description = "Set the default ACME challenge.";
+      };
     };
   };
 
