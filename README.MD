@@ -119,20 +119,20 @@ fwupdmgr update
     * [ ] WebDav for Bookmarksync
     * [ ] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS
     * [x] PiHole
-    * [ ] Invidous -> waiting for nixos pkg update
-    * [ ] Libreddit
-    * [ ] Lemmy
-    * [ ] Nitter
-    * [X] SearxNG
+    * [X] Invidous -> waiting for nixos pkg update
+    * [X] Libreddit -> Outdated version in NixPKGS
+    * [X] Lemmy -> Not usefull in LAN
+    * [X] Nitter -> Missing API Tokens
+    * [X] SearxNG -> Working!
     * [X] FreshRSS -> RSS Feed in Glance
     * [ ] Gitea -> local pull instance from public smb share with syncthing?
     * [ ] SMB / NFS Share
-    * [ ] Lidarr (Config setup)
-    * [ ] NZBHydra2 (Config setup)
-    * [ ] Radarr (Config setup) -> waiting for nixos pkg update
-    * [ ] Readarr (Config setup)
-    * [ ] Sonarr (Config setup)
-    * [ ] Sabnzbd (Config setup)
+    * [X] Lidarr (Config setup) -> not possible due to no module options for settings
+    * [X] NZBHydra2 (Config setup) -> not possible due to no module options for settings
+    * [X] Radarr (Config setup) -> waiting for nixos pkg update
+    * [X] Readarr (Config setup) -> not possible due to no module options for settings
+    * [X] Sonarr (Config setup) -> not possible due to no module options for settings
+    * [X] Sabnzbd (Config setup) -> not possible due to no module options for settings 
     * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
