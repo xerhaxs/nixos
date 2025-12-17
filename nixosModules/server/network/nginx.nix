@@ -71,9 +71,9 @@ in
     };
 
     security.acme = lib.mkIf (config.nixos.server.network.nginx.challenge == "http-01") {
-      security.acme = {
-        acceptTerms = true;
-        defaults.email = "among_clavicle129@slmail.me";
+      acceptTerms = true;
+      defaults = {
+        email = "among_clavicle129@slmail.me";
         renewInterval = "daily";
       };
     };
