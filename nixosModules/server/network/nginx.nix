@@ -58,7 +58,8 @@ in
       };
     };
 
-    security.acme = lib.mkIf (config.nixos.server.network.nginx.challenge == "dns-01") {
+    security.acme = lib.mkMerge [
+      (lib.mkIf (config.nixos.server.network.nginx.challenge == "dns-01") {
       acceptTerms = true;
       defaults = {
         email = "among_clavicle129@slmail.me";
@@ -68,14 +69,14 @@ in
         renewInterval = "daily";
         environmentFile = config.sops.secrets."nginx/acme/api_key".path;
       };
-    };
-
-    security.acme = lib.mkIf (config.nixos.server.network.nginx.challenge == "http-01") {
-      acceptTerms = true;
-      defaults = {
-        email = "among_clavicle129@slmail.me";
-        renewInterval = "daily";
-      };
-    };
+      })
+      (lib.mkIf (config.nixos.server.network.nginx.challenge == "http-01") {
+        acceptTerms = true;
+        defaults = {
+          email = "among_clavicle129@slmail.me";
+          renewInterval = "daily";
+        };
+      })
+    ];
   };
 }
