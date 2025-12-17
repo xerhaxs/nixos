@@ -42,8 +42,8 @@
           enable = true;
           autoStart = true;
           openFirewall = true;
-          jvmOpts = "-Xmx8192M -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true -Dlog4j2.formatMsgNoLookups=true";
-          package = pkgs.fabricServers.fabric-1_21_10;
+          jvmOpts = "-Xmx12288M -Dlog4j2.formatMsgNoLookups=true"; # -Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true
+          package = pkgs.fabricServers.fabric-1_21_11;
           whitelist = {
             Ecki_0709 = "a36b2d29-b75c-4958-a7e7-05f65d2dd130";
             FaL4Fl = "8d385243-ee7c-4a95-88f0-f1243d528b7d";
@@ -439,16 +439,16 @@
 
     services.nginx = {
       virtualHosts = {
-        #"flolserver.${config.nixos.server.network.nginx.domain}" = {
-        #  forceSSL = true;
-        #  enableACME = true;
-        #  acmeRoot = null;
-        #  kTLS = true;
-        #  http2 = false;
-        #  locations."/" = { 
-        #    proxyPass = "http://localhost:25565";
-        #  };
-        #};
+        "flolserver.${config.nixos.server.network.nginx.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          kTLS = true;
+          http2 = false;
+          locations."/" = { 
+            proxyPass = "http://127.0.0.1:8100";
+          };
+        };
         #"creativeserver.${config.nixos.server.network.nginx.domain}" = {
         #  forceSSL = true;
         #  enableACME = true;
@@ -489,33 +489,33 @@
         #    proxyPass = "http://localhost:25569";
         #  };
         #};
-        "bluemap.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:8100";
-          };
-        };
-        "map.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = { 
-            proxyPass = "http://localhost:8100";
-          };
-        };
+        #"bluemap.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:8100";
+        #  };
+        #};
+        #"map.${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  locations."/" = { 
+        #    proxyPass = "http://localhost:8100";
+        #  };
+        #};
       };
     };
 
-    services.ddclient.domains = [
-      "flolserver.${config.nixos.server.network.nginx.domain}"
-      "bluemap.${config.nixos.server.network.nginx.domain}"
-      "map.${config.nixos.server.network.nginx.domain}"
-    ];
+    #services.ddclient.domains = [
+    #  "flolserver.${config.nixos.server.network.nginx.domain}"
+    #  "bluemap.${config.nixos.server.network.nginx.domain}"
+    #  "map.${config.nixos.server.network.nginx.domain}"
+    #];
   };
 }

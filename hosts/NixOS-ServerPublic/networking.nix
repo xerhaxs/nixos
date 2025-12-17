@@ -20,8 +20,7 @@
 
     hosts = {
       "127.0.0.1" = lib.mkDefault [
-        #"flolserver.${config.nixos.server.network.nginx.domain}"
-        #"map.${config.nixos.server.network.nginx.domain}"
+        "flolserver.${config.nixos.server.network.nginx.domain}"
       ];
     };
   };

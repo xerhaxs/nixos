@@ -17,6 +17,7 @@
       enable = true;
       startWhenNeeded = true;
       openFirewall = true;
+      #allowSFTP = true;
       settings = {
         PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;
@@ -32,7 +33,10 @@
         "10.75.0.40"
         "10.75.0.80"
       ];
-      blocktime = 120;
+      blocktime = 3600;
+      detection_time = 30758400;
+      blacklist_threshold = 60;
+      attack_threshold = 10;
     };
 
     services.sshd.enable = true;

@@ -20,33 +20,45 @@ in
         example = "example.com";
         description = "Domain for nginx.";
       };
+
+      challenge = lib.mkOption {
+        type = lib.types.enum [
+          "dns-01"
+          "http-01"
+        ];
+        default = "dns-01";
+        example = "http-01";
+        description = "Set the default ACME challenge."
+      }
     };
   };
 
-  config = lib.mkIf config.nixos.server.network.nginx.enable {
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+  config = lib.mkIf config.nixos.server.network.nginx {
+    enable = {
+      networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-    services.nginx = {
-      enable = true;
-      
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
+      services.nginx = {
+        enable = true;
+        
+        recommendedGzipSettings = true;
+        recommendedOptimisation = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true;
 
-      #virtualHosts = {
-        #"${config.nixos.server.network.nginx.domain}" = {
-        #  forceSSL = true;
-        #  enableACME = true;
-        #  acmeRoot = null;
-        #  kTLS = true;
-        #  http2 = false;
-        #  root = "/mount/Data/Datein/Server/startpage/index.html";
+        #virtualHosts = {
+          #"${config.nixos.server.network.nginx.domain}" = {
+          #  forceSSL = true;
+          #  enableACME = true;
+          #  acmeRoot = null;
+          #  kTLS = true;
+          #  http2 = false;
+          #  root = "/mount/Data/Datein/Server/startpage/index.html";
+          #};
         #};
-      #};
+      };
     };
 
-    security.acme = {
+    security.acme = lib.mkIf (config.nixos.server.network.nginx.challenge == "dns-01") {
       acceptTerms = true;
       defaults = {
         email = "among_clavicle129@slmail.me";
@@ -55,6 +67,14 @@ in
         dnsPropagationCheck = true;
         renewInterval = "daily";
         environmentFile = config.sops.secrets."nginx/acme/api_key".path;
+      };
+    };
+
+    security.acme = lib.mkIf (config.nixos.server.network.nginx.challenge == "http-01") {
+      security.acme = {
+        acceptTerms = true;
+        defaults.email = "among_clavicle129@slmail.me";
+        renewInterval = "daily";
       };
     };
   };
