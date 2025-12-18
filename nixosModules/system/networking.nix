@@ -139,9 +139,9 @@ in
           #"webdav.${config.nixos.server.network.nginx.domain}"
         ];
         "10.75.0.22" = [
-          "bluemap.4rx.cc"
-          "flolserver.${config.nixos.server.network.nginx.domain}"
-          "map.${config.nixos.server.network.nginx.domain}"
+          #"bluemap.4rx.cc"
+          #"flolserver.${config.nixos.server.network.nginx.domain}"
+          #"map.${config.nixos.server.network.nginx.domain}"
         ];
         "10.75.0.23" = [
           "lidarr.${config.nixos.server.network.nginx.domain}"
