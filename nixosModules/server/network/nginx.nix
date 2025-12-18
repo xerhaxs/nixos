@@ -33,29 +33,27 @@ in
     };
   };
 
-  config = lib.mkIf config.nixos.server.network.nginx {
-    enable = {
-      networking.firewall.allowedTCPPorts = [ 80 443 ];
+  config = lib.mkIf config.nixos.server.network.nginx.enable {
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-      services.nginx = {
-        enable = true;
-        
-        recommendedGzipSettings = true;
-        recommendedOptimisation = true;
-        recommendedProxySettings = true;
-        recommendedTlsSettings = true;
+    services.nginx = {
+      enable = true;
+      
+      recommendedGzipSettings = true;
+      recommendedOptimisation = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
 
-        #virtualHosts = {
-          #"${config.nixos.server.network.nginx.domain}" = {
-          #  forceSSL = true;
-          #  enableACME = true;
-          #  acmeRoot = null;
-          #  kTLS = true;
-          #  http2 = false;
-          #  root = "/mount/Data/Datein/Server/startpage/index.html";
-          #};
+      #virtualHosts = {
+        #"${config.nixos.server.network.nginx.domain}" = {
+        #  forceSSL = true;
+        #  enableACME = true;
+        #  acmeRoot = null;
+        #  kTLS = true;
+        #  http2 = false;
+        #  root = "/mount/Data/Datein/Server/startpage/index.html";
         #};
-      };
+      #};
     };
 
     security.acme = lib.mkMerge [
