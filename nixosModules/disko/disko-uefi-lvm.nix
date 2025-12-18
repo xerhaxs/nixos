@@ -59,7 +59,7 @@
               content = {
                 type = "swap";
                 resumeDevice = true;
-                #extraArgs = [ "-L swap" ];
+                extraArgs = [ "-L swap" ];
               };
             };
             root = {
@@ -73,7 +73,7 @@
                 mountOptions = [
                   "defaults"
                 ];
-                #extraArgs = [ "-L root" ];
+                extraArgs = [ "-L root" ];
               };
             };
             home = {
@@ -84,7 +84,7 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/home";
-                #extraArgs = [ "-L home" ];
+                extraArgs = [ "-L home" ];
               };
             };
           };
