@@ -1,4 +1,10 @@
+{ config, disko, lib, pkgs, ... }: 
+
 {
+  imports = [
+    disko.nixosModules.disko
+  ];
+
   disko.devices = {
     disk = {
       disk1 = {
