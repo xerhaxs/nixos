@@ -7,5 +7,5 @@
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.efiInstallPath = "/boot/efi";
   boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" ];
-  boot.initrd.mdadm.enable = true;
+  boot.swraid.enable = true;
 }
