@@ -2,27 +2,23 @@
 
 {
   fileSystems."/" = {
-    device = "LABEL=root";
+    device = "/dev/md/raid1p2";  # Root-Partition auf mdraid
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "LABEL=boot";
+    device = "/dev/md/raid1p1";  # Boot-Partition auf mdraid, optional
     fsType = "ext4";
   };
 
   fileSystems."/boot/efi" = {
-    device = "LABEL=esp_sda";
+    device = "/dev/sda1";  # ESP auf Disk1
     fsType = "vfat";
   };
 
+  # Optional, ESP spiegeln
   fileSystems."/boot/efi2" = {
-    device = "LABEL=esp_sdb";
+    device = "/dev/sdb1";  # ESP auf Disk2
     fsType = "vfat";
-  };
-
-  fileSystems."/home" = {
-    device = "LABEL=home";
-    fsType = "ext4";
   };
 }
