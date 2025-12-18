@@ -29,4 +29,14 @@
 
   nixos.disko.disko-uefi-lvm.enable = lib.mkForce true;
   _module.args.disks = [ "/dev/sda" ];
+
+  fileSystems."/" = {
+    device = lib.mkForce "/dev/pool/root";
+    fsType = "ext4";
+  };
+
+  fileSystems."/home" = {
+    device = lib.mkForce "/dev/pool/home";
+    fsType = "ext4";
+  };
 }
