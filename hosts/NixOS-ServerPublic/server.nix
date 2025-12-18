@@ -12,11 +12,11 @@
 
   nixos.system.nasmount.enable = lib.mkForce false;
 
-  #nixos.system.mount.enable = lib.mkForce false;
+  nixos.system.mount.enable = lib.mkForce false;
 
-  #nixos.disko.enable = lib.mkForce false;
+  nixos.disko.enable = lib.mkForce false;
 
-  #nixos.system.bootloader.enable = lib.mkForce false;
+  nixos.system.bootloader.enable = lib.mkForce false;
 
   nixos.system.sops.enable = lib.mkForce false;
 

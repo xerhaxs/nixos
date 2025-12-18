@@ -16,8 +16,8 @@ in
   imports = [
     #./bootloader.nix
     ./configuration.nix
-    #./disko.nix
-    ./mount.nix
+    ./disko.nix
+    #./mount.nix
     ./networking.nix
     ./server.nix
     hw_import
