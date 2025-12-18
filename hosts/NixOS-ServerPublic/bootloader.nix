@@ -1,10 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot.initrd.luks.devices = {
-    "system" = {
-      preLVM = true;
-      device = lib.mkForce "/dev/disk/by-partlabel/disk-NIXOS-SYSTEM";
-    };
-  };
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.efiInstallPath = "/boot/efi";
+  boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" ];
+  boot.initrd.mdadm.enable = true;
 }

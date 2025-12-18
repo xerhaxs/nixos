@@ -6,61 +6,82 @@
   ];
 
   disko.devices = {
-    disk = {
-      disk1 = {
-        type = "disk";
-        device = "/dev/nvme0n1";
-        content = {
-          type = "gpt";
-          partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-            };
-            mdadm = {
-              size = "100%";
-              content = {
-                type = "mdraid";
-                name = "raid1";
+    disko.devices = {
+      mdadm = {
+        raid1 = {
+          type = "mdadm";
+          level = 1;
+          content = {
+            type = "gpt";
+            partitions = {
+              boot = {
+                size = "1G";
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  label = "boot";
+                  mountpoint = "/boot";
+                };
+              };
+              root = {
+                size = "100%";
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  label = "root";
+                  mountpoint = "/";
+                };
+              };
+              home = {
+                size = "50G"; # optional
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  label = "home";
+                  mountpoint = "/home";
+                };
               };
             };
           };
         };
       };
-      disk2 = {
-        type = "disk";
-        device = "/dev/nvme1n1";
-        content = {
-          type = "gpt";
-          partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-            };
-            mdadm = {
-              size = "100%";
-              content = {
-                type = "mdraid";
-                name = "raid1";
+
+      disk = {
+        disk1 = {
+          type = "disk";
+          device = "/dev/sda";
+          content = {
+            type = "gpt";
+            partitions = {
+              esp = {
+                size = "512M";
+                type = "EF00";
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  label = "esp_sda";
+                  mountpoint = "/boot/efi";
+                };
               };
             };
           };
         };
-      };
-    };
-    mdadm = {
-      raid1 = {
-        type = "mdadm";
-        level = 1;
-        content = {
-          type = "gpt";
-          partitions = {
-            primary = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+
+        disk2 = {
+          type = "disk";
+          device = "/dev/sdb";
+          content = {
+            type = "gpt";
+            partitions = {
+              esp = {
+                size = "512M";
+                type = "EF00";
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  label = "esp_sdb";
+                  mountpoint = "/boot/efi2";
+                };
               };
             };
           };

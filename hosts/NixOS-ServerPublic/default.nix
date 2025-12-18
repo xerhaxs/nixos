@@ -14,10 +14,10 @@ in
 
 {
   imports = [
-    #./bootloader.nix
+    ./bootloader.nix
     ./configuration.nix
     ./disko.nix
-    #./mount.nix
+    ./mount.nix
     ./networking.nix
     ./server.nix
     hw_import
