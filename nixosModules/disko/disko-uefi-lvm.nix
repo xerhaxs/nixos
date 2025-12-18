@@ -54,7 +54,8 @@
           lvs = {
             swap = {
               name = "swap";
-              size = "32G";
+              size = "4G";
+              #size = "32G";
               content = {
                 type = "swap";
                 resumeDevice = true;
@@ -63,7 +64,8 @@
             };
             root = {
               name = "root";
-              size = "75%FREE";
+              size= "100G";
+              #size = "75%FREE";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -76,7 +78,8 @@
             };
             home = {
               name = "home";
-              size = "25%FREE";
+              size = "100%FREE";
+              #size = "25%FREE";
               content = {
                 type = "filesystem";
                 format = "ext4";
