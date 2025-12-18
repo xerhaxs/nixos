@@ -13,6 +13,4 @@
   };
 
   #services.qemuGuest.enable = true;
-
-  nixos.system.bootloader.enable = lib.mkForce false;
 }

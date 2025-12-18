@@ -12,9 +12,11 @@
 
   nixos.system.nasmount.enable = lib.mkForce false;
 
-  nixos.system.mount.enable = lib.mkForce false;
+  #nixos.system.mount.enable = lib.mkForce false;
 
-  nixos.disko.enable = lib.mkForce false;
+  #nixos.disko.enable = lib.mkForce false;
+
+  #nixos.system.bootloader.enable = lib.mkForce false;
 
   nixos.system.sops.enable = lib.mkForce false;
 
@@ -24,4 +26,7 @@
       PasswordAuthentication = lib.mkForce false;
     };
   };
+
+  nixos.disko.disko-uefi-lvm.enable = lib.mkForce true;
+  _module.args.disks = [ "/dev/nvme0n1" ];
 }
