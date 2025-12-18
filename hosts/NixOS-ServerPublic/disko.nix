@@ -29,7 +29,7 @@
       };
       disk2 = {
         type = "disk";
-        device = "/dev/nvme0n2";
+        device = "/dev/nvme1n1";
         content = {
           type = "gpt";
           partitions = {
