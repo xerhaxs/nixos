@@ -74,7 +74,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Convertible/default.nix
@@ -88,7 +87,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Desktop/default.nix
@@ -112,7 +110,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Framework/default.nix
@@ -126,7 +123,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Live/default.nix
@@ -140,7 +136,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server1/default.nix
@@ -154,7 +149,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server2/default.nix
@@ -168,7 +162,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Server3/default.nix
@@ -182,7 +175,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-ServerPublic/default.nix
@@ -196,7 +188,6 @@
         specialArgs = inputs;
 
         modules = [
-          nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Test/default.nix

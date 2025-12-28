@@ -1,7 +1,19 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.desktop.enable = true;
+  nixos.desktop = {
+    enable = true;
+    desktopEnvironment = {
+      plasma6.enable = true;
+    };
+    displayManager = {
+      defaultSession = "plasma";
+      sddm.enable = true;
+    };
+    windowManager = {
+      hyprland.enable = false;
+    };
+  };
 
   nixos.hardware = {
     amdcpu.enable = true;
@@ -14,6 +26,7 @@
   };
 
   nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.game.enable = true;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;

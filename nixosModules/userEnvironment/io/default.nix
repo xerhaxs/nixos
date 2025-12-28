@@ -20,7 +20,7 @@
   };
 
   config = lib.mkIf config.nixos.userEnvironment.io.enable {
-    nixos.io = {
+    nixos.userEnvironment.io = {
       audio.enable = true;
       bluetooth.enable = true;
       input.enable = true;

@@ -16,11 +16,4 @@
       };
     };
   };
-
-  config = lib.mkIf config.nixos.desktop.desktopEnvironment.enable {
-    nixos.desktop.desktopEnvironment = {
-      gnome.enable = false;
-      plasma6.enable = true;
-    };
-  };
 }

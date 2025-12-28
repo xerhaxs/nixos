@@ -8,18 +8,18 @@
   ];
 
   options.nixos = {
-    game.userEnvironment = {
+    userEnvironment.game = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable userEnvironment modules bundle.";
+        description = "Enable game modules bundle.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.game.userEnvironment.enable {
-    nixos.game.userEnvironment = {
+  config = lib.mkIf config.nixos.userEnvironment.game.enable {
+    nixos.userEnvironment.game = {
       gamemode.enable = true;
       gamescope.enable = true;
       steam.enable = true;

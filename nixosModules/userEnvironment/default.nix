@@ -9,13 +9,10 @@
     ./appimage.nix
     ./dconf.nix
     ./fonts.nix
-    ./gamemode.nix
-    ./gamescope.nix
     ./kdeconnect.nix
     ./mullvad.nix
     ./nfs-client.nix
     ./samba-client.nix
-    ./steam.nix
     ./syncthing.nix
   ];
 
@@ -38,13 +35,9 @@
       appimage.enable = true;
       dconf.enable = true;
       fonts.enable = true;
-      gamemode.enable = true;
-      gamescope.enable = true;
       kdeconnect.enable = true;
       mullvad.enable = true;
       nfs-client.enable = true;
-      samba-client.enable = true;
-      steam.enable = true;
       syncthing.enable = true;
     };
   };

@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    game.userEnvironment.gamescope = {
+    userEnvironment.game.gamescope = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.game.userEnvironment.gamescope.enable {
+  config = lib.mkIf config.nixos.userEnvironment.game.gamescope.enable {
     programs.gamescope = {
       enable = true;
     };
