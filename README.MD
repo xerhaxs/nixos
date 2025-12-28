@@ -67,6 +67,7 @@ fwupdmgr update
   * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
   * [ ] Remove secrets from home manager git config
   * [ ] Add a Remote Kill Switch to shutdown every system
+* [ ] Rescue / Flight / Escape SSD with important data + generic OS
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
@@ -80,6 +81,7 @@ fwupdmgr update
   * [ ] Config setup of Rnote (write config file)
   * [ ] Config setup of Xournal++ (write config file)
   * [ ] Miracast / Screensharing in NixOS
+  * [ ] SSH Password to SSH Certs + SSH Certfiles via Syncthing
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass
@@ -104,6 +106,7 @@ fwupdmgr update
   * [ ] https://streamable.com/4oogot
   * [ ] https://github.com/catppuccin/hyprland
   * [ ] https://github.com/catppuccin/waybar
+  * [ ] https://github.com/sandwichfarm/hyprlax
 
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
