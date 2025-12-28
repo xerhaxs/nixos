@@ -31,7 +31,7 @@
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/The Witcher/21-9/cropped-3840-1600-608887.jpg";
+        wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
       };
 
       windows = {
@@ -1067,7 +1067,7 @@
         "krunnerrc"."Plugins"."baloosearchEnabled" = true;
         "krunnerrc"."General"."FreeFloating" = true;
         "krunnerrc"."General"."historyBehavior" = "ImmediateCompletion";
-        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
+        "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/54808358047_d75419ff26_o.jpg";
         "kservicemenurc"."Show"."compressfileitemaction" = true;
         "kservicemenurc"."Show"."extractfileitemaction" = true;
         "kservicemenurc"."Show"."forgetfileitemaction" = true;
