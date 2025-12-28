@@ -100,6 +100,7 @@ in
       sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
         enable = true;
         font = "Noto Sans";
+        #background = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/STScI-01G7ETPF7DVBJAC42JR5N6EQRH.jpg";
         background = "https://wallpapercave.com/wp/wp6058967.jpg";
         loginBackground = true;
       };
