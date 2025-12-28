@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./android.nix
     ./common.nix
     ./git.nix
     ./htop.nix
@@ -25,7 +24,6 @@
 
   config = lib.mkIf config.nixos.base.tools.enable {
     nixos.base.tools = {
-      android.enable = true;
       common.enable = true;
       git.enable = true;
       htop.enable = true;

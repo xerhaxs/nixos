@@ -18,7 +18,7 @@
 
   config = lib.mkIf config.nixos.desktop.windowManager.enable {
     nixos.desktop.windowManager = {
-      hyprland.enable = false;
+      hyprland.enable = true;
     };
   };
 }

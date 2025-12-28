@@ -6,7 +6,6 @@
     ./desktop
     ./disko
     ./hardware
-    ./io
     ./pkgs
     ./server
     ./system
@@ -29,16 +28,12 @@
   config = lib.mkIf config.nixos.nixosModules.enable {
     nixos = {
       base.enable = true;
-      desktop.enable = true;
       disko.enable = true;
       hardware.enable = true;
-      io.enable = true;
       pkgs.enable = true;
       server.enable = false;
       system.enable = true;
       theme.enable = true;
-      userEnvironment.enable = false;
-      virtualisation.enable = true;
     };
   };
 }

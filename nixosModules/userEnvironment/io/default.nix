@@ -2,13 +2,14 @@
 
 {
   imports = [
+    ./audio.nix
     ./bluetooth.nix
     ./input.nix
-    ./razer.nix
+    ./printing.nix
   ];
 
   options.nixos = {
-    io = {
+    userEnvironment.io = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -18,11 +19,12 @@
     };
   };
 
-  config = lib.mkIf config.nixos.io.enable {
+  config = lib.mkIf config.nixos.userEnvironment.io.enable {
     nixos.io = {
+      audio.enable = true;
       bluetooth.enable = true;
       input.enable = true;
-      razer.enable = true;
+      printing.enable = true;
     };
   };
 }

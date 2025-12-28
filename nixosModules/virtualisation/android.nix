@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    base.tools.android = {
+    virtualisation.android = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.base.tools.android.enable {
+  config = lib.mkIf config.nixos.virtualisation.android.enable {
     programs.adb = {
       enable = true;
     };

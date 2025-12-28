@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    io.bluetooth = {
+    userEnvironment.io.bluetooth = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.io.bluetooth.enable {
+  config = lib.mkIf config.nixos.userEnvironment.io.bluetooth.enable {
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;

@@ -2,19 +2,20 @@
 
 {
   options.nixos = {
-    system.dconf = {
+    userEnvironment.appimage = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable dconf.";
+        description = "Enable appimage.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.system.dconf.enable {
-    programs.dconf = {
+  config = lib.mkIf config.nixos.userEnvironment.appimage.enable {
+    programs.appimage = {
       enable = true;
+      binfmt = true;
     };
   };
 }

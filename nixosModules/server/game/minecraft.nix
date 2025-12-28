@@ -517,5 +517,11 @@
     #  "bluemap.${config.nixos.server.network.nginx.domain}"
     #  "map.${config.nixos.server.network.nginx.domain}"
     #];
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "minecraft"
+      ];
+    };
   };
 }

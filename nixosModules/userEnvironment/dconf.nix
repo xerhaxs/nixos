@@ -2,18 +2,18 @@
 
 {
   options.nixos = {
-    userEnvironment.gamescope = {
+    userEnvironment.dconf = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable gamescope.";
+        description = "Enable dconf.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.userEnvironment.gamescope.enable {
-    programs.gamescope = {
+  config = lib.mkIf config.nixos.userEnvironment.dconf.enable {
+    programs.dconf = {
       enable = true;
     };
   };

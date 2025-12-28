@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../pkgs/sane-extra-config.nix
+    ./sane-extra-config.nix
   ];
 
   options.nixos = {
-    userEnvironment.printing = {
+    userEnvironment.io.printing = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -16,7 +16,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.userEnvironment.printing.enable {
+  config = lib.mkIf config.nixos.userEnvironment.io.printing.enable {
     services.printing = {
       enable = true;
       startWhenNeeded = false;
@@ -49,6 +49,13 @@
     services.udev.packages = [ pkgs.sane-airscan ];
 
     services.ipp-usb.enable = true;
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "scanner"
+        "lp"
+      ];
+    };
   };
 }
 

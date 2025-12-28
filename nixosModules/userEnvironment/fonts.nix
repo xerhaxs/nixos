@@ -2,17 +2,17 @@
 
 {
   options.nixos = {
-    system.fonts = {
+    userEnvironment.fonts = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable system fonts.";
+        description = "Enable userEnvironment fonts.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.system.fonts.enable {
+  config = lib.mkIf config.nixos.userEnvironment.fonts.enable {
     fonts = {
       fontDir.enable = true;
       enableGhostscriptFonts = false;

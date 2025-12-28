@@ -93,9 +93,8 @@
       # system tools
       ethtool
       lm_sensors # for `sensors` command
-      ntfs3g
+      ntfs3g # for ntfs file systems
       pciutils # lspci
-      powerstat
       sysstat
       usbutils # lsusb
 

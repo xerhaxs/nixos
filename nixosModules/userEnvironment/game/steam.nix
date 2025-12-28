@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    userEnvironment.steam = {
+    game.userEnvironment.steam = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.userEnvironment.steam.enable {
+  config = lib.mkIf config.nixos.game.userEnvironment.steam.enable {
     programs.steam = {
       enable = true;
       gamescopeSession.enable = true;

@@ -4,9 +4,7 @@
   imports = [
     ./bash.nix
     ./console.nix
-    ./fish.nix
     ./tmux.nix
-    ./zsh.nix
   ];
 
   options.nixos = {
@@ -24,9 +22,7 @@
     nixos.base.shell = {
       bash.enable = true;
       console.enable = true;
-      fish.enable = false; 
       tmux.enable = true;
-      zsh.enable = false;
     };
   };
 }

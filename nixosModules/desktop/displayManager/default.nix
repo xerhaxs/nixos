@@ -25,7 +25,7 @@
   config = lib.mkIf config.nixos.desktop.displayManager.enable {
     nixos.desktop.displayManager = {
       gdm.enable = false;
-      sddm.enable = false;
+      sddm.enable = true;
     };
   };
 }

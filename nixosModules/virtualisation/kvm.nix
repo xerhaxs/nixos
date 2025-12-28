@@ -27,9 +27,9 @@
           log_filters="3:qemu 1:libvirt"
           log_outputs="2:file:/var/log/libvirt/libvirtd.log"
         '';
-        hooks.qemu = {
-          "win11gpu" = ./vm-win11gpu-hook.sh;
-        };
+        #hooks.qemu = {
+        #  "win11gpu" = ./vm-win11gpu-hook.sh;
+        #};
       };
       spiceUSBRedirection.enable = true;
     };
@@ -55,5 +55,11 @@
       win-spice
       freerdp
     ];
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "libvirtd"
+      ];
+    };
   };
 }

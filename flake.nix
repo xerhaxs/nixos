@@ -27,11 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nurpkgs = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,7 +57,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, catppuccin, nur, nixos-generators, ... }:
+  outputs = inputs@{ self, nixpkgs, catppuccin, nixos-generators, ... }:
     let
 
       system = "x86_64-linux";
@@ -83,20 +78,6 @@
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Convertible/default.nix
-          ./homeModules/homemanager.nix
-        ];
-      };
-
-      NixOS-Crafter = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = inputs;
-
-        modules = [
-          nur.modules.nixos.default
-          catppuccin.nixosModules.catppuccin
-          ./nixosModules/default.nix
-          ./hosts/NixOS-Crafter/default.nix
           ./homeModules/homemanager.nix
         ];
       };
@@ -135,20 +116,6 @@
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Framework/default.nix
-          ./homeModules/homemanager.nix
-        ];
-      };
-
-      NixOS-Laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = inputs;
-
-        modules = [
-          nur.modules.nixos.default
-          catppuccin.nixosModules.catppuccin
-          ./nixosModules/default.nix
-          ./hosts/NixOS-Laptop/default.nix
           ./homeModules/homemanager.nix
         ];
       };
@@ -233,20 +200,6 @@
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Test/default.nix
-          ./homeModules/homemanager.nix
-        ];
-      };
-
-      NixOS-Workshop = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = inputs;
-
-        modules = [
-          nur.modules.nixos.default
-          catppuccin.nixosModules.catppuccin
-          ./nixosModules/default.nix
-          ./hosts/NixOS-Workshop/default.nix
           ./homeModules/homemanager.nix
         ];
       };

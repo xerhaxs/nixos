@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    io.input = {
+    userEnvironment.io.input = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.io.input.enable {
+  config = lib.mkIf config.nixos.userEnvironment.io.input.enable {
     services = {
       libinput = {
         enable = true;
@@ -42,5 +42,11 @@
     };
 
     services.hardware.bolt.enable = true;
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "dialout"
+      ];
+    };
   };
 }

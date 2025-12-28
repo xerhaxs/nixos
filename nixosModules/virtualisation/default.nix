@@ -2,6 +2,7 @@
 
 { 
   imports = [
+    ./android.nix
     ./docker.nix
     ./kvm.nix
     ./podman.nix
@@ -16,15 +17,6 @@
         example = true;
         description = "Enable virtualisation modules bundle.";
       };
-    };
-  };
-
-  config = lib.mkIf config.nixos.virtualisation.enable {
-    nixos.virtualisation = {
-      docker.enable = false;
-      kvm.enable = false;
-      podman.enable = false;
-      waydroid.enable = false;
     };
   };
 }

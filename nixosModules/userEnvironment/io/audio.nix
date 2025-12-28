@@ -2,8 +2,8 @@
 
 
 {
-  options = {
-    nixos.system.audio = {
+  options.nixos = {
+    userEnvironment.io.audio = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -13,7 +13,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.system.audio.enable {
+  config = lib.mkIf config.nixos.userEnvironment.io.audio.enable {
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

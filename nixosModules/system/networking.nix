@@ -179,5 +179,11 @@ in
 
       nameservers = [ "10.75.0.21" "10.75.0.1" "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
     };
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "networkmanager"
+      ];
+    };
   };
 }

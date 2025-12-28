@@ -43,15 +43,7 @@
       home = "/home/${config.nixos.system.user.defaultuser.name}";
       description = "${config.nixos.system.user.defaultuser.name}";
       extraGroups = [
-        "dialout"
-        "networkmanager"
         "wheel"
-        "libvirtd"
-        "scanner"
-        "lp"
-        "truenas"
-        "minecraft"
-        "docker"
       ];
       initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
       shell = config.nixos.system.user.defaultuser.shell;

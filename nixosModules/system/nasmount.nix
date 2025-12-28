@@ -73,5 +73,11 @@ in
     };
 
     networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "truenas"
+      ];
+    };
   };
 }

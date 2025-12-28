@@ -2,20 +2,19 @@
 
 {
   options.nixos = {
-    system.appimage = {
+    game.userEnvironment.gamescope = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable appimage.";
+        description = "Enable gamescope.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.system.appimage.enable {
-    programs.appimage = {
+  config = lib.mkIf config.nixos.game.userEnvironment.gamescope.enable {
+    programs.gamescope = {
       enable = true;
-      binfmt = true;
     };
   };
 }

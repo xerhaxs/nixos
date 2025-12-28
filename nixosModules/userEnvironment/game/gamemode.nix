@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    userEnvironment.gamemode = {
+    game.userEnvironment.gamemode = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.userEnvironment.gamemode.enable {
+  config = lib.mkIf config.nixos.game.userEnvironment.gamemode.enable {
     programs.gamemode.enable = true;
   };
 }
