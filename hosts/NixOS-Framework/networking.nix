@@ -4,9 +4,7 @@
   networking = {
   
     hostName = "NixOS-Framework";
-
-    useDHCP = true;
-
+    
     defaultGateway.interface = "eth0";
     defaultGateway6.interface = "eth0";
 

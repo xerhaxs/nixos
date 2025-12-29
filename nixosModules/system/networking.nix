@@ -104,7 +104,7 @@ in
       enableIPv6 = true;
       tempAddresses = "default";
 
-      useDHCP = lib.mkDefault false;
+      useDHCP = false;
 
       hosts = lib.mkDefault {
         "10.75.0.1" = [ "fritz.box" ];

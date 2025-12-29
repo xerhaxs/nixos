@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./boot.nix
     ./bootloader.nix
     ./clamav.nix
     ./cron.nix
@@ -35,6 +36,7 @@
 
   config = lib.mkIf config.nixos.system.enable {
     nixos.system = {
+      boot.enable = true;
       bootloader.enable = true;
       clamav.enable = true;
       cron.enable = true;

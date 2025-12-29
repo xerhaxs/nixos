@@ -4,8 +4,6 @@
   networking = {
   
     hostName = "NixOS-Convertible";
-    
-    useDHCP = true;
 
     defaultGateway.interface = "eth0";
     defaultGateway6.interface = "eth0";

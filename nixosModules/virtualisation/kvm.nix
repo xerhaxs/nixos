@@ -60,5 +60,11 @@
         "libvirtd"
       ];
     };
+
+    boot.extraModulePackages = with config.boot.kernelPackages; [ vendor-reset ];
+
+    boot.extraModprobeConfig = ''
+      options vendor-reset
+    '';
   };
 }
