@@ -23,10 +23,10 @@
 
   config = lib.mkIf config.homeManager.applications.sync.enable {
     homeManager.applications.sync = {
-      barrier.enable = false;
+      barrier.enable = lib.mkDefault false;
       kdeconnect.enable = true;
       nextcloud-client.enable = true;
-      onionshare.enable = false;
+      onionshare.enable = lib.mkDefault false;
       rclone.enable = true;
       syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };

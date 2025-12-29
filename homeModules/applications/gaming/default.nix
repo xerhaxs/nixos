@@ -23,7 +23,7 @@
 
   config = lib.mkIf config.homeManager.applications.gaming.enable {
     homeManager.applications.gaming = {
-      antimicrox.enable = false;
+      #antimicrox.enable = false;
       heroic.enable = true;
       lutris.enable = true;
       mangohud.enable = true;

@@ -14,6 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.editing.image.enable {
     home.packages = with pkgs; [
+      exiftool
       gimp
       #inkscape-with-extensions
       #krita

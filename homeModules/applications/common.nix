@@ -2,7 +2,7 @@
 
 {
   options.homeManager = {
-    base.tools.common = {
+    applications.common = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,11 +12,8 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.common.enable {
+  config = lib.mkIf config.homeManager.applications.common.enable {
     home.packages = with pkgs; [
-      exiftool
-      gnome-disk-utility
-      putty
       qalculate-gtk
     ];
   };

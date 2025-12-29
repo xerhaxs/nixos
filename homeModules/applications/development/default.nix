@@ -1,8 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 {
   imports = [
-    ./arduino.nix
     ./bottles.nix
     ./diff.nix
     ./dotnet-sdk.nix
@@ -12,6 +11,7 @@
     ./java.nix
     ./jetbrains.nix
     ./pulsar.nix
+    ./singleboardcomputer.nix
     ./virtualisation.nix
     ./vscodium.nix
   ];
@@ -29,18 +29,18 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
-      arduino.enable = false;
-      bottles.enable = true;
-      diff.enable = false;
-      dotnet-sdk.enable = false;
-      geany.enable = false;
-      hex.enable = true;
+      bottles.enable = lib.mkDefault true;
+      diff.enable = lib.mkDefault false;
+      dotnet-sdk.enable = lib.mkDefault false;
+      geany.enable = lib.mkDefault false;
+      hex.enable = lib.mkDefault false;
       imager.enable = true;
       java.enable = true;
-      jetbrains.enable = false;
-      pulsar.enable = false;
-      virtualisation.enable = true;
-      vscodium.enable = true;
+      jetbrains.enable = lib.mkDefault false;
+      pulsar.enable = lib.mkDefault false;
+      singleboardcomputer.enable = lib.mkDefault false;
+      virtualisation.enable = lib.mkIf osConfig.nixos.virtualisation.kvm.enable true;
+      vscodium.enable = lib.mkDefault true;
     };
   };
 }

@@ -6,7 +6,7 @@
   ];
 
   options.homeManager = {
-    base.fonts = {
+    userEnvironment.fonts = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -16,8 +16,8 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.fonts.enable {
-    homeManager.base.fonts = {
+  config = lib.mkIf config.homeManager.userEnvironment.fonts.enable {
+    homeManager.userEnvironment.fonts = {
       fonts.enable = true;
     };
   };

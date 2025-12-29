@@ -3,7 +3,6 @@
 {
   imports = [
     ./home.nix
-    ./sessionVariables.nix
   ];
 
   options.homeManager = {
@@ -20,7 +19,6 @@
   config = lib.mkIf config.homeManager.home.enable {
     homeManager.home = {
       home.enable = true;
-      sessionVariables.enable = true;
     };
   };
 }

@@ -5,7 +5,7 @@
     plasma-manager.homeModules.plasma-manager
   ];
 
-  homeManager.applications.enable = lib.mkForce true;
+  homeManager.applications.enable = true;
 
   programs.plasma = {
     workspace = {

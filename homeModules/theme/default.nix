@@ -4,7 +4,6 @@
   imports = [
     nix-colors.homeManagerModules.default
     ./catppuccin.nix
-    ./dracula.nix
   ];
 
   options.homeManager = {
@@ -21,7 +20,6 @@
   config = lib.mkIf config.homeManager.theme.enable {
     homeManager.theme = {
       catppuccin.enable = true;
-      dracula.enable = true;
     };
   };
 }

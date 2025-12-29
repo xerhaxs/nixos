@@ -17,7 +17,7 @@
       #blender
       blender-hip
       #orca-slicer
-      freecad-wayland
+      #freecad-wayland
       cura-appimage
     ];
   };

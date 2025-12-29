@@ -151,7 +151,7 @@ in
         "media.eme.enabled" = true;
         "browser.eme.ui.enabled" = true;
         "media.autoplay.blocking_policy" = 2;
-        "browser.profiles.enabled" = true;
+        #"browser.profiles.enabled" = true;
         "cookiebanners.service.mode" = 2;
         "general.autoScroll" = true;
         "middlemouse.paste" = false;
@@ -163,68 +163,17 @@ in
         DontCheckDefaultBrowser = true;
         EnterprisePoliciesEnabled = true;
 
-        #DisableFeedbackCommands = true;
-        #DisableFirefoxAccounts = true;
-        #DisableFirefoxStudies = true;
-        #DisableFormHistory = true;
-        #DisablePocket = true;
-        #DisableSafeMode = true;
-        #DisableSetDesktopBackground = true;
-        #NoDefaultBookmarks = lib.mkDefault true;
-
         DisableSecurityBypass = {
           InvalidCertificate = false;
           SafeBrowsing = false;
         }; 
 
-        #DisableTelemetry = true;
-        #DNSOverHTTPS = "Enabled";
-
-        #EnableTrackingProtection = {
-        #  Value = true;
-        #  Locked = true;
-        #  Cryptomining = true;
-        #  Fingerprinting = true;
-        #  EmailTracking = true;
-        #  Exceptions = [ ];
-        #};
-        
-        #FirefoxHome = {
-        #  Search = true;
-        #  TopSites = false;
-        #  SponsoredTopSites = false;
-        #  Highlights = false;
-        #  Pocket = false;
-        #  SponsoredPocket = false;
-        #  Snippets = false;
-        #  Locked = true;
-        #};
-
-        #GoToIntranetSiteForSingleWordEntryInAddressBar = false;
         HardwareAcceleration = true;
-        #PasswordManagerEnabled = false;
-        #PrimaryPassword = false;
         #RequestedLocales = [ "de-DE" "en-US" ];
 
         PrintingEnabled = true;
 
         EncryptedMediaExtensions = true;
-
-        #UserMessaging = {
-        #  WhatsNew = false;
-        #  ExtensionRecommendations = false;
-        #  FeatureRecommendations = false;
-        #  UrlbarInterventions = false;
-        #  SkipOnboarding = true;
-        #  MoreFromMozilla = false;
-        #};
-
-        #FirefoxSuggest = {
-        #  WebSuggestions = false;
-        #  SponsoredSuggestions = false;
-        #  ImproveSuggest = false;
-        #  Locked = true;
-        #};
 
         ExtensionSettings = {
           # Get Extension IDs about:debugging#/runtime/this-firefox

@@ -53,7 +53,6 @@
       virglrenderer
       virtio-win
       win-spice
-      freerdp
     ];
 
     users.users."${config.nixos.system.user.defaultuser.name}" = {

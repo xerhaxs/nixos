@@ -4,7 +4,6 @@
   imports = [
     ./backup.nix
     ./btop.nix
-    ./common.nix
     ./git.nix
     ./ranger.nix
   ];
@@ -24,7 +23,6 @@
     homeManager.base.tools = {
       backup.enable = true;
       btop.enable = true;
-      common.enable = true;
       git.enable = true;
       ranger.enable = true;
     };

@@ -4,6 +4,7 @@
   imports = [
     ./desktopEnvironment
     ./windowManager
+    
     ./xdg.nix
     ./xserver.nix
   ];
@@ -23,6 +24,7 @@
     homeManager.desktop = {
       desktopEnvironment.enable = true;
       windowManager.enable = true;
+
       xdg.enable = true;
       xserver.enable = true;
     };

@@ -2,7 +2,7 @@
 
 {
   options.homeManager = {
-    base.fonts.fonts = {
+    userEnvironment.fonts = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.fonts.fonts.enable {
+  config = lib.mkIf config.homeManager.userEnvironment.fonts.enable {
     fonts.fontconfig.enable = true;
 
     gtk.font = {

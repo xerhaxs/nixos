@@ -14,6 +14,8 @@
     ./sync
     ./terminal
     ./vpn
+
+    ./common.nix
   ];
 
   options.homeManager = {
@@ -41,6 +43,8 @@
       sync.enable = true;
       terminal.enable = true;
       vpn.enable = true;
+
+      common.enable = true;
     };
   };
 }

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./alacritty.nix
     ./kitty.nix
   ];
 
@@ -19,7 +18,6 @@
 
   config = lib.mkIf config.homeManager.applications.terminal.enable {
     homeManager.applications.terminal = {
-      alacritty.enable = false;
       kitty.enable = true;
     };
   };
