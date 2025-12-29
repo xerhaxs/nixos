@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.nixos.hardware.intelgpu.enable {
     nixpkgs.config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+      intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
     };
 
     hardware.graphics = {
@@ -22,12 +22,12 @@
       extraPackages = with pkgs; [
         intel-media-driver
         intel-vaapi-driver
-        vaapiVdpau
+        libva-vdpau-driver
         libvdpau-va-gl
         intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       ];
 
-      extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
     };
 
     environment.systemPackages = with pkgs; [
