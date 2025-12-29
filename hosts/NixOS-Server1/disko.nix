@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: 
 
 { 
-  nixos.disko.disko-uefi-lvm.enable = lib.mkForce true;
+  nixos.disko.disko-uefi-lvm.enable = true;
   _module.args.disks = [ "/dev/sda" ];
 }

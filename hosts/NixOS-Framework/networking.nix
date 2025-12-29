@@ -5,7 +5,7 @@
   
     hostName = "NixOS-Framework";
 
-    useDHCP = lib.mkForce true;
+    useDHCP = true;
 
     defaultGateway.interface = "eth0";
     defaultGateway6.interface = "eth0";

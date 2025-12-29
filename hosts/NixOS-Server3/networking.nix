@@ -19,7 +19,7 @@
     };
 
     hosts = {
-      "127.0.0.1" = lib.mkDefault [
+      "127.0.0.1" = [
         "nzbhydra.${config.nixos.server.network.nginx.domain}"
         "radarr.${config.nixos.server.network.nginx.domain}"
         "readarr.${config.nixos.server.network.nginx.domain}"

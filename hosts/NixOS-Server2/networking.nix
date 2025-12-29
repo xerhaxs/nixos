@@ -19,8 +19,8 @@
     };
 
     hosts = {
-      "127.0.0.1" = lib.mkDefault [
-        "bluemap.4rx.cc"
+      "127.0.0.1" = [
+        "bluemap.${config.nixos.server.network.nginx.domain}"
         "flolserver.${config.nixos.server.network.nginx.domain}"
         "map.${config.nixos.server.network.nginx.domain}"
       ];

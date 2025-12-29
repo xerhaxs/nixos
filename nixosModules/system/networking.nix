@@ -104,9 +104,9 @@ in
       enableIPv6 = true;
       tempAddresses = "default";
 
-      useDHCP = false;
+      useDHCP = lib.mkDefault false;
 
-      hosts = {
+      hosts = lib.mkDefault {
         "10.75.0.1" = [ "fritz.box" ];
         "10.75.0.10" = [ "proxmox.${config.nixos.server.network.nginx.domain}" ];
         "10.75.0.20" = [

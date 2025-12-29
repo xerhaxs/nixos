@@ -42,7 +42,7 @@
       firewall.enable = true;
       locals.enable = true;
       mount.enable = true;
-      nasmount.enable = true;
+      nasmount.enable = lib.mkDefault true;
       networking.enable = true;
       nh.enable = true;
       nixos.enable = true;
