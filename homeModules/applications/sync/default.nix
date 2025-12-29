@@ -25,9 +25,8 @@
     homeManager.applications.sync = {
       barrier.enable = lib.mkDefault false;
       kdeconnect.enable = true;
-      nextcloud-client.enable = true;
       onionshare.enable = lib.mkDefault false;
-      rclone.enable = true;
+      rclone.enable = lib.mkDefault false;
       syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };
   };

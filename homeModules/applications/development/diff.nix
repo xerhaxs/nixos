@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.diff.enable {
     home.packages = with pkgs; [
-      kompare
+      kdePackages.kompare
     ];
   };
 }

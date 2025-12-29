@@ -31,6 +31,7 @@
   };
 
   nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.game.enable = true;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;

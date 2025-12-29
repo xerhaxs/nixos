@@ -48,7 +48,7 @@
       nixos.enable = true;
       nixosvm.enable = true;
       powermanagement.enable = true;
-      secureboot.enable = false;
+      secureboot.enable = lib.mkDefault false;
       sops.enable = true;
       ssh.enable = true;
       swap.enable = true;

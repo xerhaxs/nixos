@@ -29,7 +29,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
-      bottles.enable = lib.mkDefault true;
+      bottles.enable = true;
       diff.enable = lib.mkDefault false;
       dotnet-sdk.enable = lib.mkDefault false;
       geany.enable = lib.mkDefault false;
@@ -40,7 +40,7 @@
       pulsar.enable = lib.mkDefault false;
       singleboardcomputer.enable = lib.mkDefault false;
       virtualisation.enable = lib.mkIf osConfig.nixos.virtualisation.kvm.enable true;
-      vscodium.enable = lib.mkDefault true;
+      vscodium.enable = true;
     };
   };
 }

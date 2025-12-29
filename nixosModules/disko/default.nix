@@ -23,11 +23,11 @@
 
   config = lib.mkIf config.nixos.disko.enable {
     nixos.disko = {
-      disko-bios-lvm-on-luks.enable = false;
-      disko-uefi-lvm-on-luks.enable = false;
-      disko-uefi-lvm.enable = false;
-      disko-uefi-zfs.enable = false;
-      disko-var-lvm-on-luks.enable = false;
+      disko-bios-lvm-on-luks.enable = lib.mkDefault false;
+      disko-uefi-lvm-on-luks.enable = lib.mkDefault false;
+      disko-uefi-lvm.enable = lib.mkDefault false;
+      disko-uefi-zfs.enable = lib.mkDefault false;
+      disko-var-lvm-on-luks.enable = lib.mkDefault false;
     };
   };
 }

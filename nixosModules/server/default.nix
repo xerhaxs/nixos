@@ -25,7 +25,7 @@
     nixos.server = {
       fediverse.enable = true;
       #fileshare.enable = true;
-      game.enable = false;
+      game.enable = lib.mkDefault false;
       home.enable = true;
       network.enable = true;
       usenet.enable = true;

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./fonts
     ./shell
     ./texteditor
     ./tools
@@ -21,7 +20,6 @@
 
   config = lib.mkIf config.homeManager.base.enable {
     homeManager.base = {
-      fonts.enable = true;
       shell.enable = true;
       texteditor.enable = true;
       tools.enable = true;

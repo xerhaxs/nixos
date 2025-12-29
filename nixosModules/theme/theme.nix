@@ -13,7 +13,6 @@
       colorscheme = lib.mkOption {
         type = lib.types.enum [
           "catppuccin"
-          "dracula"
         ];
         default = "catppuccin";
       };

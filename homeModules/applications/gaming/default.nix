@@ -7,7 +7,6 @@
     ./lutris.nix
     ./mangohud.nix
     ./prismlauncher.nix
-    ./steam.nix
   ];
 
   options.homeManager = {
@@ -23,12 +22,11 @@
 
   config = lib.mkIf config.homeManager.applications.gaming.enable {
     homeManager.applications.gaming = {
-      #antimicrox.enable = false;
+      antimicrox.enable = lib.mkDefault false;
       heroic.enable = true;
       lutris.enable = true;
       mangohud.enable = true;
       prismlauncher.enable = true;
-      steam.enable = false;
     };
   };
 }

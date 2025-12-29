@@ -3,7 +3,6 @@
 {
   imports = [
     ./catppuccin.nix
-    ./dracula.nix
     ./theme.nix
   ];
 
@@ -21,7 +20,6 @@
   config = lib.mkIf config.nixos.theme.enable {
     nixos.theme = {
       catppuccin.enable = true;
-      dracula.enable = true;
       theme.enable = true;
     };
   };

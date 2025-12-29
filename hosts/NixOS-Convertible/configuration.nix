@@ -1,7 +1,19 @@
 { config, lib, pkgs, ... }:
 
 {
-  nixos.desktop.enable = true;
+  nixos.desktop = {
+    enable = true;
+    desktopEnvironment = {
+      plasma6.enable = true;
+    };
+    displayManager = {
+      defaultSession = "plasma";
+      sddm.enable = true;
+    };
+    windowManager = {
+      hyprland.enable = false;
+    };
+  };
 
   nixos.theme.catppuccin = {
     accent = "Mauve";

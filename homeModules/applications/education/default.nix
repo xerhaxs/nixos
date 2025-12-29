@@ -18,7 +18,7 @@
 
   config = lib.mkIf config.homeManager.applications.education.enable {
     homeManager.applications.education = {
-      stellarium.enable = false;
+      stellarium.enable = lib.mkDefault false;
     };
   };
 }

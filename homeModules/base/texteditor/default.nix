@@ -21,8 +21,8 @@
 
   config = lib.mkIf config.homeManager.base.texteditor.enable {
     homeManager.base.texteditor = {
-      emacs.enable = false;
-      helix.enable = false;
+      emacs.enable = lib.mkDefault false;
+      helix.enable = lib.mkDefault false;
       tex.enable = true;
       vim.enable = true;
     };

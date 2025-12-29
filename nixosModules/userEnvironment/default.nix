@@ -30,6 +30,7 @@
   config = lib.mkIf config.nixos.userEnvironment.enable {
     nixos.userEnvironment = {
       config.enable = true;
+      game.enable = lib.mkDefault false;
       io.enable = true;
 
       appimage.enable = true;
@@ -38,6 +39,7 @@
       kdeconnect.enable = true;
       mullvad.enable = true;
       nfs-client.enable = true;
+      samba-client.enable = true;
       syncthing.enable = true;
     };
   };

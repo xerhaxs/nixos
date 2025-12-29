@@ -19,4 +19,14 @@
       };
     };
   };
+
+  config = lib.mkIf config.nixos.hardware.enable {
+    nixos.hardware = {
+      amdcpu.enable = lib.mkDefault false;
+      amdgpu.enable = lib.mkDefault false;
+      intelcpu.enable = lib.mkDefault false;
+      intelgpu.enable = lib.mkDefault false;
+      nvidiagpu.enable = lib.mkDefault false;
+    };
+  };
 }
