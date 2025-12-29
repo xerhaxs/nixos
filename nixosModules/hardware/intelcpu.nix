@@ -23,8 +23,8 @@
       cpu.intel.updateMicrocode = true;
     };
 
-    environment.systemPackages = [
-      pkgs.microcodeIntel
+    environment.systemPackages = with pkgs; [
+      microcode-intel
     ];
   };
 }
