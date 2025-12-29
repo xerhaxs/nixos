@@ -30,6 +30,8 @@
     pass = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
   };
 
+  nixos.system.secureboot.enable = true;
+
   nixos.userEnvironment.enable = true;
   nixos.userEnvironment.game.enable = true;
 

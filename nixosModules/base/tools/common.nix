@@ -95,6 +95,7 @@
       lm_sensors # for `sensors` command
       ntfs3g # for ntfs file systems
       pciutils # lspci
+      sbctl # secure boot
       sysstat
       usbutils # lsusb
 

@@ -15,6 +15,28 @@ sudo -i
 curl -L https://raw.githubusercontent.com/xerhaxs/nixos/main/NixOSInstaller.sh | bash
 ```
 
+### Setup Secure Boot
+
+1. Generate Secure Boot keys:
+
+```
+sudo sbctl create-keys
+```
+
+This stores your secure boot keys at /var/lib/sbctl and sets the permissions so that they can only be read by the root user. 
+
+Then enable `nixos.system.secureboot.enable = true;`.
+
+2. Reboot and enable UEFI Secure Boot mode in UEFI firmware menu (BIOS).
+
+3. Enroll Secure Boot keys
+
+```
+sudo sbctl enroll-keys --microsoft --firmware-builtin
+```
+
+4. Once rebooted, you can verify the Secure Boot status using, `bootctl status`.
+
 ### Set Keyfile.key for drives
 
 ```
@@ -59,7 +81,7 @@ fwupdmgr update
     * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
     * [ ] https://wiki.nixos.org/wiki/PCI_passthrough
     * [ ] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
-  * [ ] Setup Secure Boot https://github.com/nix-community/lanzaboote
+  * [x] Setup Secure Boot https://github.com/nix-community/lanzaboote -> https://wiki.nixos.org/wiki/Limine
   * [ ] Extended secret provisioning https://github.com/polygon/scalpel
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
@@ -73,8 +95,8 @@ fwupdmgr update
   * [ ] Firefox
     * [x] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
     * [x] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/ -> seems unnecessary
-    * [ ] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/
-  * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent
+    * [x] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
+  * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent 
   * [ ] Config setup of Steam (write config file)
   * [ ] Config setup of Heroic (write config file)
   * [ ] Config setup of Prism Launcher (write config file)

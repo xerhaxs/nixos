@@ -30,6 +30,8 @@
     pass = "$y$j9T$S9GUmOvHiLeQKWHtuGIMx0$.AHr5Ej3c.Bq/AYHO5Yp5T8/21LI81CdaxEm.q/GJg/";
   };
 
+  nixos.system.secureboot.enable = true;
+
   nixos.userEnvironment.enable = true;
 
   nixos.virtualisation.android.enable = true;

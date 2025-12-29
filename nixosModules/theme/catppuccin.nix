@@ -247,13 +247,17 @@ in
 
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + lib.strings.toLower "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
 
-    boot.loader.limine.style.graphicalTerminal = lib.mkIf config.boot.loader.limine.enable {
-      palette = catppuccin.liminePalettes.${catppuccin.flavorToLower}.palette;
-      brightPalette = catppuccin.liminePalettes.${catppuccin.flavorToLower}.paletteBright;
-      background = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bg;
-      foreground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.fg;
-      brightBackground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bgBright;
-      brightForeground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.fgBright;
+    boot.loader.limine.style = lib.mkIf config.boot.loader.limine.enable {
+      graphicalTerminal = {
+        palette = catppuccin.liminePalettes.${catppuccin.flavorToLower}.palette;
+        brightPalette = catppuccin.liminePalettes.${catppuccin.flavorToLower}.paletteBright;
+        background = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bg;
+        foreground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.fg;
+        brightBackground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bgBright;
+        brightForeground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.fgBright;
+        margin = 0;
+      };
+      backdrop = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bg;
     };
   };
 }
