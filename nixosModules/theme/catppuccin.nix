@@ -12,6 +12,44 @@ let
     obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/obs-studio/themes";
     heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/heroic/themes";
     flavorToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+
+    liminePalettes = {
+      latte = {
+        palette = "eff1f5;d20f39;40a02b;df8e1d;1e66f5;ea76cb;179299;4c4f69";
+        paletteBright = "bcc0cc;d20f39;40a02b;df8e1d;1e66f5;ea76cb;179299;4c4f69";
+        bg = "eff1f5";
+        fg = "4c4f69";
+        bgBright = "bcc0cc";
+        fgBright = "4c4f69";
+      };
+
+      frappe = {
+        palette = "303446;e78284;a6d189;e5c890;8caaee;f4b8e4;81c8be;c6d0f5";
+        paletteBright = "414559;e78284;a6d189;e5c890;8caaee;f4b8e4;81c8be;c6d0f5";
+        bg = "303446";
+        fg = "c6d0f5";
+        bgBright = "414559";
+        fgBright = "c6d0f5";
+      };
+
+      macchiato = {
+        palette = "24273a;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5";
+        paletteBright = "494d64;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5";
+        bg = "24273a";
+        fg = "cad3f5";
+        bgBright = "494d64";
+        fgBright = "cad3f5";
+      };
+
+      mocha = {
+        palette = "1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4";
+        paletteBright = "585b70;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4";
+        bg = "1e1e2e";
+        fg = "cdd6f4";
+        bgBright = "585b70";
+        fgBright = "cdd6f4";
+      };
+    };
   };
 in
 
@@ -208,5 +246,14 @@ in
     };
 
     boot.loader.grub.theme = lib.mkIf config.boot.loader.grub.enable (catppuccin.grub + lib.strings.toLower "/src/catppuccin-${config.nixos.theme.catppuccin.flavor}-grub-theme");
+
+    boot.loader.limine.style.graphicalTerminal = lib.mkIf config.boot.loader.limine.enable {
+      palette = catppuccin.liminePalettes.${catppuccin.flavorToLower}.palette;
+      brightPalette = catppuccin.liminePalettes.${catppuccin.flavorToLower}.paletteBright;
+      background = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bg;
+      foreground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.fg;
+      brightBackground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.bgBright;
+      brightForeground = catppuccin.liminePalettes.${catppuccin.flavorToLower}.fgBright;
+    };
   };
 }

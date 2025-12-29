@@ -1,4 +1,4 @@
-{ config, lib, pkgs, plasma-manager, ... }:
+{ config, lib, pkgs, osConfig, plasma-manager, ... }:
 
 {
   imports = [
@@ -151,9 +151,13 @@
                   "applications:org.clementine_player.Clementine.desktop"
                   #"applications:fluent-reader.desktop"
                   "applications:freetube.desktop"
+                ]
+                ++ lib.optionals osConfig.nixos.userEnvironment.game.enable [
                   "applications:org.prismlauncher.PrismLauncher.desktop"
                   "applications:com.heroicgameslauncher.hgl.desktop"
                   "applications:steam.desktop"
+                ]
+                ++ lib.optionals config.homeManager.applications.vpn.enable [
                   "applications:mullvad-vpn.desktop"
                   #"applications:protonvpn-app.desktop"
                 ];

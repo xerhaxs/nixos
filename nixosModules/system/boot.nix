@@ -25,8 +25,6 @@
 
     services.fwupd.enable = true;
 
-
-
     security.polkit.enable = true; # login für actions without root
 
     services.acpid.enable = true;

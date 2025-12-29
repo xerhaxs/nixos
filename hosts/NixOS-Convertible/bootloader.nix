@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot.loader.grub.gfxmodeEfi = pkgs.lib.mkForce "1920x1280";
+  boot.loader.limine.style.interface.resolution = "1920x1280";
 
   boot.initrd.luks.devices = {
     "system" = {
