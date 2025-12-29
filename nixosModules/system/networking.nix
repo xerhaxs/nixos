@@ -8,17 +8,17 @@ let
 
   malware = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/malware.txt";
-    hash = "sha256-01WcEqy3R5zebjT17Pk5vtYbPERfq+UwgHBHgYzbwNo=";
+    hash = "sha256-pnIYcijo5O5fy+MH66PWhDVNpDgmXupb5T+yEAukMHA=";
   };
 
   phishing = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/phishing.txt";
-    hash = "sha256-ls6xrZZk8VvGcqFDgloaMM82qDVfAJuAGJJvwry9dOw=";
+    hash = "sha256-x6YYuyb9eHHsxj6jwVwGJHHpNcmAdP4vm35PtFZh1vU=";
   };
 
   ransomware = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/ransomware.txt";
-    hash = "sha256-yQ/UM9BV4VP8guGh0YPJhcZae70apN7RuuyaeqiuSkE=";
+    hash = "sha256-hlHvIdcIeQVoHJcuydRct+k0Q7BGS06HLcofJEk3SC8=";
   };
 
   redirect = pkgs.fetchurl {
@@ -28,22 +28,22 @@ let
 
   scam = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/scam.txt";
-    hash = "sha256-S+lM4suvBkl4TXCNZ3HG3mcM81PB7dQjFg0MKSWinDs=";
+    hash = "sha256-h1TWvuCIB3hO7wwaVyCRJf/47q2iXq/uZ8e9W96mThk=";
   };
 
   tiktok = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/tiktok.txt";
-    hash = "sha256-ROLCPlei4fK18y0BGzaJUxA4XctPGAInnMp9NFWNFbA=";
+    hash = "sha256-JSLM2sve4vJRpke0Ep0U70XLlyjtQAimvqNLu5Ewk+Y=";
   };
 
   tracking = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/tracking.txt";
-    hash = "sha256-TWbr0w4/w3mKoDOds91+9+GynthDQU7IqzIUvBIQZyE=";
+    hash = "sha256-ZYNi6hv2nOGQJgKm0IONVCpbf3fWGMV3q2+3fnZHjyY=";
   };
 
   smart-tv = pkgs.fetchurl {
     url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
-    hash = "sha256-jCsuPWVuJSO4m9p98lHGDI9mlVXReruMTaUc0CYDsXw=";
+    hash = "sha256-wHLAmqOUWqSzOB2WNee8/hYwdfkyiH6Kdg5VP7TPdho=";
   };
 
   adobe = pkgs.fetchurl {

@@ -4,7 +4,6 @@
   imports = [
     ./barrier.nix
     ./kdeconnect.nix
-    ./nextcloud-client.nix
     ./onionshare.nix
     ./rclone.nix
     ./syncthing.nix
