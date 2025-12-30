@@ -22,7 +22,9 @@
 
   nixos.hardware = {
     amdcpu.enable = true;
+    amdgpu.enable = true;
   };
+
 
   nixos.system.user.defaultuser = {
     name = "admin";
