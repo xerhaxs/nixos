@@ -19,15 +19,14 @@
     boot.loader.efi.efiSysMountPoint = "/boot/";
 
     boot.loader.limine.extraEntries = ''
-      title: Reboot
-      linuxPath: /bin/systemctl
-      initrdPath:
-      options: reboot
+      /Reboot
+        protocol: reboot
 
-      title: Poweroff
-      linuxPath: /bin/systemctl
-      initrdPath:
-      options: poweroff
+      /Power Off
+        protocol: poweroff
+
+      /Firmware Setup
+        protocol: fwsetup
     '';
 
     boot.loader.limine = {
