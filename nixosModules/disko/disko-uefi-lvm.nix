@@ -13,6 +13,32 @@
   };
 
   config = lib.mkIf config.nixos.disko.disko-uefi-lvm.enable {
+    boot.initrd.luks.devices = {
+      "system" = {
+        preLVM = true;
+        device = "/dev/disk/by-partlabel/disk-NIXOS-SYSTEM";
+      };
+    };
+
+    fileSystems."/" = {
+      device = "/dev/pool/root";
+      fsType = "ext4";
+    };
+
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
+      fsType = "vfat";
+    };
+
+    fileSystems."/home" = {
+      device = "/dev/pool/home";
+      fsType = "ext4";
+    };
+
+    swapDevices = [
+      { device = "/dev/disk/by-label/swap"; }
+    ];
+
     disko.devices = {
       disk = {
         vda = {
@@ -76,7 +102,7 @@
             };
             home = {
               name = "home";
-              size = "48G";
+              size = "32G";
               content = {
                 type = "filesystem";
                 format = "ext4";

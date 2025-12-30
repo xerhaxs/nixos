@@ -9,7 +9,6 @@
     ./dbus.nix
     ./firewall.nix
     ./locals.nix
-    ./mount.nix
     ./nasmount.nix
     ./networking.nix
     ./nh.nix
@@ -19,7 +18,6 @@
     ./secureboot.nix
     ./sops.nix
     ./ssh.nix
-    ./swap.nix
     ./user.nix
   ];
 
@@ -43,7 +41,6 @@
       dbus.enable = true;
       firewall.enable = true;
       locals.enable = true;
-      mount.enable = true;
       nasmount.enable = lib.mkDefault true;
       networking.enable = true;
       nh.enable = true;
@@ -53,7 +50,6 @@
       secureboot.enable = lib.mkDefault false;
       sops.enable = true;
       ssh.enable = true;
-      swap.enable = true;
       user.enable = true;
     };
   };
