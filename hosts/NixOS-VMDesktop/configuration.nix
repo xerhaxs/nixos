@@ -22,7 +22,6 @@
 
   nixos.hardware = {
     amdcpu.enable = true;
-    amdgpu.enable = true;
   };
 
   nixos.system.user.defaultuser = {
@@ -33,5 +32,7 @@
   nixos.userEnvironment.enable = true;
 
   services.qemuGuest.enable = true;
+  services.spice-autorandr.enable = true;
   services.spice-vdagentd.enable = true;
+  services.spice-webdavd.enable = true;
 }
