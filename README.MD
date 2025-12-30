@@ -89,6 +89,7 @@ fwupdmgr update
   * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
   * [ ] Remove secrets from home manager git config
   * [ ] Add a Remote Kill Switch to shutdown every system
+  * [ ] Setup Power Buttons as Panic Buttons -> One Press = Force Power Off
 * [ ] Rescue / Flight / Escape SSD with important data + generic OS
   
 * [ ] User application setup in Home Manager

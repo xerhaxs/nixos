@@ -1,18 +1,18 @@
 { config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
-  
+
 {
   options.nixos = {
-    disko.disko-bios-lvm-on-luks = {
+    disko.disko-server-luks-lvm-ext4 = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable disko-bios-lvm-on-luks.";
+        description = "Enable disko-server-luks-lvm-ext4.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.disko.disko-bios-lvm-on-luks.enable {
+  config = lib.mkIf config.nixos.disko.disko-server-luks-lvm-ext4.enable {
     disko.devices = {
       disk = {
         vda = {
@@ -20,14 +20,12 @@
           type = "disk";
           device = builtins.elemAt disks 0;
           content = {
-            type = "table";
-            format = "msdos";
-            partitions = [
-              {
+            type = "gpt";
+            partitions = {
+              ESP = {
                 name = "BOOT";
-                start = "1M";
-                end = "500M";
-                bootable = true;
+                type = "EF00";
+                size = "512M";
                 content = {
                   type = "filesystem";
                   format = "vfat";
@@ -37,13 +35,10 @@
                   ];
                   extraArgs = [ "-n" "BOOT" ];
                 };
-              }
-              {
+              };
+              luks = {
                 name = "LUKS";
-                start = "500M";
-                end = "100%";
-                part-type = "primary";
-                bootable = true;
+                size = "100%";
                 content = {
                   name = "system";
                   type = "luks";
@@ -71,8 +66,8 @@
                     "--label LUKS"
                   ];
                 };
-              }
-            ];
+              };
+            };
           };
         };
       };
@@ -91,7 +86,7 @@
             };
             root = {
               name = "root";
-              size = "40%FREE";
+              size = "100%FREE";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -100,16 +95,6 @@
                   "defaults"
                 ];
                 extraArgs = [ "-L root" ];
-              };
-            };
-            home = {
-              name = "home";
-              size = "100%FREE";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/home";
-                extraArgs = [ "-L home" ];
               };
             };
           };

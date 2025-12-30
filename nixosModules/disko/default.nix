@@ -3,11 +3,13 @@
 { 
   imports = [
     disko.nixosModules.disko
-    ./disko-bios-lvm-on-luks.nix
+    ./disko-client-luks-btrfs.nix
+    ./disko-client-luks-lvm-ext4.nix
+    ./disko-server-luks-btrfs-raid1.nix
+    ./disko-server-luks-lvm-ext4.nix
+
     ./disko-uefi-lvm-on-luks.nix
     ./disko-uefi-lvm.nix
-    ./disko-uefi-zfs.nix
-    ./disko-var-lvm-on-luks.nix
   ];
 
   options.nixos = {
@@ -23,11 +25,13 @@
 
   config = lib.mkIf config.nixos.disko.enable {
     nixos.disko = {
-      disko-bios-lvm-on-luks.enable = lib.mkDefault false;
+      disko-client-luks-btrfs.enable = lib.mkDefault false;
+      disko-client-luks-lvm-ext4.enable = lib.mkDefault false;
+      disko-server-luks-btrfs-raid1.enable = lib.mkDefault false;
+      disko-server-luks-lvm-ext4.enable = lib.mkDefault false;
+
       disko-uefi-lvm-on-luks.enable = lib.mkDefault false;
       disko-uefi-lvm.enable = lib.mkDefault false;
-      disko-uefi-zfs.enable = lib.mkDefault false;
-      disko-var-lvm-on-luks.enable = lib.mkDefault false;
     };
   };
 }
