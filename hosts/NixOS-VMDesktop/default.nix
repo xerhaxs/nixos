@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./bootloader.nix
     ./configuration.nix
     ./disko.nix
     ./hardware-configuration.nix
