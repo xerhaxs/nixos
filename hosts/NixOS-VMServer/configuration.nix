@@ -13,4 +13,5 @@
 
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
+  services.xserver.displayManager.startx.enable = true;
 }
