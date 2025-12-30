@@ -13,6 +13,20 @@
   };
 
   config = lib.mkIf config.nixos.disko.disko-server-luks-lvm-ext4.enable {
+    boot.initrd.luks.devices = {
+      "system" = {
+        preLVM = true;
+        device = "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
+      };
+    };
+
+    swapDevices = [
+      {
+        device = "/var/lib/swapfile";
+        size = 4*1024;
+      }
+    ];
+
     disko.devices = {
       disk = {
         vda = {
@@ -75,15 +89,6 @@
         crypt = {
           type = "lvm_vg";
           lvs = {
-            swap = {
-              name = "swap";
-              size = "32G";
-              content = {
-                type = "swap";
-                resumeDevice = true;
-                extraArgs = [ "-L swap" ];
-              };
-            };
             root = {
               name = "root";
               size = "100%FREE";
