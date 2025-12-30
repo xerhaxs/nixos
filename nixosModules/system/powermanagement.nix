@@ -38,6 +38,11 @@
       lidSwitch = "suspend";
       lidSwitchDocked = "ignore";
       lidSwitchExternalPower = "ignore";
+      PowerKeyIgnoreInhibited = "yes";
+      SuspendKeyIgnoreInhibited = "yes";
+      HibernateKeyIgnoreInhibited = "yes";
+      RebootKeyIgnoreInhibited = "yes";
+      LidSwitchIgnoreInhibited = "yes";
     };
 
     environment.systemPackages = with  pkgs;[

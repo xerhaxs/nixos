@@ -19,7 +19,7 @@
     };
 
     hosts = {
-      "127.0.0.1" = lib.mkDefault [
+      "127.0.0.1" = [
         "glance.${config.nixos.server.network.nginx.domain}"
         "invidious.${config.nixos.server.network.nginx.domain}"
         #"jellyfin.${config.nixos.server.network.nginx.domain}"

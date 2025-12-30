@@ -106,10 +106,10 @@ in
 
       useDHCP = false;
 
-      hosts = lib.mkDefault {
-        "10.75.0.1" = [ "fritz.box" ];
-        "10.75.0.10" = [ "proxmox.${config.nixos.server.network.nginx.domain}" ];
-        "10.75.0.20" = [
+      hosts = {
+        "10.75.0.1" = lib.mkDefault [ "fritz.box" ];
+        "10.75.0.10" = lib.mkDefault [ "proxmox.${config.nixos.server.network.nginx.domain}" ];
+        "10.75.0.20" = lib.mkDefault [
           "jellyfin.${config.nixos.server.network.nginx.domain}"
           "nas.${config.nixos.server.network.nginx.domain}"
           "nextcloud.${config.nixos.server.network.nginx.domain}"
@@ -118,7 +118,7 @@ in
           "truenas.${config.nixos.server.network.nginx.domain}"
           "webdav.${config.nixos.server.network.nginx.domain}"
         ];
-        "10.75.0.21" = [
+        "10.75.0.21" = lib.mkDefault [
           "glance.${config.nixos.server.network.nginx.domain}"
           "invidious.${config.nixos.server.network.nginx.domain}"
           "kiwix.${config.nixos.server.network.nginx.domain}"
@@ -138,12 +138,12 @@ in
           #"samba.${config.nixos.server.network.nginx.domain}"
           #"webdav.${config.nixos.server.network.nginx.domain}"
         ];
-        "10.75.0.22" = [
+        "10.75.0.22" = lib.mkDefault [
           #"bluemap.4rx.cc"
           #"flolserver.${config.nixos.server.network.nginx.domain}"
           #"map.${config.nixos.server.network.nginx.domain}"
         ];
-        "10.75.0.23" = [
+        "10.75.0.23" = lib.mkDefault [
           "lidarr.${config.nixos.server.network.nginx.domain}"
           "nzbhydra.${config.nixos.server.network.nginx.domain}"
           "radarr.${config.nixos.server.network.nginx.domain}"
@@ -151,7 +151,7 @@ in
           "sabnzbd.${config.nixos.server.network.nginx.domain}"
           "sonarr.${config.nixos.server.network.nginx.domain}"
         ];
-        "10.75.0.25" = [ 
+        "10.75.0.25" = lib.mkDefault [ 
           "haos.${config.nixos.server.network.nginx.domain}"
           "homeassistant.${config.nixos.server.network.nginx.domain}"
         ];
