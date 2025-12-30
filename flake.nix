@@ -94,16 +94,6 @@
         ];
       };
 
-      NixOS-ISO = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = inputs;
-
-        modules = [
-          ./system-modules/installer.nix
-        ];
-      };
-
       NixOS-Framework = nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -113,19 +103,6 @@
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
           ./hosts/NixOS-Framework/default.nix
-          ./homeModules/homemanager.nix
-        ];
-      };
-
-      NixOS-Live = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = inputs;
-
-        modules = [
-          catppuccin.nixosModules.catppuccin
-          ./nixosModules/default.nix
-          ./hosts/NixOS-Live/default.nix
           ./homeModules/homemanager.nix
         ];
       };
@@ -182,7 +159,7 @@
         ];
       };
 
-      NixOS-Test = nixpkgs.lib.nixosSystem {
+      NixOS-VMDesktop = nixpkgs.lib.nixosSystem {
         inherit system;
 
         specialArgs = inputs;
@@ -190,7 +167,20 @@
         modules = [
           catppuccin.nixosModules.catppuccin
           ./nixosModules/default.nix
-          ./hosts/NixOS-Test/default.nix
+          ./hosts/NixOS-VMDesktop/default.nix
+          ./homeModules/homemanager.nix
+        ];
+      };
+
+      NixOS-VMServer = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = inputs;
+
+        modules = [
+          catppuccin.nixosModules.catppuccin
+          ./nixosModules/default.nix
+          ./hosts/NixOS-VMServer/default.nix
           ./homeModules/homemanager.nix
         ];
       };
