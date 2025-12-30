@@ -7,6 +7,7 @@
     ./disko-client-luks-lvm-ext4.nix
     ./disko-server-luks-btrfs-raid1.nix
     ./disko-server-luks-lvm-ext4.nix
+    ./disko-vm-lvm-ext4.nix
 
     ./disko-uefi-lvm-on-luks.nix
     ./disko-uefi-lvm.nix
@@ -29,6 +30,7 @@
       disko-client-luks-lvm-ext4.enable = lib.mkDefault false;
       disko-server-luks-btrfs-raid1.enable = lib.mkDefault false;
       disko-server-luks-lvm-ext4.enable = lib.mkDefault false;
+      disko-vm-lvm-ext4.enable = lib.mkDefault false;
 
       disko-uefi-lvm-on-luks.enable = lib.mkDefault false;
       disko-uefi-lvm.enable = lib.mkDefault false;
