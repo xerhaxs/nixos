@@ -25,6 +25,21 @@
     powerManagement.enable = true;
     services.power-profiles-daemon.enable = true;
 
+    services.logind = {
+      enable = true;
+      powerKey = "poweroff";
+      powerKeyLongPress = "factory-reset";
+      suspendKey = "suspend";
+      suspendKeyLongPress = "suspend-then-hibernate";
+      hibernateKey = "hibernate";
+      hibernateKeyLongPress = "suspend-then-hibernate";
+      rebootKey = "factory-reset";
+      rebootKeyLongPress = "factory-reset";
+      lidSwitch = "suspend";
+      lidSwitchDocked = "ignore";
+      lidSwitchExternalPower = "ignore";
+    };
+
     environment.systemPackages = with  pkgs;[
       powerstat
       powertop
