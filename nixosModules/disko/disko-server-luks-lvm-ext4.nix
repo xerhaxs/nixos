@@ -25,6 +25,11 @@
       fsType = "ext4";
     };
 
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
+      fsType = "vfat";
+    };
+
     swapDevices = [
       {
         device = "/var/lib/swapfile";
