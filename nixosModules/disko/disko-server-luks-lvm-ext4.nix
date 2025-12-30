@@ -20,6 +20,11 @@
       };
     };
 
+    fileSystems."/" = {
+      device = "/dev/crypt/root";
+      fsType = "ext4";
+    };
+
     swapDevices = [
       {
         device = "/var/lib/swapfile";

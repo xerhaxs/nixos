@@ -13,19 +13,19 @@
   };
 
   config = lib.mkIf config.nixos.system.mount.enable {
-    fileSystems."/" = {
-      device = "/dev/crypt/root";
-      fsType = "ext4";
-    };
+    #fileSystems."/" = {
+    #  device = "/dev/crypt/root";
+    #  fsType = "ext4";
+    #};
 
-    fileSystems."/boot" = {
-      device = lib.mkDefault "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
-      fsType = "vfat";
-    };
+    #fileSystems."/boot" = {
+    #  device = lib.mkDefault "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
+    #  fsType = "vfat";
+    #};
 
-    fileSystems."/home" = {
-      device = "/dev/crypt/home";
-      fsType = "ext4";
-    };
+    #fileSystems."/home" = {
+    #  device = "/dev/crypt/home";
+    #  fsType = "ext4";
+    #};
   };
 }
