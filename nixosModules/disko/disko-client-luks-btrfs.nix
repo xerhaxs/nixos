@@ -31,7 +31,7 @@
     };
 
     fileSystems."/" = {
-      device = "nodev"; #nodev or none??
+      device = "tmpfs"; #nodev or none or tmpfs??
       fsType = "tmpfs";
       options = [
         "defaults"
@@ -48,6 +48,7 @@
       options = [
         "subvol=/root"
         "compress=zstd"
+        "ssd"
         "noatime"
         "discard=async"
       ];
@@ -59,6 +60,7 @@
       options = [
         "subvol=/home"
         "compress=zstd"
+        "ssd"
         "noatime"
         "discard=async"
       ];
@@ -70,43 +72,11 @@
       options = [
         "subvol=/nix"
         "compress=zstd"
+        "ssd"
         "noatime"
         "discard=async"
       ];
     };
-
-    fileSystems."/srv" = {
-      device = "/dev/mapper/system";
-      fsType = "btrfs";
-      options = [
-        "subvol=/srv"
-        "compress=zstd"
-        "noatime"
-        "discard=async"
-      ];
-    };
-
-    #fileSystems."/var" = {
-    #  device = "/dev/mapper/system";
-    #  fsType = "btrfs";
-    #  options = [
-    #    "subvol=/var"
-    #    "compress=zstd"
-    #    "noatime"
-    #    "discard=async"
-    #  ];
-    #};
-
-    #fileSystems."/var/lib" = {
-    #  device = "/dev/mapper/system";
-    #  fsType = "btrfs";
-    #  options = [
-    #    "subvol=/var/lib"
-    #    "compress=zstd"
-    #    "noatime"
-    #    "discard=async"
-    #  ];
-    #};
 
     boot.tmp.cleanOnBoot = true;
 
@@ -116,31 +86,32 @@
       options = [
         "subvol=/tmp"
         "compress=zstd"
+        "ssd"
         "noatime"
         "discard=async"
       ];
     };
 
-    #fileSystems."/.swap" = {
-    #  device = "/dev/mapper/system";
-    #  fsType = "btrfs";
-    #  options = [
-    #    "subvol=/.swapvol"
-    #    "noatime"
-    #    "nodiratime"
-    #    "compress=no"
-    #    "ssd"
-    #    "space_cache=v2"
-    #    "discard=async"
-    #  ];
-    #};
+    fileSystems."/swap" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/swap"
+        "compress=no"
+        "ssd"
+        "noatime"
+        "discard=async"
+        "nodiratime"
+        "space_cache=v2"
+      ];
+    };
 
-    #swapDevices = [
-    #  {
-    #    file = "/.swap/swapfile";
-    #    size = 32 * 1024;
-    #  }
-    #];
+    swapDevices = [
+      {
+        file = "/swap/swapfile";
+        size = 2 * 1024;
+      }
+    ];
 
     services.btrfs.autoScrub = {
       enable = true;
@@ -149,8 +120,6 @@
         "/persistent"
         "/home"
         "/nix"
-        "/srv"
-        #"/var"
         "/tmp"
         "/swap"
       ];
@@ -265,28 +234,7 @@
                           "compress=zstd"
                           "noatime"
                         ];
-                      };                
-                      "/srv" = {
-                        mountpoint = "/srv";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
                       };
-                      #"/var" = {
-                      #  mountpoint = "/var";
-                      #  mountOptions = [
-                      #    "compress=zstd"
-                      #    "noatime"
-                      #  ];
-                      #};
-                      #"/var/lib" = {
-                      #  mountpoint = "/var/lib";
-                      #  mountOptions = [
-                      #    "compress=zstd"
-                      #    "noatime"
-                      #  ];
-                      #};
                       "/tmp" = {
                         mountpoint = "/tmp";
                         mountOptions = [
@@ -294,17 +242,17 @@
                           "noatime"
                         ];
                       };
-                      #"/swap" = {
-                      #  mountpoint = "/.swapvol";
-                      #  mountOptions = [
-                      #    "compress=no"
-                      #    "noatime"
-                      #    "nodatacow"
-                      #  ];
+                      "/swap" = {
+                        mountpoint = "/swap";
+                        mountOptions = [
+                          "compress=no"
+                          "noatime"
+                          "nodatacow"
+                        ];
                       #  swap = {
                       #    swapfile.size = "32G";
                       #  };
-                      #};
+                      };
                     };
                   };
                 };
