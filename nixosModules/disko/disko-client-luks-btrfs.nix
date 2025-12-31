@@ -30,18 +30,18 @@
       ];
     };
 
-    #fileSystems."/" = {
-    #  device = "none";
-    #  fsType = "tmpfs";
-    #  options = [
-    #    "defaults"
-    #    "size=50%"
-    #    "mode=0755"
-    #    "relatime"
-    #  ];
-    #};
+    fileSystems."/" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "size=50%"
+        "mode=0755"
+        "relatime"
+      ];
+    };
 
-    fileSystems."/" = { # /persistent
+    fileSystems."/persistent" = { # /persistent
       device = "/dev/mapper/system";
       neededForBoot = true;
       fsType = "btrfs";
@@ -108,16 +108,18 @@
       ];
     };
 
-    #fileSystems."/tmp" = {
-    #  device = "/dev/mapper/system";
-    #  fsType = "btrfs";
-    #  options = [
-    #    "subvol=/tmp"
-    #    "compress=zstd"
-    #    "noatime"
-    #    "discard=async"
-    #  ];
-    #};
+    boot.tmp.cleanOnBoot = true;
+
+    fileSystems."/tmp" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/tmp"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
 
     #fileSystems."/.swap" = {
     #  device = "/dev/mapper/system";
@@ -277,13 +279,13 @@
                           "noatime"
                         ];
                       };
-                      #"/tmp" = {
-                      #  mountpoint = "/tmp";
-                      #  mountOptions = [
-                      #    "compress=zstd"
-                      #    "noatime"
-                      #  ];
-                      #};
+                      "/tmp" = {
+                        mountpoint = "/tmp";
+                        mountOptions = [
+                          "compress=no"
+                          "noatime"
+                        ];
+                      };
                       #"/swap" = {
                       #  mountpoint = "/.swapvol";
                       #  mountOptions = [
@@ -302,6 +304,15 @@
             };
           };
         };
+      };
+      nodev."/" = {
+        fsType = "tmpfs";
+        mountOptions = [
+          "defaults"
+          "size=50%"
+          "mode=0755"
+          "relatime"
+        ];
       };
     };
   };
