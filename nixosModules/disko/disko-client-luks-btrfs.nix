@@ -20,25 +20,115 @@
         device = "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
       };
     };
-
-    fileSystems."/" = {
-      device = "/dev/crypt/root";
-      fsType = "ext4";
-    };
-
+    
     fileSystems."/boot" = {
       device = "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
       fsType = "vfat";
     };
 
+    fileSystems."/" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/root"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
     fileSystems."/home" = {
-      device = "/dev/crypt/home";
-      fsType = "ext4";
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/home"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
+    fileSystems."/nix" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/nix"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
+    fileSystems."/srv" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/srv"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
+    fileSystems."/var" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/var"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
+    fileSystems."/var/lib" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/var/lib"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
+    fileSystems."/tmp" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/tmp"
+        "compress=zstd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
+    fileSystems."/.swap" = {
+      device = "/dev/mapper/system";
+      fsType = "btrfs";
+      options = [
+        "subvol=/.swapvol"
+        "noatime"
+        "nodiratime"
+        "compress=no"
+        "ssd"
+        "space_cache=v2"
+        "discard=async"
+      ];
     };
 
     swapDevices = [
-      { device = "/dev/disk/by-label/swap"; }
+      {
+        file = "/.swap/swapfile";
+        size = 32 * 1024;
+      }
     ];
+
+    services.btrfs.autoScrub = {
+      enable = true;
+      interval = "monthly";
+      fileSystems = [ "/" ];
+    };
 
     disko.devices = {
       disk = {
@@ -79,9 +169,20 @@
                   initrdUnlock = true;
                   additionalKeyFiles = [ "/tmp/keyfile.key" ];
 
+                  extraFormatArgs = [
+                    "--type luks2"
+                    "--cipher aes-xts-plain64"
+                    "--hash sha512"
+                    "--iter-time 2000"
+                    "--key-size 512"
+                    "--pbkdf argon2id"
+                    "--use-random"
+                    "--label LUKS"
+                  ];
+
                   content = {
                     type = "btrfs";
-                    extraArgs = [ "-f" ];
+                    extraArgs = [ "-f" "-L SYSTEM" ];
                     subvolumes = {
                       "/root" = {
                         mountpoint = "/";
@@ -103,23 +204,53 @@
                           "compress=zstd"
                           "noatime"
                         ];
+                      };                
+                      "/srv" = {
+                        mountpoint = "/srv";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                      "/var" = {
+                        mountpoint = "/var";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                      "/var/lib" = {
+                        mountpoint = "/var/lib";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                      "/tmp" = {
+                        mountpoint = "/tmp";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                       "/swap" = {
                         mountpoint = "/.swapvol";
-                        swap.swapfile.size = "20M";
+                        mountOptions = [
+                          "compress=no"
+                          "noatime"
+                          "nodatacow"
+                        ];
+                        swap = {
+                          size = "32G";
+                          content = {
+                            type = "swap";
+                            resumeDevice = true;
+                            extraArgs = [ "-L swap" ];
+                          };
+                        };
                       };
                     };
                   };
-                  extraFormatArgs = [
-                    "--type luks2"
-                    "--cipher aes-xts-plain64"
-                    "--hash sha512"
-                    "--iter-time 2000"
-                    "--key-size 512"
-                    "--pbkdf argon2id"
-                    "--use-random"
-                    "--label LUKS"
-                  ];
                 };
               };
             };
