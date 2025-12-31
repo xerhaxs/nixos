@@ -119,19 +119,19 @@
     #  ];
     #};
 
-    fileSystems."/.swap" = {
-      device = "/dev/mapper/system";
-      fsType = "btrfs";
-      options = [
-        "subvol=/.swapvol"
-        "noatime"
-        "nodiratime"
-        "compress=no"
-        "ssd"
-        "space_cache=v2"
-        "discard=async"
-      ];
-    };
+    #fileSystems."/.swap" = {
+    #  device = "/dev/mapper/system";
+    #  fsType = "btrfs";
+    #  options = [
+    #    "subvol=/.swapvol"
+    #    "noatime"
+    #    "nodiratime"
+    #    "compress=no"
+    #    "ssd"
+    #    "space_cache=v2"
+    #    "discard=async"
+    #  ];
+    #};
 
     #swapDevices = [
     #  {
