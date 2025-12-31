@@ -30,18 +30,18 @@
       ];
     };
 
-    fileSystems."/" = {
-      device = "none";
-      fsType = "tmpfs";
-      options = [
-        "defaults"
-        "size=50%"
-        "mode=0755"
-        "relatime"
-      ];
-    };
+    #fileSystems."/" = {
+    #  device = "none";
+    #  fsType = "tmpfs";
+    #  options = [
+    #    "defaults"
+    #    "size=50%"
+    #    "mode=0755"
+    #    "relatime"
+    #  ];
+    #};
 
-    fileSystems."/persistent" = {
+    fileSystems."/" = { # /persistent
       device = "/dev/mapper/system";
       neededForBoot = true;
       fsType = "btrfs";
@@ -146,40 +146,40 @@
       fileSystems = [ "/" ];
     };
 
-    environment.persistence."/persistent" = {
-      enable = true;
-      hideMounts = false;
-      directories = [
+    #environment.persistence."/persistent" = {
+    #  enable = true;
+    #  hideMounts = false;
+    #  directories = [
         #"/var/log"
         #"/var/lib/bluetooth"
         #"/var/lib/nixos"
         #"/var/lib/systemd/coredump"
-        "/root/keys"
-        "/etc/NetworkManager/system-connections"
+    #    "/root/keys"
+    #    "/etc/NetworkManager/system-connections"
         #{ directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
-      ];
+    #  ];
       #files = [
       #  "/etc/machine-id"
       #  { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       #];
-      users.${config.nixos.system.user.defaultuser.name} = {
-        directories = [
-          "Downloads"
-          "Music"
-          "Pictures"
-          "Documents"
-          "Videos"
-          { directory = ".gnupg"; mode = "0700"; }
-          { directory = ".ssh"; mode = "0700"; }
-          { directory = ".nixops"; mode = "0700"; }
-          { directory = ".local/share/keyrings"; mode = "0700"; }
+    #  users.${config.nixos.system.user.defaultuser.name} = {
+    #    directories = [
+    #      "Downloads"
+    #      "Music"
+    #      "Pictures"
+    #      "Documents"
+    #      "Videos"
+    #      { directory = ".gnupg"; mode = "0700"; }
+    #      { directory = ".ssh"; mode = "0700"; }
+    #      { directory = ".nixops"; mode = "0700"; }
+    #      { directory = ".local/share/keyrings"; mode = "0700"; }
           #".local/share/direnv"
-        ];
+    #    ];
         #files = [
         #  ".screenrc"
         #];
-      };
-    };
+    #  };
+    #};
 
     disko.devices = {
       disk = {
