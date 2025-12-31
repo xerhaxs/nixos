@@ -1,8 +1,9 @@
-{ config, disko, lib, pkgs, ... }: 
+{ config, disko, impermanence, lib, pkgs, ... }: 
 
 { 
   imports = [
     disko.nixosModules.disko
+    impermanence.nixosModules.impermanence
     ./disko-client-luks-btrfs.nix
     ./disko-client-luks-lvm-ext4.nix
     ./disko-server-luks-btrfs-raid1.nix
