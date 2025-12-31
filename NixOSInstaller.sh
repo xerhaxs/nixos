@@ -120,15 +120,15 @@ echo -n "$DISKPASS" > /tmp/secret.key
 INSTALLATION_TARGET="github:xerhaxs/nixos/main#$CHOSEN_HOST"
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake $INSTALLATION_TARGET
 
-mkdir /mnt/root
+mkdir -p /mnt/root/.secrets
 
-mv /tmp/secret.key /mnt/root/secret.key
-chmod -v 0400 /mnt/root/secret.key
-chown root:root /mnt/root/secret.key
+mv /tmp/secret.key /mnt/root/.secrets/secret.key
+chmod -v 0400 /mnt/root/.secrets/secret.key
+chown root:root /mnt/root/.secrets/secret.key
 
-mv /tmp/keyfile.key /mnt/root/keyfile.key
-chmod -v 0400 /mnt/root/keyfile.key
-chown root:root /mnt/root/keyfile.key
+mv /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
+chmod -v 0400 /mnt/root/.secrets/keyfile.key
+chown root:root /mnt/root/.secrets/keyfile.key
 
 nixos-generate-config --root /mnt
 #nixos-install --no-root-passwd

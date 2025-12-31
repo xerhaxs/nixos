@@ -28,7 +28,7 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      age.keyFile = "/root/keys.txt";
+      age.keyFile = "/root/.secrets/keys.txt";
 
       secrets = {
         changeme = { };

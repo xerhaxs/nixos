@@ -3,7 +3,6 @@
 {
   imports = [
     home-manager.nixosModules.home-manager
-    #impermanence.homeManagerModules.impermanence
   ];
   
   home-manager = {

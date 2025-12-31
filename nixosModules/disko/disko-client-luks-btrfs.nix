@@ -31,7 +31,7 @@
     };
 
     fileSystems."/" = {
-      device = "none";
+      device = "nodev"; #nodev or none??
       fsType = "tmpfs";
       options = [
         "defaults"
@@ -86,27 +86,27 @@
       ];
     };
 
-    fileSystems."/var" = {
-      device = "/dev/mapper/system";
-      fsType = "btrfs";
-      options = [
-        "subvol=/var"
-        "compress=zstd"
-        "noatime"
-        "discard=async"
-      ];
-    };
+    #fileSystems."/var" = {
+    #  device = "/dev/mapper/system";
+    #  fsType = "btrfs";
+    #  options = [
+    #    "subvol=/var"
+    #    "compress=zstd"
+    #    "noatime"
+    #    "discard=async"
+    #  ];
+    #};
 
-    fileSystems."/var/lib" = {
-      device = "/dev/mapper/system";
-      fsType = "btrfs";
-      options = [
-        "subvol=/var/lib"
-        "compress=zstd"
-        "noatime"
-        "discard=async"
-      ];
-    };
+    #fileSystems."/var/lib" = {
+    #  device = "/dev/mapper/system";
+    #  fsType = "btrfs";
+    #  options = [
+    #    "subvol=/var/lib"
+    #    "compress=zstd"
+    #    "noatime"
+    #    "discard=async"
+    #  ];
+    #};
 
     boot.tmp.cleanOnBoot = true;
 
@@ -142,46 +142,54 @@
     #  }
     #];
 
-    #services.btrfs.autoScrub = {
-    #  enable = true;
-    #  interval = "monthly";
-    #  fileSystems = [ "/" ];
-    #};
+    services.btrfs.autoScrub = {
+      enable = true;
+      interval = "monthly";
+      fileSystems = [
+        "/persistent"
+        "/home"
+        "/nix"
+        "/srv"
+        #"/var"
+        "/tmp"
+        "/swap"
+      ];
+    };
 
-    #environment.persistence."/persistent" = {
-    #  enable = true;
-    #  hideMounts = false;
-    #  directories = [
-        #"/var/log"
-        #"/var/lib/bluetooth"
-        #"/var/lib/nixos"
-        #"/var/lib/systemd/coredump"
-    #    "/root/keys"
-    #    "/etc/NetworkManager/system-connections"
+    environment.persistence."/persistent" = {
+      enable = true;
+      hideMounts = false;
+      directories = [
+        "/var/log"
+        "/var/lib/bluetooth"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+        "/root/keys"
+        #"/etc/NetworkManager/system-connections"
         #{ directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
-    #  ];
+      ];
       #files = [
       #  "/etc/machine-id"
       #  { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       #];
-    #  users.${config.nixos.system.user.defaultuser.name} = {
-    #    directories = [
-    #      "Downloads"
-    #      "Music"
-    #      "Pictures"
-    #      "Documents"
-    #      "Videos"
-    #      { directory = ".gnupg"; mode = "0700"; }
-    #      { directory = ".ssh"; mode = "0700"; }
-    #      { directory = ".nixops"; mode = "0700"; }
-    #      { directory = ".local/share/keyrings"; mode = "0700"; }
+      #users.${config.nixos.system.user.defaultuser.name} = {
+        #directories = [
+          #"Downloads"
+          #"Music"
+          #"Pictures"
+          #"Documents"
+          #"Videos"
+          #{ directory = ".gnupg"; mode = "0700"; }
+          #{ directory = ".ssh"; mode = "0700"; }
+          #{ directory = ".nixops"; mode = "0700"; }
+          #{ directory = ".local/share/keyrings"; mode = "0700"; }
           #".local/share/direnv"
-    #    ];
-        #files = [
-        #  ".screenrc"
         #];
-    #  };
-    #};
+        files = [
+          "/root/.bash_history"
+        ];
+      #};
+    };
 
     disko.devices = {
       disk = {
@@ -265,20 +273,20 @@
                           "noatime"
                         ];
                       };
-                      "/var" = {
-                        mountpoint = "/var";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "/var/lib" = {
-                        mountpoint = "/var/lib";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
+                      #"/var" = {
+                      #  mountpoint = "/var";
+                      #  mountOptions = [
+                      #    "compress=zstd"
+                      #    "noatime"
+                      #  ];
+                      #};
+                      #"/var/lib" = {
+                      #  mountpoint = "/var/lib";
+                      #  mountOptions = [
+                      #    "compress=zstd"
+                      #    "noatime"
+                      #  ];
+                      #};
                       "/tmp" = {
                         mountpoint = "/tmp";
                         mountOptions = [
@@ -305,15 +313,6 @@
           };
         };
       };
-      #nodev."/" = {
-      #  fsType = "tmpfs";
-      #  mountOptions = [
-      #    "defaults"
-      #    "size=50%"
-      #    "mode=0755"
-      #    "relatime"
-      #  ];
-      #};
     };
   };
 }
