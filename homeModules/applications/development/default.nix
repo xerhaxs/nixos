@@ -10,6 +10,7 @@
     ./imager.nix
     ./java.nix
     ./jetbrains.nix
+    ./nixd.nix
     ./pulsar.nix
     ./singleboardcomputer.nix
     ./virtualisation.nix
@@ -37,6 +38,7 @@
       imager.enable = true;
       java.enable = true;
       jetbrains.enable = lib.mkDefault false;
+      nixd.enable = true;
       pulsar.enable = lib.mkDefault false;
       singleboardcomputer.enable = lib.mkDefault false;
       virtualisation.enable = lib.mkIf osConfig.nixos.virtualisation.kvm.enable true;

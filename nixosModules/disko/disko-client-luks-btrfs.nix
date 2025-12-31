@@ -240,13 +240,8 @@
                           "noatime"
                           "nodatacow"
                         ];
-                        swap = {
+                        swapfile = {
                           size = "32G";
-                          content = {
-                            type = "swap";
-                            resumeDevice = true;
-                            extraArgs = [ "-L swap" ];
-                          };
                         };
                       };
                     };
