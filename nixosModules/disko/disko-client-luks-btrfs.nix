@@ -119,7 +119,7 @@
 
     swapDevices = [
       {
-        file = "/.swap/swapfile";
+        file = "/.swapvol/swapfile";
         size = 32 * 1024;
       }
     ];
