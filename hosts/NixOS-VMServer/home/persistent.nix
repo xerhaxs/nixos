@@ -5,7 +5,7 @@
     impermanence.homeManagerModules.impermanence
   ];
 
-  home.persistence."/persistent/home/${config.nixos.system.user.defaultuser.name}" = {
+  home.persistence."/persistent/home/${osConfig.nixos.system.user.defaultuser.name}" = {
     directories = [
       "Desktop"
       "Documents"
