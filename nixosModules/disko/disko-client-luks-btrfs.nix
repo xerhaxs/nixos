@@ -41,7 +41,7 @@
       ];
     };
 
-    fileSystems."/persistent" = { # /persistent
+    fileSystems."/persistent" = {
       device = "/dev/mapper/system";
       neededForBoot = true;
       fsType = "btrfs";
@@ -142,11 +142,11 @@
     #  }
     #];
 
-    services.btrfs.autoScrub = {
-      enable = true;
-      interval = "monthly";
-      fileSystems = [ "/" ];
-    };
+    #services.btrfs.autoScrub = {
+    #  enable = true;
+    #  interval = "monthly";
+    #  fileSystems = [ "/" ];
+    #};
 
     #environment.persistence."/persistent" = {
     #  enable = true;
