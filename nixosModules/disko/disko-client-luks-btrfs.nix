@@ -238,7 +238,7 @@
                     extraArgs = [ "-f" "-L SYSTEM" ];
                     subvolumes = {
                       "/root" = {
-                        mountpoint = "/";
+                        mountpoint = "/persistent";
                         mountOptions = [
                           "compress=zstd"
                           "noatime"
