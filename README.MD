@@ -73,6 +73,10 @@ fwupdmgr update
 ## ToDo List
 
 * [ ] Make NixOS Offline installation working -> local nixos cache etc.
+* [ ] Rewrite Installation Script without newt and tui to a plain bash cli tool
+* [ ] Restructure flake.nix to be more convenient and nicer formatted
+* [ ] Formatting of userEnvironment Module
+* [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
   * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html
@@ -105,6 +109,7 @@ fwupdmgr update
   * [ ] Config setup of Xournal++ (write config file)
   * [ ] Miracast / Screensharing in NixOS
   * [ ] SSH Password to SSH Certs + SSH Certfiles via Syncthing
+  * [ ] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass

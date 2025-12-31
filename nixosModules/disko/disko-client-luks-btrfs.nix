@@ -13,6 +13,33 @@
   };
 
   config = lib.mkIf config.nixos.disko.disko-client-luks-btrfs.enable {
+    boot.initrd.luks.devices = {
+      "system" = {
+        preLVM = true;
+        allowDiscards = true;
+        device = "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
+      };
+    };
+
+    fileSystems."/" = {
+      device = "/dev/crypt/root";
+      fsType = "ext4";
+    };
+
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
+      fsType = "vfat";
+    };
+
+    fileSystems."/home" = {
+      device = "/dev/crypt/home";
+      fsType = "ext4";
+    };
+
+    swapDevices = [
+      { device = "/dev/disk/by-label/swap"; }
+    ];
+
     disko.devices = {
       disk = {
         vda = {

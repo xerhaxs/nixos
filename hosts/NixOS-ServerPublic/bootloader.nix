@@ -56,8 +56,6 @@
 
     services.fwupd.enable = true;
 
-    services.acpid.enable = true;
-
     environment.systemPackages = [
       pkgs.acpid
     ];

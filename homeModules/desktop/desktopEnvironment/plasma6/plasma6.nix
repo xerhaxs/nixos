@@ -26,7 +26,7 @@
 
     programs.plasma = {
       enable = true;
-      overrideConfig = false;
+      overrideConfig = false; ### THIS SET TO TRUE + UPDATE PLASMA CONFIG + POWER MANAGEMENT IN PLASMA CONFIG! https://github.com/nix-community/plasma-manager
 
       workspace = {
         clickItemTo = "select";
