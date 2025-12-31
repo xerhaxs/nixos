@@ -305,15 +305,15 @@
           };
         };
       };
-      nodev."/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "defaults"
-          "size=50%"
-          "mode=0755"
-          "relatime"
-        ];
-      };
+      #nodev."/" = {
+      #  fsType = "tmpfs";
+      #  mountOptions = [
+      #    "defaults"
+      #    "size=50%"
+      #    "mode=0755"
+      #    "relatime"
+      #  ];
+      #};
     };
   };
 }
