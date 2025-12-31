@@ -24,6 +24,10 @@
     fileSystems."/boot" = {
       device = "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
       fsType = "vfat";
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
 
     fileSystems."/" = {
@@ -117,12 +121,12 @@
       ];
     };
 
-    swapDevices = [
-      {
-        file = "/.swapvol/swapfile";
-        size = 32 * 1024;
-      }
-    ];
+    #swapDevices = [
+    #  {
+    #    file = "/.swap/swapfile";
+    #    size = 32 * 1024;
+    #  }
+    #];
 
     services.btrfs.autoScrub = {
       enable = true;
@@ -233,17 +237,17 @@
                           "noatime"
                         ];
                       };
-                      "/swap" = {
-                        mountpoint = "/.swapvol";
-                        mountOptions = [
-                          "compress=no"
-                          "noatime"
-                          "nodatacow"
-                        ];
-                        swap = {
-                          swapfile.size = "32G";
-                        };
-                      };
+                      #"/swap" = {
+                      #  mountpoint = "/.swapvol";
+                      #  mountOptions = [
+                      #    "compress=no"
+                      #    "noatime"
+                      #    "nodatacow"
+                      #  ];
+                      #  swap = {
+                      #    swapfile.size = "32G";
+                      #  };
+                      #};
                     };
                   };
                 };
