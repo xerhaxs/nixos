@@ -105,7 +105,7 @@
       ];
     };
 
-    boot.resumeDevice = "/dev/mapper/system";
+    boot.resumeDevice = "/swap/swapfile";
     swapDevices = [
       {
         device = "/swap/swapfile";
