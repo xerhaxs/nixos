@@ -267,7 +267,7 @@ in
                         ];
                         swap = {
                           swapfile.size = "32G";
-                          resumeDevice = true;
+                          #resumeDevice = true;
                         };
                         #swap = {
                         #  swapfile.size = "32G";
