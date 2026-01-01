@@ -108,7 +108,7 @@
 
     swapDevices = [
       {
-        file = "/swap/swapfile";
+        device = "/swap/swapfile";
         size = 2 * 1024;
       }
     ];
@@ -249,9 +249,9 @@
                           "noatime"
                           "nodatacow"
                         ];
-                      #  swap = {
-                      #    swapfile.size = "32G";
-                      #  };
+                        swap = {
+                          swapfile.size = "32G";
+                        };
                       };
                     };
                   };

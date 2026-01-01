@@ -17,7 +17,6 @@
       "defaults"
       "auto"
       "discard=async"
-      "nofail"
     ];
   };
 
@@ -28,7 +27,6 @@
       "defaults"
       "auto"
       "discard=async"
-      "nofail"
     ];
   };
 
@@ -39,7 +37,6 @@
       "defaults"
       "auto"
       "discard=async"
-      "nofail"
     ];
   };
 }
