@@ -1,13 +1,14 @@
 { config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
 
 let
-  resumeOffset = builtins.readFile (
-    builtins.toString (
-      builtins.runCommand "resume-offset" { } ''
-        ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile > $out
-      ''
-    )
-  );
+  resumeOffset =
+    builtins.replaceStrings ["\n"] [""] (
+      builtins.readFile (
+        pkgs.runCommand "resume-offset" { } ''
+          ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile > $out
+        ''
+      )
+    );
 in
 
 {
