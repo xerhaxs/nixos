@@ -4,10 +4,11 @@ let
   swapFile = "/swap/swapfile";
 
   resumeOffset = pkgs.runCommand "resume-offset" {} ''
-    mkdir -p $out
     ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r ${swapFile} \
-      | awk '{print $NF}' > $out/offset
+      | awk '{print $NF}' > $out
   '';
+
+  resumeOffsetValue = builtins.readFile resumeOffset;
 in
 
 {
@@ -118,7 +119,7 @@ in
 
     boot.kernelParams = [
       "resume=/dev/mapper/system"
-      "resume_offset=$(cat ${resumeOffset}/offset)"
+      "resume_offset=${lib.strings.trim resumeOffsetValue}"
     ];
 
     swapDevices = [
