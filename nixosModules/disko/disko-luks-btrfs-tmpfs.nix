@@ -1,16 +1,5 @@
 { config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
 
-let
-  resumeOffset =
-    builtins.replaceStrings ["\n"] [""] (
-      builtins.readFile (
-        pkgs.runCommand "resume-offset" { } ''
-          ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile > $out
-        ''
-      )
-    );
-in
-
 {
   options.nixos = {
     disko.disko-luks-btrfs-tmpfs = {
@@ -90,7 +79,6 @@ in
     };
 
     boot.tmp.cleanOnBoot = true;
-
     fileSystems."/tmp" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
@@ -117,11 +105,7 @@ in
       ];
     };
 
-    boot.kernelParams = [
-      "resume=/dev/mapper/system"
-      "resume_offset=${resumeOffset}"
-    ];
-
+    boot.resumeDevice = "/dev/mapper/system";
     swapDevices = [
       {
         device = "/swap/swapfile";
@@ -268,11 +252,8 @@ in
                         ];
                         swap = {
                           swapfile.size = "32G";
-                          #resumeDevice = true;
+                          resumeDevice = true;
                         };
-                        #swap = {
-                        #  swapfile.size = "32G";
-                        #};
                       };
                     };
                   };
