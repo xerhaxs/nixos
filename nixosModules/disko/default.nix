@@ -4,7 +4,7 @@
   imports = [
     disko.nixosModules.disko
     impermanence.nixosModules.impermanence
-    ./disko-client-luks-btrfs.nix
+    ./disko-luks-btrfs-tmpfs.nix
     ./disko-client-luks-lvm-ext4.nix
     ./disko-server-luks-btrfs-raid1.nix
     ./disko-server-luks-lvm-ext4.nix
@@ -27,7 +27,7 @@
 
   config = lib.mkIf config.nixos.disko.enable {
     nixos.disko = {
-      disko-client-luks-btrfs.enable = lib.mkDefault false;
+      disko-luks-btrfs-tmpfs.enable = lib.mkDefault false;
       disko-client-luks-lvm-ext4.enable = lib.mkDefault false;
       disko-server-luks-btrfs-raid1.enable = lib.mkDefault false;
       disko-server-luks-lvm-ext4.enable = lib.mkDefault false;

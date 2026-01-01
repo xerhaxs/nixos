@@ -1,18 +1,28 @@
 { config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
 
+let
+  swapFile = "/swap/swapfile";
+
+  resumeOffset = pkgs.runCommand "resume-offset" {} ''
+    mkdir -p $out
+    ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r ${swapFile} \
+      | awk '{print $NF}' > $out/offset
+  '';
+in
+
 {
   options.nixos = {
-    disko.disko-client-luks-btrfs = {
+    disko.disko-luks-btrfs-tmpfs = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable disko-client-luks-btrfs.";
+        description = "Enable disko-luks-btrfs-tmpfs.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.disko.disko-client-luks-btrfs.enable {
+  config = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
     boot.initrd.luks.devices = {
       "system" = {
         preLVM = true;
@@ -31,7 +41,7 @@
     };
 
     fileSystems."/" = {
-      device = "tmpfs"; #nodev or none or tmpfs??
+      device = "tmpfs";
       fsType = "tmpfs";
       options = [
         "defaults"
@@ -106,10 +116,15 @@
       ];
     };
 
+    boot.kernelParams = [
+      "resume=/dev/mapper/system"
+      "resume_offset=$(cat ${resumeOffset}/offset)"
+    ];
+
     swapDevices = [
       {
         device = "/swap/swapfile";
-        size = 2 * 1024;
+        size = 32 * 1024;
       }
     ];
 
@@ -251,7 +266,11 @@
                         ];
                         swap = {
                           swapfile.size = "32G";
+                          resumeDevice = true;
                         };
+                        #swap = {
+                        #  swapfile.size = "32G";
+                        #};
                       };
                     };
                   };
