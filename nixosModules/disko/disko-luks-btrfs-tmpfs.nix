@@ -1,14 +1,13 @@
 { config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
 
 let
-  swapFile = "/swap/swapfile";
-
-  resumeOffset = pkgs.runCommand "resume-offset" {} ''
-    ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r ${swapFile} \
-      | awk '{print $NF}' > $out
-  '';
-
-  resumeOffsetValue = builtins.readFile resumeOffset;
+  resumeOffset = builtins.readFile (
+    builtins.toString (
+      builtins.runCommand "resume-offset" { } ''
+        ${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile > $out
+      ''
+    )
+  );
 in
 
 {
@@ -119,7 +118,7 @@ in
 
     boot.kernelParams = [
       "resume=/dev/mapper/system"
-      "resume_offset=${lib.strings.trim resumeOffsetValue}"
+      "resume_offset=${resumeOffset}"
     ];
 
     swapDevices = [
@@ -145,11 +144,12 @@ in
       enable = true;
       hideMounts = false;
       directories = [
+        "/root/.cache"
+        "/root/keys"
         "/var/log"
         "/var/lib/bluetooth"
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
-        "/root/keys"
         #"/etc/NetworkManager/system-connections"
         #{ directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
       ];
