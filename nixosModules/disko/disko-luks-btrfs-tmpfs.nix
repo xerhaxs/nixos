@@ -35,7 +35,18 @@
       fsType = "tmpfs";
       options = [
         "defaults"
-        "size=25%"
+        "size=50%"
+        "mode=0755"
+        "relatime"
+      ];
+    };
+
+    fileSystems."/home" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "size=50%"
         "mode=0755"
         "relatime"
       ];
@@ -54,7 +65,7 @@
       ];
     };
 
-    fileSystems."/home" = {
+    fileSystems."/persistent/home" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
       options = [
