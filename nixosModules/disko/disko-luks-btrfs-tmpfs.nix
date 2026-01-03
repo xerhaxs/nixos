@@ -35,7 +35,18 @@
       fsType = "tmpfs";
       options = [
         "defaults"
-        "size=50%"
+        "size=25%"
+        "mode=0755"
+        "relatime"
+      ];
+    };
+
+    fileSystems."/home" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "size=25%"
         "mode=0755"
         "relatime"
       ];
@@ -54,7 +65,7 @@
       ];
     };
 
-    fileSystems."/home" = {
+    fileSystems."/persistent/home" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
       options = [
@@ -118,7 +129,7 @@
       interval = "monthly";
       fileSystems = [
         "/persistent"
-        "/home"
+        #"/home"
         "/nix"
         "/tmp"
         "/swap"
@@ -223,7 +234,7 @@
                         ];
                       };
                       "/home" = {
-                        mountpoint = "/home";
+                        mountpoint = "/persistent/home";
                         mountOptions = [
                           "compress=zstd"
                           "noatime"
