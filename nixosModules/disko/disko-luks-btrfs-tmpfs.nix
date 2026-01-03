@@ -243,17 +243,17 @@
                           "noatime"
                         ];
                       };
-                      #"/swap" = {
-                      #  mountpoint = "/swap";
-                      #  mountOptions = [
-                      #    "compress=no"
-                      #    "noatime"
-                      #    "nodatacow"
-                      #  ];
+                      "/swap" = {
+                        mountpoint = "/swap";
+                        mountOptions = [
+                          "compress=no"
+                          "noatime"
+                          "nodatacow"
+                        ];
                         #swap = {
                         #  swapfile.size = "32G";
                         #};
-                      #};
+                      };
                     };
                   };
                 };
