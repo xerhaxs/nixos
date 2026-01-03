@@ -18,14 +18,15 @@
       ".nixops"
       ".local/share/keyrings"
       ".local/share/direnv"
+      ".cache"
       #{
       #  directory = ".local/share/Steam";
       #  method = "symlink";
       #}
     ];
-    #files = [
-    #  ".screenrc"
-    #];
+    files = [
+      ".bash_history"
+    ];
     allowOther = true;
   };
 }

@@ -281,6 +281,7 @@
                   {
                     type = "markets";
                     markets = [
+                      { symbol = "AW01"; name = "FTSE All-World"; }
                       { symbol = "URTH"; name = "MSCI World ETF"; }
                       { symbol = "U1IH"; name = "UniGlobal"; }
                       { symbol = "RHM"; name = " Rheinmetall"; }

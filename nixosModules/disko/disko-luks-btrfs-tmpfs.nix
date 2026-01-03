@@ -35,7 +35,18 @@
       fsType = "tmpfs";
       options = [
         "defaults"
-        "size=50%"
+        "size=25%"
+        "mode=0755"
+        "relatime"
+      ];
+    };
+
+    fileSystems."/home" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "size=25%"
         "mode=0755"
         "relatime"
       ];
@@ -54,7 +65,7 @@
       ];
     };
 
-    fileSystems."/home" = {
+    fileSystems."/persistent/home" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
       options = [
@@ -105,13 +116,13 @@
       ];
     };
 
-    boot.resumeDevice = "/swap/swapfile";
-    swapDevices = [
-      {
-        device = "/swap/swapfile";
-        size = 2 * 1024;
-      }
-    ];
+    #boot.resumeDevice = "/swap/swapfile";
+    #swapDevices = [
+    #  {
+    #    device = "/swap/swapfile";
+    #    size = 2 * 1024;
+    #  }
+    #];
 
     services.btrfs.autoScrub = {
       enable = true;
@@ -223,7 +234,7 @@
                         ];
                       };
                       "/home" = {
-                        mountpoint = "/home";
+                        mountpoint = "/persistent/home";
                         mountOptions = [
                           "compress=zstd"
                           "noatime"
@@ -243,17 +254,17 @@
                           "noatime"
                         ];
                       };
-                      "/swap" = {
-                        mountpoint = "/swap";
-                        mountOptions = [
-                          "compress=no"
-                          "noatime"
-                          "nodatacow"
-                        ];
+                      #"/swap" = {
+                      #  mountpoint = "/swap";
+                      #  mountOptions = [
+                      #    "compress=no"
+                      #    "noatime"
+                      #    "nodatacow"
+                      #  ];
                         #swap = {
                         #  swapfile.size = "32G";
                         #};
-                      };
+                      #};
                     };
                   };
                 };

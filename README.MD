@@ -151,7 +151,7 @@ fwupdmgr update
     * [ ] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS
     * [x] PiHole
     * [X] Invidous -> waiting for nixos pkg update
-    * [X] Libreddit -> Outdated version in NixPKGS
+    * [X] Libreddit -> Outdated version in NixPKGS -> Working!
     * [X] Lemmy -> Not usefull in LAN
     * [X] Nitter -> Missing API Tokens
     * [X] SearxNG -> Working!
