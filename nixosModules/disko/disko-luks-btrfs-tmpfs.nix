@@ -41,17 +41,6 @@
       ];
     };
 
-    fileSystems."/home" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [
-        "defaults"
-        "size=25%"
-        "mode=0755"
-        "relatime"
-      ];
-    };
-
     fileSystems."/persistent" = {
       device = "/dev/mapper/system";
       neededForBoot = true;
@@ -65,7 +54,7 @@
       ];
     };
 
-    fileSystems."/persistent/home" = {
+    fileSystems."/home" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
       options = [
