@@ -47,7 +47,6 @@
       options = [
         "defaults"
         "size=25%"
-        "mode=0755"
         "relatime"
       ];
     };
