@@ -169,10 +169,10 @@
           ".wine"
           ".local/cache"
           ".local/state" # move file settings to nixos
-          {
-            directory = ".local/share/Steam";
-            method = "symlink";
-          }
+          #{
+          #  directory = ".local/share/Steam";
+          #  method = "symlink";
+          #}
         ];
         files = [
           ".bash_history" # Bash History
