@@ -40,17 +40,7 @@
         "relatime"
       ];
     };
-
-    #fileSystems."/home" = {
-    #  device = "tmpfs";
-    #  fsType = "tmpfs";
-    #  options = [
-    #    "defaults"
-    #    "size=25%"
-    #    "relatime"
-    #  ];
-    #};
-
+    
     fileSystems."/persistent" = {
       device = "/dev/mapper/system";
       neededForBoot = true;
@@ -116,19 +106,18 @@
     };
 
     #boot.resumeDevice = "/swap/swapfile";
-    #swapDevices = [
-    #  {
-    #    device = "/swap/swapfile";
-    #    size = 2 * 1024;
-    #  }
-    #];
+    swapDevices = [
+      {
+        device = "/swap/swapfile";
+        size = 2 * 1024;
+      }
+    ];
 
     services.btrfs.autoScrub = {
       enable = true;
       interval = "monthly";
       fileSystems = [
         "/persistent"
-        #"/home"
         "/nix"
         "/tmp"
         "/swap"
@@ -137,7 +126,7 @@
 
     environment.persistence."/persistent" = {
       enable = true;
-      hideMounts = false;
+      hideMounts = true;
       directories = [
         "/root/.cache"
         "/root/keys"
@@ -180,10 +169,10 @@
           ".wine"
           ".local/cache"
           ".local/state" # move file settings to nixos
-          #{
-          #  directory = ".local/share/Steam";
-          #  method = "symlink";
-          #}
+          {
+            directory = ".local/share/Steam";
+            method = "symlink";
+          }
         ];
         files = [
           ".bash_history" # Bash History
