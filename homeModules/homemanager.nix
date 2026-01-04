@@ -13,4 +13,6 @@
 
     users.${config.nixos.system.user.defaultuser.name} = import ./default.nix;
   };
+
+  programs.dconf.enable = true;
 }

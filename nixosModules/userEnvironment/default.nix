@@ -7,7 +7,6 @@
     ./io
 
     ./appimage.nix
-    ./dconf.nix
     ./fonts.nix
     ./kdeconnect.nix
     ./mullvad.nix
@@ -34,7 +33,6 @@
       io.enable = true;
 
       appimage.enable = true;
-      dconf.enable = true;
       fonts.enable = true;
       kdeconnect.enable = true;
       mullvad.enable = true;
