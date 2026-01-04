@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./persistent.nix
+    #./persistent.nix
     ./xdg.nix
   ];
 }

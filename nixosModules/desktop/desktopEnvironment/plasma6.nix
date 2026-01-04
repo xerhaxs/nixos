@@ -28,7 +28,6 @@
     environment = {
       plasma6.excludePackages = with pkgs; with kdePackages; [
         elisa
-        spectacle
         kwalletmanager
         breeze
         breeze-icons
