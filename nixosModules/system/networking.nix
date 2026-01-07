@@ -97,7 +97,7 @@ in
       };
       
       wireless = {
-        enable = false;
+        enable = true;
         userControlled.enable = true;
       };
 
