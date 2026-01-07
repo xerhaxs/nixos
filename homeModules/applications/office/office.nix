@@ -30,7 +30,6 @@
       pandoc
       poppler-utils
       rnote
-      scribus
       (symlinkJoin {
         name = "skanpage-with-tesseract";
         paths = [ kdePackages.skanpage ];

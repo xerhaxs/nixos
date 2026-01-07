@@ -1,13 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  libbluray = pkgs.libbluray.override {
-    withAACS = true;
-    withBDplus = true;
-  };
-  myVlc = pkgs.vlc.override { inherit libbluray; };
-in
-
 {
   options.homeManager = {
     applications.media.mediaplayer = {
@@ -23,8 +15,17 @@ in
   config = lib.mkIf config.homeManager.applications.media.mediaplayer.enable {
     home.packages = with pkgs; [
       clementine
-      myVlc
+      vlc
+      libbluray-full
     ];
+
+    #nixpkgs.config = {
+    #  libbluray = {
+    #    enable = true;
+    #    withAACS = true;
+    #    withBDplus = true;
+    #  };
+    #};
 
     programs.java = {
       enable = true;
@@ -32,5 +33,3 @@ in
     };
   };
 }
-
-

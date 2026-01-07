@@ -24,7 +24,7 @@
       # archives
       cdrkit
       p7zip
-      rarcrack # cracking .zip files
+      #rarcrack # cracking .zip files -> move to hacking tools or something like this...
       unrar
       unzip
       xz
@@ -50,7 +50,6 @@
       fwupd
       mesa-demos
       imagemagick
-      lv
       rsync
 
       # networking tools

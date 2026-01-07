@@ -13,8 +13,8 @@
   };
 
   config = lib.mkIf config.nixos.virtualisation.android.enable {
-    programs.adb = {
-      enable = true;
-    };
+    environment.systemPackages = with pkgs; [
+      android-tools
+    ];
   };
 }

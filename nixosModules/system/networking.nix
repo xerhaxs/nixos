@@ -98,7 +98,7 @@ in
       
       wireless = {
         enable = true;
-        userControlled.enable = true;
+        userControlled = true;
       };
 
       enableIPv6 = true;
