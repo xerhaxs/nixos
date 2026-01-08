@@ -1,14 +1,14 @@
-{ config, lib, impermanence, osConfig, pkgs, ... }:
+{ config, lib, impermanence, pkgs, ... }:
 
 {
-  home.persistence = {
+  home.persistence."/persistent" = {
     directories = [
-      #"Desktop"
-      #"Documents"
-      #"Downloads"
-      #"Music"
-      #"Pictures"
-      #"Videos"
+      "Desktop"
+      "Documents"
+      "Downloads"
+      "Music"
+      "Pictures"
+      "Videos"
       ".gnupg"
       ".ssh"
       ".nixops"
@@ -34,7 +34,6 @@
     files = [
       ".bash_history" # Bash History
       ".viminfo" # VIM History
-
     ];
   };
 }
