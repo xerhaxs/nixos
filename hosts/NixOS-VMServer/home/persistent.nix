@@ -1,11 +1,7 @@
 { config, lib, impermanence, osConfig, pkgs, ... }:
 
 {
-  imports = [
-    impermanence.homeManagerModules.impermanence
-  ];
-
-  home.persistence."/persistent/home/${osConfig.nixos.system.user.defaultuser.name}" = {
+  home.persistence = {
     directories = [
       "Desktop"
       "Documents"
@@ -40,6 +36,5 @@
       ".viminfo" # VIM History
 
     ];
-    allowOther = true;
   };
 }
