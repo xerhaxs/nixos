@@ -8,7 +8,7 @@
 
   nixos.system.user.defaultuser = {
     name = "admin";
-    pass = "$y$j9T$HDk4CbWnR9fWeTkI/byxp.$f2hONNjOT8hsi0gg74t8HafjzT/de33PWIRJEhfREB7"; # CHANGEME
+    pass = "$y$j9T$ZEmmQ3X2ZJ2SjdORzgtXH1$n7.HG3CbcKpKv1gZjrAhbFJzqsjNNUsh7mCxxzoEPbB";
   };
 
   services.xserver.displayManager.startx.enable = true;

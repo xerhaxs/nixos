@@ -25,7 +25,7 @@
       ".thunderbird"
       ".wine"
       ".local/cache"
-      ".local/state" # move file settings to nixos
+      #".local/state" # move file settings to nixos
       {
         directory = ".local/share/Steam";
         method = "symlink";

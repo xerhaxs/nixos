@@ -28,7 +28,7 @@
 
   nixos.system.user.defaultuser = {
     name = "admin";
-    pass = "$y$j9T$HDk4CbWnR9fWeTkI/byxp.$f2hONNjOT8hsi0gg74t8HafjzT/de33PWIRJEhfREB7"; # CHANGEME
+    pass = "$y$j9T$1/B9SU/ligzAtWZfeWUkN0$HpnDuMQ26LrBrhTxQrapc2Fx/q3MfL.kX27D4jL87o/";
   };
 
   nixos.userEnvironment.enable = true;
