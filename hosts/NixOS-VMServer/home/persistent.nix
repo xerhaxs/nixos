@@ -1,14 +1,14 @@
 { config, lib, impermanence, osConfig, pkgs, ... }:
 
 {
-  home.persistence."/persistent/home/${osConfig.nixos.system.user.defaultuser.name}" = {
+  home.persistence = {
     directories = [
-      "Desktop"
-      "Documents"
-      "Downloads"
-      "Music"
-      "Pictures"
-      "Videos"
+      #"Desktop"
+      #"Documents"
+      #"Downloads"
+      #"Music"
+      #"Pictures"
+      #"Videos"
       ".gnupg"
       ".ssh"
       ".nixops"
