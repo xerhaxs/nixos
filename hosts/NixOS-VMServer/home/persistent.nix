@@ -9,10 +9,10 @@
       "Music"
       "Pictures"
       "Videos"
-      ".gnupg"
-      ".ssh"
-      ".nixops"
-      ".local/share/keyrings"
+      { directory = ".gnupg"; mode = "0700"; }
+      { directory = ".ssh"; mode = "0700"; }
+      { directory = ".nixops"; mode = "0700"; }
+      { directory = ".local/share/keyrings"; mode = "0700"; }
       ".local/share/direnv"
       ".local/share/baloo"
       ".local/share/bottles"
@@ -26,10 +26,10 @@
       ".wine"
       ".local/cache"
       ".local/state" # move file settings to nixos
-      #{
-      #  directory = ".local/share/Steam";
-      #  method = "symlink";
-      #}
+      {
+        directory = ".local/share/Steam";
+        method = "symlink";
+      }
     ];
     files = [
       ".bash_history" # Bash History
