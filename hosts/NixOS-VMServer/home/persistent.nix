@@ -1,7 +1,7 @@
 { config, lib, impermanence, osConfig, pkgs, ... }:
 
 {
-  home.persistence = {
+  home.persistence."/persistent/home/${osConfig.nixos.system.user.defaultuser.name}" = {
     directories = [
       "Desktop"
       "Documents"
