@@ -105,7 +105,7 @@
       ];
     };
 
-    boot.resumeDevice = "/swap/swapfile";
+    #boot.resumeDevice = "/swap/swapfile";
     #boot.kernelParams = [ "resume_offset=" ];
     swapDevices = [
       {
