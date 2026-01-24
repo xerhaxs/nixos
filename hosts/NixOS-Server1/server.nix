@@ -18,11 +18,13 @@
     home = {
       glance.enable = true;
       #jellyfin.enable = true;
+      homeassistant.enable = true;
       ollama.enable = true;
       radicale.enable = true;
     };
     network = {
       pihole.enable = true;
+      unbound.enable = true;
     };
   };
 }
