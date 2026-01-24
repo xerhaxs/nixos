@@ -19,7 +19,7 @@
       group = "unbound";
       stateDir = "/var/lib/unbound";
       enableRootTrustAnchor = true;
-      resolveLocalQueries = false;
+      resolveLocalQueries = true;
 
       settings = {
         server = {
