@@ -101,6 +101,7 @@ fwupdmgr update
     * [x] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
     * [x] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/ -> seems unnecessary
     * [x] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
+    * [ ] Move to Librewolf as main browser, remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
   * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent 
   * [ ] Config setup of Steam (write config file)
   * [ ] Config setup of Heroic (write config file)
@@ -142,6 +143,7 @@ fwupdmgr update
     * [ ] backup strategy on proxmox
     * [ ] setup oci container
     * [X] Caddy, insted of Nginx -> I'll stay with nginx
+    * [ ] Install Unbound DNS along PiHole -> https://docs.pi-hole.net/guides/dns/unbound/
     * [ ] Update ddclient config
     * [X] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
@@ -163,8 +165,9 @@ fwupdmgr update
     * [X] Radarr (Config setup) -> waiting for nixos pkg update
     * [X] Readarr (Config setup) -> not possible due to no module options for settings
     * [X] Sonarr (Config setup) -> not possible due to no module options for settings
-    * [X] Sabnzbd (Config setup) -> not possible due to no module options for settings 
+    * [X] Sabnzbd (Config setup) -> not possible due to no module options for settings
     * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file
+    * [ ] Setup Home Assistant in NixOS -> https://search.nixos.org/options?channel=unstable&query=services.home-assistant https://wiki.nixos.org/wiki/Home_Assistant
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
