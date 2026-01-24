@@ -37,4 +37,6 @@
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;
+
+  services.flatpak.enable = true;
 }
