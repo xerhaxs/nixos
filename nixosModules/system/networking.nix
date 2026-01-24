@@ -120,6 +120,7 @@ in
         ];
         "10.75.0.21" = lib.mkDefault [
           "glance.${config.nixos.server.network.nginx.domain}"
+          "homeassistant.${config.nixos.server.network.nginx.domain}"
           "invidious.${config.nixos.server.network.nginx.domain}"
           "kiwix.${config.nixos.server.network.nginx.domain}"
           "lemmy.${config.nixos.server.network.nginx.domain}"
@@ -153,7 +154,6 @@ in
         ];
         "10.75.0.25" = lib.mkDefault [ 
           "haos.${config.nixos.server.network.nginx.domain}"
-          "homeassistant.${config.nixos.server.network.nginx.domain}"
         ];
       };
 

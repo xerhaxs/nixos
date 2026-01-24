@@ -221,6 +221,7 @@
                 "10.75.0.20 syncthing.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.20 truenas.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 gitea.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.21 homeassistant.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 invidious.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 kiwix.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 libreddit.${config.nixos.server.network.nginx.domain}"
@@ -238,7 +239,6 @@
                 "10.75.0.23 sabnzbd.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.23 sonarr.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.25 haos.${config.nixos.server.network.nginx.domain}"
-                "10.75.0.25 homeassistant.${config.nixos.server.network.nginx.domain}"
               ]; ### CHANGED, default = []
 
               # If set, A and AAAA queries for plain names, without dots or domain parts, are never
