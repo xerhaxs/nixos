@@ -5,6 +5,7 @@
     ./ddclient.nix
     ./nginx.nix
     ./pihole.nix
+    ./unbound.nix
   ];
 
   options.nixos = {
@@ -23,6 +24,7 @@
       ddclient.enable = true;
       nginx.enable = true;
       pihole.enable = true;
+      unbound.enable = true;
     };
   };
 }
