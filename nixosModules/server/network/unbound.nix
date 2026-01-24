@@ -18,7 +18,7 @@
       user = "unbound";
       group = "unbound";
       stateDir = "/var/lib/unbound";
-      enableRootTrustAnchor = true;
+      #enableRootTrustAnchor = true;
       #resolveLocalQueries = true;
 
       settings = {
@@ -45,7 +45,7 @@
           num-threads = 1;
           so-rcvbuf = "1m";
 
-          forward-first = false;
+          #forward-first = false;
           #do-not-query-localhost = true;
           #fallback-enabled = true;
           private-address = [ 
