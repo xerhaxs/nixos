@@ -18,8 +18,8 @@
       user = "unbound";
       group = "unbound";
       stateDir = "/var/lib/unbound";
-      enableRootTrustAnchor = true;
-      resolveLocalQueries = true;
+      #enableRootTrustAnchor = true;
+      #resolveLocalQueries = true;
 
       settings = {
         server = {
