@@ -33,13 +33,12 @@
           do-tcp = true;
           harden-glue = true;
           harden-dnssec-stripped = true;
-          #fallback-enabled = true;
           use-caps-for-id = false;
           prefetch = true;
           edns-buffer-size = 1232;
-          prefetch = true;
           num-threads = 1;
           so-rcvbuf = "1m";
+          #fallback-enabled = true;
           private-address = [ 
             "192.168.0.0/16"
             "169.254.0.0/16"
