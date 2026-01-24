@@ -20,19 +20,19 @@
       stateDir = "/var/lib/unbound";
       #enableRootTrustAnchor = true;
       #resolveLocalQueries = true;
-      
+
       settings = {
         server = {
           interface = [ "127.0.0.1" ];
           port = [ "5335" ];
           access-control = [ "127.0.0.1 allow" ];
 
-          #do-ip4 = true;
-          #do-ip6 = true;
-          #prefer-ip4 = true;
-          #prefer-ip6 = false;
-          #do-udp = true;
-          #do-tcp = true;
+          do-ip4 = true;
+          do-ip6 = true;
+          prefer-ip4 = true;
+          prefer-ip6 = false;
+          do-udp = true;
+          do-tcp = true;
 
           harden-glue = true;
           harden-dnssec-stripped = true;
@@ -71,7 +71,7 @@
           }
         ];
 
-        #remote-control.control-enable = false;
+        remote-control.control-enable = false;
       };
     };
   };
