@@ -111,14 +111,19 @@
               # Possible values are:
               #     array of IP addresses and/or hostnames, optionally with a port (#...)
               upstreams = [
-                "9.9.9.11"
-                "2620:fe::11"
-                "149.112.112.11"
-                "2620:fe::fe:11"
-                "2606:4700:4700::1001"
-                "2606:4700:4700::1111"
-                "1.0.0.1"
-                "1.1.1.1"
+                "127.0.0.1#5335"
+                #"9.9.9.9"
+                #"149.112.112.112"
+                #"2620:fe::fe"
+                #"2620:fe::9"
+                #"9.9.9.11"
+                #"2620:fe::11"
+                #"149.112.112.11"
+                #"2620:fe::fe:11"
+                #"2606:4700:4700::1001"
+                #"2606:4700:4700::1111"
+                #"1.0.0.1"
+                #"1.1.1.1"
               ]; ### CHANGED, default = []
 
               # Use this option to control deep CNAME inspection. Disabling it might be beneficial
