@@ -147,14 +147,22 @@ in
         "browser.safebrowsing.provider.google4.updateURL" = "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
         "browser.safebrowsing.provider.google.gethashURL" = "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
         "browser.safebrowsing.provider.google.updateURL" = "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
+
         "webgl.disabled" = false;
+        "media.ffmpeg.vaapi.enabled" = true;
+        "media.rdd-ffmpeg.enabled" = true;
+        "widget.dmabuf.force-enabled" = true;
+        "gfx.webrender.all" = true;
+        "gfx.webrender.compositor" = true;
+        "image.jxl.enabled" = true;
         "media.eme.enabled" = true;
+
         "browser.eme.ui.enabled" = true;
         "media.autoplay.blocking_policy" = 2;
-        #"browser.profiles.enabled" = true;
         "cookiebanners.service.mode" = 2;
         "general.autoScroll" = true;
         "middlemouse.paste" = false;
+        "browser.backspace_action" = 0;
       };
 
       policies = {
