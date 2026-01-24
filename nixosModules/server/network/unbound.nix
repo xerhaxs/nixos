@@ -45,7 +45,7 @@
           num-threads = 1;
           so-rcvbuf = "1m";
 
-          forward-first = true;
+          #forward-first = false;
           #do-not-query-localhost = true;
           #fallback-enabled = true;
 
