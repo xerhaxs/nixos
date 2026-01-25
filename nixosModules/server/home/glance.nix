@@ -117,6 +117,7 @@
                         collapse-after = 5;
                         feeds = [
                           { url = "https://www.reuters.com/world/"; title = "Reuters"; limit = 3; }
+                          { url = "https://www.jungewelt.de/feeds/newsticker.rss"; title = "Junge Welt"; limit = 3; }
                           { url = "https://www.tagesschau.de/xml/rss2"; title = "Tagesschau"; limit = 3; }
                           { url = "https://www.heise.de/rss/heise-atom.xml"; title = "Heise Online"; limit = 3; }
                           { url = "https://netzpolitik.org/feed/"; title = "Netzpolitik.org"; limit = 3; }
@@ -303,8 +304,10 @@
                       {
                         title = "Links";
                         links = [
-                          { title = "ChatGPT"; url = "https://chat.openai.com"; }
-                          { title = "Netflix"; url = "https://netflix.com"; }
+                          { title = "Wikipedia"; url = "https://www.wikipedia.org/"; }
+                          { title = "Le Chat"; url = "https://chat.mistral.ai/chat"; }
+                          { title = "Language Tool"; url = "https://languagetool.org/"; }
+                          { title = "DeepL"; url = "https://www.deepl.com/"; }
                         ];
                       } 
                     ];
