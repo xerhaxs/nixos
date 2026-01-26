@@ -282,13 +282,13 @@
                   {
                     type = "markets";
                     markets = [
-                      { symbol = "AW01-EUR"; name = "FTSE All-World"; }
-                      { symbol = "URTH-EUR"; name = "MSCI World ETF"; }
-                      { symbol = "RHM-EUR"; name = " Rheinmetall"; }
+                      { symbol = "VWCE.DE"; name = "FTSE All-World"; }
+                      { symbol = "IWDA.AS"; name = "MSCI World ETF"; }
+                      { symbol = "RHM.DE"; name = " Rheinmetall"; }
                       { symbol = "XMR-EUR"; name = "Monero"; }
                       { symbol = "BTC-EUR"; name = "Bitcoin"; }
                       { symbol = "ETH-EUR"; name = "Ethereum"; }
-                      { symbol = "XAUEUR"; name = "Gold"; }
+                      { symbol = "GC=F"; name = "Gold"; }
                     ];
                   }
                   {
