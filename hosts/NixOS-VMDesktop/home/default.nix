@@ -3,6 +3,7 @@
 {
   imports = [
     ./home.nix
+    ./persistent.nix
     ./xdg.nix
   ];
 }
