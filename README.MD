@@ -172,7 +172,7 @@ fwupdmgr update
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
       * [x] Ollama
-      * [ ] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
+      * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
     * [ ] Grafana + Prometheus Dashboard
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
