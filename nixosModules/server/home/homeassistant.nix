@@ -46,7 +46,7 @@
         mushroom
       ];
 
-      defaultIntegrations = [
+      #defaultIntegrations = [
       #  "application_credentials"
       #  "backup"
       #  "frontend"
@@ -69,6 +69,9 @@
       #  "input_text"
       #  "schedule"
       #  "timer"
+      #];
+
+      extraComponents = [
         "androidtv"
         "androidtv_remote"
         "default_config"
@@ -89,28 +92,6 @@
         "sony_projector"
         "supervisord"
       ];
-
-      #extraComponents = [
-      #  "androidtv"
-      #  "androidtv_remote"
-      #  "default_config"
-      #  "denon"
-      #  "denonavr"
-      #  "esphome"
-      #  "fire_tv"
-      #  "forecast_solar"
-      #  "fritzbox"
-      #  "fritzbox_callmonitor"
-      #  "goodwe"
-      #  "harmony"
-      #  "hassio"
-      #  "heos"
-      #  "met"
-      #  "panasonic_bluray"
-      #  "radio_browser"
-      #  "sony_projector"
-      #  "supervisord"
-      #];
     };
 
     services.nginx = {
