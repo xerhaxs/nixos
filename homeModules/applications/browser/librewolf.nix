@@ -4,7 +4,7 @@ let
   customization = {
     # Translation
     "browser.translations.panelShown" = true;
-    "browser.translations.neverTranslateLanguages" = "de";
+    "browser.translations.neverTranslateLanguages" = "de,en";
 
     # set HOME+NEWWINDOW page
     "browser.startup.homepage" = "https://glance.m4rx.cc/";
@@ -439,100 +439,6 @@ in
             default = "ddg";
             privateDefault = "ddg";
           };
-        };
-
-        work = {
-          id = 1;
-          settings = lib.mkMerge [
-            {
-              "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
-            }
-            customization
-          ];
-          bookmarks = {
-            force = true;
-            settings = [
-              {
-                name = "Teams";
-                tags = [ "teams" ];
-                keyword = "teams";
-                url = "https://teams.microsoft.com";
-              }
-            ];
-          };
-        };
-        
-        school = {
-          id = 2;
-          settings = lib.mkMerge [
-            {
-              "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
-            }
-            customization
-          ];
-          bookmarks = {
-            force = true;
-            settings = [
-              {
-                name = "Teams";
-                tags = [ "teams" ];
-                keyword = "teams";
-                url = "https://teams.microsoft.com";
-              }
-              {
-                name = "WebUntis";
-                tags = [ "untis" ];
-                keyword = "untis";
-                url = "https://webuntis.com";
-              }
-            ];
-          };
-        };
-        
-        entertainment = {
-          id = 3;
-          settings = lib.mkMerge [
-            {
-              "privacy.sanitize.sanitizeOnShutdown" = lib.mkDefault false;
-            }
-            customization
-          ];
-          bookmarks = {
-            force = true;
-            settings = [
-              {
-                name = "YouTube";
-                tags = [ "youtube" ];
-                keyword = "youtube";
-                url = "https://youtube.com/";
-              }
-              {
-                name = "Netflix";
-                tags = [ "netflix" ];
-                keyword = "netflix";
-                url = "https://netflix.com/de";
-              }
-              {
-                name = "Disney";
-                tags = [ "disney" ];
-                keyword = "disney";
-                url = "https://www.disneyplus.com";
-              }
-              {
-                name = "Twitch";
-                tags = [ "twitch" ];
-                keyword = "twitch";
-                url = "https://twitch.tv";
-              }
-            ];
-          };
-        };
-
-        privacy = {
-          id = 4;
-          settings = lib.mkMerge [
-            customization
-          ];
         };
       };
     };
