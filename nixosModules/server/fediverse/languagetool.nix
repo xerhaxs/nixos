@@ -16,7 +16,7 @@
     services.languagetool = {
       enable = true;
       port = 8001;
-      public = false;
+      public = true;
       settings = {
         cacheSize = 1000;
       };
