@@ -18,7 +18,7 @@
     home = {
       glance.enable = true;
       #jellyfin.enable = true;
-      #homeassistant.enable = true;
+      homeassistant.enable = true;
       ollama.enable = true;
       radicale.enable = true;
     };
