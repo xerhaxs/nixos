@@ -282,13 +282,13 @@
                   {
                     type = "markets";
                     markets = [
-                      { symbol = "AW01"; name = "FTSE All-World"; }
-                      { symbol = "URTH"; name = "MSCI World ETF"; }
-                      { symbol = "U1IH"; name = "UniGlobal"; }
-                      { symbol = "RHM"; name = " Rheinmetall"; }
-                      { symbol = "BTC-USD"; name = "Bitcoin"; }
-                      { symbol = "ETH-USD"; name = "Ethereum"; }
-                      { symbol = "XMR-USD"; name = "Monero"; }
+                      { symbol = "AW01-EUR"; name = "FTSE All-World"; }
+                      { symbol = "URTH-EUR"; name = "MSCI World ETF"; }
+                      { symbol = "RHM-EUR"; name = " Rheinmetall"; }
+                      { symbol = "XMR-EUR"; name = "Monero"; }
+                      { symbol = "BTC-EUR"; name = "Bitcoin"; }
+                      { symbol = "ETH-EUR"; name = "Ethereum"; }
+                      { symbol = "XAUEUR"; name = "Gold"; }
                     ];
                   }
                   {
