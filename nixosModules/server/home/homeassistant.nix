@@ -24,7 +24,6 @@
         http = {
           server_port = 8123;
           use_x_forwarded_for = true;
-          server_host = [ "0.0.0.0" ];
           trusted_proxies = [ "127.0.0.1" ];
         };
 
