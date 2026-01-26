@@ -4,6 +4,7 @@
   imports = [
     ./gitea.nix
     ./invidious.nix
+    ./languagetool.nix
     ./libreddit.nix
     ./moneronode.nix
     ./murmur.nix
@@ -27,6 +28,7 @@
     nixos.server.fediverse = {
       gitea.enable = true;
       invidious.enable = true;
+      languagetool.enable = true;
       libreddit.enable = true;
       moneronode.enable = true;
       murmur.enable = true;

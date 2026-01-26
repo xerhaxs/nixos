@@ -25,6 +25,7 @@
         "invidious.${config.nixos.server.network.nginx.domain}"
         #"jellyfin.${config.nixos.server.network.nginx.domain}"
         #"kiwix.${config.nixos.server.network.nginx.domain}"
+        "languagetool.${config.nixos.server.network.nginx.domain}"
         "libreddit.${config.nixos.server.network.nginx.domain}"
         "ollama.${config.nixos.server.network.nginx.domain}"
         "radicale.${config.nixos.server.network.nginx.domain}"

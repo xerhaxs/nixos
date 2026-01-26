@@ -123,6 +123,7 @@ in
           "homeassistant.${config.nixos.server.network.nginx.domain}"
           "invidious.${config.nixos.server.network.nginx.domain}"
           "kiwix.${config.nixos.server.network.nginx.domain}"
+          "languagetool.${config.nixos.server.network.nginx.domain}"
           "lemmy.${config.nixos.server.network.nginx.domain}"
           "libreddit.${config.nixos.server.network.nginx.domain}"
           "moneronode.${config.nixos.server.network.nginx.domain}"
