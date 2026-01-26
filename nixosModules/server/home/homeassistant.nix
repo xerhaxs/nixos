@@ -16,7 +16,7 @@
     services.home-assistant = {
       enable = true;
       
-      openFirewall = false;
+      openFirewall = true;
       configDir = "/var/lib/hass";
 
       config = {
@@ -75,7 +75,6 @@
         "default_config"
         "denon"
         "denonavr"
-        "elv"
         "esphome"
         "fire_tv"
         "forecast_solar"
@@ -91,53 +90,7 @@
         "sony_projector"
         "supervisord"
       ];
-
-      #package = (pkgs.home-assistant.override {
-      #  extraPackages = py: with py; [ 
-      #    psycopg2 
-      #  ];
-
-        #extraComponents = [
-        #  "androidtv"
-        #  "androidtv_remote"
-        #  "default_config"
-        #  "denon"
-        #  "denonavr"
-        #  "elv"
-        #  "esphome"
-        #  "fire_tv"
-        #  "forecast_solar"
-        #  "fritzbox"
-        #  "fritzbox_callmonitor"
-        #  "goodwe"
-        #  "harmony"
-        #  "hassio"
-        #  "heos"
-        #  "met"
-        #  "panasonic_bluray"
-        #  "radio_browser"
-        #  "sony_projector"
-        #];
-
-      #}).overrideAttrs (oldAttrs: {
-      #  doInstallCheck = true;
-      #});
-
-      #config.recorder.db_url = "postgresql://@/hass";
     };
-
-    #services.postgresql = {
-    #  enable = true;
-    #  ensureDatabases = [ "hass" ];
-    #  ensureUsers = [{
-    #    name = "hass";
-    #    ensureDBOwnership = true;
-    #  }];
-    #};
-
-    #nixpkgs.config.permittedInsecurePackages = [
-    #  "openssl-1.1.1w" # Allow insecure and outdated openssl1.1.1 version for home assistant
-    #];
 
     services.nginx = {
       virtualHosts = {
