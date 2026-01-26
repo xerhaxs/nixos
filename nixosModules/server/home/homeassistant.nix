@@ -90,7 +90,6 @@
         "radio_browser"
         "sony_projector"
         "supervisord"
-        "xbox"
       ];
 
       #package = (pkgs.home-assistant.override {
