@@ -35,7 +35,6 @@
           http2 = false;
           locations."/" = {
             proxyPass = "http://localhost:8001";
-            proxyMethod = "POST";
             proxySetHeader = [
               "Host $host"
               "X-Real-IP $remote_addr"
