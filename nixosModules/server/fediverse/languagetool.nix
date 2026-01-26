@@ -20,7 +20,7 @@
       settings = {
         cacheSize = 1000;
       };
-      jvmOptions [
+      jvmOptions = [
         "-Xmx512m"
       ];
     };

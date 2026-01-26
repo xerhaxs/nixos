@@ -8,6 +8,7 @@
   nixos.server = {
     fediverse = {
       invidious.enable = true;
+      languagetool.enable = true;
       libreddit.enable = true;
       nitter.enable = true;
       searxng.enable = true;
