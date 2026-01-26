@@ -160,11 +160,11 @@ fwupdmgr update
     * [X] FreshRSS -> RSS Feed in Glance
     * [ ] Gitea -> local pull instance from public smb share with syncthing?
     * [ ] SMB / NFS Share
-    * [X] Lidarr (Config setup) -> not possible due to no module options for settings
+    * [X] Lidarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] NZBHydra2 (Config setup) -> not possible due to no module options for settings
-    * [X] Radarr (Config setup) -> waiting for nixos pkg update
-    * [X] Readarr (Config setup) -> not possible due to no module options for settings
-    * [X] Sonarr (Config setup) -> not possible due to no module options for settings
+    * [X] Radarr (Config setup) -> waiting for nixos pkg update (settings in database)
+    * [X] Readarr (Config setup) -> not possible due to no module options for settings (settings in database)
+    * [X] Sonarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] Sabnzbd (Config setup) -> not possible due to no module options for settings
     * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file
     * [ ] Setup Home Assistant in NixOS -> https://search.nixos.org/options?channel=unstable&query=services.home-assistant https://wiki.nixos.org/wiki/Home_Assistant
