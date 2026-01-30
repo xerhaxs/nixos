@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.xserver.displayManager.startx.enable = true;
+  #services.xserver.displayManager.startx.enable = true;
 
   nixos.server.network.nginx.enable = true;
 
