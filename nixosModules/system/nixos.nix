@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixos.system.nixos.enable {
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfree = false;
 
     programs.nix-ld.enable = true;
 

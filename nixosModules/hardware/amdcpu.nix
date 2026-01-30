@@ -17,7 +17,7 @@
     boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
     
     hardware = {
-      enableAllFirmware = true; # disable unfree firmware drivers
+      enableAllFirmware = true; # unfree firmware drivers
       enableRedistributableFirmware = true;
       cpu.amd.updateMicrocode = true;
     };

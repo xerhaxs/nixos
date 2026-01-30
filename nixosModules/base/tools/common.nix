@@ -17,12 +17,16 @@
       # common tools
       "unrar"
 
+      # firmware
+      "b43-firmware"
+      "broadcom-bt-firmware"
+      "facetimehd-calibration"
+      "facetimehd-firmware"
+      "xow_dongle-firmware"
+
       # gaming
       "steam"
       "steam-unwrapped"
-
-      # firmware
-      
     ];
 
     environment.systemPackages = with pkgs; [
