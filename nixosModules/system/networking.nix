@@ -128,6 +128,7 @@ in
           "libreddit.${config.nixos.server.network.nginx.domain}"
           "moneronode.${config.nixos.server.network.nginx.domain}"
           "murmur.${config.nixos.server.network.nginx.domain}"
+          "networkingtoolbox.${config.nixos.server.network.nginx.domain}"
           "nitter.${config.nixos.server.network.nginx.domain}"
           "ollama.${config.nixos.server.network.nginx.domain}"
           "pihole.${config.nixos.server.network.nginx.domain}"

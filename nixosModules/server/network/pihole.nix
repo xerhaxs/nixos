@@ -197,7 +197,7 @@
               #       sounding similar to "DROP", it turned out that many clients will just
               #       immediately retry, causing up to several thousands of queries per second. This
               #       does not happen in "DROP" mode.
-              replyWhenBusy = "ALLOW";
+              replyWhenBusy = "BLOCK";
 
               # FTL's internal TTL to be handed out for blocked queries in seconds. This settings
               # allows users to select a value different from the dnsmasq config option local-ttl.
@@ -226,6 +226,7 @@
                 "10.75.0.21 kiwix.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 languagetool.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 libreddit.${config.nixos.server.network.nginx.domain}"
+                "10.75.0.21 networkingtoolbox.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 nitter.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 ollama.${config.nixos.server.network.nginx.domain}"
                 "10.75.0.21 pihole.${config.nixos.server.network.nginx.domain}"
@@ -737,7 +738,7 @@
                   #   - "C"
                   #   - "F"
                   #   - "K"
-                  unit = "C";
+                  unit = "K";
                 };
               };
             };
