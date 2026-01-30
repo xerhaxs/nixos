@@ -14,9 +14,15 @@
 
   config = lib.mkIf config.nixos.base.tools.common.enable {
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      # common tools
       "unrar"
+
+      # gaming
       "steam"
       "steam-unwrapped"
+
+      # firmware
+      
     ];
 
     environment.systemPackages = with pkgs; [

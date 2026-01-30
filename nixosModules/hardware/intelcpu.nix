@@ -18,11 +18,8 @@
     boot.initrd.availableKernelModules = [ "snd-hda-intel" ];
     
     hardware = {
-      enableAllFirmware = false; # disable unfree firmware drivers
-      enableRedistributableFirmware = false; # disable unfree firmware drivers
-      firmware = with pkgs; [
-        linuxFirmware.intel
-      ];
+      enableAllFirmware = true; # disable unfree firmware drivers
+      enableRedistributableFirmware = true;
       cpu.intel.updateMicrocode = true;
     };
 
