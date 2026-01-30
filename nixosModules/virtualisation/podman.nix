@@ -17,5 +17,9 @@
       enable = true;
       enableNvidia = lib.mkIf (config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.podman.enable) true;
     };
+
+    virtualisation.oci-containers = {
+      backend = "podman";
+    };
   };
 }

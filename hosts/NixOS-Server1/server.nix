@@ -5,6 +5,8 @@
 
   nixos.server.network.nginx.enable = true;
 
+  nixos.virtualisation.podman.enable = true;
+
   nixos.server = {
     fediverse = {
       invidious.enable = true;
@@ -18,8 +20,9 @@
     };
     home = {
       glance.enable = true;
-      #jellyfin.enable = true;
       homeassistant.enable = true;
+      #jellyfin.enable = true;
+      networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
     };
