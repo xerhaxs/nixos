@@ -28,7 +28,6 @@
 
     # Tell Xorg to use the amd driver
     services.xserver = {
-      enable = true;
       videoDrivers = [ "amdgpu" ];
     };
 

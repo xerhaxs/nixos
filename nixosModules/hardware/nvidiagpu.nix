@@ -24,7 +24,6 @@
 
     # Tell Xorg to use the nvidia driver
     services.xserver = {
-      enable = true;
       videoDrivers = [ "nvidia" ];
     };
 
