@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  #services.xserver.displayManager.startx.enable = true;
   services.getty.autologinUser = null;
 
   nixos.server.network.nginx.enable = true;
@@ -23,7 +22,7 @@
       glance.enable = true;
       homeassistant.enable = true;
       #jellyfin.enable = true;
-      #networkingtoolbox.enable = true;
+      networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
     };
