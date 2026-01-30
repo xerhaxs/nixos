@@ -62,6 +62,13 @@ $ nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/
 nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ```
 
+### NixOS System update
+
+```
+nix flake update
+nixos-rebuild switch --flake .#HOSTNAME
+```
+
 ### BIOS / Firmware update
 
 ```
