@@ -13,6 +13,12 @@
   };
 
   config = lib.mkIf config.nixos.base.tools.common.enable {
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "unrar"
+      "steam"
+      "steam-unwrapped"
+    ];
+
     environment.systemPackages = with pkgs; [
       # fetchers
       neofetch

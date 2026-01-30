@@ -20,7 +20,6 @@
       telegram-desktop
       wasistlos
       mumble
-      teamspeak6-client
     ];
   };
 }

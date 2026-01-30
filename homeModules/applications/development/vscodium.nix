@@ -45,8 +45,6 @@
           #hediet.vscode-drawio
           james-yu.latex-workshop
           alefragnani.bookmarks
-          ms-dotnettools.csharp
-          ms-dotnettools.vscode-dotnet-runtime
         ];
       };
     };
