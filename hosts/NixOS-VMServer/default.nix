@@ -6,6 +6,6 @@
     ./disko.nix
     ./hardware-configuration.nix
     ./networking.nix
-    ./zfsmount.nix
+    #./zfsmount.nix
   ];
 }
