@@ -21,7 +21,7 @@
       enableAllFirmware = false; # disable unfree firmware drivers
       enableRedistributableFirmware = false; # disable unfree firmware drivers
       firmware = with pkgs; [
-        linuxFirmware.amd
+        linuxFirmware.intel
       ];
       cpu.intel.updateMicrocode = true;
     };
