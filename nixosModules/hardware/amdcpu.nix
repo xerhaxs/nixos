@@ -18,10 +18,10 @@
     
     hardware = {
       enableAllFirmware = false; # disable unfree firmware drivers
-      enableRedistributableFirmware = false; # disable unfree firmware drivers
-      firmware = with pkgs; [
-        linux-firmware
-      ];
+      enableRedistributableFirmware = true;
+      #firmware = with pkgs; [
+      #  linux-firmware
+      #];
       cpu.amd.updateMicrocode = true;
     };
 
