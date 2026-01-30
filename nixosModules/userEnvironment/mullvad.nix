@@ -15,7 +15,13 @@
   config = lib.mkIf config.nixos.userEnvironment.mullvad.enable {
     services.mullvad-vpn = {
       enable = true;
-      enableExcludeWrapper = true;
+      enableExcludeWrapper = false;
+      package = pkgs.mullvad-vpn;
     };
+
+    environment.systemPackages = with pkgs; [
+      mullvad-browser
+      protonvpn-gui
+    ];
   };
 }

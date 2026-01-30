@@ -19,8 +19,8 @@
 
   config = lib.mkIf config.homeManager.applications.vpn.enable {
     homeManager.applications.vpn = {
-      mullvad.enable = true;
-      protonvpn.enable = true;
+      #mullvad.enable = true;
+      #protonvpn.enable = true;
     };
   };
 }

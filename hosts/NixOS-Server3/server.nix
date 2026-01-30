@@ -14,11 +14,11 @@
     sonarr.enable = true;
   };
 
-  services.mullvad-vpn.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    mullvad
-  ];
+  services.mullvad-vpn = {
+    enable = true;
+    enableExcludeWrapper = false;
+    package = pkgs.mullvad;
+  };
 
   users.groups.truenas = {
     members = [
