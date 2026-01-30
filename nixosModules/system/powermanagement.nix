@@ -31,8 +31,8 @@
       powerKeyLongPress = "factory-reset";
       suspendKey = "suspend";
       suspendKeyLongPress = "suspend-then-hibernate";
-      hibernateKey = "hibernate";
-      hibernateKeyLongPress = "suspend-then-hibernate";
+      hibernateKey = "suspend"; # hibernation is disabled -> "hibernate"
+      hibernateKeyLongPress = "suspend"; # hibernation is disabled -> "suspend-then-hibernate"
       rebootKey = "factory-reset";
       rebootKeyLongPress = "factory-reset";
       lidSwitch = "suspend";

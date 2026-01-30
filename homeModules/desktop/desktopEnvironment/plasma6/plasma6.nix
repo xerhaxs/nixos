@@ -98,7 +98,7 @@
                 General = {
                   icon = "nix-snowflake-white";
                   favoritesPortedToKAstats = "true";
-                  systemFavorites = "suspend\\,hibernate\\,reboot\\,shutdown";
+                  systemFavorites = "suspend\\,reboot\\,shutdown"; # no hibernation "suspend\\,hibernate\\,reboot\\,shutdown"
                 };
               };
             }

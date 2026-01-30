@@ -105,8 +105,8 @@
       ];
     };
 
-    #boot.resumeDevice = "/swap/swapfile";
-    #boot.kernelParams = [ "resume_offset=" ];
+    #boot.resumeDevice = "/swap/swapfile"; # hibernation is disabled!
+    #boot.kernelParams = [ "resume_offset=" ]; # hibernation is disabled!
     swapDevices = [
       {
         device = "/swap/swapfile";
