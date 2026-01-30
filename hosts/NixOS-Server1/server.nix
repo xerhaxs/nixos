@@ -5,7 +5,7 @@
 
   nixos.server.network.nginx.enable = true;
 
-  nixos.virtualisation.podman.enable = true;
+  #nixos.virtualisation.podman.enable = true;
 
   nixos.server = {
     fediverse = {
