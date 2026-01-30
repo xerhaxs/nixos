@@ -20,7 +20,7 @@
       enableAllFirmware = false; # disable unfree firmware drivers
       enableRedistributableFirmware = false; # disable unfree firmware drivers
       firmware = with pkgs; [
-        linuxFirmware.amd
+        linux-firmware
       ];
       cpu.amd.updateMicrocode = true;
     };
