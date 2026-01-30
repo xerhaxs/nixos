@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixos.system.nixos.enable {
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfree = false;
 
     programs.nix-ld.enable = true;
 
@@ -39,7 +39,7 @@
       };
     };
 
-    system.stateVersion = "25.05";
+    system.stateVersion = "25.11";
 
     environment.systemPackages = with pkgs; [
       nix-output-monitor # nix related
