@@ -2,7 +2,7 @@
 
 {
   options.nixos = {
-    server.home.networking-toolbox = {
+    server.home.networkingtoolbox = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.networking-toolbox.enable {
+  config = lib.mkIf config.nixos.server.home.networkingtoolbox.enable {
     virtualisation.oci-containers.containers = {
         networking-toolbox = {
           image = "docker.io/lissy93/networking-toolbox:latest";

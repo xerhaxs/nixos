@@ -17,8 +17,8 @@
       enable = true;
       package = pkgs.brave;
       dictionaries = with pkgs; [
-        hunspellDictsbrave.de_DE
-        hunspellDictsbrave.en_US
+        hunspellDictsChromium.de_DE
+        hunspellDictsChromium.en_US
       ];
       # Extensions need to be added to an automated script in brave
       # https://github.com/NeverDecaf/brave-web-store/releases
@@ -65,6 +65,6 @@
         "DnsOverHttpsMode": "secure",
         "DnsOverHttpsTemplates": "https://dns.adguard-dns.com/dns-query"
       }
-    ''
+    '';
   };
 }
