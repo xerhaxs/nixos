@@ -110,7 +110,7 @@ fwupdmgr update
     * [x] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
     * [ ] Move to Librewolf as main browser, remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
     * [ ] setup languagetool browser addon with custom languagetool server
-  * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent 
+  * [ ] Setup Chromium / Brave in Config via Settings + Policies -> maybe replace with Trivalent https://github.com/secureblue/Trivalent https://chromeenterprise.google/policies/ https://search.nixos.org/options?channel=unstable&show=programs.chromium.enable&query=programs.chromium
   * [ ] Config setup of Steam (write config file)
   * [ ] Config setup of Heroic (write config file)
   * [ ] Config setup of Prism Launcher (write config file)
