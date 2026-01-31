@@ -23,7 +23,7 @@
       settings = {
         misc = {
           host = "127.0.0.1";
-          port = "8080";
+          port = 8080;
           bandwidth_max = "5M";
           cache_limit = "1G";
           language = "en";
