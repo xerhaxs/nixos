@@ -17,9 +17,9 @@
       enable = true;
       openFirewall = false;
       allowConfigWrite = true;
-      #secretFiles = [
-      #  config.sops.secrets."sabnzbd".path
-      #];
+      secretFiles = [
+        config.sops.secrets."sabnzbd".path
+      ];
       settings = {
         misc = {
           bandwidth_max = "5M";
