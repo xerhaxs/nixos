@@ -72,7 +72,7 @@ nixos-rebuild switch --flake .#HOSTNAME
 Remote Build from local Host:
 
 ```
-nixos-rebuild switch --flake .#SERVERHOSTNAME --target-host REMOTEUSER@SERVERHOSTNAME --sudo
+ nixos-rebuild switch --flake .#SERVERHOSTNAME --target-host REMOTEUSER@SERVERHOSTNAME --sudo
 ```
 
 ### BIOS / Firmware update
