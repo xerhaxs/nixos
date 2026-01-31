@@ -16,7 +16,7 @@
     services.sabnzbd = {
       enable = true;
       openFirewall = false;
-      allowConfigWrite = true;
+      allowConfigWrite = false;
       secretFiles = [
         config.sops.secrets."sabnzbd".path
       ];
