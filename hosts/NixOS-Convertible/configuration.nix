@@ -28,6 +28,7 @@
   nixos.system.user.defaultuser = {
     name = "jf";
     pass = "$y$j9T$S9GUmOvHiLeQKWHtuGIMx0$.AHr5Ej3c.Bq/AYHO5Yp5T8/21LI81CdaxEm.q/GJg/";
+    #passfile = config.sops.secrets."user/nixos-convertible/admin".path;
   };
 
   nixos.system.secureboot.enable = true;

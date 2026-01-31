@@ -29,6 +29,7 @@
   nixos.system.user.defaultuser = {
     name = "admin";
     pass = "$y$j9T$1/B9SU/ligzAtWZfeWUkN0$HpnDuMQ26LrBrhTxQrapc2Fx/q3MfL.kX27D4jL87o/";
+    #passfile = config.sops.secrets."user/nixos-vmdesktop/admin".path;
   };
 
   nixos.userEnvironment.enable = true;

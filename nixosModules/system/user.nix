@@ -50,8 +50,8 @@
       extraGroups = [
         "wheel"
       ];
-      #initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
-      hashedPasswordFile = "${config.nixos.system.user.defaultuser.passfile}";
+      initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
+      #hashedPasswordFile = "${config.nixos.system.user.defaultuser.passfile}";
       shell = config.nixos.system.user.defaultuser.shell;
     };
     users.mutableUsers = false;

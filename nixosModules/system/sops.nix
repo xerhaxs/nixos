@@ -59,9 +59,6 @@
 
         "truenas-smb/user" = { };
 
-        "user/admin" = {
-          neededForUsers = true;
-        };
         "user/nixos-convertible/jf" = {
           neededForUsers = true;
         };
