@@ -97,7 +97,7 @@ fwupdmgr update
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
   * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
-  * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/
+  * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/ https://coveryourtracks.eff.org/ https://amiunique.org/fingerprint
   * [ ] Remove secrets from home manager git config
   * [ ] Add a Remote Kill Switch to shutdown every system
   * [ ] Setup Power Buttons as Panic Buttons -> One Press = Force Power Off
@@ -180,7 +180,7 @@ fwupdmgr update
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
       * [x] Ollama
       * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
-    * [ ] Grafana + Prometheus Dashboard
+    * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
     * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow
