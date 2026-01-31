@@ -15,7 +15,7 @@
   config = lib.mkIf config.nixos.userEnvironment.mullvad.enable {
     services.mullvad-vpn = {
       enable = true;
-      enableExcludeWrapper = false;
+      enableExcludeWrapper = true;
       package = pkgs.mullvad-vpn;
     };
 

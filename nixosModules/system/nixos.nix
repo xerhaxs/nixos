@@ -15,6 +15,22 @@
   config = lib.mkIf config.nixos.system.nixos.enable {
     nixpkgs.config.allowUnfree = false;
 
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      # nixosModules/base/tools/common.nix
+      "unrar"
+
+      # nixosModules/hardware/amdcpu.nix + nixosModules/hardware/intelcpui.nix
+      #"b43-firmware"
+      #"broadcom-bt-firmware"
+      #"facetimehd-calibration"
+      #"facetimehd-firmware"
+      #"xow_dongle-firmware"
+
+      # nixosModules/userEnvironment/game/steam.nix
+      "steam"
+      "steam-unwrapped"
+    ];
+
     programs.nix-ld.enable = true;
 
     system.autoUpgrade = {

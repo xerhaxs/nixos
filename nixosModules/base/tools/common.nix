@@ -13,22 +13,6 @@
   };
 
   config = lib.mkIf config.nixos.base.tools.common.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      # common tools
-      "unrar"
-
-      # firmware
-      #"b43-firmware"
-      #"broadcom-bt-firmware"
-      #"facetimehd-calibration"
-      #"facetimehd-firmware"
-      #"xow_dongle-firmware"
-
-      # gaming
-      "steam"
-      "steam-unwrapped"
-    ];
-
     environment.systemPackages = with pkgs; [
       # fetchers
       neofetch

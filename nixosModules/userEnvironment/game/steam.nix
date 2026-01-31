@@ -12,12 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.userEnvironment.game.steam.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-unwrapped"
-    ];
-    
+  config = lib.mkIf config.nixos.userEnvironment.game.steam.enable {    
     programs.steam = {
       enable = true;
       gamescopeSession.enable = true;
