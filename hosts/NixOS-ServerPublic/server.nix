@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.getty.autologinUser = null;;
+  services.getty.autologinUser = null;
 
   nixos.server.network.nginx = {
     enable = true;

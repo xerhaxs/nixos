@@ -11,7 +11,7 @@
     pass = "$y$j9T$ZEmmQ3X2ZJ2SjdORzgtXH1$n7.HG3CbcKpKv1gZjrAhbFJzqsjNNUsh7mCxxzoEPbB";
   };
 
-  services.getty.autologinUser = null;;
+  services.getty.autologinUser = null;
 
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
