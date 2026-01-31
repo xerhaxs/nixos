@@ -105,12 +105,10 @@
       ];
     };
 
-    #boot.resumeDevice = "/swap/swapfile"; # hibernation is disabled!
-    #boot.kernelParams = [ "resume_offset=" ]; # hibernation is disabled!
     swapDevices = [
       {
         device = "/swap/swapfile";
-        size = 8 * 1024;
+        size = 32 * 1024;
       }
     ];
 
@@ -237,9 +235,6 @@
                           "noatime"
                           "nodatacow"
                         ];
-                        #swap = {
-                        #  swapfile.size = "32G";
-                        #};
                       };
                     };
                   };
