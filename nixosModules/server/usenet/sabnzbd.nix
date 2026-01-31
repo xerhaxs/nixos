@@ -37,10 +37,10 @@
           #email_rss = 0;
           email_server = "";
           email_to = "";
-          enable_https = 0;
+          #enable_https = 0;
           host = "127.0.0.1";
           host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}";
-          html_login = 1;
+          #html_login = 1;
           inet_exposure = 0;
           language = "en";
           notified_new_skin = 1;
@@ -58,8 +58,8 @@
           https_port = "";
           web_dir = "Glitter";
           web_color = "Auto";
-          https_cert = "server.cert";
-          https_key = "server.key";
+          #https_cert = "server.cert";
+          #https_key = "server.key";
           https_chain = "";
           socks5_proxy_url = "";
           permissions = "";
@@ -164,7 +164,7 @@
           verify_xff_header = 0;
           rss_odd_titles = "nzbindex.nl/, nzbindex.com/, nzbclub.com/";
           quick_check_ext_ignore = "nfo, sfv, srr";
-          req_completion_rate = 100.2;
+          req_completion_rate = "100.2";
           selftest_host = "self-test.sabnzbd.org";
           movie_rename_limit = "100M";
           episode_rename_limit = "20M";
@@ -180,7 +180,7 @@
           max_url_retries = 10;
           downloader_sleep_time = 10;
           receive_threads = 2;
-          switchinterval = 0.005;
+          switchinterval = "0.005";
           ssdp_broadcast_interval = 15;
           ext_rename_ignore = "";
           unrar_parameters = "";
@@ -199,6 +199,8 @@
 
         servers = {
           "eunews.frugalusenet.com" = {
+            name = "eunews.frugalusenet.com";
+            displayname = "eunews.frugalusenet.com";
             host = "eunews.frugalusenet.com";
             port = 563;
             timeout = 60;
@@ -212,6 +214,8 @@
             priority = 1;
           };
           "news.frugalusenet.com" = {
+            name = "news.frugalusenet.com";
+            displayname = "news.frugalusenet.com";
             host = "news.frugalusenet.com";
             port = 563;
             timeout = 60;
@@ -222,6 +226,8 @@
             priority = 2;
           };
           "bonus.frugalusenet.com" = {
+            name = "bonus.frugalusenet.com";
+            displayname = "bonus.frugalusenet.com";
             host = "bonus.frugalusenet.com";
             port = 563;
             timeout = 60;
@@ -232,6 +238,8 @@
             priority = 5;
           };
           "news.newshosting.com" = {
+            name = "news.newshosting.com";
+            displayname = "news.newshosting.com";
             host = "news.newshosting.com";
             port = 563;
             timeout = 60;
@@ -242,6 +250,8 @@
             priority = 1;
           };
           "eunews.blocknews.net" = {
+            name = "eunews.blocknews.net";
+            displayname = "eunews.blocknews.net";
             host = "eunews.blocknews.net";
             port = 563;
             timeout = 60;
@@ -252,6 +262,8 @@
             priority = 7;
           };
           "eunews2.blocknews.net" = {
+            name = "eunews2.blocknews.net";
+            displayname = "eunews2.blocknews.net";
             host = "eunews2.blocknews.net";
             port = 563;
             timeout = 60;

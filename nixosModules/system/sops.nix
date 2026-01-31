@@ -57,10 +57,41 @@
 
         "searxng/secret" = { };
 
+        "truenas-smb/user" = { };
+
+        "user/admin" = {
+          neededForUsers = true
+        };
+        "user/nixos-convertible/jf" = {
+          neededForUsers = true
+        };
+        "user/nixos-desktop/jf" = {
+          neededForUsers = true
+        };
+        "user/nixos-framework/jf" = {
+          neededForUsers = true
+        };
+        "user/nixos-server1/admin" = {
+          neededForUsers = true
+        };
+        "user/nixos-server2/admin" = {
+          neededForUsers = true
+        };
+        "user/nixos-server3/admin" = {
+          neededForUsers = true
+        };
+        "user/nixos-serverpublic/admin" = {
+          neededForUsers = true
+        };
+        "user/nixos-vmdesktop/admin" = {
+          neededForUsers = true
+        };
+        "user/nixos-vmserver/admin" = {
+          neededForUsers = true
+        };
+
         "webdav/users/admin/username" = { };
         "webdav/users/admin/password" = { };
-
-        "truenas-smb/user" = { };
 
         "wifi" = { };
       };

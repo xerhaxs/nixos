@@ -8,7 +8,8 @@
 
   nixos.system.user.defaultuser = {
     name = "admin";
-    pass = "$y$j9T$ZEmmQ3X2ZJ2SjdORzgtXH1$n7.HG3CbcKpKv1gZjrAhbFJzqsjNNUsh7mCxxzoEPbB";
+    #pass = "$y$j9T$ZEmmQ3X2ZJ2SjdORzgtXH1$n7.HG3CbcKpKv1gZjrAhbFJzqsjNNUsh7mCxxzoEPbB";
+    passfile = config.sops.secrets."user/nixos-vmserver/admin".path;
   };
 
   services.getty.autologinUser = null;

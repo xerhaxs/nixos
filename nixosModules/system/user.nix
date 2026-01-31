@@ -20,6 +20,11 @@
           example = "$y$j9T$0UcoJ1R/ZXIbBZ5E0HtJT/$I7Q8aZQe/J06G1WZiLlEh0rc7HDOrltYUuDZrZSd4r0";
           description = "Set the pass for the default user as a hash. Create a hash of a password with `mkpasswd`.";
         };
+        passfile = lib.mkOption {
+          type = lib.types.str;
+          example = "config.sops.secrets."userpassfile".path";
+          description = "Set the pass file via sops.";
+        };
         shell = lib.mkOption {
           type = lib.types.package;
           default = pkgs.bash;
@@ -45,7 +50,8 @@
       extraGroups = [
         "wheel"
       ];
-      initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
+      #initialHashedPassword = "${config.nixos.system.user.defaultuser.pass}";
+      hashedPasswordFile = "${config.nixos.system.user.defaultuser.passfile}";
       shell = config.nixos.system.user.defaultuser.shell;
     };
     users.mutableUsers = false;
