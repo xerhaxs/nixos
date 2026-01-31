@@ -33,7 +33,7 @@
           download_dir = "/mount/truenas/video/SABnzbd/temp";
           email_endjob = 0;
           email_from = "";
-          email_full = "";
+          #email_full = 0;
           email_rss = 0;
           email_server = "";
           email_to = "";
