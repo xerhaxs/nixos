@@ -86,7 +86,7 @@ fwupdmgr update
 * [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
-  * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html
+  * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html https://wiki.nixos.org/wiki/Syncthing#cite_note-2 https://home-manager-options.extranix.com/?query=services.syncthing.&release=master
   * [ ] Install Single GPU Passthrough to Windows 11 VM
     * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
     * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
@@ -109,6 +109,7 @@ fwupdmgr update
     * [x] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/ -> seems unnecessary
     * [x] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
     * [ ] Move to Librewolf as main browser, remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
+    * [ ] setup languagetool browser addon with custom languagetool server
   * [ ] Setup Chromium in Config via Settings -> maybe replace with Trivalent https://github.com/secureblue/Trivalent 
   * [ ] Config setup of Steam (write config file)
   * [ ] Config setup of Heroic (write config file)
@@ -172,8 +173,8 @@ fwupdmgr update
     * [X] Radarr (Config setup) -> waiting for nixos pkg update (settings in database)
     * [X] Readarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] Sonarr (Config setup) -> not possible due to no module options for settings (settings in database)
-    * [X] Sabnzbd (Config setup) -> not possible due to no module options for settings
-    * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file
+    * [X] Sabnzbd (Config setup) -> setup with sabnzbd options
+    * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file https://wiki.nixos.org/wiki/Docker https://github.com/Lissy93/networking-toolbox/blob/main/docker-compose.yml https://github.com/aksiksi/compose2nix
     * [ ] Setup Home Assistant in NixOS -> https://search.nixos.org/options?channel=unstable&query=services.home-assistant https://wiki.nixos.org/wiki/Home_Assistant https://nathan.gs/2023/12/28/home-assistant-add-a-custom-component-in-nixos-revisited/
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
@@ -185,7 +186,7 @@ fwupdmgr update
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
     * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow
     * [ ] WireGuard
-    * [ ] Matrix.org
+    * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix
     * [ ] Murmur or Teamspeak
     * [ ] Minecraft
     * [ ] Nextcloud / Collabora
