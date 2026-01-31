@@ -29,7 +29,7 @@
         #tv_categories = tv,
         #url_base = /sabnzbd
         #host_whitelist = sabnzbd.m4rx.cc, 10.75.0.23
-        #local_ranges = 172.17.0.0/24, sonarr.m4rx.cc, radarr.m4rx.cc, 10.75.0.0/24
+        local_ranges = "10.75.0.0/24"; # 172.17.0.0/24, sonarr.m4rx.cc, radarr.m4rx.cc, 10.75.0.0/24
       };
     };
 
