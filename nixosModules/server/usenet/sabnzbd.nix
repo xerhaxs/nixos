@@ -22,6 +22,8 @@
       ];
       settings = {
         misc = {
+          host = "127.0.0.1";
+          port = "8080";
           bandwidth_max = "5M";
           cache_limit = "1G";
           language = "en";
@@ -30,7 +32,7 @@
           #movie_categories = movies,
           #tv_categories = tv,
           #url_base = /sabnzbd
-          host_whitelist = "sabnzbd.m4rx.cc";
+          host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}";
         };
       };
     };
