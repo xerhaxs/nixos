@@ -49,6 +49,8 @@
 
         "radicale/htpasswd" = { };
 
+        "sabnzbd" = { };
+
         "searxng/secret" = { };
 
         "webdav/users/admin/username" = { };
