@@ -16,10 +16,10 @@
     services.sabnzbd = {
       enable = true;
       openFirewall = false;
-      allowConfigWrite = false;
-      secretFiles = [
-        config.sops.secrets."sabnzbd".path
-      ];
+      allowConfigWrite = true;
+      #secretFiles = [
+      #  config.sops.secrets."sabnzbd".path
+      #];
       settings = {
         bandwidth_max = "5M";
         cache_limit = "1G";
