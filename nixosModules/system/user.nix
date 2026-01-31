@@ -22,7 +22,7 @@
         };
         passfile = lib.mkOption {
           type = lib.types.str;
-          example = "config.sops.secrets."userpassfile".path";
+          #example = "config.sops.secrets."userpassfile".path";
           description = "Set the pass file via sops.";
         };
         shell = lib.mkOption {
