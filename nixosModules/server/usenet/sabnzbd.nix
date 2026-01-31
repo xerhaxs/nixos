@@ -30,7 +30,7 @@
           #movie_categories = movies,
           #tv_categories = tv,
           #url_base = /sabnzbd
-          host_whitelist = "sabnzbd.m4rx.cc;
+          host_whitelist = "sabnzbd.m4rx.cc";
         };
       };
     };
