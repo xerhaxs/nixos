@@ -46,8 +46,8 @@
           so-rcvbuf = "1m";
 
           forward-first = true;
-          do-not-query-localhost = true;
-          fallback-enabled = true;
+          #do-not-query-localhost = true;
+          #fallback-enabled = true;
 
           private-address = [ 
             "192.168.0.0/16"
