@@ -49,7 +49,11 @@
 
         "radicale/htpasswd" = { };
 
-        "sabnzbd" = { };
+        "sabnzbd" = {
+          owner = config.services.sabnzbd.user;
+          group = config.services.sabnzbd.group;
+          mode = "0400";
+        };
 
         "searxng/secret" = { };
 
