@@ -49,7 +49,7 @@
 
         "radicale/htpasswd" = { };
 
-        "sabnzbd" = {
+        "sabnzbd" = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
           owner = config.services.sabnzbd.user;
           group = config.services.sabnzbd.group;
           mode = "0400";

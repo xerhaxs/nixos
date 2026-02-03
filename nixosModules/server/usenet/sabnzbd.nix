@@ -15,6 +15,8 @@
   config = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
     services.sabnzbd = {
       enable = true;
+      user = "sabnzbd";
+      group = "sabnzbd";
       openFirewall = false;
       allowConfigWrite = true;
       secretFiles = [
