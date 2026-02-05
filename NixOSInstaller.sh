@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-### Catppuccin Mocha ###
+### Enable flakes for curl | bash ###
+export NIX_CONFIG="experimental-features = nix-command flakes"
+
+### Catppuccin Mocha Colors ###
 MAUVE='\033[38;2;203;166;247m'
 BLUE='\033[38;2;137;180;250m'
 GREEN='\033[38;2;166;227;161m'
@@ -46,22 +49,16 @@ install_prerequisites() {
 }
 
 get_hosts_from_flake() {
-    nix eval --json "${FLAKE_REPO}#nixosConfigurations" \
-        | jq -r 'keys[]'
+    nix --extra-experimental-features "nix-command flakes" \
+        eval --json "${FLAKE_REPO}#nixosConfigurations" \
+        2>/dev/null | jq -r 'keys[]'
 }
 
 select_host() {
     header "Host selection"
 
-    if ! mapfile -t HOSTS < <(get_hosts_from_flake); then
-        err "Failed to evaluate flake outputs"
-        exit 1
-    fi
-
-    [[ ${#HOSTS[@]} -gt 0 ]] || {
-        err "No nixosConfigurations found in flake"
-        exit 1
-    }
+    mapfile -t HOSTS < <(get_hosts_from_flake)
+    [[ ${#HOSTS[@]} -gt 0 ]] || { err "No hosts found in flake."; exit 1; }
 
     for i in "${!HOSTS[@]}"; do
         echo -e "${SUBTEXT}[$((i+1))]${NC} ${HOSTS[$i]}"
@@ -73,19 +70,19 @@ select_host() {
     done
 
     CHOSEN_HOST="${HOSTS[$((n-1))]}"
-    ok "Host selected: $CHOSEN_HOST"
+    ok "Selected host: $CHOSEN_HOST"
 }
-
 
 select_disk() {
     header "Disk selection"
-    mapfile -t DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
 
+    mapfile -t DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
     [[ ${#DISKS[@]} -gt 0 ]] || { err "No disks found."; exit 1; }
 
     for i in "${!DISKS[@]}"; do
         SIZE=$(lsblk -ndo SIZE "/dev/${DISKS[$i]}")
-        echo -e "${SUBTEXT}[$((i+1))]${NC} /dev/${DISKS[$i]} $SIZE"
+        MODEL=$(lsblk -ndo MODEL "/dev/${DISKS[$i]}")
+        echo -e "${SUBTEXT}[$((i+1))]${NC} /dev/${DISKS[$i]} ${SIZE} ${MODEL}"
     done
 
     while true; do
@@ -94,7 +91,7 @@ select_disk() {
     done
 
     CHOSEN_DRIVE="/dev/${DISKS[$((n-1))]}"
-    ok "Disk selected: $CHOSEN_DRIVE"
+    ok "Selected disk: $CHOSEN_DRIVE"
 }
 
 select_wipe() {
@@ -112,22 +109,24 @@ read_password() {
 
 select_disk_password() {
     header "Disk encryption password"
+
     while true; do
         p1=$(read_password "Enter password: ")
         p2=$(read_password "Confirm password: ")
         [[ -n "$p1" && "$p1" == "$p2" ]] && break
         err "Passwords do not match."
     done
+
     DISKPASS="$p1"
     ok "Password set"
 }
 
 confirm() {
-    header "Confirmation"
+    header "Installation summary"
     echo -e "${TEXT}Host:${NC} $CHOSEN_HOST"
     echo -e "${TEXT}Disk:${NC} $CHOSEN_DRIVE"
     echo -e "${TEXT}Secure wipe:${NC} $WIPE"
-    read -r -p "Proceed? [y/N]: " a
+    read -r -p "Proceed with installation? [y/N]: " a
     [[ "$a" =~ ^[yY] ]] || abort
 }
 
@@ -143,7 +142,8 @@ install_nixos() {
     openssl genrsa -out /tmp/keyfile.key 4096 >/dev/null
     echo -n "$DISKPASS" > /tmp/secret.key
 
-    nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
+    nix --extra-experimental-features "nix-command flakes" \
+        run github:nix-community/disko -- \
         --mode disko --flake "$FLAKE_REPO#$CHOSEN_HOST"
 
     mkdir -p /mnt/root/.secrets
@@ -151,7 +151,9 @@ install_nixos() {
     install -m 0400 /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
 
     nixos-generate-config --root /mnt
-    nixos-install --no-root-passwd --impure --keep-going --flake "$FLAKE_REPO#$CHOSEN_HOST"
+
+    nixos-install --no-root-passwd --impure --keep-going \
+        --flake "$FLAKE_REPO#$CHOSEN_HOST"
 
     ok "Installation finished"
 }
