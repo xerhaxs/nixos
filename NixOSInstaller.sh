@@ -46,15 +46,22 @@ install_prerequisites() {
 }
 
 get_hosts_from_flake() {
-    nix flake show "$FLAKE_REPO" --json 2>/dev/null \
-        | jq -r '.nixosConfigurations | keys[]'
+    nix eval --json "${FLAKE_REPO}#nixosConfigurations" \
+        | jq -r 'keys[]'
 }
 
 select_host() {
     header "Host selection"
-    mapfile -t HOSTS < <(get_hosts_from_flake)
 
-    [[ ${#HOSTS[@]} -gt 0 ]] || { err "No hosts found in flake."; exit 1; }
+    if ! mapfile -t HOSTS < <(get_hosts_from_flake); then
+        err "Failed to evaluate flake outputs"
+        exit 1
+    fi
+
+    [[ ${#HOSTS[@]} -gt 0 ]] || {
+        err "No nixosConfigurations found in flake"
+        exit 1
+    }
 
     for i in "${!HOSTS[@]}"; do
         echo -e "${SUBTEXT}[$((i+1))]${NC} ${HOSTS[$i]}"
@@ -68,6 +75,7 @@ select_host() {
     CHOSEN_HOST="${HOSTS[$((n-1))]}"
     ok "Host selected: $CHOSEN_HOST"
 }
+
 
 select_disk() {
     header "Disk selection"
