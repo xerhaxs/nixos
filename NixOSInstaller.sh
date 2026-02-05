@@ -49,16 +49,21 @@ install_prerequisites() {
 }
 
 get_hosts_from_flake() {
-    nix --extra-experimental-features "nix-command flakes" \
-        eval --json "${FLAKE_REPO}#nixosConfigurations" \
-        2>/dev/null | jq -r 'keys[]'
+    raw_output=$(nix --extra-experimental-features "nix-command flakes" \
+        eval --json "${FLAKE_REPO}#nixosConfigurations" 2>&1)
+    echo "Raw output from nix eval: $raw_output" >&2
+    echo "$raw_output" | jq -r 'keys[]' 2>&1
 }
 
 select_host() {
     header "Host selection"
 
     mapfile -t HOSTS < <(get_hosts_from_flake)
-    [[ ${#HOSTS[@]} -gt 0 ]] || { err "No hosts found in flake."; exit 1; }
+    if [[ ${#HOSTS[@]} -eq 0 ]]; then
+        err "No hosts found in flake."
+        echo "Debug: No hosts found in flake." >&2
+        exit 1
+    fi
 
     for i in "${!HOSTS[@]}"; do
         echo -e "${SUBTEXT}[$((i+1))]${NC} ${HOSTS[$i]}"
@@ -66,7 +71,11 @@ select_host() {
 
     while true; do
         read -r -p "Select host number: " n
-        [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#HOSTS[@]})) && break
+        if [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#HOSTS[@]})); then
+            break
+        else
+            err "Invalid selection. Please enter a number between 1 and ${#HOSTS[@]}."
+        fi
     done
 
     CHOSEN_HOST="${HOSTS[$((n-1))]}"
@@ -77,7 +86,10 @@ select_disk() {
     header "Disk selection"
 
     mapfile -t DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-    [[ ${#DISKS[@]} -gt 0 ]] || { err "No disks found."; exit 1; }
+    if [[ ${#DISKS[@]} -eq 0 ]]; then
+        err "No disks found."
+        exit 1
+    fi
 
     for i in "${!DISKS[@]}"; do
         SIZE=$(lsblk -ndo SIZE "/dev/${DISKS[$i]}")
@@ -87,7 +99,11 @@ select_disk() {
 
     while true; do
         read -r -p "Select disk number: " n
-        [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#DISKS[@]})) && break
+        if [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#DISKS[@]})); then
+            break
+        else
+            err "Invalid selection. Please enter a number between 1 and ${#DISKS[@]}."
+        fi
     done
 
     CHOSEN_DRIVE="/dev/${DISKS[$((n-1))]}"
@@ -97,7 +113,11 @@ select_disk() {
 select_wipe() {
     header "Secure wipe"
     read -r -p "Securely wipe disk? [y/N]: " a
-    [[ "$a" =~ ^[yY] ]] && WIPE=true || WIPE=false
+    if [[ "$a" =~ ^[yY] ]]; then
+        WIPE=true
+    else
+        WIPE=false
+    fi
 }
 
 read_password() {
@@ -113,8 +133,11 @@ select_disk_password() {
     while true; do
         p1=$(read_password "Enter password: ")
         p2=$(read_password "Confirm password: ")
-        [[ -n "$p1" && "$p1" == "$p2" ]] && break
-        err "Passwords do not match."
+        if [[ -n "$p1" && "$p1" == "$p2" ]]; then
+            break
+        else
+            err "Passwords do not match."
+        fi
     done
 
     DISKPASS="$p1"
@@ -127,13 +150,18 @@ confirm() {
     echo -e "${TEXT}Disk:${NC} $CHOSEN_DRIVE"
     echo -e "${TEXT}Secure wipe:${NC} $WIPE"
     read -r -p "Proceed with installation? [y/N]: " a
-    [[ "$a" =~ ^[yY] ]] || abort
+    if [[ "$a" =~ ^[yY] ]]; then
+        return
+    else
+        abort
+    fi
 }
 
 wipe_disk() {
-    [[ "$WIPE" == true ]] || return
-    header "Wiping disk"
-    shred -v -n 3 -z "$CHOSEN_DRIVE"
+    if [[ "$WIPE" == true ]]; then
+        header "Wiping disk"
+        shred -v -n 3 -z "$CHOSEN_DRIVE"
+    fi
 }
 
 install_nixos() {
