@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-### Enable flakes for curl | bash ###
-export NIX_CONFIG="experimental-features = nix-command flakes"
+### Force flakes + auto-accept flake config (curl | bash safe)
+export NIX_CONFIG="experimental-features = nix-command flakes
+accept-flake-config = true"
 
-### Catppuccin Mocha Colors ###
+### Catppuccin Mocha ###
 MAUVE='\033[38;2;203;166;247m'
 BLUE='\033[38;2;137;180;250m'
 GREEN='\033[38;2;166;227;161m'
@@ -43,26 +44,22 @@ require_root() {
 
 install_prerequisites() {
     header "Installing prerequisites"
-    nix-env -iA nixos.git nixos.openssl nixos.jq >/dev/null
+    nix-env -iA nixos.git nixos.openssl >/dev/null
     loadkeys de
     ok "Prerequisites installed"
 }
 
+### Correct host extraction for your flake
 get_hosts_from_flake() {
-    nix --extra-experimental-features "nix-command flakes" \
-        eval --raw "${FLAKE_REPO}#nixosConfigurations" --apply 'builtins.attrNames' | tr ' ' '\n'
+    nix eval "$FLAKE_REPO#nixosConfigurations" \
+      --apply 'attrs: builtins.concatStringsSep "\n" (builtins.attrNames attrs)'
 }
-
 
 select_host() {
     header "Host selection"
 
     mapfile -t HOSTS < <(get_hosts_from_flake)
-    if [[ ${#HOSTS[@]} -eq 0 ]]; then
-        err "No hosts found in flake."
-        echo "Debug: No hosts found in flake." >&2
-        exit 1
-    fi
+    [[ ${#HOSTS[@]} -gt 0 ]] || { err "No hosts found."; exit 1; }
 
     for i in "${!HOSTS[@]}"; do
         echo -e "${SUBTEXT}[$((i+1))]${NC} ${HOSTS[$i]}"
@@ -70,11 +67,7 @@ select_host() {
 
     while true; do
         read -r -p "Select host number: " n
-        if [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#HOSTS[@]})); then
-            break
-        else
-            err "Invalid selection. Please enter a number between 1 and ${#HOSTS[@]}."
-        fi
+        [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#HOSTS[@]})) && break
     done
 
     CHOSEN_HOST="${HOSTS[$((n-1))]}"
@@ -85,24 +78,16 @@ select_disk() {
     header "Disk selection"
 
     mapfile -t DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-    if [[ ${#DISKS[@]} -eq 0 ]]; then
-        err "No disks found."
-        exit 1
-    fi
+    [[ ${#DISKS[@]} -gt 0 ]] || { err "No disks found."; exit 1; }
 
     for i in "${!DISKS[@]}"; do
         SIZE=$(lsblk -ndo SIZE "/dev/${DISKS[$i]}")
-        MODEL=$(lsblk -ndo MODEL "/dev/${DISKS[$i]}")
-        echo -e "${SUBTEXT}[$((i+1))]${NC} /dev/${DISKS[$i]} ${SIZE} ${MODEL}"
+        echo -e "${SUBTEXT}[$((i+1))]${NC} /dev/${DISKS[$i]} $SIZE"
     done
 
     while true; do
         read -r -p "Select disk number: " n
-        if [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#DISKS[@]})); then
-            break
-        else
-            err "Invalid selection. Please enter a number between 1 and ${#DISKS[@]}."
-        fi
+        [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#DISKS[@]})) && break
     done
 
     CHOSEN_DRIVE="/dev/${DISKS[$((n-1))]}"
@@ -112,11 +97,7 @@ select_disk() {
 select_wipe() {
     header "Secure wipe"
     read -r -p "Securely wipe disk? [y/N]: " a
-    if [[ "$a" =~ ^[yY] ]]; then
-        WIPE=true
-    else
-        WIPE=false
-    fi
+    [[ "$a" =~ ^[yY] ]] && WIPE=true || WIPE=false
 }
 
 read_password() {
@@ -132,11 +113,8 @@ select_disk_password() {
     while true; do
         p1=$(read_password "Enter password: ")
         p2=$(read_password "Confirm password: ")
-        if [[ -n "$p1" && "$p1" == "$p2" ]]; then
-            break
-        else
-            err "Passwords do not match."
-        fi
+        [[ -n "$p1" && "$p1" == "$p2" ]] && break
+        err "Passwords do not match."
     done
 
     DISKPASS="$p1"
@@ -144,23 +122,18 @@ select_disk_password() {
 }
 
 confirm() {
-    header "Installation summary"
+    header "Confirmation"
     echo -e "${TEXT}Host:${NC} $CHOSEN_HOST"
     echo -e "${TEXT}Disk:${NC} $CHOSEN_DRIVE"
     echo -e "${TEXT}Secure wipe:${NC} $WIPE"
     read -r -p "Proceed with installation? [y/N]: " a
-    if [[ "$a" =~ ^[yY] ]]; then
-        return
-    else
-        abort
-    fi
+    [[ "$a" =~ ^[yY] ]] || abort
 }
 
 wipe_disk() {
-    if [[ "$WIPE" == true ]]; then
-        header "Wiping disk"
-        shred -v -n 3 -z "$CHOSEN_DRIVE"
-    fi
+    [[ "$WIPE" == true ]] || return
+    header "Wiping disk"
+    shred -v -n 3 -z "$CHOSEN_DRIVE"
 }
 
 install_nixos() {
@@ -169,8 +142,7 @@ install_nixos() {
     openssl genrsa -out /tmp/keyfile.key 4096 >/dev/null
     echo -n "$DISKPASS" > /tmp/secret.key
 
-    nix --extra-experimental-features "nix-command flakes" \
-        run github:nix-community/disko -- \
+    nix run github:nix-community/disko -- \
         --mode disko --flake "$FLAKE_REPO#$CHOSEN_HOST"
 
     mkdir -p /mnt/root/.secrets
