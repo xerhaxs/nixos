@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+set -euo pipefail
 
-### Force flakes + auto-accept flake config (curl | bash safe)
-export NIX_CONFIG="experimental-features = nix-command flakes
-accept-flake-config = true"
-
-### Catppuccin Mocha ###
+### Catppuccin Mocha Colors ###
 MAUVE='\033[38;2;203;166;247m'
 BLUE='\033[38;2;137;180;250m'
 GREEN='\033[38;2;166;227;161m'
-RED='\033[38;2;243;139;168m'
 YELLOW='\033[38;2;249;226;175m'
+RED='\033[38;2;243;139;168m'
 TEXT='\033[38;2;205;214;244m'
 SUBTEXT='\033[38;2;166;173;200m'
 NC='\033[0m'
@@ -20,151 +16,202 @@ FLAKE_REPO="github:xerhaxs/nixos/main"
 CHOSEN_HOST=""
 CHOSEN_DRIVE=""
 DISKPASS=""
+ROOTPASS=""
+USERPASS=""
 WIPE=false
 
 abort() {
-    DISKPASS=""
-    echo -e "\n${YELLOW}Aborted by user.${NC}"
+    echo -e "\n${RED}Installation aborted by user.${NC}"
     exit 1
 }
 trap abort INT TERM
 
+# ------------------ Utility Functions ------------------
 header() {
     echo -e "\n${MAUVE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${TEXT}$1${NC}"
-    echo -e "${MAUVE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${MAUVE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 }
 
-ok()  { echo -e "${GREEN}$1${NC}"; }
-err() { echo -e "${RED}$1${NC}"; }
+prompt_password() {
+    while true; do
+        read -rs -p "$1: " pass1; echo
+        read -rs -p "Confirm $1: " pass2; echo
+        if [[ -z "$pass1" ]]; then
+            echo -e "${RED}Password cannot be empty.${NC}"
+        elif [[ "$pass1" == "$pass2" ]]; then
+            echo "$pass1"
+            break
+        else
+            echo -e "${RED}Passwords do not match. Try again.${NC}"
+        fi
+    done
+}
 
 require_root() {
-    [[ $(id -u) -eq 0 ]] || { err "Root privileges required."; exit 1; }
+    if [[ $(id -u) -ne 0 ]]; then
+        echo -e "${RED}Root privileges required.${NC}"
+        exit 1
+    fi
 }
 
-install_prerequisites() {
-    header "Installing prerequisites"
-    nix-env -iA nixos.git nixos.openssl >/dev/null
-    loadkeys de
-    ok "Prerequisites installed"
-}
-
-### Correct host extraction for your flake
+# ------------------ Host Selection ------------------
 get_hosts_from_flake() {
-    nix eval "$FLAKE_REPO#nixosConfigurations" \
-      --apply 'attrs: builtins.concatStringsSep "\n" (builtins.attrNames attrs)'
+    nix --extra-experimental-features "nix-command flakes" eval "$FLAKE_REPO#nixosConfigurations" \
+        --apply 'attrs: builtins.concatStringsSep "\n" (builtins.attrNames attrs)' 2>/dev/null
 }
 
 select_host() {
-    header "Host selection"
+    header "Select NixOS Host"
+    HOSTS_RAW=$(get_hosts_from_flake)
+    if [[ -z "$HOSTS_RAW" ]]; then
+        echo -e "${RED}No hosts found in the flake.${NC}"
+        exit 1
+    fi
 
-    mapfile -t HOSTS < <(get_hosts_from_flake)
-    [[ ${#HOSTS[@]} -gt 0 ]] || { err "No hosts found."; exit 1; }
+    mapfile -t HOSTS <<<"$HOSTS_RAW"
 
     for i in "${!HOSTS[@]}"; do
-        echo -e "${SUBTEXT}[$((i+1))]${NC} ${HOSTS[$i]}"
+        echo -e "${BLUE}[$((i+1))]${NC} ${TEXT}${HOSTS[$i]}${NC}"
     done
 
     while true; do
-        read -r -p "Select host number: " n
-        [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#HOSTS[@]})) && break
+        read -rp "Select host number: " choice
+        if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#HOSTS[@]})); then
+            CHOSEN_HOST="${HOSTS[$((choice-1))]}"
+            echo -e "${GREEN}Selected host: $CHOSEN_HOST${NC}"
+            break
+        else
+            echo -e "${RED}Invalid choice. Try again.${NC}"
+        fi
     done
-
-    CHOSEN_HOST="${HOSTS[$((n-1))]}"
-    ok "Selected host: $CHOSEN_HOST"
 }
 
+# ------------------ Disk Selection ------------------
 select_disk() {
-    header "Disk selection"
-
-    mapfile -t DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-    [[ ${#DISKS[@]} -gt 0 ]] || { err "No disks found."; exit 1; }
+    header "Select Installation Disk"
+    mapfile -t DISKS < <(lsblk -dn -o NAME,TYPE | awk '$2=="disk"{print $1}')
+    if [[ ${#DISKS[@]} -eq 0 ]]; then
+        echo -e "${RED}No disks found.${NC}"
+        exit 1
+    fi
 
     for i in "${!DISKS[@]}"; do
-        SIZE=$(lsblk -ndo SIZE "/dev/${DISKS[$i]}")
-        echo -e "${SUBTEXT}[$((i+1))]${NC} /dev/${DISKS[$i]} $SIZE"
+        SIZE=$(lsblk -dn -o SIZE "/dev/${DISKS[$i]}")
+        echo -e "${BLUE}[$((i+1))]${NC} /dev/${DISKS[$i]} (${SIZE})"
     done
 
     while true; do
-        read -r -p "Select disk number: " n
-        [[ "$n" =~ ^[0-9]+$ ]] && ((n>=1 && n<=${#DISKS[@]})) && break
+        read -rp "Select disk number: " choice
+        if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#DISKS[@]})); then
+            CHOSEN_DRIVE="/dev/${DISKS[$((choice-1))]}"
+            echo -e "${GREEN}Selected disk: $CHOSEN_DRIVE${NC}"
+            break
+        else
+            echo -e "${RED}Invalid choice. Try again.${NC}"
+        fi
     done
-
-    CHOSEN_DRIVE="/dev/${DISKS[$((n-1))]}"
-    ok "Selected disk: $CHOSEN_DRIVE"
 }
 
-select_wipe() {
-    header "Secure wipe"
-    read -r -p "Securely wipe disk? [y/N]: " a
-    [[ "$a" =~ ^[yY] ]] && WIPE=true || WIPE=false
+select_disk_wipe() {
+    header "Secure Disk Wipe"
+    read -rp "Do you want to securely wipe the disk? [y/N]: " response
+    if [[ "$response" =~ ^[yY] ]]; then
+        WIPE=true
+        echo -e "${YELLOW}Disk will be wiped.${NC}"
+    else
+        WIPE=false
+        echo -e "${SUBTEXT}Disk will not be wiped.${NC}"
+    fi
 }
 
-read_password() {
-    local p
-    read -rs -p "$1" p
-    echo
-    echo "$p"
+# ------------------ Passwords ------------------
+set_disk_password() {
+    header "Disk Encryption Password"
+    DISKPASS=$(prompt_password "Enter disk password")
 }
 
-select_disk_password() {
-    header "Disk encryption password"
+set_root_password() {
+    header "Root Password"
+    ROOTPASS=$(prompt_password "Enter root password")
+}
 
+set_user_credentials() {
+    header "Create User"
     while true; do
-        p1=$(read_password "Enter password: ")
-        p2=$(read_password "Confirm password: ")
-        [[ -n "$p1" && "$p1" == "$p2" ]] && break
-        err "Passwords do not match."
+        read -rp "Enter username (lowercase, no spaces): " CHROOTUSERNAME
+        if [[ "$CHROOTUSERNAME" =~ ^[a-z0-9]+$ ]]; then
+            USERPASS=$(prompt_password "Enter password for $CHROOTUSERNAME")
+            break
+        else
+            echo -e "${RED}Invalid username. Use only lowercase letters and numbers.${NC}"
+        fi
     done
-
-    DISKPASS="$p1"
-    ok "Password set"
 }
 
-confirm() {
-    header "Confirmation"
+# ------------------ Confirmation ------------------
+confirm_installation() {
+    header "Installation Summary"
     echo -e "${TEXT}Host:${NC} $CHOSEN_HOST"
     echo -e "${TEXT}Disk:${NC} $CHOSEN_DRIVE"
-    echo -e "${TEXT}Secure wipe:${NC} $WIPE"
-    read -r -p "Proceed with installation? [y/N]: " a
-    [[ "$a" =~ ^[yY] ]] || abort
+    echo -e "${TEXT}Secure Wipe:${NC} $WIPE"
+    echo -e "${TEXT}Disk Encryption:${NC} Enabled"
+    read -rp "Proceed with installation? [y/N]: " response
+    if [[ ! "$response" =~ ^[yY] ]]; then
+        abort
+    fi
 }
 
+# ------------------ Wipe Disk ------------------
 wipe_disk() {
-    [[ "$WIPE" == true ]] || return
-    header "Wiping disk"
-    shred -v -n 3 -z "$CHOSEN_DRIVE"
+    if [[ "$WIPE" == true ]]; then
+        header "Wiping Disk"
+        shred -v -n 3 -z "$CHOSEN_DRIVE"
+    fi
 }
 
+# ------------------ Install NixOS ------------------
 install_nixos() {
     header "Installing NixOS"
 
-    openssl genrsa -out /tmp/keyfile.key 4096 >/dev/null
+    # Encryption keys
+    openssl genrsa -out /tmp/keyfile.key 4096
     echo -n "$DISKPASS" > /tmp/secret.key
 
-    nix run github:nix-community/disko -- \
-        --mode disko --flake "$FLAKE_REPO#$CHOSEN_HOST"
+    INSTALLATION_TARGET="$FLAKE_REPO#$CHOSEN_HOST"
+
+    nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
+        --mode disko --flake "$INSTALLATION_TARGET"
 
     mkdir -p /mnt/root/.secrets
-    install -m 0400 /tmp/secret.key /mnt/root/.secrets/secret.key
-    install -m 0400 /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
+    mv /tmp/secret.key /mnt/root/.secrets/secret.key
+    chmod 0400 /mnt/root/.secrets/secret.key
+    chown root:root /mnt/root/.secrets/secret.key
+
+    mv /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
+    chmod 0400 /mnt/root/.secrets/keyfile.key
+    chown root:root /mnt/root/.secrets/keyfile.key
 
     nixos-generate-config --root /mnt
+    nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET"
 
-    nixos-install --no-root-passwd --impure --keep-going \
-        --flake "$FLAKE_REPO#$CHOSEN_HOST"
-
-    ok "Installation finished"
+    # Clear sensitive variables
+    PASSWORD=""
+    DISKPASS=""
+    ROOTPASS=""
+    USERPASS=""
 }
 
+# ------------------ Main ------------------
 main() {
     require_root
-    install_prerequisites
     select_host
     select_disk
-    select_wipe
-    select_disk_password
-    confirm
+    select_disk_wipe
+    set_disk_password
+    set_root_password
+    set_user_credentials
+    confirm_installation
     wipe_disk
     install_nixos
 }
