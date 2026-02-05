@@ -16,8 +16,6 @@ FLAKE_REPO="github:xerhaxs/nixos/main"
 CHOSEN_HOST=""
 CHOSEN_DRIVE=""
 DISKPASS=""
-ROOTPASS=""
-USERPASS=""
 WIPE=false
 
 abort() {
@@ -26,7 +24,6 @@ abort() {
 }
 trap abort INT TERM
 
-# ------------------ Utility Functions ------------------
 header() {
     echo -e "\n${MAUVE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${TEXT}$1${NC}"
@@ -57,19 +54,19 @@ require_root() {
 
 # ------------------ Host Selection ------------------
 get_hosts_from_flake() {
-    nix --extra-experimental-features "nix-command flakes" eval "$FLAKE_REPO#nixosConfigurations" \
-        --apply 'attrs: builtins.concatStringsSep "\n" (builtins.attrNames attrs)' 2>/dev/null
+    nix --extra-experimental-features "nix-command flakes" eval "$FLAKE_REPO#nixosConfigurations" --raw
 }
 
 select_host() {
     header "Select NixOS Host"
+
     HOSTS_RAW=$(get_hosts_from_flake)
     if [[ -z "$HOSTS_RAW" ]]; then
         echo -e "${RED}No hosts found in the flake.${NC}"
         exit 1
     fi
 
-    mapfile -t HOSTS <<<"$HOSTS_RAW"
+    IFS=$'\n' read -r -d '' -a HOSTS <<< "$HOSTS_RAW"$'\0'
 
     for i in "${!HOSTS[@]}"; do
         echo -e "${BLUE}[$((i+1))]${NC} ${TEXT}${HOSTS[$i]}${NC}"
@@ -125,31 +122,11 @@ select_disk_wipe() {
     fi
 }
 
-# ------------------ Passwords ------------------
 set_disk_password() {
     header "Disk Encryption Password"
     DISKPASS=$(prompt_password "Enter disk password")
 }
 
-set_root_password() {
-    header "Root Password"
-    ROOTPASS=$(prompt_password "Enter root password")
-}
-
-set_user_credentials() {
-    header "Create User"
-    while true; do
-        read -rp "Enter username (lowercase, no spaces): " CHROOTUSERNAME
-        if [[ "$CHROOTUSERNAME" =~ ^[a-z0-9]+$ ]]; then
-            USERPASS=$(prompt_password "Enter password for $CHROOTUSERNAME")
-            break
-        else
-            echo -e "${RED}Invalid username. Use only lowercase letters and numbers.${NC}"
-        fi
-    done
-}
-
-# ------------------ Confirmation ------------------
 confirm_installation() {
     header "Installation Summary"
     echo -e "${TEXT}Host:${NC} $CHOSEN_HOST"
@@ -162,7 +139,6 @@ confirm_installation() {
     fi
 }
 
-# ------------------ Wipe Disk ------------------
 wipe_disk() {
     if [[ "$WIPE" == true ]]; then
         header "Wiping Disk"
@@ -170,11 +146,9 @@ wipe_disk() {
     fi
 }
 
-# ------------------ Install NixOS ------------------
 install_nixos() {
     header "Installing NixOS"
 
-    # Encryption keys
     openssl genrsa -out /tmp/keyfile.key 4096
     echo -n "$DISKPASS" > /tmp/secret.key
 
@@ -196,21 +170,15 @@ install_nixos() {
     nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET"
 
     # Clear sensitive variables
-    PASSWORD=""
     DISKPASS=""
-    ROOTPASS=""
-    USERPASS=""
 }
 
-# ------------------ Main ------------------
 main() {
     require_root
     select_host
     select_disk
     select_disk_wipe
     set_disk_password
-    set_root_password
-    set_user_credentials
     confirm_installation
     wipe_disk
     install_nixos
