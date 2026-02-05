@@ -49,11 +49,10 @@ install_prerequisites() {
 }
 
 get_hosts_from_flake() {
-    raw_output=$(nix --extra-experimental-features "nix-command flakes" \
-        eval --json "${FLAKE_REPO}#nixosConfigurations" 2>&1)
-    echo "Raw output from nix eval: $raw_output" >&2
-    echo "$raw_output" | jq -r 'keys[]' 2>&1
+    nix --extra-experimental-features "nix-command flakes" \
+        eval --raw "${FLAKE_REPO}#nixosConfigurations" --apply 'builtins.attrNames' | tr ' ' '\n'
 }
+
 
 select_host() {
     header "Host selection"
