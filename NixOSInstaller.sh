@@ -52,69 +52,76 @@ EOF
 print_box() {
     local color=$1
     local title=$2
-    local title_length=${#title}
+    # Entferne Farbcodes aus title für korrekte Längenberechnung
+    local title_clean=$(echo -e "$title" | sed 's/\x1b\[[0-9;]*m//g')
+    local title_length=${#title_clean}
     local total_width=50
-    local padding=$((total_width - title_length - 2))
+    local padding=$((total_width - title_length - 3))  # -3 für "│ " und " "
+    [[ $padding -lt 0 ]] && padding=0
     
     echo -e "${color}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${color}│${NC} ${BOLD}${SUBTEXT}${title}${NC}$(printf '%*s' $padding '')${color}│${NC}"
+    echo -e "${color}│${NC} ${BOLD}${SUBTEXT}${title}${NC}$(printf '%*s' $padding '') ${color}│${NC}"
     echo -e "${color}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
     echo ""
 }
 
 print_box_error() {
     local msg=$1
-    local msg_length=${#msg}
     local prefix="[ERROR] "
     local total_width=50
-    local content_length=$((${#prefix} + msg_length))
-    local padding=$((total_width - content_length - 2))
+    local content="${prefix}${msg}"
+    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
+    local content_length=${#content_clean}
+    local padding=$((total_width - content_length - 3))
     [[ $padding -lt 0 ]] && padding=0
     
     echo -e "${RED}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${RED}│${NC} ${BOLD}${RED}${prefix}${msg}${NC}$(printf '%*s' $padding '')${RED}│${NC}"
+    echo -e "${RED}│${NC} ${BOLD}${RED}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${RED}│${NC}"
     echo -e "${RED}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_box_success() {
     local msg=$1
-    local msg_length=${#msg}
     local prefix="[SUCCESS] "
     local total_width=50
-    local content_length=$((${#prefix} + msg_length))
-    local padding=$((total_width - content_length - 2))
+    local content="${prefix}${msg}"
+    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
+    local content_length=${#content_clean}
+    local padding=$((total_width - content_length - 3))
     [[ $padding -lt 0 ]] && padding=0
     
     echo -e "${GREEN}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}${prefix}${msg}${NC}$(printf '%*s' $padding '')${GREEN}│${NC}"
+    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${GREEN}│${NC}"
     echo -e "${GREEN}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_box_warning() {
     local msg=$1
-    local msg_length=${#msg}
     local prefix="[WARNING] "
     local total_width=50
-    local content_length=$((${#prefix} + msg_length))
-    local padding=$((total_width - content_length - 2))
+    local content="${prefix}${msg}"
+    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
+    local content_length=${#content_clean}
+    local padding=$((total_width - content_length - 3))
     [[ $padding -lt 0 ]] && padding=0
     
     echo -e "${YELLOW}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}${prefix}${msg}${NC}$(printf '%*s' $padding '')${YELLOW}│${NC}"
+    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${YELLOW}│${NC}"
     echo -e "${YELLOW}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_box_info() {
     local msg=$1
-    local msg_length=${#msg}
     local prefix="[INFO] "
     local total_width=50
-    local content_length=$((${#prefix} + msg_length))
-    local padding=$((total_width - content_length - 2))
+    local content="${prefix}${msg}"
+    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
+    local content_length=${#content_clean}
+    local padding=$((total_width - content_length - 3))
     [[ $padding -lt 0 ]] && padding=0
     
     echo -e "${BLUE}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}${prefix}${msg}${NC}$(printf '%*s' $padding '')${BLUE}│${NC}"
+    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${BLUE}│${NC}"
     echo -e "${BLUE}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
@@ -141,6 +148,7 @@ prompt_password() {
         echo -e "${BLUE}${prompt}${NC}"
         echo ""
         read -rs -p "   Password: " pass1 < /dev/tty
+        echo ""
         echo ""
         read -rs -p "   Confirm:  " pass2 < /dev/tty
         echo ""
