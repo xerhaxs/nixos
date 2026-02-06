@@ -129,7 +129,7 @@ read_password() {
     local password=""
     local char
     
-    echo -n "$prompt"
+    echo -n "$prompt" >&2
     
     while IFS= read -r -s -n1 char; do
         if [[ $char == $'\0' ]] || [[ -z $char ]]; then
@@ -137,15 +137,15 @@ read_password() {
         elif [[ $char == $'\177' ]] || [[ $char == $'\b' ]]; then
             if [ ${#password} -gt 0 ]; then
                 password="${password%?}"
-                echo -ne "\b \b"
+                echo -ne "\b \b" >&2
             fi
         else
             password+="$char"
-            echo -n "*"
+            echo -n "*" >&2
         fi
     done < /dev/tty
     
-    echo ""
+    echo "" >&2
     echo "$password"
 }
 
@@ -155,21 +155,21 @@ prompt_password() {
     local pass2
     
     while true; do
-        echo -e "${CYAN}${prompt}${NC}"
-        echo ""
+        echo -e "${CYAN}${prompt}${NC}" >&2
+        echo "" >&2
         
         pass1=$(read_password "   Password: ")
-        echo ""
+        echo "" >&2
         
         pass2=$(read_password "   Confirm:  ")
-        echo ""
+        echo "" >&2
         
         if [[ -z "$pass1" ]]; then
-            print_box_error "Password cannot be empty"
-            echo ""
+            print_box_error "Password cannot be empty" >&2
+            echo "" >&2
         elif [[ "$pass1" != "$pass2" ]]; then
-            print_box_error "Passwords do not match"
-            echo ""
+            print_box_error "Passwords do not match" >&2
+            echo "" >&2
         else
             echo "$pass1"
             break
