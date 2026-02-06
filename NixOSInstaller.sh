@@ -148,43 +148,47 @@ press_enter() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
+    echo -e "${GRAY}[DEBUG] Running: nix flake show ${FLAKE_REPO}${NC}"
+    echo ""
+    
     # Run nix flake show and capture output
-    nix flake show "$FLAKE_REPO" \
+    if nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
-        --accept-flake-config > "$tmpfile" 2>&1
-    
-    # Extract only the host names after nixosConfigurations
-    local in_nixos_section=0
-    local hosts=""
-    
-    while IFS= read -r line; do
-        # Detect start of nixosConfigurations section
-        if [[ "$line" =~ nixosConfigurations ]]; then
-            in_nixos_section=1
-            continue
-        fi
+        --accept-flake-config > "$tmpfile" 2>&1; then
         
-        # If we're in the section, extract host names
-        if [[ $in_nixos_section -eq 1 ]]; then
-            # Stop if we hit another top-level section
-            if [[ "$line" =~ ^[a-zA-Z] ]] && [[ ! "$line" =~ ^[[:space:]] ]]; then
-                break
-            fi
-            
-            # Extract host names (lines with ├── or └──)
-            if [[ "$line" =~ (├───|└───)[[:space:]]*([a-zA-Z0-9_-]+) ]]; then
-                local host="${BASH_REMATCH[2]}"
-                # Remove any trailing colon or description
-                host="${host%%:*}"
-                hosts+="${host}"$'\n'
-            fi
-        fi
-    done < "$tmpfile"
+        echo -e "${GREEN}[DEBUG] Command successful${NC}"
+    else
+        echo -e "${RED}[DEBUG] Command failed${NC}"
+        cat "$tmpfile"
+        rm -f "$tmpfile"
+        return 1
+    fi
+    
+    echo ""
+    echo -e "${GRAY}[DEBUG] Full flake show output:${NC}"
+    echo -e "${GRAY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    cat "$tmpfile"
+    echo -e "${GRAY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    
+    # Extract hosts using simple grep and sed
+    local hosts
+    hosts=$(grep -E "├───|└───" "$tmpfile" \
+        | grep -v ":" \
+        | sed 's/.*[├└]───[[:space:]]*//' \
+        | sed 's/[[:space:]].*//' \
+        | sort -u)
+    
+    echo -e "${GRAY}[DEBUG] Extracted hosts:${NC}"
+    echo "$hosts" | while read -r h; do
+        echo -e "${GRAY}  - $h${NC}"
+    done
+    echo ""
     
     rm -f "$tmpfile"
     
-    # Return hosts, removing empty lines
-    echo "$hosts" | grep -v "^$"
+    # Output hosts for capture
+    echo "$hosts"
 }
 
 select_host() {
@@ -197,8 +201,13 @@ select_host() {
     echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
     echo ""
     
+    # Capture hosts with debug output visible
     local hosts_output
     hosts_output=$(get_hosts_from_flake)
+    
+    echo -e "${GRAY}[DEBUG] Captured output:${NC}"
+    echo "'$hosts_output'"
+    echo ""
     
     if [[ -z "$hosts_output" ]]; then
         echo ""
@@ -210,10 +219,20 @@ select_host() {
     fi
     
     # Read hosts into array
+    echo -e "${GRAY}[DEBUG] Parsing hosts into array...${NC}"
     declare -a HOSTS=()
+    local count=0
     while IFS= read -r line; do
-        [[ -n "$line" ]] && HOSTS+=("$line")
+        if [[ -n "$line" ]]; then
+            echo -e "${GRAY}  [${count}] = '$line'${NC}"
+            HOSTS+=("$line")
+            ((count++))
+        fi
     done <<< "$hosts_output"
+
+    echo ""
+    echo -e "${GRAY}[DEBUG] Total hosts in array: ${#HOSTS[@]}${NC}"
+    echo ""
 
     if [[ ${#HOSTS[@]} -eq 0 ]]; then
         print_box_error "Failed to parse host list"
