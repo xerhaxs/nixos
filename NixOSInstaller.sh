@@ -419,7 +419,7 @@ install_nixos() {
     # Generate keys
     echo -e "${BLUE}>>>${NC} ${TEXT}Generating encryption keys...${NC}"
     echo ""
-    openssl genrsa -out /tmp/keyfile.key 4096
+    nix-shell -p openssl --run "openssl genrsa -out /tmp/keyfile.key 4096"
     echo -n "$DISKPASS" > /tmp/secret.key
     echo ""
     print_box_success "Keys generated"
