@@ -2,29 +2,29 @@
 set -euo pipefail
 
 ### Catppuccin Mocha Colors (256-color mode) ###
-MAUVE='\033[38;5;183m'      # Mauve
-RED='\033[38;5;204m'        # Red
-MAROON='\033[38;5;174m'     # Maroon
-PEACH='\033[38;5;216m'      # Peach
-YELLOW='\033[38;5;222m'     # Yellow
-GREEN='\033[38;5;151m'      # Green
-TEAL='\033[38;5;122m'       # Teal
-SKY='\033[38;5;117m'        # Sky
-SAPPHIRE='\033[38;5;111m'   # Sapphire
-BLUE='\033[38;5;117m'       # Blue
-LAVENDER='\033[38;5;147m'   # Lavender
-TEXT='\033[38;5;254m'       # Text
-SUBTEXT1='\033[38;5;250m'   # Subtext1
-SUBTEXT0='\033[38;5;245m'   # Subtext0
-OVERLAY2='\033[38;5;240m'   # Overlay2
-OVERLAY1='\033[38;5;238m'   # Overlay1
-OVERLAY0='\033[38;5;236m'   # Overlay0
-SURFACE2='\033[38;5;235m'   # Surface2
-SURFACE1='\033[38;5;234m'   # Surface1
-SURFACE0='\033[38;5;233m'   # Surface0
-BASE='\033[38;5;232m'       # Base
-MANTLE='\033[38;5;233m'     # Mantle
-CRUST='\033[38;5;232m'      # Crust
+MAUVE='\033[38;5;183m'
+RED='\033[38;5;204m'
+MAROON='\033[38;5;174m'
+PEACH='\033[38;5;216m'
+YELLOW='\033[38;5;222m'
+GREEN='\033[38;5;151m'
+TEAL='\033[38;5;122m'
+SKY='\033[38;5;117m'
+SAPPHIRE='\033[38;5;111m'
+BLUE='\033[38;5;117m'
+LAVENDER='\033[38;5;147m'
+TEXT='\033[38;5;254m'
+SUBTEXT1='\033[38;5;250m'
+SUBTEXT0='\033[38;5;245m'
+OVERLAY2='\033[38;5;240m'
+OVERLAY1='\033[38;5;238m'
+OVERLAY0='\033[38;5;236m'
+SURFACE2='\033[38;5;235m'
+SURFACE1='\033[38;5;234m'
+SURFACE0='\033[38;5;233m'
+BASE='\033[38;5;232m'
+MANTLE='\033[38;5;233m'
+CRUST='\033[38;5;232m'
 NC='\033[0m'
 BOLD='\033[1m'
 DIM='\033[2m'
@@ -59,8 +59,7 @@ print_banner() {
     ██║ ╚████║██║██╔╝ ██╗╚██████╔╝███████║
     ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 EOF
-    echo -e "${LAVENDER}     I N S T A L L E R   S C R I P T"
-    echo -e "${NC}"
+    echo -e "${LAVENDER}     I N S T A L L E R   S C R I P T${NC}"
     echo -e "${SUBTEXT0}=================================================${NC}\n"
 }
 
@@ -78,28 +77,28 @@ print_box() {
 print_box_error() {
     local msg=$1
     echo -e "${RED}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${RED}│${NC} [ERROR] ${BOLD}${RED}${msg}${NC}"
+    echo -e "${RED}│${NC} ${BOLD}${RED}[ERROR] ${msg}${NC}"
     echo -e "${RED}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_success() {
     local msg=$1
     echo -e "${GREEN}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${GREEN}│${NC} [SUCCESS] ${BOLD}${GREEN}${msg}${NC}"
+    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}[SUCCESS] ${msg}${NC}"
     echo -e "${GREEN}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_warning() {
     local msg=$1
     echo -e "${YELLOW}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${YELLOW}│${NC} [WARNING] ${BOLD}${YELLOW}${msg}${NC}"
+    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}[WARNING] ${msg}${NC}"
     echo -e "${YELLOW}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_info() {
     local msg=$1
     echo -e "${BLUE}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${BLUE}│${NC} [INFO] ${BOLD}${BLUE}${msg}${NC}"
+    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}[INFO] ${msg}${NC}"
     echo -e "${BLUE}╰──────────────────────────────────────────────────╯${NC}"
 }
 
@@ -202,29 +201,45 @@ select_host() {
         exit 1
     fi
     
-    # Read hosts into array properly
-    local -a HOSTS
+    # Read hosts into array - CORRECTED METHOD
+    declare -a HOSTS
+    local count=0
     while IFS= read -r line; do
-        [[ -n "$line" ]] && HOSTS+=("$line")
+        if [[ -n "$line" ]]; then
+            HOSTS[$count]="$line"
+            ((count++))
+        fi
     done <<< "$hosts_output"
 
-    echo -e "${TEXT}Available configurations:${NC}\n"
+    # Verify array has content
+    if [[ ${#HOSTS[@]} -eq 0 ]]; then
+        print_box_error "Failed to parse host list"
+        exit 1
+    fi
+
+    echo -e "${TEXT}Available configurations:${NC}"
+    echo ""
     for i in "${!HOSTS[@]}"; do
         local num=$((i+1))
-        printf "  ${LAVENDER}[${BOLD}%d${NC}${LAVENDER}]${NC} ${TEXT}%s${NC}\n" "$num" "${HOSTS[$i]}"
+        echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${TEXT}${HOSTS[$i]}${NC}"
     done
 
     echo ""
+    local choice
     while true; do
-        echo -ne "${BLUE}>>>${NC} ${TEXT}Select host number: ${NC}"
+        # Separate prompt and read for better compatibility
+        echo -e "${BLUE}>>>${NC} ${TEXT}Select host number:${NC}"
         read -r choice
+        
         if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#HOSTS[@]})); then
             CHOSEN_HOST="${HOSTS[$((choice-1))]}"
             echo ""
             print_box_success "Selected: ${CHOSEN_HOST}"
             break
         else
+            echo ""
             print_box_error "Invalid choice. Please try again"
+            echo ""
         fi
     done
     
@@ -246,22 +261,25 @@ select_disk() {
         exit 1
     fi
 
-    echo -e "${TEXT}Available disks:${NC}\n"
+    echo -e "${TEXT}Available disks:${NC}"
+    echo ""
     for i in "${!DISKS[@]}"; do
         local num=$((i+1))
         local disk="${DISKS[$i]}"
         local size=$(lsblk -dn -o SIZE "/dev/${disk}")
         local model=$(lsblk -dn -o MODEL "/dev/${disk}" 2>/dev/null | xargs || echo "Unknown")
         
-        printf "  ${LAVENDER}[${BOLD}%d${NC}${LAVENDER}]${NC} ${PEACH}/dev/%s${NC}\n" "$num" "$disk"
+        echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${PEACH}/dev/${disk}${NC}"
         echo -e "      ${SUBTEXT0}Size: ${size}${NC}"
         echo -e "      ${SUBTEXT0}Model: ${model}${NC}"
         echo ""
     done
 
+    local choice
     while true; do
-        echo -ne "${BLUE}>>>${NC} ${TEXT}Select disk number: ${NC}"
+        echo -e "${BLUE}>>>${NC} ${TEXT}Select disk number:${NC}"
         read -r choice
+        
         if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#DISKS[@]})); then
             CHOSEN_DRIVE="/dev/${DISKS[$((choice-1))]}"
             echo ""
@@ -269,7 +287,9 @@ select_disk() {
             print_box_warning "ALL DATA ON THIS DISK WILL BE DESTROYED!"
             break
         else
+            echo ""
             print_box_error "Invalid choice. Please try again"
+            echo ""
         fi
     done
     
@@ -283,14 +303,16 @@ select_disk_wipe() {
     print_step "3" "6" "Configure disk wiping options..."
     echo ""
     
-    echo -e "${TEXT}Secure disk wipe uses ${BOLD}shred${NC}${TEXT} to overwrite the disk"
-    echo -e "multiple times, making data recovery nearly impossible.${NC}"
+    echo -e "${TEXT}Secure disk wipe uses ${BOLD}shred${NC}${TEXT} to overwrite the disk${NC}"
+    echo -e "${TEXT}multiple times, making data recovery nearly impossible.${NC}"
     echo ""
     print_box_warning "This process can take several hours!"
     echo ""
     
-    echo -ne "${BLUE}>>>${NC} ${TEXT}Perform secure wipe? [y/N]: ${NC}"
+    local response
+    echo -e "${BLUE}>>>${NC} ${TEXT}Perform secure wipe? [y/N]:${NC}"
     read -r response
+    
     if [[ "$response" =~ ^[yY] ]]; then
         WIPE=true
         echo ""
@@ -329,7 +351,8 @@ confirm_installation() {
     print_step "5" "6" "Review your configuration..."
     echo ""
     
-    echo -e "${TEXT}Please review the following settings:${NC}\n"
+    echo -e "${TEXT}Please review the following settings:${NC}"
+    echo ""
     
     print_item "Host Configuration" "${CHOSEN_HOST}" "${MAUVE}"
     print_item "Target Disk" "${CHOSEN_DRIVE}" "${PEACH}"
@@ -343,8 +366,10 @@ confirm_installation() {
     echo -e "${RED}${BOLD}=================================================${NC}"
     echo ""
     
-    echo -ne "${RED}>>>${NC} ${BOLD}${TEXT}Type 'YES' to proceed: ${NC}"
+    local response
+    echo -e "${RED}>>>${NC} ${BOLD}${TEXT}Type 'YES' to proceed:${NC}"
     read -r response
+    
     if [[ "$response" != "YES" ]]; then
         abort
     fi
@@ -360,7 +385,8 @@ wipe_disk() {
         print_box "${YELLOW}" "Wiping Disk"
         
         echo -e "${TEXT}Securely wiping ${PEACH}${BOLD}${CHOSEN_DRIVE}${NC}${TEXT}...${NC}"
-        echo -e "${SUBTEXT0}This may take several hours.${NC}\n"
+        echo -e "${SUBTEXT0}This may take several hours.${NC}"
+        echo ""
         
         shred -v -n 3 -z "$CHOSEN_DRIVE" 2>&1 | while read -r line; do
             echo -e "${SUBTEXT0}${line}${NC}"
