@@ -173,11 +173,38 @@ press_enter() {
 
 # ------------------ Host Selection ------------------
 get_hosts_from_flake() {
-    nix --extra-experimental-features "nix-command flakes" \
+    # Robust method without jq dependency
+    local hosts
+    
+    # Try direct evaluation first
+    hosts=$(nix --extra-experimental-features "nix-command flakes" \
         --accept-flake-config \
-        eval "$FLAKE_REPO#nixosConfigurations" \
-        --apply builtins.attrNames \
-        --json 2>/dev/null | jq -r '.[]' || true
+        eval --impure --expr \
+        "builtins.attrNames (builtins.getFlake \"$FLAKE_REPO\").nixosConfigurations" \
+        2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
+    
+    # Fallback to apply method
+    if [[ -z "$hosts" ]]; then
+        hosts=$(nix --extra-experimental-features "nix-command flakes" \
+            --accept-flake-config \
+            eval "$FLAKE_REPO#nixosConfigurations" \
+            --apply builtins.attrNames \
+            2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
+    fi
+    
+    # Last resort: parse flake show output
+    if [[ -z "$hosts" ]]; then
+        hosts=$(nix --extra-experimental-features "nix-command flakes" \
+            --accept-flake-config \
+            flake show "$FLAKE_REPO" 2>/dev/null \
+            | grep -A 1 "nixosConfigurations" \
+            | tail -n +2 \
+            | grep "├───\|└───" \
+            | sed 's/.*───//' \
+            | awk '{print $1}' || true)
+    fi
+    
+    echo "$hosts"
 }
 
 select_host() {
