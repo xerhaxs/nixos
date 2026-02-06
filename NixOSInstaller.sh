@@ -64,17 +64,16 @@ print_banner() {
 EOF
     echo -e "${LAVENDER}     I N S T A L L E R   S C R I P T"
     echo -e "${NC}"
-    echo -e "${SUBTEXT0}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+    echo -e "${SUBTEXT0}=================================================${NC}\n"
 }
 
 print_box() {
     local color=$1
-    local icon=$2
-    local title=$3
+    local title=$2
     local width=48
     
     echo -e "${color}╭$(printf '─%.0s' $(seq 1 $width))╮${NC}"
-    echo -e "${color}│${NC} ${icon} ${BOLD}${TEXT}${title}${NC}"
+    echo -e "${color}│${NC} ${BOLD}${TEXT}${title}${NC}"
     echo -e "${color}╰$(printf '─%.0s' $(seq 1 $width))╯${NC}"
     echo ""
 }
@@ -82,28 +81,28 @@ print_box() {
 print_box_error() {
     local msg=$1
     echo -e "${RED}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${RED}│${NC} ❌ ${BOLD}${RED}${msg}${NC}"
+    echo -e "${RED}│${NC} [ERROR] ${BOLD}${RED}${msg}${NC}"
     echo -e "${RED}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_success() {
     local msg=$1
     echo -e "${GREEN}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${GREEN}│${NC} ✅ ${BOLD}${GREEN}${msg}${NC}"
+    echo -e "${GREEN}│${NC} [SUCCESS] ${BOLD}${GREEN}${msg}${NC}"
     echo -e "${GREEN}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_warning() {
     local msg=$1
     echo -e "${YELLOW}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${YELLOW}│${NC} ⚠️  ${BOLD}${YELLOW}${msg}${NC}"
+    echo -e "${YELLOW}│${NC} [WARNING] ${BOLD}${YELLOW}${msg}${NC}"
     echo -e "${YELLOW}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_info() {
     local msg=$1
     echo -e "${BLUE}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${BLUE}│${NC} ℹ️  ${BOLD}${BLUE}${msg}${NC}"
+    echo -e "${BLUE}│${NC} [INFO] ${BOLD}${BLUE}${msg}${NC}"
     echo -e "${BLUE}╰──────────────────────────────────────────────────╯${NC}"
 }
 
@@ -115,17 +114,16 @@ print_step() {
 }
 
 print_item() {
-    local icon=$1
-    local label=$2
-    local value=$3
-    local color=$4
-    echo -e "  ${icon} ${SUBTEXT1}${label}:${NC} ${color}${BOLD}${value}${NC}"
+    local label=$1
+    local value=$2
+    local color=$3
+    echo -e "  ${SUBTEXT1}${label}:${NC} ${color}${BOLD}${value}${NC}"
 }
 
 prompt_password() {
     local prompt=$1
     while true; do
-        echo -e "${LAVENDER}🔑 ${TEXT}${prompt}${NC}"
+        echo -e "${LAVENDER}${prompt}${NC}"
         read -rs -p "   Password: " pass1
         echo ""
         read -rs -p "   Confirm:  " pass2
@@ -161,7 +159,7 @@ press_enter() {
 get_hosts_from_flake() {
     local hosts=""
     
-    # Method 1: Parse flake show output (most reliable for your flake structure)
+    # Method 1: Parse flake show output (most reliable)
     hosts=$(nix --extra-experimental-features "nix-command flakes" \
         --accept-flake-config \
         flake show "$FLAKE_REPO" 2>&1 \
@@ -180,26 +178,18 @@ get_hosts_from_flake() {
             2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
     fi
     
-    # Method 3: Using eval with apply
-    if [[ -z "$hosts" ]]; then
-        hosts=$(nix --extra-experimental-features "nix-command flakes" \
-            --accept-flake-config \
-            eval "$FLAKE_REPO#nixosConfigurations" \
-            --apply builtins.attrNames \
-            2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
-    fi
-    
     echo "$hosts"
 }
 
 select_host() {
     clear_screen
-    print_box "${MAUVE}" "🖥️ " "Select NixOS Host Configuration"
+    print_box "${MAUVE}" "Select NixOS Host Configuration"
     
     print_step "1" "6" "Fetching available hosts from flake..."
     echo ""
     
-    echo -e "${BLUE}⠋${NC} ${TEXT}Connecting to ${FLAKE_REPO}...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${FLAKE_REPO}...${NC}"
+    echo ""
     
     local hosts_output
     hosts_output=$(get_hosts_from_flake)
@@ -209,23 +199,28 @@ select_host() {
         print_box_error "No hosts found in the flake"
         echo ""
         echo -e "${SUBTEXT0}Troubleshooting tips:${NC}"
-        echo -e "${SUBTEXT0}  • Check your internet connection${NC}"
-        echo -e "${SUBTEXT0}  • Verify the flake URL: ${FLAKE_REPO}${NC}"
-        echo -e "${SUBTEXT0}  • Run manually: nix flake show ${FLAKE_REPO}${NC}"
+        echo -e "${SUBTEXT0}  - Check your internet connection${NC}"
+        echo -e "${SUBTEXT0}  - Verify the flake URL: ${FLAKE_REPO}${NC}"
+        echo -e "${SUBTEXT0}  - Run manually: nix flake show ${FLAKE_REPO}${NC}"
         exit 1
     fi
     
-    mapfile -t HOSTS <<< "$hosts_output"
+    # Read hosts into array properly
+    local -a HOSTS
+    while IFS= read -r line; do
+        [[ -n "$line" ]] && HOSTS+=("$line")
+    done <<< "$hosts_output"
 
     echo -e "${TEXT}Available configurations:${NC}\n"
     for i in "${!HOSTS[@]}"; do
         local num=$((i+1))
-        echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${TEXT}${HOSTS[$i]}${NC}"
+        printf "  ${LAVENDER}[${BOLD}%d${NC}${LAVENDER}]${NC} ${TEXT}%s${NC}\n" "$num" "${HOSTS[$i]}"
     done
 
     echo ""
     while true; do
-        read -rp "$(echo -e "${BLUE}❯${NC} ${TEXT}Select host number: ${NC}")" choice
+        echo -ne "${BLUE}>>>${NC} ${TEXT}Select host number: ${NC}"
+        read -r choice
         if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#HOSTS[@]})); then
             CHOSEN_HOST="${HOSTS[$((choice-1))]}"
             echo ""
@@ -242,7 +237,7 @@ select_host() {
 # ------------------ Disk Selection ------------------
 select_disk() {
     clear_screen
-    print_box "${PEACH}" "💾" "Select Installation Disk"
+    print_box "${PEACH}" "Select Installation Disk"
     
     print_step "2" "6" "Scanning available disks..."
     echo ""
@@ -259,16 +254,17 @@ select_disk() {
         local num=$((i+1))
         local disk="${DISKS[$i]}"
         local size=$(lsblk -dn -o SIZE "/dev/${disk}")
-        local model=$(lsblk -dn -o MODEL "/dev/${disk}" | xargs || echo "Unknown")
+        local model=$(lsblk -dn -o MODEL "/dev/${disk}" 2>/dev/null | xargs || echo "Unknown")
         
-        echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${PEACH}/dev/${disk}${NC}"
-        echo -e "      ${SUBTEXT0}├─ Size: ${size}${NC}"
-        echo -e "      ${SUBTEXT0}└─ Model: ${model}${NC}"
+        printf "  ${LAVENDER}[${BOLD}%d${NC}${LAVENDER}]${NC} ${PEACH}/dev/%s${NC}\n" "$num" "$disk"
+        echo -e "      ${SUBTEXT0}Size: ${size}${NC}"
+        echo -e "      ${SUBTEXT0}Model: ${model}${NC}"
         echo ""
     done
 
     while true; do
-        read -rp "$(echo -e "${BLUE}❯${NC} ${TEXT}Select disk number: ${NC}")" choice
+        echo -ne "${BLUE}>>>${NC} ${TEXT}Select disk number: ${NC}"
+        read -r choice
         if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#DISKS[@]})); then
             CHOSEN_DRIVE="/dev/${DISKS[$((choice-1))]}"
             echo ""
@@ -285,7 +281,7 @@ select_disk() {
 
 select_disk_wipe() {
     clear_screen
-    print_box "${YELLOW}" "🔥" "Secure Disk Wipe"
+    print_box "${YELLOW}" "Secure Disk Wipe"
     
     print_step "3" "6" "Configure disk wiping options..."
     echo ""
@@ -296,7 +292,8 @@ select_disk_wipe() {
     print_box_warning "This process can take several hours!"
     echo ""
     
-    read -rp "$(echo -e "${BLUE}❯${NC} ${TEXT}Perform secure wipe? [y/N]: ${NC}")" response
+    echo -ne "${BLUE}>>>${NC} ${TEXT}Perform secure wipe? [y/N]: ${NC}"
+    read -r response
     if [[ "$response" =~ ^[yY] ]]; then
         WIPE=true
         echo ""
@@ -312,7 +309,7 @@ select_disk_wipe() {
 
 set_disk_password() {
     clear_screen
-    print_box "${LAVENDER}" "🔐" "Disk Encryption Password"
+    print_box "${LAVENDER}" "Disk Encryption Password"
     
     print_step "4" "6" "Configure disk encryption..."
     echo ""
@@ -330,26 +327,27 @@ set_disk_password() {
 
 confirm_installation() {
     clear_screen
-    print_box "${RED}" "⚠️ " "Installation Summary"
+    print_box "${RED}" "Installation Summary"
     
     print_step "5" "6" "Review your configuration..."
     echo ""
     
     echo -e "${TEXT}Please review the following settings:${NC}\n"
     
-    print_item "🖥️ " "Host Configuration" "${CHOSEN_HOST}" "${MAUVE}"
-    print_item "💾" "Target Disk" "${CHOSEN_DRIVE}" "${PEACH}"
-    print_item "🔥" "Secure Wipe" "$([ "$WIPE" = true ] && echo "Enabled" || echo "Disabled")" "${YELLOW}"
-    print_item "🔐" "Disk Encryption" "Enabled" "${LAVENDER}"
-    print_item "📦" "Flake Source" "${FLAKE_REPO}" "${BLUE}"
+    print_item "Host Configuration" "${CHOSEN_HOST}" "${MAUVE}"
+    print_item "Target Disk" "${CHOSEN_DRIVE}" "${PEACH}"
+    print_item "Secure Wipe" "$([ "$WIPE" = true ] && echo "Enabled" || echo "Disabled")" "${YELLOW}"
+    print_item "Disk Encryption" "Enabled" "${LAVENDER}"
+    print_item "Flake Source" "${FLAKE_REPO}" "${BLUE}"
     
     echo ""
-    echo -e "${RED}${BOLD}╔════════════════════════════════════════════════╗${NC}"
-    echo -e "${RED}${BOLD}║  ⚠️  WARNING: THIS WILL DESTROY ALL DATA!  ⚠️  ║${NC}"
-    echo -e "${RED}${BOLD}╚════════════════════════════════════════════════╝${NC}"
+    echo -e "${RED}${BOLD}=================================================${NC}"
+    echo -e "${RED}${BOLD}     WARNING: THIS WILL DESTROY ALL DATA!${NC}"
+    echo -e "${RED}${BOLD}=================================================${NC}"
     echo ""
     
-    read -rp "$(echo -e "${RED}❯${NC} ${BOLD}${TEXT}Type 'YES' to proceed: ${NC}")" response
+    echo -ne "${RED}>>>${NC} ${BOLD}${TEXT}Type 'YES' to proceed: ${NC}"
+    read -r response
     if [[ "$response" != "YES" ]]; then
         abort
     fi
@@ -362,7 +360,7 @@ confirm_installation() {
 wipe_disk() {
     if [[ "$WIPE" == true ]]; then
         clear_screen
-        print_box "${YELLOW}" "🔥" "Wiping Disk"
+        print_box "${YELLOW}" "Wiping Disk"
         
         echo -e "${TEXT}Securely wiping ${PEACH}${BOLD}${CHOSEN_DRIVE}${NC}${TEXT}...${NC}"
         echo -e "${SUBTEXT0}This may take several hours.${NC}\n"
@@ -379,13 +377,13 @@ wipe_disk() {
 
 install_nixos() {
     clear_screen
-    print_box "${GREEN}" "🚀" "Installing NixOS"
+    print_box "${GREEN}" "Installing NixOS"
     
     print_step "6" "6" "Beginning installation process..."
     echo ""
 
     # Generate keys
-    echo -e "${BLUE}▶${NC} ${TEXT}Generating encryption keys...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Generating encryption keys...${NC}"
     openssl genrsa -out /tmp/keyfile.key 4096 2>/dev/null
     echo -n "$DISKPASS" > /tmp/secret.key
     print_box_success "Keys generated"
@@ -394,7 +392,7 @@ install_nixos() {
     INSTALLATION_TARGET="$FLAKE_REPO#$CHOSEN_HOST"
 
     # Run disko
-    echo -e "${BLUE}▶${NC} ${TEXT}Partitioning and formatting disk...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Partitioning and formatting disk...${NC}"
     if nix --experimental-features "nix-command flakes" \
         --accept-flake-config \
         run github:nix-community/disko -- \
@@ -408,7 +406,7 @@ install_nixos() {
     echo ""
 
     # Move secrets
-    echo -e "${BLUE}▶${NC} ${TEXT}Securing encryption keys...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Securing encryption keys...${NC}"
     mkdir -p /mnt/root/.secrets
     mv /tmp/secret.key /mnt/root/.secrets/secret.key
     chmod 0400 /mnt/root/.secrets/secret.key
@@ -421,7 +419,7 @@ install_nixos() {
     echo ""
 
     # Generate config
-    echo -e "${BLUE}▶${NC} ${TEXT}Generating hardware configuration...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Generating hardware configuration...${NC}"
     nixos-generate-config --root /mnt 2>&1 | while read -r line; do
         echo -e "${SUBTEXT0}  ${line}${NC}"
     done
@@ -429,11 +427,11 @@ install_nixos() {
     echo ""
 
     # Install
-    echo -e "${BLUE}▶${NC} ${TEXT}Installing NixOS (this may take a while)...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Installing NixOS (this may take a while)...${NC}"
     if nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET" 2>&1 | \
         while read -r line; do echo -e "${SUBTEXT0}  ${line}${NC}"; done; then
         echo ""
-        print_box_success "NixOS installed successfully! 🎉"
+        print_box_success "NixOS installed successfully!"
     else
         echo ""
         print_box_error "Installation completed with errors"
@@ -444,9 +442,9 @@ install_nixos() {
     DISKPASS=""
     
     echo ""
-    echo -e "${GREEN}${BOLD}╔════════════════════════════════════════════════╗${NC}"
-    echo -e "${GREEN}${BOLD}║     ✅ Installation Complete! 🎉              ║${NC}"
-    echo -e "${GREEN}${BOLD}╚════════════════════════════════════════════════╝${NC}"
+    echo -e "${GREEN}${BOLD}=================================================${NC}"
+    echo -e "${GREEN}${BOLD}        Installation Complete!${NC}"
+    echo -e "${GREEN}${BOLD}=================================================${NC}"
     echo ""
     echo -e "${TEXT}You can now reboot into your new NixOS system.${NC}"
     echo ""
