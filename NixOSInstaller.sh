@@ -2,16 +2,16 @@
 set -euo pipefail
 
 ### Catppuccin-inspired Colors (Basic ANSI) ###
-CYAN='\033[1;36m'       # Bright Cyan (Titel, Akzente)
-RED='\033[1;31m'        # Bright Red (Fehler)
-YELLOW='\033[0;33m'     # Yellow (Warnungen)
-GREEN='\033[1;32m'      # Bright Green (Erfolg)
-BLUE='\033[1;34m'       # Bright Blue (Prompts)
-MAGENTA='\033[0;35m'    # Magenta (Akzente)
-TEXT='\033[0;37m'       # White (Text)
-SUBTEXT='\033[1;37m'    # Bright White (Hervorgehobener Text)
-GRAY='\033[0;90m'       # Dark Gray (Sekundär)
-NC='\033[0m'            # No Color
+CYAN='\033[1;36m'
+RED='\033[1;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+MAGENTA='\033[0;35m'
+TEXT='\033[0;37m'
+SUBTEXT='\033[1;37m'
+GRAY='\033[0;90m'
+NC='\033[0m'
 BOLD='\033[1m'
 DIM='\033[2m'
 
@@ -148,20 +148,22 @@ press_enter() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
-    # Run nix flake show and save output
+    # Run nix flake show
     nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
         --accept-flake-config > "$tmpfile" 2>&1
     
-    # Parse hosts: Look for lines that match "├───HostName:" or "└───HostName:"
-    # The output format is like:
-    # ├───NixOS-Desktop: NixOS configuration
+    # Extract hosts - looking for pattern "HostName: NixOS configuration"
+    # After nixosConfigurations line, extract everything before ": NixOS configuration"
     local hosts
-    hosts=$(grep -oP '(?:├───|└───)\K[A-Za-z0-9_-]+(?=:)' "$tmpfile" | sort -u)
+    hosts=$(grep "NixOS configuration" "$tmpfile" \
+        | grep -v "nixosConf" \
+        | sed 's/:.*$//' \
+        | sed 's/^[[:space:]]*//' \
+        | grep -v "^$" \
+        | sort -u)
     
     rm -f "$tmpfile"
-    
-    # Return only the hosts
     echo "$hosts"
 }
 
@@ -175,7 +177,6 @@ select_host() {
     echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
     echo ""
     
-    # Get hosts
     local hosts_output
     hosts_output=$(get_hosts_from_flake)
     
