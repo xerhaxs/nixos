@@ -113,9 +113,9 @@ prompt_password() {
     local prompt=$1
     while true; do
         echo -e "${BLUE}${prompt}${NC}"
-        read -rs -p "   Password: " pass1
+        read -rs -p "   Password: " pass1 < /dev/tty
         echo ""
-        read -rs -p "   Confirm:  " pass2
+        read -rs -p "   Confirm:  " pass2 < /dev/tty
         echo ""
         
         if [[ -z "$pass1" ]]; then
@@ -141,7 +141,7 @@ require_root() {
 press_enter() {
     echo ""
     echo -e "${DIM}${GRAY}Press Enter to continue...${NC}"
-    read -r
+    read -r < /dev/tty
 }
 
 # ------------------ Host Selection ------------------
@@ -257,8 +257,8 @@ select_disk() {
 
     local choice
     while true; do
-        echo -e "${BLUE}>>>${NC} ${TEXT}Select disk number:${NC}"
-        read -r choice
+        printf "${BLUE}>>>${NC} ${TEXT}Select disk number: ${NC}"
+        read -r choice < /dev/tty
         
         if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#DISKS[@]})); then
             CHOSEN_DRIVE="/dev/${DISKS[$((choice-1))]}"
@@ -290,8 +290,8 @@ select_disk_wipe() {
     echo ""
     
     local response
-    echo -e "${BLUE}>>>${NC} ${TEXT}Perform secure wipe? [y/N]:${NC}"
-    read -r response
+    printf "${BLUE}>>>${NC} ${TEXT}Perform secure wipe? [y/N]: ${NC}"
+    read -r response < /dev/tty
     
     if [[ "$response" =~ ^[yY] ]]; then
         WIPE=true
@@ -347,8 +347,8 @@ confirm_installation() {
     echo ""
     
     local response
-    echo -e "${RED}>>>${NC} ${BOLD}${TEXT}Type 'YES' to proceed:${NC}"
-    read -r response
+    printf "${RED}>>>${NC} ${BOLD}${TEXT}Type 'YES' to proceed: ${NC}"
+    read -r response < /dev/tty
     
     if [[ "$response" != "YES" ]]; then
         abort
