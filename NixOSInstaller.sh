@@ -153,8 +153,7 @@ get_hosts_from_flake() {
         --extra-experimental-features "nix-command flakes" \
         --accept-flake-config > "$tmpfile" 2>&1
     
-    # Remove ANSI escape codes first, then extract hosts
-    # Look for lines with ": NixOS configuration" and extract hostname
+    # Remove ANSI escape codes, extract hosts
     local hosts
     hosts=$(sed 's/\x1b\[[0-9;]*m//g' "$tmpfile" \
         | grep ": NixOS configuration" \
