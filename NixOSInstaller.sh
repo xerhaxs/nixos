@@ -148,23 +148,20 @@ press_enter() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
-    # Run nix flake show and save to temp file (all debug to stderr)
+    # Run nix flake show and save output
     nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
         --accept-flake-config > "$tmpfile" 2>&1
     
-    # Extract only host names (clean output without debug)
+    # Parse hosts: Look for lines that match "├───HostName:" or "└───HostName:"
+    # The output format is like:
+    # ├───NixOS-Desktop: NixOS configuration
     local hosts
-    hosts=$(grep -E "├───|└───" "$tmpfile" \
-        | grep -v ":" \
-        | sed 's/.*[├└]───[[:space:]]*//' \
-        | sed 's/[[:space:]].*//' \
-        | grep -v "^$" \
-        | sort -u)
+    hosts=$(grep -oP '(?:├───|└───)\K[A-Za-z0-9_-]+(?=:)' "$tmpfile" | sort -u)
     
     rm -f "$tmpfile"
     
-    # Return ONLY the hosts, nothing else
+    # Return only the hosts
     echo "$hosts"
 }
 
@@ -178,7 +175,7 @@ select_host() {
     echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
     echo ""
     
-    # Capture ONLY the hosts
+    # Get hosts
     local hosts_output
     hosts_output=$(get_hosts_from_flake)
     
@@ -191,13 +188,10 @@ select_host() {
         exit 1
     fi
     
-    # Read hosts into array - CLEAN VERSION
+    # Read hosts into array
     declare -a HOSTS=()
     while IFS= read -r line; do
-        # Skip empty lines and debug output
-        if [[ -n "$line" ]] && [[ ! "$line" =~ ^\[DEBUG\] ]]; then
-            HOSTS+=("$line")
-        fi
+        [[ -n "$line" ]] && HOSTS+=("$line")
     done <<< "$hosts_output"
 
     if [[ ${#HOSTS[@]} -eq 0 ]]; then
