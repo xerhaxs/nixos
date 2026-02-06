@@ -148,46 +148,23 @@ press_enter() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
-    echo -e "${GRAY}[DEBUG] Running: nix flake show ${FLAKE_REPO}${NC}"
-    echo ""
-    
-    # Run nix flake show and capture output
-    if nix flake show "$FLAKE_REPO" \
+    # Run nix flake show and save to temp file (all debug to stderr)
+    nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
-        --accept-flake-config > "$tmpfile" 2>&1; then
-        
-        echo -e "${GREEN}[DEBUG] Command successful${NC}"
-    else
-        echo -e "${RED}[DEBUG] Command failed${NC}"
-        cat "$tmpfile"
-        rm -f "$tmpfile"
-        return 1
-    fi
+        --accept-flake-config > "$tmpfile" 2>&1
     
-    echo ""
-    echo -e "${GRAY}[DEBUG] Full flake show output:${NC}"
-    echo -e "${GRAY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    cat "$tmpfile"
-    echo -e "${GRAY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo ""
-    
-    # Extract hosts using simple grep and sed
+    # Extract only host names (clean output without debug)
     local hosts
     hosts=$(grep -E "├───|└───" "$tmpfile" \
         | grep -v ":" \
         | sed 's/.*[├└]───[[:space:]]*//' \
         | sed 's/[[:space:]].*//' \
+        | grep -v "^$" \
         | sort -u)
-    
-    echo -e "${GRAY}[DEBUG] Extracted hosts:${NC}"
-    echo "$hosts" | while read -r h; do
-        echo -e "${GRAY}  - $h${NC}"
-    done
-    echo ""
     
     rm -f "$tmpfile"
     
-    # Output hosts for capture
+    # Return ONLY the hosts, nothing else
     echo "$hosts"
 }
 
@@ -201,13 +178,9 @@ select_host() {
     echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
     echo ""
     
-    # Capture hosts with debug output visible
+    # Capture ONLY the hosts
     local hosts_output
     hosts_output=$(get_hosts_from_flake)
-    
-    echo -e "${GRAY}[DEBUG] Captured output:${NC}"
-    echo "'$hosts_output'"
-    echo ""
     
     if [[ -z "$hosts_output" ]]; then
         echo ""
@@ -218,21 +191,14 @@ select_host() {
         exit 1
     fi
     
-    # Read hosts into array
-    echo -e "${GRAY}[DEBUG] Parsing hosts into array...${NC}"
+    # Read hosts into array - CLEAN VERSION
     declare -a HOSTS=()
-    local count=0
     while IFS= read -r line; do
-        if [[ -n "$line" ]]; then
-            echo -e "${GRAY}  [${count}] = '$line'${NC}"
+        # Skip empty lines and debug output
+        if [[ -n "$line" ]] && [[ ! "$line" =~ ^\[DEBUG\] ]]; then
             HOSTS+=("$line")
-            ((count++))
         fi
     done <<< "$hosts_output"
-
-    echo ""
-    echo -e "${GRAY}[DEBUG] Total hosts in array: ${#HOSTS[@]}${NC}"
-    echo ""
 
     if [[ ${#HOSTS[@]} -eq 0 ]]; then
         print_box_error "Failed to parse host list"
