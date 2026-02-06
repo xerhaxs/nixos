@@ -86,7 +86,7 @@ fwupdmgr update
 ## ToDo List
 
 * [ ] Make NixOS Offline installation working -> local nixos cache etc.
-* [ ] Rewrite Installation Script without newt and tui to a plain bash cli tool
+* [x] Rewrite Installation Script without newt and tui to a plain bash cli tool
 * [ ] Restructure flake.nix to be more convenient and nicer formatted
 * [ ] Formatting of userEnvironment Module
 * [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
