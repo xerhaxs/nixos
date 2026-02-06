@@ -148,20 +148,24 @@ press_enter() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
-    # Run nix flake show
     nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
         --accept-flake-config > "$tmpfile" 2>&1
     
-    # Extract hosts - looking for pattern "HostName: NixOS configuration"
-    # After nixosConfigurations line, extract everything before ": NixOS configuration"
+    echo "[DEBUG] Lines with 'NixOS configuration':" >&2
+    grep "NixOS configuration" "$tmpfile" >&2
+    echo "" >&2
+    
     local hosts
-    hosts=$(grep "NixOS configuration" "$tmpfile" \
+    hosts=$(grep ": NixOS configuration" "$tmpfile" \
         | grep -v "nixosConf" \
-        | sed 's/:.*$//' \
-        | sed 's/^[[:space:]]*//' \
-        | grep -v "^$" \
+        | cut -d':' -f1 \
+        | tr -d ' ' \
         | sort -u)
+    
+    echo "[DEBUG] Extracted hosts:" >&2
+    echo "$hosts" >&2
+    echo "" >&2
     
     rm -f "$tmpfile"
     echo "$hosts"
