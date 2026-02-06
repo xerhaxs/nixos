@@ -208,8 +208,8 @@ select_host() {
     echo ""
     local choice
     while true; do
-        echo -e "${BLUE}>>>${NC} ${TEXT}Select host number:${NC}"
-        read -r choice
+        printf "${BLUE}>>>${NC} ${TEXT}Select host number: ${NC}"
+        read -r choice < /dev/tty
         
         if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#HOSTS[@]})); then
             CHOSEN_HOST="${HOSTS[$((choice-1))]}"
