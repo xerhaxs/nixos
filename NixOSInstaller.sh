@@ -52,47 +52,70 @@ EOF
 print_box() {
     local color=$1
     local title=$2
+    local title_length=${#title}
+    local total_width=50
+    local padding=$((total_width - title_length - 2))
     
-    echo -e "${color}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${color}│${NC} ${BOLD}${SUBTEXT}${title}${NC}$(printf '%*s' $((48 - ${#title})) '')${color}│${NC}"
-    echo -e "${color}╰──────────────────────────────────────────────────╯${NC}"
+    echo -e "${color}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
+    echo -e "${color}│${NC} ${BOLD}${SUBTEXT}${title}${NC}$(printf '%*s' $padding '')${color}│${NC}"
+    echo -e "${color}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
     echo ""
 }
 
 print_box_error() {
     local msg=$1
-    local padding=$((40 - ${#msg}))
+    local msg_length=${#msg}
+    local prefix="[ERROR] "
+    local total_width=50
+    local content_length=$((${#prefix} + msg_length))
+    local padding=$((total_width - content_length - 2))
     [[ $padding -lt 0 ]] && padding=0
-    echo -e "${RED}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${RED}│${NC} ${BOLD}${RED}[ERROR] ${msg}${NC}$(printf '%*s' $padding '')${RED}│${NC}"
-    echo -e "${RED}╰──────────────────────────────────────────────────╯${NC}"
+    
+    echo -e "${RED}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
+    echo -e "${RED}│${NC} ${BOLD}${RED}${prefix}${msg}${NC}$(printf '%*s' $padding '')${RED}│${NC}"
+    echo -e "${RED}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_box_success() {
     local msg=$1
-    local padding=$((38 - ${#msg}))
+    local msg_length=${#msg}
+    local prefix="[SUCCESS] "
+    local total_width=50
+    local content_length=$((${#prefix} + msg_length))
+    local padding=$((total_width - content_length - 2))
     [[ $padding -lt 0 ]] && padding=0
-    echo -e "${GREEN}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}[SUCCESS] ${msg}${NC}$(printf '%*s' $padding '')${GREEN}│${NC}"
-    echo -e "${GREEN}╰──────────────────────────────────────────────────╯${NC}"
+    
+    echo -e "${GREEN}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
+    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}${prefix}${msg}${NC}$(printf '%*s' $padding '')${GREEN}│${NC}"
+    echo -e "${GREEN}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_box_warning() {
     local msg=$1
-    local padding=$((38 - ${#msg}))
+    local msg_length=${#msg}
+    local prefix="[WARNING] "
+    local total_width=50
+    local content_length=$((${#prefix} + msg_length))
+    local padding=$((total_width - content_length - 2))
     [[ $padding -lt 0 ]] && padding=0
-    echo -e "${YELLOW}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}[WARNING] ${msg}${NC}$(printf '%*s' $padding '')${YELLOW}│${NC}"
-    echo -e "${YELLOW}╰──────────────────────────────────────────────────╯${NC}"
+    
+    echo -e "${YELLOW}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
+    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}${prefix}${msg}${NC}$(printf '%*s' $padding '')${YELLOW}│${NC}"
+    echo -e "${YELLOW}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_box_info() {
     local msg=$1
-    local padding=$((43 - ${#msg}))
+    local msg_length=${#msg}
+    local prefix="[INFO] "
+    local total_width=50
+    local content_length=$((${#prefix} + msg_length))
+    local padding=$((total_width - content_length - 2))
     [[ $padding -lt 0 ]] && padding=0
-    echo -e "${BLUE}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}[INFO] ${msg}${NC}$(printf '%*s' $padding '')${BLUE}│${NC}"
-    echo -e "${BLUE}╰──────────────────────────────────────────────────╯${NC}"
+    
+    echo -e "${BLUE}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
+    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}${prefix}${msg}${NC}$(printf '%*s' $padding '')${BLUE}│${NC}"
+    echo -e "${BLUE}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
 print_step() {
@@ -111,22 +134,27 @@ print_item() {
 
 prompt_password() {
     local prompt=$1
+    local pass1
+    local pass2
+    
     while true; do
         echo -e "${BLUE}${prompt}${NC}"
+        echo ""
         read -rs -p "   Password: " pass1 < /dev/tty
         echo ""
         read -rs -p "   Confirm:  " pass2 < /dev/tty
+        echo ""
         echo ""
         
         if [[ -z "$pass1" ]]; then
             print_box_error "Password cannot be empty"
             echo ""
-        elif [[ "$pass1" == "$pass2" ]]; then
-            echo "$pass1"
-            break
-        else
+        elif [[ "$pass1" != "$pass2" ]]; then
             print_box_error "Passwords do not match"
             echo ""
+        else
+            echo "$pass1"
+            break
         fi
     done
 }
@@ -136,12 +164,6 @@ require_root() {
         print_box_error "Root privileges required"
         exit 1
     fi
-}
-
-press_enter() {
-    echo ""
-    echo -e "${DIM}${GRAY}Press Enter to continue...${NC}"
-    read -r < /dev/tty
 }
 
 # ------------------ Host Selection ------------------
@@ -215,6 +237,7 @@ select_host() {
             CHOSEN_HOST="${HOSTS[$((choice-1))]}"
             echo ""
             print_box_success "Selected: ${CHOSEN_HOST}"
+            echo ""
             break
         else
             echo ""
@@ -222,8 +245,6 @@ select_host() {
             echo ""
         fi
     done
-    
-    press_enter
 }
 
 # ------------------ Disk Selection ------------------
@@ -265,6 +286,7 @@ select_disk() {
             echo ""
             print_box_warning "Selected: ${CHOSEN_DRIVE}"
             print_box_warning "ALL DATA WILL BE DESTROYED!"
+            echo ""
             break
         else
             echo ""
@@ -272,8 +294,6 @@ select_disk() {
             echo ""
         fi
     done
-    
-    press_enter
 }
 
 select_disk_wipe() {
@@ -297,13 +317,13 @@ select_disk_wipe() {
         WIPE=true
         echo ""
         print_box_info "Disk will be securely wiped"
+        echo ""
     else
         WIPE=false
         echo ""
         print_box_info "Disk will NOT be wiped"
+        echo ""
     fi
-    
-    press_enter
 }
 
 set_disk_password() {
@@ -318,10 +338,9 @@ set_disk_password() {
     echo ""
     
     DISKPASS=$(prompt_password "Enter disk encryption password")
-    echo ""
-    print_box_success "Encryption password set"
     
-    press_enter
+    print_box_success "Encryption password set"
+    echo ""
 }
 
 confirm_installation() {
@@ -356,7 +375,7 @@ confirm_installation() {
     
     echo ""
     print_box_success "Installation confirmed"
-    press_enter
+    echo ""
 }
 
 wipe_disk() {
@@ -374,6 +393,7 @@ wipe_disk() {
         
         echo ""
         print_box_success "Disk wiped successfully"
+        echo ""
         sleep 2
     fi
 }
