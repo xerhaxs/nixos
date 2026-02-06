@@ -57,7 +57,7 @@ print_box() {
     local padding=$((total_width - title_length - 1))
     
     echo -e "${color}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${color}│ ${NC}${BOLD}${color}${title}${NC}$(printf '%*s' $padding '')${color}│${NC}"
+    echo -e "${color}│ ${BOLD}${color}${title}${NC}$(printf '%*s' $padding '')${color}│${NC}"
     echo -e "${color}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
     echo ""
 }
@@ -131,8 +131,8 @@ read_password() {
     
     echo -n "$prompt"
     
-    while IFS= read -r -s -n1 char < /dev/tty; do
-        if [[ $char == $'\0' ]]; then
+    while IFS= read -r -s -n1 char; do
+        if [[ $char == $'\0' ]] || [[ -z $char ]]; then
             break
         elif [[ $char == $'\177' ]] || [[ $char == $'\b' ]]; then
             if [ ${#password} -gt 0 ]; then
@@ -143,7 +143,7 @@ read_password() {
             password+="$char"
             echo -n "*"
         fi
-    done
+    done < /dev/tty
     
     echo ""
     echo "$password"
@@ -155,7 +155,7 @@ prompt_password() {
     local pass2
     
     while true; do
-        echo -e "${BLUE}${prompt}${NC}"
+        echo -e "${CYAN}${prompt}${NC}"
         echo ""
         
         pass1=$(read_password "   Password: ")
