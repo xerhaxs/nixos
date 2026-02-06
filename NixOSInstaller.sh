@@ -205,7 +205,7 @@ get_hosts_from_flake() {
 
 select_host() {
     clear_screen
-    print_box "${CYAN}" "Select NixOS Host Configuration"
+    print_box "${MAGENTA}" "Select NixOS Host Configuration"
     
     print_step "1" "6" "Fetching available hosts from flake..."
     echo ""
@@ -263,7 +263,7 @@ select_host() {
 # ------------------ Disk Selection ------------------
 select_disk() {
     clear_screen
-    print_box "${YELLOW}" "Select Installation Disk"
+    print_box "${MAGENTA}" "Select Installation Disk"
     
     print_step "2" "6" "Scanning available disks..."
     echo ""
@@ -311,7 +311,7 @@ select_disk() {
 
 select_disk_wipe() {
     clear_screen
-    print_box "${YELLOW}" "Secure Disk Wipe"
+    print_box "${MAGENTA}" "Secure Disk Wipe"
     
     print_step "3" "6" "Configure disk wiping options..."
     echo ""
@@ -341,7 +341,7 @@ select_disk_wipe() {
 
 set_disk_password() {
     clear_screen
-    print_box "${CYAN}" "Disk Encryption Password"
+    print_box "${MAGENTA}" "Disk Encryption Password"
     
     print_step "4" "6" "Configure disk encryption..."
     echo ""
@@ -394,7 +394,7 @@ confirm_installation() {
 wipe_disk() {
     if [[ "$WIPE" == true ]]; then
         clear_screen
-        print_box "${YELLOW}" "Wiping Disk"
+        print_box "${MAGENTA}" "Wiping Disk"
         
         echo -e "${TEXT}Securely wiping ${YELLOW}${BOLD}${CHOSEN_DRIVE}${NC}${TEXT}...${NC}"
         echo -e "${GRAY}This may take several hours.${NC}"
