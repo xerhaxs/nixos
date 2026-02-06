@@ -54,15 +54,15 @@ clear_screen() {
 
 print_banner() {
     echo -e "${MAUVE}${BOLD}"
-    cat << "EOF"
+    cat << 'EOF'
     ███╗   ██╗██╗██╗  ██╗ ██████╗ ███████╗
     ████╗  ██║██║╚██╗██╔╝██╔═══██╗██╔════╝
     ██╔██╗ ██║██║ ╚███╔╝ ██║   ██║███████╗
     ██║╚██╗██║██║ ██╔██╗ ██║   ██║╚════██║
     ██║ ╚████║██║██╔╝ ██╗╚██████╔╝███████║
     ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
-    ${LAVENDER}     I N S T A L L E R   S C R I P T
 EOF
+    echo -e "${LAVENDER}     I N S T A L L E R   S C R I P T"
     echo -e "${NC}"
     echo -e "${SUBTEXT0}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 }
@@ -73,9 +73,9 @@ print_box() {
     local title=$3
     local width=48
     
-    echo -e "${color}╭$( printf '─%.0s' $(seq 1 $width) )╮${NC}"
+    echo -e "${color}╭$(printf '─%.0s' $(seq 1 $width))╮${NC}"
     echo -e "${color}│${NC} ${icon} ${BOLD}${TEXT}${title}${NC}"
-    echo -e "${color}╰$( printf '─%.0s' $(seq 1 $width) )╯${NC}"
+    echo -e "${color}╰$(printf '─%.0s' $(seq 1 $width))╯${NC}"
     echo ""
 }
 
@@ -122,20 +122,6 @@ print_item() {
     echo -e "  ${icon} ${SUBTEXT1}${label}:${NC} ${color}${BOLD}${value}${NC}"
 }
 
-spinner() {
-    local pid=$1
-    local msg=$2
-    local spin='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
-    local i=0
-    
-    while kill -0 $pid 2>/dev/null; do
-        i=$(( (i+1) %10 ))
-        printf "\r${BLUE}${spin:$i:1}${NC} ${TEXT}${msg}${NC}"
-        sleep 0.1
-    done
-    printf "\r${GREEN}✓${NC} ${TEXT}${msg}${NC}\n"
-}
-
 prompt_password() {
     local prompt=$1
     while true; do
@@ -173,35 +159,34 @@ press_enter() {
 
 # ------------------ Host Selection ------------------
 get_hosts_from_flake() {
-    # Robust method without jq dependency
-    local hosts
+    local hosts=""
     
-    # Try direct evaluation first
+    # Method 1: Parse flake show output (most reliable for your flake structure)
     hosts=$(nix --extra-experimental-features "nix-command flakes" \
         --accept-flake-config \
-        eval --impure --expr \
-        "builtins.attrNames (builtins.getFlake \"$FLAKE_REPO\").nixosConfigurations" \
-        2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
+        flake show "$FLAKE_REPO" 2>&1 \
+        | grep -A 50 "nixosConfigurations" \
+        | grep "├───\|└───" \
+        | sed 's/.*[├└]───//' \
+        | awk '{print $1}' \
+        | grep -v "^$" || true)
     
-    # Fallback to apply method
+    # Method 2: Direct evaluation as fallback
+    if [[ -z "$hosts" ]]; then
+        hosts=$(nix --extra-experimental-features "nix-command flakes" \
+            --accept-flake-config \
+            eval --impure --expr \
+            "builtins.attrNames (builtins.getFlake \"$FLAKE_REPO\").nixosConfigurations" \
+            2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
+    fi
+    
+    # Method 3: Using eval with apply
     if [[ -z "$hosts" ]]; then
         hosts=$(nix --extra-experimental-features "nix-command flakes" \
             --accept-flake-config \
             eval "$FLAKE_REPO#nixosConfigurations" \
             --apply builtins.attrNames \
             2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
-    fi
-    
-    # Last resort: parse flake show output
-    if [[ -z "$hosts" ]]; then
-        hosts=$(nix --extra-experimental-features "nix-command flakes" \
-            --accept-flake-config \
-            flake show "$FLAKE_REPO" 2>/dev/null \
-            | grep -A 1 "nixosConfigurations" \
-            | tail -n +2 \
-            | grep "├───\|└───" \
-            | sed 's/.*───//' \
-            | awk '{print $1}' || true)
     fi
     
     echo "$hosts"
@@ -214,12 +199,23 @@ select_host() {
     print_step "1" "6" "Fetching available hosts from flake..."
     echo ""
     
-    mapfile -t HOSTS < <(get_hosts_from_flake)
+    echo -e "${BLUE}⠋${NC} ${TEXT}Connecting to ${FLAKE_REPO}...${NC}"
     
-    if [[ ${#HOSTS[@]} -eq 0 ]]; then
+    local hosts_output
+    hosts_output=$(get_hosts_from_flake)
+    
+    if [[ -z "$hosts_output" ]]; then
+        echo ""
         print_box_error "No hosts found in the flake"
+        echo ""
+        echo -e "${SUBTEXT0}Troubleshooting tips:${NC}"
+        echo -e "${SUBTEXT0}  • Check your internet connection${NC}"
+        echo -e "${SUBTEXT0}  • Verify the flake URL: ${FLAKE_REPO}${NC}"
+        echo -e "${SUBTEXT0}  • Run manually: nix flake show ${FLAKE_REPO}${NC}"
         exit 1
     fi
+    
+    mapfile -t HOSTS <<< "$hosts_output"
 
     echo -e "${TEXT}Available configurations:${NC}\n"
     for i in "${!HOSTS[@]}"; do
@@ -263,7 +259,7 @@ select_disk() {
         local num=$((i+1))
         local disk="${DISKS[$i]}"
         local size=$(lsblk -dn -o SIZE "/dev/${disk}")
-        local model=$(lsblk -dn -o MODEL "/dev/${disk}" | xargs)
+        local model=$(lsblk -dn -o MODEL "/dev/${disk}" | xargs || echo "Unknown")
         
         echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${PEACH}/dev/${disk}${NC}"
         echo -e "      ${SUBTEXT0}├─ Size: ${size}${NC}"
