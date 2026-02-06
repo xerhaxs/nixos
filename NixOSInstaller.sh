@@ -1,33 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-### Catppuccin Mocha Colors ###
-ROSEWATER='\033[38;2;245;224;220m'
-FLAMINGO='\033[38;2;242;205;205m'
-PINK='\033[38;2;245;194;231m'
-MAUVE='\033[38;2;203;166;247m'
-RED='\033[38;2;243;139;168m'
-MAROON='\033[38;2;235;160;172m'
-PEACH='\033[38;2;250;179;135m'
-YELLOW='\033[38;2;249;226;175m'
-GREEN='\033[38;2;166;227;161m'
-TEAL='\033[38;2;148;226;213m'
-SKY='\033[38;2;137;220;235m'
-SAPPHIRE='\033[38;2;116;199;236m'
-BLUE='\033[38;2;137;180;250m'
-LAVENDER='\033[38;2;180;190;254m'
-TEXT='\033[38;2;205;214;244m'
-SUBTEXT1='\033[38;2;186;194;222m'
-SUBTEXT0='\033[38;2;166;173;200m'
-OVERLAY2='\033[38;2;147;153;178m'
-OVERLAY1='\033[38;2;127;132;156m'
-OVERLAY0='\033[38;2;108;112;134m'
-SURFACE2='\033[38;2;88;91;112m'
-SURFACE1='\033[38;2;69;71;90m'
-SURFACE0='\033[38;2;49;50;68m'
-BASE='\033[38;2;30;30;46m'
-MANTLE='\033[38;2;24;24;37m'
-CRUST='\033[38;2;17;17;27m'
+### Catppuccin Mocha Colors (256-color mode) ###
+MAUVE='\033[38;5;183m'      # Mauve
+RED='\033[38;5;204m'        # Red
+MAROON='\033[38;5;174m'     # Maroon
+PEACH='\033[38;5;216m'      # Peach
+YELLOW='\033[38;5;222m'     # Yellow
+GREEN='\033[38;5;151m'      # Green
+TEAL='\033[38;5;122m'       # Teal
+SKY='\033[38;5;117m'        # Sky
+SAPPHIRE='\033[38;5;111m'   # Sapphire
+BLUE='\033[38;5;117m'       # Blue
+LAVENDER='\033[38;5;147m'   # Lavender
+TEXT='\033[38;5;254m'       # Text
+SUBTEXT1='\033[38;5;250m'   # Subtext1
+SUBTEXT0='\033[38;5;245m'   # Subtext0
+OVERLAY2='\033[38;5;240m'   # Overlay2
+OVERLAY1='\033[38;5;238m'   # Overlay1
+OVERLAY0='\033[38;5;236m'   # Overlay0
+SURFACE2='\033[38;5;235m'   # Surface2
+SURFACE1='\033[38;5;234m'   # Surface1
+SURFACE0='\033[38;5;233m'   # Surface0
+BASE='\033[38;5;232m'       # Base
+MANTLE='\033[38;5;233m'     # Mantle
+CRUST='\033[38;5;232m'      # Crust
 NC='\033[0m'
 BOLD='\033[1m'
 DIM='\033[2m'
