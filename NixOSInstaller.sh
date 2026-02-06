@@ -1,31 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-### Catppuccin Mocha Colors (256-color mode) ###
-MAUVE='\033[38;5;183m'
-RED='\033[38;5;204m'
-MAROON='\033[38;5;174m'
-PEACH='\033[38;5;216m'
-YELLOW='\033[38;5;222m'
-GREEN='\033[38;5;151m'
-TEAL='\033[38;5;122m'
-SKY='\033[38;5;117m'
-SAPPHIRE='\033[38;5;111m'
-BLUE='\033[38;5;117m'
-LAVENDER='\033[38;5;147m'
-TEXT='\033[38;5;254m'
-SUBTEXT1='\033[38;5;250m'
-SUBTEXT0='\033[38;5;245m'
-OVERLAY2='\033[38;5;240m'
-OVERLAY1='\033[38;5;238m'
-OVERLAY0='\033[38;5;236m'
-SURFACE2='\033[38;5;235m'
-SURFACE1='\033[38;5;234m'
-SURFACE0='\033[38;5;233m'
-BASE='\033[38;5;232m'
-MANTLE='\033[38;5;233m'
-CRUST='\033[38;5;232m'
-NC='\033[0m'
+### Catppuccin-inspired Colors (Basic ANSI) ###
+MAUVE='\033[1;35m'      # Bright Magenta (Bold)
+RED='\033[1;31m'        # Bright Red (Bold)
+PEACH='\033[0;33m'      # Yellow
+YELLOW='\033[1;33m'     # Bright Yellow (Bold)
+GREEN='\033[1;32m'      # Bright Green (Bold)
+TEAL='\033[0;36m'       # Cyan
+BLUE='\033[1;34m'       # Bright Blue (Bold)
+LAVENDER='\033[0;35m'   # Magenta
+TEXT='\033[0;37m'       # White
+SUBTEXT1='\033[1;37m'   # Bright White (Bold)
+SUBTEXT0='\033[0;37m'   # White (Dim)
+GRAY='\033[0;90m'       # Dark Gray
+NC='\033[0m'            # No Color
 BOLD='\033[1m'
 DIM='\033[2m'
 
@@ -60,7 +49,7 @@ print_banner() {
     ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 EOF
     echo -e "${LAVENDER}     I N S T A L L E R   S C R I P T${NC}"
-    echo -e "${SUBTEXT0}=================================================${NC}\n"
+    echo -e "${GRAY}=================================================${NC}\n"
 }
 
 print_box() {
@@ -69,7 +58,7 @@ print_box() {
     local width=48
     
     echo -e "${color}╭$(printf '─%.0s' $(seq 1 $width))╮${NC}"
-    echo -e "${color}│${NC} ${BOLD}${TEXT}${title}${NC}"
+    echo -e "${color}│${NC} ${BOLD}${SUBTEXT1}${title}${NC}"
     echo -e "${color}╰$(printf '─%.0s' $(seq 1 $width))╯${NC}"
     echo ""
 }
@@ -113,7 +102,7 @@ print_item() {
     local label=$1
     local value=$2
     local color=$3
-    echo -e "  ${SUBTEXT1}${label}:${NC} ${color}${BOLD}${value}${NC}"
+    echo -e "  ${GRAY}${label}:${NC} ${color}${BOLD}${value}${NC}"
 }
 
 prompt_password() {
@@ -147,7 +136,7 @@ require_root() {
 
 press_enter() {
     echo ""
-    echo -e "${DIM}${SUBTEXT0}Press Enter to continue...${NC}"
+    echo -e "${DIM}${GRAY}Press Enter to continue...${NC}"
     read -r
 }
 
@@ -155,17 +144,17 @@ press_enter() {
 get_hosts_from_flake() {
     local hosts=""
     
-    # Method 1: Parse flake show output (most reliable)
+    # Primary method: Parse flake show output
     hosts=$(nix --extra-experimental-features "nix-command flakes" \
         --accept-flake-config \
-        flake show "$FLAKE_REPO" 2>&1 \
+        flake show "$FLAKE_REPO" 2>/dev/null \
         | grep -A 50 "nixosConfigurations" \
         | grep "├───\|└───" \
         | sed 's/.*[├└]───//' \
         | awk '{print $1}' \
         | grep -v "^$" || true)
     
-    # Method 2: Direct evaluation as fallback
+    # Fallback method: Direct evaluation
     if [[ -z "$hosts" ]]; then
         hosts=$(nix --extra-experimental-features "nix-command flakes" \
             --accept-flake-config \
@@ -194,14 +183,14 @@ select_host() {
         echo ""
         print_box_error "No hosts found in the flake"
         echo ""
-        echo -e "${SUBTEXT0}Troubleshooting tips:${NC}"
-        echo -e "${SUBTEXT0}  - Check your internet connection${NC}"
-        echo -e "${SUBTEXT0}  - Verify the flake URL: ${FLAKE_REPO}${NC}"
-        echo -e "${SUBTEXT0}  - Run manually: nix flake show ${FLAKE_REPO}${NC}"
+        echo -e "${GRAY}Troubleshooting tips:${NC}"
+        echo -e "${GRAY}  - Check your internet connection${NC}"
+        echo -e "${GRAY}  - Verify the flake URL: ${FLAKE_REPO}${NC}"
+        echo -e "${GRAY}  - Run manually: nix flake show ${FLAKE_REPO}${NC}"
         exit 1
     fi
     
-    # Read hosts into array - CORRECTED METHOD
+    # Read hosts into array
     declare -a HOSTS
     local count=0
     while IFS= read -r line; do
@@ -211,7 +200,6 @@ select_host() {
         fi
     done <<< "$hosts_output"
 
-    # Verify array has content
     if [[ ${#HOSTS[@]} -eq 0 ]]; then
         print_box_error "Failed to parse host list"
         exit 1
@@ -227,7 +215,6 @@ select_host() {
     echo ""
     local choice
     while true; do
-        # Separate prompt and read for better compatibility
         echo -e "${BLUE}>>>${NC} ${TEXT}Select host number:${NC}"
         read -r choice
         
@@ -270,8 +257,8 @@ select_disk() {
         local model=$(lsblk -dn -o MODEL "/dev/${disk}" 2>/dev/null | xargs || echo "Unknown")
         
         echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${PEACH}/dev/${disk}${NC}"
-        echo -e "      ${SUBTEXT0}Size: ${size}${NC}"
-        echo -e "      ${SUBTEXT0}Model: ${model}${NC}"
+        echo -e "      ${GRAY}Size: ${size}${NC}"
+        echo -e "      ${GRAY}Model: ${model}${NC}"
         echo ""
     done
 
@@ -334,7 +321,7 @@ set_disk_password() {
     echo ""
     
     echo -e "${TEXT}Enter a strong password for full disk encryption.${NC}"
-    echo -e "${SUBTEXT0}This password will be required at every boot.${NC}"
+    echo -e "${GRAY}This password will be required at every boot.${NC}"
     echo ""
     
     DISKPASS=$(prompt_password "Enter disk encryption password")
@@ -385,11 +372,11 @@ wipe_disk() {
         print_box "${YELLOW}" "Wiping Disk"
         
         echo -e "${TEXT}Securely wiping ${PEACH}${BOLD}${CHOSEN_DRIVE}${NC}${TEXT}...${NC}"
-        echo -e "${SUBTEXT0}This may take several hours.${NC}"
+        echo -e "${GRAY}This may take several hours.${NC}"
         echo ""
         
         shred -v -n 3 -z "$CHOSEN_DRIVE" 2>&1 | while read -r line; do
-            echo -e "${SUBTEXT0}${line}${NC}"
+            echo -e "${GRAY}${line}${NC}"
         done
         
         echo ""
@@ -420,7 +407,7 @@ install_nixos() {
         --accept-flake-config \
         run github:nix-community/disko -- \
         --mode disko --flake "$INSTALLATION_TARGET" 2>&1 | \
-        while read -r line; do echo -e "${SUBTEXT0}  ${line}${NC}"; done; then
+        while read -r line; do echo -e "${GRAY}  ${line}${NC}"; done; then
         print_box_success "Disk configured"
     else
         print_box_error "Disko failed"
@@ -444,7 +431,7 @@ install_nixos() {
     # Generate config
     echo -e "${BLUE}>>>${NC} ${TEXT}Generating hardware configuration...${NC}"
     nixos-generate-config --root /mnt 2>&1 | while read -r line; do
-        echo -e "${SUBTEXT0}  ${line}${NC}"
+        echo -e "${GRAY}  ${line}${NC}"
     done
     print_box_success "Hardware config generated"
     echo ""
@@ -452,7 +439,7 @@ install_nixos() {
     # Install
     echo -e "${BLUE}>>>${NC} ${TEXT}Installing NixOS (this may take a while)...${NC}"
     if nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET" 2>&1 | \
-        while read -r line; do echo -e "${SUBTEXT0}  ${line}${NC}"; done; then
+        while read -r line; do echo -e "${GRAY}  ${line}${NC}"; done; then
         echo ""
         print_box_success "NixOS installed successfully!"
     else
