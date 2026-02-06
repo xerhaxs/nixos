@@ -61,29 +61,37 @@ print_box() {
 
 print_box_error() {
     local msg=$1
+    local padding=$((40 - ${#msg}))
+    [[ $padding -lt 0 ]] && padding=0
     echo -e "${RED}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${RED}│${NC} ${BOLD}${RED}[ERROR] ${msg}${NC}$(printf '%*s' $((40 - ${#msg})) '')${RED}│${NC}"
+    echo -e "${RED}│${NC} ${BOLD}${RED}[ERROR] ${msg}${NC}$(printf '%*s' $padding '')${RED}│${NC}"
     echo -e "${RED}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_success() {
     local msg=$1
+    local padding=$((38 - ${#msg}))
+    [[ $padding -lt 0 ]] && padding=0
     echo -e "${GREEN}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}[SUCCESS] ${msg}${NC}$(printf '%*s' $((38 - ${#msg})) '')${GREEN}│${NC}"
+    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}[SUCCESS] ${msg}${NC}$(printf '%*s' $padding '')${GREEN}│${NC}"
     echo -e "${GREEN}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_warning() {
     local msg=$1
+    local padding=$((38 - ${#msg}))
+    [[ $padding -lt 0 ]] && padding=0
     echo -e "${YELLOW}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}[WARNING] ${msg}${NC}$(printf '%*s' $((38 - ${#msg})) '')${YELLOW}│${NC}"
+    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}[WARNING] ${msg}${NC}$(printf '%*s' $padding '')${YELLOW}│${NC}"
     echo -e "${YELLOW}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_info() {
     local msg=$1
+    local padding=$((43 - ${#msg}))
+    [[ $padding -lt 0 ]] && padding=0
     echo -e "${BLUE}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}[INFO] ${msg}${NC}$(printf '%*s' $((43 - ${#msg})) '')${BLUE}│${NC}"
+    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}[INFO] ${msg}${NC}$(printf '%*s' $padding '')${BLUE}│${NC}"
     echo -e "${BLUE}╰──────────────────────────────────────────────────╯${NC}"
 }
 
@@ -138,41 +146,28 @@ press_enter() {
 
 # ------------------ Host Selection ------------------
 get_hosts_from_flake() {
-    local hosts=""
-    local tmpfile="/tmp/nix_flake_output_$$.log"
+    local tmpfile="/tmp/nix_flake_$$.txt"
     
-    # Primary method: Parse flake show output
-    echo "[DEBUG] Attempting to fetch hosts..." >&2
+    # Run nix flake show and save output
+    nix flake show "$FLAKE_REPO" \
+        --extra-experimental-features "nix-command flakes" \
+        --accept-flake-config > "$tmpfile" 2>&1
     
-    if nix --extra-experimental-features "nix-command flakes" \
-        --accept-flake-config \
-        flake show "$FLAKE_REPO" > "$tmpfile" 2>&1; then
-        
-        hosts=$(grep -A 50 "nixosConfigurations" "$tmpfile" \
-            | grep "├───\|└───" \
-            | sed 's/.*[├└]───//' \
-            | awk '{print $1}' \
-            | grep -v "^$" || true)
-        
-        echo "[DEBUG] Found hosts via flake show" >&2
-    else
-        echo "[DEBUG] Flake show failed, trying eval method..." >&2
-        
-        # Fallback method: Direct evaluation
-        hosts=$(nix --extra-experimental-features "nix-command flakes" \
-            --accept-flake-config \
-            eval --impure --expr \
-            "builtins.attrNames (builtins.getFlake \"$FLAKE_REPO\").nixosConfigurations" \
-            2>"$tmpfile" | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
-    fi
-    
-    # Show errors if both methods failed
-    if [[ -z "$hosts" ]] && [[ -f "$tmpfile" ]]; then
-        echo "[DEBUG] Both methods failed. Error log:" >&2
-        cat "$tmpfile" >&2
-    fi
+    # Extract hosts from the tree structure
+    # Looking for lines like "├───NixOS-Desktop" or "└───NixOS-Server"
+    local hosts
+    hosts=$(grep -E "^[│ ]*[├└]───" "$tmpfile" \
+        | grep -A 1 "nixosConfigurations" \
+        | grep -E "^[│ ]*[├└]───" \
+        | sed 's/^[│ ]*[├└]───//' \
+        | sed 's/:.*$//' \
+        | awk '{print $1}' \
+        | grep -v "^$" \
+        | sort -u)
     
     rm -f "$tmpfile"
+    
+    # Return hosts, one per line
     echo "$hosts"
 }
 
@@ -184,37 +179,23 @@ select_host() {
     echo ""
     
     echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
-    echo ""
     
-    # Redirect debug output to stderr, capture only hosts
     local hosts_output
-    hosts_output=$(get_hosts_from_flake 2>&1 | grep -v "^\[DEBUG\]" || true)
-    
-    # Show debug messages
-    get_hosts_from_flake 2>&1 | grep "^\[DEBUG\]" || true
-    
-    echo ""
+    hosts_output=$(get_hosts_from_flake)
     
     if [[ -z "$hosts_output" ]]; then
         echo ""
         print_box_error "No hosts found in the flake"
         echo ""
-        echo -e "${GRAY}Troubleshooting:${NC}"
-        echo -e "${GRAY}  1. Check internet: ${TEXT}ping -c 3 github.com${NC}"
-        echo -e "${GRAY}  2. Test manually: ${TEXT}nix flake show ${FLAKE_REPO}${NC}"
-        echo -e "${GRAY}  3. Check flake outputs in your repository${NC}"
-        echo ""
+        echo -e "${GRAY}Debug: Try manually running:${NC}"
+        echo -e "${GRAY}  nix flake show ${FLAKE_REPO}${NC}"
         exit 1
     fi
     
     # Read hosts into array
-    declare -a HOSTS
-    local count=0
+    declare -a HOSTS=()
     while IFS= read -r line; do
-        if [[ -n "$line" ]]; then
-            HOSTS[$count]="$line"
-            ((count++))
-        fi
+        [[ -n "$line" ]] && HOSTS+=("$line")
     done <<< "$hosts_output"
 
     if [[ ${#HOSTS[@]} -eq 0 ]]; then
@@ -222,6 +203,7 @@ select_host() {
         exit 1
     fi
 
+    echo ""
     echo -e "${TEXT}Available configurations:${NC}"
     echo ""
     for i in "${!HOSTS[@]}"; do
