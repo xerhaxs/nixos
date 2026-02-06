@@ -52,15 +52,12 @@ EOF
 print_box() {
     local color=$1
     local title=$2
-    # Entferne Farbcodes aus title für korrekte Längenberechnung
-    local title_clean=$(echo -e "$title" | sed 's/\x1b\[[0-9;]*m//g')
-    local title_length=${#title_clean}
     local total_width=50
-    local padding=$((total_width - title_length - 3))  # -3 für "│ " und " "
-    [[ $padding -lt 0 ]] && padding=0
+    local title_length=${#title}
+    local padding=$((total_width - title_length - 1))
     
     echo -e "${color}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${color}│${NC} ${BOLD}${SUBTEXT}${title}${NC}$(printf '%*s' $padding '') ${color}│${NC}"
+    echo -e "${color}│ ${NC}${BOLD}${color}${title}${NC}$(printf '%*s' $padding '')${color}│${NC}"
     echo -e "${color}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
     echo ""
 }
@@ -69,14 +66,11 @@ print_box_error() {
     local msg=$1
     local prefix="[ERROR] "
     local total_width=50
-    local content="${prefix}${msg}"
-    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
-    local content_length=${#content_clean}
-    local padding=$((total_width - content_length - 3))
-    [[ $padding -lt 0 ]] && padding=0
+    local content_length=$((${#prefix} + ${#msg}))
+    local padding=$((total_width - content_length - 1))
     
     echo -e "${RED}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${RED}│${NC} ${BOLD}${RED}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${RED}│${NC}"
+    echo -e "${RED}│ ${BOLD}${RED}${prefix}${msg}${NC}$(printf '%*s' $padding '')${RED}│${NC}"
     echo -e "${RED}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
@@ -84,14 +78,11 @@ print_box_success() {
     local msg=$1
     local prefix="[SUCCESS] "
     local total_width=50
-    local content="${prefix}${msg}"
-    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
-    local content_length=${#content_clean}
-    local padding=$((total_width - content_length - 3))
-    [[ $padding -lt 0 ]] && padding=0
+    local content_length=$((${#prefix} + ${#msg}))
+    local padding=$((total_width - content_length - 1))
     
     echo -e "${GREEN}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${GREEN}│${NC}"
+    echo -e "${GREEN}│ ${BOLD}${GREEN}${prefix}${msg}${NC}$(printf '%*s' $padding '')${GREEN}│${NC}"
     echo -e "${GREEN}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
@@ -99,14 +90,11 @@ print_box_warning() {
     local msg=$1
     local prefix="[WARNING] "
     local total_width=50
-    local content="${prefix}${msg}"
-    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
-    local content_length=${#content_clean}
-    local padding=$((total_width - content_length - 3))
-    [[ $padding -lt 0 ]] && padding=0
+    local content_length=$((${#prefix} + ${#msg}))
+    local padding=$((total_width - content_length - 1))
     
     echo -e "${YELLOW}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${YELLOW}│${NC}"
+    echo -e "${YELLOW}│ ${BOLD}${YELLOW}${prefix}${msg}${NC}$(printf '%*s' $padding '')${YELLOW}│${NC}"
     echo -e "${YELLOW}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
@@ -114,14 +102,11 @@ print_box_info() {
     local msg=$1
     local prefix="[INFO] "
     local total_width=50
-    local content="${prefix}${msg}"
-    local content_clean=$(echo -e "$content" | sed 's/\x1b\[[0-9;]*m//g')
-    local content_length=${#content_clean}
-    local padding=$((total_width - content_length - 3))
-    [[ $padding -lt 0 ]] && padding=0
+    local content_length=$((${#prefix} + ${#msg}))
+    local padding=$((total_width - content_length - 1))
     
     echo -e "${BLUE}╭$(printf '─%.0s' $(seq 1 $total_width))╮${NC}"
-    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}${prefix}${msg}${NC}$(printf '%*s' $padding '') ${BLUE}│${NC}"
+    echo -e "${BLUE}│ ${BOLD}${BLUE}${prefix}${msg}${NC}$(printf '%*s' $padding '')${BLUE}│${NC}"
     echo -e "${BLUE}╰$(printf '─%.0s' $(seq 1 $total_width))╯${NC}"
 }
 
@@ -139,6 +124,31 @@ print_item() {
     echo -e "  ${GRAY}${label}:${NC} ${color}${BOLD}${value}${NC}"
 }
 
+read_password() {
+    local prompt=$1
+    local password=""
+    local char
+    
+    echo -n "$prompt"
+    
+    while IFS= read -r -s -n1 char < /dev/tty; do
+        if [[ $char == $'\0' ]]; then
+            break
+        elif [[ $char == $'\177' ]] || [[ $char == $'\b' ]]; then
+            if [ ${#password} -gt 0 ]; then
+                password="${password%?}"
+                echo -ne "\b \b"
+            fi
+        else
+            password+="$char"
+            echo -n "*"
+        fi
+    done
+    
+    echo ""
+    echo "$password"
+}
+
 prompt_password() {
     local prompt=$1
     local pass1
@@ -147,11 +157,11 @@ prompt_password() {
     while true; do
         echo -e "${BLUE}${prompt}${NC}"
         echo ""
-        read -rs -p "   Password: " pass1 < /dev/tty
+        
+        pass1=$(read_password "   Password: ")
         echo ""
-        echo ""
-        read -rs -p "   Confirm:  " pass2 < /dev/tty
-        echo ""
+        
+        pass2=$(read_password "   Confirm:  ")
         echo ""
         
         if [[ -z "$pass1" ]]; then
@@ -178,12 +188,10 @@ require_root() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
-    # Run nix flake show
     nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
         --accept-flake-config > "$tmpfile" 2>&1
     
-    # Remove ANSI escape codes, extract hosts
     local hosts
     hosts=$(sed 's/\x1b\[[0-9;]*m//g' "$tmpfile" \
         | grep ": NixOS configuration" \
@@ -212,12 +220,9 @@ select_host() {
         echo ""
         print_box_error "No hosts found in the flake"
         echo ""
-        echo -e "${GRAY}Debug: Try manually running:${NC}"
-        echo -e "${GRAY}  nix flake show ${FLAKE_REPO}${NC}"
         exit 1
     fi
     
-    # Read hosts into array
     declare -a HOSTS=()
     while IFS= read -r line; do
         [[ -n "$line" ]] && HOSTS+=("$line")
@@ -364,7 +369,7 @@ confirm_installation() {
     print_item "Host Configuration" "${CHOSEN_HOST}" "${CYAN}"
     print_item "Target Disk" "${CHOSEN_DRIVE}" "${YELLOW}"
     print_item "Secure Wipe" "$([ "$WIPE" = true ] && echo "Enabled" || echo "Disabled")" "${YELLOW}"
-    print_item "Disk Encryption" "Enabled" "${BLUE}"
+    print_item "Disk Encryption" "Enabled" "${CYAN}"
     print_item "Flake Source" "${FLAKE_REPO}" "${CYAN}"
     
     echo ""
@@ -376,12 +381,12 @@ confirm_installation() {
     local response
     printf "${RED}>>>${NC} ${BOLD}${TEXT}Type 'YES' to proceed: ${NC}"
     read -r response < /dev/tty
+    echo ""
     
     if [[ "$response" != "YES" ]]; then
         abort
     fi
     
-    echo ""
     print_box_success "Installation confirmed"
     echo ""
 }
@@ -395,9 +400,7 @@ wipe_disk() {
         echo -e "${GRAY}This may take several hours.${NC}"
         echo ""
         
-        shred -v -n 3 -z "$CHOSEN_DRIVE" 2>&1 | while read -r line; do
-            echo -e "${GRAY}${line}${NC}"
-        done
+        shred -v -n 3 -z "$CHOSEN_DRIVE"
         
         echo ""
         print_box_success "Disk wiped successfully"
@@ -415,8 +418,10 @@ install_nixos() {
 
     # Generate keys
     echo -e "${BLUE}>>>${NC} ${TEXT}Generating encryption keys...${NC}"
-    openssl genrsa -out /tmp/keyfile.key 4096 2>/dev/null
+    echo ""
+    openssl genrsa -out /tmp/keyfile.key 4096
     echo -n "$DISKPASS" > /tmp/secret.key
+    echo ""
     print_box_success "Keys generated"
     echo ""
 
@@ -424,50 +429,46 @@ install_nixos() {
 
     # Run disko
     echo -e "${BLUE}>>>${NC} ${TEXT}Partitioning and formatting disk...${NC}"
-    if nix --experimental-features "nix-command flakes" \
+    echo ""
+    nix --experimental-features "nix-command flakes" \
         --accept-flake-config \
         run github:nix-community/disko -- \
-        --mode disko --flake "$INSTALLATION_TARGET" 2>&1 | \
-        while read -r line; do echo -e "${GRAY}  ${line}${NC}"; done; then
-        print_box_success "Disk configured"
-    else
-        print_box_error "Disko failed"
-        exit 1
-    fi
+        --mode disko --flake "$INSTALLATION_TARGET"
+    
+    echo ""
+    print_box_success "Disk configured"
     echo ""
 
     # Move secrets
     echo -e "${BLUE}>>>${NC} ${TEXT}Securing encryption keys...${NC}"
+    echo ""
     mkdir -p /mnt/root/.secrets
-    mv /tmp/secret.key /mnt/root/.secrets/secret.key
-    chmod 0400 /mnt/root/.secrets/secret.key
-    chown root:root /mnt/root/.secrets/secret.key
+    mv -v /tmp/secret.key /mnt/root/.secrets/secret.key
+    chmod -v 0400 /mnt/root/.secrets/secret.key
+    chown -v root:root /mnt/root/.secrets/secret.key
     
-    mv /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
-    chmod 0400 /mnt/root/.secrets/keyfile.key
-    chown root:root /mnt/root/.secrets/keyfile.key
+    mv -v /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
+    chmod -v 0400 /mnt/root/.secrets/keyfile.key
+    chown -v root:root /mnt/root/.secrets/keyfile.key
+    echo ""
     print_box_success "Keys secured"
     echo ""
 
     # Generate config
     echo -e "${BLUE}>>>${NC} ${TEXT}Generating hardware configuration...${NC}"
-    nixos-generate-config --root /mnt 2>&1 | while read -r line; do
-        echo -e "${GRAY}  ${line}${NC}"
-    done
+    echo ""
+    nixos-generate-config --root /mnt
+    echo ""
     print_box_success "Hardware config generated"
     echo ""
 
     # Install
     echo -e "${BLUE}>>>${NC} ${TEXT}Installing NixOS (this may take a while)...${NC}"
-    if nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET" 2>&1 | \
-        while read -r line; do echo -e "${GRAY}  ${line}${NC}"; done; then
-        echo ""
-        print_box_success "NixOS installed successfully!"
-    else
-        echo ""
-        print_box_error "Installation had errors"
-        exit 1
-    fi
+    echo ""
+    nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET"
+    
+    echo ""
+    print_box_success "NixOS installed successfully!"
 
     # Clear sensitive variables
     DISKPASS=""
