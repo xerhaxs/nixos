@@ -2,18 +2,15 @@
 set -euo pipefail
 
 ### Catppuccin-inspired Colors (Basic ANSI) ###
-MAUVE='\033[1;35m'      # Bright Magenta (Bold)
-RED='\033[1;31m'        # Bright Red (Bold)
-PEACH='\033[0;33m'      # Yellow
-YELLOW='\033[1;33m'     # Bright Yellow (Bold)
-GREEN='\033[1;32m'      # Bright Green (Bold)
-TEAL='\033[0;36m'       # Cyan
-BLUE='\033[1;34m'       # Bright Blue (Bold)
-LAVENDER='\033[0;35m'   # Magenta
-TEXT='\033[0;37m'       # White
-SUBTEXT1='\033[1;37m'   # Bright White (Bold)
-SUBTEXT0='\033[0;37m'   # White (Dim)
-GRAY='\033[0;90m'       # Dark Gray
+CYAN='\033[1;36m'       # Bright Cyan (Titel, Akzente)
+RED='\033[1;31m'        # Bright Red (Fehler)
+YELLOW='\033[0;33m'     # Yellow (Warnungen)
+GREEN='\033[1;32m'      # Bright Green (Erfolg)
+BLUE='\033[1;34m'       # Bright Blue (Prompts)
+MAGENTA='\033[0;35m'    # Magenta (Akzente)
+TEXT='\033[0;37m'       # White (Text)
+SUBTEXT='\033[1;37m'    # Bright White (Hervorgehobener Text)
+GRAY='\033[0;90m'       # Dark Gray (Sekundär)
 NC='\033[0m'            # No Color
 BOLD='\033[1m'
 DIM='\033[2m'
@@ -39,7 +36,7 @@ clear_screen() {
 }
 
 print_banner() {
-    echo -e "${MAUVE}${BOLD}"
+    echo -e "${CYAN}${BOLD}"
     cat << 'EOF'
     ███╗   ██╗██╗██╗  ██╗ ██████╗ ███████╗
     ████╗  ██║██║╚██╗██╔╝██╔═══██╗██╔════╝
@@ -48,46 +45,45 @@ print_banner() {
     ██║ ╚████║██║██╔╝ ██╗╚██████╔╝███████║
     ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 EOF
-    echo -e "${LAVENDER}     I N S T A L L E R   S C R I P T${NC}"
+    echo -e "${BLUE}     I N S T A L L E R   S C R I P T${NC}"
     echo -e "${GRAY}=================================================${NC}\n"
 }
 
 print_box() {
     local color=$1
     local title=$2
-    local width=48
     
-    echo -e "${color}╭$(printf '─%.0s' $(seq 1 $width))╮${NC}"
-    echo -e "${color}│${NC} ${BOLD}${SUBTEXT1}${title}${NC}"
-    echo -e "${color}╰$(printf '─%.0s' $(seq 1 $width))╯${NC}"
+    echo -e "${color}╭──────────────────────────────────────────────────╮${NC}"
+    echo -e "${color}│${NC} ${BOLD}${SUBTEXT}${title}${NC}$(printf '%*s' $((48 - ${#title})) '')${color}│${NC}"
+    echo -e "${color}╰──────────────────────────────────────────────────╯${NC}"
     echo ""
 }
 
 print_box_error() {
     local msg=$1
     echo -e "${RED}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${RED}│${NC} ${BOLD}${RED}[ERROR] ${msg}${NC}"
+    echo -e "${RED}│${NC} ${BOLD}${RED}[ERROR] ${msg}${NC}$(printf '%*s' $((40 - ${#msg})) '')${RED}│${NC}"
     echo -e "${RED}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_success() {
     local msg=$1
     echo -e "${GREEN}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}[SUCCESS] ${msg}${NC}"
+    echo -e "${GREEN}│${NC} ${BOLD}${GREEN}[SUCCESS] ${msg}${NC}$(printf '%*s' $((38 - ${#msg})) '')${GREEN}│${NC}"
     echo -e "${GREEN}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_warning() {
     local msg=$1
     echo -e "${YELLOW}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}[WARNING] ${msg}${NC}"
+    echo -e "${YELLOW}│${NC} ${BOLD}${YELLOW}[WARNING] ${msg}${NC}$(printf '%*s' $((38 - ${#msg})) '')${YELLOW}│${NC}"
     echo -e "${YELLOW}╰──────────────────────────────────────────────────╯${NC}"
 }
 
 print_box_info() {
     local msg=$1
     echo -e "${BLUE}╭──────────────────────────────────────────────────╮${NC}"
-    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}[INFO] ${msg}${NC}"
+    echo -e "${BLUE}│${NC} ${BOLD}${BLUE}[INFO] ${msg}${NC}$(printf '%*s' $((43 - ${#msg})) '')${BLUE}│${NC}"
     echo -e "${BLUE}╰──────────────────────────────────────────────────╯${NC}"
 }
 
@@ -95,7 +91,7 @@ print_step() {
     local step=$1
     local total=$2
     local desc=$3
-    echo -e "${MAUVE}[${LAVENDER}${step}${MAUVE}/${LAVENDER}${total}${MAUVE}]${NC} ${TEXT}${desc}${NC}"
+    echo -e "${CYAN}[${BLUE}${step}${CYAN}/${BLUE}${total}${CYAN}]${NC} ${TEXT}${desc}${NC}"
 }
 
 print_item() {
@@ -108,7 +104,7 @@ print_item() {
 prompt_password() {
     local prompt=$1
     while true; do
-        echo -e "${LAVENDER}${prompt}${NC}"
+        echo -e "${BLUE}${prompt}${NC}"
         read -rs -p "   Password: " pass1
         echo ""
         read -rs -p "   Confirm:  " pass2
@@ -143,50 +139,71 @@ press_enter() {
 # ------------------ Host Selection ------------------
 get_hosts_from_flake() {
     local hosts=""
+    local tmpfile="/tmp/nix_flake_output_$$.log"
     
     # Primary method: Parse flake show output
-    hosts=$(nix --extra-experimental-features "nix-command flakes" \
-        --accept-flake-config \
-        flake show "$FLAKE_REPO" 2>/dev/null \
-        | grep -A 50 "nixosConfigurations" \
-        | grep "├───\|└───" \
-        | sed 's/.*[├└]───//' \
-        | awk '{print $1}' \
-        | grep -v "^$" || true)
+    echo "[DEBUG] Attempting to fetch hosts..." >&2
     
-    # Fallback method: Direct evaluation
-    if [[ -z "$hosts" ]]; then
+    if nix --extra-experimental-features "nix-command flakes" \
+        --accept-flake-config \
+        flake show "$FLAKE_REPO" > "$tmpfile" 2>&1; then
+        
+        hosts=$(grep -A 50 "nixosConfigurations" "$tmpfile" \
+            | grep "├───\|└───" \
+            | sed 's/.*[├└]───//' \
+            | awk '{print $1}' \
+            | grep -v "^$" || true)
+        
+        echo "[DEBUG] Found hosts via flake show" >&2
+    else
+        echo "[DEBUG] Flake show failed, trying eval method..." >&2
+        
+        # Fallback method: Direct evaluation
         hosts=$(nix --extra-experimental-features "nix-command flakes" \
             --accept-flake-config \
             eval --impure --expr \
             "builtins.attrNames (builtins.getFlake \"$FLAKE_REPO\").nixosConfigurations" \
-            2>/dev/null | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
+            2>"$tmpfile" | tr -d '[]" ' | tr ';' '\n' | grep -v '^$' || true)
     fi
     
+    # Show errors if both methods failed
+    if [[ -z "$hosts" ]] && [[ -f "$tmpfile" ]]; then
+        echo "[DEBUG] Both methods failed. Error log:" >&2
+        cat "$tmpfile" >&2
+    fi
+    
+    rm -f "$tmpfile"
     echo "$hosts"
 }
 
 select_host() {
     clear_screen
-    print_box "${MAUVE}" "Select NixOS Host Configuration"
+    print_box "${CYAN}" "Select NixOS Host Configuration"
     
     print_step "1" "6" "Fetching available hosts from flake..."
     echo ""
     
-    echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${FLAKE_REPO}...${NC}"
+    echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
     echo ""
     
+    # Redirect debug output to stderr, capture only hosts
     local hosts_output
-    hosts_output=$(get_hosts_from_flake)
+    hosts_output=$(get_hosts_from_flake 2>&1 | grep -v "^\[DEBUG\]" || true)
+    
+    # Show debug messages
+    get_hosts_from_flake 2>&1 | grep "^\[DEBUG\]" || true
+    
+    echo ""
     
     if [[ -z "$hosts_output" ]]; then
         echo ""
         print_box_error "No hosts found in the flake"
         echo ""
-        echo -e "${GRAY}Troubleshooting tips:${NC}"
-        echo -e "${GRAY}  - Check your internet connection${NC}"
-        echo -e "${GRAY}  - Verify the flake URL: ${FLAKE_REPO}${NC}"
-        echo -e "${GRAY}  - Run manually: nix flake show ${FLAKE_REPO}${NC}"
+        echo -e "${GRAY}Troubleshooting:${NC}"
+        echo -e "${GRAY}  1. Check internet: ${TEXT}ping -c 3 github.com${NC}"
+        echo -e "${GRAY}  2. Test manually: ${TEXT}nix flake show ${FLAKE_REPO}${NC}"
+        echo -e "${GRAY}  3. Check flake outputs in your repository${NC}"
+        echo ""
         exit 1
     fi
     
@@ -209,7 +226,7 @@ select_host() {
     echo ""
     for i in "${!HOSTS[@]}"; do
         local num=$((i+1))
-        echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${TEXT}${HOSTS[$i]}${NC}"
+        echo -e "  ${BLUE}[${BOLD}${num}${NC}${BLUE}]${NC} ${TEXT}${HOSTS[$i]}${NC}"
     done
 
     echo ""
@@ -225,7 +242,7 @@ select_host() {
             break
         else
             echo ""
-            print_box_error "Invalid choice. Please try again"
+            print_box_error "Invalid choice. Try again"
             echo ""
         fi
     done
@@ -236,7 +253,7 @@ select_host() {
 # ------------------ Disk Selection ------------------
 select_disk() {
     clear_screen
-    print_box "${PEACH}" "Select Installation Disk"
+    print_box "${YELLOW}" "Select Installation Disk"
     
     print_step "2" "6" "Scanning available disks..."
     echo ""
@@ -256,7 +273,7 @@ select_disk() {
         local size=$(lsblk -dn -o SIZE "/dev/${disk}")
         local model=$(lsblk -dn -o MODEL "/dev/${disk}" 2>/dev/null | xargs || echo "Unknown")
         
-        echo -e "  ${LAVENDER}[${BOLD}${num}${NC}${LAVENDER}]${NC} ${PEACH}/dev/${disk}${NC}"
+        echo -e "  ${BLUE}[${BOLD}${num}${NC}${BLUE}]${NC} ${YELLOW}/dev/${disk}${NC}"
         echo -e "      ${GRAY}Size: ${size}${NC}"
         echo -e "      ${GRAY}Model: ${model}${NC}"
         echo ""
@@ -271,11 +288,11 @@ select_disk() {
             CHOSEN_DRIVE="/dev/${DISKS[$((choice-1))]}"
             echo ""
             print_box_warning "Selected: ${CHOSEN_DRIVE}"
-            print_box_warning "ALL DATA ON THIS DISK WILL BE DESTROYED!"
+            print_box_warning "ALL DATA WILL BE DESTROYED!"
             break
         else
             echo ""
-            print_box_error "Invalid choice. Please try again"
+            print_box_error "Invalid choice. Try again"
             echo ""
         fi
     done
@@ -290,10 +307,10 @@ select_disk_wipe() {
     print_step "3" "6" "Configure disk wiping options..."
     echo ""
     
-    echo -e "${TEXT}Secure disk wipe uses ${BOLD}shred${NC}${TEXT} to overwrite the disk${NC}"
-    echo -e "${TEXT}multiple times, making data recovery nearly impossible.${NC}"
+    echo -e "${TEXT}Secure wipe uses ${BOLD}shred${NC}${TEXT} to overwrite the disk${NC}"
+    echo -e "${TEXT}multiple times (very slow, but secure).${NC}"
     echo ""
-    print_box_warning "This process can take several hours!"
+    print_box_warning "This can take several hours!"
     echo ""
     
     local response
@@ -315,7 +332,7 @@ select_disk_wipe() {
 
 set_disk_password() {
     clear_screen
-    print_box "${LAVENDER}" "Disk Encryption Password"
+    print_box "${CYAN}" "Disk Encryption Password"
     
     print_step "4" "6" "Configure disk encryption..."
     echo ""
@@ -341,11 +358,11 @@ confirm_installation() {
     echo -e "${TEXT}Please review the following settings:${NC}"
     echo ""
     
-    print_item "Host Configuration" "${CHOSEN_HOST}" "${MAUVE}"
-    print_item "Target Disk" "${CHOSEN_DRIVE}" "${PEACH}"
+    print_item "Host Configuration" "${CHOSEN_HOST}" "${CYAN}"
+    print_item "Target Disk" "${CHOSEN_DRIVE}" "${YELLOW}"
     print_item "Secure Wipe" "$([ "$WIPE" = true ] && echo "Enabled" || echo "Disabled")" "${YELLOW}"
-    print_item "Disk Encryption" "Enabled" "${LAVENDER}"
-    print_item "Flake Source" "${FLAKE_REPO}" "${BLUE}"
+    print_item "Disk Encryption" "Enabled" "${BLUE}"
+    print_item "Flake Source" "${FLAKE_REPO}" "${CYAN}"
     
     echo ""
     echo -e "${RED}${BOLD}=================================================${NC}"
@@ -371,7 +388,7 @@ wipe_disk() {
         clear_screen
         print_box "${YELLOW}" "Wiping Disk"
         
-        echo -e "${TEXT}Securely wiping ${PEACH}${BOLD}${CHOSEN_DRIVE}${NC}${TEXT}...${NC}"
+        echo -e "${TEXT}Securely wiping ${YELLOW}${BOLD}${CHOSEN_DRIVE}${NC}${TEXT}...${NC}"
         echo -e "${GRAY}This may take several hours.${NC}"
         echo ""
         
@@ -444,7 +461,7 @@ install_nixos() {
         print_box_success "NixOS installed successfully!"
     else
         echo ""
-        print_box_error "Installation completed with errors"
+        print_box_error "Installation had errors"
         exit 1
     fi
 
