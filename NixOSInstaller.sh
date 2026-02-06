@@ -148,27 +148,43 @@ press_enter() {
 get_hosts_from_flake() {
     local tmpfile="/tmp/nix_flake_$$.txt"
     
-    # Run nix flake show and save output
+    # Run nix flake show and capture output
     nix flake show "$FLAKE_REPO" \
         --extra-experimental-features "nix-command flakes" \
         --accept-flake-config > "$tmpfile" 2>&1
     
-    # Extract hosts from the tree structure
-    # Looking for lines like "├───NixOS-Desktop" or "└───NixOS-Server"
-    local hosts
-    hosts=$(grep -E "^[│ ]*[├└]───" "$tmpfile" \
-        | grep -A 1 "nixosConfigurations" \
-        | grep -E "^[│ ]*[├└]───" \
-        | sed 's/^[│ ]*[├└]───//' \
-        | sed 's/:.*$//' \
-        | awk '{print $1}' \
-        | grep -v "^$" \
-        | sort -u)
+    # Extract only the host names after nixosConfigurations
+    local in_nixos_section=0
+    local hosts=""
+    
+    while IFS= read -r line; do
+        # Detect start of nixosConfigurations section
+        if [[ "$line" =~ nixosConfigurations ]]; then
+            in_nixos_section=1
+            continue
+        fi
+        
+        # If we're in the section, extract host names
+        if [[ $in_nixos_section -eq 1 ]]; then
+            # Stop if we hit another top-level section
+            if [[ "$line" =~ ^[a-zA-Z] ]] && [[ ! "$line" =~ ^[[:space:]] ]]; then
+                break
+            fi
+            
+            # Extract host names (lines with ├── or └──)
+            if [[ "$line" =~ (├───|└───)[[:space:]]*([a-zA-Z0-9_-]+) ]]; then
+                local host="${BASH_REMATCH[2]}"
+                # Remove any trailing colon or description
+                host="${host%%:*}"
+                hosts+="${host}"$'\n'
+            fi
+        fi
+    done < "$tmpfile"
     
     rm -f "$tmpfile"
     
-    # Return hosts, one per line
-    echo "$hosts"
+    # Return hosts, removing empty lines
+    echo "$hosts" | grep -v "^$"
 }
 
 select_host() {
@@ -179,6 +195,7 @@ select_host() {
     echo ""
     
     echo -e "${BLUE}>>>${NC} ${TEXT}Connecting to ${CYAN}${FLAKE_REPO}${TEXT}...${NC}"
+    echo ""
     
     local hosts_output
     hosts_output=$(get_hosts_from_flake)
@@ -203,7 +220,6 @@ select_host() {
         exit 1
     fi
 
-    echo ""
     echo -e "${TEXT}Available configurations:${NC}"
     echo ""
     for i in "${!HOSTS[@]}"; do
