@@ -86,8 +86,8 @@ fwupdmgr update
 ## ToDo List
 
 * [ ] Make NixOS Offline installation working -> local nixos cache etc.
-* [x] Rewrite Installation Script without newt and tui to a plain bash cli tool
-* [x] Restructure flake.nix to be more convenient and nicer formatted
+* [X] Rewrite Installation Script without newt and tui to a plain bash cli tool
+* [X] Restructure flake.nix to be more convenient and nicer formatted
 * [ ] Formatting of userEnvironment Module
 * [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
 * [ ] Device Config
@@ -98,7 +98,7 @@ fwupdmgr update
     * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
     * [ ] https://wiki.nixos.org/wiki/PCI_passthrough
     * [ ] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
-  * [x] Setup Secure Boot https://github.com/nix-community/lanzaboote -> https://wiki.nixos.org/wiki/Limine
+  * [X] Setup Secure Boot https://github.com/nix-community/lanzaboote -> https://wiki.nixos.org/wiki/Limine
   * [ ] Extended secret provisioning https://github.com/polygon/scalpel
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
@@ -111,18 +111,20 @@ fwupdmgr update
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
-    * [x] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
-    * [x] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/ -> seems unnecessary
-    * [x] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
-    * [ ] Move to Librewolf as main browser, remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
-    * [ ] setup languagetool browser addon with custom languagetool server
+    * [X] Setup firefox containers + keepassxc setttings + delete cookies addon + violentmonkey scripts (age restrition bypass + yt full hd)
+    * [X] Firefox Captive Portal https://www.encrypted.at/firefox-captive-portal-url/ -> seems unnecessary
+    * [X] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
+    * [X] Move to Librewolf as main browser
+    * [ ] Setup https://addons.mozilla.org/en-US/firefox/addon/canvasblocker/ Canvablocker in Librewolf
+    * [ ] setup languagetool browser addon with custom languagetool server in Librewolf
+    * [ ] Firefox remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
   * [ ] Setup Chromium / Brave in Config via Settings + Policies -> maybe replace with Trivalent https://github.com/secureblue/Trivalent https://chromeenterprise.google/policies/ https://search.nixos.org/options?channel=unstable&show=programs.chromium.enable&query=programs.chromium
   * [ ] Config setup of Steam (write config file)
   * [ ] Config setup of Heroic (write config file)
   * [ ] Config setup of Prism Launcher (write config file)
   * [ ] Config setup of Rnote (write config file)
   * [ ] Config setup of Xournal++ (write config file)
-  * [ ] Miracast / Screensharing in NixOS
+  * [X] Miracast / Screensharing in NixOS -> not possible on Linux
   * [ ] SSH Password to SSH Certs + SSH Certfiles via Syncthing
   * [ ] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   * [ ] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
@@ -154,19 +156,19 @@ fwupdmgr update
 
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
-    * [ ] full disk encryption on servers
+    * [X] full disk encryption on servers
     * [ ] backup strategy on proxmox
-    * [ ] setup oci container
+    * [X] setup oci container
     * [X] Caddy, insted of Nginx -> I'll stay with nginx
     * [X] Install Unbound DNS along PiHole -> https://docs.pi-hole.net/guides/dns/unbound/
     * [ ] Update ddclient config
     * [X] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
-    * [ ] Jellyfin
+    * [X] Jellyfin
     * [X] Radical https://radicale.org/v3.html
     * [ ] WebDav for Bookmarksync
     * [ ] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS
-    * [x] PiHole
+    * [X] PiHole
     * [X] Invidous -> waiting for nixos pkg update
     * [X] Libreddit -> Outdated version in NixPKGS -> Working!
     * [X] Lemmy -> Not usefull in LAN
@@ -181,12 +183,12 @@ fwupdmgr update
     * [X] Readarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] Sonarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] Sabnzbd (Config setup) -> setup with sabnzbd options
-    * [ ] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file https://wiki.nixos.org/wiki/Docker https://github.com/Lissy93/networking-toolbox/blob/main/docker-compose.yml https://github.com/aksiksi/compose2nix
+    * [X] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file https://wiki.nixos.org/wiki/Docker https://github.com/Lissy93/networking-toolbox/blob/main/docker-compose.yml https://github.com/aksiksi/compose2nix
     * [ ] Setup Home Assistant in NixOS -> https://search.nixos.org/options?channel=unstable&query=services.home-assistant https://wiki.nixos.org/wiki/Home_Assistant https://nathan.gs/2023/12/28/home-assistant-add-a-custom-component-in-nixos-revisited/
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
-      * [x] Ollama
+      * [X] Ollama
       * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
