@@ -116,7 +116,7 @@ fwupdmgr update
     * [X] Firefox isolated profils https://cyberinsider.com/firefox-to-roll-out-streamlined-profile-management-with-data-isolation/ -> absolutely useless (stay with old profiles)
     * [X] Move to Librewolf as main browser
     * [X] Setup https://addons.mozilla.org/en-US/firefox/addon/canvasblocker/ Canvablocker in Librewolf
-    * [ ] setup languagetool browser addon with custom languagetool server in Librewolf
+    * [X] setup languagetool browser addon with custom languagetool server in Librewolf
     * [ ] Firefox remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
   * [ ] Setup Chromium / Brave in Config via Settings + Policies -> maybe replace with Trivalent https://github.com/secureblue/Trivalent https://chromeenterprise.google/policies/ https://search.nixos.org/options?channel=unstable&show=programs.chromium.enable&query=programs.chromium
   * [ ] Config setup of Steam (write config file)

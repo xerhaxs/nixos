@@ -74,7 +74,6 @@ let
           "downloads-button"
           "privatebrowsing-button"
           "developer-button"
-          "languagetool-webextension_languagetool_org-browser-action"
           "keepassxc-browser_keepassxc_org-browser-action"
           "floccus_handmadeideas_org-browser-action"
           "fxa-toolbar-menu-button"
@@ -93,17 +92,16 @@ let
           "personal-bookmarks" 
         ];
       };
-      #"seen" = [
-      #  "developer-button"
-      #  "addon_simplelogin-browser-action"
-      #  "addon_darkreader_org-browser-action"
-      #  "idcac-pub_guus_ninja-browser-action"
-      #  "floccus_handmadeideas_org-browser-action"
-      #  "ublock0_raymondhill_net-browser-action"
-      #  "keepassxc-browser_keepassxc_org-browser-action"
-      #  "languagetool-webextension_languagetool_org-browser-action"
-      #  "plasma-browser-integration_kde_org-browser-action"
-      #];
+      "seen" = [
+        "developer-button"
+        "addon_simplelogin-browser-action"
+        "idcac-pub_guus_ninja-browser-action"
+        "floccus_handmadeideas_org-browser-action"
+        "ublock0_raymondhill_net-browser-action"
+        "keepassxc-browser_keepassxc_org-browser-action"
+        "plasma-browser-integration_kde_org-browser-action"
+        "canvasblocker_kkapsner_de-browser-action"
+      ];
       "dirtyAreaCache" = [
         "nav-bar"
         "PersonalToolbar"
@@ -151,7 +149,7 @@ in
         "browser.safebrowsing.provider.google.gethashURL" = "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
         "browser.safebrowsing.provider.google.updateURL" = "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
 
-        "webgl.disabled" = false;
+        #"webgl.disabled" = false;
         "media.ffmpeg.vaapi.enabled" = true;
         "media.rdd-ffmpeg.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
@@ -200,7 +198,7 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
           };
-          "languagetool-webextension@languagetool.org" = {
+          "languagetool-webextension@languagetool.org" = { # set domain to https://languagetool.m4rx.cc/v2/
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/languagetool/latest.xpi";
           };
@@ -216,10 +214,10 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           };
-          "CanvasBlocker@kkapsner.de" = { # set if privacy.resistFingerprinting = false or webgl.disabled = false
-            "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
-          };
+          #"CanvasBlocker@kkapsner.de" = { # set if privacy.resistFingerprinting = false or webgl.disabled = false
+          #  "installation_mode" = "force_installed";
+          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
+          #};
           "idcac-pub@guus.ninja" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
