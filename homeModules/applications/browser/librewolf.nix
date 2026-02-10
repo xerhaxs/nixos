@@ -53,7 +53,7 @@ let
     # always display bookmarks toolbar
     "browser.toolbars.bookmarks.visibility" = "always";
 
-    # customize firefox toolbars
+    # customize librewolf toolbars
     "browser.uiCustomization.state" = {
       "placements" = {
         "widget-overflow-fixed-list" = [ ];
@@ -213,18 +213,10 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
           };
-          #"addon@darkreader.org" = {
-          #  "installation_mode" = "force_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-          #};
-          #"{c49b13b1-5dee-4345-925e-0c793377e3fa}" = {
-          #  "installation_mode" = "force_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/youtube_enhancer_vc/latest.xpi";
-          #};
-          #"support@netflux.me" = {
-          #  "installation_mode" = "force_installed";
-          #  "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/netflux/latest.xpi";
-          #};
+          "addon@darkreader.org" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+          };
 
           "uBlock0@raymondhill.net".adminSettings = {
             userSettings = rec {
@@ -381,7 +373,7 @@ in
                 icon = "https://nixos.wiki/favicon.png";
               };
 
-              "Such-O-Mat" = {
+              "SearXNG" = {
                 urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
                 definedAliases = [ "@s" ];
                 icon = "https://searxng.m4rx.cc/favicon";
@@ -389,36 +381,24 @@ in
 
               "ddg" = {
                 urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
-                #params = [
-                #    { name = "q"; value = "{searchTerms}"; }
-                #  ];
                 definedAliases = [ "@d" ];
                 icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
               };
 
               "Brave" = {
                 urls = [{ template = "https://search.brave.com/search?q={searchTerms}"; }];
-                #params = [
-                #    { name = "q"; value = "{searchTerms}"; }
-                #  ];
                 definedAliases = [ "@b" ];
                 icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
               };
 
               "qwant" = {
                 urls = [{ template = "https://www.qwant.com/?q={searchTerms}"; }];
-                #params = [
-                #    { name = "q"; value = "{searchTerms}"; }
-                #  ];
                 definedAliases = [ "@q" ];
                 icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
               };
 
               "Startpage" = {
                 urls = [{ template = "https://www.startpage.com/sp/search?q={searchTerms}"; }];
-                #params = [
-                #    { name = "query"; value = "{searchTerms}"; }
-                #  ];
                 definedAliases = [ "@sp" ];
                 icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
               };

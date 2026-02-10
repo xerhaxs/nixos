@@ -130,7 +130,7 @@
                   "applications:virt-manager.desktop"
                   "applications:qalculate-gtk.desktop"
                   "applications:org.kde.dolphin.desktop"
-                  "applications:firefox.desktop"
+                  "applications:librewolf.desktop"
                   "applications:torbrowser.desktop"
                   "applications:thunderbird.desktop"
                   "applications:org.kde.kate.desktop"
