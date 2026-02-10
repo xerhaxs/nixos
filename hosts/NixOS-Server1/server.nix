@@ -9,9 +9,11 @@
 
   nixos.server = {
     fediverse = {
+      #gitea.enable = true;
       invidious.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
+      #matrix.ebale = true;
       nitter.enable = true;
       searxng.enable = true;
     };
@@ -22,7 +24,7 @@
       glance.enable = true;
       homeassistant.enable = true;
       #jellyfin.enable = true;
-      #networkingtoolbox.enable = true;
+      networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
     };

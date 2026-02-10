@@ -6,6 +6,7 @@
     ./invidious.nix
     ./languagetool.nix
     ./libreddit.nix
+    ./matrix.nix
     ./moneronode.nix
     ./murmur.nix
     ./nitter.nix
@@ -29,6 +30,7 @@
       invidious.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
+      matrix.enable = true;
       moneronode.enable = true;
       murmur.enable = true;
       nitter.enable = true;
