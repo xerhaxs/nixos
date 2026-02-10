@@ -77,7 +77,6 @@ let
       "pihole.${config.nixos.server.network.nginx.domain}"
       "radicale.${config.nixos.server.network.nginx.domain}"
       "searxng.${config.nixos.server.network.nginx.domain}"
-      "teamspeak.${config.nixos.server.network.nginx.domain}"
       #"syncthing.${config.nixos.server.network.nginx.domain}"
       #"dav.${config.nixos.server.network.nginx.domain}"
       #"gitea.${config.nixos.server.network.nginx.domain}"

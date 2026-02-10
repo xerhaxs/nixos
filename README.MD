@@ -194,7 +194,7 @@ fwupdmgr update
     * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow
     * [ ] WireGuard
     * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix
-    * [ ] Murmur or Teamspeak
+    * [ ] Murmur
     * [ ] Minecraft
     * [ ] Nextcloud / Collabora
     * [ ] User specific nas mount -> remove general user permissions for all nas folders on servers

@@ -10,7 +10,6 @@
     ./murmur.nix
     ./nitter.nix
     ./searxng.nix
-    ./teamspeak.nix
   ];
 
   options.nixos = {
@@ -34,7 +33,6 @@
       murmur.enable = true;
       nitter.enable = true;
       searxng.enable = true;
-      teamspeak.enable = true;
     };
   };
 }
