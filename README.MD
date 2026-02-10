@@ -204,7 +204,6 @@ fwupdmgr update
 ## Usefull stuff
 - IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307
 - Prefetch URLs and sha: nix-prefetch-url --unpack https://URL.com or use lib.fakeSha256
-- 
 
 ## Credits
 
