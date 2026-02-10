@@ -61,6 +61,7 @@ let
           "addon_darkreader_org-browser-action"
           "idcac-pub_guus_ninja-browser-action"
           "plasma-browser-integration_kde_org-browser-action"
+          "canvasblocker_kkapsner_de-browser-action"
         ];
         "nav-bar" = [
           "back-button"
@@ -73,6 +74,7 @@ let
           "downloads-button"
           "privatebrowsing-button"
           "developer-button"
+          "languagetool-webextension_languagetool_org-browser-action"
           "keepassxc-browser_keepassxc_org-browser-action"
           "floccus_handmadeideas_org-browser-action"
           "fxa-toolbar-menu-button"
@@ -91,16 +93,17 @@ let
           "personal-bookmarks" 
         ];
       };
-      "seen" = [
-        "developer-button"
-        "addon_simplelogin-browser-action"
-        "addon_darkreader_org-browser-action"
-        "idcac-pub_guus_ninja-browser-action"
-        "floccus_handmadeideas_org-browser-action"
-        "ublock0_raymondhill_net-browser-action"
-        "keepassxc-browser_keepassxc_org-browser-action"
-        "plasma-browser-integration_kde_org-browser-action"
-      ];
+      #"seen" = [
+      #  "developer-button"
+      #  "addon_simplelogin-browser-action"
+      #  "addon_darkreader_org-browser-action"
+      #  "idcac-pub_guus_ninja-browser-action"
+      #  "floccus_handmadeideas_org-browser-action"
+      #  "ublock0_raymondhill_net-browser-action"
+      #  "keepassxc-browser_keepassxc_org-browser-action"
+      #  "languagetool-webextension_languagetool_org-browser-action"
+      #  "plasma-browser-integration_kde_org-browser-action"
+      #];
       "dirtyAreaCache" = [
         "nav-bar"
         "PersonalToolbar"

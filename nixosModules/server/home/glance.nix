@@ -253,6 +253,11 @@
                           { title = "Nitter"; url = "https://nitter.${config.nixos.server.network.nginx.domain}"; icon = "di:nitter"; }
                           
                           { title = "Radicale"; url = "https://radicale.${config.nixos.server.network.nginx.domain}"; icon = "di:radicale"; }
+                          { title = "Gitea"; url = "https://gitea.${config.nixos.server.network.nginx.domain}"; icon = "di:gitea"; }
+                          { title = "Networking Toolbox"; url = "https://networkingtoolbox.${config.nixos.server.network.nginx.domain}"; icon = "di:networking-toolbox-dark"; }
+
+                          { title = "Matrix"; url = "https://matrix.${config.nixos.server.network.nginx.domain}"; icon = "di:matrix-light"; }
+                          { title = "Mumble"; url = "https://mumble.${config.nixos.server.network.nginx.domain}"; icon = "di:mumble"; }
                           { title = "Flolserver"; url = "https://flolserver.${config.nixos.server.network.nginx.domain}"; icon = "di:minecraft"; allow-insecure = true; }
                         ];
                       }
