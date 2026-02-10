@@ -21,4 +21,9 @@
     defaultGateway.interface = "enp5s0";
     defaultGateway6.interface = "enp5s0";
   };
+
+  nixos.system.networking = {
+    enable = true;
+    localIP = "10.75.0.80";
+  };
 }

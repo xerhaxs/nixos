@@ -17,16 +17,10 @@
         } ];
       };
     };
+  };
 
-    hosts = {
-      "127.0.0.1" = [
-        "nzbhydra.${config.nixos.server.network.nginx.domain}"
-        "radarr.${config.nixos.server.network.nginx.domain}"
-        "readarr.${config.nixos.server.network.nginx.domain}"
-        "sabnzbd.${config.nixos.server.network.nginx.domain}"
-        "sonarr.${config.nixos.server.network.nginx.domain}"
-        "lidarr.${config.nixos.server.network.nginx.domain}"
-      ];
-    };
+  nixos.system.networking = {
+    enable = true;
+    localIP = "10.75.0.23";
   };
 }

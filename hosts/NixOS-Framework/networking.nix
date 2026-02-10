@@ -29,4 +29,9 @@
     #  };
     #};
   };
+
+  #nixos.system.networking = {
+  #  enable = true;
+  #  localIP = "10.75.0.102";
+  #};
 }
