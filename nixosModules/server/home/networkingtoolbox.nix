@@ -15,30 +15,36 @@
   config = lib.mkIf config.nixos.server.home.networkingtoolbox.enable {
     virtualisation.oci-containers.containers = {
       networking-toolbox = {
-        image = "docker://lissy93/networking-toolbox:latest";
+        image = "lissy93/networking-toolbox:latest";
 
         ports = [
-          { hostPort = 3872; containerPort = 3872; }
+          "3872:3000"
         ];
 
         environment = {
           NODE_ENV = "production";
-          PORT = "3872";
+          PORT = "3000";
           HOST = "0.0.0.0";
         };
 
-        restartPolicy = "unless-stopped";
-
-        healthCheck = {
-          test = ["wget" "-qO-" "http://127.0.0.1:3872/health"];
-          interval = "30s";
-          timeout = "10s";
-          retries = 3;
-          startPeriod = "40s";
-        };
+        extraOptions = [
+          "--pull=always"
+          "--health-cmd=wget -qO- http://127.0.0.1:3000/health || exit 1"
+          "--health-interval=30s"
+          "--health-timeout=10s"
+          "--health-retries=3"
+          "--health-start-period=40s"
+        ];
       };
     };
 
+    systemd.services."${config.virtualisation.oci-containers.backend}-networking-toolbox" = {
+      serviceConfig = {
+        Restart = lib.mkOverride 90 "always";
+      };
+    };
+
+    networking.firewall.allowedTCPPorts = [ 3872 ];
 
     services.nginx = {
       virtualHosts = {
@@ -49,7 +55,14 @@
           kTLS = true;
           http2 = false;
           locations."/" = { 
-            proxyPass = "http://localhost:3872";
+            proxyPass = "http://127.0.0.1:3872";
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+            '';
           };
         };
       };
