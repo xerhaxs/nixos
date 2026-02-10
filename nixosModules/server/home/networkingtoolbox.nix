@@ -25,9 +25,9 @@
           NODE_ENV = "production";
           PORT = "3000";
           HOST = "0.0.0.0";
-          NTB_HOMEPAGE_LAYOUT = "categories";
-          NTB_DEFAULT_THEME = "catppuccin";
-          NTB_FONT_SCALE = "2";
+          #NTB_HOMEPAGE_LAYOUT = "categories";
+          #NTB_DEFAULT_THEME = "catppuccin";
+          #NTB_FONT_SCALE = "2";
         };
 
         extraOptions = [
