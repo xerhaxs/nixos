@@ -197,6 +197,10 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
           };
+          "languagetool-webextension@languagetool.org" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/languagetool/latest.xpi";
+          };
           "addon@simplelogin" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/simplelogin/latest.xpi";
@@ -208,6 +212,10 @@ in
           "uBlock0@raymondhill.net" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          };
+          "CanvasBlocker@kkapsner.de" = { # set if privacy.resistFingerprinting = false or webgl.disabled = false
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
           };
           "idcac-pub@guus.ninja" = {
             "installation_mode" = "force_installed";

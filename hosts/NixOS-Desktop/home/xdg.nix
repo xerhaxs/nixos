@@ -9,7 +9,7 @@
     pictures = "/mount/Data/Datein/Bilder";
     videos = "/mount/Data/Datein/Videos";
     extraConfig = {
-      XDG_GAMES_DIR = lib.mkDefault "/mount/Games/Spiele";
+      GAMES = lib.mkDefault "/mount/Games/Spiele";
     };
   };
 }

@@ -37,7 +37,6 @@
       lfs.enable = true;
 
       settings = {
-        session.COOKIE_SECURE = true;
         server = {
           PROTOCOL = "http";
           HTTP_PORT = 3005;

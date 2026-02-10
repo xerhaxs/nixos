@@ -1,43 +1,23 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
-  fetchBlocklist = url: pkgs.fetchurl {
-    inherit url;
-    sha256 = lib.fakeSha256;
-  };
-
-  blocklists = {
-    stevenBlack = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-    malware = "https://blocklistproject.github.io/Lists/malware.txt";
-    phishing = "https://blocklistproject.github.io/Lists/phishing.txt";
-    ransomware = "https://blocklistproject.github.io/Lists/ransomware.txt";
-    redirect = "https://blocklistproject.github.io/Lists/redirect.txt";
-    scam = "https://blocklistproject.github.io/Lists/scam.txt";
-    tiktok = "https://blocklistproject.github.io/Lists/tiktok.txt";
-    tracking = "https://blocklistproject.github.io/Lists/tracking.txt";
-    smart-tv = "https://blocklistproject.github.io/Lists/smart-tv.txt";
-    adobe = "https://blocklistproject.github.io/Lists/adobe.txt";
-    ads = "https://blocklistproject.github.io/Lists/ads.txt";
-    amazonFireTV = "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt";
-    oisd-small = "https://small.oisd.nl/";
-    oisd-big = "https://big.oisd.nl/";
-  };
+  fetchBlocklist = name: inputs.${name};
 
   enabledBlocklists = [
-    blocklists.stevenBlack
-    blocklists.malware
-    blocklists.phishing
-    blocklists.ransomware
-    blocklists.scam
-    blocklists.tiktok
-    blocklists.tracking
-    blocklists.smart-tv
-    blocklists.adobe
-    blocklists.amazonFireTV
-    #blocklists.redirect
-    #blocklists.ads
-    #blocklists.oisd-small
-    #blocklists.oisd-big
+    "adobe"
+    "amazonFireTV"
+    "malware"
+    "phishing"
+    "ransomware"
+    "scam"
+    "smart-tv"
+    "stevenBlack"
+    "tiktok"
+    "tracking"
+    # "ads"
+    # "oisd-big"
+    # "oisd-small"
+    # "redirect"
   ];
 
   localIP = config.nixos.system.networking.localIP or null;
