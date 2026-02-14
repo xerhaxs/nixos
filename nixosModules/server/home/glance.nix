@@ -217,7 +217,7 @@
                           { url = "https://mediathekviewweb.de/feed?query=MAITHINK%20X%20-%20Die%20Show"; title = "MAITHINK X - Die Show"; limit = 3; }
                           { url = "https://mediathekviewweb.de/feed?query=Terra%20X%20Harald%20Lesch"; title = "Terra X Harald Lesch"; limit = 3; }
                           { url = "https://mediathekviewweb.de/feed?query=Terra%20X"; title = "Terra X"; limit = 3; }
-                          { url = "https://mediathekviewweb.de/feed?query=Aktuelles%20und%20Gesellschaft%20-%20Aktuelles%20ARTE%20Journal"; title = "ARTE Journal"; limit = 3; }
+                          { url = "https://mediathekviewweb.de/feed?query=Aktuelles%20und%20Gesellschaft%20-%20Aktuelles%20ARTE%20Journal"; title = "ARTE Journal"; limit = 1; }
                         ];
                       }
                     ];
@@ -331,6 +331,15 @@
                           { title = "DeepL"; url = "https://www.deepl.com/"; }
                         ];
                       } 
+                      {
+                        title = "Media";
+                        links = [
+                          { title = "Die Anstalt"; url = "https://www.zdf.de/shows/die-anstalt-104#t=folgen"; }
+                          { title = "MAITHINK X - Die Show"; url = "https://www.zdf.de/shows/mai-think-x-die-show-102"; }
+                          { title = "Terra X Harald Lesch"; url = "https://www.zdf.de/dokus/terra-x-harald-lesch-102"; }
+                          { title = "Terra X"; url = "https://www.zdf.de/terra-x-366"; }
+                        ];
+                      }
                     ];
                   }
                 ];
