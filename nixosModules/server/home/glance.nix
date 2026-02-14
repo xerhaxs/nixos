@@ -207,10 +207,10 @@
                       {
                         cache = "1h";
                         type = "rss";
-                        title = "RSS Feed ZDF";
+                        title = "RSS Feed Mediathek";
                         limit = 32;
                         style = "detailed-list";
-                        preserve-order = true;
+                        preserve-order = false;
                         collapse-after = 5;
                         feeds = [
                           { url = "https://mediathekviewweb.de/feed?query=Die%20Anstalt"; title = "Die Anstalt"; limit = 3; }
