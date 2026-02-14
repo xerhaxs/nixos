@@ -104,10 +104,13 @@ fwupdmgr update
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
   * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
   * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/ https://coveryourtracks.eff.org/ https://amiunique.org/fingerprint
+    * [ ] MicroVM https://microvm-nix.github.io/microvm.nix/intro.html
   * [ ] Remove secrets from home manager git config
-  * [ ] Add a Remote Kill Switch to shutdown every system
+  * [ ] Add a Remote Kill Switch to shutdown every system (via Home Assistant)
   * [ ] Setup Power Buttons as Panic Buttons -> One Press = Force Power Off
 * [ ] Rescue / Flight / Escape SSD with important data + generic OS
+* [ ] Restructure the nixos config without module naming of folders -> more independent naming scheme -> config.nixos.userEnvironment.appimage.enable >>>> config.nixos.appimage.enable
+* [ ] Setup Nix language tool server https://youtu.be/M_zMoHlbZBY https://search.nixos.org/packages?channel=unstable&query=nixd&show=nixd  https://search.nixos.org/packages?channel=unstable&query=nixfmt&show=nixfmt
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
@@ -153,6 +156,7 @@ fwupdmgr update
   * [ ] https://github.com/catppuccin/hyprland
   * [ ] https://github.com/catppuccin/waybar
   * [ ] https://github.com/sandwichfarm/hyprlax
+  * [ ] Move Theming to Stylix https://github.com/nix-community/stylix https://nix-community.github.io/stylix/configuration.html
 
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
@@ -188,7 +192,7 @@ fwupdmgr update
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
-      * [X] Ollama
+      * [ ] Ollama setup openwebui https://docs.openwebui.com/getting-started/
       * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
@@ -200,6 +204,7 @@ fwupdmgr update
     * [ ] Minecraft
     * [ ] Nextcloud / Collabora
     * [ ] User specific nas mount -> remove general user permissions for all nas folders on servers
+    * [ ] Setup Unfied Push service
 
 ## Usefull stuff
 - IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307
