@@ -204,6 +204,22 @@
                       {
                         type = "lobsters";
                       }
+                      {
+                        cache = "1h";
+                        type = "rss";
+                        title = "RSS Feed ZDF";
+                        limit = 32;
+                        style = "detailed-list";
+                        preserve-order = true;
+                        collapse-after = 5;
+                        feeds = [
+                          { url = "https://mediathekviewweb.de/feed?query=Die%20Anstalt"; title = "Die Anstalt"; limit = 3; }
+                          { url = "https://mediathekviewweb.de/feed?query=MAITHINK%20X%20-%20Die%20Show"; title = "MAITHINK X - Die Show"; limit = 3; }
+                          { url = "https://mediathekviewweb.de/feed?query=Terra%20X%20Harald%20Lesch"; title = "Terra X Harald Lesch"; limit = 3; }
+                          { url = "https://mediathekviewweb.de/feed?query=Terra%20X"; title = "Terra X"; limit = 3; }
+                          { url = "https://mediathekviewweb.de/feed?query=Aktuelles%20und%20Gesellschaft%20-%20Aktuelles%20ARTE%20Journal"; title = "ARTE Journal"; limit = 3; }
+                        ];
+                      }
                     ];
                   }
                   {
