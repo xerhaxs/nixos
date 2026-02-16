@@ -22,15 +22,16 @@
       settings = {
         address = "127.0.0.1";
         port = 9123;
-        directory = "/srv/public";
-        permissions = "R";
-        #directory = "${config.nixos.server.fileshare.share.path}/jf";
-        #permissions = "R";
+        behindProxy = true;
+        permissions = "none";
         users = [
           {
             username = "jf";
             password = "{env}ENV_PASSWORD";
-            #modify = true;
+
+            #directory = "${config.nixos.server.fileshare.share.path}/jf";
+            directory = "/srv/public";
+            permissions = "CRUD";
           }
         ];
       };
