@@ -42,6 +42,8 @@ let
       "webdav.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.21" [
+      "dav.${config.nixos.server.network.nginx.domain}"
+      "gitea.${config.nixos.server.network.nginx.domain}"
       "glance.${config.nixos.server.network.nginx.domain}"
       "homeassistant.${config.nixos.server.network.nginx.domain}"
       "invidious.${config.nixos.server.network.nginx.domain}"
