@@ -15,8 +15,7 @@
   config = lib.mkIf config.nixos.server.home.homeassistant.enable {
     services.home-assistant = {
       enable = true;
-      
-      openFirewall = true;
+      openFirewall = false;
       configDir = "/var/lib/hass";
 
       config = {
