@@ -59,9 +59,6 @@ in
         group = "share";
         extraGroups = [ "api" ];
       };
-      webdav = {
-        extraGroups = [ "share" ];
-      };
     };
   };
 }
