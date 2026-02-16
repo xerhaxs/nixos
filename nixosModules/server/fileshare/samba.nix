@@ -158,9 +158,9 @@ in
     };
 
     system.activationScripts.sambaUsers.text = ''
-      echo -e "$(cat ${config.sops.secrets."smb-share/jf-pass".path})\n$(cat ${config.sops.secrets."smb-share/jf-pass".path})" | smbpasswd -s -a jf
-      echo -e "$(cat ${config.sops.secrets."smb-share/meli-pass".path})\n$(cat ${config.sops.secrets."smb-share/meli-pass".path})" | smbpasswd -s -a meli
-      echo -e "$(cat ${config.sops.secrets."smb-share/haos-pass".path})\n$(cat ${config.sops.secrets."smb-share/haos-pass".path})" | smbpasswd -s -a haos
+      echo -e "$(cat ${config.sops.secrets."smb-share/user-jf".path})\n$(cat ${config.sops.secrets."smb-share/user-jf".path})" | smbpasswd -s -a jf
+      echo -e "$(cat ${config.sops.secrets."smb-share/user-meli".path})\n$(cat ${config.sops.secrets."smb-share/user-meli".path})" | smbpasswd -s -a meli
+      echo -e "$(cat ${config.sops.secrets."smb-share/user-haos".path})\n$(cat ${config.sops.secrets."smb-share/user-haos".path})" | smbpasswd -s -a haos
     '';
 
     services.samba-wsdd = {
