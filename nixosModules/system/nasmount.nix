@@ -10,9 +10,8 @@ let
     "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
     "gid=501,file_mode=0777,dir_mode=0777"
     "vers=3.0,credentials=${config.sops.secrets."smb-share/user-jf".path}"
-  ]
+  ];
 in
-
 
 {
   options.nixos = {
@@ -118,16 +117,16 @@ in
       options = nas-options;
     };
 
-    fileSystems."/mount/sshfs/jf" = {
-      device = "admin@NixOS-Server1:/srv/share/jf";
-      fsType = "sshfs";
-      options = [
-        "nodev"
-        "noatime"
-        "allow_other"
-        "IdentityFile=/root/.ssh/id_ed25519"
-      ];
-    };
+    #fileSystems."/mount/sshfs/jf" = {
+    #  device = "admin@NixOS-Server1:/srv/share/jf";
+    #  fsType = "sshfs";
+    #  options = [
+    #    "nodev"
+    #    "noatime"
+    #    "allow_other"
+    #    "IdentityFile=/root/.ssh/id_ed25519"
+    #  ];
+    #};
 
     networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
 
