@@ -23,9 +23,11 @@
         address = "127.0.0.1";
         port = 9123;
         auth = true;
+        scope = "${config.nixos.server.fileshare.share.path}/public";
+        modify = false;
         users = [
           {
-            scope = "${config.nixos.server.fileshare.share.path}/jf";
+            scope = "${config.nixos.server.fileshare.share.path}/jf/";
             username = "jf";
             password = "{env}ENV_PASSWORD";
             modify = true;
