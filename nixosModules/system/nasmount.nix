@@ -9,7 +9,7 @@ let
   nas-options = [
     "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
     "gid=501,file_mode=0777,dir_mode=0777"
-    "vers=3.0,credentials=${config.sops.secrets."smb-share/user-jf".path}"
+    "vers=3.0,credentials=${config.sops.secrets."nas-smb/user".path}"
   ];
 in
 

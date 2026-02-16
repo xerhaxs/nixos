@@ -65,6 +65,8 @@
 
         "truenas-smb/user" = { };
 
+        "nas-smb/user" = { };
+
         "user/nixos-convertible/jf" = {
           neededForUsers = true;
         };
