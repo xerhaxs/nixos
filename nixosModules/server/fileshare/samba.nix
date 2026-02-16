@@ -124,6 +124,21 @@
       echo -e "$(cat ${config.sops.secrets."smb-share/user-haos".path})\n$(cat ${config.sops.secrets."smb-share/user-haos".path})" | ${pkgs.samba}/bin/smbpasswd -s -a haos || true
     '';
 
+    systemd.services.smb-recycle-clean = {
+      script = ''
+        find ${config.nixos.server.fileshare.share.path} -type d -name ".recycle" -exec rm -rf {}/\* \;
+      '';
+      serviceConfig.Type = "oneshot";
+    };
+
+    systemd.timers.smb-recycle-clean = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "weekly";
+        Persistent = true;
+      };
+    };
+
     services.samba-wsdd = {
       enable = true;
       workgroup = "WORKGROUP";
