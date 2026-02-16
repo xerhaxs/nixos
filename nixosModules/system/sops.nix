@@ -18,7 +18,7 @@
 
   config = lib.mkIf config.nixos.system.sops.enable {
     #systemd.services.webdav.serviceConfig.EnvironmentFile = [ 
-    #  config.sops.secrets.changeme_env.path 
+    #  config.sops.secrets.changeme_env.path
     #];
 
     environment.systemPackages = with pkgs; [
@@ -56,6 +56,12 @@
         };
 
         "searxng/secret" = { };
+
+        "smb-share/user-jf" = { };
+
+        "smb-share/user-meli" = { };
+
+        "smb-share/user-haos" = { };
 
         "truenas-smb/user" = { };
 

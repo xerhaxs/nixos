@@ -36,31 +36,25 @@ in
       jf = {
         isNormalUser = false;
         isSystemUser = true;
+        hashedPasswordFile = config.sops.secrets."smb-share/user-jf".path;
         group = "tmjf";
         home = "/srv/samba/jf";
       };
       meli = {
         isNormalUser = false;
         isSystemUser = true;
+        hashedPasswordFile = config.sops.secrets."smb-share/user-meli".path;
         group = "tmjf";
         home = "/srv/samba/meli";
       };
       haos = {
         isNormalUser = false;
         isSystemUser = true;
+        hashedPasswordFile = config.sops.secrets."smb-share/user-haos".path;
         group = "api";
         home = "/srv/samba/backup";
       };
     };
-
-    # Verzeichnisse erstellen und Rechte setzen
-    environment.etc."samba-dirs".text = ''
-      ${builtins.concatStringsSep "\n" (map (d: ''
-        mkdir -p ${d.path}
-        chown ${d.owner}:${d.group} ${d.path}
-        chmod ${d.mode} ${d.path}
-      '') sambaDirs)}
-    '';
 
     services.samba = {
       enable = true;
@@ -91,7 +85,6 @@ in
             "guest ok" = "yes";
             "create mask" = "0664";
             "directory mask" = "0775";
-            # Hinweis: Dateigrößenbegrenzung über Filesystem-Quota
           };
 
           jf = {
