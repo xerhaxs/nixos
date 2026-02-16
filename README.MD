@@ -170,7 +170,7 @@ fwupdmgr update
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [X] Jellyfin
     * [X] Radical https://radicale.org/v3.html
-    * [ ] WebDav for Bookmarksync
+    * [X] WebDav for Bookmarksync
     * [ ] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS
     * [X] PiHole
     * [X] Invidous -> waiting for nixos pkg update
@@ -180,7 +180,7 @@ fwupdmgr update
     * [X] SearxNG -> Working!
     * [X] FreshRSS -> RSS Feed in Glance
     * [ ] Gitea -> local pull instance from public smb share with syncthing?
-    * [ ] SMB / NFS Share
+    * [X] SMB / NFS Share
     * [X] Lidarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] NZBHydra2 (Config setup) -> not possible due to no module options for settings
     * [X] Radarr (Config setup) -> waiting for nixos pkg update (settings in database)

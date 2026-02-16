@@ -13,9 +13,8 @@
   };
 
   config = lib.mkIf config.nixos.server.fileshare.webdav.enable {
-    systemd.services.webdav.serviceConfig.EnvironmentFile = [ 
-      config.sops.secrets."webdav/users/admin/username".path
-      config.sops.secrets."webdav/users/admin/password".path 
+    systemd.services.webdav.serviceConfig.EnvironmentFile = [
+      config.sops.secrets."webdav-share/user-jf".path
     ];
 
     services.webdav = {
@@ -28,8 +27,8 @@
         auth = true;
         users = [
           {
-            scope = "/srv/private/admin";
-            username = "{env}ENV_USERNAME";
+            scope = "/srv/private/jf";
+            username = "jf";
             password = "{env}ENV_PASSWORD";
           }
         ];
@@ -50,9 +49,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "dav.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

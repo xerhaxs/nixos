@@ -1,18 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  sambaDirs = [
-    { path = "/srv/samba/jf"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/meli"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/video"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/photo"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/music"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/document"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/games"; owner = "root"; group = "smb"; mode = "0770"; }
-    { path = "/srv/samba/backup"; owner = "root"; group = "smb"; mode = "0770"; }
-  ];
-in
-
 {
   options.nixos = {
     server.fileshare.samba = {
@@ -27,32 +14,28 @@ in
 
   config = lib.mkIf config.nixos.server.fileshare.samba.enable {
     users.groups = {
-      smb = {};
-      tmjf = {};
-      api = {};
+      share = { };
+      tmjf = { };
+      api = { };
     };
 
     users.users = {
       jf = {
         isSystemUser = true;
-        group = "smb";
+        group = "share";
         extraGroups = [ "tmjf" ];
       };
       meli = {
         isSystemUser = true;
-        group = "smb";
+        group = "share";
         extraGroups = [ "tmjf" ];
       };
       haos = {
         isSystemUser = true;
-        group = "smb";
+        group = "share";
         extraGroups = [ "api" ];
       };
     };
-
-    systemd.tmpfiles.rules = map (d:
-      "d ${d.path} ${d.mode} ${d.owner} ${d.group} -"
-    ) sambaDirs;
 
     services.samba = {
       enable = true;
@@ -86,7 +69,7 @@ in
         };
 
         jf = {
-          path = "/srv/samba/jf";
+          path = "${config.nixos.server.fileshare.share.path}/jf";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "jf";
@@ -95,7 +78,7 @@ in
         };
 
         meli = {
-          path = "/srv/samba/meli";
+          path = "${config.nixos.server.fileshare.share.path}/meli";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "meli";
@@ -104,7 +87,7 @@ in
         };
 
         video = {
-          path = "/srv/samba/video";
+          path = "${config.nixos.server.fileshare.share.path}/video";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "@tmjf";
@@ -113,7 +96,7 @@ in
         };
 
         photo = {
-          path = "/srv/samba/photo";
+          path = "${config.nixos.server.fileshare.share.path}/photo";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "@tmjf";
@@ -122,7 +105,7 @@ in
         };
 
         music = {
-          path = "/srv/samba/music";
+          path = "${config.nixos.server.fileshare.share.path}/music";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "@tmjf";
@@ -131,7 +114,7 @@ in
         };
 
         document = {
-          path = "/srv/samba/document";
+          path = "${config.nixos.server.fileshare.share.path}/document";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "@tmjf";
@@ -140,7 +123,7 @@ in
         };
 
         games = {
-          path = "/srv/samba/games";
+          path = "${config.nixos.server.fileshare.share.path}/games";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "@tmjf";
@@ -149,7 +132,7 @@ in
         };
 
         backup = {
-          path = "/srv/samba/backup";
+          path = "${config.nixos.server.fileshare.share.path}/backup";
           "browseable" = "yes";
           "read only" = "no";
           "valid users" = "haos, @tmjf";
@@ -167,12 +150,9 @@ in
 
     services.samba-wsdd = {
       enable = true;
-      workgroup = "TMJF";
+      workgroup = "WORKGROUP";
       openFirewall = true;
       discovery = true;
     };
-
-    networking.firewall.enable = true;
-    networking.firewall.allowPing = true;
   };
 }

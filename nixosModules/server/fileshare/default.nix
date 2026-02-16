@@ -3,6 +3,8 @@
 { 
   imports = [
     ./samba.nix
+    ./share.nix
+    ./sshfs.nix
     ./webdav.nix
   ];
 
@@ -20,6 +22,8 @@
   config = lib.mkIf config.nixos.server.fileshare.enable {
     nixos.server.fileshare = {
       samba.enable = true;
+      share.enable = true;
+      sshfs.enable = true;
       webdav.enable = true;
     };
   };

@@ -93,8 +93,7 @@
           neededForUsers = true;
         };
 
-        "webdav/users/admin/username" = { };
-        "webdav/users/admin/password" = { };
+        "webdav-share/user-jf" = { };
 
         "wifi" = { };
       };

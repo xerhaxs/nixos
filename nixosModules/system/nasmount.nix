@@ -6,6 +6,11 @@ let
     "gid=500,file_mode=0777,dir_mode=0777"
     "vers=3.0,credentials=${config.sops.secrets."truenas-smb/user".path}"
   ];
+  nas-options = [
+    "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
+    "gid=501,file_mode=0777,dir_mode=0777"
+    "vers=3.0,credentials=${config.sops.secrets."smb-share/user-jf".path}"
+  ]
 in
 
 
@@ -23,12 +28,17 @@ in
 
   config = lib.mkIf config.nixos.system.nasmount.enable {
     environment.systemPackages = with pkgs; [
-      nfs-utils
       cifs-utils
+      nfs-utils
+      sshfs
     ];
 
     users.groups.truenas = {
       gid = 500;
+    };
+
+    user.groups.nas = {
+      gid = 501;
     };
 
     #fileSystems."/mount/document" = {
@@ -72,11 +82,59 @@ in
       options = truenas-options;
     };
 
+    fileSystems."/mount/nas/music" = {
+      device = "//NixOS-Server1/music";
+      fsType = "cifs";
+      options = truenas-options;
+    };
+    fileSystems."/mount/nas/photo" = {
+      device = "//NixOS-Server1/photo";
+      fsType = "cifs";
+      options = nas-options;
+    };
+    fileSystems."/mount/nas/video" = {
+      device = "//NixOS-Server1/video";
+      fsType = "cifs";
+      options = nas-options;
+    };
+    fileSystems."/mount/nas/jf" = {
+      device = "//NixOS-Server1/jf";
+      fsType = "cifs";
+      options = nas-options;
+    };
+    fileSystems."/mount/nas/document" = {
+      device = "//NixOS-Server1/document";
+      fsType = "cifs";
+      options = nas-options;
+    };
+    fileSystems."/mount/nas/backup" = {
+      device = "//NixOS-Server1/backup";
+      fsType = "cifs";
+      options = nas-options;
+    };
+    fileSystems."/mount/nas/games" = {
+      device = "//NixOS-Server1/games";
+      fsType = "cifs";
+      options = nas-options;
+    };
+
+    fileSystems."/mount/sshfs/jf" = {
+      device = "admin@NixOS-Server1:/srv/share/jf";
+      fsType = "sshfs";
+      options = [
+        "nodev"
+        "noatime"
+        "allow_other"
+        "IdentityFile=/root/.ssh/id_ed25519"
+      ];
+    };
+
     networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
 
     users.users."${config.nixos.system.user.defaultuser.name}" = {
       extraGroups = [
         "truenas"
+        "nas"
       ];
     };
   };
