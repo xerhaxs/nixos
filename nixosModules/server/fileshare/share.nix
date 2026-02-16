@@ -61,7 +61,7 @@ in
       };
       webdav = {
         extraGroups = [ "share" ];
-      }
+      };
     };
   };
 }
