@@ -34,27 +34,22 @@ in
 
     users.users = {
       jf = {
-        isNormalUser = false;
         isSystemUser = true;
-        hashedPasswordFile = config.sops.secrets."smb-share/user-jf".path;
         group = "tmjf";
-        home = "/srv/samba/jf";
       };
       meli = {
-        isNormalUser = false;
         isSystemUser = true;
-        hashedPasswordFile = config.sops.secrets."smb-share/user-meli".path;
         group = "tmjf";
-        home = "/srv/samba/meli";
       };
       haos = {
-        isNormalUser = false;
         isSystemUser = true;
-        hashedPasswordFile = config.sops.secrets."smb-share/user-haos".path;
         group = "api";
-        home = "/srv/samba/backup";
       };
     };
+
+    systemd.tmpfiles.rules = map (d:
+      "d ${d.path} ${d.mode} ${d.owner} ${d.group} -"
+    ) sambaDirs;
 
     services.samba = {
       enable = true;
@@ -63,6 +58,7 @@ in
       smbd.enable = true;
       nmbd.enable = true;
       winbindd.enable = true;
+
       settings = {
         global = {
           "workgroup" = "WORKGROUP";
@@ -160,6 +156,12 @@ in
           };
       };
     };
+
+    system.activationScripts.sambaUsers.text = ''
+      echo -e "$(cat ${config.sops.secrets."smb-share/jf-pass".path})\n$(cat ${config.sops.secrets."smb-share/jf-pass".path})" | smbpasswd -s -a jf
+      echo -e "$(cat ${config.sops.secrets."smb-share/meli-pass".path})\n$(cat ${config.sops.secrets."smb-share/meli-pass".path})" | smbpasswd -s -a meli
+      echo -e "$(cat ${config.sops.secrets."smb-share/haos-pass".path})\n$(cat ${config.sops.secrets."smb-share/haos-pass".path})" | smbpasswd -s -a haos
+    '';
 
     services.samba-wsdd = {
       enable = true;
