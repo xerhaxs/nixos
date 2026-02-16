@@ -31,6 +31,7 @@
           "diffEditor.maxComputationTime" = 0;
           "cSpell.language" = "en,de";
           "window.titleBarStyle" = "native";
+          "git.confirmSync" = false;
         };
 
         extensions = with pkgs.vscode-extensions; [
