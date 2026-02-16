@@ -26,8 +26,6 @@
       initrd.enable = true;
     };
 
-    hardware.graphics.extraPackages = with pkgs; [ mesa libglvnd ];
-
     # Tell Xorg to use the amd driver
     services.xserver = {
       videoDrivers = [ "amdgpu" ];
