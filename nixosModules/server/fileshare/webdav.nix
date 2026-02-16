@@ -22,14 +22,13 @@
       settings = {
         address = "127.0.0.1";
         port = 9123;
-        scope = "/srv/public";
-        modify = true;
         auth = true;
         users = [
           {
-            scope = "/srv/private/jf";
+            scope = "${config.nixos.server.fileshare.share.path}/jf";
             username = "jf";
             password = "{env}ENV_PASSWORD";
+            modify = true;
           }
         ];
       };
