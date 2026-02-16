@@ -13,30 +13,6 @@
   };
 
   config = lib.mkIf config.nixos.server.fileshare.samba.enable {
-    users.groups = {
-      share = { };
-      tmjf = { };
-      api = { };
-    };
-
-    users.users = {
-      jf = {
-        isSystemUser = true;
-        group = "share";
-        extraGroups = [ "tmjf" ];
-      };
-      meli = {
-        isSystemUser = true;
-        group = "share";
-        extraGroups = [ "tmjf" ];
-      };
-      haos = {
-        isSystemUser = true;
-        group = "share";
-        extraGroups = [ "api" ];
-      };
-    };
-
     services.samba = {
       enable = true;
       openFirewall = true;

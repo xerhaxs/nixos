@@ -36,5 +36,32 @@ in
     systemd.tmpfiles.rules = map (d:
       "d ${d.path} ${d.mode} ${d.owner} ${d.group} -"
     ) shareDirs;
+
+    users.groups = {
+      share = { };
+      tmjf = { };
+      api = { };
+    };
+
+    users.users = {
+      jf = {
+        isSystemUser = true;
+        group = "share";
+        extraGroups = [ "tmjf" ];
+      };
+      meli = {
+        isSystemUser = true;
+        group = "share";
+        extraGroups = [ "tmjf" ];
+      };
+      haos = {
+        isSystemUser = true;
+        group = "share";
+        extraGroups = [ "api" ];
+      };
+      webdav = {
+        extraGroups = [ "share" ];
+      }
+    };
   };
 }

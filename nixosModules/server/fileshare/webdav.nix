@@ -19,6 +19,8 @@
 
     services.webdav = {
       enable = true;
+      user = "webdav";
+      group = "webdav";
       settings = {
         address = "127.0.0.1";
         port = 9123;
@@ -28,9 +30,7 @@
           {
             username = "jf";
             password = "{env}ENV_PASSWORD";
-
-            #directory = "${config.nixos.server.fileshare.share.path}/jf";
-            directory = "/srv/public";
+            directory = "${config.nixos.server.fileshare.share.path}/jf/WebDAV";
             permissions = "CRUD";
           }
         ];
