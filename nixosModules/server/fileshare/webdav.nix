@@ -30,7 +30,8 @@
           {
             username = "jf";
             password = "{env}ENV_PASSWORD";
-            directory = "${config.nixos.server.fileshare.share.path}/jf/WebDAV";
+            directory = "/srv/share/jf/WebDAV";
+            #directory = "${config.nixos.server.fileshare.share.path}/jf/WebDAV";
             permissions = "CRUD";
           }
         ];
