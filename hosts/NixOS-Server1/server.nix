@@ -18,7 +18,7 @@
       searxng.enable = true;
     };
     fileshare = {
-      samba.enable = false;
+      samba.enable = true;
     };
     home = {
       glance.enable = true;
