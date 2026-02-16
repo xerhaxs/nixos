@@ -22,11 +22,10 @@
       settings = {
         address = "127.0.0.1";
         port = 9123;
-        auth = true;
-        modify = false;
+        directory = "${config.nixos.server.fileshare.share.path}/jf";
+        permissions = "RW";
         users = [
           {
-            directory = "${config.nixos.server.fileshare.share.path}/jf/";
             username = "jf";
             password = "{env}ENV_PASSWORD";
             modify = true;
