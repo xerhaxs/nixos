@@ -2,7 +2,6 @@
 
 let
   sambaDirs = [
-    { path = "/srv/samba/public"; owner = "root"; group = "smb"; mode = "0775"; }
     { path = "/srv/samba/jf"; owner = "root"; group = "smb"; mode = "0770"; }
     { path = "/srv/samba/meli"; owner = "root"; group = "smb"; mode = "0770"; }
     { path = "/srv/samba/video"; owner = "root"; group = "smb"; mode = "0770"; }
@@ -76,15 +75,14 @@ in
           "min protocol" = "SMB3";
           "max protocol" = "SMB3";
           "server signing" = "mandatory";
-        };
 
-        public = {
-          path = "/srv/samba/public";
-          "browseable" = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0664";
-          "directory mask" = "0775";
+          "vfs objects" = "recycle";
+          "recycle:repository" = ".recycle/%U";
+          "recycle:keeptree" = "yes";
+          "recycle:versions" = "yes";
+          "recycle:touch" = "yes";
+          "recycle:exclude" = "*.tmp *.temp *.o *.obj ~*";
+          "recycle:exclude_dir" = ".recycle";
         };
 
         jf = {
@@ -154,7 +152,7 @@ in
           path = "/srv/samba/backup";
           "browseable" = "yes";
           "read only" = "no";
-          "validUsers" = "haos, @tmjf";
+          "valid users" = "haos, @tmjf";
           "create mask" = "0660";
           "directory mask" = "0770";
         };
