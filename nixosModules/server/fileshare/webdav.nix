@@ -23,7 +23,7 @@
         address = "127.0.0.1";
         port = 9123;
         directory = "${config.nixos.server.fileshare.share.path}/jf";
-        permissions = "RW";
+        permissions = "R";
         users = [
           {
             username = "jf";
