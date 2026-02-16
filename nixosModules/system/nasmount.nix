@@ -36,7 +36,7 @@ in
       gid = 500;
     };
 
-    user.groups.nas = {
+    users.groups.nas = {
       gid = 501;
     };
 
