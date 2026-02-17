@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  browser = [ "firefox.desktop;" ];
-  chrome = [ "chromium.desktop;" ];
+  browser = [ "librewolf.desktop;" ];
+  chrome = [ "brave.desktop;" ];
   filemanager = [ "org.kde.dolphin.desktop;"] ;
   mediaplayer = [ "mpv.desktop;" ];
   videoplayer = [ "mpv.desktop;" ];
