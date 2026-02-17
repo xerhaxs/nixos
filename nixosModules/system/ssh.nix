@@ -17,7 +17,6 @@
       enable = true;
       startWhenNeeded = true;
       openFirewall = true;
-      #allowSFTP = true;
       settings = {
         PasswordAuthentication = true;
         KbdInteractiveAuthentication = false;

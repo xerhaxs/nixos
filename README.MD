@@ -171,7 +171,7 @@ fwupdmgr update
     * [X] Jellyfin
     * [X] Radical https://radicale.org/v3.html
     * [X] WebDav for Bookmarksync
-    * [ ] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS
+    * [X] SSHFS as filesharing (second option to smb) https://wiki.nixos.org/wiki/SSHFS -> only manual active
     * [X] PiHole
     * [X] Invidous -> waiting for nixos pkg update
     * [X] Libreddit -> Outdated version in NixPKGS -> Working!

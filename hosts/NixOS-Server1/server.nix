@@ -20,7 +20,7 @@
     fileshare = {
       samba.enable = true;
       share.enable = true;
-      #sshfs.enable = true;
+      sshfs.enable = true;
       webdav.enable = true;
     };
     home = {
