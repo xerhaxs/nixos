@@ -8,7 +8,7 @@ let
   ];
   nas-options = [
     "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
-    "gid=501,file_mode=0777,dir_mode=0777"
+    "gid=500,file_mode=0777,dir_mode=0777"
     "vers=3.0,credentials=${config.sops.secrets."nas-smb/user".path}"
   ];
 in
@@ -32,12 +32,8 @@ in
       sshfs
     ];
 
-    users.groups.truenas = {
-      gid = 500;
-    };
-
     users.groups.nas = {
-      gid = 501;
+      gid = 500;
     };
 
     #fileSystems."/mount/document" = {
@@ -84,7 +80,7 @@ in
     fileSystems."/mount/nas/music" = {
       device = "//NixOS-Server1/music";
       fsType = "cifs";
-      options = truenas-options;
+      options = nas-options;
     };
     fileSystems."/mount/nas/photo" = {
       device = "//NixOS-Server1/photo";
@@ -132,7 +128,6 @@ in
 
     users.users."${config.nixos.system.user.defaultuser.name}" = {
       extraGroups = [
-        "truenas"
         "nas"
       ];
     };
