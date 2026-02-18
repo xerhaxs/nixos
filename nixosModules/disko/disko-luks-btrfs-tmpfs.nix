@@ -129,7 +129,7 @@
       allowTrash = true;
       directories = [
         "/root/.cache"
-        "/root/keys"
+        "/root/.secrets"
         "/var/log"
         "/var/lib/bluetooth"
         "/var/lib/nixos"
