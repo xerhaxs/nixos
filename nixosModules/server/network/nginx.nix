@@ -77,7 +77,7 @@ in
       })
     ];
 
-    environment.persistence."/persistent" = {
+    environment.persistence."/persistent" = lib.mkIf config.environment.persistence."/persistent".enable {
       directories = [
         "/var/lib/acme"
       ];

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, impermanence, osConfig, pkgs, ... }:
 
 {
   options.homeManager = {
@@ -26,6 +26,12 @@
         urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
         urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
       };
+    };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.environment.persistence."/persistent".enable {
+      files = [
+        ".bash_history"
+      ];
     };
   };
 }
