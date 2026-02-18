@@ -76,5 +76,11 @@ in
         };
       })
     ];
+
+    environment.persistence."/persistent" = {
+      directories = [
+        "/var/lib/acme"
+      ];
+    };
   };
 }

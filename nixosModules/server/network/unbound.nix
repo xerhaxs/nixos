@@ -74,5 +74,11 @@
         remote-control.control-enable = false;
       };
     };
+
+    environment.persistence."/persistent" = {
+      directories = [
+        "/var/lib/unbound"
+      ];
+    };
   };
 }

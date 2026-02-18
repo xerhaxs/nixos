@@ -7,6 +7,8 @@
 
   nixos.virtualisation.podman.enable = true;
 
+  nixos.system.nasmount.enable = false;
+
   nixos.server = {
     fediverse = {
       #gitea.enable = true;
@@ -20,7 +22,7 @@
     fileshare = {
       samba.enable = true;
       share.enable = true;
-      sshfs.enable = true;
+      #sshfs.enable = true;
       webdav.enable = true;
     };
     home = {

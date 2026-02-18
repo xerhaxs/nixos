@@ -16,6 +16,8 @@
     services = {
         pihole-ftl = {
           enable = true;
+          stateDirectory = "/var/lib/pihole";
+          logDirectory = "/var/log/pihole";
           
           openFirewallDNS = true;
           openFirewallDHCP = false;
@@ -768,6 +770,12 @@
           };
         };
       };
+    };
+
+    environment.persistence."/persistent" = {
+      directories = [
+        "/var/lib/pihole"
+      ];
     };
   };
 }

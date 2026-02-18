@@ -4,6 +4,7 @@
   nixos.hardware = {
     amdcpu.enable = true;
     amdgpu.enable = true;
+    intelgpu.enable = true;
   };
 
   nixos.system.user.defaultuser = {
