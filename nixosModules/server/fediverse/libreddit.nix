@@ -58,9 +58,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "libreddit.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

@@ -19,7 +19,7 @@
       port = 11434;
       openFirewall = false;
       syncModels = true;
-      models = "\${config.services.ollama.home}/models";
+      models = "/var/lib/ollama/models";
       loadModels = [
         deepseek-r1:1.5b
         deepseek-r1:7b
@@ -61,6 +61,12 @@
           };
         };
       };
+    };
+
+    environment.persistence."/persistent" = {
+      directories = [
+        "/var/lib/ollama"
+      ];
     };
   };
 }

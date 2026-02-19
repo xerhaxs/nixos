@@ -44,9 +44,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "searxng.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }
