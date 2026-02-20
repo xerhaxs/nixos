@@ -29,9 +29,9 @@
       settings = {
         options = {
           urAccepted = -1;
-          globalAnnounceEnabled = true;
+          globalAnnounceEnabled = false;
           localAnnounceEnabled = true;
-          relaysEnabled = true;
+          relaysEnabled = false;
           startBrowser = false;
         };
 
