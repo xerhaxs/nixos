@@ -63,6 +63,18 @@
 
         "smb-share/user-haos" = { };
 
+        "syncthing/nixos-convertible/cert" = { };
+        "syncthing/nixos-convertible/key" = { };
+
+        "syncthing/nixos-desktop/cert" = { };
+        "syncthing/nixos-desktop/key" = { };
+
+        "syncthing/nixos-framework/cert" = { };
+        "syncthing/nixos-framework/key" = { };
+
+        "syncthing/nixos-server1/cert" = { };
+        "syncthing/nixos-server1/key" = { };
+
         "truenas-smb/user" = { };
 
         "nas-smb/user" = { };
