@@ -23,7 +23,6 @@
   ];
   boot.kernelModules = [ "fuse" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
