@@ -3,5 +3,6 @@
 {
   imports = [
     ./xdg.nix
+    ./persistent.nix
   ];
 }

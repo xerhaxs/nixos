@@ -67,11 +67,5 @@
         };
       };
     };
-
-    environment.persistence."/persistent" = {
-      directories = [
-        "/var/lib/ollama"
-      ];
-    };
   };
 }

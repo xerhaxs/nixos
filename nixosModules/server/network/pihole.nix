@@ -775,11 +775,5 @@
         };
       };
     };
-
-    environment.persistence."/persistent" = {
-      directories = [
-        "/var/lib/pihole"
-      ];
-    };
   };
 }
