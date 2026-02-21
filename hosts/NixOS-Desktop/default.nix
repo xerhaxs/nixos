@@ -17,4 +17,11 @@
 
     ./spectacle.nix
   ];
+
+  environment.systemPackages =
+    with pkgs;
+    with kdePackages;
+    [
+      spectacle
+    ];
 }
