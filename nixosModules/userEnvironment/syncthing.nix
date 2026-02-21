@@ -130,6 +130,22 @@
             ignorePerms = true;
           };
 
+          "Android" = {
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/GraphenOS/Android";
+            id = "Android";
+            type = "sendreceive";
+            devices = [ "GraphenOS" ];
+            copyOwnershipFromParent = false;
+            ignorePerms = true;
+          };
+          "GraphenOS" = {
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/GraphenOS/GraphenOS";
+            id = "GraphenOS";
+            type = "sendreceive";
+            devices = [ "GraphenOS" ];
+            copyOwnershipFromParent = false;
+            ignorePerms = true;
+          };
           "Pixel 6a Kamera" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Pixel 6a Kamera";
             id = "Pixel 6a Kamera";
@@ -140,15 +156,15 @@
           };
           "Pixel 6a Musik" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music}/Musik";
-            id = "sendonly";
-            type = "sendreceive";
+            id = "Pixel 6a Musik";
+            type = "sendonly";
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
-          "Wichtige Datein" = {
+          "Wichtige Dateien" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/Wichtige Datein";
-            id = "Wichtige Datein";
+            id = "Wichtige Dateien";
             type = "sendonly";
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
