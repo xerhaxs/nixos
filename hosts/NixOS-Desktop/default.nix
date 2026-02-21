@@ -14,5 +14,7 @@
     ./mount.nix
     ./networking.nix
     ./xserver.nix
+
+    ./spectacle.nix
   ];
 }

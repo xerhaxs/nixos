@@ -93,6 +93,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 5;
+            rescanIntervalS = 60;
           };
           "Documents" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
@@ -107,6 +110,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 5;
+            rescanIntervalS = 60;
           };
           "Downloads" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.download
@@ -122,6 +128,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 5;
+            rescanIntervalS = 60;
           };
           "Music" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music
@@ -136,6 +145,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 10;
+            rescanIntervalS = 3600;
           };
           "Pictures" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures
@@ -150,6 +162,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 60;
+            rescanIntervalS = 3600;
           };
           "Videos" = {
             path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.videos
@@ -162,6 +177,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 60;
+            rescanIntervalS = 3600;
           };
 
           "FreeTube" = {
@@ -176,6 +194,9 @@
             ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 5;
+            rescanIntervalS = 60;
           };
 
           "Android" = {
@@ -187,6 +208,9 @@
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 60;
+            rescanIntervalS = 3600;
           };
           "GraphenOS" = {
             path = "${
@@ -197,6 +221,9 @@
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 60;
+            rescanIntervalS = 3600;
           };
           "Pixel 6a Kamera" = {
             path = "${
@@ -207,6 +234,9 @@
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 10;
+            rescanIntervalS = 3600;
           };
           "Pixel 6a Musik" = {
             path = "${
@@ -217,6 +247,9 @@
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 60;
+            rescanIntervalS = 3600;
           };
           "Wichtige Dateien" = {
             path = "${
@@ -227,6 +260,9 @@
             devices = [ "GraphenOS" ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
+            fsWatcherEnabled = true;
+            fsWatcherDelayS = 60;
+            rescanIntervalS = 3600;
           };
         };
       };

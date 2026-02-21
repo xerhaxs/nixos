@@ -31,17 +31,6 @@
         libksysguard
         maliit-keyboard
         partitionmanager
-        (symlinkJoin {
-          name = "spectacle-with-ocr";
-          paths = [ kdePackages.spectacle ];
-          buildInputs = [ makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/spectacle \
-              --prefix PATH : ${tesseract}/bin \
-              --set TESSDATA_PREFIX ${tesseract}/share/tessdata
-          '';
-        })
-        tesseract
       ];
 
     programs.plasma = {

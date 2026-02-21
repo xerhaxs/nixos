@@ -45,4 +45,6 @@
   nixos.virtualisation.kvm.enable = true;
 
   services.flatpak.enable = true;
+
+  nixos.system.nasmount.enable = false;
 }
