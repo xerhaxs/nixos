@@ -13,6 +13,6 @@
     ./networking.nix
     ./persistent.nix
     ./server.nix
-    #./zfsmount.nix
+    ./zfsmount.nix
   ];
 }
