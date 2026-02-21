@@ -26,11 +26,7 @@
     #systemd.services.webdav.serviceConfig.EnvironmentFile = [
     #  config.sops.secrets.changeme_env.path
     #];
-
-    boot.initrd.secrets = {
-      "/root/.secrets/keys.txt" = "/persistent/root/.secrets/keys.txt";
-    };
-
+    
     environment.systemPackages = with pkgs; [
       sops
     ];
