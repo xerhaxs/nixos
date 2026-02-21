@@ -12,6 +12,6 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./server.nix
-    #./zfsmount.nix
+    ./zfsmount.nix
   ];
 }
