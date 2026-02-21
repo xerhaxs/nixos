@@ -62,6 +62,14 @@ in
       RemainAfterExit = true;
     };
     script = ''
+      if ! zpool list pool01 > /dev/null 2>&1; then
+        if [ -f /etc/zfs/zpool.cache ]; then
+          zpool import -c /etc/zfs/zpool.cache pool01
+        else
+          zpool import -d /dev/disk/by-id pool01
+        fi
+      fi
+
       for dataset in pool01/applications pool01/shares pool01/shares/jf; do
         if [ "$(zfs get -H -o value keystatus $dataset)" = "unavailable" ]; then
           zfs load-key $dataset < ${config.sops.secrets."zfs/pool01".path}
