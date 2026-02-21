@@ -23,6 +23,7 @@ in
   boot.kernelPackages = lib.mkForce latestKernelPackage;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.requestEncryptionCredentials = false;
+  boot.zfs.forceImportRoot = false;
 
   environment.systemPackages = with pkgs; [
     zfs
@@ -114,22 +115,20 @@ in
     };
   };
 
-  systemd.services."zfs-load-key" = {
-    description = "Load ZFS encryption key for pool01";
+  systemd.services.zfs-load-key = {
     after = [
       "zfs-import.target"
       "sops-nix.service"
     ];
-    wants = [ "sops-nix.service" ];
+    before = [ "zfs-mount.target" ];
+    wantedBy = [ "zfs-mount.target" ];
     path = [ pkgs.zfs ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    enable = true;
-    # script zum Laden des Keys aus SOPS:
     script = ''
-      cat ${config.sops.secrets."zfs/pool01".path} | zfs load-key pool01
+      zfs load-key -a < ${config.sops.secrets."zfs/pool01".path}
     '';
   };
 }
