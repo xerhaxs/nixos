@@ -67,7 +67,7 @@ in
       zfs load-key pool01/shares/jf < ${config.sops.secrets."zfs/pool01".path}
 
       zfs mount pool01/applications
-      zfs mount -r pool01/shares
+      zfs mount -R pool01/shares
     '';
   };
 }
