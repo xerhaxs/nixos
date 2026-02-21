@@ -26,7 +26,7 @@
     #systemd.services.webdav.serviceConfig.EnvironmentFile = [
     #  config.sops.secrets.changeme_env.path
     #];
-    
+
     environment.systemPackages = with pkgs; [
       sops
     ];
@@ -34,7 +34,8 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      age.keyFile = "/root/.secrets/keys.txt";
+      #age.keyFile = "/root/.secrets/keys.txt";
+      age.keyFile = "/etc/ssh/keys.txt";
 
       secrets = {
         changeme = { };
