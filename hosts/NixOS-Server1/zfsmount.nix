@@ -62,9 +62,11 @@ in
       RemainAfterExit = true;
     };
     script = ''
-      zfs load-key pool01/applications < ${config.sops.secrets."zfs/pool01".path}
-      zfs load-key pool01/shares < ${config.sops.secrets."zfs/pool01".path}
-      zfs load-key pool01/shares/jf < ${config.sops.secrets."zfs/pool01".path}
+      for dataset in pool01/applications pool01/shares pool01/shares/jf; do
+        if [ "$(zfs get -H -o value keystatus $dataset)" = "unavailable" ]; then
+          zfs load-key $dataset < ${config.sops.secrets."zfs/pool01".path}
+        fi
+      done
 
       zfs mount pool01/applications
       zfs mount -R pool01/shares
