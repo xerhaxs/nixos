@@ -22,7 +22,7 @@ in
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.requestEncryptionCredentials = false;
   boot.zfs.forceImportRoot = false;
-  boot.zfs.forceImportAll = true;
+  boot.zfs.forceImportAll = false;
 
   environment.systemPackages = with pkgs; [
     zfs
