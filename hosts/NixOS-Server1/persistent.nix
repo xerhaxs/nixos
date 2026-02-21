@@ -25,7 +25,7 @@
       "/var/cache"
       "/var/db/sudo"
       "/var/lib/systemd/coredump"
-
+      "/run/secrets"
 
       "/var/lib/acme"
       #"/var/lib/hass"
