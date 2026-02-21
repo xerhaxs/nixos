@@ -11,7 +11,7 @@
     hostName = "NixOS-Server1";
 
     interfaces = {
-      enp0s18 = {
+      ens18 = {
         ipv4.addresses = [
           {
             address = "10.75.0.21";

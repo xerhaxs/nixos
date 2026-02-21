@@ -83,7 +83,7 @@ in
     };
   };
 
-  systemd.services."zfs-load-key" = {
+/*   systemd.services."zfs-load-key" = {
     description = "Load ZFS encryption key for pool01/share";
     before = [ "pool01-share.mount" ];
     after = [
@@ -101,5 +101,5 @@ in
       cat ${config.sops.secrets."zfs/pool01".path} | \
       zfs load-key pool01/share
     '';
-  };
+  }; */
 }
