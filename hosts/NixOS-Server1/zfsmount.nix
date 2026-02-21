@@ -4,13 +4,12 @@
   pkgs,
   ...
 }:
-
 let
   zfsCompatibleKernelPackages = lib.filterAttrs (
     name: kernelPackages:
-    (builtins.match "linux_[0-9]+_[0-9]+" name) != null
-    && (builtins.tryEval kernelPackages).success
-    && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
+      (builtins.match "linux_[0-9]+_[0-9]+" name) != null
+      && (builtins.tryEval kernelPackages).success
+      && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
   ) pkgs.linuxKernel.packages;
   latestKernelPackage = lib.last (
     lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
@@ -18,7 +17,6 @@ let
     )
   );
 in
-
 {
   boot.kernelPackages = lib.mkForce latestKernelPackage;
   boot.supportedFilesystems = [ "zfs" ];
@@ -53,14 +51,15 @@ in
     };
   };
 
-/*   systemd.services.zfs-load-keys = {
+  systemd.services.zfs-load-keys = {
     description = "Load ZFS encryption keys from SOPS";
     after = [
       "zfs-import.target"
-      "sops-nix.service"
+      "sops-install-secrets.service"
     ];
+    requires = [ "sops-install-secrets.service" ];
     before = [ "zfs-mount.target" ];
-    wantedBy = [ "zfs-mount.target" ];
+    wantedBy = [ "multi-user.target" ];
     path = [ pkgs.zfs ];
     serviceConfig = {
       Type = "oneshot";
@@ -70,6 +69,9 @@ in
       zfs load-key pool01/applications < ${config.sops.secrets."zfs/pool01".path}
       zfs load-key pool01/shares < ${config.sops.secrets."zfs/pool01".path}
       zfs load-key pool01/shares/jf < ${config.sops.secrets."zfs/pool01".path}
+
+      zfs mount pool01/applications
+      zfs mount -r pool01/shares
     '';
-  }; */
+  };
 }
