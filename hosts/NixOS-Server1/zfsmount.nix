@@ -113,25 +113,21 @@ in
     };
   };
 
-  /*
-    systemd.services."zfs-load-key" = {
-      description = "Load ZFS encryption key for pool01/share";
-      before = [ "pool01-share.mount" ];
-      after = [
-        "zfs-import.target"
-        "sops-nix.service"
-      ];
-      requires = [ "sops-nix.service" ];
-      wantedBy = [ "zfs-mount.target" ];
-      path = [ pkgs.zfs ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
-      script = ''
-        cat ${config.sops.secrets."zfs/pool01".path} | \
-        zfs load-key pool01/share
-      '';
+  systemd.services."zfs-load-key" = {
+    description = "Load ZFS encryption key for pool01";
+    after = [
+      "zfs-import.target"
+      "sops-nix.service"
+    ];
+    wants = [ "sops-nix.service" ];
+    path = [ pkgs.zfs ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
     };
-  */
+    install.wantedBy = [ "zfs-mount.target" ];
+    script = ''
+      cat ${config.sops.secrets."zfs/pool01".path} | zfs load-key pool01
+    '';
+  };
 }
