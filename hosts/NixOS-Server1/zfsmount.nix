@@ -30,21 +30,21 @@ in
       enable = true;
       interval = "weekly";
     };
-    autoSnapshot = {
+    /* autoSnapshot = {
       enable = false;
       frequent = 4;
       hourly = 24;
       daily = 7;
       weekly = 4;
       monthly = 12;
-    };
+    }; */
     trim = {
       enable = true;
       interval = "weekly";
     };
   };
 
-  fileSystems = {
+  /* fileSystems = {
     #"/pool01/applications" = {
     #  device = "pool01/applications";
     #  fsType = "zfs";
@@ -81,7 +81,7 @@ in
       options = [ "zfsutil" ];
       depends = [ "/pool01/share" ];
     };
-  };
+  }; */
 
 /*   systemd.services."zfs-load-key" = {
     description = "Load ZFS encryption key for pool01/share";
