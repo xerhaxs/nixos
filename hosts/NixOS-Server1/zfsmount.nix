@@ -7,7 +7,7 @@
 
 {
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.enable = true;
+  boot.zfs.enabled = true;
 
   services.zfs = {
     autoScrub = {
@@ -67,7 +67,6 @@
     };
   };
 
-  # ZFS Keys laden vor dem Mounten
   systemd.services."zfs-load-key" = {
     description = "Load ZFS encryption key for pool01/share";
     before = [ "pool01-share.mount" ];
