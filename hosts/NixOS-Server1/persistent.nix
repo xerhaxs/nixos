@@ -14,7 +14,7 @@
 
     directories = [
       "/root/.cache"
-      "/root/.secrets"
+      #"/root/.secrets"
       "/etc/nixos"
       "/etc/nix"
       "/etc/ssh"

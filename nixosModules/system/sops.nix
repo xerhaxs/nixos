@@ -86,7 +86,7 @@
 
         "nas-smb/user" = { };
 
-        "user/nixos-convertible/jf" = {
+        /* "user/nixos-convertible/jf" = {
           neededForUsers = true;
         };
         "user/nixos-desktop/jf" = {
@@ -112,7 +112,7 @@
         };
         "user/nixos-vmserver/admin" = {
           neededForUsers = true;
-        };
+        }; */
 
         "webdav-share/user-jf" = { };
 
