@@ -72,6 +72,19 @@
       ];
     };
 
+    fileSystems."/secrets" = {
+      device = "/dev/mapper/system";
+      neededForBoot = true;
+      fsType = "btrfs";
+      options = [
+        "subvol=/secrets"
+        "compress=zstd"
+        "ssd"
+        "noatime"
+        "discard=async"
+      ];
+    };
+
     fileSystems."/nix" = {
       device = "/dev/mapper/system";
       fsType = "btrfs";
@@ -123,6 +136,7 @@
       interval = "monthly";
       fileSystems = [
         "/persistent"
+        "/secrets"
         "/nix"
         "/tmp"
         "/swap"
@@ -198,6 +212,13 @@
                       };
                       "/home" = {
                         mountpoint = "/persistent/home";
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      };
+                      "/secrets" = {
+                        mountpoint = "/secrets";
                         mountOptions = [
                           "compress=zstd"
                           "noatime"
