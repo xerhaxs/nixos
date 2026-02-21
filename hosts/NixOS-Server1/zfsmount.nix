@@ -20,9 +20,7 @@ let
 in
 
 {
-  
-{
-  boot.kernelPackages = latestKernelPackage;
+  boot.kernelPackages = lib.mkForce latestKernelPackage;
   boot.supportedFilesystems = [ "zfs" ];
 
   networking.hostId = "d7b23b42";
