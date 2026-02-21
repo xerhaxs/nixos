@@ -51,7 +51,7 @@ in
     };
   };
 
-  systemd.services.zfs-load-keys = {
+  systemd.services."zfs-load-keys" = {
     description = "Load ZFS encryption keys from SOPS";
     after = [
       "zfs-import.target"
