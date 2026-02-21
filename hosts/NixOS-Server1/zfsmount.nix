@@ -125,7 +125,8 @@ in
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    install.wantedBy = [ "zfs-mount.target" ];
+    enable = true;
+    # script zum Laden des Keys aus SOPS:
     script = ''
       cat ${config.sops.secrets."zfs/pool01".path} | zfs load-key pool01
     '';
