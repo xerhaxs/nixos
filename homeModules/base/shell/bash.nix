@@ -36,6 +36,12 @@
     };
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
+      ];
       files = [
         ".bash_history"
       ];
