@@ -7,8 +7,6 @@
 }:
 
 {
-  fileSystems."/etc/ssh".neededForBoot = true;
-  
   environment.persistence."/persistent" = {
     enable = true;
     hideMounts = true;

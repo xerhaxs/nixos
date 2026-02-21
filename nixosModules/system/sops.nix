@@ -34,8 +34,8 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      #age.keyFile = "/root/.secrets/keys.txt";
-      age.keyFile = "/etc/ssh/keys.txt";
+      age.keyFile = "/root/.secrets/keys.txt";
+      age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
       secrets = {
         changeme = { };
