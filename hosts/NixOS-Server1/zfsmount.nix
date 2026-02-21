@@ -53,7 +53,7 @@ in
     };
   };
 
-  systemd.services.zfs-load-keys = {
+/*   systemd.services.zfs-load-keys = {
     description = "Load ZFS encryption keys from SOPS";
     after = [
       "zfs-import.target"
@@ -71,5 +71,5 @@ in
       zfs load-key pool01/shares < ${config.sops.secrets."zfs/pool01".path}
       zfs load-key pool01/shares/jf < ${config.sops.secrets."zfs/pool01".path}
     '';
-  };
+  }; */
 }
