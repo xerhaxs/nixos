@@ -35,6 +35,7 @@
           localAnnounceEnabled = true;
           relaysEnabled = false;
           startBrowser = false;
+          crashReportingEnabled = false;
         };
 
         gui = {
