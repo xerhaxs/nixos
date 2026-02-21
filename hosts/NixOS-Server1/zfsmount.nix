@@ -8,6 +8,8 @@
 {
   boot.supportedFilesystems = [ "zfs" ];
 
+  networking.hostId = "d7b23b42";
+
   services.zfs = {
     autoScrub = {
       enable = true;
