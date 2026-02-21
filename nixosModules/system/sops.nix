@@ -35,6 +35,9 @@
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
       age.keyFile = "/root/.secrets/keys.txt";
+      #boot.initrd.secrets = {
+      #  "/root/.secrets/keys.txt" = "/persistent/root/.secrets/keys.txt";
+      #};
 
       secrets = {
         changeme = { };

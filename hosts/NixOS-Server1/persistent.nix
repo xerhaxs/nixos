@@ -14,7 +14,10 @@
 
     directories = [
       "/root/.cache"
-      "/root/.secrets"
+      {
+        directory = "/root/.secrets";
+        neededForBoot = true;
+      }
       "/etc/nixos"
       "/etc/nix"
       "/etc/ssh"

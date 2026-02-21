@@ -78,6 +78,7 @@ in
 
       zfs mount pool01/applications
       zfs mount -R pool01/shares
+      zfs mount -R pool01/shares/jf
     '';
   };
 }
