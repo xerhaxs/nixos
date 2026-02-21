@@ -41,13 +41,9 @@ let
     (mkHostEntries "10.75.0.1" [ "fritz.box" ])
     (mkHostEntries "10.75.0.10" [ "proxmox.${config.nixos.server.network.nginx.domain}" ])
     (mkHostEntries "10.75.0.20" [
-      "jellyfin.${config.nixos.server.network.nginx.domain}"
       "nas.${config.nixos.server.network.nginx.domain}"
       "nextcloud.${config.nixos.server.network.nginx.domain}"
-      "samba.${config.nixos.server.network.nginx.domain}"
-      "syncthing.${config.nixos.server.network.nginx.domain}"
       "truenas.${config.nixos.server.network.nginx.domain}"
-      "webdav.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.21" [
       "dav.${config.nixos.server.network.nginx.domain}"
@@ -55,6 +51,7 @@ let
       "glance.${config.nixos.server.network.nginx.domain}"
       "homeassistant.${config.nixos.server.network.nginx.domain}"
       "invidious.${config.nixos.server.network.nginx.domain}"
+      "jellyfin.${config.nixos.server.network.nginx.domain}"
       "kiwix.${config.nixos.server.network.nginx.domain}"
       "languagetool.${config.nixos.server.network.nginx.domain}"
       "lemmy.${config.nixos.server.network.nginx.domain}"
@@ -66,13 +63,10 @@ let
       "ollama.${config.nixos.server.network.nginx.domain}"
       "pihole.${config.nixos.server.network.nginx.domain}"
       "radicale.${config.nixos.server.network.nginx.domain}"
+      "samba.${config.nixos.server.network.nginx.domain}"
       "searxng.${config.nixos.server.network.nginx.domain}"
-      #"syncthing.${config.nixos.server.network.nginx.domain}"
-      #"dav.${config.nixos.server.network.nginx.domain}"
-      #"gitea.${config.nixos.server.network.nginx.domain}"
-      #"jellyfin.${config.nixos.server.network.nginx.domain}"
-      #"samba.${config.nixos.server.network.nginx.domain}"
-      #"webdav.${config.nixos.server.network.nginx.domain}"
+      "syncthing.${config.nixos.server.network.nginx.domain}"
+      "webdav.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.22" [
       #"bluemap.${config.nixos.server.network.nginx.domain}"
