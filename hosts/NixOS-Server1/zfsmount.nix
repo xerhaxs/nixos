@@ -50,46 +50,68 @@ in
     };
   };
 
-  /*
-    fileSystems = {
-      #"/pool01/applications" = {
-      #  device = "pool01/applications";
-      #  fsType = "zfs";
-      #  options = [ "zfsutil" ];
-      #  depends = [ "zfs-load-key.service" ];
-      #};
-      "/pool01/share" = {
-        device = "pool01/share";
-        fsType = "zfs";
-        options = [ "zfsutil" ];
-        depends = [ "zfs-load-key.service" ];
-      };
-      #"/pool01/share/jf" = {
-      #  device = "pool01/share/jf";
-      #  fsType = "zfs";
-      #  options = [ "zfsutil" ];
-      #  depends = [ "/pool01/share" ];
-      #};
-      "/pool01/share/music" = {
-        device = "pool01/share/music";
-        fsType = "zfs";
-        options = [ "zfsutil" ];
-        depends = [ "/pool01/share" ];
-      };
-      "/pool01/share/photo" = {
-        device = "pool01/share/photo";
-        fsType = "zfs";
-        options = [ "zfsutil" ];
-        depends = [ "/pool01/share" ];
-      };
-      "/pool01/share/video" = {
-        device = "pool01/share/video";
-        fsType = "zfs";
-        options = [ "zfsutil" ];
-        depends = [ "/pool01/share" ];
-      };
+  fileSystems = {
+    "/pool01/applications" = {
+      device = "pool01/applications";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "zfs-load-key.service" ];
     };
-  */
+    "/pool01/shares" = {
+      device = "pool01/shares";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "zfs-load-key.service" ];
+    };
+    "/pool01/shares/backup" = {
+      device = "pool01/shares/backup";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/document" = {
+      device = "pool01/shares/document";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/games" = {
+      device = "pool01/shares/games";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/jf" = {
+      device = "pool01/shares/jf";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/meli" = {
+      device = "pool01/shares/meli";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/music" = {
+      device = "pool01/shares/music";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/photo" = {
+      device = "pool01/shares/photo";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+    "/pool01/shares/video" = {
+      device = "pool01/shares/video";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+      depends = [ "/pool01/shares" ];
+    };
+  };
 
   /*
     systemd.services."zfs-load-key" = {
