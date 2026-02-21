@@ -26,6 +26,9 @@
         ];
       };
     };
+
+    defaultGateway.interface = "enp0s18";
+    defaultGateway6.interface = "enp0s18";
   };
 
   nixos.system.networking = {
