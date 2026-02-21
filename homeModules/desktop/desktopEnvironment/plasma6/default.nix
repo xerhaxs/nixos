@@ -1,4 +1,10 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -16,9 +22,15 @@
     };
   };
 
-  config = lib.mkIf (config.homeManager.desktop.desktopEnvironment.plasma6.enable && osConfig.nixos.desktop.desktopEnvironment.plasma6.enable) {
-    homeManager.desktop.desktopEnvironment.plasma6 = {
-      plasma6.enable = true;
-    };
-  };
+  config =
+    lib.mkIf
+      (
+        config.homeManager.desktop.desktopEnvironment.plasma6.enable
+        && osConfig.nixos.desktop.desktopEnvironment.plasma6.enable
+      )
+      {
+        homeManager.desktop.desktopEnvironment.plasma6 = {
+          plasma6.enable = true;
+        };
+      };
 }

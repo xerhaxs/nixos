@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   networking = {
-  
+
     hostName = "NixOS-Framework";
-    
+
     defaultGateway.interface = "eth0";
     defaultGateway6.interface = "eth0";
 
@@ -32,6 +37,6 @@
 
   nixos.system.networking = {
     enable = true;
-  #  localIP = "10.75.0.102";
+    #  localIP = "10.75.0.102";
   };
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -21,24 +26,24 @@
       syncModels = true;
       models = "/var/lib/ollama/models";
       loadModels = [
-        deepseek-r1:1.5b
-        deepseek-r1:7b
-        deepseek-r1:8b
-        deepseek-r1:14b
-        deepseek-r1:32b
+        "deepseek-r1:1.5b"
+        "deepseek-r1:7b"
+        "deepseek-r1:8b"
+        "deepseek-r1:14b"
+        "deepseek-r1:32b"
         #deepseek-v3:671b
-        gemma3:270m
-        gemma3:1b
-        gemma3:4b
-        gemma3:12b
-        gemma3:27b
-        gpt-oss:20b
+        "gemma3:270m"
+        "gemma3:1b"
+        "gemma3:4b"
+        "gemma3:12b"
+        "gemma3:27b"
+        "gpt-oss:20b"
         #gpt-oss:120b
-        llama3.1:8b
+        "llama3.1:8b"
         #llama3.1:70b
         #llama3.1:405b
-        llama3.2:3b
-        nemotron-3-nano:30b
+        "llama3.2:3b"
+        "nemotron-3-nano:30b"
       ];
     };
 
@@ -47,7 +52,7 @@
       hostname = "127.0.0.1";
       port = 11440;
     };
-    
+
     services.nginx = {
       virtualHosts = {
         "ollama.${config.nixos.server.network.nginx.domain}" = {

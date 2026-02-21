@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   nixos.desktop = {
@@ -24,7 +29,6 @@
     amdcpu.enable = true;
     amdgpu.enable = true;
   };
-
 
   nixos.system.user.defaultuser = {
     name = "admin";

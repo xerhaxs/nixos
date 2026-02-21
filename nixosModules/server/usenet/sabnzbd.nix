@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -278,11 +283,21 @@
         };
 
         categories = {
-          "*" = { priority = 0; };
-          movies = { priority = -100; };
-          tv = { priority = -100; };
-          audio = { priority = -100; };
-          software = { priority = -100; };
+          "*" = {
+            priority = 0;
+          };
+          movies = {
+            priority = -100;
+          };
+          tv = {
+            priority = -100;
+          };
+          audio = {
+            priority = -100;
+          };
+          software = {
+            priority = -100;
+          };
         };
       };
     };

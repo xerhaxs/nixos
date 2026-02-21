@@ -1,11 +1,16 @@
-{ config, lib, pkgs, nix-minecraft, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nix-minecraft,
+  ...
+}:
 
 # minecraft server shell with 'tmux -S /run/minecraft/servername.sock attach'
 # man https://github.com/Infinidoge/nix-minecraft?tab=readme-ov-file
 
-
 {
-  imports = [ 
+  imports = [
     nix-minecraft.nixosModules.minecraft-servers
   ];
 
@@ -21,7 +26,7 @@
   };
 
   config = lib.mkIf config.nixos.server.game.minecraft.enable {
-    nixpkgs.overlays = [ 
+    nixpkgs.overlays = [
       nix-minecraft.overlay
     ];
 
@@ -445,7 +450,7 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
-          locations."/" = { 
+          locations."/" = {
             proxyPass = "http://127.0.0.1:8100";
           };
         };
@@ -455,7 +460,7 @@
         #  acmeRoot = null;
         #  kTLS = true;
         #  http2 = false;
-        #  locations."/" = { 
+        #  locations."/" = {
         #    proxyPass = "http://localhost:25566";
         #  };
         #};
@@ -465,7 +470,7 @@
         #  acmeRoot = null;
         #  kTLS = true;
         #  http2 = false;
-        #  locations."/" = { 
+        #  locations."/" = {
         #    proxyPass = "http://localhost:25567";
         #  };
         #};
@@ -475,7 +480,7 @@
         #  acmeRoot = null;
         #  kTLS = true;
         #  http2 = false;
-        #  locations."/" = { 
+        #  locations."/" = {
         #    proxyPass = "http://localhost:25568";
         #  };
         #};
@@ -485,7 +490,7 @@
         #  acmeRoot = null;
         #  kTLS = true;
         #  http2 = false;
-        #  locations."/" = { 
+        #  locations."/" = {
         #    proxyPass = "http://localhost:25569";
         #  };
         #};
@@ -495,7 +500,7 @@
         #  acmeRoot = null;
         #  kTLS = true;
         #  http2 = false;
-        #  locations."/" = { 
+        #  locations."/" = {
         #    proxyPass = "http://localhost:8100";
         #  };
         #};
@@ -505,7 +510,7 @@
         #  acmeRoot = null;
         #  kTLS = true;
         #  http2 = false;
-        #  locations."/" = { 
+        #  locations."/" = {
         #    proxyPass = "http://localhost:8100";
         #  };
         #};

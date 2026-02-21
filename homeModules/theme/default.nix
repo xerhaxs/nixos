@@ -1,4 +1,11 @@
-{ config, lib, nix-colors, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  nix-colors,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   imports = [

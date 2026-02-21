@@ -1,4 +1,10 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -19,7 +25,7 @@
       dataHome = config.home.homeDirectory + "/.local/share";
       configHome = config.home.homeDirectory + "/.config";
       stateHome = config.home.homeDirectory + "/.local/state";
-      
+
       mimeApps = {
         enable = true;
         defaultApplications = osConfig.xdg.mime.defaultApplications;
@@ -42,4 +48,3 @@
     };
   };
 }
-

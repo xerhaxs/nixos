@@ -1,6 +1,11 @@
- { config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
- {
+{
   options.homeManager = {
     base.texteditor.tex = {
       enable = lib.mkOption {
@@ -23,4 +28,3 @@
     #};
   };
 }
-

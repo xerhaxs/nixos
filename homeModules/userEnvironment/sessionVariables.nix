@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-options.homeManager = {
+  options.homeManager = {
     userEnvironment.sessionVariables = {
       enable = lib.mkOption {
         type = lib.types.bool;

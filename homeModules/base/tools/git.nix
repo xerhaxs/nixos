@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -22,7 +27,7 @@
         };
       };
     };
-    
+
     home.packages = with pkgs; [
       bfg-repo-cleaner
       gh

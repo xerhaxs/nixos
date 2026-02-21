@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -12,7 +17,6 @@
     };
   };
 
-  
   config = lib.mkIf config.nixos.base.shell.tmux.enable {
     programs.tmux = {
       enable = true;

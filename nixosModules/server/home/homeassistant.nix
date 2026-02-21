@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -19,7 +24,7 @@
       configDir = "/var/lib/hass";
 
       config = {
-        default_config = {};
+        default_config = { };
         http = {
           server_port = 8123;
           use_x_forwarded_for = true;
@@ -32,14 +37,14 @@
           time_zone = "Europe/Berlin";
           temperature_unit = "C";
           #longitude =
-          #latitude = 
+          #latitude =
         };
         lovelace.mode = "yaml";
       };
 
-  #    lovelaceConfig = "";
+      #    lovelaceConfig = "";
       lovelaceConfigWritable = false;
-      customLovelaceModules =  with pkgs.home-assistant-custom-lovelace-modules; [
+      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
         mini-graph-card
         mini-media-player
         mushroom

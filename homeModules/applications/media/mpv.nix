@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -33,5 +38,3 @@
     catppuccin.mpv.enable = lib.mkIf config.homeManager.theme.catppuccin.enable false; # to have black bars next to the player
   };
 }
-
-

@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   browser = [ "librewolf.desktop;" ];
   chrome = [ "brave.desktop;" ];
-  filemanager = [ "org.kde.dolphin.desktop;"] ;
+  filemanager = [ "org.kde.dolphin.desktop;" ];
   mediaplayer = [ "mpv.desktop;" ];
   videoplayer = [ "mpv.desktop;" ];
   musicplayer = [ "mpv.desktop;" ];
@@ -29,7 +34,7 @@ let
     "x-scheme-handler/https" = browser;
     "x-scheme-handler/unknown" = editor;
     "text/plain" = editor;
-    "text/markdown"= editor;
+    "text/markdown" = editor;
     "text/html" = editor;
     "audio/*" = musicplayer;
     "video/*" = videoplayer;
@@ -66,9 +71,9 @@ in
         };
         extraPortals = with pkgs; [
           xdg-desktop-portal
-        #  xdg-desktop-portal-wlr
+          #  xdg-desktop-portal-wlr
           kdePackages.xdg-desktop-portal-kde
-        #  xdg-desktop-portal-gnome
+          #  xdg-desktop-portal-gnome
           xdg-desktop-portal-gtk
         ];
         config.common.default = "kde";

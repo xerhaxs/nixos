@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   networking = {
-  
+
     hostName = "NixOS-Convertible";
 
     defaultGateway.interface = "eth0";

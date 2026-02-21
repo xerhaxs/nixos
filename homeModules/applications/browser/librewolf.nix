@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   customization = {
@@ -82,14 +87,14 @@ let
           "unified-extensions-button"
         ];
         "toolbar-menubar" = [ "menubar-items" ];
-        "TabsToolbar" = [ 
+        "TabsToolbar" = [
           "tabbrowser-tabs"
           "new-tab-button"
           "alltabs-button"
         ];
-        "PersonalToolbar" = [ 
+        "PersonalToolbar" = [
           "managed-bookmarks"
-          "personal-bookmarks" 
+          "personal-bookmarks"
         ];
       };
       "seen" = [
@@ -110,7 +115,7 @@ let
       ];
       "currentVersion" = 20;
       "newElementCount" = 8;
-    };  
+    };
   };
 in
 
@@ -144,10 +149,14 @@ in
         "browser.safebrowsing.malware.enabled" = true;
         "browser.safebrowsing.phishing.enabled" = true;
         "browser.safebrowsing.blockedURIs.enabled" = true;
-        "browser.safebrowsing.provider.google4.gethashURL" = "https://safebrowsing.googleapis.com/v4/fullHashes:find?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
-        "browser.safebrowsing.provider.google4.updateURL" = "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
-        "browser.safebrowsing.provider.google.gethashURL" = "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
-        "browser.safebrowsing.provider.google.updateURL" = "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
+        "browser.safebrowsing.provider.google4.gethashURL" =
+          "https://safebrowsing.googleapis.com/v4/fullHashes:find?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
+        "browser.safebrowsing.provider.google4.updateURL" =
+          "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
+        "browser.safebrowsing.provider.google.gethashURL" =
+          "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
+        "browser.safebrowsing.provider.google.updateURL" =
+          "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
 
         #"webgl.disabled" = false;
         "media.ffmpeg.vaapi.enabled" = true;
@@ -175,7 +184,7 @@ in
         DisableSecurityBypass = {
           InvalidCertificate = false;
           SafeBrowsing = false;
-        }; 
+        };
 
         HardwareAcceleration = true;
         #RequestedLocales = [ "de-DE" "en-US" ];
@@ -198,7 +207,8 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
           };
-          "languagetool-webextension@languagetool.org" = { # set domain to https://languagetool.m4rx.cc/v2/
+          "languagetool-webextension@languagetool.org" = {
+            # set domain to https://languagetool.m4rx.cc/v2/
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/languagetool/latest.xpi";
           };
@@ -208,7 +218,8 @@ in
           };
           "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/torproject-snowflake/latest.xpi";
+            "install_url" =
+              "https://addons.mozilla.org/firefox/downloads/latest/torproject-snowflake/latest.xpi";
           };
           "uBlock0@raymondhill.net" = {
             "installation_mode" = "force_installed";
@@ -220,7 +231,8 @@ in
           #};
           "idcac-pub@guus.ninja" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
+            "install_url" =
+              "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
           };
           "addon@darkreader.org" = {
             "installation_mode" = "force_installed";
@@ -311,7 +323,7 @@ in
               player_quality = "4k";
             };
           };
-          
+
           settings = {
             isApplied = true;
             autoUpdate = 1;
@@ -339,75 +351,102 @@ in
             force = true;
             engines = {
               "Nix Packages" = {
-                urls = [{
-                  template = "https://search.nixos.org/packages";
-                  params = [
-                    { name = "channel"; value = "unstable"; }
-                    { name = "type"; value = "packages"; }
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
+                urls = [
+                  {
+                    template = "https://search.nixos.org/packages";
+                    params = [
+                      {
+                        name = "channel";
+                        value = "unstable";
+                      }
+                      {
+                        name = "type";
+                        value = "packages";
+                      }
+                      {
+                        name = "query";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
                 definedAliases = [ "@np" ];
                 icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               };
 
               "Nix Options" = {
-                urls = [{
-                  template = "https://search.nixos.org/options";
-                  params = [
-                    { name = "channel"; value = "unstable"; }
-                    { name = "type"; value = "packages"; }
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
+                urls = [
+                  {
+                    template = "https://search.nixos.org/options";
+                    params = [
+                      {
+                        name = "channel";
+                        value = "unstable";
+                      }
+                      {
+                        name = "type";
+                        value = "packages";
+                      }
+                      {
+                        name = "query";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
                 definedAliases = [ "@no" ];
                 icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               };
 
               "Home Manager Options" = {
-                urls = [{
-                  template = "https://home-manager-options.extranix.com/";
-                  params = [
-                    { name = "query"; value = "{searchTerms}"; }
-                  ];
-                }];
+                urls = [
+                  {
+                    template = "https://home-manager-options.extranix.com/";
+                    params = [
+                      {
+                        name = "query";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
                 definedAliases = [ "@hm" ];
                 icon = "https://icons.duckduckgo.com/ip3/home-manager-options.extranix.com.ico";
               };
 
               "NixOS Wiki" = {
-                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+                urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@nw" ];
                 icon = "https://nixos.wiki/favicon.png";
               };
 
               "SearXNG" = {
-                urls = [{ template = "https://searxng.m4rx.cc/search/{searchTerms}"; }];
+                urls = [ { template = "https://searxng.m4rx.cc/search/{searchTerms}"; } ];
                 definedAliases = [ "@s" ];
                 icon = "https://searxng.m4rx.cc/favicon";
               };
 
               "ddg" = {
-                urls = [{ template = "https://duckduckgo.com/?q={searchTerms}"; }];
+                urls = [ { template = "https://duckduckgo.com/?q={searchTerms}"; } ];
                 definedAliases = [ "@d" ];
                 icon = "https://icons.duckduckgo.com/ip3/duckduckgo.com.ico";
               };
 
               "Brave" = {
-                urls = [{ template = "https://search.brave.com/search?q={searchTerms}"; }];
+                urls = [ { template = "https://search.brave.com/search?q={searchTerms}"; } ];
                 definedAliases = [ "@b" ];
                 icon = "https://icons.duckduckgo.com/ip3/search.brave.com.ico";
               };
 
               "qwant" = {
-                urls = [{ template = "https://www.qwant.com/?q={searchTerms}"; }];
+                urls = [ { template = "https://www.qwant.com/?q={searchTerms}"; } ];
                 definedAliases = [ "@q" ];
                 icon = "https://icons.duckduckgo.com/ip3/www.qwant.com.ico";
               };
 
               "Startpage" = {
-                urls = [{ template = "https://www.startpage.com/sp/search?q={searchTerms}"; }];
+                urls = [ { template = "https://www.startpage.com/sp/search?q={searchTerms}"; } ];
                 definedAliases = [ "@sp" ];
                 icon = "https://www.startpage.com/sp/cdn/favicons/favicon--default.ico";
               };

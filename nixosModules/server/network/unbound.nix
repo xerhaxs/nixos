@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -45,7 +50,7 @@
           num-threads = 1;
           so-rcvbuf = "1m";
 
-          private-address = [ 
+          private-address = [
             "192.168.0.0/16"
             "169.254.0.0/16"
             "172.16.0.0/12"

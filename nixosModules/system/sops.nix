@@ -1,4 +1,10 @@
-{ config, lib, pkgs, sops-nix, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  sops-nix,
+  ...
+}:
 
 {
   imports = [
@@ -17,7 +23,7 @@
   };
 
   config = lib.mkIf config.nixos.system.sops.enable {
-    #systemd.services.webdav.serviceConfig.EnvironmentFile = [ 
+    #systemd.services.webdav.serviceConfig.EnvironmentFile = [
     #  config.sops.secrets.changeme_env.path
     #];
 
@@ -110,6 +116,10 @@
         "webdav-share/user-jf" = { };
 
         "wifi" = { };
+
+        "zfs/pool01" = {
+          mode = "0400";
+        };
       };
     };
   };

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -13,7 +18,7 @@
   };
 
   config = lib.mkIf config.nixos.server.fediverse.searxng.enable {
-    systemd.services.searx-init.serviceConfig.EnvironmentFile = [ 
+    systemd.services.searx-init.serviceConfig.EnvironmentFile = [
       config.sops.secrets."searxng/secret".path
     ];
 

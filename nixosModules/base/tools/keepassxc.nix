@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   preferToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.prefer}";
@@ -25,8 +30,12 @@ in
       description = "Check and create Keepassxc config if not present";
 
       script = ''
-        if [ ! -f ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc/keepassxc.ini ]; then
-          mkdir -p ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc
+        if [ ! -f ${
+          config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+        }/.config/keepassxc/keepassxc.ini ]; then
+          mkdir -p ${
+            config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+          }/.config/keepassxc
           echo "
             [General]
             BackupBeforeSave=true
@@ -61,11 +70,17 @@ in
             IconDownloadFallback=true
             LockDatabaseIdle=false
             LockDatabaseIdleSeconds=900
-          " > ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc/keepassxc.ini
+          " > ${
+            config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+          }/.config/keepassxc/keepassxc.ini
         fi
 
-        chown -R ${config.nixos.system.user.defaultuser.name}:users ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/
-        chown -R ${config.nixos.system.user.defaultuser.name}:users ${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}/.config/keepassxc
+        chown -R ${config.nixos.system.user.defaultuser.name}:users ${
+          config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+        }/.config/
+        chown -R ${config.nixos.system.user.defaultuser.name}:users ${
+          config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+        }/.config/keepassxc
       '';
 
       wantedBy = [ "multi-user.target" ];

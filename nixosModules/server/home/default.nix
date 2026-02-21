@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-{ 
+{
   imports = [
     ./glance.nix
     ./homeassistant.nix

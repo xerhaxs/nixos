@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -16,4 +21,3 @@
     virtualisation.waydroid.enable = true;
   };
 }
-

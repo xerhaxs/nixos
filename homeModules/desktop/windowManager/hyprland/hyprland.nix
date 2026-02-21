@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -12,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.hyprland.enable {  
+  config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.hyprland.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -51,10 +56,10 @@
         # Example windowrule v2
         # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-          
+
         general = {
           layout = "dwindle";
-          
+
           gaps_in = 5;
           gaps_out = 20;
           border_size = 2;
@@ -81,21 +86,21 @@
             "workspaces, 1, 6, default"
           ];
         };
-          
+
         #decoration = {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
+        # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-      #    blur_enabled = true;
-      #    rounding = 10;
-      #    blur = "yes";
-      #    blur_size = 3;
-      #    blur_passes = 1;
-      #    blur_new_optimizations = true;
+        #    blur_enabled = true;
+        #    rounding = 10;
+        #    blur = "yes";
+        #    blur_size = 3;
+        #    blur_passes = 1;
+        #    blur_new_optimizations = true;
 
-      #    drop_shadow = "yes";
-      #    shadow_range = 4;
-      #    shadow_render_power = 3;
-      #    col.shadow = "rgba(1a1a1aee)";
+        #    drop_shadow = "yes";
+        #    shadow_range = 4;
+        #    shadow_render_power = 3;
+        #    col.shadow = "rgba(1a1a1aee)";
         #};
 
         dwindle = {
@@ -117,7 +122,7 @@
         # Example per-device config
         # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
         #device:epic-mouse-v1 = {
-      #    sensitivity = -0.5;
+        #    sensitivity = -0.5;
         #};
 
         input = {
@@ -130,7 +135,7 @@
           follow_mouse = 1;
 
           touchpad = {
-              natural_scroll = "yes";
+            natural_scroll = "yes";
           };
 
           sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
@@ -138,7 +143,7 @@
 
         # Some default env vars.
         env = "XCURSOR_SIZE,24";
-      
+
         "$mainMod" = "SUPER";
 
         bind = [
@@ -200,7 +205,6 @@
           "$mainMod, mouse:273, resizewindow"
         ];
 
-              
         bindl = [
           # Audio Controll
           ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
@@ -210,7 +214,7 @@
           #, XF86AudioPause, exec,
           #, XF86AudioPlay, exec,
           #, XF86AudioPrev, exec,
-          #, XF86AudioStop, exec, 
+          #, XF86AudioStop, exec,
           ", XF86Calculator, exec, qalculate-gtk"
           ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
           ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
@@ -231,4 +235,3 @@
     catppuccin.hyprland.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }
-

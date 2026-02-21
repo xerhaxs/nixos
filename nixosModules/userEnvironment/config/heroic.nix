@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   user = "${config.nixos.system.user.defaultuser.name}";
-  homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
+  homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+  }";
   configDir = "${homeDir}/.config/heroic";
   configFile = "${configDir}/config.json";
   flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
@@ -21,10 +27,16 @@ let
         "checkForUpdatesOnStartup": true,
         "autoUpdateGames": true,
         "customWinePaths": [],
-        "defaultInstallPath": "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.GAMES}/Heroic",
+        "defaultInstallPath": "${
+          config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.GAMES
+        }/Heroic",
         "libraryTopSection": "disabled",
-        "defaultSteamPath": "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.GAMES}/Steam",
-        "defaultWinePrefix": "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.GAMES}/Heroic/Wine",
+        "defaultSteamPath": "${
+          config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.GAMES
+        }/Steam",
+        "defaultWinePrefix": "${
+          config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.extraConfig.GAMES
+        }/Heroic/Wine",
         "hideChangelogsOnStartup": false,
         "language": "de",
         "maxWorkers": 0,
@@ -91,23 +103,29 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.config.heroic.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.gaming.heroic.enable) {
-    systemd.services.heroicConfigChecker = {
-      description = "Check and create Heroic config if not present";
+  config =
+    lib.mkIf
+      (
+        config.nixos.userEnvironment.config.heroic.enable
+        && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.gaming.heroic.enable
+      )
+      {
+        systemd.services.heroicConfigChecker = {
+          description = "Check and create Heroic config if not present";
 
-      script = ''
-        if [ ! -d "${configDir}" ]; then
-          mkdir -p "${configDir}"
-        fi
+          script = ''
+            if [ ! -d "${configDir}" ]; then
+              mkdir -p "${configDir}"
+            fi
 
-        if [ ! -f "${configFile}" ]; then
-          echo '${configContent}' > "${configFile}"
-        fi
+            if [ ! -f "${configFile}" ]; then
+              echo '${configContent}' > "${configFile}"
+            fi
 
-        chown -R ${config.nixos.system.user.defaultuser.name}:users ${configDir}
-      '';
+            chown -R ${config.nixos.system.user.defaultuser.name}:users ${configDir}
+          '';
 
-      wantedBy = [ "multi-user.target" ];
-    };
-  };
+          wantedBy = [ "multi-user.target" ];
+        };
+      };
 }

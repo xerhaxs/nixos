@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -32,7 +37,7 @@
     time.timeZone = "${config.nixos.system.locals.timezone}";
 
     i18n.defaultLocale = "${config.nixos.system.locals.lang}";
-  
+
     i18n.extraLocaleSettings = {
       LC_ADDRESS = "${config.nixos.system.locals.local}";
       LC_IDENTIFICATION = "${config.nixos.system.locals.local}";
@@ -46,7 +51,7 @@
     };
 
     console.keyMap = "${config.nixos.system.locals.consolekbd}";
-    
+
     services.xserver = {
       xkb.layout = "${config.nixos.system.locals.consolekbd}";
       xkb.variant = "";

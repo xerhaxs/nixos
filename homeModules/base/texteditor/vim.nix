@@ -1,4 +1,10 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -23,7 +29,7 @@
         vimPlugins.vim-airline
         vimPlugins.wilder-nvim
         vimPlugins.catppuccin-vim
-      ];  
+      ];
       extraConfig = ''
         set wildmenu
         set wildmode=longest:full,full

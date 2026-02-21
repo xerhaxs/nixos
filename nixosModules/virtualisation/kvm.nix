@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -45,7 +50,7 @@
       iptables
       libvirt
       nftables
-      OVMF 
+      OVMF
       qemu
       qemu_kvm
       quickemu

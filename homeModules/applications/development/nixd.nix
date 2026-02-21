@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -14,6 +19,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.nixd.enable {
     home.packages = with pkgs; [
+      nixfmt
       nixd
     ];
   };

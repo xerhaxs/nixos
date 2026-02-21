@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # thanks to https://raw.githubusercontent.com/michalrus/dotfiles/refs/heads/master/modules/sane-extra-config/default.nix
 
@@ -8,15 +13,13 @@ let
 
   cfg = config.hardware.sane;
 
-  pkg = if cfg.snapshot
-    then pkgs.sane-backends-git
-    else pkgs.sane-backends;
+  pkg = if cfg.snapshot then pkgs.sane-backends-git else pkgs.sane-backends;
 
   backends = [ pkg ] ++ cfg.extraBackends;
 
   saneConfig = pkgs.mkSaneConfig { paths = backends; };
 
-  saneExtraConfig = pkgs.runCommand "sane-extra-config" {} ''
+  saneExtraConfig = pkgs.runCommand "sane-extra-config" { } ''
     cp -Lr '${saneConfig}'/etc/sane.d $out
     chmod +w $out
     ${concatMapStrings (c: ''
@@ -34,12 +37,14 @@ in
   options = {
     hardware.sane.extraConfig = mkOption {
       type = types.attrsOf types.lines;
-      default = {};
-      example = { "some-backend" = "# some lines to add to its .conf"; };
+      default = { };
+      example = {
+        "some-backend" = "# some lines to add to its .conf";
+      };
     };
   };
 
-  config = mkIf (cfg.enable && cfg.extraConfig != {}) {
+  config = mkIf (cfg.enable && cfg.extraConfig != { }) {
     hardware.sane.configDir = saneExtraConfig.outPath;
   };
 }

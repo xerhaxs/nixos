@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -157,7 +162,10 @@
         frametime = true;
         # frame_count
         ## fps_metrics takes a list of decimal values or the value avg
-        fps_metrics = [ "avg" "0.01" ];
+        fps_metrics = [
+          "avg"
+          "0.01"
+        ];
 
         ### Display GPU throttling status based on Power, current, temp or "other"
         ## Only shows if throttling is currently happening
@@ -196,7 +204,6 @@
         hdr = true;
         ## Display the current refresh rate (only works in gamescope)
         # refresh_rate
-
 
         ### graphs displays one or more graphs that you chose
         ## seperated by ",", available graphs are
@@ -237,7 +244,6 @@
         ## without arguments it shows all interfaces
         ## arguments set which interfaces will be displayed
         # network=eth0,wlo1
-
 
         ### Change the hud font size
         # font_size=24

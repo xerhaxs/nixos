@@ -1,4 +1,10 @@
-{ config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
+{
+  config,
+  disks ? [ "/dev/vda" ],
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -34,7 +40,7 @@
     swapDevices = [
       {
         device = "/var/lib/swapfile";
-        size = 4*1024;
+        size = 4 * 1024;
       }
     ];
 
@@ -58,7 +64,10 @@
                   mountOptions = [
                     "defaults"
                   ];
-                  extraArgs = [ "-n" "BOOT" ];
+                  extraArgs = [
+                    "-n"
+                    "BOOT"
+                  ];
                 };
               };
               luks = {

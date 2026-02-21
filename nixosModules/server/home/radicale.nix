@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -13,8 +18,8 @@
   };
 
   config = lib.mkIf config.nixos.server.home.radicale.enable {
-    systemd.services.radicale.serviceConfig.EnvironmentFile = [ 
-      config.sops.secrets."radicale/htpasswd".path 
+    systemd.services.radicale.serviceConfig.EnvironmentFile = [
+      config.sops.secrets."radicale/htpasswd".path
     ];
 
     sops.secrets."radicale/htpasswd" = {
@@ -25,7 +30,10 @@
       enable = true;
       settings = {
         server = {
-          hosts = [ "0.0.0.0:5232" "[::]:5232" ];
+          hosts = [
+            "0.0.0.0:5232"
+            "[::]:5232"
+          ];
         };
 
         auth = {

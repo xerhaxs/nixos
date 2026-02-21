@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-{ 
+{
   imports = [
     ./samba.nix
     ./share.nix

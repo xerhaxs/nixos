@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options = {
@@ -16,7 +21,9 @@
     virtualisation.docker = {
       enable = true;
       enableOnBoot = true;
-      enableNvidia = lib.mkIf (config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.docker.enable) true;
+      enableNvidia = lib.mkIf (
+        config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.docker.enable
+      ) true;
     };
 
     users.users."${config.nixos.system.user.defaultuser.name}" = {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -16,7 +21,7 @@
     services.nitter = {
       enable = true;
       openFirewall = false;
-      
+
       server = {
         hostname = "nitter.${config.nixos.server.network.nginx.domain}";
         address = "127.0.0.1";

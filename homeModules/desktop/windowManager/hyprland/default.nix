@@ -1,4 +1,10 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -20,13 +26,19 @@
     };
   };
 
-  config = lib.mkIf (config.homeManager.desktop.windowManager.hyprland.enable && osConfig.nixos.desktop.windowManager.hyprland.enable) {
-    homeManager.desktop.windowManager.hyprland = {
-      #dunst.enable = true;
-      hyprland.enable = true;
-      swaylock.enable = true;
-      waybar.enable = true;
-      rofi.enable = true;
-    };
-  };
+  config =
+    lib.mkIf
+      (
+        config.homeManager.desktop.windowManager.hyprland.enable
+        && osConfig.nixos.desktop.windowManager.hyprland.enable
+      )
+      {
+        homeManager.desktop.windowManager.hyprland = {
+          #dunst.enable = true;
+          hyprland.enable = true;
+          swaylock.enable = true;
+          waybar.enable = true;
+          rofi.enable = true;
+        };
+      };
 }

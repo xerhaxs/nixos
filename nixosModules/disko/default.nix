@@ -1,6 +1,13 @@
-{ config, disko, impermanence, lib, pkgs, ... }: 
+{
+  config,
+  disko,
+  impermanence,
+  lib,
+  pkgs,
+  ...
+}:
 
-{ 
+{
   imports = [
     disko.nixosModules.disko
     impermanence.nixosModules.impermanence

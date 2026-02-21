@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   hardware_custom = ./hardware-configuration.nix;
@@ -6,10 +11,14 @@ let
   hardware_installation = /mnt/etc/nixos/hardware-configuration.nix;
 
   hw_import =
-    if builtins.pathExists hardware_custom then hardware_custom
-    else if builtins.pathExists hardware_installation then hardware_installation
-    else if builtins.pathExists hardware_generated then hardware_generated
-    else null;
+    if builtins.pathExists hardware_custom then
+      hardware_custom
+    else if builtins.pathExists hardware_installation then
+      hardware_installation
+    else if builtins.pathExists hardware_generated then
+      hardware_generated
+    else
+      null;
 in
 
 {

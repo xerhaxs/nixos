@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -13,7 +18,7 @@
   };
 
   config = lib.mkIf config.nixos.system.bootloader.enable {
-  
+
     boot.loader.efi.canTouchEfiVariables = true;
 
     boot.loader.efi.efiSysMountPoint = "/boot/";

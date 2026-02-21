@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -12,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.userEnvironment.game.steam.enable {    
+  config = lib.mkIf config.nixos.userEnvironment.game.steam.enable {
     programs.steam = {
       enable = true;
       gamescopeSession.enable = true;

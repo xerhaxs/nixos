@@ -1,4 +1,10 @@
-{ config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
+{
+  config,
+  disks ? [ "/dev/vda" ],
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -60,7 +66,10 @@
                   mountOptions = [
                     "defaults"
                   ];
-                  extraArgs = [ "-n" "BOOT" ];
+                  extraArgs = [
+                    "-n"
+                    "BOOT"
+                  ];
                 };
               };
               primary = {

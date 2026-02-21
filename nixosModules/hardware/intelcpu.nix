@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -13,10 +18,13 @@
   };
 
   config = lib.mkIf config.nixos.hardware.intelcpu.enable {
-    boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
+    boot.kernelParams = [
+      "intel_iommu=on"
+      "iommu=pt"
+    ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.initrd.availableKernelModules = [ "snd-hda-intel" ];
-    
+
     hardware = {
       enableAllFirmware = false; # unfree firmware drivers
       enableRedistributableFirmware = true;

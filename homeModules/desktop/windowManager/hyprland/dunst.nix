@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -16,7 +21,7 @@
     services.dunst = {
       enable = true;
       catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
-      settings = {};
+      settings = { };
     };
   };
 }

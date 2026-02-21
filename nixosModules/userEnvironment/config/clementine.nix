@@ -1,7 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
+  homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+  }";
   configDir = "${homeDir}/.config/Clementine";
   configFile = "${configDir}/Clementine.conf";
   configContent = ''
@@ -16,7 +22,7 @@ let
     b_hide_filter_toolbar=false
     b_use_sys_icons=true
     use-custom-set=false
-    
+
     [Equalizer]
     enabled=false
 

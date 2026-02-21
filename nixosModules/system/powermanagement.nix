@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -45,12 +50,9 @@
       LidSwitchIgnoreInhibited = "yes";
     };
 
-    environment.systemPackages = with  pkgs;[
+    environment.systemPackages = with pkgs; [
       powerstat
       powertop
     ];
   };
 }
-
-
-  

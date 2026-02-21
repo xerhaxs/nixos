@@ -1,4 +1,10 @@
-{ config, lib, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -17,10 +23,16 @@
     };
   };
 
-  config = lib.mkIf (config.homeManager.desktop.desktopEnvironment.gnome.enable && osConfig.nixos.desktop.desktopEnvironment.gnome.enable) {
-    homeManager.desktop.desktopEnvironment.gnome = {
-      dconf.enable = true;
-      gnome.enable = true;
-    };
-  };
+  config =
+    lib.mkIf
+      (
+        config.homeManager.desktop.desktopEnvironment.gnome.enable
+        && osConfig.nixos.desktop.desktopEnvironment.gnome.enable
+      )
+      {
+        homeManager.desktop.desktopEnvironment.gnome = {
+          dconf.enable = true;
+          gnome.enable = true;
+        };
+      };
 }

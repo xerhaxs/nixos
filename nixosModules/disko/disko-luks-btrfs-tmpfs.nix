@@ -1,4 +1,10 @@
-{ config, disks ? [ "/dev/vda" ], lib, pkgs, ... }:
+{
+  config,
+  disks ? [ "/dev/vda" ],
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -20,7 +26,7 @@
         device = "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
       };
     };
-    
+
     fileSystems."/boot" = {
       device = "/dev/disk/by-partlabel/disk-NIXOS-BOOT";
       fsType = "vfat";
@@ -40,7 +46,7 @@
         "relatime"
       ];
     };
-    
+
     fileSystems."/persistent" = {
       device = "/dev/mapper/system";
       neededForBoot = true;
@@ -166,7 +172,10 @@
                   mountOptions = [
                     "defaults"
                   ];
-                  extraArgs = [ "-n" "BOOT" ];
+                  extraArgs = [
+                    "-n"
+                    "BOOT"
+                  ];
                 };
               };
               luks = {
@@ -198,7 +207,10 @@
 
                   content = {
                     type = "btrfs";
-                    extraArgs = [ "-f" "-L SYSTEM" ];
+                    extraArgs = [
+                      "-f"
+                      "-L SYSTEM"
+                    ];
                     subvolumes = {
                       "/root" = {
                         mountpoint = "/persistent";

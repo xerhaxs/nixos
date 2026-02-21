@@ -1,4 +1,11 @@
-{ config, lib, impermanence, osConfig, pkgs, ... }:
+{
+  config,
+  lib,
+  impermanence,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {

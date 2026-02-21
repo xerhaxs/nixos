@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   networking = {
 
     hostName = "NixOS-ServerPublic";
 
-    #interfaces = {  
+    #interfaces = {
     #  enp0s18 = {
     #    ipv4.addresses = [ {
     #      address = "10.75.0.22";

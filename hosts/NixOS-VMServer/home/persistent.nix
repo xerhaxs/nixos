@@ -1,4 +1,10 @@
-{ config, lib, impermanence, pkgs, ... }:
+{
+  config,
+  lib,
+  impermanence,
+  pkgs,
+  ...
+}:
 
 {
   home.persistence."/persistent" = {
@@ -9,10 +15,22 @@
       "Music"
       "Pictures"
       "Videos"
-      { directory = ".gnupg"; mode = "0700"; }
-      { directory = ".ssh"; mode = "0700"; }
-      { directory = ".nixops"; mode = "0700"; }
-      { directory = ".local/share/keyrings"; mode = "0700"; }
+      {
+        directory = ".gnupg";
+        mode = "0700";
+      }
+      {
+        directory = ".ssh";
+        mode = "0700";
+      }
+      {
+        directory = ".nixops";
+        mode = "0700";
+      }
+      {
+        directory = ".local/share/keyrings";
+        mode = "0700";
+      }
       ".local/share/direnv"
       ".local/share/baloo"
       ".local/share/bottles"

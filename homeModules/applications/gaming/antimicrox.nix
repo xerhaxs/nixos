@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -14,9 +19,7 @@
 
   config = lib.mkIf config.homeManager.applications.gaming.antimicrox.enable {
     home.packages = with pkgs; [
-      antimicrox 
+      antimicrox
     ];
   };
 }
-
-

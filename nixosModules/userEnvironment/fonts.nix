@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -22,10 +27,16 @@
         hinting.enable = true;
         subpixel.rgba = "rgb";
         defaultFonts = {
-          emoji = [ "openmoji-color" "Noto Color Emoji" ];
+          emoji = [
+            "openmoji-color"
+            "Noto Color Emoji"
+          ];
           serif = [ "Noto Serif" ];
           sansSerif = [ "Noto Sans" ];
-          monospace = [ "Nerd Font" "Noto Sans Mono" ];
+          monospace = [
+            "Nerd Font"
+            "Noto Sans Mono"
+          ];
         };
       };
       packages = with pkgs; [

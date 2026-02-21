@@ -1,10 +1,17 @@
-{ config, lib, home-manager, pkgs, specialArgs, ... }:
+{
+  config,
+  lib,
+  home-manager,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
 {
   imports = [
     home-manager.nixosModules.home-manager
   ];
-  
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

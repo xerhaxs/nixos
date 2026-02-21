@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -57,7 +62,7 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
-          locations."/" = { 
+          locations."/" = {
             proxyPass = "http://127.0.0.1:3872";
             proxyWebsockets = true;
             extraConfig = ''

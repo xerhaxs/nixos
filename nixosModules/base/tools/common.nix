@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -17,7 +22,7 @@
       # fetchers
       neofetch
       cpufetch
-      
+
       # terminal file manager
       ranger
 
@@ -55,8 +60,8 @@
       # networking tools
       inetutils
       aria2 # A lightweight multi-protocol & multi-source command-line download utility
-      dnsutils  # `dig` + `nslookup`
-      ipcalc  # it is a calculator for the IPv4/v6 addresses
+      dnsutils # `dig` + `nslookup`
+      ipcalc # it is a calculator for the IPv4/v6 addresses
       iperf3
       ipfetch
       iftop # network monitoring
@@ -102,7 +107,7 @@
       cmatrix # matrix prompt for the terminal
       hollywood # hollywood hacking prompt for the terminal
       asciiquarium # aquarium in the terminal
-      cowsay # generates ASCII art pictures of a cow 
+      cowsay # generates ASCII art pictures of a cow
     ];
   };
 }

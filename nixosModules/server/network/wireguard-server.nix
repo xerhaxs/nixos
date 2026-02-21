@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -13,6 +18,6 @@
   };
 
   config = lib.mkIf config.nixos.server.network.wireguard-server.enable {
-   
+
   };
 }

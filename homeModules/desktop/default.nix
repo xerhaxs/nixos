@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     ./desktopEnvironment
     ./windowManager
-    
+
     ./xdg.nix
     ./xserver.nix
   ];

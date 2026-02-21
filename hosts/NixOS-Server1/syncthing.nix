@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services.syncthing = {
     settings = {
-      folders = {  # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
+      folders = {
+        # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
         "Desktop" = {
           path = "/mount/pool01/share/jf/desktop";
         };

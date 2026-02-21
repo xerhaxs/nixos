@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -46,7 +51,10 @@
               presharedKeyFile = config.sops.secrets."wireguard/home/presharedKey".path;
 
               # Forward all the traffic via VPN.
-              allowedIPs = [ "10.75.0.0/24" "0.0.0.0/0" ];
+              allowedIPs = [
+                "10.75.0.0/24"
+                "0.0.0.0/0"
+              ];
               # Or forward only particular subnets
               #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
 

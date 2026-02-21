@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # ZFS aktivieren
@@ -12,8 +17,7 @@
 
   # Keyfile für Auto-Unlock
   # gespeichert unter /etc/zfs/keys/pool01-share.key
-  environment.etc."zfs/keys/pool01-share.key".source =
-    /persist/keys/pool01-share.key;   # Pfad anpassen
+  environment.etc."zfs/keys/pool01-share.key".source = /persist/keys/pool01-share.key; # Pfad anpassen
 
   # Rechte sichern
   systemd.tmpfiles.rules = [
@@ -38,12 +42,51 @@
   systemd.services."zfs-load-key-pool01-share" = {
     description = "Load ZFS key for pool01/share";
     wantedBy = [ "zfs-mount.service" ];
-    before    = [ "zfs-mount.service" ];
+    before = [ "zfs-mount.service" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = ''
         /run/current-system/sw/bin/zfs load-key -L file:///etc/zfs/keys/pool01-share.key pool01/share
       '';
     };
+  };
+  # ZFS Keys laden vor dem Mounten
+  systemd.services.zfs-load-key-share = {
+    description = "Load ZFS encryption key for pool01/share";
+    before = [ "pool01-share.mount" ];
+    after = [
+      "zfs-import.target"
+      "sops-nix.service"
+    ];
+    requires = [ "sops-nix.service" ];
+    wantedBy = [ "zfs-mount.service" ];
+    path = [ pkgs.zfs ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      cat ${config.sops.secrets."zfs/share-password".path} | \
+      ${pkgs.zfs}/bin/zfs load-key pool01/share || true
+    '';
+  };
+  systemd.services.zfs-load-key-applications = {
+    description = "Load ZFS encryption key for pool01/applications";
+    before = [ "pool01-applications.mount" ];
+    after = [
+      "zfs-import.target"
+      "sops-nix.service"
+    ];
+    requires = [ "sops-nix.service" ];
+    wantedBy = [ "zfs-mount.service" ];
+    path = [ pkgs.zfs ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      cat ${config.sops.secrets."zfs/applications-password".path} | \
+      ${pkgs.zfs}/bin/zfs load-key pool01/applications || true
+    '';
   };
 }

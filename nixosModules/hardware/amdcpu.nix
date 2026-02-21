@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -13,9 +18,15 @@
   };
 
   config = lib.mkIf config.nixos.hardware.amdcpu.enable {
-    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
-    boot.kernelModules = [ "kvm-amd" "vfio-pci" ];
-    
+    boot.kernelParams = [
+      "amd_iommu=on"
+      "iommu=pt"
+    ];
+    boot.kernelModules = [
+      "kvm-amd"
+      "vfio-pci"
+    ];
+
     hardware = {
       enableAllFirmware = false; # unfree firmware drivers
       enableRedistributableFirmware = true;

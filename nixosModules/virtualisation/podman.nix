@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options = {
@@ -15,7 +20,9 @@
   config = lib.mkIf config.nixos.virtualisation.podman.enable {
     virtualisation.podman = {
       enable = true;
-      enableNvidia = lib.mkIf (config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.podman.enable) true;
+      enableNvidia = lib.mkIf (
+        config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.podman.enable
+      ) true;
     };
 
     virtualisation.oci-containers = {

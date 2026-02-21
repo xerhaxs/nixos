@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -12,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.swaylock.enable {  
+  config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.swaylock.enable {
     programs.swaylock = {
       enable = true;
       settings = {

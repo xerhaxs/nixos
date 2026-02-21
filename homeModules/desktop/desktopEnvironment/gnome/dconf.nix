@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -26,17 +31,17 @@
           "org.gnome.Nautilus.desktop"
         ];
 
-  #     "/org/gnome/mutter" = {
-  #       dynamic-workspaces = true;
-  #     };
+        #     "/org/gnome/mutter" = {
+        #       dynamic-workspaces = true;
+        #     };
 
-  #     "/system/locale/region" = [
-  #       "de_DE.UTF-8"
-  #     ];
+        #     "/system/locale/region" = [
+        #       "de_DE.UTF-8"
+        #     ];
 
-  #     "/org/gnome/desktop/interface/" = {
-  #       locate-pointer = true;
-  #     };
+        #     "/org/gnome/desktop/interface/" = {
+        #       locate-pointer = true;
+        #     };
 
         disable-user-extensions = false;
 

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -16,7 +21,7 @@
     services.matrix-synapse = {
       enable = true;
     };
-    
+
     services.nginx = {
       virtualHosts = {
         "matrix.${config.nixos.server.network.nginx.domain}" = {

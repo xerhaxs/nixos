@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -15,7 +20,7 @@
   config = lib.mkIf config.homeManager.base.texteditor.emacs.enable {
     programs.emacs = {
       enable = true;
-      package = pkgs.emacs;  # replace with pkgs.emacs-gtk, or a version provided by the community overlay if desired.
+      package = pkgs.emacs; # replace with pkgs.emacs-gtk, or a version provided by the community overlay if desired.
       extraConfig = ''
         (setq standard-indent 2)
       '';

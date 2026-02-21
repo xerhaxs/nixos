@@ -1,4 +1,10 @@
-{ config, lib, pkgs, plasma-manager, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  plasma-manager,
+  ...
+}:
 
 {
   imports = [

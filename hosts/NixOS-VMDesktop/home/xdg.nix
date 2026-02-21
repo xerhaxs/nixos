@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   xdg.userDirs = {
@@ -10,4 +15,3 @@
     videos = "${config.home.homeDirectory}/Videos";
   };
 }
-

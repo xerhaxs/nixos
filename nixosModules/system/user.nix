@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -32,7 +37,7 @@
           description = "Set the default shell.";
         };
         settings = lib.mkOption {
-          default = {};
+          default = { };
           description = "The default settings per user.";
         };
       };
@@ -57,4 +62,3 @@
     users.mutableUsers = false;
   };
 }
-

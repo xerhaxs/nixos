@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -22,10 +27,11 @@
       group = "users";
       cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
       key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-      dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
+      dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+      }";
       configDir = config.services.syncthing.dataDir + "/.config/syncthing";
       overrideDevices = true;
-      overrideFolders = true; 
+      overrideFolders = true;
       openDefaultPorts = true;
 
       settings = {
@@ -72,52 +78,88 @@
           };
         };
 
-        folders = {  # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
+        folders = {
+          # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
           "Desktop" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.desktop}";
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.desktop
+            }";
             id = "Desktop";
             type = "sendreceive";
-            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" ];
+            devices = [
+              "NixOS-Convertible"
+              "NixOS-Desktop"
+              "NixOS-Framework"
+              "NixOS-Server1"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
           "Documents" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}";
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+            }";
             id = "Documents";
             type = "sendreceive";
-            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" ];
+            devices = [
+              "NixOS-Convertible"
+              "NixOS-Desktop"
+              "NixOS-Framework"
+              "NixOS-Server1"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
           "Downloads" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.download}";
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.download
+            }";
             id = "Downloads";
             type = "sendreceive";
-            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" "GraphenOS" ];
+            devices = [
+              "NixOS-Convertible"
+              "NixOS-Desktop"
+              "NixOS-Framework"
+              "NixOS-Server1"
+              "GraphenOS"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
           "Music" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music}";
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music
+            }";
             id = "Music";
             type = "sendreceive";
-            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" ];
+            devices = [
+              "NixOS-Convertible"
+              "NixOS-Desktop"
+              "NixOS-Framework"
+              "NixOS-Server1"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
           "Pictures" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}";
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures
+            }";
             id = "Pictures";
             type = "sendreceive";
-            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" ];
+            devices = [
+              "NixOS-Convertible"
+              "NixOS-Desktop"
+              "NixOS-Framework"
+              "NixOS-Server1"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
           "Videos" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.videos}";
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.videos
+            }";
             id = "Videos";
             type = "sendreceive";
-            devices = [ "NixOS-Desktop" "NixOS-Server1" ];
+            devices = [
+              "NixOS-Desktop"
+              "NixOS-Server1"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
@@ -126,13 +168,20 @@
             path = "/home/${config.nixos.system.user.defaultuser.name}/.config/FreeTube";
             id = "FreeTube";
             type = "sendreceive";
-            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" ];
+            devices = [
+              "NixOS-Convertible"
+              "NixOS-Desktop"
+              "NixOS-Framework"
+              "NixOS-Server1"
+            ];
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
 
           "Android" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/GraphenOS/Android";
+            path = "${
+              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+            }/GraphenOS/Android";
             id = "Android";
             type = "sendreceive";
             devices = [ "GraphenOS" ];
@@ -140,7 +189,9 @@
             ignorePerms = true;
           };
           "GraphenOS" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/GraphenOS/GraphenOS";
+            path = "${
+              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+            }/GraphenOS/GraphenOS";
             id = "GraphenOS";
             type = "sendreceive";
             devices = [ "GraphenOS" ];
@@ -148,7 +199,9 @@
             ignorePerms = true;
           };
           "Pixel 6a Kamera" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Pixel 6a Kamera";
+            path = "${
+              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures
+            }/Pixel 6a Kamera";
             id = "Pixel 6a Kamera";
             type = "sendreceive";
             devices = [ "GraphenOS" ];
@@ -156,7 +209,9 @@
             ignorePerms = true;
           };
           "Pixel 6a Musik" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music}/Musik";
+            path = "${
+              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music
+            }/Musik";
             id = "Pixel 6a Musik";
             type = "sendonly";
             devices = [ "GraphenOS" ];
@@ -164,7 +219,9 @@
             ignorePerms = true;
           };
           "Wichtige Dateien" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/Wichtige Datein";
+            path = "${
+              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+            }/Wichtige Datein";
             id = "Wichtige Dateien";
             type = "sendonly";
             devices = [ "GraphenOS" ];

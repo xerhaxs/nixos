@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.homeManager = {
@@ -25,28 +30,28 @@
             "mail.accountmanager.accounts" = "account1,account3,account4,account2";
 
             # === General UI and behavior settings ===
-            "intl.locale.requested" = "de-DE";                # UI language
-            "spellchecker.dictionary" = "de-DE";              # Spellcheck language
-            "intl.regional_prefs.use_os_locales" = true;     # Don't use OS locale
-            "intl.regional_prefs.locales" = "de-DE";          # Use metric etc.
+            "intl.locale.requested" = "de-DE"; # UI language
+            "spellchecker.dictionary" = "de-DE"; # Spellcheck language
+            "intl.regional_prefs.use_os_locales" = true; # Don't use OS locale
+            "intl.regional_prefs.locales" = "de-DE"; # Use metric etc.
 
-            "mailnews.default_sort_type" = 18;  # Sort by date
-            "mailnews.default_sort_order" = 2;  # Newest first
+            "mailnews.default_sort_type" = 18; # Sort by date
+            "mailnews.default_sort_order" = 2; # Newest first
             "mailnews.default_news_sort_type" = 18;
             "mailnews.default_news_sort_order" = 2;
 
-            "mail.thread_structures_with_ids" = false;  # No message grouping
+            "mail.thread_structures_with_ids" = false; # No message grouping
             "mail.ui.tableView" = false; # table view
             "mailnews.default_view_flags" = 0;
 
-            "mail.folder.views.version" = 1;                # Folder pane view
-            "mail.ui.folderpane.expand_state" = "All";      # Expand all folders
+            "mail.folder.views.version" = 1; # Folder pane view
+            "mail.ui.folderpane.expand_state" = "All"; # Expand all folders
 
-            "mail.SpellCheckBeforeSend" = true;   # Check before sending
-            "mail.spellcheck.inline" = true;      # Inline spellcheck
+            "mail.SpellCheckBeforeSend" = true; # Check before sending
+            "mail.spellcheck.inline" = true; # Inline spellcheck
 
-            "mail.tabs.drawInTitlebar" = false;   # No tabs in title bar
-            "mail.tabs.autoHide" = false;         # Always show tabs
+            "mail.tabs.drawInTitlebar" = false; # No tabs in title bar
+            "mail.tabs.autoHide" = false; # Always show tabs
 
             "privacy.donottrackheader.enabled" = true;
             "network.cookie.cookieBehavior" = 2;
@@ -79,7 +84,8 @@
             ## Optional user-agent override
             "general.useragent.override" = "";
 
-            "thunderbird.policies.runOncePerModification.extensionsInstall" = "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/german-dictionary-de_de-for-sp/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/filelink-nextcloud-owncloud/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/cardbook/latest/latest.xpi";
+            "thunderbird.policies.runOncePerModification.extensionsInstall" =
+              "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/german-dictionary-de_de-for-sp/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/filelink-nextcloud-owncloud/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/cardbook/latest/latest.xpi";
           };
 
           #extraConfig = ''

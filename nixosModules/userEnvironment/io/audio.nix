@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.nixos = {
@@ -27,12 +31,12 @@
       extraConfig.pipewire-pulse = {
         "pulse.rules" = [
           {
-            matches = [ 
-              { 
+            matches = [
+              {
                 "application.process.binary" = "wine64-preloader";
               }
             ];
-            
+
             actions = {
               update-props = {
                 pulse.min.quantum = "1024/48000";
@@ -42,7 +46,7 @@
         ];
       };
     };
-  
+
     environment.systemPackages = with pkgs; [
       pulseaudio
       alsa-plugins

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   environment.etc.crypttab = {
@@ -23,7 +28,7 @@
   fileSystems."/mount/Games" = {
     device = "/dev/mapper/games";
     fsType = "ext4";
-	  options = [
+    options = [
       "defaults"
       "auto"
       #"discard=async"
@@ -33,7 +38,7 @@
   fileSystems."/mount/Backup" = {
     device = "/dev/mapper/backup";
     fsType = "ext4";
-	  options = [
+    options = [
       "defaults"
       "auto"
       #"discard=async"

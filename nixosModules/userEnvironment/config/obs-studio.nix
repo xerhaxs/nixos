@@ -1,7 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
+  homeDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+  }";
   configDir = "${homeDir}/.config/obs-studio";
   configFile = "${configDir}/global.ini";
   configContent = ''
@@ -78,29 +84,35 @@ in
     };
   };
 
-  config = lib.mkIf (config.nixos.userEnvironment.config.obs-studio.enable && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable) {
-    boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-    
-    boot.extraModprobeConfig = ''
-      options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback
-    '';
+  config =
+    lib.mkIf
+      (
+        config.nixos.userEnvironment.config.obs-studio.enable
+        && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable
+      )
+      {
+        boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
-    systemd.services.obs-studioConfigChecker = {
-      description = "Check and create obs-studio config if not present";
+        boot.extraModprobeConfig = ''
+          options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback
+        '';
 
-      script = ''
-        if [ ! -d "${configDir}" ]; then
-          mkdir -p "${configDir}"
-        fi
+        systemd.services.obs-studioConfigChecker = {
+          description = "Check and create obs-studio config if not present";
 
-        if [ ! -f "${configFile}" ]; then
-          echo '${configContent}' > "${configFile}"
-        fi
+          script = ''
+            if [ ! -d "${configDir}" ]; then
+              mkdir -p "${configDir}"
+            fi
 
-        chown -R ${config.nixos.system.user.defaultuser.name}:users ${configDir}
-      '';
+            if [ ! -f "${configFile}" ]; then
+              echo '${configContent}' > "${configFile}"
+            fi
 
-      wantedBy = [ "multi-user.target" ];
-    };
-  };
+            chown -R ${config.nixos.system.user.defaultuser.name}:users ${configDir}
+          '';
+
+          wantedBy = [ "multi-user.target" ];
+        };
+      };
 }
