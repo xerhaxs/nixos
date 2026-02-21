@@ -113,11 +113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771531206,
-        "narHash": "sha256-1R3Wx6KUkMb4x4E5UOhW9p6rqiexzSGGWxZqSHqW5n0=",
+        "lastModified": 1771647911,
+        "narHash": "sha256-18liNHHwOmcaKCpOptE3wLW97fm5v7RTLiZBecX7km0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "91be7cce763fa4022c7cf025a71b0c366d1b6e77",
+        "rev": "436b27742c996b75e2baf8e835e3b3eae0c9fbd4",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1771469368,
-        "narHash": "sha256-yGRHre2BINQJBDAyUwxyzvgAce22J4pNdpLS8roo6fY=",
+        "lastModified": 1771641457,
+        "narHash": "sha256-TIekRGfeCwuEmYcWex40RTx0Gd46pqmyUtxdFKb5juI=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "a708458be9b9421e377c54d86807d3490db53816",
+        "rev": "c4e2b8969e09067da9d44b6b5762e1e896418f40",
         "type": "github"
       },
       "original": {
@@ -337,7 +337,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-aUBy5Go5pToP51SJ1shHL/d67tXk1TDQYD4YyYD7YS0=",
+        "narHash": "sha256-HvcX/XdCYfArkqQEQK0edv+mxQbk/Ir76sR0ZTv6tCs=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -349,7 +349,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-1uVSFoKNvQoP2DPuDbKo6TylO0uYaMBx44P9zHVr/m8=",
+        "narHash": "sha256-QI7jADB1CozRNMjYBBoLpnB5q7285Vjt9/58I4+0bJw=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },

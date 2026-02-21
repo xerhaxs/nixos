@@ -120,6 +120,40 @@
             copyOwnershipFromParent = false;
             ignorePerms = true;
           };
+
+          "FreeTube" = {
+            path = "/home/${config.nixos.system.user.defaultuser.name}/.config/FreeTube";
+            id = "FreeTube";
+            type = "sendreceive";
+            devices = [ "NixOS-Convertible" "NixOS-Desktop" "NixOS-Framework" "NixOS-Server1" ];
+            copyOwnershipFromParent = false;
+            ignorePerms = true;
+          };
+
+          "Pixel 6a Kamera" = {
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Pixel 6a Kamera";
+            id = "Pixel 6a Kamera";
+            type = "sendreceive";
+            devices = [ "GraphenOS" ];
+            copyOwnershipFromParent = false;
+            ignorePerms = true;
+          };
+          "Pixel 6a Musik" = {
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music}/Musik";
+            id = "sendonly";
+            type = "sendreceive";
+            devices = [ "GraphenOS" ];
+            copyOwnershipFromParent = false;
+            ignorePerms = true;
+          };
+          "Wichtige Datein" = {
+            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents}/Wichtige Datein";
+            id = "Wichtige Datein";
+            type = "sendonly";
+            devices = [ "GraphenOS" ];
+            copyOwnershipFromParent = false;
+            ignorePerms = true;
+          };
         };
       };
     };
