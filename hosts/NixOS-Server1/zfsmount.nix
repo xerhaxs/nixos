@@ -7,7 +7,6 @@
 
 {
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.enabled = true;
 
   services.zfs = {
     autoScrub = {
