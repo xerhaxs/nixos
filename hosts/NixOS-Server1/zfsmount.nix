@@ -22,6 +22,7 @@ in
 {
   boot.kernelPackages = lib.mkForce latestKernelPackage;
   boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.requestEncryptionCredentials = false;
 
   environment.systemPackages = with pkgs; [
     zfs
