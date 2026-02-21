@@ -92,7 +92,7 @@ fwupdmgr update
 * [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
-  * [ ] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html https://wiki.nixos.org/wiki/Syncthing#cite_note-2 https://home-manager-options.extranix.com/?query=services.syncthing.&release=master
+  * [X] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html https://wiki.nixos.org/wiki/Syncthing#cite_note-2 https://home-manager-options.extranix.com/?query=services.syncthing.&release=master
   * [ ] Install Single GPU Passthrough to Windows 11 VM
     * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
     * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
@@ -110,7 +110,7 @@ fwupdmgr update
   * [ ] Setup Power Buttons as Panic Buttons -> One Press = Force Power Off
 * [ ] Rescue / Flight / Escape SSD with important data + generic OS
 * [ ] Restructure the nixos config without module naming of folders -> more independent naming scheme -> config.nixos.userEnvironment.appimage.enable >>>> config.nixos.appimage.enable
-* [ ] Setup Nix language tool server https://youtu.be/M_zMoHlbZBY https://search.nixos.org/packages?channel=unstable&query=nixd&show=nixd  https://search.nixos.org/packages?channel=unstable&query=nixfmt&show=nixfmt
+* [X] Setup Nix language tool server https://youtu.be/M_zMoHlbZBY https://search.nixos.org/packages?channel=unstable&query=nixd&show=nixd  https://search.nixos.org/packages?channel=unstable&query=nixfmt&show=nixfmt
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
