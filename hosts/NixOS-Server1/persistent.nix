@@ -16,6 +16,7 @@
       "/root/.cache"
       "/root/.secrets"
       "/etc/nixos"
+      "/etc/nix"
       "/etc/ssh"
       "/var/log"
       #"/var/lib/bluetooth"
@@ -46,7 +47,6 @@
     #];
     files = [
       "/root/.bash_history"
-      "/etc/nix/nix.conf"
     ];
   };
 }
