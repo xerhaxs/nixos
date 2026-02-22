@@ -36,8 +36,8 @@
       videoDrivers = [ "amdgpu" ];
     };
 
-    # Workaround for HIP GPU acceleration on AMD APUs
-    /* systemd.tmpfiles.rules =
+    /* # Workaround for HIP GPU acceleration on AMD APUs
+    systemd.tmpfiles.rules =
       let
         rocmEnv = pkgs.symlinkJoin {
           name = "rocm-combined";
