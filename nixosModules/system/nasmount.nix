@@ -6,11 +6,11 @@
 }:
 
 let
-  truenas-options = [
+  /* truenas-options = [
     "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
     "gid=500,file_mode=0777,dir_mode=0777"
     "vers=3.0,credentials=${config.sops.secrets."truenas-smb/user".path}"
-  ];
+  ]; */
   nas-options = [
     "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
     "gid=500,file_mode=0777,dir_mode=0777"
@@ -46,7 +46,7 @@ in
     #  fsType = "nfs";
     #  options = truenas-options;
     #};
-    fileSystems."/mount/truenas/music" = {
+    /* fileSystems."/mount/truenas/music" = {
       device = "//10.75.0.20/music";
       fsType = "cifs";
       options = truenas-options;
@@ -80,7 +80,7 @@ in
       device = "//10.75.0.20/games";
       fsType = "cifs";
       options = truenas-options;
-    };
+    }; */
 
     fileSystems."/mount/nas/music" = {
       device = "//NixOS-Server1/music";
