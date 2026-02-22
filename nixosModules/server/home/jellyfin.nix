@@ -21,6 +21,8 @@
     services.jellyfin = {
       enable = true;
       openFirewall = false;
+      user = "jellyfin";
+      group = "jellyfin"; 
       dataDir = "/pool01/applications/jellyfin";
       #dataDir = "/var/lib/jellyfin";
       #configDir = "/var/lib/jellyfin/config";
@@ -66,6 +68,8 @@
         h264Crf = 23;
       };
     };
+
+    users.users.jellyfin.extraGroups = [ "share" ];
 
     services.nginx = {
       virtualHosts = {

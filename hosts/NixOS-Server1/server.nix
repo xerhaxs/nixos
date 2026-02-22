@@ -12,8 +12,6 @@
 
   nixos.virtualisation.podman.enable = true;
 
-  nixos.system.nasmount.enable = false;
-
   nixos.server.fileshare.share.path = "/pool01/shares";
 
   nixos.server = {
