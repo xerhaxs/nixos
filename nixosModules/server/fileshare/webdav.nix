@@ -35,7 +35,7 @@
           {
             username = "jf";
             password = "{env}ENV_PASSWORD";
-            directory = "${config.nixos.server.fileshare.share.path}/webdav";
+            directory = "/pool01/applications/webdav";
             permissions = "CRUD";
           }
         ];
