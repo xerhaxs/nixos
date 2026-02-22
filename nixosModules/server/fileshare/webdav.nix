@@ -35,7 +35,7 @@
           {
             username = "jf";
             password = "{env}ENV_PASSWORD";
-            directory = "/pool01/applications/webdav";
+            directory = "/pool01/applications/webdav/jf";
             permissions = "CRUD";
           }
         ];
