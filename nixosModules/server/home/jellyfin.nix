@@ -32,7 +32,7 @@
       hardwareAcceleration = {
         enable = true;
         device = "/dev/dri/renderD128";
-        type = "vaapi"; # "none", "amf", "qsv", "nvenc", "v4l2m2m", "vaapi", "rkmpp"
+        type = "qsv"; # "none", "amf", "qsv", "nvenc", "v4l2m2m", "vaapi", "rkmpp"
       };
 
       transcoding = {
