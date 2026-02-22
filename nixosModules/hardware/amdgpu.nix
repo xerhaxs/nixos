@@ -37,7 +37,7 @@
     };
 
     # Workaround for HIP GPU acceleration on AMD APUs
-    systemd.tmpfiles.rules =
+    /* systemd.tmpfiles.rules =
       let
         rocmEnv = pkgs.symlinkJoin {
           name = "rocm-combined";
@@ -50,7 +50,7 @@
       in
       [
         "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-      ];
+      ]; */
 
     environment.systemPackages = with pkgs; [
       nvtopPackages.amd
