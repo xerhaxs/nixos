@@ -22,6 +22,7 @@
       enable = true;
       openFirewall = false;
       dataDir = "/applications/jellyfin";
+      #dataDir = "/var/lib/jellyfin";
       #configDir = "/var/lib/jellyfin/config";
       #logDir = "/var/log/jellyfin";
       #cacheDir = "/var/cache/jellyfin";

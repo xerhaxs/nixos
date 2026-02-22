@@ -42,9 +42,10 @@
           htpasswd_encryption = "plain";
         };
 
-        #storage = {
-        #  filesystem_folder = "/var/lib/radicale/";
-        #};
+        storage = {
+          filesystem_folder = "/applications/radicale";
+          #filesystem_folder = "/var/lib/radicale/";
+        };
       };
     };
 
