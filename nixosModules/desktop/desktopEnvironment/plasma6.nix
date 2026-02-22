@@ -5,6 +5,46 @@
   ...
 }:
 
+let
+  spectacleOverlay = self: super: {
+    kdePackages = super.kdePackages // {
+      spectacle = super.kdePackages.spectacle.overrideAttrs (oldAttrs: rec {
+        nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ super.makeWrapper ];
+        postInstall = ''
+          wrapProgram $out/bin/spectacle \
+            --prefix PATH : ${
+              super.tesseract5.override {
+                enableLanguages = [
+                  "eng"
+                  "osd"
+                  "deu"
+                ];
+              }
+            }/bin \
+            --set TESSDATA_PREFIX ${
+              super.tesseract5.override {
+                enableLanguages = [
+                  "eng"
+                  "osd"
+                  "deu"
+                ];
+              }
+            }/share/tessdata \
+            --prefix LD_LIBRARY_PATH : ${
+              super.tesseract5.override {
+                enableLanguages = [
+                  "eng"
+                  "osd"
+                  "deu"
+                ];
+              }
+            }/lib
+        '';
+      });
+    };
+  };
+in
+
 {
   options.nixos = {
     desktop.desktopEnvironment.plasma6 = {
@@ -18,6 +58,8 @@
   };
 
   config = lib.mkIf config.nixos.desktop.desktopEnvironment.plasma6.enable {
+    nixpkgs.overlays = [ spectacleOverlay ];
+
     services.desktopManager.plasma6 = {
       enable = true;
       enableQt5Integration = true;
@@ -82,6 +124,7 @@
           merkuro
           kate
           colord-kde
+          spectacle
           #wallpaper-engine-plugin
           #linux-wallpaperengine
         ];

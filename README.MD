@@ -130,7 +130,7 @@ fwupdmgr update
   * [X] Miracast / Screensharing in NixOS -> not possible on Linux
   * [ ] SSH Password to SSH Certs + SSH Certfiles via Syncthing
   * [ ] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
-  * [ ] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
+  * [X] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass
