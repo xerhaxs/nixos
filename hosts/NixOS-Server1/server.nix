@@ -17,31 +17,31 @@
   systemd.services.jellyfin = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "/bin/sleep 60";
+    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
   };
 
   systemd.services.home-assistant = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "/bin/sleep 60";
+    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
   };
 
   systemd.services.ollama = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "/bin/sleep 60";
+    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
   };
 
   systemd.services.radicale = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "/bin/sleep 60";
+    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
   };
 
   systemd.services.webdav = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "/bin/sleep 60";
+    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
   };
 
   nixos.server = {
