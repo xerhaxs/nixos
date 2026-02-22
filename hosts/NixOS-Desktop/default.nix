@@ -14,14 +14,5 @@
     ./mount.nix
     ./networking.nix
     ./xserver.nix
-
-    ./spectacle.nix
   ];
-
-  environment.systemPackages =
-    with pkgs;
-    with kdePackages;
-    [
-      spectacle
-    ];
 }
