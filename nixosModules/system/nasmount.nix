@@ -6,15 +6,10 @@
 }:
 
 let
-  /* truenas-options = [
-    "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
-    "gid=500,file_mode=0777,dir_mode=0777"
-    "vers=3.0,credentials=${config.sops.secrets."truenas-smb/user".path}"
-  ]; */
   nas-options = [
     "x-systemd.automount,auto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s"
     "gid=500,file_mode=0777,dir_mode=0777"
-    "vers=3.0,credentials=${config.sops.secrets."nas-smb/user".path}"
+    "vers=3.1.1,credentials=${config.sops.secrets."nas-smb/user".path}"
   ];
 in
 
@@ -41,47 +36,26 @@ in
       gid = 500;
     };
 
-    #fileSystems."/mount/document" = {
-    #  device = "10.75.0.20:/document";
-    #  fsType = "nfs";
-    #  options = truenas-options;
-    #};
-    /* fileSystems."/mount/truenas/music" = {
-      device = "//10.75.0.20/music";
+    fileSystems."/mount/nas/backup" = {
+      device = "//NixOS-Server1/backup";
       fsType = "cifs";
-      options = truenas-options;
+      options = nas-options;
     };
-    fileSystems."/mount/truenas/photo" = {
-      device = "//10.75.0.20/photo";
+    fileSystems."/mount/nas/document" = {
+      device = "//NixOS-Server1/document";
       fsType = "cifs";
-      options = truenas-options;
+      options = nas-options;
     };
-    fileSystems."/mount/truenas/video" = {
-      device = "//10.75.0.20/video";
+    fileSystems."/mount/nas/games" = {
+      device = "//NixOS-Server1/games";
       fsType = "cifs";
-      options = truenas-options;
+      options = nas-options;
     };
-    fileSystems."/mount/truenas/jf" = {
-      device = "//10.75.0.20/jf";
+    fileSystems."/mount/nas/jf" = {
+      device = "//NixOS-Server1/jf";
       fsType = "cifs";
-      options = truenas-options;
+      options = nas-options;
     };
-    fileSystems."/mount/truenas/document" = {
-      device = "//10.75.0.20/document";
-      fsType = "cifs";
-      options = truenas-options;
-    };
-    fileSystems."/mount/truenas/backup" = {
-      device = "//10.75.0.20/backup";
-      fsType = "cifs";
-      options = truenas-options;
-    };
-    fileSystems."/mount/truenas/games" = {
-      device = "//10.75.0.20/games";
-      fsType = "cifs";
-      options = truenas-options;
-    }; */
-
     fileSystems."/mount/nas/music" = {
       device = "//NixOS-Server1/music";
       fsType = "cifs";
@@ -97,26 +71,12 @@ in
       fsType = "cifs";
       options = nas-options;
     };
-    fileSystems."/mount/nas/jf" = {
-      device = "//NixOS-Server1/jf";
-      fsType = "cifs";
-      options = nas-options;
-    };
-    fileSystems."/mount/nas/document" = {
-      device = "//NixOS-Server1/document";
-      fsType = "cifs";
-      options = nas-options;
-    };
-    fileSystems."/mount/nas/backup" = {
-      device = "//NixOS-Server1/backup";
-      fsType = "cifs";
-      options = nas-options;
-    };
-    fileSystems."/mount/nas/games" = {
-      device = "//NixOS-Server1/games";
-      fsType = "cifs";
-      options = nas-options;
-    };
+
+    #fileSystems."/mount/document" = {
+    #  device = "10.75.0.20:/document";
+    #  fsType = "nfs";
+    #  options = truenas-options;
+    #};
 
     #fileSystems."/mount/sshfs/jf" = {
     #  device = "admin@NixOS-Server1:/srv/share/jf";
