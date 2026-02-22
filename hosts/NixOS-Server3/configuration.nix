@@ -18,4 +18,6 @@
   };
 
   services.qemuGuest.enable = true;
+
+  #nixos.system.nasmount.enable = true;
 }

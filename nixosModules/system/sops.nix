@@ -34,9 +34,8 @@
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
-      #age.keyFile = "/root/.secrets/keys.txt";
       #age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      age.keyFile = "/secrets/keys.txt";
+      age.keyFile = lib.mkDefault "/secrets/keys.txt";
 
       secrets = {
         changeme = { };
@@ -87,7 +86,7 @@
 
         "nas-smb/user" = { };
 
-        /* "user/nixos-convertible/jf" = {
+        "user/nixos-convertible/jf" = {
           neededForUsers = true;
         };
         "user/nixos-desktop/jf" = {
@@ -113,7 +112,7 @@
         };
         "user/nixos-vmserver/admin" = {
           neededForUsers = true;
-        }; */
+        };
 
         "webdav-share/user-jf" = { };
 

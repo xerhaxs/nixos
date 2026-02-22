@@ -42,4 +42,6 @@
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;
+
+  #nixos.system.nasmount.enable = true;
 }

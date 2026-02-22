@@ -46,5 +46,6 @@
 
   services.flatpak.enable = true;
 
-  nixos.system.nasmount.enable = false;
+  #nixos.system.nasmount.enable = true;
+  age.keyFile = "/root/.secrets/keys.txt";
 }

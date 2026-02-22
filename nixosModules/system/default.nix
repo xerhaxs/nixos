@@ -46,7 +46,7 @@
       dbus.enable = true;
       firewall.enable = true;
       locals.enable = true;
-      nasmount.enable = lib.mkDefault true;
+      nasmount.enable = lib.mkDefault false;
       networking.enable = true;
       nh.enable = true;
       nixos.enable = true;
