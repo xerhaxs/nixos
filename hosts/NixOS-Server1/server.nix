@@ -14,6 +14,31 @@
 
   nixos.server.fileshare.share.path = "/pool01/shares";
 
+  systemd.services.jellyfin = {
+    after = [ "zfs-mount.service" ];
+    requires = [ "zfs-mount.service" ];
+  };
+
+  systemd.services.home-assistant = {
+    after = [ "zfs-mount.service" ];
+    requires = [ "zfs-mount.service" ];
+  };
+
+  systemd.services.ollama = {
+    after = [ "zfs-mount.service" ];
+    requires = [ "zfs-mount.service" ];
+  };
+
+  systemd.services.radicale = {
+    after = [ "zfs-mount.service" ];
+    requires = [ "zfs-mount.service" ];
+  };
+
+  systemd.services.webdav = {
+    after = [ "zfs-mount.service" ];
+    requires = [ "zfs-mount.service" ];
+  };
+
   nixos.server = {
     fediverse = {
       #gitea.enable = true;
