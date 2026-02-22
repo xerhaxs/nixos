@@ -14,34 +14,42 @@
 
   nixos.server.fileshare.share.path = "/pool01/shares";
 
+  systemd.services.zfs-mounts-ready = {
+    description = "Wait for ZFS mounts to be ready";
+    after = [ "zfs-load-keys.service" ];
+    requires = [ "zfs-load-keys.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      echo "Wait for ZFS mounts..."
+      until mountpoint -q /pool01/shares && mountpoint -q /pool01/applications; do
+        sleep 1
+      done
+      echo "ZFS mounts ready."
+    '';
+  };
+
   systemd.services.jellyfin = {
-    after = [ "zfs-load-keys.service" ];
-    requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.bash}/bin/bash -c 'for mp in /pool01/applications /pool01/shares; do until mountpoint -q $mp; do sleep 1; done; done'";
-  };
-
-  systemd.services.home-assistant = {
-    after = [ "zfs-load-keys.service" ];
-    requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.bash}/bin/bash -c 'for mp in /pool01/applications /pool01/shares; do until mountpoint -q $mp; do sleep 1; done; done'";
-  };
-
-  systemd.services.ollama = {
-    after = [ "zfs-load-keys.service" ];
-    requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.bash}/bin/bash -c 'for mp in /pool01/applications /pool01/shares; do until mountpoint -q $mp; do sleep 1; done; done'";
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
   };
 
   systemd.services.radicale = {
-    after = [ "zfs-load-keys.service" ];
-    requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.bash}/bin/bash -c 'for mp in /pool01/applications /pool01/shares; do until mountpoint -q $mp; do sleep 1; done; done'";
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
   };
 
   systemd.services.webdav = {
-    after = [ "zfs-load-keys.service" ];
-    requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.bash}/bin/bash -c 'for mp in /pool01/applications /pool01/shares; do until mountpoint -q $mp; do sleep 1; done; done'";
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.home-assistant = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
   };
 
   nixos.server = {
