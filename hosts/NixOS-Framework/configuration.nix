@@ -45,5 +45,5 @@
   nixos.virtualisation.kvm.enable = true;
 
   #nixos.system.nasmount.enable = true;
-  age.keyFile = "/root/.secrets/keys.txt";
+  sops.age.keyFile = "/root/.secrets/keys.txt";
 }
