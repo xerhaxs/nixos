@@ -13,6 +13,7 @@
     ./networking.nix
     ./persistent.nix
     ./server.nix
+    ./syncthing.nix
     ./zfsmount.nix
   ];
 }
