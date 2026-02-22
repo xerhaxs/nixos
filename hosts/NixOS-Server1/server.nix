@@ -17,31 +17,71 @@
   systemd.services.jellyfin = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
+    serviceConfig.ExecStartPre = ''
+      ${pkgs.coreutils}/bin/bash -c '
+        for mp in /pool01/applications /pool01/shares; do
+          until mountpoint -q $mp; do
+            sleep 1
+          done
+        done
+      '
+    '';
   };
 
   systemd.services.home-assistant = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
+    serviceConfig.ExecStartPre = ''
+      ${pkgs.coreutils}/bin/bash -c '
+        for mp in /pool01/applications /pool01/shares; do
+          until mountpoint -q $mp; do
+            sleep 1
+          done
+        done
+      '
+    '';
   };
 
   systemd.services.ollama = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
+    serviceConfig.ExecStartPre = ''
+      ${pkgs.coreutils}/bin/bash -c '
+        for mp in /pool01/applications /pool01/shares; do
+          until mountpoint -q $mp; do
+            sleep 1
+          done
+        done
+      '
+    '';
   };
 
   systemd.services.radicale = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
+    serviceConfig.ExecStartPre = ''
+      ${pkgs.coreutils}/bin/bash -c '
+        for mp in /pool01/applications /pool01/shares; do
+          until mountpoint -q $mp; do
+            sleep 1
+          done
+        done
+      '
+    '';
   };
 
   systemd.services.webdav = {
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
-    serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 60";
+    serviceConfig.ExecStartPre = ''
+      ${pkgs.coreutils}/bin/bash -c '
+        for mp in /pool01/applications /pool01/shares; do
+          until mountpoint -q $mp; do
+            sleep 1
+          done
+        done
+      '
+    '';
   };
 
   nixos.server = {
