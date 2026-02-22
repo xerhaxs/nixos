@@ -12,6 +12,36 @@
 
   nixos.virtualisation.podman.enable = true;
 
+  nixos.server = {
+    fediverse = {
+      #gitea.enable = true;
+      invidious.enable = true;
+      languagetool.enable = true;
+      libreddit.enable = true;
+      #matrix.ebale = true;
+      nitter.enable = true;
+      searxng.enable = true;
+    };
+    fileshare = {
+      samba.enable = true;
+      share.enable = true;
+      #sshfs.enable = true;
+      webdav.enable = true;
+    };
+    home = {
+      glance.enable = true;
+      homeassistant.enable = true;
+      jellyfin.enable = true;
+      networkingtoolbox.enable = true;
+      ollama.enable = true;
+      radicale.enable = true;
+    };
+    network = {
+      pihole.enable = true;
+      unbound.enable = true;
+    };
+  };
+
   nixos.server.fileshare.share.path = "/pool01/shares";
 
   systemd.services.zfs-mounts-ready = {
@@ -50,35 +80,5 @@
   systemd.services.home-assistant = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
-  };
-
-  nixos.server = {
-    fediverse = {
-      #gitea.enable = true;
-      invidious.enable = true;
-      languagetool.enable = true;
-      libreddit.enable = true;
-      #matrix.ebale = true;
-      nitter.enable = true;
-      searxng.enable = true;
-    };
-    fileshare = {
-      samba.enable = true;
-      share.enable = true;
-      #sshfs.enable = true;
-      webdav.enable = true;
-    };
-    home = {
-      glance.enable = true;
-      homeassistant.enable = true;
-      jellyfin.enable = true;
-      networkingtoolbox.enable = true;
-      ollama.enable = true;
-      radicale.enable = true;
-    };
-    network = {
-      pihole.enable = true;
-      unbound.enable = true;
-    };
   };
 }
