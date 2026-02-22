@@ -41,12 +41,10 @@ let
     (mkHostEntries "10.75.0.1" [ "fritz.box" ])
     (mkHostEntries "10.75.0.10" [ "proxmox.${config.nixos.server.network.nginx.domain}" ])
     (mkHostEntries "10.75.0.20" [
-      "nas.${config.nixos.server.network.nginx.domain}"
       "nextcloud.${config.nixos.server.network.nginx.domain}"
       "truenas.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.21" [
-      "dav.${config.nixos.server.network.nginx.domain}"
       "gitea.${config.nixos.server.network.nginx.domain}"
       "glance.${config.nixos.server.network.nginx.domain}"
       "homeassistant.${config.nixos.server.network.nginx.domain}"
@@ -54,16 +52,14 @@ let
       "jellyfin.${config.nixos.server.network.nginx.domain}"
       "kiwix.${config.nixos.server.network.nginx.domain}"
       "languagetool.${config.nixos.server.network.nginx.domain}"
-      "lemmy.${config.nixos.server.network.nginx.domain}"
       "libreddit.${config.nixos.server.network.nginx.domain}"
-      "moneronode.${config.nixos.server.network.nginx.domain}"
-      "murmur.${config.nixos.server.network.nginx.domain}"
+      #"moneronode.${config.nixos.server.network.nginx.domain}"
+      #"murmur.${config.nixos.server.network.nginx.domain}"
       "networkingtoolbox.${config.nixos.server.network.nginx.domain}"
       "nitter.${config.nixos.server.network.nginx.domain}"
       "ollama.${config.nixos.server.network.nginx.domain}"
       "pihole.${config.nixos.server.network.nginx.domain}"
       "radicale.${config.nixos.server.network.nginx.domain}"
-      "samba.${config.nixos.server.network.nginx.domain}"
       "searxng.${config.nixos.server.network.nginx.domain}"
       "syncthing.${config.nixos.server.network.nginx.domain}"
       "webdav.${config.nixos.server.network.nginx.domain}"
