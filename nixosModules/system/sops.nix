@@ -81,6 +81,7 @@
 
         "syncthing/nixos-server1/cert" = { };
         "syncthing/nixos-server1/key" = { };
+        "syncthing/nixos-server1/login" = { };
 
         "truenas-smb/user" = { };
 

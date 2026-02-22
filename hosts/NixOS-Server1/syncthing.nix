@@ -15,6 +15,7 @@
     group = "share";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
+    guiPasswordFile = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
     #dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
     #configDir = config.services.syncthing.dataDir + "/.config/syncthing";
     overrideDevices = true;
@@ -234,6 +235,21 @@
           fsWatcherEnabled = true;
           fsWatcherDelayS = 60;
           rescanIntervalS = 3600;
+        };
+      };
+    };
+  };
+
+  services.nginx = {
+    virtualHosts = {
+      "syncthing.${config.nixos.server.network.nginx.domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = null;
+        kTLS = true;
+        http2 = false;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8384";
         };
       };
     };
