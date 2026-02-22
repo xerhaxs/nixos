@@ -43,7 +43,7 @@
         };
 
         storage = {
-          filesystem_folder = "/applications/radicale";
+          filesystem_folder = "/pool01/applications/radicale";
           #filesystem_folder = "/var/lib/radicale/";
         };
       };

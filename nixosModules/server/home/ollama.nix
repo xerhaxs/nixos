@@ -24,7 +24,7 @@
       port = 11434;
       openFirewall = false;
       syncModels = true;
-      models = "/applications/ollama/models";
+      models = "/pool01/applications/ollama/models";
       #models = "/var/lib/ollama/models";
       loadModels = [
         "deepseek-r1:1.5b"

@@ -21,7 +21,7 @@
     services.home-assistant = {
       enable = true;
       openFirewall = false;
-      configDir = "/applications/hass";
+      configDir = "/pool01/applications/hass";
       #configDir = "/var/lib/hass";
 
       config = {

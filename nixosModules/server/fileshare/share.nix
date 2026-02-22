@@ -70,7 +70,7 @@ in
       path = lib.mkOption {
         type = lib.types.str;
         default = "/srv/share";
-        example = "/srv/share/";
+        example = "/srv/share";
         description = "Set share path.";
       };
     };
