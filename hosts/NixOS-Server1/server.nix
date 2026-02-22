@@ -19,16 +19,16 @@
     after = [ "zfs-load-keys.service" ];
     requires = [ "zfs-load-keys.service" ];
     wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.util-linux ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    restartIfChanged = false;
     script = ''
-      echo "Wait for ZFS mounts..."
       until mountpoint -q /pool01/shares && mountpoint -q /pool01/applications; do
         sleep 1
       done
-      echo "ZFS mounts ready."
     '';
   };
 
