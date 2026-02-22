@@ -15,28 +15,33 @@
   nixos.server.fileshare.share.path = "/pool01/shares";
 
   systemd.services.jellyfin = {
-    after = [ "zfs-mount.service" ];
-    requires = [ "zfs-mount.service" ];
+    after = [ "zfs-load-keys.service" ];
+    requires = [ "zfs-load-keys.service" ];
+    serviceConfig.ExecStartPre = "/bin/sleep 60";
   };
 
   systemd.services.home-assistant = {
-    after = [ "zfs-mount.service" ];
-    requires = [ "zfs-mount.service" ];
+    after = [ "zfs-load-keys.service" ];
+    requires = [ "zfs-load-keys.service" ];
+    serviceConfig.ExecStartPre = "/bin/sleep 60";
   };
 
   systemd.services.ollama = {
-    after = [ "zfs-mount.service" ];
-    requires = [ "zfs-mount.service" ];
+    after = [ "zfs-load-keys.service" ];
+    requires = [ "zfs-load-keys.service" ];
+    serviceConfig.ExecStartPre = "/bin/sleep 60";
   };
 
   systemd.services.radicale = {
-    after = [ "zfs-mount.service" ];
-    requires = [ "zfs-mount.service" ];
+    after = [ "zfs-load-keys.service" ];
+    requires = [ "zfs-load-keys.service" ];
+    serviceConfig.ExecStartPre = "/bin/sleep 60";
   };
 
   systemd.services.webdav = {
-    after = [ "zfs-mount.service" ];
-    requires = [ "zfs-mount.service" ];
+    after = [ "zfs-load-keys.service" ];
+    requires = [ "zfs-load-keys.service" ];
+    serviceConfig.ExecStartPre = "/bin/sleep 60";
   };
 
   nixos.server = {
