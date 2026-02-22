@@ -27,9 +27,9 @@
       "/var/lib/systemd/coredump"
 
       "/var/lib/acme"
-      #"/var/lib/hass"
-      #"/var/lib/jellyfin"
-      #"/var/lib/ollama"
+      "/var/lib/hass"
+      "/var/lib/jellyfin"
+      "/var/lib/ollama"
       "/var/lib/pihole"
       "/var/lib/unbound"
       #"/var/lib/private/invidious"

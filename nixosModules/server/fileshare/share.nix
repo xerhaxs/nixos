@@ -69,6 +69,7 @@ in
       };
       path = lib.mkOption {
         type = lib.types.str;
+        default = "/srv/share";
         example = "/srv/share/";
         description = "Set share path.";
       };
@@ -76,8 +77,6 @@ in
   };
 
   config = lib.mkIf config.nixos.server.fileshare.share.enable {
-    nixos.server.fileshare.share.path = "/srv/share";
-
     systemd.tmpfiles.rules = map (d: "d ${d.path} ${d.mode} ${d.owner} ${d.group} -") shareDirs;
 
     users.groups = {

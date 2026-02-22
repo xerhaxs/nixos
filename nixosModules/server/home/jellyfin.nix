@@ -21,10 +21,10 @@
     services.jellyfin = {
       enable = true;
       openFirewall = false;
-      #dataDir = "/var/lib/jellyfin";
-      #configDir = "${cfg.dataDir}/config";
-      #logDir = "${cfg.dataDir}/log";
-      #cacheDir = "/var/cache/jellyfin";
+      dataDir = "/applications/jellyfin";
+      configDir = "/var/lib/jellyfin/config";
+      logDir = "/var/log/jellyfin";
+      cacheDir = "/var/cache/jellyfin";
       forceEncodingConfig = false;
       hardwareAcceleration = {
         enable = true;

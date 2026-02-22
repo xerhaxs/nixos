@@ -14,6 +14,8 @@
 
   nixos.system.nasmount.enable = false;
 
+  nixos.server.fileshare.share.path = "/pool01/shares";
+
   nixos.server = {
     fediverse = {
       #gitea.enable = true;
