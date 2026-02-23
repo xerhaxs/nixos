@@ -69,12 +69,6 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      jellyfin
-      jellyfin-web
-      jellyfin-ffmpeg
-    ];
-
     users.users.jellyfin.extraGroups = [
       "share"
       #"render"
@@ -82,7 +76,9 @@
     ];
 
     environment.systemPackages = with pkgs; [
-      libva-utils
+      jellyfin
+      jellyfin-web
+      jellyfin-ffmpeg
     ];
 
     services.nginx = {
