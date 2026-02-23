@@ -35,7 +35,7 @@
       gui = {
         user = "${config.nixos.system.user.defaultuser.name}";
         theme = lib.strings.toLower "black";
-        tls = true;
+        tls = false;
       };
 
       devices = {
