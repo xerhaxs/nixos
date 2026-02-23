@@ -13,8 +13,10 @@
   };
 
   # Intel GPU only as render device -> no video output
-  boot.kernelModules = [ "xe" ];
-  boot.blacklistedKernelModules = [ "i915" ];
+  boot.kernelParams = [ 
+    "i915.modeset=0"
+    "xe.modeset=0"
+  ];
 
   nixos.system.user.defaultuser = {
     name = "admin";

@@ -74,7 +74,7 @@
     system.stateVersion = "25.11";
 
     environment.systemPackages = with pkgs; [
-      nix-output-monitor # nix related
+      nix-output-monitor
       nix-prefetch
       nixos-generators
     ];
