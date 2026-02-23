@@ -16,7 +16,6 @@
       "/root/.cache"
       #"/root/.secrets"
       "/etc/nixos"
-      "/etc/nix"
       "/etc/ssh"
       "/etc/zfs"
       "/var/log"
