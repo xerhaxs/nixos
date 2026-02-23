@@ -12,8 +12,19 @@
     intelgpu.enable = true;
   };
 
-  # Intel GPU only as render device -> no video output
-  boot.kernelParams = [ "video=0000:03:00.0:off" ];
+  boot.initrd.network = {
+    enable = true;
+    ssh = {
+      enable = true;
+      port = 22;
+      authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyndaaCmTLHdA5+sLBbxgSZNC6KXKtZkKiMK6AAY8Rt jf@NixOS-Desktop" ];
+      hostKeys = [ "/etc/ssh/initrd_host_key" ]; # generate keys with ssh-keygen -t ed25519 -N "" -f /etc/ssh/initrd_host_key
+    };
+  };
+
+  boot.initrd.secrets = {
+    "/etc/ssh/initrd_host_key" = "/persistent/etc/ssh/initrd_host_key";
+  };
 
   nixos.system.user.defaultuser = {
     name = "admin";
