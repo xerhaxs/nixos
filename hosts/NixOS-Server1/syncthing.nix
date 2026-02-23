@@ -8,6 +8,10 @@
 {
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
+  users.users.syncthing = {
+    extraGroups = [ "share" ];
+  };
+
   services.syncthing = {
     enable = true;
     systemService = true;
@@ -22,10 +26,6 @@
     overrideDevices = true;
     overrideFolders = true;
     openDefaultPorts = true;
-
-    users.users.syncthing = {
-      extraGroups = [ "share" ];
-    };
 
     settings = {
       options = {
