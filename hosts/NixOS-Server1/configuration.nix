@@ -12,6 +12,10 @@
     intelgpu.enable = true;
   };
 
+  # Intel GPU only as render device -> no video output
+  #boot.kernelParams = [ "i915.force_probe=5694" ];
+  #boot.kernelParams = [ "video=efifb:off" "video=vesafb:off" ];
+
   nixos.system.user.defaultuser = {
     name = "admin";
     pass = "$y$j9T$MXbWf.peSOtvQQtYvZvuZ.$7XUvmCniT4h4o.SFaGqD29F13RWyGW7bNpBcMpHKHH3";

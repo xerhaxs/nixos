@@ -22,7 +22,7 @@
       enable = true;
       openFirewall = false;
       user = "jellyfin";
-      group = "jellyfin"; 
+      group = "jellyfin";
       dataDir = "/pool01/applications/jellyfin";
       #dataDir = "/var/lib/jellyfin";
       #configDir = "/var/lib/jellyfin/config";
@@ -69,7 +69,15 @@
       };
     };
 
-    users.users.jellyfin.extraGroups = [ "share" ];
+    users.users.jellyfin.extraGroups = [
+      "share"
+      "render"
+      "video"
+    ];
+
+    environment.systemPackages = with pkgs; [
+      libva-utils
+    ];
 
     services.nginx = {
       virtualHosts = {
