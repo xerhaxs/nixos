@@ -223,6 +223,7 @@
               "10.75.0.10 proxmox.${config.nixos.server.network.nginx.domain}"
               "10.75.0.20 nextcloud.${config.nixos.server.network.nginx.domain}"
               "10.75.0.20 truenas.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 dav.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 gitea.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 glance.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 homeassistant.${config.nixos.server.network.nginx.domain}"
