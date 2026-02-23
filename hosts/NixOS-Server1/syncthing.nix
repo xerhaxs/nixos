@@ -69,7 +69,7 @@
       folders = {
         # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
         "Desktop" = {
-          path = "/pool01/applications/share/jf/Desktop";
+          path = "/pool01/shares/jf/Desktop";
           id = "Desktop";
           type = "sendreceive";
           devices = [
@@ -85,7 +85,7 @@
           rescanIntervalS = 60;
         };
         "Documents" = {
-          path = "/pool01/applications/share/jf/Dokumente";
+          path = "/pool01/shares/jf/Dokumente";
           id = "Documents";
           type = "sendreceive";
           devices = [
@@ -101,7 +101,7 @@
           rescanIntervalS = 60;
         };
         "Downloads" = {
-          path = "/pool01/applications/share/jf/Downloads";
+          path = "/pool01/shares/jf/Downloads";
           id = "Downloads";
           type = "sendreceive";
           devices = [
@@ -118,7 +118,7 @@
           rescanIntervalS = 60;
         };
         "Music" = {
-          path = "/pool01/applications/share/jf/Musik";
+          path = "/pool01/shares/jf/Musik";
           id = "Music";
           type = "sendreceive";
           devices = [
@@ -134,7 +134,7 @@
           rescanIntervalS = 3600;
         };
         "Pictures" = {
-          path = "/pool01/applications/share/jf/Bilder";
+          path = "/pool01/shares/jf/Bilder";
           id = "Pictures";
           type = "sendreceive";
           devices = [
@@ -150,7 +150,7 @@
           rescanIntervalS = 3600;
         };
         "Videos" = {
-          path = "/pool01/applications/share/jf/Videos";
+          path = "/pool01/shares/jf/Videos";
           id = "Videos";
           type = "sendreceive";
           devices = [
@@ -165,7 +165,7 @@
         };
 
         "FreeTube" = {
-          path = "/pool01/applications/share/jf/FreeTube";
+          path = "/pool01/shares/jf/FreeTube";
           id = "FreeTube";
           type = "sendreceive";
           devices = [
@@ -182,7 +182,7 @@
         };
 
         "Android" = {
-          path = "/pool01/applications/share/jf/Dokumente/GraphenOS/Android";
+          path = "/pool01/shares/jf/Dokumente/GraphenOS/Android";
           id = "Android";
           type = "sendreceive";
           devices = [ "GraphenOS" ];
@@ -193,7 +193,7 @@
           rescanIntervalS = 3600;
         };
         "GraphenOS" = {
-          path = "/pool01/applications/share/jf/Dokumente/GraphenOS/GraphenOS";
+          path = "/pool01/shares/jf/Dokumente/GraphenOS/GraphenOS";
           id = "GraphenOS";
           type = "sendreceive";
           devices = [ "GraphenOS" ];
@@ -204,7 +204,7 @@
           rescanIntervalS = 3600;
         };
         "Pixel 6a Kamera" = {
-          path = "/pool01/applications/share/jf/Bilder/Pixel 6a Kamera";
+          path = "/pool01/shares/jf/Bilder/Pixel 6a Kamera";
           id = "Pixel 6a Kamera";
           type = "sendreceive";
           devices = [ "GraphenOS" ];
@@ -215,7 +215,7 @@
           rescanIntervalS = 3600;
         };
         "Pixel 6a Musik" = {
-          path = "/pool01/applications/share/jf/Musik/Musik";
+          path = "/pool01/shares/jf/Musik/Musik";
           id = "Pixel 6a Musik";
           type = "sendonly";
           devices = [ "GraphenOS" ];
@@ -226,7 +226,7 @@
           rescanIntervalS = 3600;
         };
         "Wichtige Dateien" = {
-          path = "/pool01/applications/share/jf/Dokumente/Wichtige Datein";
+          path = "/pool01/shares/jf/Dokumente/Wichtige Datein";
           id = "Wichtige Dateien";
           type = "sendonly";
           devices = [ "GraphenOS" ];
@@ -250,6 +250,7 @@
         http2 = false;
         locations."/" = {
           proxyPass = "http://127.0.0.1:8384";
+          proxyWebsockets = true;
         };
       };
     };

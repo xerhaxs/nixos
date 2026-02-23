@@ -113,11 +113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771647911,
-        "narHash": "sha256-18liNHHwOmcaKCpOptE3wLW97fm5v7RTLiZBecX7km0=",
+        "lastModified": 1771851181,
+        "narHash": "sha256-gFgE6mGUftwseV3DUENMb0k0EiHd739lZexPo5O/sdQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "436b27742c996b75e2baf8e835e3b3eae0c9fbd4",
+        "rev": "9a4b494b1aa1b93d8edf167f46dc8e0c0011280c",
         "type": "github"
       },
       "original": {
@@ -337,7 +337,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-HvcX/XdCYfArkqQEQK0edv+mxQbk/Ir76sR0ZTv6tCs=",
+        "narHash": "sha256-tmnX6G7mudIDmi9t3YokqQoEya1qkGci+LKqiei3wMw=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -349,7 +349,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-QI7jADB1CozRNMjYBBoLpnB5q7285Vjt9/58I4+0bJw=",
+        "narHash": "sha256-9DYhNetOLEPGcNjyUP2/0nZPhP9HHfYd93dvYAaSsAk=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
@@ -477,11 +477,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771524872,
-        "narHash": "sha256-eksVUcUsfS9mQx4D9DrYu88u9w70bAf+n6KmTDuIGEE=",
+        "lastModified": 1771735105,
+        "narHash": "sha256-MJuVJeszZEziquykEHh/hmgIHYxUcuoG/1aowpLiSeU=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "e85540ffe97322dc1fea14dd11cdc2f59d540ac7",
+        "rev": "d7755d820f5fa8acf7f223309c33e25d4f92e74f",
         "type": "github"
       },
       "original": {
@@ -493,7 +493,7 @@
     "stevenBlack": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-9Gol9KKnVaBTP7p6lr46B1jTV0+f/edTcmrIN00OunM=",
+        "narHash": "sha256-iGJR21sBqeaosEii8//6VxDJPLrB+P5ErVIApcJ2OpE=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
       },
