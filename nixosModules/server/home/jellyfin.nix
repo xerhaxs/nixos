@@ -69,10 +69,16 @@
       };
     };
 
+    environment.systemPackages = with pkgs [
+      jellyfin
+      jellyfin-web
+      jellyfin-ffmpeg
+    ];
+
     users.users.jellyfin.extraGroups = [
       "share"
-      "render"
-      "video"
+      #"render"
+      #"video"
     ];
 
     environment.systemPackages = with pkgs; [
