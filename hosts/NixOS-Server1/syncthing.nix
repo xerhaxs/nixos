@@ -12,15 +12,20 @@
     enable = true;
     systemService = true;
     user = "syncthing";
-    group = "share";
+    group = "syncthing";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-    guiPasswordFile = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
+    guiPasswordFile =
+      config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
     #dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
     #configDir = config.services.syncthing.dataDir + "/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true;
     openDefaultPorts = true;
+
+    users.users.syncthing = {
+      extraGroups = [ "share" ];
+    };
 
     settings = {
       options = {
@@ -36,6 +41,7 @@
         user = "${config.nixos.system.user.defaultuser.name}";
         theme = lib.strings.toLower "black";
         tls = false;
+        address = "127.0.0.1:8384";
       };
 
       devices = {
