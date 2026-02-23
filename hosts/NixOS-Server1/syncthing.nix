@@ -8,21 +8,21 @@
 {
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
-  users.users.syncthing = {
-    extraGroups = [ "share" ];
-  };
+  #users.users.syncthing = {
+  #  extraGroups = [ "share" ];
+  #};
 
   networking.firewall.allowedTCPPorts = [ 8384 ];
 
   services.syncthing = {
     enable = true;
     systemService = true;
-    user = "syncthing";
-    group = "syncthing";
+    user = "jf";
+    group = "share";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-    guiPasswordFile =
-      config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
+    #guiPasswordFile =
+    #  config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
     #dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
     #configDir = config.services.syncthing.dataDir + "/.config/syncthing";
     overrideDevices = true;
