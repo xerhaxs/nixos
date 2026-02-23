@@ -12,6 +12,8 @@
     extraGroups = [ "share" ];
   };
 
+  networking.firewall.allowedTCPPorts = [ 8384 ];
+
   services.syncthing = {
     enable = true;
     systemService = true;
