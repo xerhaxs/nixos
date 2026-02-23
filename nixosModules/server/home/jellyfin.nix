@@ -32,8 +32,8 @@
       hardwareAcceleration = {
         enable = true;
         device = "/dev/dri/renderD128";
-        type = "qsv"; # "none", "amf", "qsv", "nvenc", "v4l2m2m", "vaapi", "rkmpp"
-        # !!!! vaapi in proxmox vm needed - qsv not working !!!!
+        type = "vaapi"; # "none", "amf", "qsv", "nvenc", "v4l2m2m", "vaapi", "rkmpp"
+        # !!!! vaapi in proxmox vm needed - qsv for intel arc not working in vms !!!!
       };
 
       transcoding = {
