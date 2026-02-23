@@ -29,7 +29,7 @@
       #"/var/lib/hass"
       #"/var/lib/jellyfin"
       #"/var/lib/radicale"
-      #"/var/lib/ollama"
+      "/var/lib/ollama"
       "/var/lib/pihole"
       "/var/lib/unbound"
       #"/var/lib/private/invidious"

@@ -13,10 +13,7 @@
   };
 
   # Intel GPU only as render device -> no video output
-/*   boot.kernelParams = [ 
-    "i915.modeset=0"
-    "xe.modeset=0"
-  ]; */
+  boot.kernelParams = [ "video=0000:03:00.0:off" ];
 
   nixos.system.user.defaultuser = {
     name = "admin";
