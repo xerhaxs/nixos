@@ -13,8 +13,8 @@
   };
 
   # Intel GPU only as render device -> no video output
-  #boot.kernelParams = [ "i915.force_probe=5694" ];
-  #boot.kernelParams = [ "video=efifb:off" "video=vesafb:off" ];
+  boot.kernelModules = [ "xe" ];
+  boot.blacklistedKernelModules = [ "i915" ];
 
   nixos.system.user.defaultuser = {
     name = "admin";
