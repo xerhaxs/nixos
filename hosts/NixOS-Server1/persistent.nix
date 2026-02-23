@@ -31,6 +31,7 @@
       #"/var/lib/radicale"
       "/var/lib/ollama"
       "/var/lib/pihole"
+      "/var/lib/syncthing"
       "/var/lib/unbound"
       #"/var/lib/private/invidious"
       #"/var/lib/private/nitter"
