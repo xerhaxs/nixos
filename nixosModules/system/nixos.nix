@@ -54,7 +54,7 @@
         ];
         sandbox = true;
 
-        substituters = [
+        trusted-substituters = [
           "https://cache.nixos.org"
           "https://nix-community.cachix.org"
         ];
