@@ -71,8 +71,8 @@
 
     users.users.jellyfin.extraGroups = [
       "share"
-      #"render"
-      #"video"
+      "render"
+      "video"
     ];
 
     environment.systemPackages = with pkgs; [
