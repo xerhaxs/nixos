@@ -30,6 +30,8 @@
         libva-vdpau-driver
         libvdpau-va-gl
         intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
+        level-zero
+        ocl-icd
       ];
 
       extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
