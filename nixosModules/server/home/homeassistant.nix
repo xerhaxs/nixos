@@ -29,7 +29,10 @@
         http = {
           server_port = 8123;
           use_x_forwarded_for = true;
-          trusted_proxies = [ "127.0.0.1" "::1" ];
+          trusted_proxies = [
+            "127.0.0.1"
+            "::1"
+          ];
         };
 
         homeassistant = {
@@ -88,40 +91,21 @@
         # Recommended for fast zlib compression
         # https://www.home-assistant.io/integrations/isal
         "isal"
-      ];
 
-      /*
-        extraComponents = [
-             "frontend"
-             "http"
-             "websocket_api"
-             "androidtv"
-             "androidtv_remote"
-             "default_config"
-             "denon"
-             "denonavr"
-             "esphome"
-             "fire_tv"
-             "forecast_solar"
-             "fritzbox"
-             "fritzbox_callmonitor"
-             "goodwe"
-             "harmony"
-             "hassio"
-             "met"
-             "panasonic_bluray"
-             "radio_browser"
-             "sony_projector"
-             #"supervisord"
-             "stream"
-             "system_health"
-             "intent"
-             "person"
-             "webhook"
-             "mobile_app"
-             'assist_pipeline', 'bluetooth', 'cloud', 'conversation', 'dhcp', 'energy', 'go2rtc', 'history', 'logbook', 'media_source', 'mobile_app', 'my', 'ssdp', 'stream', 'usage_prediction', 'usb', 'webhook', 'zeroconf'
-           ];
-      */
+        # for home integration
+        "denon"
+        "denonavr"
+        "esphome"
+        "forecast_solar"
+        "fritzbox"
+        "fritzbox_callmonitor"
+        "goodwe"
+        "harmony"
+        "panasonic_bluray"
+        "sony_projector" 
+
+        #"hassio"
+      ];
     };
 
     services.nginx = {
