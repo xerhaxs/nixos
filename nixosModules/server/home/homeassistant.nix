@@ -82,7 +82,7 @@
       #  "timer"
       #];
 
-      extraComponents = [
+/*       extraComponents = [
         "frontend"
         "http"
         "websocket_api"
@@ -104,7 +104,14 @@
         "radio_browser"
         "sony_projector"
         #"supervisord"
-      ];
+        "stream"
+        "system_health"
+        "intent"
+        "person"
+        "webhook"
+        "mobile_app"
+        'assist_pipeline', 'bluetooth', 'cloud', 'conversation', 'dhcp', 'energy', 'go2rtc', 'history', 'logbook', 'media_source', 'mobile_app', 'my', 'ssdp', 'stream', 'usage_prediction', 'usb', 'webhook', 'zeroconf'
+      ]; */
     };
 
     services.nginx = {
