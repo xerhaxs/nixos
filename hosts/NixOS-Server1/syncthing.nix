@@ -37,9 +37,8 @@
         user = "${config.nixos.system.user.defaultuser.name}";
         theme = lib.strings.toLower "black";
         tls = false;
-        address = "0.0.0.0:8384";
-        insecureAllowFrameLoading = true;
-        #insecureSkipHostcheck = true;
+        address = "127.0.0.1:8384";
+        insecureSkipHostcheck = true;
         allowedOrigins = [ "syncthing.${config.nixos.server.network.nginx.domain}" ];
       };
 
