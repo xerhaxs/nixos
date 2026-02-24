@@ -43,7 +43,7 @@
         user = "${config.nixos.system.user.defaultuser.name}";
         theme = lib.strings.toLower "black";
         tls = false;
-        address = "127.0.0.1:8384";
+        address = "0.0.0.0:8384";
       };
 
       devices = {
