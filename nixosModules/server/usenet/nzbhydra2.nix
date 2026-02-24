@@ -21,6 +21,8 @@
     services.nzbhydra2 = {
       enable = true;
       openFirewall = false;
+      #dataDir = "/var/lib/nzbhydra2";
+      dataDir = "/pool01/applications/nzbhydra2";
     };
 
     services.nginx = {

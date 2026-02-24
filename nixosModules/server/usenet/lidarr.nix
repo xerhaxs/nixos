@@ -37,7 +37,8 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "";
+      #dataDir = "/var/lib/lidarr";
+      dataDir = "/pool01/applications/lidarr";
     };
 
     services.nginx = {

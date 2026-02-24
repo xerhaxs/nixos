@@ -37,7 +37,8 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "";
+      #dataDir = "/var/lib/radarr/.config/radarr";
+      dataDir = "/pool01/applications/radarr";
     };
 
     services.nginx = {

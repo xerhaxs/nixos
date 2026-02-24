@@ -37,7 +37,8 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "";
+      #dataDir = "/var/lib/readarr/";
+      dataDir = "/pool01/applications/readarr/";
     };
 
     services.nginx = {

@@ -37,7 +37,8 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "";
+      #dataDir = "/var/lib/sonarr";
+      dataDir = "/pool01/applications/sonarr";
     };
 
     services.nginx = {
