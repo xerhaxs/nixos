@@ -8,8 +8,6 @@
 {
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
-  networking.firewall.allowedTCPPorts = [ 8384 ];
-
   services.syncthing = {
     enable = true;
     systemService = true;
@@ -41,7 +39,7 @@
         tls = false;
         address = "0.0.0.0:8384";
         insecureAllowFrameLoading = true;
-        insecureSkipHostcheck = true;
+        #insecureSkipHostcheck = true;
         allowedOrigins = [ "syncthing.${config.nixos.server.network.nginx.domain}" ];
       };
 
