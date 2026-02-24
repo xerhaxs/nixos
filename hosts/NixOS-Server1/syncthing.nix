@@ -17,8 +17,8 @@
   services.syncthing = {
     enable = true;
     systemService = true;
-    user = "jf";
-    group = "share";
+    user = "syncthing";
+    group = "syncthing";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
     #guiPasswordFile =
