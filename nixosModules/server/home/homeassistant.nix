@@ -44,7 +44,7 @@
       };
 
       #    lovelaceConfig = "";
-      lovelaceConfigWritable = false;
+      lovelaceConfigWritable = true;
       customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
         mini-graph-card
         mini-media-player
