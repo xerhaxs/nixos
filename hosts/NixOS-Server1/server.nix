@@ -54,22 +54,23 @@
     enable = true;
     enableExcludeWrapper = true;
   };
-/* 
-  systemd.services.mullvad-setup = {
-    description = "Initial Mullvad configuration";
-    after = [ "mullvad-daemon.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = pkgs.writeShellScript "mullvad-setup" ''
-        ${pkgs.mullvad}/bin/mullvad lan set allow
-        ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
-        ${pkgs.mullvad}/bin/mullvad auto-connect set on
-        ${pkgs.mullvad}/bin/mullvad connect
-      '';
+  /*
+    systemd.services.mullvad-setup = {
+      description = "Initial Mullvad configuration";
+      after = [ "mullvad-daemon.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = pkgs.writeShellScript "mullvad-setup" ''
+          ${pkgs.mullvad}/bin/mullvad lan set allow
+          ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
+          ${pkgs.mullvad}/bin/mullvad auto-connect set on
+          ${pkgs.mullvad}/bin/mullvad connect
+        '';
+      };
     };
-  }; */
+  */
 
   nixos.server.fileshare.share.path = "/pool01/shares";
 
@@ -137,6 +138,11 @@
   };
 
   systemd.services.sabnzbd = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.ollama = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
   };
