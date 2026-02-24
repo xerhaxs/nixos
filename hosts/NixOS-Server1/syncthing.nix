@@ -15,8 +15,8 @@
     group = "syncthing";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-    #guiPasswordFile =
-    #  config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
+    guiPasswordFile =
+      config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
     #dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
     #configDir = config.services.syncthing.dataDir + "/.config/syncthing";
     overrideDevices = true;
@@ -39,7 +39,6 @@
         tls = false;
         address = "127.0.0.1:8384";
         insecureSkipHostcheck = true;
-        allowedOrigins = [ "syncthing.${config.nixos.server.network.nginx.domain}" ];
       };
 
       devices = {
