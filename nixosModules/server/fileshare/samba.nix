@@ -36,7 +36,7 @@
           "hosts allow" = "10.75.0. 127.0.0.1 localhost";
           "hosts deny" = "0.0.0.0/0";
           "map to guest" = "Never";
-          "min protocol" = "SMB2";
+          "min protocol" = "SMB3";
           "max protocol" = "SMB3";
           "server signing" = "mandatory";
 
