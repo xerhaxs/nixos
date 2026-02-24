@@ -24,32 +24,34 @@
       configDir = "/pool01/applications/hass";
       #configDir = "/var/lib/hass";
 
-      config = {
-        default_config = { };
-        http = {
-          server_port = 8123;
-          use_x_forwarded_for = true;
-          trusted_proxies = [ "127.0.0.1" ];
+      /*
+        config = {
+          default_config = { };
+          http = {
+            server_port = 8123;
+            use_x_forwarded_for = true;
+            trusted_proxies = [ "127.0.0.1" ];
+          };
+
+          homeassistant = {
+            name = "Home";
+            unit_system = "metric";
+            time_zone = "Europe/Berlin";
+            temperature_unit = "C";
+            #longitude =
+            #latitude =
+          };
+          lovelace.mode = "yaml";
         };
 
-        homeassistant = {
-          name = "Home";
-          unit_system = "metric";
-          time_zone = "Europe/Berlin";
-          temperature_unit = "C";
-          #longitude =
-          #latitude =
-        };
-        lovelace.mode = "yaml";
-      };
-
-      #    lovelaceConfig = "";
-      lovelaceConfigWritable = true;
-      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
-        mini-graph-card
-        mini-media-player
-        mushroom
-      ];
+        lovelaceConfig = "";
+        lovelaceConfigWritable = false;
+        customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+          mini-graph-card
+          mini-media-player
+          mushroom
+        ];
+      */
 
       #defaultIntegrations = [
       #  "application_credentials"
@@ -90,12 +92,11 @@
         "goodwe"
         "harmony"
         "hassio"
-        "heos"
         "met"
         "panasonic_bluray"
         "radio_browser"
         "sony_projector"
-        "supervisord"
+        #"supervisord"
       ];
     };
 
@@ -107,6 +108,9 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
+          extraConfig = ''
+            proxy_buffering off;
+          '';
           locations."/" = {
             proxyPass = "http://localhost:8123";
             proxyWebsockets = true;
