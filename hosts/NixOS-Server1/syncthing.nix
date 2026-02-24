@@ -15,10 +15,6 @@
     group = "syncthing";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-    guiPasswordFile =
-      config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/login".path;
-    #dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory}";
-    #configDir = config.services.syncthing.dataDir + "/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true;
     openDefaultPorts = true;
@@ -35,6 +31,7 @@
 
       gui = {
         user = "${config.nixos.system.user.defaultuser.name}";
+        password = "$2b$05$SDrb7x02Wgr/hHSFu8nOZe06iYWeDQ674wKvgeabKds/w3EOeN0nS";
         theme = lib.strings.toLower "black";
         tls = false;
         address = "127.0.0.1:8384";
