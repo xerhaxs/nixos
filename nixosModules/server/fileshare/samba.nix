@@ -23,20 +23,20 @@
       openFirewall = true;
       nsswins = true;
       smbd.enable = true;
-      nmbd.enable = false;
+      nmbd.enable = true;
       winbindd.enable = true;
 
       settings = {
         global = {
-          "workgroup" = "WORKGROUP";
-          "serverString" = "NixOS Secure Samba Server";
+          "workgroup" = "TMJF";
+          "serverString" = "NixOS-Server";
           "security" = "user";
           "encrypt passwords" = "yes";
           "smb encrypt" = "required";
           "hosts allow" = "10.75.0. 127.0.0.1 localhost";
           "hosts deny" = "0.0.0.0/0";
           "map to guest" = "Never";
-          "min protocol" = "SMB3";
+          "min protocol" = "SMB2";
           "max protocol" = "SMB3";
           "server signing" = "mandatory";
 
@@ -152,7 +152,7 @@
 
     services.samba-wsdd = {
       enable = true;
-      workgroup = "WORKGROUP";
+      workgroup = "TMJF";
       openFirewall = true;
       discovery = true;
     };
