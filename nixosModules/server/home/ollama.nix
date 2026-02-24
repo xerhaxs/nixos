@@ -27,7 +27,7 @@
       openFirewall = false;
       syncModels = true;
       environmentVariables = {
-        OLLAMA_VULKAN = 1;
+        OLLAMA_VULKAN = "1";
       };
       models = "/pool01/applications/ollama/models";
       #models = "/var/lib/ollama/models";
