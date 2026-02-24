@@ -36,7 +36,7 @@
         };
 
         homeassistant = {
-          name = "Home";
+          name = "Home Assistant TMJF";
           unit_system = "metric";
           time_zone = "Europe/Berlin";
           temperature_unit = "C";

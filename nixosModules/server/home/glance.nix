@@ -531,13 +531,13 @@
                           }
                           {
                             title = "Home Assistant";
-                            url = "https://haos.${config.nixos.server.network.nginx.domain}";
+                            url = "https://homeassistant.${config.nixos.server.network.nginx.domain}";
                             icon = "di:home-assistant";
                           }
                           {
-                            title = "Nextcloud";
-                            url = "https://nextcloud.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:nextcloud";
+                            title = "Radicale";
+                            url = "https://radicale.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:radicale";
                           }
 
                           {
@@ -589,6 +589,22 @@
                           }
 
                           {
+                            title = "Networking Toolbox";
+                            url = "https://networkingtoolbox.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:networking-toolbox-dark";
+                          }
+                          {
+                            title = "Syncthing";
+                            url = "https://syncthing.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:syncthing";
+                          }
+                          {
+                            title = "Gitea";
+                            url = "https://gitea.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:gitea";
+                          }
+
+                          {
                             title = "Invidious";
                             url = "https://invidious.${config.nixos.server.network.nginx.domain}";
                             icon = "di:invidious";
@@ -602,22 +618,6 @@
                             title = "Nitter";
                             url = "https://nitter.${config.nixos.server.network.nginx.domain}";
                             icon = "di:nitter";
-                          }
-
-                          {
-                            title = "Radicale";
-                            url = "https://radicale.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:radicale";
-                          }
-                          {
-                            title = "Gitea";
-                            url = "https://gitea.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:gitea";
-                          }
-                          {
-                            title = "Networking Toolbox";
-                            url = "https://networkingtoolbox.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:networking-toolbox-dark";
                           }
 
                           {
@@ -635,6 +635,12 @@
                             url = "https://flolserver.${config.nixos.server.network.nginx.domain}";
                             icon = "di:minecraft";
                             allow-insecure = true;
+                          }
+
+                          {
+                            title = "Home Assistant OS";
+                            url = "https://haos.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:home-assistant";
                           }
                         ];
                       }
