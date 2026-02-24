@@ -29,7 +29,7 @@
       #"/var/lib/hass"
       #"/var/lib/jellyfin"
       #"/var/lib/radicale"
-      { directory = "/var/lib/private/ollama"; mode = "0700" }
+      { directory = "/var/lib/private/ollama"; mode = "0700"; }
       "/var/lib/pihole"
       "/var/lib/syncthing"
       "/var/lib/unbound"
