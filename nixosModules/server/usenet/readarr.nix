@@ -21,6 +21,8 @@
     services.readarr = {
       enable = true;
       openFirewall = false;
+      user = "readarr";
+      group = "readarr";
       #environmentFiles = [];
       settings = {
         server = {

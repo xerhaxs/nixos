@@ -21,6 +21,8 @@
     services.radarr = {
       enable = true;
       openFirewall = false;
+      user = "radarr";
+      group = "radarr";
       #environmentFiles = [];
       settings = {
         server = {

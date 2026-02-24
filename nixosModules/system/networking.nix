@@ -64,6 +64,12 @@ let
       "searxng.${config.nixos.server.network.nginx.domain}"
       "syncthing.${config.nixos.server.network.nginx.domain}"
       "webdav.${config.nixos.server.network.nginx.domain}"
+      "lidarr.${config.nixos.server.network.nginx.domain}"
+      "nzbhydra.${config.nixos.server.network.nginx.domain}"
+      "radarr.${config.nixos.server.network.nginx.domain}"
+      "readarr.${config.nixos.server.network.nginx.domain}"
+      "sabnzbd.${config.nixos.server.network.nginx.domain}"
+      "sonarr.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.22" [
       #"bluemap.${config.nixos.server.network.nginx.domain}"
@@ -71,12 +77,14 @@ let
       #"map.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.23" [
-      "lidarr.${config.nixos.server.network.nginx.domain}"
-      "nzbhydra.${config.nixos.server.network.nginx.domain}"
-      "radarr.${config.nixos.server.network.nginx.domain}"
-      "readarr.${config.nixos.server.network.nginx.domain}"
-      "sabnzbd.${config.nixos.server.network.nginx.domain}"
-      "sonarr.${config.nixos.server.network.nginx.domain}"
+      /*
+        "lidarr.${config.nixos.server.network.nginx.domain}"
+        "nzbhydra.${config.nixos.server.network.nginx.domain}"
+        "radarr.${config.nixos.server.network.nginx.domain}"
+        "readarr.${config.nixos.server.network.nginx.domain}"
+        "sabnzbd.${config.nixos.server.network.nginx.domain}"
+        "sonarr.${config.nixos.server.network.nginx.domain}"
+      */
     ])
     (mkHostEntries "10.75.0.25" [ "haos.${config.nixos.server.network.nginx.domain}" ])
   ];

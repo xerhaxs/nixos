@@ -40,7 +40,36 @@
       pihole.enable = true;
       unbound.enable = true;
     };
+    usenet = {
+      lidarr.enable = true;
+      nzbhydra2.enable = true;
+      radarr.enable = true;
+      readarr.enable = true;
+      sabnzbd.enable = true;
+      sonarr.enable = true;
+    };
   };
+
+  services.mullvad-vpn = {
+    enable = true;
+    enableExcludeWrapper = true;
+  };
+/* 
+  systemd.services.mullvad-setup = {
+    description = "Initial Mullvad configuration";
+    after = [ "mullvad-daemon.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "mullvad-setup" ''
+        ${pkgs.mullvad}/bin/mullvad lan set allow
+        ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
+        ${pkgs.mullvad}/bin/mullvad auto-connect set on
+        ${pkgs.mullvad}/bin/mullvad connect
+      '';
+    };
+  }; */
 
   nixos.server.fileshare.share.path = "/pool01/shares";
 
@@ -81,4 +110,64 @@
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
   };
+
+  systemd.services.nzbhydra2 = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.radarr = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.readarr = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.sonarr = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.lidarr = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.sabnzbd = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  users.users.jellyfin.extraGroups = [
+    "share"
+    "render"
+    "video"
+  ];
+
+  users.users.lidarr.extraGroups = [
+    "share"
+  ];
+
+  users.users.radarr.extraGroups = [
+    "share"
+  ];
+
+  users.users.readarr.extraGroups = [
+    "share"
+  ];
+
+  users.users.sabnzbd.extraGroups = [
+    "share"
+  ];
+
+  users.users.sonarr.extraGroups = [
+    "share"
+  ];
+
+  users.users.nzbhydra2.extraGroups = [
+    "share"
+  ];
 }

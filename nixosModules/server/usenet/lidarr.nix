@@ -21,6 +21,8 @@
     services.lidarr = {
       enable = true;
       openFirewall = false;
+      user = "lidarr";
+      group = "lidarr";
       #environmentFiles = [];
       settings = {
         server = {

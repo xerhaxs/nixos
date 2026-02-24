@@ -243,12 +243,12 @@
               #"10.75.0.22 bluemap.${config.nixos.server.network.nginx.domain}"
               #"10.75.0.22 flolserver.${config.nixos.server.network.nginx.domain}"
               #"10.75.0.22 map.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.23 lidarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.23 nzbhydra.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.23 radarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.23 readarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.23 sabnzbd.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.23 sonarr.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 lidarr.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 nzbhydra.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 radarr.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 readarr.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 sabnzbd.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 sonarr.${config.nixos.server.network.nginx.domain}"
               "10.75.0.25 haos.${config.nixos.server.network.nginx.domain}"
             ]; # ## CHANGED, default = []
 

@@ -21,6 +21,8 @@
     services.sonarr = {
       enable = true;
       openFirewall = false;
+      user = "sonarr";
+      group = "sonarr";
       #environmentFiles = [];
       settings = {
         server = {
