@@ -83,6 +83,9 @@
       #];
 
       extraComponents = [
+        "frontend"
+        "http"
+        "websocket_api"
         "androidtv"
         "androidtv_remote"
         "default_config"
