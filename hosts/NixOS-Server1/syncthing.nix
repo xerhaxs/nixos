@@ -8,10 +8,6 @@
 {
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
-  #users.users.syncthing = {
-  #  extraGroups = [ "share" ];
-  #};
-
   networking.firewall.allowedTCPPorts = [ 8384 ];
 
   services.syncthing = {
@@ -44,6 +40,7 @@
         theme = lib.strings.toLower "black";
         tls = false;
         address = "0.0.0.0:8384";
+        allowedOrigins = [ "syncthing.${config.nixos.server.network.nginx.domain}" ];
       };
 
       devices = {

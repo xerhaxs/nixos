@@ -147,6 +147,11 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
+  systemd.services.syncthing = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
   users.users.jellyfin.extraGroups = [
     "share"
     "render"
@@ -174,6 +179,10 @@
   ];
 
   users.users.nzbhydra2.extraGroups = [
+    "share"
+  ];
+
+  users.users.syncthing.extraGroups = [
     "share"
   ];
 }
