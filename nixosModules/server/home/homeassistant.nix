@@ -43,14 +43,15 @@
         lovelace.mode = "storage"; # ui managed
         #lovelace.mode = "yaml";
       };
-/* 
-      lovelaceConfig = "";
-      lovelaceConfigWritable = false;
-      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
-        mini-graph-card
-        mini-media-player
-        mushroom
-      ]; */
+      /*
+            lovelaceConfig = "";
+            lovelaceConfigWritable = false;
+            customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+              mini-graph-card
+              mini-media-player
+              mushroom
+            ];
+      */
 
       #defaultIntegrations = [
       #  "application_credentials"
@@ -76,6 +77,18 @@
       #  "schedule"
       #  "timer"
       #];
+
+      extraComponents = [
+        # Components required to complete the onboarding
+        "analytics"
+        "google_translate"
+        "met"
+        "radio_browser"
+        "shopping_list"
+        # Recommended for fast zlib compression
+        # https://www.home-assistant.io/integrations/isal
+        "isal"
+      ];
 
       /*
         extraComponents = [
