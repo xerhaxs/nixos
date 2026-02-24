@@ -22,6 +22,10 @@
       enable = true;
       openFirewall = false;
       configDir = "/pool01/applications/hass";
+      # opt-out from declarative configuration management
+      config = null;
+      lovelaceConfig = null;
+      # configure the path to your config directory
       #configDir = "/var/lib/hass";
 
       /*
