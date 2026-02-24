@@ -185,4 +185,9 @@
   users.users.syncthing.extraGroups = [
     "share"
   ];
+
+  users.users.ollama.extraGroups = [
+    "render"
+    "video"
+  ];
 }
