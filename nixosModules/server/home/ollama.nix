@@ -20,6 +20,7 @@
   config = lib.mkIf config.nixos.server.home.ollama.enable {
     services.ollama = {
       enable = true;
+      package = pkgs.ollama-vulkan;
       user = "ollama";
       group = "ollama";
       host = "127.0.0.1";
