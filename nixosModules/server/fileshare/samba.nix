@@ -23,7 +23,7 @@
       openFirewall = true;
       nsswins = true;
       smbd.enable = true;
-      nmbd.enable = true;
+      nmbd.enable = false;
       winbindd.enable = true;
 
       settings = {
