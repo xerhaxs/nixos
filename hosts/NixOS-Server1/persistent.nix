@@ -38,7 +38,6 @@
       #"/var/lib/redis-nitter"
       "/var/lib/samba"
       "/var/lib/sshguard"
-      "/var/lib/sabnzbd"
 
       #"/etc/NetworkManager/system-connections"
       #{ directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
