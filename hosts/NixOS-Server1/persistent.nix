@@ -33,7 +33,7 @@
       "/var/lib/pihole"
       "/var/lib/syncthing"
       "/var/lib/unbound"
-      "/var/lib/sabnzbd"
+      #"/var/lib/sabnzbd"
       #"/var/lib/private/invidious"
       #"/var/lib/private/nitter"
       #"/var/lib/redis-nitter"
