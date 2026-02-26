@@ -45,6 +45,7 @@ let
       "truenas.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.21" [
+      "NixOS-Server1"
       "dav.${config.nixos.server.network.nginx.domain}"
       "gitea.${config.nixos.server.network.nginx.domain}"
       "glance.${config.nixos.server.network.nginx.domain}"
@@ -72,11 +73,13 @@ let
       "sonarr.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.22" [
+      "NixOS-Server2"
       #"bluemap.${config.nixos.server.network.nginx.domain}"
       #"flolserver.${config.nixos.server.network.nginx.domain}"
       #"map.${config.nixos.server.network.nginx.domain}"
     ])
     (mkHostEntries "10.75.0.23" [
+      "NixOS-Server3"
       /*
         "lidarr.${config.nixos.server.network.nginx.domain}"
         "nzbhydra.${config.nixos.server.network.nginx.domain}"
