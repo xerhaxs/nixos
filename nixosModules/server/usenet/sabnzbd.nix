@@ -23,7 +23,7 @@
       user = "sabnzbd";
       group = "sabnzbd";
       openFirewall = false;
-      allowConfigWrite = false;
+      allowConfigWrite = true;
       stateDir = "/var/lib/sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
       secretFiles = [
