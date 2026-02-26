@@ -24,11 +24,11 @@
       group = "sabnzbd";
       openFirewall = false;
       allowConfigWrite = false;
-      stateDir = "/var/lib/sabnzbd";
+      #stateDir = "/var/lib/sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
-      #secretFiles = [
-      #  config.sops.secrets."sabnzbd".path
-      #];
+      secretFiles = [
+        config.sops.secrets."sabnzbd".path
+      ];
       settings = {
         misc = {
           auto_browser = 0;
