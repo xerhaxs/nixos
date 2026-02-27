@@ -26,7 +26,7 @@
       #configWritable = true;
 
       config = {
-        
+
         http = {
           server_port = 8123;
           use_x_forwarded_for = true;
@@ -52,28 +52,32 @@
           mode = "storage";
         };
 
-        switch = {
-          "platform: sony_projector" = [
-            "host: 10.75.0.97" # SonyBeamer
-            "name: SonyBeamer"
-          ];
-        };
+        switch = [
+          {
+            platform = "sony_projector";
+            host = "10.75.0.97";
+            name = "SonyBeamer";
+          }
+        ];
 
-        #media_player = {
-        #  platform = "panasonic_bluray" = [
-        #    "host = 10.75.0.60" # DMP-UB700-704
-        #    "name = UHD Player"
-        #  ];
-        #};
+        media_player = [
+          {
+            platform = "panasonic_bluray";
+            host = "10.75.0.60";
+            name = "UHD Player";
+          }
+        ];
       };
 
-      /* lovelaceConfig = "";
-      lovelaceConfigWritable = false;
-      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
-        mini-graph-card
-        mini-media-player
-        mushroom
-      ]; */
+      /*
+        lovelaceConfig = "";
+        lovelaceConfigWritable = false;
+        customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+          mini-graph-card
+          mini-media-player
+          mushroom
+        ];
+      */
 
       extraComponents = [
         # Components required to complete the onboarding
