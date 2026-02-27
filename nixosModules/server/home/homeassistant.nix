@@ -26,7 +26,7 @@
       #configWritable = true;
 
       config = {
-
+        
         http = {
           server_port = 8123;
           use_x_forwarded_for = true;
@@ -51,6 +51,18 @@
           #mode = "yaml";
           mode = "storage";
         };
+
+        switch = {
+          platform = "sony_projector";
+          host = "10.75.0.97"; # SonyBeamer
+          name = "SonyBeamer";
+        };
+
+        media_player = {
+          platform = "panasonic_bluray";
+          host = "10.75.0.60"; # DMP-UB700-704
+          name = "UHD Player":
+        };
       };
 
       /* lovelaceConfig = "";
@@ -73,6 +85,7 @@
         "isal"
 
         # for home integration
+        "androidtv_remote"
         "co2signal"
         "denon"
         "denonavr"
@@ -83,10 +96,12 @@
         "frontier_silicon"
         "goodwe"
         "harmony"
-        "panasonic_bluray"
-        "sony_projector"
         "homeassistant_connect_zbt2"
         "matter"
+        "panasonic_bluray"
+        "panasonic_viera"
+        "prometheus"
+        "sony_projector"
         "thread"
       ];
     };
