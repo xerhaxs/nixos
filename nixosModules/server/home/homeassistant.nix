@@ -61,7 +61,7 @@
         media_player = {
           platform = "panasonic_bluray";
           host = "10.75.0.60"; # DMP-UB700-704
-          name = "UHD Player":
+          name = "UHD Player";
         };
       };
 
