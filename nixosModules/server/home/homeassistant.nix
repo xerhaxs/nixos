@@ -53,16 +53,18 @@
         };
 
         switch = {
-          platform = "sony_projector";
-          host = "10.75.0.97"; # SonyBeamer
-          name = "SonyBeamer";
+          "platform: sony_projector" = [
+            "host: 10.75.0.97" # SonyBeamer
+            "name: SonyBeamer"
+          ];
         };
 
-        media_player = {
-          platform = "panasonic_bluray";
-          host = "10.75.0.60"; # DMP-UB700-704
-          name = "UHD Player";
-        };
+        #media_player = {
+        #  platform = "panasonic_bluray" = [
+        #    "host = 10.75.0.60" # DMP-UB700-704
+        #    "name = UHD Player"
+        #  ];
+        #};
       };
 
       /* lovelaceConfig = "";
