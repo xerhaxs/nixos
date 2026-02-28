@@ -42,6 +42,11 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    weishaupt-modbus = {
+      url = "github:OStrama/weishaupt_modbus";
+      flake = false;
+    };
+
     adobe = {
       url = "https://blocklistproject.github.io/Lists/adobe.txt";
       flake = false;

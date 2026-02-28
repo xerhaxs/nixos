@@ -128,7 +128,7 @@ fwupdmgr update
   * [ ] Config setup of Rnote (write config file)
   * [ ] Config setup of Xournal++ (write config file)
   * [X] Miracast / Screensharing in NixOS -> not possible on Linux
-  * [ ] SSH Password to SSH Certs + SSH Certfiles via Syncthing
+  * [X] SSH Password to SSH Certs + SSH Certfiles via Syncthing
   * [ ] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   * [X] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
 
@@ -161,7 +161,7 @@ fwupdmgr update
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
     * [X] full disk encryption on servers
-    * [ ] backup strategy on proxmox
+    * [X] backup strategy on proxmox
     * [X] setup oci container
     * [X] Caddy, insted of Nginx -> I'll stay with nginx
     * [X] Install Unbound DNS along PiHole -> https://docs.pi-hole.net/guides/dns/unbound/

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -113,7 +114,19 @@
         "sony_projector"
         "thread"
       ];
+
+      # weishaupt-modbus
+      extraPackages = python3Packages: with python3Packages; [
+        aiofiles
+        beautifulsoup4
+        pymodbus
+        matplotlib
+      ];
     };
+
+    systemd.tmpfiles.rules = [
+      "L+ /pool01/applications/hass/custom_components/weishaupt_modbus - - - - ${inputs.weishaupt-modbus}/custom_components/weishaupt_modbus"
+    ];
 
     services.nginx = {
       virtualHosts = {
