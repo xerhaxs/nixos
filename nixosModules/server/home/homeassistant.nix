@@ -26,7 +26,6 @@
       #configWritable = true;
 
       config = {
-
         http = {
           server_port = 8123;
           use_x_forwarded_for = true;
@@ -51,6 +50,10 @@
           #mode = "yaml";
           mode = "storage";
         };
+
+        "automation ui" = "!include automations.yaml";
+        "scene ui" = "!include scenes.yaml";
+        "script ui" = "!include scripts.yaml";
 
         switch = [
           {
