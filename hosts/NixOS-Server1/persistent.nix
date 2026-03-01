@@ -19,6 +19,7 @@
       "/etc/ssh"
       "/etc/zfs"
       "/var/log"
+      "/var/lib/sbctl"
       #"/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/cache"
