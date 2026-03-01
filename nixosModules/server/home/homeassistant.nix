@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  weishaupt-modbus,
   ...
 }:
 
