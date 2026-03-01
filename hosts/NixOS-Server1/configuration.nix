@@ -35,5 +35,5 @@
     #passfile = config.sops.secrets."user/nixos-server1/admin".path;
   };
 
-  #nixos.system.secureboot.enable = true;
+  nixos.system.secureboot.enable = true;
 }
