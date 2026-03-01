@@ -3,10 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nix-colors.url = "github:misterio77/nix-colors";
-
-    nixpkgs-pihole-fix.url = "github:yzhou216/nixpkgs/pihole-ftl-fix";
-    nixpkgs-pihole-fix.flake = false;
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
