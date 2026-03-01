@@ -37,7 +37,7 @@
       radicale.enable = true;
     };
     network = {
-      pihole.enable = true;
+      pihole.enable = false;
       unbound.enable = true;
     };
     usenet = {
