@@ -220,9 +220,6 @@
             # Possible values are:
             #     Array of custom DNS records each one in HOSTS form: "IP HOSTNAME"
             hosts = [
-              "10.75.0.10 proxmox.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.20 nextcloud.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.20 truenas.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 NixOS-Server1"
               "10.75.0.21 dav.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 gitea.${config.nixos.server.network.nginx.domain}"
@@ -247,10 +244,6 @@
               "10.75.0.21 readarr.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 sabnzbd.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 sonarr.${config.nixos.server.network.nginx.domain}"
-              #"10.75.0.22 bluemap.${config.nixos.server.network.nginx.domain}"
-              #"10.75.0.22 flolserver.${config.nixos.server.network.nginx.domain}"
-              #"10.75.0.22 map.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.25 haos.${config.nixos.server.network.nginx.domain}"
             ]; # ## CHANGED, default = []
 
             # If set, A and AAAA queries for plain names, without dots or domain parts, are never

@@ -39,11 +39,6 @@ let
 
   hostEntries = lib.mkMerge [
     (mkHostEntries "10.75.0.1" [ "fritz.box" ])
-    (mkHostEntries "10.75.0.10" [ "proxmox.${config.nixos.server.network.nginx.domain}" ])
-    (mkHostEntries "10.75.0.20" [
-      "nextcloud.${config.nixos.server.network.nginx.domain}"
-      "truenas.${config.nixos.server.network.nginx.domain}"
-    ])
     (mkHostEntries "10.75.0.21" [
       "NixOS-Server1"
       "dav.${config.nixos.server.network.nginx.domain}"
@@ -72,24 +67,6 @@ let
       "sabnzbd.${config.nixos.server.network.nginx.domain}"
       "sonarr.${config.nixos.server.network.nginx.domain}"
     ])
-    (mkHostEntries "10.75.0.22" [
-      "NixOS-Server2"
-      #"bluemap.${config.nixos.server.network.nginx.domain}"
-      #"flolserver.${config.nixos.server.network.nginx.domain}"
-      #"map.${config.nixos.server.network.nginx.domain}"
-    ])
-    (mkHostEntries "10.75.0.23" [
-      "NixOS-Server3"
-      /*
-        "lidarr.${config.nixos.server.network.nginx.domain}"
-        "nzbhydra.${config.nixos.server.network.nginx.domain}"
-        "radarr.${config.nixos.server.network.nginx.domain}"
-        "readarr.${config.nixos.server.network.nginx.domain}"
-        "sabnzbd.${config.nixos.server.network.nginx.domain}"
-        "sonarr.${config.nixos.server.network.nginx.domain}"
-      */
-    ])
-    (mkHostEntries "10.75.0.25" [ "haos.${config.nixos.server.network.nginx.domain}" ])
   ];
 
 in
