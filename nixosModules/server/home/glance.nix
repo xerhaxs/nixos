@@ -620,7 +620,7 @@
                             icon = "di:nitter";
                           }
 
-                          {
+/*                           {
                             title = "Matrix";
                             url = "https://matrix.${config.nixos.server.network.nginx.domain}";
                             icon = "di:matrix-light";
@@ -635,13 +635,7 @@
                             url = "https://flolserver.${config.nixos.server.network.nginx.domain}";
                             icon = "di:minecraft";
                             allow-insecure = true;
-                          }
-
-                          {
-                            title = "Home Assistant OS";
-                            url = "https://haos.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:home-assistant";
-                          }
+                          } */
                         ];
                       }
                     ];
