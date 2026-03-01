@@ -18,6 +18,8 @@
   };
 
   config = lib.mkIf config.nixos.hardware.intelgpu.enable {
+    hardware.intel-gpu-tools.enable = true;
+
     nixpkgs.config.packageOverrides = pkgs: {
       intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
     };
@@ -28,6 +30,7 @@
         intel-media-driver
         intel-vaapi-driver
         libva-vdpau-driver
+        vpl-gpu-rt
         libvdpau-va-gl
         intel-compute-runtime
       ];
