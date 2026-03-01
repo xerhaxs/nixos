@@ -12,7 +12,7 @@
     intelgpu.enable = true;
   };
 
-  boot.initrd.network = {
+  /* boot.initrd.network = {
     enable = true;
     ssh = {
       enable = true;
@@ -27,7 +27,7 @@
 
   boot.initrd.secrets = {
     "/etc/ssh/initrd_host_key" = "/etc/ssh/initrd_host_key";
-  };
+  }; */
 
   nixos.system.user.defaultuser = {
     name = "admin";
@@ -35,5 +35,6 @@
     #passfile = config.sops.secrets."user/nixos-server1/admin".path;
   };
 
-  services.qemuGuest.enable = true;
+  #services.qemuGuest.enable = true;
+  #nixos.system.secureboot.enable = true;
 }
