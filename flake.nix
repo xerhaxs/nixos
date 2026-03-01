@@ -5,6 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
 
+    nixpkgs-pihole-fix.url = "github:yzhou216/nixpkgs/pihole-ftl-fix";
+    nixpkgs-pihole-fix.flake = false;
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -2,10 +2,20 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      pihole-ftl = (import inputs.nixpkgs-pihole-fix {
+        system = prev.system;
+        config.allowUnfree = true;
+      }).pihole-ftl;
+    })
+  ];
+  
   services.getty.autologinUser = null;
 
   nixos.server.network.nginx.enable = true;
@@ -37,8 +47,8 @@
       radicale.enable = true;
     };
     network = {
-      pihole.enable = false; # UNTIL A FIX IS OUT
-      unbound.enable = false; # UNTIL A FIX IS OUT
+      pihole.enable = true;
+      unbound.enable = true;
     };
     usenet = {
       lidarr.enable = true;
