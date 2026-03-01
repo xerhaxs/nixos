@@ -188,7 +188,7 @@ fwupdmgr update
     * [X] Sonarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] Sabnzbd (Config setup) -> setup with sabnzbd options
     * [X] Networking-Toolbox https://github.com/Lissy93/networking-toolbox?tab=readme-ov-file https://wiki.nixos.org/wiki/Docker https://github.com/Lissy93/networking-toolbox/blob/main/docker-compose.yml https://github.com/aksiksi/compose2nix
-    * [ ] Setup Home Assistant in NixOS -> https://search.nixos.org/options?channel=unstable&query=services.home-assistant https://wiki.nixos.org/wiki/Home_Assistant https://nathan.gs/2023/12/28/home-assistant-add-a-custom-component-in-nixos-revisited/
+    * [X] Setup Home Assistant in NixOS -> https://search.nixos.org/options?channel=unstable&query=services.home-assistant https://wiki.nixos.org/wiki/Home_Assistant https://nathan.gs/2023/12/28/home-assistant-add-a-custom-component-in-nixos-revisited/
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
