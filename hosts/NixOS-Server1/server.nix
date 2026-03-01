@@ -37,8 +37,8 @@
       radicale.enable = true;
     };
     network = {
-      pihole.enable = false;
-      unbound.enable = true;
+      pihole.enable = false; # UNTIL A FIX IS OUT
+      unbound.enable = false; # UNTIL A FIX IS OUT
     };
     usenet = {
       lidarr.enable = true;
@@ -152,42 +152,98 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
-  users.users.jellyfin.extraGroups = [
-    "share"
-    "render"
-    "video"
-  ];
+  users.groups = {
+    jellyfin.gid = 996;
+    ollama.gid = 993;
+    nzbhydra2.gid = 994;
+    readarr.gid = 989;
+    radicale.gid = 990;
+    sabnzbd.gid = 986;
+    share.gid = 984;
+    tmjf.gid = 980;
+    webdav.gid = 322;
+    lidarr.gid = 306;
+    syncthing.gid = 237;
+    sonarr.gid = 274;
+    radarr.gid = 275;
+    hass.gid = 286;
+  };
 
-  users.users.lidarr.extraGroups = [
-    "share"
-  ];
+  users.users = {
+    meli = {
+      uid = 994;
+    };
 
-  users.users.radarr.extraGroups = [
-    "share"
-  ];
+    jf = {
+      uid = 995;
+    };
 
-  users.users.readarr.extraGroups = [
-    "share"
-  ];
+    jellyfin = {
+      uid = 996;
+      extraGroups = [
+        "share"
+        "render"
+        "video"
+      ];
+    };
 
-  users.users.sabnzbd.extraGroups = [
-    "share"
-  ];
+    haos = {
+      uid = 997;
+    };
 
-  users.users.sonarr.extraGroups = [
-    "share"
-  ];
+    readarr = {
+      uid = 988;
+      extraGroups = [ "share" ];
+    };
 
-  users.users.nzbhydra2.extraGroups = [
-    "share"
-  ];
+    radicale = {
+      uid = 989;
+    };
 
-  users.users.syncthing.extraGroups = [
-    "share"
-  ];
+    ollama = {
+      uid = 990;
+      extraGroups = [
+        "render"
+        "video"
+      ];
+    };
 
-  users.users.ollama.extraGroups = [
-    "render"
-    "video"
-  ];
+    nzbhydra2 = {
+      uid = 991;
+      extraGroups = [ "share" ];
+    };
+
+    sabnzbd = {
+      uid = 986;
+      extraGroups = [ "share" ];
+    };
+
+    syncthing = {
+      uid = 237;
+      extraGroups = [ "share" ];
+    };
+
+    sonarr = {
+      uid = 274;
+      extraGroups = [ "share" ];
+    };
+
+    radarr = {
+      uid = 275;
+      extraGroups = [ "share" ];
+    };
+
+    hass = {
+      uid = 286;
+    };
+
+    lidarr = {
+      uid = 306;
+      extraGroups = [ "share" ];
+    };
+
+    webdav = {
+      uid = 322;
+    };
+  };
 }

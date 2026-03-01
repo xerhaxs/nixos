@@ -25,6 +25,8 @@
     };
   };
 
+  #boot.kernelParams = [ "ip=10.75.0.21::10.75.0.1:255.255.255.0::eno1:none" ];
+
   boot.initrd.secrets = {
     "/etc/ssh/initrd_host_key" = "/etc/ssh/initrd_host_key";
   };
