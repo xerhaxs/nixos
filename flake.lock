@@ -302,19 +302,18 @@
         "type": "github"
       }
     },
-    "nixpkgs-pihole-fix": {
-      "flake": false,
+    "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1772326948,
-        "narHash": "sha256-lec49vFU9StTKhStwC1oIPpNW0AD+VQEFD1GxjRZhY4=",
-        "owner": "yzhou216",
+        "lastModified": 1767313136,
+        "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7598901c7352654fa8f1274dde0bf8e18004307f",
+        "rev": "ac62194c3917d5f474c1a844b6fd6da2db95077d",
         "type": "github"
       },
       "original": {
-        "owner": "yzhou216",
-        "ref": "pihole-ftl-fix",
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -354,7 +353,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-FveSejZl0KDaoCNqm+ID9omvmX34NPgVEV/7uDromiQ=",
+        "narHash": "sha256-QBhhuEgPJqPrPUWoMhwuMi/rQ5fr7bfJTFbVNIOQ9DA=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -449,7 +448,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-pihole-fix": "nixpkgs-pihole-fix",
+        "nixpkgs-stable": "nixpkgs-stable",
         "oisd-big": "oisd-big",
         "oisd-small": "oisd-small",
         "phishing": "phishing",
