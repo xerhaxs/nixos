@@ -11,7 +11,7 @@
     hostName = "NixOS-Server1";
 
     interfaces = {
-      ens18 = {
+      eno1 = {
         ipv4.addresses = [
           {
             address = "10.75.0.21";
@@ -27,8 +27,8 @@
       };
     };
 
-    defaultGateway.interface = "ens18";
-    defaultGateway6.interface = "ens18";
+    defaultGateway.interface = "eno1";
+    defaultGateway6.interface = "eno1";
   };
 
   nixos.system.networking = {
