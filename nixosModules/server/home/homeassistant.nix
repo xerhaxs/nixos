@@ -6,6 +6,21 @@
   ...
 }:
 
+let
+  weishaupt_modbus = pkgs.buildHomeAssistantComponent {
+    owner = "OStrama";
+    domain = "weishaupt_modbus";
+    version = "unstable";
+    src = weishaupt-modbus;
+    dependencies = with pkgs.python3Packages; [
+      aiofiles
+      beautifulsoup4
+      pymodbus
+      matplotlib
+    ];
+  };
+in
+
 {
   options.nixos = {
     server.home.homeassistant = {
@@ -115,18 +130,8 @@
         "thread"
       ];
 
-      # weishaupt-modbus
-      extraPackages = python3Packages: with python3Packages; [
-        aiofiles
-        beautifulsoup4
-        pymodbus
-        matplotlib
-      ];
+      customComponents = [ weishaupt_modbus ];
     };
-
-    systemd.tmpfiles.rules = [
-      "L+ /pool01/applications/hass/custom_components/weishaupt_modbus - - - - ${weishaupt-modbus}/custom_components/weishaupt_modbus"
-    ];
 
     services.nginx = {
       virtualHosts = {
