@@ -116,7 +116,7 @@
           path = "${config.nixos.server.fileshare.share.path}/backup";
           "browseable" = "yes";
           "read only" = "no";
-          "valid users" = "haos, @tmjf";
+          "valid users" = "@api, @tmjf";
           "create mask" = "0660";
           "directory mask" = "0770";
         };

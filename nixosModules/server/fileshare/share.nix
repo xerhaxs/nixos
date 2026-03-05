@@ -96,11 +96,6 @@ in
         group = "share";
         extraGroups = [ "tmjf" ];
       };
-      haos = {
-        isSystemUser = true;
-        group = "share";
-        extraGroups = [ "api" ];
-      };
     };
   };
 }
