@@ -15,7 +15,6 @@
     ./fonts.nix
     ./kdeconnect.nix
     ./mullvad.nix
-    ./nfs-client.nix
     ./samba-client.nix
     ./syncthing.nix
   ];
@@ -41,7 +40,6 @@
       fonts.enable = true;
       kdeconnect.enable = true;
       mullvad.enable = true;
-      nfs-client.enable = true;
       samba-client.enable = true;
       syncthing.enable = true;
     };
