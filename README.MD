@@ -1,7 +1,7 @@
 # NixOS Configuration
 
 This is my personal NixOS configuration.
-I use flakes, disko and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below. **Keep in mind, that this config is tailored for my personal setup. So you need to change the config for your system.**
+I use flakes, disko, impermanence and sops to manage my system. To install NixOS on a device I have written a simple shell script. To run and use the script you only need to boot a NixOS installation medium and then open a terminal and execute the command below. **Keep in mind, that this config is tailored for my personal setup. So you need to change the config for your system.**
 
 This config is still in development (see ToDo).
 
@@ -99,7 +99,7 @@ fwupdmgr update
     * [ ] https://wiki.nixos.org/wiki/PCI_passthrough
     * [ ] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
   * [X] Setup Secure Boot https://github.com/nix-community/lanzaboote -> https://wiki.nixos.org/wiki/Limine
-  * [ ] Extended secret provisioning https://github.com/polygon/scalpel
+  * [X] Extended secret provisioning https://github.com/polygon/scalpel -> not needed anymore, every secret is managed as a hash or via sops
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators
   * [ ] Declarative VMs https://github.com/AshleyYakeley/NixVirt
   * [ ] Setup SMS SIM-Card Server https://search.nixos.org/options?channel=unstable&type=packages&query=Gammu
