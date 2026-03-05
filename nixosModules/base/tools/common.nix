@@ -20,7 +20,7 @@
   config = lib.mkIf config.nixos.base.tools.common.enable {
     environment.systemPackages = with pkgs; [
       # fetchers
-      neofetch
+      fastfetch
       cpufetch
 
       # terminal file manager
