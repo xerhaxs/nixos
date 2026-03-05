@@ -171,6 +171,7 @@
     sabnzbd.gid = 986;
     share.gid = 984;
     tmjf.gid = 980;
+    api.gid = 998;
     webdav.gid = 322;
     lidarr.gid = 306;
     syncthing.gid = 237;
