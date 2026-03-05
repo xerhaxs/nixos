@@ -20,7 +20,7 @@
   config = lib.mkIf config.homeManager.applications.communication.social.enable {
     home.packages = with pkgs; [
       element-desktop
-      signal-desktop-bin
+      signal-desktop
       briar-desktop
       telegram-desktop
       wasistlos
