@@ -192,7 +192,7 @@ fwupdmgr update
     * [ ] AI Tools
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
-      * [ ] Ollama setup openwebui https://docs.openwebui.com/getting-started/
+      * [X] Ollama setup openwebui https://docs.openwebui.com/getting-started/ -> setup on new home server setup
       * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
@@ -202,8 +202,8 @@ fwupdmgr update
     * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix
     * [ ] Murmur
     * [ ] Minecraft
-    * [ ] Nextcloud / Collabora
-    * [ ] User specific nas mount -> remove general user permissions for all nas folders on servers
+    * [X] Nextcloud / Collabora -> not needed anymore due to radicale with vpn connection to my home network
+    * [X] User specific nas mount -> remove general user permissions for all nas folders on servers -> installed
     * [ ] Setup Unfied Push service
 
 ## Usefull stuff
