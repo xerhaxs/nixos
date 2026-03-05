@@ -136,8 +136,6 @@
         "NixOS-Desktop"
         "NixOS-Framework"
         "NixOS-Server1"
-        "NixOS-Server2"
-        "NixOS-Server3"
         "NixOS-ServerPublic"
         "NixOS-VMDesktop"
         "NixOS-VMServer"
