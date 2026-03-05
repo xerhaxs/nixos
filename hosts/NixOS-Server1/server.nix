@@ -198,10 +198,6 @@
       ];
     };
 
-    haos = {
-      uid = 997;
-    };
-
     readarr = {
       uid = 988;
       extraGroups = [ "share" ];

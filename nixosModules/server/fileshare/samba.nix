@@ -130,9 +130,6 @@
       echo -e "$(cat ${config.sops.secrets."smb-share/user-meli".path})\n$(cat ${
         config.sops.secrets."smb-share/user-meli".path
       })" | ${pkgs.samba}/bin/smbpasswd -s -a meli || true
-      echo -e "$(cat ${config.sops.secrets."smb-share/user-haos".path})\n$(cat ${
-        config.sops.secrets."smb-share/user-haos".path
-      })" | ${pkgs.samba}/bin/smbpasswd -s -a haos || true
     '';
 
     systemd.services.smb-recycle-clean = {

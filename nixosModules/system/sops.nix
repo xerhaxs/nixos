@@ -68,8 +68,6 @@
 
         "smb-share/user-meli" = { };
 
-        "smb-share/user-haos" = { };
-
         "syncthing/nixos-convertible/cert" = { };
         "syncthing/nixos-convertible/key" = { };
 
@@ -96,12 +94,6 @@
           neededForUsers = true;
         };
         "user/nixos-server1/admin" = {
-          neededForUsers = true;
-        };
-        "user/nixos-server2/admin" = {
-          neededForUsers = true;
-        };
-        "user/nixos-server3/admin" = {
           neededForUsers = true;
         };
         "user/nixos-serverpublic/admin" = {
