@@ -40,7 +40,6 @@
     services.ratbagd.enable = true;
 
     hardware = {
-      # xpadneo.enable = true;
       spacenavd.enable = true;
       i2c.enable = true;
       sensor.iio.enable = true;
