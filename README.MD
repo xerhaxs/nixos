@@ -179,7 +179,7 @@ fwupdmgr update
     * [X] Nitter -> Missing API Tokens
     * [X] SearxNG -> Working!
     * [X] FreshRSS -> RSS Feed in Glance
-    * [ ] Gitea -> local pull instance from public smb share with syncthing?
+    * [X] forgeo -> local pull instance from public smb share with syncthing?
     * [X] SMB / NFS Share
     * [X] Lidarr (Config setup) -> not possible due to no module options for settings (settings in database)
     * [X] NZBHydra2 (Config setup) -> not possible due to no module options for settings

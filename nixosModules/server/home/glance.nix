@@ -599,9 +599,9 @@
                             icon = "di:syncthing";
                           }
                           {
-                            title = "Gitea";
-                            url = "https://gitea.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:gitea";
+                            title = "forgejo";
+                            url = "https://forgejo.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:forgejo";
                           }
 
                           {

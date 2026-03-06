@@ -7,58 +7,45 @@
 
 {
   options.nixos = {
-    server.fediverse.gitea = {
+    server.fediverse.forgejo = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable Gitea.";
+        description = "Enable forgejo.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.gitea.enable {
-    environment.systemPackages = with pkgs; [
-      gitea
-    ];
-
-    # setup admin account: "gitea admin user change-password -u <username> -p <password>"
-
-    services.gitea = {
+  config = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
+    # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
+    # https://forgejo.org/docs/latest/user/repo-mirror/
+    services.forgejo = {
       enable = true;
-      stateDir = "/var/lib/gitea";
-      useWizard = false;
+      user = "forgejo";
+      group = "forgejo";
+      #stateDir = "/var/lib/forgejo";
+      stateDir = "/pool01/applications/forgejo";
 
       database = {
         type = "sqlite3";
       };
 
-      dump = {
-        enable = true;
-        type = "zip";
-        interval = "hourly";
-      };
-
+      useWizard = false;
       lfs.enable = true;
 
       settings = {
         server = {
-          PROTOCOL = "http";
+          DOMAIN = "127.0.0.1";
+          ROOT_URL = "https://forgejo.${config.nixos.server.network.nginx.domain}"; 
           HTTP_PORT = 3005;
-          HTTP_ADDR = "127.0.0.1";
-          DOMAIN = "gitea.${config.nixos.server.network.nginx.domain}";
-
-          DISABLE_SSH = false;
-          SSH_PORT = 22;
-          START_SSH_SERVER = false;
-
-          LANDING_PAGE = "explore";
+          DISABLE_SSH = true;
+          LANDING_PAGE = "explore"; # home, explore, organizations, login, custom
           LFS_START_SERVER = true;
         };
 
         session = {
           COOKIE_SECURE = true;
-          COOKIE_NAME = "gitea_cookie";
           SAME_SITE = "strict";
         };
 
@@ -70,13 +57,7 @@
           DEFAULT_KEEP_EMAIL_PRIVATE = true;
           DEFAULT_ALLOW_CREATE_ORGANIZATION = true;
           DEFAULT_ENABLE_TIMETRACKING = true;
-          NO_REPLY_ADDRESS = "noreply@${config.nixos.server.fediverse.gitea.domain}";
-        };
-
-        security = {
-          INSTALL_LOCK = true;
-          SECRET_KEY_URI = "file:/var/lib/gitea/custom/secret_key";
-          INTERNAL_TOKEN_URI = "file:/var/lib/gitea/custom/internal_token";
+          #NO_REPLY_ADDRESS = "noreply@${config.nixos.server.fediverse.forgejo.domain}";
         };
 
         actions = {
@@ -85,8 +66,8 @@
         };
 
         ui = {
-          DEFAULT_THEME = "auto";
-          THEMES = "auto,gitea,arc-green";
+          DEFAULT_THEME = "forgejo-auto";
+          THEMES = "auto,forgejo-light,forgejo-dark,arc-green";
         };
 
         repository = {
@@ -112,20 +93,26 @@
 
         log = {
           LEVEL = "Info";
-          ROOT_PATH = "/var/lib/gitea/log";
         };
 
         attachment = {
           ENABLED = true;
-          MAX_SIZE = 50;
+          MAX_SIZE = 2048;
           MAX_FILES = 10;
         };
+      };
+
+      dump = {
+        enable = true;
+        type = "tar.gz";
+        interval = "daily";
+        age = "14d";
       };
     };
 
     services.nginx = {
       virtualHosts = {
-        "gitea.${config.nixos.server.network.nginx.domain}" = {
+        "forgejo.${config.nixos.server.network.nginx.domain}" = {
           forceSSL = true;
           enableACME = true;
           acmeRoot = null;

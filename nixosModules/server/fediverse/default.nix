@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./gitea.nix
+    ./forgejo.nix
     ./invidious.nix
     ./languagetool.nix
     ./libreddit.nix
@@ -31,7 +31,7 @@
 
   config = lib.mkIf config.nixos.server.fediverse.enable {
     nixos.server.fediverse = {
-      gitea.enable = true;
+      forgejo.enable = true;
       invidious.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
