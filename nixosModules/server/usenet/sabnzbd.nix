@@ -23,13 +23,13 @@
       user = "sabnzbd";
       group = "sabnzbd";
       openFirewall = false;
-      allowConfigWrite = true;
-      stateDir = "/var/lib/sabnzbd";
+      #allowConfigWrite = true;
+      #stateDir = "/var/lib/sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
       #secretFiles = [
       #  config.sops.secrets."sabnzbd".path
       #];
-      settings = {
+      /* settings = {
         misc = {
           auto_browser = 0;
           bandwidth_max = "5M";
@@ -301,7 +301,7 @@
             priority = -100;
           };
         };
-      };
+      }; */
     };
 
     services.nginx = {
