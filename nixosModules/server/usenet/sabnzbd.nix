@@ -42,8 +42,6 @@
           download_dir = "/pool01/shares/video/SABnzbd/temp";
           email_endjob = 0;
           email_from = "";
-          #email_full = 0;
-          #email_rss = 0;
           email_server = "";
           email_to = "";
           enable_https = false;
