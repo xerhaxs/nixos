@@ -36,10 +36,10 @@
           bandwidth_perc = 0;
           cache_limit = "1G";
           check_new_rel = 0;
-          #complete_dir = "/pool01/shares/video/SABnzbd/done";
+          complete_dir = "/pool01/shares/video/SABnzbd/done";
           config_conversion_version = 4;
           config_lock = 0;
-          #download_dir = "/pool01/shares/video/SABnzbd/temp";
+          download_dir = "/pool01/shares/video/SABnzbd/temp";
           email_endjob = 0;
           email_from = "";
           #email_full = 0;
@@ -47,8 +47,8 @@
           email_server = "";
           email_to = "";
           #enable_https = 0;
-          host = "127.0.0.1";
-          host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}";
+          host = "127.0.0.1, ";
+          host_whitelist = "https://sabnzbd.${config.nixos.server.network.nginx.domain}";
           #html_login = 1;
           inet_exposure = 0;
           language = "en";
@@ -78,7 +78,7 @@
           script_dir = "";
           nzb_backup_dir = "";
           admin_dir = "admin";
-          #backup_dir = "/pool01/shares/video/SABnzbd";
+          backup_dir = "/pool01/shares/video/SABnzbd";
           dirscan_dir = "";
           dirscan_speed = 5;
           password_file = "";
@@ -313,7 +313,7 @@
           kTLS = true;
           http2 = false;
           locations."/" = {
-            proxyPass = "http://localhost:8080";
+            proxyPass = "http://127.0.0.1:8080";
           };
         };
       };
