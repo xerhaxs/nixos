@@ -222,7 +222,7 @@
             hosts = [
               "10.75.0.21 NixOS-Server1"
               "10.75.0.21 dav.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 gitea.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 forgejo.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 glance.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 homeassistant.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 invidious.${config.nixos.server.network.nginx.domain}"
