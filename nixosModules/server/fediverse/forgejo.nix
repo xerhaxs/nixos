@@ -20,11 +20,12 @@
   config = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
     # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
     # https://forgejo.org/docs/latest/user/repo-mirror/
+    # setup admin user: sudo -u forgejo forgejo --config /pool01/applications/forgejo/custom/conf/app.ini admin user create --username "administrator" --email "admin@${config.nixos.server.network.nginx.domain}" --password "SUPERSECRETPASSWORD" --admin
 
     environment.systemPackages = [
       pkgs.forgejo
     ];
-    
+
     services.forgejo = {
       enable = true;
       user = "forgejo";
@@ -55,7 +56,7 @@
         };
 
         service = {
-          DISABLE_REGISTRATION = false;
+          DISABLE_REGISTRATION = true;
           REQUIRE_SIGNIN_VIEW = false;
           REGISTER_EMAIL_CONFIRM = false;
           ENABLE_NOTIFY_MAIL = false;
