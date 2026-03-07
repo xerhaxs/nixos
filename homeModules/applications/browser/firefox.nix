@@ -1375,7 +1375,7 @@ in
               };
 
               "Such-O-Mat" = {
-                urls = [ { template = "https://searxng.m4rx.cc/search/{searchTerms}"; } ];
+                urls = [ { template = "https://searxng.m4rx.cc/search?q={searchTerms}"; } ];
                 definedAliases = [ "@s" ];
                 icon = "https://searxng.m4rx.cc/favicon";
               };

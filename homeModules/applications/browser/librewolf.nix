@@ -420,9 +420,8 @@ in
                 definedAliases = [ "@nw" ];
                 icon = "https://nixos.wiki/favicon.png";
               };
-
               "SearXNG" = {
-                urls = [ { template = "https://searxng.m4rx.cc/search/{searchTerms}"; } ];
+                urls = [ { template = "https://searxng.m4rx.cc/search?q={searchTerms}"; } ];
                 definedAliases = [ "@s" ];
                 icon = "https://searxng.m4rx.cc/favicon";
               };
