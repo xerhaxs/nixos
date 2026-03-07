@@ -23,12 +23,12 @@
       user = "sabnzbd";
       group = "sabnzbd";
       openFirewall = false;
-      allowConfigWrite = false;
+      allowConfigWrite = true;
       stateDir = "/var/lib/sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
-      #secretFiles = [
-      #  config.sops.secrets."sabnzbd".path
-      #];
+      secretFiles = [
+        config.sops.secrets."sabnzbd".path
+      ];
       settings = {
         misc = {
           auto_browser = 0;
@@ -47,8 +47,8 @@
           email_server = "";
           email_to = "";
           #enable_https = 0;
-          host = "127.0.0.1, ";
-          host_whitelist = "https://sabnzbd.${config.nixos.server.network.nginx.domain}";
+          host = "127.0.0.1";
+          host_whitelist = "127.0.0.1";
           #html_login = 1;
           inet_exposure = 0;
           language = "en";
