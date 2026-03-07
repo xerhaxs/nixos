@@ -25,7 +25,7 @@
       openFirewall = false;
       allowConfigWrite = false;
       #stateDir = "/var/lib/sabnzbd";
-      #stateDir = "/pool01/applications/sabnzbd";
+      stateDir = "/pool01/applications/sabnzbd";
       #secretFiles = [
       #  config.sops.secrets."sabnzbd".path
       #];
