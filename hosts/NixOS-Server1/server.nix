@@ -24,7 +24,7 @@
 
   nixos.server = {
     fediverse = {
-      forgejo.enable = false;
+      forgejo.enable = true;
       invidious.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
@@ -178,7 +178,7 @@
     sonarr.gid = 274;
     radarr.gid = 275;
     hass.gid = 286;
-    #forgejo.gid = 976;
+    forgejo.gid = 976;
   };
 
   users.users = {
@@ -254,8 +254,8 @@
       uid = 322;
     };
 
-    #forgejo = {
-    #  uid = 979;
-    #};
+    forgejo = {
+      uid = 979;
+    };
   };
 }
