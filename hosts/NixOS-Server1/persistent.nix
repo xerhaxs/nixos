@@ -54,6 +54,6 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/private 0700 root root -"
+    "D /var/lib/private 0700 root root -"
   ];
 }
