@@ -178,6 +178,7 @@
     sonarr.gid = 274;
     radarr.gid = 275;
     hass.gid = 286;
+    forgejo.gid = 976;
   };
 
   users.users = {
@@ -251,6 +252,10 @@
 
     webdav = {
       uid = 322;
+    };
+
+    forgejo = {
+      uid = 979;
     };
   };
 }

@@ -20,6 +20,11 @@
   config = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
     # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
     # https://forgejo.org/docs/latest/user/repo-mirror/
+
+    environment.systemPackages = [
+      pkgs.forgejo
+    ];
+    
     services.forgejo = {
       enable = true;
       user = "forgejo";
