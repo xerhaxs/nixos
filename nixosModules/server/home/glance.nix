@@ -599,7 +599,7 @@
                             icon = "di:syncthing";
                           }
                           {
-                            title = "forgejo";
+                            title = "Forgejo";
                             url = "https://forgejo.${config.nixos.server.network.nginx.domain}";
                             icon = "di:forgejo";
                           }
