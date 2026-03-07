@@ -24,7 +24,7 @@
 
   nixos.server = {
     fediverse = {
-      forgejo.enable = true;
+      forgejo.enable = false;
       invidious.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
