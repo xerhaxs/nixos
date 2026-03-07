@@ -614,11 +614,6 @@
                             url = "https://libreddit.${config.nixos.server.network.nginx.domain}";
                             icon = "di:redlib";
                           }
-                          {
-                            title = "Nitter";
-                            url = "https://nitter.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:nitter";
-                          }
 
 /*                           {
                             title = "Matrix";

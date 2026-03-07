@@ -231,7 +231,6 @@
               "10.75.0.21 languagetool.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 libreddit.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 networkingtoolbox.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 nitter.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 ollama.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 pihole.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 radicale.${config.nixos.server.network.nginx.domain}"

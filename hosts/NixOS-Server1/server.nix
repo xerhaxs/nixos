@@ -29,7 +29,6 @@
       languagetool.enable = true;
       libreddit.enable = true;
       #matrix.ebale = true;
-      nitter.enable = true;
       searxng.enable = true;
     };
     fileshare = {
