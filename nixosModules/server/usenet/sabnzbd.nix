@@ -18,17 +18,28 @@
   };
 
   config = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
+    systemd.services.sabnzbd = {
+      serviceConfig = {
+        StateDirectory = "sabnzbd";
+      };
+      preStart = lib.mkBefore ''
+        if [ ! -f /var/lib/sabnzbd/sabnzbd.ini ]; then
+          mkdir -p /var/lib/sabnzbd
+          touch /var/lib/sabnzbd/sabnzbd.ini
+        fi
+      '';
+    };
     services.sabnzbd = {
       enable = true;
       user = "sabnzbd";
       group = "sabnzbd";
       openFirewall = false;
-      #allowConfigWrite = true;
+      allowConfigWrite = false;
       stateDir = "/var/lib/sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
-      #secretFiles = [
-      #  config.sops.secrets."sabnzbd".path
-      #];
+      secretFiles = [
+        config.sops.secrets."sabnzbd".path
+      ];
       settings = {
         misc = {
           auto_browser = 0;
@@ -48,7 +59,7 @@
           email_to = "";
           enable_https = 0;
           host = "127.0.0.1";
-          host_whitelist = "127.0.0.1";
+          host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}, 127.0.0.1, localhost";
           #html_login = 1;
           inet_exposure = 0;
           language = "en";
