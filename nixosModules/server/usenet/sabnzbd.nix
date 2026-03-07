@@ -20,7 +20,7 @@
   config = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
     systemd.services.sabnzbd = {
       serviceConfig = {
-        StateDirectory = "sabnzbd";
+        StateDirectory = "/var/lib/sabnzbd";
       };
       preStart = lib.mkBefore ''
         if [ ! -f /var/lib/sabnzbd/sabnzbd.ini ]; then
