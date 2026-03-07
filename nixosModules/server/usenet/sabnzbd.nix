@@ -18,24 +18,13 @@
   };
 
   config = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
-    systemd.services.sabnzbd = {
-      serviceConfig = {
-        StateDirectory = "/var/lib/sabnzbd";
-      };
-      preStart = lib.mkBefore ''
-        if [ ! -f /var/lib/sabnzbd/sabnzbd.ini ]; then
-          mkdir -p /var/lib/sabnzbd
-          touch /var/lib/sabnzbd/sabnzbd.ini
-        fi
-      '';
-    };
     services.sabnzbd = {
       enable = true;
       user = "sabnzbd";
       group = "sabnzbd";
       openFirewall = false;
       allowConfigWrite = false;
-      stateDir = "/var/lib/sabnzbd";
+      stateDir = "sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
       secretFiles = [
         config.sops.secrets."sabnzbd".path
