@@ -58,9 +58,9 @@
           #email_rss = 0;
           email_server = "";
           email_to = "";
-          enable_https = 0;
+          enable_https = false;
           host = "127.0.0.1";
-          host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}, 127.0.0.1, localhost";
+          host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}";
           #html_login = 1;
           inet_exposure = 0;
           language = "en";
