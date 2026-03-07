@@ -24,12 +24,12 @@
       group = "sabnzbd";
       openFirewall = false;
       #allowConfigWrite = true;
-      #stateDir = "/var/lib/sabnzbd";
+      stateDir = "/var/lib/sabnzbd";
       #stateDir = "/pool01/applications/sabnzbd";
       #secretFiles = [
       #  config.sops.secrets."sabnzbd".path
       #];
-      /* settings = {
+      settings = {
         misc = {
           auto_browser = 0;
           bandwidth_max = "5M";
@@ -46,7 +46,7 @@
           #email_rss = 0;
           email_server = "";
           email_to = "";
-          #enable_https = 0;
+          enable_https = 0;
           host = "127.0.0.1";
           host_whitelist = "127.0.0.1";
           #html_login = 1;
@@ -301,7 +301,7 @@
             priority = -100;
           };
         };
-      }; */
+      };
     };
 
     services.nginx = {
