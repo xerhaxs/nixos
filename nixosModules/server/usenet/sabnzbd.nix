@@ -40,6 +40,7 @@
       secretFiles = [
         config.sops.secrets."sabnzbd".path
       ];
+      configFile = null;
       settings = {
         misc = {
           auto_browser = 0;
