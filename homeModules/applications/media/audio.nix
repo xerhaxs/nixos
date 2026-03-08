@@ -20,7 +20,7 @@
   config = lib.mkIf config.homeManager.applications.media.audio.enable {
     home.packages = with pkgs; [
       easyeffects
-      helvum
+      crosspipe
     ];
   };
 }
