@@ -51,6 +51,8 @@
         "monero/users/password" = { };
         "monero/users/address" = { };
 
+        "mullvad" = { };
+
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
 

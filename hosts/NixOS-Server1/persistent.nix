@@ -14,7 +14,7 @@
 
     directories = [
       "/root/.cache"
-      #"/root/.secrets"
+      "/etc/mullvad-vpn"
       "/etc/nixos"
       "/etc/ssh"
       "/etc/zfs"
