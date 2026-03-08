@@ -7,15 +7,6 @@
 }:
 
 {
-  services.pihole-ftl = {
-    package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.pihole-ftl;
-    piholePackage = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.pihole;
-  };
-
-  services.pihole-web = {
-    package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.pihole-web;
-  };
-
   services.getty.autologinUser = null;
 
   nixos.server.network.nginx.enable = true;
