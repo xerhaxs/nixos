@@ -173,6 +173,17 @@ in
         "general.autoScroll" = true;
         "middlemouse.paste" = false;
         "browser.backspace_action" = 0;
+
+        "privacy.sanitize.sanitizeOnShutdown" = true;
+        "privacy.clearOnShutdown.cache" = true;
+        "privacy.clearOnShutdown.downloads" = true;
+        "privacy.clearOnShutdown.formdata" = true;
+        "privacy.clearOnShutdown.history" = true;
+        "privacy.clearOnShutdown.sessions" = true;
+        "privacy.clearOnShutdown.siteSettings" = false;
+        "privacy.clearOnShutdown.cookies" = true;
+        "privacy.clearOnShutdown.offlineApps" = true;
+        "privacy.sanitize.timeSpan" = 0;
       };
 
       policies = {
@@ -225,7 +236,8 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           };
-          "CanvasBlocker@kkapsner.de" = { # set if privacy.resistFingerprinting = false or webgl.disabled = false
+          "CanvasBlocker@kkapsner.de" = {
+            # set if privacy.resistFingerprinting = false or webgl.disabled = false
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
           };
