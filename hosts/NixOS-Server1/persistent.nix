@@ -30,10 +30,6 @@
       #"/var/lib/hass"
       #"/var/lib/jellyfin"
       #"/var/lib/radicale"
-      {
-        directory = "/var/lib/private/ollama";
-        mode = "0700";
-      }
       "/var/lib/pihole"
       "/var/lib/syncthing"
       "/var/lib/unbound"
@@ -52,8 +48,4 @@
       "/root/.bash_history"
     ];
   };
-
-  systemd.tmpfiles.rules = [
-    "D /var/lib/private 0700 root root -"
-  ];
 }
