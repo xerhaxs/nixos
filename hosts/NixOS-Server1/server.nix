@@ -67,8 +67,14 @@
   systemd.services.mullvad-setup = {
     description = "Mullvad VPN Setup";
     wantedBy = [ "multi-user.target" ];
-    after = [ "mullvad-daemon.service" ];
-    requires = [ "mullvad-daemon.service" ];
+    after = [
+      "mullvad-daemon.service"
+      "sops-install-secrets.service"
+    ];
+    requires = [
+      "mullvad-daemon.service"
+      "sops-install-secrets.service"
+    ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
