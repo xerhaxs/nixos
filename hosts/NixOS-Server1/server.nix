@@ -83,7 +83,7 @@
           sleep 1
         done
 
-        ${pkgs.mullvad}/bin/mullvad account login $(cat ${config.sops.secrets."mullvad".path})
+        ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${config.sops.secrets."mullvad".path})
 
         ${pkgs.mullvad}/bin/mullvad lan set allow
         ${pkgs.mullvad}/bin/mullvad lockdown-mode set off
