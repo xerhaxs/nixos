@@ -81,9 +81,7 @@
 
         "syncthing/nixos-server1/cert" = { };
         "syncthing/nixos-server1/key" = { };
-
-        "truenas-smb/user" = { };
-
+        
         "nas-smb/user" = { };
 
         "user/nixos-convertible/jf" = {
