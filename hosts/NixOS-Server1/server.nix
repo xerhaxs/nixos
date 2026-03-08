@@ -69,11 +69,9 @@
     wantedBy = [ "multi-user.target" ];
     after = [
       "mullvad-daemon.service"
-      "sops-install-secrets.service"
     ];
     requires = [
       "mullvad-daemon.service"
-      "sops-install-secrets.service"
     ];
     serviceConfig = {
       Type = "oneshot";
@@ -83,7 +81,9 @@
           sleep 1
         done
 
-        ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${config.sops.secrets."mullvad".path})
+        ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
+          config.sops.secrets."mullvad".path
+        })
 
         ${pkgs.mullvad}/bin/mullvad lan set allow
         ${pkgs.mullvad}/bin/mullvad lockdown-mode set off
