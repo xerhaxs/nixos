@@ -91,5 +91,11 @@
       alsa-lib
       fftw
     ];
+
+    users.users."${config.nixos.system.user.defaultuser.name}" = {
+      extraGroups = [
+        "audio"
+      ];
+    };
   };
 }
