@@ -184,6 +184,12 @@ in
         "privacy.clearOnShutdown.cookies" = true;
         "privacy.clearOnShutdown.offlineApps" = true;
         "privacy.sanitize.timeSpan" = 0;
+        "privacy.cpd.cache" = true;
+        "privacy.cpd.formdata" = true;
+        "privacy.cpd.history" = true;
+        "privacy.cpd.sessions" = true;
+        "privacy.cpd.offlineApps" = true;
+        "privacy.cpd.cookies" = true;
       };
 
       policies = {
