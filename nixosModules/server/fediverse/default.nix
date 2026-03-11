@@ -14,7 +14,6 @@
     ./matrix.nix
     ./moneronode.nix
     ./murmur.nix
-    ./nitter.nix
     ./searxng.nix
   ];
 
@@ -38,7 +37,6 @@
       matrix.enable = true;
       moneronode.enable = true;
       murmur.enable = true;
-      nitter.enable = true;
       searxng.enable = true;
     };
   };

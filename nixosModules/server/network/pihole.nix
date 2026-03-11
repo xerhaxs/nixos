@@ -222,7 +222,7 @@
             hosts = [
               "10.75.0.21 NixOS-Server1"
               "10.75.0.21 dav.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 gitea.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 forgejo.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 glance.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 homeassistant.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 invidious.${config.nixos.server.network.nginx.domain}"
@@ -231,7 +231,6 @@
               "10.75.0.21 languagetool.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 libreddit.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 networkingtoolbox.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 nitter.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 ollama.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 pihole.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 radicale.${config.nixos.server.network.nginx.domain}"

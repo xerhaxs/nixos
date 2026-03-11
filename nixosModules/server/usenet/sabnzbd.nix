@@ -23,12 +23,12 @@
       user = "sabnzbd";
       group = "sabnzbd";
       openFirewall = false;
-      allowConfigWrite = false;
-      #stateDir = "/var/lib/sabnzbd";
-      #stateDir = "/pool01/applications/sabnzbd";
-      #secretFiles = [
-      #  config.sops.secrets."sabnzbd".path
-      #];
+      allowConfigWrite = true;
+      stateDir = "sabnzbd";
+      secretFiles = [
+        config.sops.secrets."sabnzbd".path
+      ];
+      configFile = null;
       settings = {
         misc = {
           auto_browser = 0;
@@ -42,14 +42,11 @@
           download_dir = "/pool01/shares/video/SABnzbd/temp";
           email_endjob = 0;
           email_from = "";
-          #email_full = 0;
-          #email_rss = 0;
           email_server = "";
           email_to = "";
-          #enable_https = 0;
+          enable_https = false;
           host = "127.0.0.1";
           host_whitelist = "sabnzbd.${config.nixos.server.network.nginx.domain}";
-          #html_login = 1;
           inet_exposure = 0;
           language = "en";
           notified_new_skin = 1;
@@ -67,8 +64,6 @@
           https_port = "";
           web_dir = "Glitter";
           web_color = "Auto";
-          #https_cert = "server.cert";
-          #https_key = "server.key";
           https_chain = "";
           socks5_proxy_url = "";
           permissions = "";
@@ -313,7 +308,7 @@
           kTLS = true;
           http2 = false;
           locations."/" = {
-            proxyPass = "http://localhost:8080";
+            proxyPass = "http://127.0.0.1:8080";
           };
         };
       };

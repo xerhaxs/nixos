@@ -42,7 +42,7 @@ let
     (mkHostEntries "10.75.0.21" [
       "NixOS-Server1"
       "dav.${config.nixos.server.network.nginx.domain}"
-      "gitea.${config.nixos.server.network.nginx.domain}"
+      "forgejo.${config.nixos.server.network.nginx.domain}"
       "glance.${config.nixos.server.network.nginx.domain}"
       "homeassistant.${config.nixos.server.network.nginx.domain}"
       "invidious.${config.nixos.server.network.nginx.domain}"
@@ -53,7 +53,6 @@ let
       #"moneronode.${config.nixos.server.network.nginx.domain}"
       #"murmur.${config.nixos.server.network.nginx.domain}"
       "networkingtoolbox.${config.nixos.server.network.nginx.domain}"
-      "nitter.${config.nixos.server.network.nginx.domain}"
       "ollama.${config.nixos.server.network.nginx.domain}"
       "pihole.${config.nixos.server.network.nginx.domain}"
       "radicale.${config.nixos.server.network.nginx.domain}"

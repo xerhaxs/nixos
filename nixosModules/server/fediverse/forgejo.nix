@@ -20,6 +20,12 @@
   config = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
     # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
     # https://forgejo.org/docs/latest/user/repo-mirror/
+    # setup admin user: sudo -u forgejo forgejo --config /pool01/applications/forgejo/custom/conf/app.ini admin user create --username "administrator" --email "admin@${config.nixos.server.network.nginx.domain}" --password "SUPERSECRETPASSWORD" --admin
+
+    environment.systemPackages = [
+      pkgs.forgejo
+    ];
+
     services.forgejo = {
       enable = true;
       user = "forgejo";
@@ -37,7 +43,7 @@
       settings = {
         server = {
           DOMAIN = "127.0.0.1";
-          ROOT_URL = "https://forgejo.${config.nixos.server.network.nginx.domain}"; 
+          ROOT_URL = "https://forgejo.${config.nixos.server.network.nginx.domain}";
           HTTP_PORT = 3005;
           DISABLE_SSH = true;
           LANDING_PAGE = "explore"; # home, explore, organizations, login, custom

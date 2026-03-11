@@ -51,6 +51,8 @@
         "monero/users/password" = { };
         "monero/users/address" = { };
 
+        "mullvad" = { };
+
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
 
@@ -79,8 +81,6 @@
 
         "syncthing/nixos-server1/cert" = { };
         "syncthing/nixos-server1/key" = { };
-
-        "truenas-smb/user" = { };
 
         "nas-smb/user" = { };
 

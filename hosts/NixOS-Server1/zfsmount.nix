@@ -18,6 +18,17 @@ let
   );
 in
 {
+  system.activationScripts.zfs-cache-key = {
+    text = ''
+      cp /run/secrets/zfs/pool01 /secrets/zfs-cache.key
+      chmod 0400 /secrets/zfs-cache.key
+    '';
+  };
+
+  environment.etc."crypttab".text = ''
+    zfs-cache /dev/nvme0n1p1 /secrets/zfs-cache.key luks
+  '';
+
   boot.kernelPackages = lib.mkForce latestKernelPackage;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.requestEncryptionCredentials = false;

@@ -14,7 +14,7 @@
 
     directories = [
       "/root/.cache"
-      #"/root/.secrets"
+      "/etc/mullvad-vpn"
       "/etc/nixos"
       "/etc/ssh"
       "/etc/zfs"
@@ -30,14 +30,10 @@
       #"/var/lib/hass"
       #"/var/lib/jellyfin"
       #"/var/lib/radicale"
-      { directory = "/var/lib/private/ollama"; mode = "0700"; }
       "/var/lib/pihole"
       "/var/lib/syncthing"
       "/var/lib/unbound"
-      #"/var/lib/sabnzbd"
-      #"/var/lib/private/invidious"
-      #"/var/lib/private/nitter"
-      #"/var/lib/redis-nitter"
+      "/var/lib/sabnzbd"
       "/var/lib/samba"
       "/var/lib/sshguard"
 

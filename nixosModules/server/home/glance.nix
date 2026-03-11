@@ -599,7 +599,7 @@
                             icon = "di:syncthing";
                           }
                           {
-                            title = "forgejo";
+                            title = "Forgejo";
                             url = "https://forgejo.${config.nixos.server.network.nginx.domain}";
                             icon = "di:forgejo";
                           }
@@ -613,11 +613,6 @@
                             title = "LibReddit";
                             url = "https://libreddit.${config.nixos.server.network.nginx.domain}";
                             icon = "di:redlib";
-                          }
-                          {
-                            title = "Nitter";
-                            url = "https://nitter.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:nitter";
                           }
 
 /*                           {

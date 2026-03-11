@@ -29,7 +29,6 @@
       languagetool.enable = true;
       libreddit.enable = true;
       #matrix.ebale = true;
-      nitter.enable = true;
       searxng.enable = true;
     };
     fileshare = {
@@ -64,23 +63,38 @@
     enable = true;
     enableExcludeWrapper = true;
   };
-  /*
-    systemd.services.mullvad-setup = {
-      description = "Initial Mullvad configuration";
-      after = [ "mullvad-daemon.service" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = pkgs.writeShellScript "mullvad-setup" ''
-          ${pkgs.mullvad}/bin/mullvad lan set allow
-          ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
-          ${pkgs.mullvad}/bin/mullvad auto-connect set on
-          ${pkgs.mullvad}/bin/mullvad connect
-        '';
-      };
+
+  systemd.services.mullvad-setup = {
+    description = "Mullvad VPN Setup";
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "mullvad-daemon.service"
+    ];
+    requires = [
+      "mullvad-daemon.service"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "mullvad-setup" ''
+        until ${pkgs.mullvad}/bin/mullvad status > /dev/null 2>&1; do
+          sleep 1
+        done
+
+        ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
+          config.sops.secrets."mullvad".path
+        })
+
+        ${pkgs.mullvad}/bin/mullvad lan set allow
+        ${pkgs.mullvad}/bin/mullvad lockdown-mode set off
+
+        ${pkgs.mullvad}/bin/mullvad dns set custom 127.0.0.1
+
+        ${pkgs.mullvad}/bin/mullvad auto-connect set on
+        ${pkgs.mullvad}/bin/mullvad connect
+      '';
     };
-  */
+  };
 
   nixos.server.fileshare.share.path = "/pool01/shares";
 
@@ -178,6 +192,7 @@
     sonarr.gid = 274;
     radarr.gid = 275;
     hass.gid = 286;
+    forgejo.gid = 976;
   };
 
   users.users = {
@@ -251,6 +266,10 @@
 
     webdav = {
       uid = 322;
+    };
+
+    forgejo = {
+      uid = 979;
     };
   };
 }

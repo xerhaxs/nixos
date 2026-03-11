@@ -173,6 +173,23 @@ in
         "general.autoScroll" = true;
         "middlemouse.paste" = false;
         "browser.backspace_action" = 0;
+
+        "privacy.sanitize.sanitizeOnShutdown" = true;
+        "privacy.clearOnShutdown.cache" = true;
+        "privacy.clearOnShutdown.downloads" = true;
+        "privacy.clearOnShutdown.formdata" = true;
+        "privacy.clearOnShutdown.history" = true;
+        "privacy.clearOnShutdown.sessions" = true;
+        "privacy.clearOnShutdown.siteSettings" = false;
+        "privacy.clearOnShutdown.cookies" = true;
+        "privacy.clearOnShutdown.offlineApps" = true;
+        "privacy.sanitize.timeSpan" = 0;
+        "privacy.cpd.cache" = true;
+        "privacy.cpd.formdata" = true;
+        "privacy.cpd.history" = true;
+        "privacy.cpd.sessions" = true;
+        "privacy.cpd.offlineApps" = true;
+        "privacy.cpd.cookies" = true;
       };
 
       policies = {
@@ -225,7 +242,8 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           };
-          "CanvasBlocker@kkapsner.de" = { # set if privacy.resistFingerprinting = false or webgl.disabled = false
+          "CanvasBlocker@kkapsner.de" = {
+            # set if privacy.resistFingerprinting = false or webgl.disabled = false
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
           };
@@ -420,9 +438,8 @@ in
                 definedAliases = [ "@nw" ];
                 icon = "https://nixos.wiki/favicon.png";
               };
-
               "SearXNG" = {
-                urls = [ { template = "https://searxng.m4rx.cc/search/{searchTerms}"; } ];
+                urls = [ { template = "https://searxng.m4rx.cc/search?q={searchTerms}"; } ];
                 definedAliases = [ "@s" ];
                 icon = "https://searxng.m4rx.cc/favicon";
               };
