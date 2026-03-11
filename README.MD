@@ -90,6 +90,8 @@ fwupdmgr update
 * [X] Restructure flake.nix to be more convenient and nicer formatted
 * [ ] Formatting of userEnvironment Module
 * [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
+* [ ] Changes User Password Hash to 512 in NixOS Config
+* [ ] Change Disk Passwords in NixOS Config / Sops
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
   * [X] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html https://wiki.nixos.org/wiki/Syncthing#cite_note-2 https://home-manager-options.extranix.com/?query=services.syncthing.&release=master
