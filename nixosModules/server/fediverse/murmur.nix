@@ -42,9 +42,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "murmur.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

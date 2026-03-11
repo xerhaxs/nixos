@@ -165,7 +165,7 @@ fwupdmgr update
     * [X] setup oci container
     * [X] Caddy, insted of Nginx -> I'll stay with nginx
     * [X] Install Unbound DNS along PiHole -> https://docs.pi-hole.net/guides/dns/unbound/
-    * [ ] Update ddclient config
+    * [X] Update ddclient config -> not needed anymore due to local only server and official vps with static ip
     * [X] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
     * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [X] Jellyfin

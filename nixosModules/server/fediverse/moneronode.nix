@@ -57,9 +57,5 @@
         };
       };
     };
-
-    services.ddclient.domains = [
-      "monero.${config.nixos.server.network.nginx.domain}"
-    ];
   };
 }

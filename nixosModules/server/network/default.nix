@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./ddclient.nix
     ./nginx.nix
     ./pihole.nix
     ./unbound.nix
@@ -26,7 +25,6 @@
 
   config = lib.mkIf config.nixos.server.network.enable {
     nixos.server.network = {
-      ddclient.enable = true;
       nginx.enable = true;
       pihole.enable = true;
       unbound.enable = true;
