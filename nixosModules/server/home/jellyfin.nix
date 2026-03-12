@@ -85,6 +85,17 @@
           http2 = false;
           locations."/" = {
             proxyPass = "http://localhost:8096";
+            extraConfig = ''
+              proxy_buffering off;
+              proxy_request_buffering off;
+              proxy_read_timeout 3600s;
+              proxy_send_timeout 3600s;
+              proxy_connect_timeout 3600s;
+
+              client_max_body_size 256G;
+
+              proxy_http_version 1.1;
+            '';
           };
         };
       };
