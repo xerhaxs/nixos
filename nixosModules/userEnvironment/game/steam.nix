@@ -25,6 +25,8 @@
       dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
     };
 
+    programs.steam.protontricks.enable = true;
+
     hardware.steam-hardware.enable = true;
   };
 }
