@@ -12,7 +12,7 @@
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable Radiacle.";
+        description = "Enable Radicale.";
       };
     };
   };
