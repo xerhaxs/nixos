@@ -525,6 +525,11 @@
                         sites = [
                           # di for Dashboard icons https://github.com/homarr-labs/dashboard-icons
                           {
+                            title = "Cockpit";
+                            url = "https://cockpit.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:cockpit";
+                          }
+                          {
                             title = "Pi-hole";
                             url = "https://pihole.${config.nixos.server.network.nginx.domain}";
                             icon = "di:pi-hole";
@@ -534,12 +539,12 @@
                             url = "https://homeassistant.${config.nixos.server.network.nginx.domain}";
                             icon = "di:home-assistant";
                           }
+
                           {
                             title = "Radicale";
                             url = "https://radicale.${config.nixos.server.network.nginx.domain}";
                             icon = "di:radicale";
                           }
-
                           {
                             title = "Jellyfin";
                             url = "https://jellyfin.${config.nixos.server.network.nginx.domain}";
@@ -550,12 +555,12 @@
                             url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}";
                             icon = "di:sabnzbd";
                           }
+
                           {
                             title = "NZBHydra2";
                             url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}";
                             icon = "di:nzbhydra2";
                           }
-
                           {
                             title = "Radarr";
                             url = "https://radarr.${config.nixos.server.network.nginx.domain}";
@@ -566,17 +571,18 @@
                             url = "https://sonarr.${config.nixos.server.network.nginx.domain}";
                             icon = "di:sonarr";
                           }
+
                           {
                             title = "Lidarr";
                             url = "https://lidarr.${config.nixos.server.network.nginx.domain}";
                             icon = "di:lidarr";
                           }
-
                           {
                             title = "Readarr";
                             url = "https://readarr.${config.nixos.server.network.nginx.domain}";
                             icon = "di:readarr";
                           }
+
                           {
                             title = "Ollama";
                             url = "https://ollama.${config.nixos.server.network.nginx.domain}";
@@ -587,12 +593,12 @@
                             url = "https://searxng.${config.nixos.server.network.nginx.domain}";
                             icon = "di:searxng";
                           }
-
                           {
                             title = "Networking Toolbox";
                             url = "https://networkingtoolbox.${config.nixos.server.network.nginx.domain}";
                             icon = "di:networking-toolbox-dark";
                           }
+
                           {
                             title = "Syncthing";
                             url = "https://syncthing.${config.nixos.server.network.nginx.domain}";
@@ -603,12 +609,12 @@
                             url = "https://forgejo.${config.nixos.server.network.nginx.domain}";
                             icon = "di:forgejo";
                           }
-
                           {
                             title = "Invidious";
                             url = "https://invidious.${config.nixos.server.network.nginx.domain}";
                             icon = "di:invidious";
                           }
+                          
                           {
                             title = "LibReddit";
                             url = "https://libreddit.${config.nixos.server.network.nginx.domain}";
