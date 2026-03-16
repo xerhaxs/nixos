@@ -24,9 +24,9 @@
       port = 9090;
       showBanner = true;
       allowed-origins = [
-        "127.0.0.1"
+        #"127.0.0.1"
         "https://cockpit.${config.nixos.server.network.nginx.domain}"
-        "0.0.0.0"
+        #"0.0.0.0"
       ];
       settings = { };
       plugins = with pkgs; [
@@ -36,6 +36,10 @@
         cockpit-machines
       ];
     };
+
+    environment.systemPackages = with pkgs; [
+      kexec-tools
+    ];
 
     services.nginx = {
       virtualHosts = {
