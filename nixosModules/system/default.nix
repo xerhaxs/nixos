@@ -21,6 +21,7 @@
     ./nixosvm.nix
     ./powermanagement.nix
     ./secureboot.nix
+    ./smartd.nix
     ./sops.nix
     ./ssh.nix
     ./user.nix
@@ -53,6 +54,7 @@
       nixosvm.enable = true;
       powermanagement.enable = true;
       secureboot.enable = lib.mkDefault false;
+      smartd.enable = true;
       sops.enable = true;
       ssh.enable = true;
       user.enable = true;
