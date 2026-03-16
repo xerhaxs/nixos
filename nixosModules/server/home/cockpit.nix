@@ -25,7 +25,7 @@
       showBanner = true;
       allowed-origins = [
         "127.0.0.1"
-        "cockpit.${config.nixos.server.network.nginx.domain}"
+        "https://cockpit.${config.nixos.server.network.nginx.domain}"
       ];
       settings = { };
       plugins = with pkgs; [
