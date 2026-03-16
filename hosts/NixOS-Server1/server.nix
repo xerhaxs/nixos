@@ -38,6 +38,7 @@
       webdav.enable = true;
     };
     home = {
+      cockpit.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
       jellyfin.enable = true;
