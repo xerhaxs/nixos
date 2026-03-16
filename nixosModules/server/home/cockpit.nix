@@ -41,9 +41,9 @@
           acmeRoot = null;
           kTLS = true;
           http2 = false;
-          proxyWebsockets = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:9090/";
+            proxyWebsockets = true;
             extraConfig = ''
               proxy_set_header Host $host;
               proxy_set_header X-Forwarded-Proto $scheme;
