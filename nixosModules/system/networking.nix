@@ -41,6 +41,7 @@ let
     (mkHostEntries "10.75.0.1" [ "fritz.box" ])
     (mkHostEntries "10.75.0.21" [
       "NixOS-Server1"
+      "cockpit.${config.nixos.server.network.nginx.domain}"
       "dav.${config.nixos.server.network.nginx.domain}"
       "forgejo.${config.nixos.server.network.nginx.domain}"
       "glance.${config.nixos.server.network.nginx.domain}"
