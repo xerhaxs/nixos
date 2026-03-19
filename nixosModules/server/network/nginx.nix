@@ -72,6 +72,10 @@ in
           dnsResolver = "127.0.0.1";
           dnsProvider = "cloudflare";
           dnsPropagationCheck = false; # for usage behind mullvad vpn
+          extraLegoFlags = [
+            "--dns.propagation-wait"
+            "60s"
+          ];
           renewInterval = "daily";
           environmentFile = config.sops.secrets."nginx/acme/api_key".path;
         };
