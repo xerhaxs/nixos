@@ -71,7 +71,7 @@ in
           email = "among_clavicle129@slmail.me";
           dnsResolver = "127.0.0.1";
           dnsProvider = "cloudflare";
-          dnsPropagationCheck = true;
+          dnsPropagationCheck = false; # for usage behind mullvad vpn
           renewInterval = "daily";
           environmentFile = config.sops.secrets."nginx/acme/api_key".path;
         };
