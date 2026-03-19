@@ -69,7 +69,7 @@ in
         acceptTerms = true;
         defaults = {
           email = "among_clavicle129@slmail.me";
-          dnsResolver = "1.1.1.1";
+          dnsResolver = "127.0.0.1";
           dnsProvider = "cloudflare";
           dnsPropagationCheck = true;
           renewInterval = "daily";
