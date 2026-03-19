@@ -69,7 +69,7 @@ in
         acceptTerms = true;
         defaults = {
           email = "among_clavicle129@slmail.me";
-          #dnsResolver = "127.0.0.1";
+          #dnsResolver = "127.0.0.1"; # for usage behind mullvad vpn
           dnsProvider = "cloudflare";
           #dnsPropagationCheck = false; # for usage behind mullvad vpn
           extraLegoFlags = [
