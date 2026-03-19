@@ -35,6 +35,8 @@
       ];
     };
 
+    security.acme.defaults.dnsResolver = "127.0.0.1:53";
+    
     boot.crashDump.enable = true;
 
     environment.systemPackages = with pkgs; [
