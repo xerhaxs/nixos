@@ -73,6 +73,7 @@ in
           dnsProvider = "cloudflare";
           dnsPropagationCheck = false; # for usage behind mullvad vpn
           extraLegoFlags = [
+            "--dns.propagation-rns"
             "--dns.propagation-wait"
             "60s"
           ];
