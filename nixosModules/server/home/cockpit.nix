@@ -35,12 +35,6 @@
       ];
     };
 
-    boot.crashDump.enable = true;
-
-    environment.systemPackages = with pkgs; [
-      kexec-tools
-    ];
-
     services.nginx = {
       virtualHosts = {
         "cockpit.${config.nixos.server.network.nginx.domain}" = {
