@@ -69,9 +69,9 @@ in
         acceptTerms = true;
         defaults = {
           email = "among_clavicle129@slmail.me";
-          dnsResolver = "127.0.0.1";
+          #dnsResolver = "127.0.0.1";
           dnsProvider = "cloudflare";
-          dnsPropagationCheck = false; # for usage behind mullvad vpn
+          #dnsPropagationCheck = false; # for usage behind mullvad vpn
           extraLegoFlags = [
             "--dns.propagation-rns"
             "--dns.propagation-wait"
