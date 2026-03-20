@@ -169,7 +169,7 @@ fwupdmgr update
     * [X] Install Unbound DNS along PiHole -> https://docs.pi-hole.net/guides/dns/unbound/
     * [X] Update ddclient config -> not needed anymore due to local only server and official vps with static ip
     * [X] Glance https://github.com/glanceapp/glance/blob/main/docs/configuration.md (Dashboard)
-    * [ ] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
+    * [X] Server Backend (Redis alternative) https://github.com/valkey-io/valkey
     * [X] Jellyfin
     * [X] Radical https://radicale.org/v3.html
     * [X] WebDav for Bookmarksync
