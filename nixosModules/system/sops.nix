@@ -45,7 +45,7 @@
 
         "glance" = { };
 
-        "lemmy/users/admin/password" = { };
+        "linkwarden" = { };
 
         "monero/users/username" = { };
         "monero/users/password" = { };

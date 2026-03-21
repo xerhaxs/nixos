@@ -29,6 +29,7 @@
       kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
+      linkwarden.enable = true;
       #matrix.ebale = true;
       searxng.enable = true;
     };
@@ -124,6 +125,11 @@
   };
 
   systemd.services.kiwix-serve = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.linkwarden = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
   };
