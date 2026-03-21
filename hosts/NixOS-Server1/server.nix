@@ -123,10 +123,10 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
-  #systemd.services.kiwix-serve = {
-  #  after = [ "zfs-mounts-ready.service" ];
-  #  requires = [ "zfs-mounts-ready.service" ];
-  #};
+  systemd.services.kiwix-serve = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
 
   systemd.services.radicale = {
     after = [ "zfs-mounts-ready.service" ];
