@@ -190,7 +190,7 @@ in
         "privacy.cpd.sessions" = true;
         "privacy.cpd.offlineApps" = true;
         "privacy.cpd.cookies" = true;
-        "privacy.sanitize.pending" = '[{"id":"shutdown","itemsToClear":["cache","cookiesAndStorage"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'
+        "privacy.sanitize.pending" = "[{'id':'shutdown','itemsToClear':['cache','formdata','siteSettings','browsingHistoryAndDownloads','cookiesAndStorage'],'options':{}}]";
       };
 
       policies = {
