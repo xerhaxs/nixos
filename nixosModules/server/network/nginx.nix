@@ -60,6 +60,7 @@ in
       #  kTLS = true;
       #  http2 = true;
       #  http3 = true;
+      #  quic = true;
       #  root = "/mount/Data/Datein/Server/startpage/index.html";
       #};
       #};
