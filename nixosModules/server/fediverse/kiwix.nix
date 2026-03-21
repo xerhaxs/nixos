@@ -29,7 +29,7 @@
       openFirewall = false;
       address = "all";
       port = 2793;
-      #libraryPath = "/pool01/applications/kiwix/library.xml";
+      libraryPath = "/pool01/applications/kiwix/data";
       library = {
         #"nhs.uk_en_medicines_2025-12" = "/pool01/applications/kiwix/data/nhs.uk_en_medicines_2025-12.zim";
         /*
