@@ -551,6 +551,11 @@
                             icon = "di:radicale";
                           }
                           {
+                            title = "Linkwarden";
+                            url = "https://linkwarden.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:linkwarden";
+                          }
+                          {
                             title = "Jellyfin";
                             url = "https://jellyfin.${config.nixos.server.network.nginx.domain}";
                             icon = "di:jellyfin";
@@ -592,6 +597,16 @@
                             title = "Ollama";
                             url = "https://ollama.${config.nixos.server.network.nginx.domain}";
                             icon = "di:ollama";
+                          }
+                          {
+                            title = "SearXNG";
+                            url = "https://searxng.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:searxng";
+                          }
+                          {
+                            title = "Kiwix";
+                            url = "https://kiwix.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:kiwix";
                           }
                           {
                             title = "SearXNG";
