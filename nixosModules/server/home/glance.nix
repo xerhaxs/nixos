@@ -137,7 +137,7 @@
                           {
                             url = "https://www.tagesschau.de/xml/rss2";
                             title = "Tagesschau";
-                            limit = 3;
+                            limit = 1;
                           }
                           {
                             url = "https://www.heise.de/rss/heise-atom.xml";
@@ -172,7 +172,7 @@
                           {
                             url = "https://taz.de/rss.xml";
                             title = "taz.de";
-                            limit = 3;
+                            limit = 1;
                           }
                           {
                             url = "https://rss.golem.de/rss.php?feed=RSS2.0";
