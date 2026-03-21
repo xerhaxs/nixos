@@ -134,6 +134,11 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
+  systemd.services.postgresql = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
   systemd.services.radicale = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
