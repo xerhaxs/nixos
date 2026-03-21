@@ -42,6 +42,9 @@
     services.postgresql = {
       dataDir = "/pool01/applications/postgresql";
     };
+    
+    users.users.postgresql.group = "postgresql";
+    users.groups.postgresql = {};
 
     users = {
       users.linkwarden.uid = 970;
