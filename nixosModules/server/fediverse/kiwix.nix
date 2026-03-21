@@ -95,7 +95,7 @@
           kTLS = true;
           http2 = false;
           locations."/" = {
-            proxyPass = "http://localhost:64738";
+            proxyPass = "http://127.0.0.1:2793";
           };
         };
       };
