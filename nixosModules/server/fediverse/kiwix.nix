@@ -19,11 +19,11 @@
 
   config = lib.mkIf config.nixos.server.fediverse.kiwix.enable {
     systemd.services.kiwix-serve.serviceConfig = {
-      DynamicUser = false;
+      DynamicUser = lib.mkForce false;
       User = "kiwix";
       Group = "kiwix";
     };
-    
+
     services.kiwix-serve = {
       enable = true;
       openFirewall = false;
