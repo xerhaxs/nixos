@@ -89,7 +89,7 @@
         })
 
         ${pkgs.mullvad}/bin/mullvad lan set allow
-        ${pkgs.mullvad}/bin/mullvad lockdown-mode set off
+        ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
 
         ${pkgs.mullvad}/bin/mullvad dns set custom 127.0.0.1
 
