@@ -45,8 +45,16 @@
 
         "glance" = { };
 
-        "linkwarden/secret" = { };
-        "linkwarden/postgres" = { };
+        "linkwarden/secret" = lib.mkIf config.nixos.server.fediverse.linkwarden.enable {
+          owner = config.services.linkwarden.user;
+          group = config.services.linkwarden.group;
+          mode = "0400";
+        };
+        "linkwarden/postgres" = lib.mkIf config.nixos.server.fediverse.linkwarden.enable {
+          owner = config.services.linkwarden.user;
+          group = config.services.linkwarden.group;
+          mode = "0400";
+        };
 
         "monero/users/username" = { };
         "monero/users/password" = { };
