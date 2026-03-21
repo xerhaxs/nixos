@@ -50,8 +50,8 @@
       users.linkwarden.uid = 970;
       groups.linkwarden.gid = 970;
 
-      users.postgres.uid = 971;
-      groups.postgres.gid = 971;
+      users.postgres.uid = 71;
+      groups.postgres.gid = 71;
     };
 
     services.nginx = {
