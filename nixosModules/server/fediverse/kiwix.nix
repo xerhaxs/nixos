@@ -29,9 +29,9 @@
       openFirewall = false;
       address = "all";
       port = 2793;
-      #libraryPath = "/pool01/applications/kiwix/data";
-      library = {
-        nhs_uk_en_medicines_2025-12 = "/pool01/applications/kiwix/data/nhs.uk_en_medicines_2025-12.zim";
+      libraryPath = "/pool01/applications/kiwix/library.xml";
+      #library = {
+        #nhs_uk_en_medicines_2025-12 = "/pool01/applications/kiwix/data/nhs.uk_en_medicines_2025-12.zim";
         /*
           wikipedia_de_all_maxi_2026-01 = pkgs.fetchurl {
             url = "https://download.kiwix.org/zim/wikipedia/wikipedia_de_all_maxi_2026-01.zim";
@@ -78,9 +78,13 @@
             hash = "sha256:7dfa9bffa286e1ed4442536e746109a58d678bc6681af0b9881e07b7ef3dae28";
           };
         */
-      };
+      #};
       extraArgs = [ ];
     };
+
+    environment.systemPackages = with pkgs; [
+      kiwix-tools
+    ];
 
     services.nginx = {
       virtualHosts = {
