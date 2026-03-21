@@ -31,7 +31,6 @@
       port = 2793;
       libraryPath = "/pool01/applications/kiwix/data";
       library = {
-        #"nhs.uk_en_medicines_2025-12" = "/pool01/applications/kiwix/data/nhs.uk_en_medicines_2025-12.zim";
         /*
           wikipedia_de_all_maxi_2026-01 = pkgs.fetchurl {
             url = "https://download.kiwix.org/zim/wikipedia/wikipedia_de_all_maxi_2026-01.zim";
@@ -53,10 +52,10 @@
             url = "https://download.kiwix.org/zim/gutenberg/gutenberg_de_all_2026-01.zim";
             hash = "sha256:9bd31418e9b056b1d3bc4c3892cdcb55ea71b530d93a9f177a5f034ff7aedc0b";
           };
-          #gutenberg_mul_all_2025-11 = pkgs.fetchurl {
-          #  url = "https://download.kiwix.org/zim/gutenberg/gutenberg_mul_all_2025-11.zim";
-          #  hash = "sha256:5c6b8415c68027d19022b2024b6c4b3b195ac11228c75e6a649b869b535d5d17";
-          #};
+          gutenberg_mul_all_2025-11 = pkgs.fetchurl {
+            url = "https://download.kiwix.org/zim/gutenberg/gutenberg_mul_all_2025-11.zim";
+            hash = "sha256:5c6b8415c68027d19022b2024b6c4b3b195ac11228c75e6a649b869b535d5d17";
+          };
           wikipedia_en_all_maxi_2026-02 = pkgs.fetchurl {
             url = "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-02.zim";
             hash = "sha256:bf0853bf94ed8c53524e5ee67288bc4898819bc9d496af2b3f852b6588abdd27";
