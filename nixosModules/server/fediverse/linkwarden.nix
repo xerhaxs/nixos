@@ -26,7 +26,10 @@
       enableRegistration = false;
       user = "linkwarden";
       group = "linkwarden";
-      secretFiles = config.sops.secrets."linkwarden".path;
+      secretFiles = {
+        NEXTAUTH_SECRET = config.sops.secrets."linkwarden/secret".path;
+        POSTGRES_PASSWORD = config.sops.secrets."linkwarden/postgres".path;
+      }; 
       storageLocation = "/pool01/applications/linkwarden";
 
       database = {

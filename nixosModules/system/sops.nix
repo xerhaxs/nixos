@@ -45,7 +45,8 @@
 
         "glance" = { };
 
-        "linkwarden" = { };
+        "linkwarden/secret" = { };
+        "linkwarden/postgres" = { };
 
         "monero/users/username" = { };
         "monero/users/password" = { };
