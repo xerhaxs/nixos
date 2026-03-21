@@ -56,7 +56,7 @@
           enableACME = true;
           acmeRoot = null;
           kTLS = true;
-          http2 = false;
+          http2 = true;
           locations."/" = {
             proxyPass = "http://localhost:5232/";
             extraConfig = ''

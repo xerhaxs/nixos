@@ -449,7 +449,7 @@
           enableACME = true;
           acmeRoot = null;
           kTLS = true;
-          http2 = false;
+          http2 = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:8100";
           };
@@ -459,7 +459,7 @@
         #  enableACME = true;
         #  acmeRoot = null;
         #  kTLS = true;
-        #  http2 = false;
+        #  http2 = true;
         #  locations."/" = {
         #    proxyPass = "http://localhost:25566";
         #  };
@@ -469,7 +469,7 @@
         #  enableACME = true;
         #  acmeRoot = null;
         #  kTLS = true;
-        #  http2 = false;
+        #  http2 = true;
         #  locations."/" = {
         #    proxyPass = "http://localhost:25567";
         #  };
@@ -479,7 +479,7 @@
         #  enableACME = true;
         #  acmeRoot = null;
         #  kTLS = true;
-        #  http2 = false;
+        #  http2 = true;
         #  locations."/" = {
         #    proxyPass = "http://localhost:25568";
         #  };
@@ -489,7 +489,7 @@
         #  enableACME = true;
         #  acmeRoot = null;
         #  kTLS = true;
-        #  http2 = false;
+        #  http2 = true;
         #  locations."/" = {
         #    proxyPass = "http://localhost:25569";
         #  };
@@ -499,7 +499,7 @@
         #  enableACME = true;
         #  acmeRoot = null;
         #  kTLS = true;
-        #  http2 = false;
+        #  http2 = true;
         #  locations."/" = {
         #    proxyPass = "http://localhost:8100";
         #  };
@@ -509,7 +509,7 @@
         #  enableACME = true;
         #  acmeRoot = null;
         #  kTLS = true;
-        #  http2 = false;
+        #  http2 = true;
         #  locations."/" = {
         #    proxyPass = "http://localhost:8100";
         #  };

@@ -90,7 +90,7 @@
           enableACME = true;
           acmeRoot = null;
           kTLS = true;
-          http2 = false;
+          http2 = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:2793";
           };

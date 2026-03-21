@@ -140,7 +140,7 @@ in
           enableACME = true;
           acmeRoot = null;
           kTLS = true;
-          http2 = false;
+          http2 = true;
           extraConfig = ''
             proxy_buffering off;
             proxy_request_buffering off;

@@ -58,7 +58,8 @@ in
       #  enableACME = true;
       #  acmeRoot = null;
       #  kTLS = true;
-      #  http2 = false;
+      #  http2 = true;
+      #  http3 = true;
       #  root = "/mount/Data/Datein/Server/startpage/index.html";
       #};
       #};
