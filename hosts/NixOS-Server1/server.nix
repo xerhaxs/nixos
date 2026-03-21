@@ -26,6 +26,7 @@
     fediverse = {
       forgejo.enable = true;
       invidious.enable = true;
+      kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
       #matrix.ebale = true;
@@ -122,6 +123,11 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
+  #systemd.services.kiwix-serve = {
+  #  after = [ "zfs-mounts-ready.service" ];
+  #  requires = [ "zfs-mounts-ready.service" ];
+  #};
+
   systemd.services.radicale = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
@@ -179,6 +185,7 @@
 
   users.groups = {
     jellyfin.gid = 996;
+    #kiwix.gid = ;
     ollama.gid = 993;
     nzbhydra2.gid = 994;
     readarr.gid = 989;
@@ -213,6 +220,10 @@
         "video"
       ];
     };
+
+    #kiwix = {
+    #  uid = ;
+    #};
 
     readarr = {
       uid = 988;

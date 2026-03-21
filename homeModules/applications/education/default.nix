@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./kiwix.nix
     ./stellarium.nix
   ];
 
@@ -23,6 +24,7 @@
 
   config = lib.mkIf config.homeManager.applications.education.enable {
     homeManager.applications.education = {
+      kiwix.enable = true;
       stellarium.enable = lib.mkDefault false;
     };
   };

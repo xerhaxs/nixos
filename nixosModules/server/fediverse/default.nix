@@ -9,6 +9,7 @@
   imports = [
     ./forgejo.nix
     ./invidious.nix
+    ./kiwix.nix
     ./languagetool.nix
     ./libreddit.nix
     ./matrix.nix
@@ -32,6 +33,7 @@
     nixos.server.fediverse = {
       forgejo.enable = true;
       invidious.enable = true;
+      kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
       matrix.enable = true;
