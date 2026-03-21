@@ -246,6 +246,11 @@
                             limit = 1;
                           }
                           {
+                            url = "https://www.privacyguides.org/articles/feed_rss_created.xml";
+                            title = "Privacy Guides";
+                            limit = 1;
+                          }
+                          {
                             url = "https://netzpolitik.org/feed/";
                             title = "Netzpolitik.org";
                             limit = 3;
