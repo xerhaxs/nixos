@@ -185,7 +185,7 @@
 
   users.groups = {
     jellyfin.gid = 996;
-    #kiwix.gid = ;
+    kiwix.gid = 543;
     ollama.gid = 993;
     nzbhydra2.gid = 994;
     readarr.gid = 989;
@@ -221,9 +221,10 @@
       ];
     };
 
-    #kiwix = {
-    #  uid = ;
-    #};
+    kiwix = {
+      uid = 543;
+      group = "kiwix";
+    };
 
     readarr = {
       uid = 988;
