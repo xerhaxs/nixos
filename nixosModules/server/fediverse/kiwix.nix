@@ -23,8 +23,9 @@
       openFirewall = false;
       address = "all";
       port = 2793;
-      libraryPath = "/pool01/applications/kiwix/library.xml";
+      #libraryPath = "/pool01/applications/kiwix/library.xml";
       library = {
+        "nhs.uk_en_medicines_2025-12" = "/pool01/applications/kiwix/nhs.uk_en_medicines_2025-12.zim";
         /* wikipedia_de_all_maxi_2026-01 = pkgs.fetchurl {
           url = "https://download.kiwix.org/zim/wikipedia/wikipedia_de_all_maxi_2026-01.zim";
           hash = "sha256:fe33a239b4cde6b83a5e0d5f005962f8e51595d62d9ca7e08401434c57d67f61";
@@ -64,11 +65,11 @@
         survivorlibrary.com_en_all_2025-12 = pkgs.fetchurl {
           url = "https://download.kiwix.org/zim/zimit/survivorlibrary.com_en_all_2025-12.zim";
           hash = "sha256:c812c4ba3b9bcf7b77864cc965d526336d487e1b9ddc9364bad68fc55d2862e3";
-        }; */
+        };
         nhs.uk_en_medicines_2025-12 = pkgs.fetchurl {
           url = "https://download.kiwix.org/zim/zimit/nhs.uk_en_medicines_2025-12.zim";
           hash = "sha256:7dfa9bffa286e1ed4442536e746109a58d678bc6681af0b9881e07b7ef3dae28";
-        };
+        }; */
       };
       extraArgs = [ ];
     };
