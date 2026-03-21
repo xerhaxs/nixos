@@ -43,15 +43,15 @@
       dataDir = "/pool01/applications/postgresql";
     };
     
-    users.users.postgresql.group = "postgresql";
-    users.groups.postgresql = {};
+    users.users.postgres.group = "postgres";
+    users.groups.postgres = {};
 
     users = {
       users.linkwarden.uid = 970;
       groups.linkwarden.gid = 970;
 
-      users.postgresql.uid = 971;
-      groups.postgresql.gid = 971;
+      users.postgres.uid = 971;
+      groups.postgres.gid = 971;
     };
 
     services.nginx = {
