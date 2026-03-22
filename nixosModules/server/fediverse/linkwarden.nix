@@ -23,7 +23,7 @@
       host = "127.0.0.1";
       port = 2794;
       openFirewall = false;
-      enableRegistration = false;
+      enableRegistration = true;
       user = "linkwarden";
       group = "linkwarden";
       secretFiles = {
