@@ -69,6 +69,8 @@
       };
     };
 
+    systemd.services.jellyfin.serviceConfig.UMask = "0007";
+
     environment.systemPackages = with pkgs; [
       jellyfin
       jellyfin-web

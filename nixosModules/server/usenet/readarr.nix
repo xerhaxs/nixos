@@ -43,6 +43,8 @@
       dataDir = "/pool01/applications/readarr/";
     };
 
+    systemd.services.readarr.serviceConfig.UMask = "0007";
+
     services.nginx = {
       virtualHosts = {
         "readarr.${config.nixos.server.network.nginx.domain}" = {

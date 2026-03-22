@@ -43,6 +43,8 @@
       dataDir = "/pool01/applications/sonarr";
     };
 
+    systemd.services.sonarr.serviceConfig.UMask = "0007";
+
     services.nginx = {
       virtualHosts = {
         "sonarr.${config.nixos.server.network.nginx.domain}" = {

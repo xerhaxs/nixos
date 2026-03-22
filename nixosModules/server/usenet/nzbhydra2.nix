@@ -25,6 +25,8 @@
       dataDir = "/pool01/applications/nzbhydra2";
     };
 
+    systemd.services.nzbhydra2.serviceConfig.UMask = "0007";
+
     services.nginx = {
       virtualHosts = {
         "nzbhydra.${config.nixos.server.network.nginx.domain}" = {

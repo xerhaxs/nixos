@@ -299,6 +299,8 @@
       };
     };
 
+    systemd.services.sabnzbd.serviceConfig.UMask = "0007";
+
     services.nginx = {
       virtualHosts = {
         "sabnzbd.${config.nixos.server.network.nginx.domain}" = {

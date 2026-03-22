@@ -43,6 +43,8 @@
       dataDir = "/pool01/applications/radarr";
     };
 
+    systemd.services.radarr.serviceConfig.UMask = "0007";
+
     services.nginx = {
       virtualHosts = {
         "radarr.${config.nixos.server.network.nginx.domain}" = {

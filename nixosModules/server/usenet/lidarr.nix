@@ -43,6 +43,8 @@
       dataDir = "/pool01/applications/lidarr";
     };
 
+    systemd.services.lidarr.serviceConfig.UMask = "0007";
+
     services.nginx = {
       virtualHosts = {
         "lidarr.${config.nixos.server.network.nginx.domain}" = {
