@@ -43,7 +43,7 @@
       dataDir = "/pool01/applications/sonarr";
     };
 
-    systemd.services.sonarr.serviceConfig.UMask = "0007";
+    systemd.services.sonarr.serviceConfig.UMask = lib.mkForce "0007";
 
     services.nginx = {
       virtualHosts = {
