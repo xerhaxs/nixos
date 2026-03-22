@@ -26,10 +26,16 @@
       enableRegistration = true;
       user = "linkwarden";
       group = "linkwarden";
+
+      environment = {
+        NEXTAUTH_URL = "https://linkwarden.${config.nixos.server.network.nginx.domain}";
+      };
+
       secretFiles = {
         NEXTAUTH_SECRET = config.sops.secrets."linkwarden/secret".path;
         POSTGRES_PASSWORD = config.sops.secrets."linkwarden/postgres".path;
       };
+
       storageLocation = "/pool01/applications/linkwarden";
 
       database = {
