@@ -29,7 +29,7 @@
       secretFiles = {
         NEXTAUTH_SECRET = config.sops.secrets."linkwarden/secret".path;
         POSTGRES_PASSWORD = config.sops.secrets."linkwarden/postgres".path;
-      }; 
+      };
       storageLocation = "/pool01/applications/linkwarden";
 
       database = {
@@ -42,9 +42,9 @@
     services.postgresql = {
       dataDir = "/pool01/applications/postgresql";
     };
-    
+
     users.users.postgres.group = "postgres";
-    users.groups.postgres = {};
+    users.groups.postgres = { };
 
     users = {
       users.linkwarden.uid = 970;
@@ -53,6 +53,10 @@
       users.postgres.uid = 71;
       groups.postgres.gid = 71;
     };
+
+    environment.systemPackages = with pkgs; [
+      linkwarden
+    ];
 
     services.nginx = {
       virtualHosts = {
