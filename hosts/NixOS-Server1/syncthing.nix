@@ -240,6 +240,8 @@
     };
   };
 
+  systemd.services.syncthing.serviceConfig.UMask = lib.mkForce "0007";
+
   services.nginx = {
     virtualHosts = {
       "syncthing.${config.nixos.server.network.nginx.domain}" = {
