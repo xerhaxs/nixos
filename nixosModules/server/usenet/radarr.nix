@@ -43,7 +43,7 @@
       dataDir = "/pool01/applications/radarr";
     };
 
-    systemd.services.radarr.serviceConfig.UMask = "0007";
+    systemd.services.radarr.serviceConfig.UMask = lib.mkForce "0007";
 
     services.nginx = {
       virtualHosts = {
