@@ -532,7 +532,7 @@
                           {
                             title = "Cockpit";
                             url = "https://cockpit.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:cockpit";
+                            icon = "auto-invert di:cockpit";
                           }
                           {
                             title = "Pi-hole";
@@ -553,7 +553,7 @@
                           {
                             title = "Linkwarden";
                             url = "https://linkwarden.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:linkwarden";
+                            icon = "sh:linkwarden";
                           }
                           {
                             title = "Jellyfin";
@@ -596,7 +596,7 @@
                           {
                             title = "Ollama";
                             url = "https://ollama.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:ollama";
+                            icon = "auto-invert di:ollama";
                           }
                           {
                             title = "SearXNG";
@@ -606,7 +606,7 @@
                           {
                             title = "Kiwix";
                             url = "https://kiwix.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:kiwix";
+                            icon = "auto-invert di:kiwix";
                           }
                           {
                             title = "SearXNG";
