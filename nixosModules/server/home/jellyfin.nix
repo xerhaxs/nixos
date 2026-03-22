@@ -69,7 +69,7 @@
       };
     };
 
-    systemd.services.jellyfin.serviceConfig.UMask = "0007";
+    systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce "0007";
 
     environment.systemPackages = with pkgs; [
       jellyfin
