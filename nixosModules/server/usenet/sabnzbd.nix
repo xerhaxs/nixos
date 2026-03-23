@@ -66,7 +66,7 @@
           web_color = "Auto";
           https_chain = "";
           socks5_proxy_url = "";
-          permissions = "";
+          permissions = "770";
           download_free = "";
           complete_free = "1T";
           fulldisk_autoresume = 1;
