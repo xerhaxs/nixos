@@ -18,12 +18,6 @@
   };
 
   config = lib.mkIf config.nixos.server.fediverse.kiwix.enable {
-    systemd.services.kiwix-serve.serviceConfig = {
-      DynamicUser = lib.mkForce false;
-      User = "kiwix";
-      Group = "kiwix";
-    };
-
     services.kiwix-serve = {
       enable = true;
       openFirewall = false;
@@ -77,6 +71,12 @@
         };
       }; */
       extraArgs = [ ];
+    };
+
+    systemd.services.kiwix-serve.serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = "kiwix";
+      Group = "kiwix";
     };
 
     environment.systemPackages = with pkgs; [
