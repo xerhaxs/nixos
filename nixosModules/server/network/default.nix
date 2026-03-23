@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./mullvad-server.nix
     ./nginx.nix
     ./pihole.nix
     ./unbound.nix
@@ -25,6 +26,7 @@
 
   config = lib.mkIf config.nixos.server.network.enable {
     nixos.server.network = {
+      mullvad-server.enable = true;
       nginx.enable = true;
       pihole.enable = true;
       unbound.enable = true;
