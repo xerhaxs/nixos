@@ -282,18 +282,23 @@
         categories = {
           "*" = {
             priority = 0;
+            pp = 3;
           };
           movies = {
-            priority = -100;
+            priority = 0;
+            pp = 3;
           };
           tv = {
-            priority = -100;
+            priority = 0;
+            pp = 3;
           };
           audio = {
-            priority = -100;
+            priority = 0;
+            pp = 3;
           };
           software = {
-            priority = -100;
+            priority = 0;
+            pp = 3;
           };
         };
       };
