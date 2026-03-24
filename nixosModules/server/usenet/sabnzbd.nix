@@ -66,7 +66,7 @@
           web_color = "Auto";
           https_chain = "";
           socks5_proxy_url = "";
-          permissions = "770";
+          #permissions = "776";
           download_free = "";
           complete_free = "1T";
           fulldisk_autoresume = 1;
@@ -301,7 +301,6 @@
 
     systemd.services.sabnzbd.serviceConfig = {
       UMask = "0007";
-      SupplementaryGroups = [ "share" ];
     };
 
     services.nginx = {
