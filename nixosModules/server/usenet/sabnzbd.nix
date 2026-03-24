@@ -299,7 +299,10 @@
       };
     };
 
-    systemd.services.sabnzbd.serviceConfig.UMask = "0007";
+    systemd.services.sabnzbd.serviceConfig = {
+      UMask = "0007";
+      SupplementaryGroups = [ "share" ];
+    };
 
     services.nginx = {
       virtualHosts = {
