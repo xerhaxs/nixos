@@ -592,7 +592,6 @@
                             url = "https://readarr.${config.nixos.server.network.nginx.domain}";
                             icon = "di:readarr";
                           }
-
                           {
                             title = "Ollama";
                             url = "https://ollama.${config.nixos.server.network.nginx.domain}";
@@ -605,13 +604,8 @@
                           }
                           {
                             title = "Kiwix";
-                            url = "https://kiwix.${config.nixos.server.network.nginx.domain}";
+                            url = "https://kiwix.${config.nixos.server.network.nginx.domain}/#lang=";
                             icon = "auto-invert di:kiwix";
-                          }
-                          {
-                            title = "SearXNG";
-                            url = "https://searxng.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:searxng";
                           }
                           {
                             title = "Networking Toolbox";
