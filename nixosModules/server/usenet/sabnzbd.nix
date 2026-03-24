@@ -66,11 +66,11 @@
           web_color = "Auto";
           https_chain = "";
           socks5_proxy_url = "";
-          #permissions = "776";
+          #permissions = "";
           download_free = "";
           complete_free = "1T";
           fulldisk_autoresume = 1;
-          script_dir = "";
+          script_dir = "/etc/sabnzbd/scripts";
           nzb_backup_dir = "";
           admin_dir = "admin";
           backup_dir = "/pool01/shares/video/SABnzbd";
@@ -283,25 +283,39 @@
           "*" = {
             priority = 0;
             pp = 3;
+            script = "fix-permissions.sh";
           };
           movies = {
             priority = 0;
             pp = 3;
+            script = "fix-permissions.sh";
           };
           tv = {
             priority = 0;
             pp = 3;
+            script = "fix-permissions.sh";
           };
           audio = {
             priority = 0;
             pp = 3;
+            script = "fix-permissions.sh";
           };
           software = {
             priority = 0;
             pp = 3;
+            script = "fix-permissions.sh";
           };
         };
       };
+    };
+
+    environment.etc."sabnzbd/scripts/fix-permissions.sh" = {
+      mode = "0755";
+      text = ''
+        #!/bin/sh
+        chgrp -R share "$1"
+        chmod -R g+rw "$1"
+      '';
     };
 
     systemd.services.sabnzbd.serviceConfig = {
