@@ -85,7 +85,7 @@ fwupdmgr update
 
 ## ToDo List
 
-* [ ] Make NixOS Offline installation working -> local nixos cache etc.
+* [ ] Make NixOS Offline installation working -> local nixos cache etc. + hydra server
 * [X] Rewrite Installation Script without newt and tui to a plain bash cli tool
 * [X] Restructure flake.nix to be more convenient and nicer formatted
 * [ ] Formatting of userEnvironment Module
