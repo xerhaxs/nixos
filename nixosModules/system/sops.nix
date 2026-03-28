@@ -45,6 +45,17 @@
 
         "glance" = { };
 
+        "forgejo/secret" = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
+          owner = config.services.forgejo.user;
+          group = config.services.forgejo.group;
+          mode = "0400";
+        };
+        "forgejo/token" = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
+          owner = config.services.forgejo.user;
+          group = config.services.forgejo.group;
+          mode = "0400";
+        };
+
         "linkwarden/secret" = lib.mkIf config.nixos.server.fediverse.linkwarden.enable {
           owner = config.services.linkwarden.user;
           group = config.services.linkwarden.group;
