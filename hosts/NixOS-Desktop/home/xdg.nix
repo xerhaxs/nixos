@@ -7,6 +7,7 @@
 
 {
   xdg.userDirs = {
+    setSessionVariables = true;
     desktop = "/mount/Data/Datein/Desktop";
     documents = "/mount/Data/Datein/Dokumente";
     download = "/mount/Data/Datein/Downloads";
