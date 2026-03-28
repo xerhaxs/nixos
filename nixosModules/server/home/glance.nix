@@ -745,7 +745,7 @@
                           }
                           {
                             title = "DeepL";
-                            url = "https://www.deepl.com/";
+                            url = "https://www.deepl.com/translator/en";
                           }
                         ];
                       }
