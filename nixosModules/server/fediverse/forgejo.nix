@@ -110,8 +110,8 @@
 
       secrets = {
         security = {
-          SECRET_KEY = config.sops.secrets."forgejo/secret".path;
-          INTERNAL_TOKEN = config.sops.secrets."forgejo/token".path;
+          SECRET_KEY = lib.mkForce config.sops.secrets."forgejo/secret".path;
+          INTERNAL_TOKEN = lib.mkForce config.sops.secrets."forgejo/token".path;
         };
       };
 
