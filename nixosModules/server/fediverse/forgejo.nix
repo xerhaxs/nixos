@@ -106,12 +106,12 @@
           MAX_SIZE = 2048;
           MAX_FILES = 10;
         };
+      };
 
-        secrets = {
-          security = {
-            SECRET_KEY = config.sops.secrets."forgejo/secret".path;
-            INTERNAL_TOKEN = config.sops.secrets."forgejo/token".path;
-          };
+      secrets = {
+        security = {
+          SECRET_KEY = config.sops.secrets."forgejo/secret".path;
+          INTERNAL_TOKEN = config.sops.secrets."forgejo/token".path;
         };
       };
 
