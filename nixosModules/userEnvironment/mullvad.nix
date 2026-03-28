@@ -26,7 +26,6 @@
 
     environment.systemPackages = with pkgs; [
       mullvad-browser
-      protonvpn-gui
     ];
   };
 }
