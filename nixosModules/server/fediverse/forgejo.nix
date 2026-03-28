@@ -106,6 +106,13 @@
           MAX_SIZE = 2048;
           MAX_FILES = 10;
         };
+
+        "git.timeout" = {
+          MIGRATE = 3600;
+          MIRROR = 3600;
+          CLONE = 3600;
+          PULL = 600;
+        };
       };
 
       secrets = {
