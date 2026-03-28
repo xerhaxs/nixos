@@ -45,7 +45,6 @@
             --set TESSDATA_PREFIX ${tesseract}/share/tessdata
         '';
       })
-      super-productivity
       tesseract
       vcftools # vcf card management tool
       xournalpp
