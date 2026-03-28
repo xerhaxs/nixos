@@ -85,7 +85,7 @@
           enable_recursive = 1;
           flat_unpack = 0;
           par_option = "";
-          pre_check = 1;
+          pre_check = 0;
           nice = "";
           win_process_prio = 3;
           ionice = "";
