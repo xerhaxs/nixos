@@ -122,6 +122,7 @@ in
             '';
           };
 
+          gtk4.theme = config.gtk.theme;
           gtk4.extraConfig = {
             Settings = lib.strings.toLower ''
               gtk-application-prefer-${osConfig.nixos.theme.catppuccin.prefer}-theme = 1
