@@ -12,7 +12,7 @@ let
     domain = "weishaupt_modbus";
     version = "unstable";
     src = weishaupt-modbus;
-    dependencies = with pkgs.python3Packages; [
+    dependencies = with pkgs.home-assistant.python.pkgs; [
       aiofiles
       beautifulsoup4
       pymodbus
