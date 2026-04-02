@@ -199,7 +199,8 @@ fwupdmgr update
       * [ ] https://itsfoss.com/local-ai-image-tools/
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
       * [X] Ollama setup openwebui https://docs.openwebui.com/getting-started/ -> setup on new home server setup
-      * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool
+      * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool7
+      * [ ] Setup LibreTranslate https://search.nixos.org/options?channel=unstable&query=services.libretranslate.
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
