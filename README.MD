@@ -89,9 +89,11 @@ fwupdmgr update
 * [X] Rewrite Installation Script without newt and tui to a plain bash cli tool
 * [X] Restructure flake.nix to be more convenient and nicer formatted
 * [ ] Formatting of userEnvironment Module
+* [ ] Cleanup Code + restructure Modules
 * [ ] Setup WiFi + Networking Config for local network with passwords and dns + separate remote dns server for other networks
-* [ ] Changes User Password Hash to 512 in NixOS Config
+* [ ] Changes User Password Hash to 512 in NixOS Config + New User Passwords
 * [ ] Change Disk Passwords in NixOS Config / Sops
+* [ ] Change Service Passwords in Sops
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
   * [X] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html https://wiki.nixos.org/wiki/Syncthing#cite_note-2 https://home-manager-options.extranix.com/?query=services.syncthing.&release=master
@@ -108,6 +110,7 @@ fwupdmgr update
   * [ ] Hardening Nix https://saylesss88.github.io/nix/hardening_NixOS.html https://xeiaso.net/blog/paranoid-nixos-2021-07-18/ https://coveryourtracks.eff.org/ https://amiunique.org/fingerprint
     * [ ] MicroVM https://microvm-nix.github.io/microvm.nix/intro.html
   * [ ] Remove secrets from home manager git config
+  * [ ] remove secrets from github -> move sops to private repo
   * [ ] Add a Remote Kill Switch to shutdown every system (via Home Assistant)
   * [ ] Setup Power Buttons as Panic Buttons -> One Press = Force Power Off
 * [ ] Rescue / Flight / Escape SSD with important data + generic OS
@@ -133,6 +136,7 @@ fwupdmgr update
   * [X] SSH Password to SSH Certs + SSH Certfiles via Syncthing
   * [ ] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   * [X] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
+  * [X] Add Impermanence to User setup / Desktop Installations
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass
@@ -199,12 +203,15 @@ fwupdmgr update
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
-    * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow
+    * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow or stalwart https://search.nixos.org/options?channel=unstable&query=services.stalwart. https://wiki.nixos.org/wiki/Stalwart
+    * [ ] Private DNS + Private Domain Registrar (replace cloudflare)
+    * [ ] PrivateBin https://search.nixos.org/options?channel=unstable&query=services.privatebin.
+    * [ ] Cryptpad https://search.nixos.org/options?channel=unstable&query=services.cryptpad.
     * [ ] WireGuard
-    * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix
+    * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix https://search.nixos.org/options?channel=unstable&query=services.matrix-synapse.
     * [ ] Murmur
     * [ ] Minecraft
-    * [X] Nextcloud / Collabora -> not needed anymore due to radicale with vpn connection to my home network
+    * [ ] Nextcloud / Collabora https://search.nixos.org/options?channel=unstable&query=services.nextcloud. https://search.nixos.org/options?channel=unstable&query=services.collabora-online. https://wiki.nixos.org/wiki/Nextcloud
     * [X] User specific nas mount -> remove general user permissions for all nas folders on servers -> installed
     * [ ] Setup Unfied Push service
 
