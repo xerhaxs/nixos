@@ -166,6 +166,9 @@ fwupdmgr update
 
 * [ ] Server config
   * [ ] Internal Server https://wiki.nixos.org/wiki/NixOS_Containers
+    * [ ] Setup Monero Node https://discuss.privacyguides.net/t/running-a-monero-node-on-truenas/28241 https://search.nixos.org/options?channel=unstable&query=monero
+    * [ ] EteSync instead of radicale or radicale with E2EE https://search.nixos.org/options?channel=unstable&type=packages&query=etesync
+    * [ ] Ente Photos for E2EE Photo + Cloud Storage + 2FA-Sync +  https://search.nixos.org/options?channel=unstable&query=services.ente
     * [X] full disk encryption on servers
     * [X] backup strategy on proxmox
     * [X] setup oci container
@@ -204,7 +207,7 @@ fwupdmgr update
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
-    * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow or stalwart https://search.nixos.org/options?channel=unstable&query=services.stalwart. https://wiki.nixos.org/wiki/Stalwart
+    * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow or stalwart https://search.nixos.org/options?channel=unstable&query=services.stalwart. https://wiki.nixos.org/wiki/Stalwart add PGP Encryption + Publish Keys: https://wiki.gnupg.org/WKD
     * [ ] Private DNS + Private Domain Registrar (replace cloudflare)
     * [ ] PrivateBin https://search.nixos.org/options?channel=unstable&query=services.privatebin.
     * [ ] Cryptpad https://search.nixos.org/options?channel=unstable&query=services.cryptpad.
