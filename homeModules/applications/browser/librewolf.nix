@@ -168,7 +168,7 @@ in
         "media.eme.enabled" = true;
 
         "browser.eme.ui.enabled" = true;
-        "media.autoplay.blocking_policy" = 2;
+        #"media.autoplay.blocking_policy" = 2;
         "cookiebanners.service.mode" = 2;
         "general.autoScroll" = true;
         "middlemouse.paste" = false;
