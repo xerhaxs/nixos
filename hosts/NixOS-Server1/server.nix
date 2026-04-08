@@ -85,6 +85,11 @@
     '';
   };
 
+  systemd.services.forgejo = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
   systemd.services.jellyfin = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
