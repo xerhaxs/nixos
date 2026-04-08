@@ -20,6 +20,7 @@
   config = lib.mkIf config.homeManager.applications.office.financial.enable {
     home.packages = with pkgs; [
       aqbanking
+      bisq2
       #kmymoney
       monero-gui
       p2pool
