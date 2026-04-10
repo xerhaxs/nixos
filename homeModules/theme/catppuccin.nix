@@ -57,8 +57,8 @@ in
           };
 
           configFile = {
-            "kdeglobals"."General"."ColorScheme" =
-              "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}";
+          #  "kdeglobals"."General"."ColorScheme" =
+          #    "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}";
             "katerc"."KTextEditor Renderer"."Color Theme" =
               "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
           };
