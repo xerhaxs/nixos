@@ -63,27 +63,7 @@
     };
   };
 
-  
-
   nixos.server.fileshare.share.path = "/pool01/shares";
-
-  systemd.services.zfs-mounts-ready = {
-    description = "Wait for ZFS mounts to be ready";
-    after = [ "zfs-load-keys.service" ];
-    requires = [ "zfs-load-keys.service" ];
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.util-linux ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    restartIfChanged = false;
-    script = ''
-      until mountpoint -q /pool01/shares && mountpoint -q /pool01/applications; do
-        sleep 1
-      done
-    '';
-  };
 
   systemd.services.forgejo = {
     after = [ "zfs-mounts-ready.service" ];
