@@ -125,8 +125,7 @@ in
           kate
           colord-kde
           spectacle
-          #wallpaper-engine-plugin
-          #linux-wallpaperengine
+          wallpaper-engine-plugin
         ];
     };
   };

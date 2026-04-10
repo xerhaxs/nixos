@@ -134,7 +134,7 @@ fwupdmgr update
   * [ ] Config setup of Xournal++ (write config file)
   * [X] Miracast / Screensharing in NixOS -> not possible on Linux
   * [X] SSH Password to SSH Certs + SSH Certfiles via Syncthing
-  * [ ] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
+  * [X] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   * [X] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
   * [X] Add Impermanence to User setup / Desktop Installations
 
