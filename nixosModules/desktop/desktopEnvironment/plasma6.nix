@@ -125,7 +125,7 @@ in
           kate
           colord-kde
           spectacle
-          wallpaper-engine-plugin
+          #wallpaper-engine-plugin
         ];
     };
   };
