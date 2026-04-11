@@ -12,6 +12,7 @@
     ./io
 
     ./appimage.nix
+    ./chromium-policies.nix
     ./fonts.nix
     ./kdeconnect.nix
     ./mullvad.nix
@@ -37,6 +38,7 @@
       io.enable = true;
 
       appimage.enable = true;
+      chromium-policies.enable = true;
       fonts.enable = true;
       kdeconnect.enable = true;
       mullvad.enable = true;
