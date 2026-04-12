@@ -21,91 +21,76 @@
     programs.chromium = {
       enable = true;
       enablePlasmaBrowserIntegration = true;
-      homepageLocation = "https://glance.m4rx.cc/";
-      #defaultSearchProviderSuggestURL = "";
-      #defaultSearchProviderSearchURL = "";
-      defaultSearchProviderEnabled = true;
 
       extensions = [
+        "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
         "edibdbjcniadpccecjdfdjjppcpchdlm" # I still don't care about cookies
         "fnaicdffflnofjppbagibeoednhnbjhg" # floccus bookmark sync
-        "oboonakemofpalcgghocfoadofidjkkk" # KeePassXC browser
-        "dphilobhebphkdjbpfohgikbnghngdbk" # SimpleLogin
-        "mafpmfcccpbjnhfhjnllmmalhifmlcie" # Snowflake (Tor)
+        "oboonakemofpalcgghocfoadofidjkkk" # KeePassXC-Browser
+        "dphilobhebphkdjbpfohgikllaljmgbn" # SimpleLogin
+        "mafpmfcccpbjnhfhjnllmmalhifmlcie" # Snowflake
       ];
 
       extraOpts = {
-        # ── Chromium-Standardrichtlinien ──────────────────────────────
-
-        # Kein Google-Login, keine Sync
+        # ── Chromium-Kern: Login & Sync ───────────────────────────────
         "BrowserSignin" = 0;
         "SyncDisabled" = true;
 
-        # Kein Chromium-Telemetrie (zusätzlich zu Brave-eigenem P3A)
+        # ── Telemetrie & Reporting ────────────────────────────────────
         "MetricsReportingEnabled" = false;
+        "SafeBrowsingExtendedReportingEnabled" = false;
 
-        # SafeBrowsing: Brave hat eigene Implementierung, Standard reicht
-        "SafeBrowsingEnabled" = true;
-        "SafeBrowsingExtendedReportingEnabled" = false; # kein Reporting an Google
-
-        # DNS-over-HTTPS erzwingen (Brave nutzt eigene DoH-Logik,
-        # aber als Fallback sinnvoll)
-        "DnsOverHttpsMode" = "automatic";
-
-        # Kein Google-Translate-Ping
+        # ── UI & Verhalten ────────────────────────────────────────────
         "TranslateEnabled" = false;
+        "BookmarkBarEnabled" = true;
+        "ShowFullUrlsInAddressBar" = true;
+        "RestoreOnStartup" = 5; # Neue Tab-Seite
+        "PromptForDownloadLocation" = false;
+        "DefaultDownloadDirectory" = "/mount/Data/Datein/Downloads";
 
-        # Kein Autofill für Zahlungsdaten / Adressen
+        # ── Autofill & Passwörter ─────────────────────────────────────
         "AutofillCreditCardEnabled" = false;
         "AutofillAddressEnabled" = false;
-
-        # Passwortmanager deaktivieren (KeePassXC übernimmt das)
         "PasswordManagerEnabled" = false;
 
-        # MV2 aktiv halten (für eventuelle MV2-Extensions)
+        # ── Sprache & Rechtschreibung ─────────────────────────────────
+        "SpellcheckLanguage" = [
+          "de"
+          "en-US"
+        ];
+
+        # ── Privacy Sandbox ───────────────────────────────────────────
+        "PrivacySandboxAdTopicsEnabled" = false;
+        "PrivacySandboxSiteEnabledAdsEnabled" = false;
+        "PrivacySandboxAdMeasurementEnabled" = false;
+        "PrivacySandboxFirstPartySetsEnabled" = false;
+
+        # ── MV2 aktiv halten ─────────────────────────────────────────
         "ExtensionManifestV2Availability" = 2;
 
-        # ── Brave-eigene Policies ──────────────────────────────────────
-
-        # Crypto/Web3-Bloatware deaktivieren
+        # ── Brave: Bloatware deaktivieren ─────────────────────────────
         "BraveWalletDisabled" = true;
         "BraveRewardsDisabled" = true;
         "BraveVPNDisabled" = true;
-
-        # Leo AI deaktivieren
         "BraveAIChatEnabled" = false;
-
-        # Brave News (Sponsored content auf New Tab Page) deaktivieren
         "BraveNewsDisabled" = true;
-
-        # Brave Talk (Video-Calls) deaktivieren
         "BraveTalkDisabled" = true;
-
-        # Wayback Machine Integration deaktivieren
         "BraveWaybackMachineDisabled" = true;
 
-        # Shields: Tracking & Ads aggressiv blocken (systemweite Policy)
-        # 1 = Standard, 2 = Aggressiv
+        # ── Brave Shields: aggressiv ──────────────────────────────────
         "BraveShieldsAdBlockLevel" = 2;
         "BraveShieldsTrackerBlockLevel" = 2;
-
-        # Fingerprinting-Schutz aktivieren
         "BraveShieldsFingerprintingBlockLevel" = 1;
-      };
 
-      # Initiale Einstellungen (vom Nutzer änderbar, nur Defaults)
-      initialPrefs = {
-        "brave" = {
-          "shields_defaults" = {
-            "ad_control_type" = 2; # aggressiv
-            "cookie_control_type" = 1; # Cross-Site-Cookies blockieren
-            "fingerprinting_control_type" = 1;
-            "https_upgrade" = true;
-          };
-        };
-        "browser" = {
-          "show_home_button" = true;
-        };
+        # ── Daten beim Beenden löschen ────────────────────────────────
+        "ClearBrowsingDataOnExitList" = [
+          "browsing_history"
+          "download_history"
+          "cookies_and_other_site_data"
+          "cached_images_and_files"
+          "password_signin"
+          "site_settings"
+        ];
       };
     };
   };
