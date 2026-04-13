@@ -37,3 +37,6 @@ To configer (Files):
 .config/gwenviewrc
 
 .local/state/skanpagerc
+
+
+# link primlauncher to .local/share/PrismLauncher from /home/jf/.local/share/PrismLauncher
