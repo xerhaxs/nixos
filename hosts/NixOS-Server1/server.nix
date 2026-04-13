@@ -174,6 +174,11 @@
       uid = 995;
     };
 
+    admin = {
+      uid = 1000;
+      extraGroups = [ "share" ];
+    };
+
     jellyfin = {
       uid = 996;
       extraGroups = [
