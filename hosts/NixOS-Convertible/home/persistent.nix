@@ -9,16 +9,16 @@
 {
   home.persistence."/persistent" = {
     directories = [
-      ".aqbanking"
+      #".aqbanking"
       ".cache"
       
       ".thunderbird"
       ".librewolf"
-      ".mozilla"
+      #".mozilla"
 
       ".steam"
       
-      ".tor project"
+      #".tor project"
       #".winboat"
       #".wine"
 
@@ -29,15 +29,49 @@
       "${config.home.homeDirectory}/Bilder"
       "${config.home.homeDirectory}/Videos"
 
-      ".config/backintime"
+      ".config/BraveSoftware"
+      #".config/chromium"
+      #".config/Clementine"
       ".config/Element"
       ".config/FreeTube"
       #".config/heroic"
       #".config/kdeconnect"
+      #".config/kmymoney"
       ".config/legcord"
-      ".config/"
-      #".config"
-      #".local"
+      #".config/libreoffice"
+      #".config/Mullvad VPN"
+      #".config/Mumble"
+      #".config/obs-studio"
+      #".config/Proton"
+      #".config/Proton Mail"
+      ".config/Signal"
+      #".config/sops"
+      #".config/steamtinkerlaunch"
+      #".config/VSCodium"
+
+      ".local/cache"
+
+      ".local/state"
+
+      ".local/share/backintime"
+      ".local/share/baloo"
+      ".local/share/Bisq2"
+      ".local/share/bottles"
+      ".local/share/dolphin"
+      ".local/share/gwenview"
+      ".local/share/kdenlive"
+      ".local/share/klipper"
+      ".local/share/kmymoney"
+      ".local/share/Mumble"
+      ".local/share/okular"
+      ".local/share/plasma_notes"
+      ".local/share/protonmail"
+      ".local/share/qalculate"
+      ".local/share/ranger"
+      ".local/share/Steam"
+      ".local/share/TelegramDesktop"
+      #".local/share/wasistlos"
+      #".local/share/whatsapp-for-linux"
 
       {
         directory = ".ssh";
