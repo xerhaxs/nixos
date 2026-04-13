@@ -91,7 +91,7 @@ in
 
       for dataset in pool01/applications pool01/shares pool01/shares/jf; do
         if ! mountpoint -q "/''${dataset}" 2>/dev/null; then
-          zfs mount "''${dataset}" || true
+          zfs mount -R "''${dataset}" || true
         fi
       done
     '';
