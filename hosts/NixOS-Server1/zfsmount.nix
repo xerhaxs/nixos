@@ -72,6 +72,8 @@ in
       Type = "oneshot";
       RemainAfterExit = true;
     };
+    restartIfChanged = false;
+    
     script = ''
       if ! zpool list pool01 > /dev/null 2>&1; then
         if [ -f /etc/zfs/zpool.cache ]; then
@@ -87,9 +89,11 @@ in
         fi
       done
 
-      zfs mount pool01/applications
-      zfs mount -R pool01/shares
-      zfs mount -R pool01/shares/jf
+      for dataset in pool01/applications pool01/shares pool01/shares/jf; do
+        if ! mountpoint -q "/${dataset}" 2>/dev/null; then
+          zfs mount "$dataset" || true
+        fi
+      done
     '';
   };
 
