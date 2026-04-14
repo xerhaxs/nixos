@@ -210,7 +210,7 @@ fwupdmgr update
     * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow or stalwart https://search.nixos.org/options?channel=unstable&query=services.stalwart. https://wiki.nixos.org/wiki/Stalwart add PGP Encryption + Publish Keys: https://wiki.gnupg.org/WKD
     * [ ] Private DNS + Private Domain Registrar (replace cloudflare)
     * [X] PrivateBin https://search.nixos.org/options?channel=unstable&query=services.privatebin. -> not needed as there is a good public instance available
-    * [ ] Cryptpad https://search.nixos.org/options?channel=unstable&query=services.cryptpad.
+    * [X] Cryptpad https://search.nixos.org/options?channel=unstable&query=services.cryptpad.
     * [ ] WireGuard
     * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix https://search.nixos.org/options?channel=unstable&query=services.matrix-synapse.
     * [ ] Murmur

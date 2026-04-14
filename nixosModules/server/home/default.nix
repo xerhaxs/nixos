@@ -8,6 +8,7 @@
 {
   imports = [
     ./cockpit.nix
+    ./cryptpad.nix
     ./glance.nix
     ./homeassistant.nix
     ./jellyfin.nix
@@ -31,6 +32,7 @@
   config = lib.mkIf config.nixos.server.home.enable {
     nixos.server.home = {
       cockpit.enable = true;
+      cryptpad.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
       jellyfin.enable = true;

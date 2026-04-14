@@ -42,6 +42,7 @@
     };
     home = {
       cockpit.enable = true;
+      cryptpad.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
       jellyfin.enable = true;
