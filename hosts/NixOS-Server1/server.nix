@@ -29,6 +29,7 @@
       kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
+      libretranslate.enable = true;
       linkwarden.enable = true;
       #matrix.ebale = true;
       searxng.enable = true;
