@@ -48,6 +48,7 @@
       networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
+      stalwart.enable = true;
     };
     network = {
       mullvad-server.enable = true;

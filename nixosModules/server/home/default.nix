@@ -14,6 +14,7 @@
     ./networkingtoolbox.nix
     ./ollama.nix
     ./radicale.nix
+    ./stalwart.nix
   ];
 
   options.nixos = {
@@ -36,6 +37,7 @@
       networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
+      stalwart.enable = true;
     };
   };
 }

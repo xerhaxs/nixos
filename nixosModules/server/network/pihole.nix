@@ -231,6 +231,7 @@
               "10.75.0.21 kiwix.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 languagetool.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 libreddit.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 libretranslate.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 linkwarden.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 networkingtoolbox.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 ollama.${config.nixos.server.network.nginx.domain}"
@@ -245,6 +246,7 @@
               "10.75.0.21 readarr.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 sabnzbd.${config.nixos.server.network.nginx.domain}"
               "10.75.0.21 sonarr.${config.nixos.server.network.nginx.domain}"
+              "10.75.0.21 stalwart.${config.nixos.server.network.nginx.domain}"
             ]; # ## CHANGED, default = []
 
             # If set, A and AAAA queries for plain names, without dots or domain parts, are never
