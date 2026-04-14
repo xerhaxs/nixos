@@ -12,6 +12,7 @@
     ./kiwix.nix
     ./languagetool.nix
     ./libreddit.nix
+    ./libretranslate.nix
     ./linkwarden.nix
     ./matrix.nix
     ./moneronode.nix
@@ -37,6 +38,7 @@
       kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
+      libretranslate.enable = true;
       linkwarden.enable = true;
       matrix.enable = true;
       moneronode.enable = true;

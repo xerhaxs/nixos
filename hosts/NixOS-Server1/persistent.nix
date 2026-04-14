@@ -30,6 +30,7 @@
       #"/var/lib/hass"
       #"/var/lib/jellyfin"
       #"/var/lib/radicale"
+      "/var/lib/libretranslate"
       "/var/lib/pihole"
       "/var/lib/syncthing"
       "/var/lib/unbound"

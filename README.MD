@@ -203,19 +203,19 @@ fwupdmgr update
       * [ ] Stable Diffusion https://www.reddit.com/r/NixOS/comments/11v1lgk/setting_up_stabe_diffusion_on_nixos/
       * [X] Ollama setup openwebui https://docs.openwebui.com/getting-started/ -> setup on new home server setup
       * [X] Language Tool Server https://search.nixos.org/options?channel=25.11&query=languagetool7
-      * [ ] Setup LibreTranslate https://search.nixos.org/options?channel=unstable&query=services.libretranslate.
+      * [X] Setup LibreTranslate https://search.nixos.org/options?channel=unstable&query=services.libretranslate.
     * [ ] Grafana + Prometheus Dashboard https://xeiaso.net/blog/prometheus-grafana-loki-nixos-2020-11-20/ https://grafana.com/grafana/dashboards/?search=zfs
   * [ ] External Server
     * [ ] Briar Mailbox: https://briarproject.org/download-briar-mailbox/
     * [ ] Mails server: https://nixos-mailserver.readthedocs.io/en/latest/setup-guide.html#setup-dns-a-record-for-server or mailcow or stalwart https://search.nixos.org/options?channel=unstable&query=services.stalwart. https://wiki.nixos.org/wiki/Stalwart add PGP Encryption + Publish Keys: https://wiki.gnupg.org/WKD
     * [ ] Private DNS + Private Domain Registrar (replace cloudflare)
-    * [ ] PrivateBin https://search.nixos.org/options?channel=unstable&query=services.privatebin.
+    * [X] PrivateBin https://search.nixos.org/options?channel=unstable&query=services.privatebin. -> not needed as there is a good public instance available
     * [ ] Cryptpad https://search.nixos.org/options?channel=unstable&query=services.cryptpad.
     * [ ] WireGuard
     * [ ] Matrix.org https://wiki.nixos.org/wiki/Matrix https://search.nixos.org/options?channel=unstable&query=services.matrix-synapse.
     * [ ] Murmur
     * [ ] Minecraft
-    * [ ] Nextcloud / Collabora https://search.nixos.org/options?channel=unstable&query=services.nextcloud. https://search.nixos.org/options?channel=unstable&query=services.collabora-online. https://wiki.nixos.org/wiki/Nextcloud
+    * [X] Nextcloud / Collabora https://search.nixos.org/options?channel=unstable&query=services.nextcloud. https://search.nixos.org/options?channel=unstable&query=services.collabora-online. https://wiki.nixos.org/wiki/Nextcloud -> due to bad E2EE I will use CryptPad on Public Server
     * [X] User specific nas mount -> remove general user permissions for all nas folders on servers -> installed
     * [ ] Setup Unfied Push service
 

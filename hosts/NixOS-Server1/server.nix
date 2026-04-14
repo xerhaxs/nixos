@@ -29,6 +29,7 @@
       kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
+      libretranslate.enable = true;
       linkwarden.enable = true;
       #matrix.ebale = true;
       searxng.enable = true;
@@ -41,12 +42,14 @@
     };
     home = {
       cockpit.enable = true;
+      cryptpad.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
       jellyfin.enable = true;
       networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
+      stalwart.enable = true;
     };
     network = {
       mullvad-server.enable = true;
