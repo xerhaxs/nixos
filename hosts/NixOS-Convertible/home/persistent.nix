@@ -35,7 +35,7 @@
       ".config/Element"
       ".config/FreeTube"
       #".config/heroic"
-      #".config/kdeconnect"
+      ".config/kdeconnect"
       #".config/kmymoney"
       ".config/legcord"
       #".config/libreoffice"
