@@ -39,14 +39,19 @@
         # ── Telemetrie & Reporting ────────────────────────────────────
         "MetricsReportingEnabled" = false;
         "SafeBrowsingExtendedReportingEnabled" = false;
+        "BraveP3AEnabled" = false;
+        "BraveStatsPingEnabled" = false;
 
         # ── UI & Verhalten ────────────────────────────────────────────
         "TranslateEnabled" = false;
         "BookmarkBarEnabled" = true;
         "ShowFullUrlsInAddressBar" = true;
         "RestoreOnStartup" = 5; # Neue Tab-Seite
-        "PromptForDownloadLocation" = false;
+        "PromptForDownloadLocation" = true;
         "DefaultDownloadDirectory" = "/mount/Data/Datein/Downloads";
+        "BackgroundModeEnabled" = false;
+        "OsColorMode" = "auto";
+        #"BrowserThemeColor" = ;
 
         # ── Autofill & Passwörter ─────────────────────────────────────
         "AutofillCreditCardEnabled" = false;
@@ -69,13 +74,17 @@
         "ExtensionManifestV2Availability" = 2;
 
         # ── Brave: Bloatware deaktivieren ─────────────────────────────
+        "PromotionsEnabled" = false;
+        "TorDisabled" = true;
         "BraveWalletDisabled" = true;
         "BraveRewardsDisabled" = true;
         "BraveVPNDisabled" = true;
         "BraveAIChatEnabled" = false;
         "BraveNewsDisabled" = true;
         "BraveTalkDisabled" = true;
-        "BraveWaybackMachineDisabled" = true;
+        "BraveSpeedreaderEnabled" = false;
+        "BraveWaybackMachineEnabled" = false;
+        "BraveWebDiscoveryEnabled" = false;
 
         # ── Brave Shields: aggressiv ──────────────────────────────────
         "BraveShieldsAdBlockLevel" = 2;

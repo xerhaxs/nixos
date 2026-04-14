@@ -67,7 +67,6 @@
           .session.restore_on_startup                   = 5     |
           .side_panel.is_right_aligned                  = false |
           .signin.allowed                               = false |
-          .savefile.default_directory                   = "/mount/Data/Datein/Downloads" |
           .translate_blocked_languages                  = ["en","de"] |
           .privacy_sandbox.first_party_sets_enabled     = false |
           .privacy_sandbox.m1.ad_measurement_enabled    = false |
