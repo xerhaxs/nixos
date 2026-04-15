@@ -52,3 +52,4 @@ To configer (Files):
 * [ ] unnest nixos.system.user.defaultuser to regular official nixos option
 * [ ] remove userEnvironment/config parts and put this to home manager config files
 * [ ] setup brave / chromium with https://www.chromium.org/administrators/policy-templates and https://www.chromium.org/administrators/configuring-other-preferences/
+* [ ] Test Paperless NGX https://search.nixos.org/packages?channel=25.11&include_modular_service_options=1&include_nixos_options=1&query=paperless&show=services.paperless.enable
