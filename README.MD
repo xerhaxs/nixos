@@ -97,11 +97,11 @@ fwupdmgr update
 * [ ] Device Config
   * [ ] Rclone Setup https://rclone.org/protondrive/ + Rclone for Android https://github.com/x0b/rcx + https://home-manager-options.extranix.com/?query=rclone&release=release-25.05
   * [X] Setup Syncthing Config declarative + security settings https://docs.syncthing.net/users/security.html https://wiki.nixos.org/wiki/Syncthing#cite_note-2 https://home-manager-options.extranix.com/?query=services.syncthing.&release=master
-  * [ ] Install Single GPU Passthrough to Windows 11 VM
-    * [ ] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
-    * [ ] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
-    * [ ] https://wiki.nixos.org/wiki/PCI_passthrough
-    * [ ] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
+  * [X] Install Single GPU Passthrough to Windows 11 VM -> FUCK M$ -> Open Source FTW!
+    * [X] https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home
+    * [X] https://github.com/QaidVoid/Complete-Single-GPU-Passthrough
+    * [X] https://wiki.nixos.org/wiki/PCI_passthrough
+    * [X] Test Gaming with winboat (GPU Passthrough) https://www.winboat.app/
   * [X] Setup Secure Boot https://github.com/nix-community/lanzaboote -> https://wiki.nixos.org/wiki/Limine
   * [X] Extended secret provisioning https://github.com/polygon/scalpel -> not needed anymore, every secret is managed as a hash or via sops
   * [ ] Create custom NixOS ISO https://github.com/nix-community/nixos-generators

@@ -31,6 +31,10 @@
         "mafpmfcccpbjnhfhjnllmmalhifmlcie" # Snowflake
       ];
 
+      initialPrefs = {
+        
+      };
+
       extraOpts = {
         # ── Chromium-Kern: Login & Sync ───────────────────────────────
         "BrowserSignin" = 0;

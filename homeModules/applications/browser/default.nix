@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./chromium.nix
     ./brave.nix
     ./firefox.nix
     ./librewolf.nix
@@ -27,7 +26,6 @@
 
   config = lib.mkIf config.homeManager.applications.browser.enable {
     homeManager.applications.browser = {
-      chromium.enable = false;
       brave.enable = true;
       firefox.enable = true;
       librewolf.enable = true;

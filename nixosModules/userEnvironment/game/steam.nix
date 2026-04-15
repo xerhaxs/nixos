@@ -20,9 +20,11 @@
   config = lib.mkIf config.nixos.userEnvironment.game.steam.enable {
     programs.steam = {
       enable = true;
+      extest.enable = true;
       gamescopeSession.enable = true;
       remotePlay.openFirewall = false;
-      dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
+      dedicatedServer.openFirewall = false;
+      localNetworkGameTransfers.openFirewall = false;
     };
 
     programs.steam.protontricks.enable = true;

@@ -13,7 +13,9 @@
     ./networking.nix
     ./persistent.nix
     ./server.nix
+    ./services.nix
     ./syncthing.nix
+    ./usergroupids.nix
     ./zfsmount.nix
   ];
 }
