@@ -38,3 +38,8 @@ To configer (Files):
 
 
 # link primlauncher to .local/share/PrismLauncher from /home/jf/.local/share/PrismLauncher
+
+
+* [ ] test keepass xc config with ssh agent for ssh keyfiles https://github.com/keepassxreboot/keepassxc/blob/develop/docs/topics/SSHAgent.adoc + test browser integration
+* [ ] Test kitty close confirmation
+* [ ] 

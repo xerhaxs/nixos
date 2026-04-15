@@ -21,7 +21,9 @@
     programs.kitty = {
       enable = true;
       shellIntegration.enableBashIntegration = true;
-      #settings = {};
+      settings = {
+        confirm_os_window_close = false;
+      };
     };
 
     catppuccin.kitty.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
