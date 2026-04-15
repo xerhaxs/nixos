@@ -15,7 +15,6 @@
     ./chromium-policies.nix
     ./fonts.nix
     ./kdeconnect.nix
-    ./mullvad.nix
     ./samba-client.nix
     ./syncthing.nix
   ];
@@ -41,7 +40,6 @@
       chromium-policies.enable = true;
       fonts.enable = true;
       kdeconnect.enable = true;
-      mullvad.enable = true;
       samba-client.enable = true;
       syncthing.enable = true;
     };

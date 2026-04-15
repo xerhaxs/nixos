@@ -44,3 +44,5 @@ To configer (Files):
 * [ ] Test kitty close confirmation
 * [ ] Test legcord home manager discord options https://gist.github.com/Julienraptor01/3d3428809b497aa9779bcb8cfc7e0750 + Setup JSON Settings!! https://home-manager-options.extranix.com/?query=discord&release=master
 * [ ] Test Easyeffects Setup / Setup Audio Config https://gist.github.com/jtrv/47542c8be6345951802eebcf9dc7da31 https://home-manager-options.extranix.com/?query=easyeffects&release=master
+* [ ] Test Mullvad VPN Settings https://github.com/mullvad/mullvadvpn-app/blob/main/desktop/packages/mullvad-vpn/src/main/gui-settings.ts https://home-manager-options.extranix.com/?query=mullvad&release=master
+* [ ] Test Mullvad VPN on Server due to disables enableExcludeWrapper (test local network connection!)

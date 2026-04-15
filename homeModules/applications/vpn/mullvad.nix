@@ -18,9 +18,21 @@
   };
 
   config = lib.mkIf config.homeManager.applications.vpn.mullvad.enable {
-    home.packages = with pkgs; [
-      mullvad-browser
-      mullvad-vpn
-    ];
+    programs.mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+      settings = {
+        preferredLocale = "SYSTEM_PREFERRED_LOCALE_KEY";
+        autoConnect = true;
+        enableSystemNotifications = true;
+        monochromaticIcon = false;
+        startMinimized = false;
+        unpinnedWindow = true;
+        browsedForSplitTunnelingApplications = [ ];
+        changelogDisplayedForVersion = "";
+        updateDismissedForVersion = "";
+        animateMap = true;
+      };
+    };
   };
 }

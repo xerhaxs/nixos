@@ -20,7 +20,9 @@
   config = lib.mkIf config.nixos.server.network.mullvad-server.enable {
     services.mullvad-vpn = {
       enable = true;
-      enableExcludeWrapper = true;
+      package = pkgs.mullvad;
+      enableExcludeWrapper = false;
+      enableEarlyBootBlocking = false;
     };
 
     systemd.services.mullvad-setup = {
