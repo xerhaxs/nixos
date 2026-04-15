@@ -18,8 +18,17 @@
   };
 
   config = lib.mkIf config.homeManager.applications.communication.discord.enable {
-    home.packages = with pkgs; [
-      legcord
-    ];
+    programs.discord = {
+      enable = true;
+      package = pkgs.legcord;
+      #settings = {
+      #  SKIP_HOST_UPDATE = true;
+      #  DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOURE_DOING = true;
+      #};
+    };
+
+    #home.packages = with pkgs; [
+    #  legcord
+    #];
   };
 }

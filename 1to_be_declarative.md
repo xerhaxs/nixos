@@ -42,4 +42,5 @@ To configer (Files):
 
 * [ ] test keepass xc config with ssh agent for ssh keyfiles https://github.com/keepassxreboot/keepassxc/blob/develop/docs/topics/SSHAgent.adoc + test browser integration
 * [ ] Test kitty close confirmation
+* [ ] Test legcord home manager discord options https://gist.github.com/Julienraptor01/3d3428809b497aa9779bcb8cfc7e0750 + Setup JSON Settings!! https://home-manager-options.extranix.com/?query=discord&release=master
 * [ ] 
