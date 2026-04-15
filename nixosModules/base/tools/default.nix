@@ -11,7 +11,6 @@
     ./git.nix
     ./htop.nix
     ./java.nix
-    ./keepassxc.nix
     ./usbtop.nix
     ./wireguard-client.nix
   ];
@@ -33,7 +32,6 @@
       git.enable = true;
       htop.enable = true;
       java.enable = true;
-      keepassxc.enable = true;
       usbtop.enable = true;
       #wireguard-client.enable = true;
     };

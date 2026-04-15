@@ -10,6 +10,7 @@
     ./backup.nix
     ./btop.nix
     ./git.nix
+    ./keepassxc.nix
     ./ranger.nix
   ];
 
@@ -29,6 +30,7 @@
       backup.enable = true;
       btop.enable = true;
       git.enable = true;
+      keepassxc.enable = true;
       ranger.enable = true;
     };
   };

@@ -137,6 +137,8 @@ fwupdmgr update
   * [X] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   * [X] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
   * [X] Add Impermanence to User setup / Desktop Installations
+  * [ ] test keepass xc config with ssh agent for ssh keyfiles https://github.com/keepassxreboot/keepassxc/blob/develop/docs/topics/SSHAgent.adoc + test browser integration
+  * [ ] 
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass
