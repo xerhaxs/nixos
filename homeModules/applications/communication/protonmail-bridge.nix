@@ -18,10 +18,10 @@
   };
 
   config = lib.mkIf config.homeManager.applications.communication.protonmail-bridge.enable {
-    home.packages = with pkgs; [
-      protonmail-desktop
-      protonmail-bridge
-      protonmail-bridge-gui
-    ];
+    services.protonmail-bridge = {
+      enable = true;
+      logLevel = "info";
+      package = protonmail-bridge;
+    };
   };
 }
