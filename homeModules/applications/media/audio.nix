@@ -19,8 +19,33 @@
 
   config = lib.mkIf config.homeManager.applications.media.audio.enable {
     home.packages = with pkgs; [
-      easyeffects
       crosspipe
     ];
+
+    services.easyeffects = {
+      enable = true;
+      package = pkgs.easyeffects;
+      #preset = "";
+      extraPresets = {
+        my-preset = {
+          input = {
+            blocklist = [ ];
+            "plugins_order" = [
+              "rnnoise#0"
+            ];
+            "rnnoise#0" = {
+              bypass = false;
+              "enable-vad" = false;
+              "input-gain" = 0.0;
+              "model-path" = "";
+              "output-gain" = 0.0;
+              release = 20.0;
+              "vad-thres" = 50.0;
+              wet = 0.0;
+            };
+          };
+        };
+      };
+    };
   };
 }
