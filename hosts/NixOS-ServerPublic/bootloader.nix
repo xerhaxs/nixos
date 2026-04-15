@@ -25,12 +25,11 @@
   boot.initrd.kernelModules = [ "dm-snapshot" ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
     vendor-reset
   ];
 
   boot.extraModprobeConfig = ''
-    options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback vendor-reset
+    vendor-reset
   '';
 
   security.polkit.enable = true;

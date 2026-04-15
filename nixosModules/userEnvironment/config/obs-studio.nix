@@ -91,11 +91,13 @@ in
         && config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable
       )
       {
-        boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+        #boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
-        boot.extraModprobeConfig = ''
-          options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback
-        '';
+        #boot.extraModprobeConfig = ''
+        #  options devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1 4l2loopback
+        #'';
+
+        programs.obs-studio.enableVirtualCamera = true;
 
         systemd.services.obs-studioConfigChecker = {
           description = "Check and create obs-studio config if not present";

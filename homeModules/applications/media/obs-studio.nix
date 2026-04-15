@@ -24,7 +24,6 @@
         #advanced-scene-switcher
         #droidcam-obs
         input-overlay
-        input-overlay
         #looking-glass-obs
         obs-3d-effect
         obs-backgroundremoval
