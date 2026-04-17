@@ -20,9 +20,13 @@
   config = lib.mkIf config.homeManager.applications.terminal.kitty.enable {
     programs.kitty = {
       enable = true;
-      shellIntegration.enableBashIntegration = true;
+      enableGitIntegration = true;
+      shellIntegration = {
+        enableBashIntegration = true;
+      };
+      #environment = { };
       settings = {
-        confirm_os_window_close = false;
+        confirm_os_window_close = -1;
       };
     };
 
