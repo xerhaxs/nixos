@@ -65,7 +65,7 @@ nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ### NixOS System update
 
 ```
-nix flake update
+nix flake update --commit-lock-file
 nixos-rebuild switch --flake .#HOSTNAME
 ```
 

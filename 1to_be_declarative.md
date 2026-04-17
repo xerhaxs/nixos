@@ -46,7 +46,7 @@ To configer (Files):
 * [ ] Test Easyeffects Setup / Setup Audio Config https://gist.github.com/jtrv/47542c8be6345951802eebcf9dc7da31 https://home-manager-options.extranix.com/?query=easyeffects&release=master
 * [X] Test Mullvad VPN Settings https://github.com/mullvad/mullvadvpn-app/blob/main/desktop/packages/mullvad-vpn/src/main/gui-settings.ts https://home-manager-options.extranix.com/?query=mullvad&release=master
 * [ ] Test Mullvad VPN on Server due to disables enableExcludeWrapper (test local network connection!)
-* [ ] Test Command: nix flake update --commit-lock-file
+* [X] Test Command: nix flake update --commit-lock-file
 * [ ] Dangerzone for NixOS? https://dangerzone.rocks/#downloads
 * [ ] update pihole version on server
 * [ ] unnest nixos.system.user.defaultuser to regular official nixos option
