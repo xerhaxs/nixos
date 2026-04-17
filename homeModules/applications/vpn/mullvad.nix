@@ -22,11 +22,11 @@
       enable = true;
       package = pkgs.mullvad-vpn;
       settings = {
-        preferredLocale = "SYSTEM_PREFERRED_LOCALE_KEY";
-        autoConnect = true;
+        preferredLocale = "system";
+        autoConnect = false;
         enableSystemNotifications = true;
-        monochromaticIcon = false;
-        startMinimized = false;
+        monochromaticIcon = true;
+        startMinimized = true;
         unpinnedWindow = true;
         browsedForSplitTunnelingApplications = [ ];
         changelogDisplayedForVersion = "";
