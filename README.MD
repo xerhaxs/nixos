@@ -116,6 +116,7 @@ fwupdmgr update
 * [ ] Rescue / Flight / Escape SSD with important data + generic OS
 * [ ] Restructure the nixos config without module naming of folders -> more independent naming scheme -> config.nixos.userEnvironment.appimage.enable >>>> config.nixos.appimage.enable
 * [X] Setup Nix language tool server https://youtu.be/M_zMoHlbZBY https://search.nixos.org/packages?channel=unstable&query=nixd&show=nixd  https://search.nixos.org/packages?channel=unstable&query=nixfmt&show=nixfmt
+* [ ] Setup Joplin on NixOS + Move Documents to Joplin https://home-manager-options.extranix.com/?query=joplin
   
 * [ ] User application setup in Home Manager
   * [ ] Firefox
