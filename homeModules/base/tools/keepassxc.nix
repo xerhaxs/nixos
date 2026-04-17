@@ -43,7 +43,7 @@
           HideWindowOnCopy = false;
           MinimizeOnCopy = false;
           AutoGeneratePasswordForNewEntries = false;
-          MinimizeAfterUnlock = true;
+          MinimizeAfterUnlock = false;
           DropToBackgroundOnCopy = false;
           UseGroupIconOnEntryCreation = true;
           AutoTypeEntryTitleMatch = true;
@@ -78,7 +78,7 @@
           ToolButtonStyle = "ToolButtonIconOnly";
           LaunchAtStartup = true;
           ShowTrayIcon = true;
-          TrayIconAppearance = "monochrome-${preferToLower}";
+          TrayIconAppearance = "monochrome-light";
           MinimizeToTray = true;
           MinimizeOnStartup = true;
           MinimizeOnClose = true;
@@ -151,7 +151,7 @@
           UseCustomBrowser = false;
           CustomBrowserType = "-1";
           CustomBrowserLocation = "";
-          AllowLocalhostWithPasskeys = true
+          AllowLocalhostWithPasskeys = true;
         };
 
         SSHAgent = {
