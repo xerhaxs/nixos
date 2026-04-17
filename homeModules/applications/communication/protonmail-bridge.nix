@@ -21,7 +21,7 @@
     services.protonmail-bridge = {
       enable = true;
       logLevel = "info";
-      package = protonmail-bridge;
+      package = pkgs.protonmail-bridge;
     };
   };
 }
