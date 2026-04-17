@@ -31,22 +31,20 @@
         "mafpmfcccpbjnhfhjnllmmalhifmlcie" # Snowflake
       ];
 
-      initialPrefs = {
-        
-      };
+      #initialPrefs = { };
 
       extraOpts = {
-        # ── Chromium-Kern: Login & Sync ───────────────────────────────
+        # ── Chromium-Cor: Login & Sync ───────────────────────────────
         "BrowserSignin" = 0;
         "SyncDisabled" = true;
 
-        # ── Telemetrie & Reporting ────────────────────────────────────
+        # ── Telemetry & Reporting ────────────────────────────────────
         "MetricsReportingEnabled" = false;
         "SafeBrowsingExtendedReportingEnabled" = false;
         "BraveP3AEnabled" = false;
         "BraveStatsPingEnabled" = false;
 
-        # ── UI & Verhalten ────────────────────────────────────────────
+        # ── UI & Behavior ────────────────────────────────────────────
         "TranslateEnabled" = false;
         "BookmarkBarEnabled" = true;
         "ShowFullUrlsInAddressBar" = true;
@@ -57,12 +55,12 @@
         "OsColorMode" = "auto";
         #"BrowserThemeColor" = ;
 
-        # ── Autofill & Passwörter ─────────────────────────────────────
+        # ── Autofill & Passwords ─────────────────────────────────────
         "AutofillCreditCardEnabled" = false;
         "AutofillAddressEnabled" = false;
         "PasswordManagerEnabled" = false;
 
-        # ── Sprache & Rechtschreibung ─────────────────────────────────
+        # ── Language & Spellchecking ─────────────────────────────────
         "SpellcheckLanguage" = [
           "de"
           "en-US"
@@ -74,10 +72,10 @@
         "PrivacySandboxAdMeasurementEnabled" = false;
         "PrivacySandboxFirstPartySetsEnabled" = false;
 
-        # ── MV2 aktiv halten ─────────────────────────────────────────
+        # ── Manifest V2 ─────────────────────────────────────────
         "ExtensionManifestV2Availability" = 2;
 
-        # ── Brave: Bloatware deaktivieren ─────────────────────────────
+        # ── Brave: Deactivate Bloatware ─────────────────────────────
         "PromotionsEnabled" = false;
         "TorDisabled" = true;
         "BraveWalletDisabled" = true;
@@ -90,12 +88,12 @@
         "BraveWaybackMachineEnabled" = false;
         "BraveWebDiscoveryEnabled" = false;
 
-        # ── Brave Shields: aggressiv ──────────────────────────────────
+        # ── Brave Shields: aggressive ──────────────────────────────────
         "BraveShieldsAdBlockLevel" = 2;
         "BraveShieldsTrackerBlockLevel" = 2;
         "BraveShieldsFingerprintingBlockLevel" = 1;
 
-        # ── Daten beim Beenden löschen ────────────────────────────────
+        # ── Remove Date on Close ────────────────────────────────
         "ClearBrowsingDataOnExitList" = [
           "browsing_history"
           "download_history"

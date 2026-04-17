@@ -28,6 +28,7 @@
         "--enable-features=WaylandWindowDecorations"
         "--no-first-run"
         "--no-default-browser-check"
+        "--enable-features=AllowQt"
         "--force-webrtc-ip-handling-policy=disable_non_proxied_udp"
       ];
     };
@@ -71,7 +72,19 @@
           .privacy_sandbox.first_party_sets_enabled     = false |
           .privacy_sandbox.m1.ad_measurement_enabled    = false |
           .privacy_sandbox.m1.fledge_enabled            = false |
-          .privacy_sandbox.m1.topics_enabled            = false
+          .privacy_sandbox.m1.topics_enabled            = false |
+
+          .toolbar.pinned_actions = [
+            "kActionNewIncognitoWindow",
+            "kActionShowDownloads"
+          ] |
+
+          # pin: KeePassXC, SimpleLogin, floccus
+          .extensions.pinned_extensions = [
+            "oboonakemofpalcgghocfoadofidjkkk",
+            "dphilobhebphkdjbpfohgikllaljmgbn",
+            "fnaicdffflnofjppbagibeoednhnbjhg"
+          ]
         ' "$PREFS" > "$PREFS.tmp" && mv "$PREFS.tmp" "$PREFS"
       fi
     '';
