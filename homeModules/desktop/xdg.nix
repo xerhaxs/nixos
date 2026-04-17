@@ -32,6 +32,8 @@
         associations.added = osConfig.xdg.mime.addedAssociations;
       };
 
+      autostart.enable =  true;
+
       #configFile."mimeapps.list".enable = false;
       #dataFile."applications/mimeapps.list".force = true;
 
