@@ -598,6 +598,11 @@
                             icon = "auto-invert di:ollama";
                           }
                           {
+                            title = "Libretranslate";
+                            url = "https://libretranslate.${config.nixos.server.network.nginx.domain}";
+                            icon = "di:libretranslate";
+                          }
+                          {
                             title = "SearXNG";
                             url = "https://searxng.${config.nixos.server.network.nginx.domain}";
                             icon = "di:searxng";
