@@ -34,7 +34,7 @@
         debug = false;
         disable-files-translation = false;
         metrics = true;
-        translation-cache = true;
+        translation-cache = "all";
       };
     };
 
