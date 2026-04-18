@@ -595,6 +595,7 @@
         "baloofilerc"."General"."exclude filters version" = 8;
         "baloofilerc"."General"."index hidden folders" = true;
         "dolphinrc"."ContentDisplay"."DirectorySizeCount" = false;
+        "dolphinrc"."ContentDisplay"."DirectorySizeMode" = "ContentSize";
         "dolphinrc"."ContentDisplay"."RecursiveDirectorySizeLimit" = 20;
         "dolphinrc"."ContentDisplay"."UsePermissionsFormat" = "CombinedFormat";
         "dolphinrc"."ContextMenu"."ShowCopyMoveMenu" = true;

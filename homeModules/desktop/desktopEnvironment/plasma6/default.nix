@@ -8,6 +8,7 @@
 
 {
   imports = [
+    ./dolphin.nix
     ./plasma6.nix
   ];
 
@@ -30,6 +31,7 @@
       )
       {
         homeManager.desktop.desktopEnvironment.plasma6 = {
+          dolphin.enable = true;
           plasma6.enable = true;
         };
       };
