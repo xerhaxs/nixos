@@ -42,14 +42,14 @@
     };
     home = {
       cockpit.enable = true;
-      cryptpad.enable = true;
+      #cryptpad.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
       jellyfin.enable = true;
       networkingtoolbox.enable = true;
       ollama.enable = true;
       radicale.enable = true;
-      stalwart.enable = true;
+      #stalwart.enable = true;
     };
     network = {
       mullvad-server.enable = true;
