@@ -102,6 +102,44 @@
           "password_signin"
           "site_settings"
         ];
+
+        "3rdparty" = {
+          extensions = {
+            "oboonakemofpalcgghocfoadofidjkkk" = {
+              adminSettings = {
+                autoReconnect = true;
+                afterFillSorting = "sortByMatchingCredentials";
+                afterFillSortingTotp = "sortByRelevantEntry";
+                autoCompleteUsernames = true;
+                showGroupNameInAutocomplete = true;
+                autoFillAndSend = false;
+                autoFillSingleEntry = false;
+                autoFillSingleTotp = true;
+                autoRetrieveCredentials = true;
+                autoSubmit = true;
+                checkUpdateKeePassXC = 0;
+                clearCredentialsTimeout = 10;
+                colorTheme = "system";
+                credentialSorting = "sortByGroupAndTitle";
+                defaultGroupAlwaysAsk = true;
+                downloadFaviconAfterSave = true;
+                passkeys = true;
+                passkeysFallback = true;
+                saveDomainOnly = true;
+                showGettingStartedGuideAlert = true;
+                showTroubleshootingGuideAlert = true;
+                showLoginFormIcon = true;
+                showLoginNotifications = true;
+                showNotifications = true;
+                useMonochromeToolbarIcon = false;
+                showOTPIcon = true;
+                useObserver = true;
+                usePredefinedSites = true;
+                usePasswordGeneratorIcons = false;
+              };
+            };
+          };
+        };
       };
     };
   };
