@@ -127,7 +127,7 @@ fwupdmgr update
     * [X] Setup https://addons.mozilla.org/en-US/firefox/addon/canvasblocker/ Canvablocker in Librewolf
     * [X] setup languagetool browser addon with custom languagetool server in Librewolf
     * [ ] Firefox remove "keep cookies" container + full arkenfoxjs https://github.com/arkenfox/user.js/
-  * [ ] Setup Chromium / Brave in Config via Settings + Policies -> maybe replace with Trivalent https://github.com/secureblue/Trivalent https://chromeenterprise.google/policies/ https://search.nixos.org/options?channel=unstable&show=programs.chromium.enable&query=programs.chromium
+  * [X] Setup Chromium / Brave in Config via Settings + Policies -> maybe replace with Trivalent https://github.com/secureblue/Trivalent https://chromeenterprise.google/policies/ https://search.nixos.org/options?channel=unstable&show=programs.chromium.enable&query=programs.chromium
   * [ ] Config setup of Steam (write config file)
   * [ ] Config setup of Heroic (write config file)
   * [ ] Config setup of Prism Launcher (write config file)
@@ -138,6 +138,8 @@ fwupdmgr update
   * [X] Update Wallpaper Engine KDE -> https://discourse.nixos.org/t/wallpaper-engine-on-nixos-wallpaper-engine-kde-plugin/19744/25
   * [X] Setup Plasma OCR in Spectacle -> https://linuxiac.com/kde-plasma-6-6-to-bring-ocr-in-spectacle-screenshot-utility/
   * [X] Add Impermanence to User setup / Desktop Installations
+  * [ ] Dangerzone for NixOS https://dangerzone.rocks/#downloads
+  * [ ] Test Paperless NGX https://search.nixos.org/packages?channel=25.11&include_modular_service_options=1&include_nixos_options=1&query=paperless&show=services.paperless.enable
 
 * [ ] Hyprland setup
   * [ ] Touch setup https://github.com/horriblename/hyprgrass
@@ -219,6 +221,14 @@ fwupdmgr update
     * [X] Nextcloud / Collabora https://search.nixos.org/options?channel=unstable&query=services.nextcloud. https://search.nixos.org/options?channel=unstable&query=services.collabora-online. https://wiki.nixos.org/wiki/Nextcloud -> due to bad E2EE I will use CryptPad on Public Server
     * [X] User specific nas mount -> remove general user permissions for all nas folders on servers -> installed
     * [ ] Setup Unfied Push service
+
+### Office ToDo
+* [ ] Plama Manager Options from string options to real options: https://nix-community.github.io/plasma-manager/options.xhtml#opt-programs.elisa.enable
+* [ ] Use KeePassXC for SSH Keyfile management https://github.com/keepassxreboot/keepassxc/blob/develop/docs/topics/SSHAgent.adoc
+* [ ] Configure every bit in Brave / Chromium https://www.chromium.org/administrators/policy-templates
+* [ ] unnest nixos.system.user.defaultuser to regular official nixos option
+* [ ] remove userEnvironment/config parts and put this to home manager config files
+* [ ] Restructure Server Fedivers Folder
 
 ## Usefull stuff
 - IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307
