@@ -48,6 +48,7 @@
       #".config/sops"
       #".config/steamtinkerlaunch"
       #".config/VSCodium"
+      ".config/Joplin"
 
       ".local/cache"
 
