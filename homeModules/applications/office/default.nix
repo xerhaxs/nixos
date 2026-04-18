@@ -8,6 +8,7 @@
 {
   imports = [
     ./financial.nix
+    ./joplin.nix
     ./office.nix
   ];
 
@@ -25,6 +26,7 @@
   config = lib.mkIf config.homeManager.applications.office.enable {
     homeManager.applications.office = {
       financial.enable = true;
+      joplin.enable = true;
       office.enable = true;
     };
   };
