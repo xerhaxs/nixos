@@ -27,6 +27,7 @@
       #environment = { };
       settings = {
         confirm_os_window_close = -1;
+        shell_integration = "enabled";
       };
     };
 
