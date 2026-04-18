@@ -600,7 +600,7 @@
                           {
                             title = "Libretranslate";
                             url = "https://libretranslate.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:libretranslate";
+                            icon = "auto-invert di:libretranslate";
                           }
                           {
                             title = "SearXNG";
