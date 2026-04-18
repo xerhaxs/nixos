@@ -8,6 +8,7 @@
 }:
 
 {
+  # Option Search https://nix-community.github.io/plasma-manager/options.xhtml
   imports = [
     plasma-manager.homeModules.plasma-manager
   ];
@@ -49,6 +50,91 @@
 
       startup = {
 
+      };
+
+      powerdevil = {
+        general = {
+          pausePlayersOnSuspend = true;
+        };
+
+        AC = {
+          powerProfile = "balanced";
+          autoSuspend = {
+            action = "nothing";
+          };
+          dimDisplay = {
+            enable = true;
+            idleTimeout = 900;
+          };
+          dimKeyboard = {
+            enable = true;
+          };
+          turnOffDisplay = {
+            idleTimeout = "never";
+          };
+          whenLaptopLidClosed = "sleep";
+          whenSleepingEnter = "standby";
+          displayBrightness = 75;
+          inhibitLidActionWhenExternalMonitorConnected = true;
+          keyboardBrightness = 100;
+          powerButtonAction = "shutDown";
+        };
+
+        battery = {
+          powerProfile = "powerSaving";
+          autoSuspend = {
+            action = "sleep";
+            idleTimeout = 600;
+          };
+          dimDisplay = {
+            enable = true;
+            idleTimeout = 60;
+          };
+          dimKeyboard = {
+            enable = true;
+          };
+          turnOffDisplay = {
+            idleTimeout = 120;
+            idleTimeoutWhenLocked = 60;
+          };
+          whenLaptopLidClosed = "sleep";
+          whenSleepingEnter = "standby";
+          displayBrightness = 10;
+          inhibitLidActionWhenExternalMonitorConnected = true;
+          keyboardBrightness = 50;
+          powerButtonAction = "shutDown";
+        };
+
+        batteryLevels = {
+          lowLevel = 30;
+          criticalAction = "sleep";
+          criticalLevel = 5;
+        };
+
+        lowBattery = {
+          powerProfile = "powerSaving";
+          autoSuspend = {
+            action = "sleep";
+            idleTimeout = 300;
+          };
+          dimDisplay = {
+            enable = true;
+            idleTimeout = 30;
+          };
+          dimKeyboard = {
+            enable = true;
+          };
+          turnOffDisplay = {
+            idleTimeout = 60;
+            idleTimeoutWhenLocked = 20;
+          };
+          whenLaptopLidClosed = "sleep";
+          whenSleepingEnter = "standby";
+          displayBrightness = 5;
+          inhibitLidActionWhenExternalMonitorConnected = true;
+          keyboardBrightness = 25;
+          powerButtonAction = "shutDown";
+        };
       };
 
       kwin = {
