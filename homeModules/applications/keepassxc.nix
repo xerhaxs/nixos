@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    base.tools.keepassxc = {
+    applications.keepassxc = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.keepassxc.enable {
+  config = lib.mkIf config.homeManager.applications.keepassxc.enable {
     programs.keepassxc = {
       enable = true;
       autostart = true;

@@ -22,6 +22,7 @@
     ./vpn
 
     ./common.nix
+    ./keepassxc.nix
   ];
 
   options.homeManager = {
@@ -51,6 +52,7 @@
       vpn.enable = true;
 
       common.enable = true;
+      keepassxc.enable = true;
     };
   };
 }
