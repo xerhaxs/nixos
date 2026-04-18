@@ -21,7 +21,7 @@
     services.libretranslate = {
       enable = true;
       host = "127.0.0.1";
-      port = "5005";
+      port = 5005;
       user = "libretranslate";
       group = "libretranslate";
       domain = "libretranslate.${config.nixos.server.network.nginx.domain}";

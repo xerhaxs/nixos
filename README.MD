@@ -229,6 +229,7 @@ fwupdmgr update
 * [ ] unnest nixos.system.user.defaultuser to regular official nixos option
 * [ ] remove userEnvironment/config parts and put this to home manager config files
 * [ ] Restructure Server Fedivers Folder
+* [ ] Add all free Software to local Forgejo Repo
 
 ## Usefull stuff
 - IDs of processes: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/misc/ids.nix#L307
