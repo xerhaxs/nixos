@@ -36,5 +36,10 @@
       defaultFolder=file://${config.xdg.userDirs.desktop}
       nameTemplate=$[YYYY]-$[MM]-$[DD]_$[hh]_$[mm]_$[ss]
     '';
+
+    home.file.".local/state/skanpagerc".text = ''
+      [UiSettings]
+      showAllOptions=true
+    '';
   };
 }
