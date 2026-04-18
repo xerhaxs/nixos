@@ -29,7 +29,7 @@
       disableWebUI = false;
       updateModels = true;
       enableApiKeys = true;
-      configureNginx = true;
+      configureNginx = false;
       extraArgs = {
         debug = false;
         disable-files-translation = false;
