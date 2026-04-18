@@ -10,6 +10,7 @@
     ./financial.nix
     ./joplin.nix
     ./office.nix
+    ./skanpage.nix
   ];
 
   options.homeManager = {
@@ -28,6 +29,7 @@
       financial.enable = true;
       joplin.enable = true;
       office.enable = true;
+      skanpage.enable = true;
     };
   };
 }

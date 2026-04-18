@@ -1,4 +1,4 @@
-To configer (Paths):
+To configure (Paths):
 * [ ] .config/backintime
 * [ ] .config/blender
 * [ ] .config/Clementine
@@ -12,7 +12,7 @@ To configer (Paths):
 * [ ] .config/kmymoney
 * [ ] .config/legcord
 * [ ] .config/libreoffice
-* [ ] .config/Mullvad VPN
+* [X] .config/Mullvad VPN
 * [ ] .config/Mumble
 * [ ] .config/obs-studio
 * [ ] .config/Proton Mail
@@ -26,9 +26,9 @@ To configer (Paths):
 To configer (Files):
 * [ ] .config/dolphinrc
 * [ ] .config/tenacity.cfg
-* [ ] .config/spectaclerc
-* [ ] .config/skanpagerc
-* [ ] .config/okularrc
+* [ ] .config/spectaclerc -> plasma manager
+* [X] .config/skanpagerc
+* [ ] .config/okularrc -> plasma manager
 * [ ] .config/kilerc
 * [ ] .config/kdenliverc
 * [ ] .config/katerc
@@ -43,6 +43,7 @@ To configer (Files):
 
 * [ ] Test Easyeffects Setup / Setup Audio Config https://gist.github.com/jtrv/47542c8be6345951802eebcf9dc7da31 https://home-manager-options.extranix.com/?query=easyeffects&release=master
 
+* [ ] test libretranslate after model download
 
 * [ ] update pihole version on server
 
