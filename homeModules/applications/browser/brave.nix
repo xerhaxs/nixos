@@ -33,6 +33,32 @@
       ];
     };
 
+    #programs.brave.nativeMessagingHosts = with pkgs; [
+    #  kdePackages.plasma-browser-integration
+    #];
+
+    home.file.".config/BraveSoftware/Brave-Browser/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text =
+      builtins.toJSON {
+        name = "org.keepassxc.keepassxc_browser";
+        description = "KeePassXC integration with native messaging support";
+        path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
+        type = "stdio";
+        allowed_origins = [
+          "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
+        ];
+      };
+
+    home.file.".config/BraveSoftware/Brave-Browser/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text =
+      builtins.toJSON {
+        name = "org.kde.plasma.browser_integration";
+        description = "Native connector for KDE Plasma";
+        path = "${pkgs.kdePackages.plasma-browser-integration}/bin/plasma-browser-integration-host";
+        type = "stdio";
+        allowed_origins = [
+          "chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/"
+        ];
+      };
+
     home.activation.bravePrefs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       PREFS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Preferences"
       if [ -f "$PREFS" ]; then
