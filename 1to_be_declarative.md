@@ -42,7 +42,6 @@ To configer (Files):
 
 
 * [ ] Test Easyeffects Setup / Setup Audio Config https://gist.github.com/jtrv/47542c8be6345951802eebcf9dc7da31 https://home-manager-options.extranix.com/?query=easyeffects&release=master
-* [ ] Test Mullvad VPN on Server due to disables enableExcludeWrapper (test local network connection!)
 
 
 * [ ] update pihole version on server
