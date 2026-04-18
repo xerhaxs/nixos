@@ -28,6 +28,7 @@
     services.stalwart = {
       enable = true;
       openFirewall = true;
+      stateVersion = "25.11";
       credentials = {
         mail-pw1 = /etc/stalwart/mail-pw1;
         mail-pw2 = /etc/stalwart/mail-pw2;
