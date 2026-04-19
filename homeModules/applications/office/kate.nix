@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    desktop.desktopEnvironment.plasma6.kate = {
+    applications.office.kate = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.kate.enable {
+  config = lib.mkIf config.homeManager.applications.office.enable {
     xdg.configFile."katerc".text = ''
       [General]
       Allow Tab Scrolling=true

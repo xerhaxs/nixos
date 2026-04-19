@@ -7,17 +7,17 @@
 
 {
   options.homeManager = {
-    desktop.desktopEnvironment.plasma6.okular = {
+    applications.office.gwenview = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable okular.";
+        description = "Enable gwenview.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.okular.enable {
+  config = lib.mkIf config.homeManager.applications.office.gwenview.enable {
     xdg.dataFile."kxmlgui5/gwenview/gwenviewui.rc".text = ''
       <!DOCTYPE gui>
       <gui name="gwenview" translationDomain="kxmlgui6" version="71">

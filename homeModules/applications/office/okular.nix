@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    desktop.desktopEnvironment.plasma6.okular = {
+    applications.office.okular = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.okular.enable {
+  config = lib.mkIf config.homeManager.applications.office.okular.enable {
     xdg.configFile."okularpartrc".text = ''
       [General]
       ShellOpenFileInTabs=true

@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    desktop.desktopEnvironment.plasma6.spectacle = {
+    applications.office.spectacle = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.spectacle.enable {
+  config = lib.mkIf config.homeManager.applications.office.spectacle.enable {
     xdg.configFile."spectaclerc".text = ''
       [Annotations]
       annotationToolType=7
