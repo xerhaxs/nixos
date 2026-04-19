@@ -14,7 +14,7 @@
       
       ".thunderbird"
       ".librewolf"
-      #".mozilla"
+      ".mozilla"
 
       ".steam"
       

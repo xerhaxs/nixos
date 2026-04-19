@@ -14,6 +14,7 @@
     ./office.nix
     ./okular.nix
     ./skanpage.nix
+    ./spectacle.nix
   ];
 
   options.homeManager = {
@@ -36,6 +37,7 @@
       kate.enable = true;
       okular.enable = true;
       skanpage.enable = true;
+      spectacle.enable = true;
     };
   };
 }
