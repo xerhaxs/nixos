@@ -35,16 +35,6 @@
       pandoc
       poppler-utils
       rnote
-      (symlinkJoin {
-        name = "skanpage-with-tesseract";
-        paths = [ kdePackages.skanpage ];
-        buildInputs = [ makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/skanpage \
-            --prefix PATH : ${tesseract}/bin \
-            --set TESSDATA_PREFIX ${tesseract}/share/tessdata
-        '';
-      })
       tesseract
       vcftools # vcf card management tool
       xournalpp

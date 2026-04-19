@@ -10,6 +10,7 @@
     ./financial.nix
     ./gwenview.nix
     ./joplin.nix
+    ./kate.nix
     ./office.nix
     ./okular.nix
     ./skanpage.nix
@@ -32,6 +33,7 @@
       gwenview.enable = true;
       joplin.enable = true;
       office.enable = true;
+      kate.enable = true;
       okular.enable = true;
       skanpage.enable = true;
     };
