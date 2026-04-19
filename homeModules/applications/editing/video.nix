@@ -19,7 +19,7 @@
 
   config = lib.mkIf config.homeManager.applications.editing.video.enable {
     home.packages = with pkgs; [
-      #kdePackages.kdenlive
+      kdePackages.kdenlive
       glaxnimate
     ];
   };
