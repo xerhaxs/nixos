@@ -8,7 +8,6 @@
 
 {
   imports = [
-    ./barrier.nix
     ./kdeconnect.nix
     ./onionshare.nix
     ./rclone.nix
@@ -27,7 +26,6 @@
 
   config = lib.mkIf config.homeManager.applications.sync.enable {
     homeManager.applications.sync = {
-      barrier.enable = lib.mkDefault false;
       kdeconnect.enable = true;
       onionshare.enable = lib.mkDefault false;
       rclone.enable = lib.mkDefault false;

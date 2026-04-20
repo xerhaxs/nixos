@@ -10,15 +10,11 @@
   imports = [
     ./bottles.nix
     ./diff.nix
-    ./dotnet-sdk.nix
-    ./geany.nix
     ./hex.nix
     ./imager.nix
-    ./java.nix
     ./jetbrains.nix
     ./kate.nix
     ./nixd.nix
-    ./pulsar.nix
     ./singleboardcomputer.nix
     ./virtualisation.nix
     ./vscodium.nix
@@ -39,15 +35,11 @@
     homeManager.applications.development = {
       bottles.enable = lib.mkDefault false;
       diff.enable = lib.mkDefault false;
-      dotnet-sdk.enable = lib.mkDefault false;
-      geany.enable = lib.mkDefault false;
       hex.enable = lib.mkDefault false;
       imager.enable = lib.mkDefault false;
-      java.enable = lib.mkDefault false;
       jetbrains.enable = lib.mkDefault false;
       kate.enable = true;
       nixd.enable = true;
-      pulsar.enable = lib.mkDefault false;
       singleboardcomputer.enable = lib.mkDefault false;
       virtualisation.enable = lib.mkIf osConfig.nixos.virtualisation.kvm.enable true;
       vscodium.enable = true;

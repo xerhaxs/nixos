@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./antimicrox.nix
     ./gameconqueror.nix
     ./heroic.nix
     ./lutris.nix
@@ -28,7 +27,6 @@
 
   config = lib.mkIf config.homeManager.applications.gaming.enable {
     homeManager.applications.gaming = {
-      antimicrox.enable = lib.mkDefault false;
       gameconqueror.enable = true;
       heroic.enable = true;
       lutris.enable = true;
