@@ -32,7 +32,7 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
-      bottles.enable = lib.mkDefault false;
+      bottles.enable = lib.mkDefault true;
       diff.enable = lib.mkDefault false;
       hex.enable = lib.mkDefault false;
       imager.enable = lib.mkDefault false;
