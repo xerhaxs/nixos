@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }:
 
@@ -52,7 +53,7 @@
       ConfirmOnExit=true
       HotkeyFocusType=NeverDisableHotkeys
       FirstRun=true
-      CurrentTheme3=Catppuccin ${config.nixos.theme.catppuccin.flavor}
+      CurrentTheme3=Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}
 
       [Video]
       Renderer=OpenGL
