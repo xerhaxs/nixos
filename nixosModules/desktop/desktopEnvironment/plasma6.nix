@@ -119,8 +119,7 @@ in
           akonadi
           akonadi-calendar-tools
           filelight
-          maliit-keyboard
-          libksysguard
+          plasma-keyboard
           merkuro
           kate
           colord-kde

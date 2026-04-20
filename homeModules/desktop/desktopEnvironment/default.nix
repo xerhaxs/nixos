@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./gnome
     ./plasma6
   ];
 
@@ -24,7 +23,6 @@
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.enable {
     homeManager.desktop.desktopEnvironment = {
-      gnome.enable = true;
       plasma6.enable = true;
     };
   };

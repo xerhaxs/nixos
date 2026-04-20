@@ -8,7 +8,6 @@
 {
   imports = [
     ./android.nix
-    ./docker.nix
     ./kvm.nix
     ./podman.nix
     ./waydroid.nix
@@ -28,7 +27,6 @@
   config = lib.mkIf config.nixos.virtualisation.enable {
     nixos.virtualisation = {
       android.enable = lib.mkDefault false;
-      docker.enable = lib.mkDefault false;
       kvm.enable = lib.mkDefault false;
       podman.enable = lib.mkDefault false;
       waydroid.enable = lib.mkDefault false;

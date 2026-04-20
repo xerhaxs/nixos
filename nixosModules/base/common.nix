@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    base.tools.common = {
+    base.common = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.base.tools.common.enable {
+  config = lib.mkIf config.nixos.base.common.enable {
     environment.systemPackages = with pkgs; [
       # fetchers
       fastfetch
@@ -29,7 +29,6 @@
       # archives
       cdrkit
       p7zip
-      #rarcrack # cracking .zip files -> move to hacking tools or something like this...
       unrar
       unzip
       xz
@@ -37,18 +36,13 @@
       zstd
 
       # utils
-      eza # A modern replacement for ‘ls’
-      fzf # A command-line fuzzy finder
-      pv # replacement of cp
       parted
       gparted
       gptfdisk
       jq # A lightweight and flexible command-line JSON processor
       killall
       putty
-      ripgrep # recursively searches directories for a regex pattern
       wget
-      yq-go # yaml processer https://github.com/mikefarah/yq
       testdisk
 
       clinfo
@@ -59,7 +53,6 @@
 
       # networking tools
       inetutils
-      aria2 # A lightweight multi-protocol & multi-source command-line download utility
       dnsutils # `dig` + `nslookup`
       ipcalc # it is a calculator for the IPv4/v6 addresses
       iperf3
@@ -96,11 +89,13 @@
 
       # system tools
       ethtool
+      htop
       lm_sensors # for `sensors` command
       ntfs3g # for ntfs file systems
       pciutils # lspci
       sbctl # secure boot
       sysstat
+      usbtop
       usbutils # lsusb
 
       # fun tools

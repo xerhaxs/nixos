@@ -7,18 +7,19 @@
 
 {
   options.nixos = {
-    base.texteditor.vim = {
+    base.console = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable Vim.";
+        description = "Enable console.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.base.texteditor.vim.enable {
-    programs.vim.enable = true;
-    programs.vim.defaultEditor = true;
+  config = lib.mkIf config.nixos.base.console.enable {
+    console = {
+      enable = true;
+    };
   };
 }

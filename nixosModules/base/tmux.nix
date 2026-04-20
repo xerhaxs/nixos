@@ -7,19 +7,22 @@
 
 {
   options.nixos = {
-    base.tools.usbtop = {
+    base.tmux = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable usbtop.";
+        description = "Enable tmux.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.base.tools.usbtop.enable {
-    programs.usbtop = {
+  config = lib.mkIf config.nixos.base.tmux.enable {
+    programs.tmux = {
       enable = true;
+      terminal = "screen-256color";
+      clock24 = true;
+      secureSocket = true;
     };
   };
 }

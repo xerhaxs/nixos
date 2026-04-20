@@ -7,9 +7,11 @@
 
 {
   imports = [
-    ./shell
-    ./texteditor
-    ./tools
+    ./bash.nix
+    ./common.nix
+    ./console.nix
+    ./tmux.nix
+    ./vim.nix
   ];
 
   options.nixos = {
@@ -25,9 +27,12 @@
 
   config = lib.mkIf config.nixos.base.enable {
     nixos.base = {
-      shell.enable = true;
-      texteditor.enable = true;
-      tools.enable = true;
+      bash.enable = true;
+      common.enable = true;
+      console.enable = true;
+      git.enable = true;
+      tmux.enable = true;
+      vim.enable = true;
     };
   };
 }

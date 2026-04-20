@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    base.shell.bash = {
+    base.bash = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.base.shell.bash.enable {
+  config = lib.mkIf config.nixos.base.bash.enable {
     programs.bash = {
       completion.enable = true;
       blesh.enable = false;

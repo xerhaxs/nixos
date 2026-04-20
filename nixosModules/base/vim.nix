@@ -7,20 +7,20 @@
 
 {
   options.nixos = {
-    base.tools.htop = {
+    base.vim = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable htop.";
+        description = "Enable Vim.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.base.tools.htop.enable {
-    programs.htop = {
+  config = lib.mkIf config.nixos.base.vim.enable {
+    programs.vim = {
       enable = true;
-      #settings = { };
+      defaultEditor = true;
     };
   };
 }
