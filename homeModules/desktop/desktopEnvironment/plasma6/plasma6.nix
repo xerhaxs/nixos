@@ -33,10 +33,18 @@
         maliit-keyboard
         partitionmanager
       ];
+      
+
+    programs.elisa.enable = false;
+    programs.ghostwriter.enable = false;
+    programs.kate.enable = false;
+    programs.konsole.enable = false;
+    programs.okular.enable = false;
+
 
     programs.plasma = {
       enable = true;
-      overrideConfig = true; # ## THIS SET TO TRUE + UPDATE PLASMA CONFIG + POWER MANAGEMENT IN PLASMA CONFIG! https://github.com/nix-community/plasma-manager
+      overrideConfig = true;
 
       workspace = {
         clickItemTo = "select";
