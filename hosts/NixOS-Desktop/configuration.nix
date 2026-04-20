@@ -39,13 +39,11 @@
   nixos.system.secureboot.enable = true;
 
   nixos.userEnvironment.enable = true;
-  nixos.userEnvironment.game.enable = true;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;
 
   services.flatpak.enable = true;
 
-  nixos.system.nasmount.enable = true;
   sops.age.keyFile = "/root/.secrets/keys.txt";
 }

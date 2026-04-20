@@ -45,23 +45,23 @@
 
         "glance" = { };
 
-        "forgejo/secret" = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
+        "forgejo/secret" = lib.mkIf config.nixos.server.sync.forgejo.enable {
           owner = config.services.forgejo.user;
           group = config.services.forgejo.group;
           mode = "0400";
         };
-        "forgejo/token" = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
+        "forgejo/token" = lib.mkIf config.nixos.server.sync.forgejo.enable {
           owner = config.services.forgejo.user;
           group = config.services.forgejo.group;
           mode = "0400";
         };
 
-        "linkwarden/secret" = lib.mkIf config.nixos.server.fediverse.linkwarden.enable {
+        "linkwarden/secret" = lib.mkIf config.nixos.server.sync.linkwarden.enable {
           owner = config.services.linkwarden.user;
           group = config.services.linkwarden.group;
           mode = "0400";
         };
-        "linkwarden/postgres" = lib.mkIf config.nixos.server.fediverse.linkwarden.enable {
+        "linkwarden/postgres" = lib.mkIf config.nixos.server.sync.linkwarden.enable {
           owner = config.services.linkwarden.user;
           group = config.services.linkwarden.group;
           mode = "0400";

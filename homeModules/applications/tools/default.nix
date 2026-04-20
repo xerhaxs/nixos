@@ -9,7 +9,6 @@
   imports = [
     ./backintime.nix
     ./gnomedisk.nix
-    ./git.nix
     ./keepassxc.nix
     ./qalculate.nix
   ];

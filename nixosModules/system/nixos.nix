@@ -80,6 +80,8 @@
       nix-output-monitor
       nix-prefetch
       nixos-generators
+      nixfmt
+      nixd
     ];
 
     programs.command-not-found.enable = false;

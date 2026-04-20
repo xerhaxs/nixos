@@ -74,7 +74,6 @@
       gnupg
       gnused
       gnutar
-      newt # whiptail package for nixos
       tree
       which
 

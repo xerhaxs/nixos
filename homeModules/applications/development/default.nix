@@ -14,7 +14,6 @@
     ./imager.nix
     ./jetbrains.nix
     ./kate.nix
-    ./nixd.nix
     ./singleboardcomputer.nix
     ./virtualisation.nix
     ./vscodium.nix
@@ -39,7 +38,6 @@
       imager.enable = lib.mkDefault false;
       jetbrains.enable = lib.mkDefault false;
       kate.enable = true;
-      nixd.enable = true;
       singleboardcomputer.enable = lib.mkDefault false;
       virtualisation.enable = lib.mkIf osConfig.nixos.virtualisation.kvm.enable true;
       vscodium.enable = true;

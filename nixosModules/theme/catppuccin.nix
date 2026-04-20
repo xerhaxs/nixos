@@ -152,7 +152,7 @@ in
             loginBackground = true;
           };
 
-          tty.enable = lib.mkIf config.nixos.base.shell.console.enable true;
+          tty.enable = lib.mkIf config.nixos.base.console.enable true;
         };
 
         nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";

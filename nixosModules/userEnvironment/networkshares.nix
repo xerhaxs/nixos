@@ -21,17 +21,19 @@ in
 
 {
   options.nixos = {
-    system.nasmount = {
+    system.networkshares = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable mounting of nas drives.";
+        description = "Enable mounting of networkshares.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.system.nasmount.enable {
+  config = lib.mkIf config.nixos.system.networkshares.enable {
+    services.gvfs.enable = true;
+
     environment.systemPackages = with pkgs; [
       cifs-utils
       nfs-utils

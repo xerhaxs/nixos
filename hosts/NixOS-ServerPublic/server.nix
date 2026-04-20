@@ -15,8 +15,6 @@
 
   nixos.server.game.minecraft.enable = true;
 
-  nixos.system.nasmount.enable = lib.mkForce false;
-
   nixos.system.mount.enable = lib.mkForce false;
 
   nixos.disko.enable = lib.mkForce false;

@@ -15,7 +15,7 @@
     ./chromium-policies.nix
     ./fonts.nix
     ./kdeconnect.nix
-    ./samba-client.nix
+    ./networkshares.nix
     ./syncthing.nix
   ];
 
@@ -33,14 +33,14 @@
   config = lib.mkIf config.nixos.userEnvironment.enable {
     nixos.userEnvironment = {
       config.enable = true;
-      game.enable = lib.mkDefault false;
+      game.enable = true;
       io.enable = true;
 
       appimage.enable = true;
       chromium-policies.enable = true;
       fonts.enable = true;
       kdeconnect.enable = true;
-      samba-client.enable = true;
+      networkshares.enable = true;
       syncthing.enable = true;
     };
   };

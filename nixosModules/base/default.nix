@@ -10,6 +10,7 @@
     ./bash.nix
     ./common.nix
     ./console.nix
+    ./git.nix
     ./tmux.nix
     ./vim.nix
   ];
