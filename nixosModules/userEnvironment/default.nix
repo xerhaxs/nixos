@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./config
     ./game
     ./io
 
@@ -16,6 +15,7 @@
     ./fonts.nix
     ./kdeconnect.nix
     ./networkshares.nix
+    ./obs-studio.nix
     ./syncthing.nix
   ];
 
@@ -32,7 +32,6 @@
 
   config = lib.mkIf config.nixos.userEnvironment.enable {
     nixos.userEnvironment = {
-      config.enable = true;
       game.enable = true;
       io.enable = true;
 
@@ -41,6 +40,7 @@
       fonts.enable = true;
       kdeconnect.enable = true;
       networkshares.enable = true;
+      obs-studio.enable = true;
       syncthing.enable = true;
     };
   };

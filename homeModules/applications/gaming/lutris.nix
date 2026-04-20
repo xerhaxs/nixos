@@ -18,8 +18,9 @@
   };
 
   config = lib.mkIf config.homeManager.applications.gaming.lutris.enable {
-    home.packages = with pkgs; [
-      lutris
-    ];
+    programs.lutris = {
+      enable = true;
+      steamPackage = osConfig.programs.steam.package;
+    };
   };
 }
