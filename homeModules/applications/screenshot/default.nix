@@ -8,6 +8,7 @@
 {
   imports = [
     ./flameshot.nix
+    ./spectacle.nix
   ];
 
   options.homeManager = {
@@ -24,6 +25,7 @@
   config = lib.mkIf config.homeManager.applications.screenshot.enable {
     homeManager.applications.screenshot = {
       flameshot.enable = true;
+      spectacle.enable = true;
     };
   };
 }

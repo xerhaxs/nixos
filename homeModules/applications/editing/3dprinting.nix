@@ -19,10 +19,10 @@
 
   config = lib.mkIf config.homeManager.applications.editing."3dprinting".enable {
     home.packages = with pkgs; [
-      blender
-      #orca-slicer
-      #freecad-wayland
-      cura-appimage
+      #blender
+      orca-slicer
+      freecad-wayland
+      #cura-appimage
     ];
   };
 }

@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    applications.office.gwenview = {
+    applications.media.gwenview = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.office.gwenview.enable {
+  config = lib.mkIf config.homeManager.applications.media.gwenview.enable {
     xdg.dataFile."kxmlgui5/gwenview/gwenviewui.rc".text = ''
       <!DOCTYPE gui>
       <gui name="gwenview" translationDomain="kxmlgui6" version="71">

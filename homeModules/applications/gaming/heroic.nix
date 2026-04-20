@@ -21,5 +21,9 @@
     home.packages = with pkgs; [
       heroic
     ];
+
+    xdg.configFile."CONFIGFILENAME".text = ''
+      
+    '';
   };
 }

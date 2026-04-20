@@ -7,20 +7,19 @@
 
 {
   options.homeManager = {
-    applications.editing.ai = {
+    applications.media.vlc = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable AI tools.";
+        description = "Enable vlc.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.editing.ai.enable {
+  config = lib.mkIf config.homeManager.applications.media.vlc.enable {
     home.packages = with pkgs; [
-      #openai-whisper
-      upscayl
+      vlc
     ];
   };
 }

@@ -7,17 +7,17 @@
 
 {
   options.homeManager = {
-    applications.media.audio = {
+    applications.media.easyeffects = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable audio tools.";
+        description = "Enable easyeffects";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.media.audio.enable {
+  config = lib.mkIf config.homeManager.applications.media.easyeffects.enable {
     home.packages = with pkgs; [
       crosspipe
     ];

@@ -8,13 +8,10 @@
 {
   imports = [
     ./financial.nix
-    ./gwenview.nix
     ./joplin.nix
-    ./kate.nix
     ./office.nix
     ./okular.nix
     ./skanpage.nix
-    ./spectacle.nix
   ];
 
   options.homeManager = {
@@ -31,13 +28,10 @@
   config = lib.mkIf config.homeManager.applications.office.enable {
     homeManager.applications.office = {
       financial.enable = true;
-      gwenview.enable = true;
       joplin.enable = true;
       office.enable = true;
-      kate.enable = true;
       okular.enable = true;
       skanpage.enable = true;
-      spectacle.enable = true;
     };
   };
 }

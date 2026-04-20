@@ -7,20 +7,19 @@
 
 {
   options.homeManager = {
-    applications.editing.ai = {
+    applications.media.clementine = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable AI tools.";
+        description = "Enable clementine.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.editing.ai.enable {
+  config = lib.mkIf config.homeManager.applications.media.clementine.enable {
     home.packages = with pkgs; [
-      #openai-whisper
-      upscayl
+      clementine
     ];
   };
 }

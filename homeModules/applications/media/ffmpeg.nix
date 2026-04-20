@@ -20,6 +20,7 @@
   config = lib.mkIf config.homeManager.applications.media.ffmpeg.enable {
     home.packages = with pkgs; [
       ffmpeg
+      libbluray-full
     ];
   };
 }

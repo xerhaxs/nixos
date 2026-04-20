@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    applications.office.kate = {
+    applications.development.kate = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.office.enable {
+  config = lib.mkIf config.homeManager.applications.development.enable {
     xdg.configFile."katerc".text = ''
       [General]
       Allow Tab Scrolling=true

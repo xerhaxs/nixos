@@ -7,12 +7,14 @@
 
 {
   imports = [
-    ./audio.nix
-    ./clients.nix
+    ./clementine.nix
+    ./easyeffects.nix
     ./ffmpeg.nix
-    ./mediaplayer.nix
+    ./freetube.nix
+    ./gwenview.nix
     ./mpv.nix
     ./obs-studio.nix
+    ./vlc.nix
     ./yt-dlp.nix
   ];
 
@@ -29,12 +31,14 @@
 
   config = lib.mkIf config.homeManager.applications.media.enable {
     homeManager.applications.media = {
-      audio.enable = true;
-      clients.enable = true;
+      clementine.enable = true;
+      easyeffects.enable = true;
       ffmpeg.enable = true;
-      mediaplayer.enable = true;
+      freetube.enable = true;
+      gwenview.enable = true;
       mpv.enable = true;
       obs-studio.enable = true;
+      vlc.enable = true;
       yt-dlp.enable = true;
     };
   };

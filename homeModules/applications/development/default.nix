@@ -16,6 +16,7 @@
     ./imager.nix
     ./java.nix
     ./jetbrains.nix
+    ./kate.nix
     ./nixd.nix
     ./pulsar.nix
     ./singleboardcomputer.nix
@@ -36,14 +37,15 @@
 
   config = lib.mkIf config.homeManager.applications.development.enable {
     homeManager.applications.development = {
-      bottles.enable = true;
+      bottles.enable = lib.mkDefault false;
       diff.enable = lib.mkDefault false;
       dotnet-sdk.enable = lib.mkDefault false;
       geany.enable = lib.mkDefault false;
       hex.enable = lib.mkDefault false;
-      imager.enable = true;
+      imager.enable = lib.mkDefault false;
       java.enable = true;
       jetbrains.enable = lib.mkDefault false;
+      kate.enable = true;
       nixd.enable = true;
       pulsar.enable = lib.mkDefault false;
       singleboardcomputer.enable = lib.mkDefault false;

@@ -24,7 +24,7 @@
 
   config = lib.mkIf config.homeManager.applications.education.enable {
     homeManager.applications.education = {
-      kiwix.enable = true;
+      kiwix.enable = lib.mkDefault false;
       stellarium.enable = lib.mkDefault false;
     };
   };
