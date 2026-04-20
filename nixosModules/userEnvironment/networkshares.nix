@@ -21,7 +21,7 @@ in
 
 {
   options.nixos = {
-    system.networkshares = {
+    userEnvironment.networkshares = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -31,7 +31,7 @@ in
     };
   };
 
-  config = lib.mkIf config.nixos.system.networkshares.enable {
+  config = lib.mkIf config.nixos.userEnvironment.networkshares.enable {
     services.gvfs.enable = true;
 
     environment.systemPackages = with pkgs; [
