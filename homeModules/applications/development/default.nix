@@ -43,7 +43,7 @@
       geany.enable = lib.mkDefault false;
       hex.enable = lib.mkDefault false;
       imager.enable = lib.mkDefault false;
-      java.enable = true;
+      java.enable = lib.mkDefault false;
       jetbrains.enable = lib.mkDefault false;
       kate.enable = true;
       nixd.enable = true;
