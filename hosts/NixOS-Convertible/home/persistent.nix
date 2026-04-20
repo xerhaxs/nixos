@@ -14,7 +14,7 @@
       
       ".thunderbird"
       ".librewolf"
-      ".mozilla"
+      #".mozilla"
 
       ".steam"
       
@@ -31,7 +31,7 @@
 
       ".config/BraveSoftware"
       #".config/chromium"
-      #".config/Clementine"
+      ".config/Clementine"
       ".config/Element"
       ".config/FreeTube"
       #".config/heroic"
@@ -41,15 +41,15 @@
       #".config/libreoffice"
       #".config/Mullvad VPN"
       #".config/Mumble"
-      #".config/obs-studio"
+      ".config/obs-studio"
       #".config/Proton"
       #".config/Proton Mail"
       ".config/Signal"
-      #".config/sops"
+      ".config/sops"
       #".config/steamtinkerlaunch"
-      #".config/VSCodium"
+      ".config/VSCodium"
       ".config/Joplin"
-      #".config/Clementinerc"
+      ".config/Clementinerc"
 
       ".local/cache"
 
