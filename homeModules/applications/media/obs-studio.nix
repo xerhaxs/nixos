@@ -40,7 +40,7 @@
       ];
     };
 
-    xdg.configFile."obs-studio/global.ini".text = ''
+    /* xdg.configFile."obs-studio/global.ini".text = ''
       [General]
       Pre19Defaults=false
       Pre21Defaults=false
@@ -99,6 +99,6 @@
       SceneCollection=Untitled
       SceneCollectionFile=Untitled
       ConfigOnNewProfile=true
-    '';
+    ''; */
   };
 }

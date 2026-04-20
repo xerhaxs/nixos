@@ -28,7 +28,7 @@
     #  enable = true;
     #};
 
-    xdg.configFile."kilerc".text = ''
+    /* xdg.configFile."kilerc".text = ''
       [FileBrowserWidget]
       Allow Expansion=false
       Decoration position=2
@@ -171,6 +171,6 @@
 
       [NewFileWizard]
       UseWizardWhenCreatingEmptyFile=true
-    '';
+    ''; */
   };
 }

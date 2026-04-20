@@ -22,7 +22,7 @@
       clementine
     ];
 
-    xdg.configFile."Clementine/Clementine.conf".text = ''
+    /* xdg.configFile."Clementine/Clementine.conf".text = ''
       [General]
       hidden=true
 
@@ -223,6 +223,6 @@
       only_when_focused=false
       use_active_action=true
       use_notification=true
-    '';
+    ''; */
   };
 }

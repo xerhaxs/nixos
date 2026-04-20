@@ -10,6 +10,7 @@
     ./financial.nix
     ./joplin.nix
     ./kile.nix
+    ./kmymoney.nix
     ./office.nix
     ./okular.nix
     ./skanpage.nix
@@ -31,6 +32,7 @@
       financial.enable = true;
       joplin.enable = true;
       kile.enable = true;
+      kmymoney.enable = true;
       office.enable = true;
       okular.enable = true;
       skanpage.enable = true;

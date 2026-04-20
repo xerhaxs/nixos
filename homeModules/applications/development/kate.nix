@@ -18,7 +18,7 @@
   };
 
   config = lib.mkIf config.homeManager.applications.development.enable {
-    xdg.configFile."katerc".text = ''
+    /* xdg.configFile."katerc".text = ''
       [General]
       Allow Tab Scrolling=true
       Auto Hide Tabs=false
@@ -228,7 +228,7 @@
       SymbolSort=false
       SymbolTree=true
       TypeFormatting=true
-    '';
+    ''; */
     xdg.dataFile."kxmlgui5/kate/kateui.rc".text = ''
       <!DOCTYPE gui>
       <gui name="kate" translationDomain="kate" version="110">
