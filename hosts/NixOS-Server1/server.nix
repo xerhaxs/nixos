@@ -23,33 +23,24 @@
   nixos.server.fileshare.share.path = "/pool01/shares";
 
   nixos.server = {
-    fediverse = {
-      forgejo.enable = true;
-      invidious.enable = true;
-      kiwix.enable = true;
-      languagetool.enable = true;
-      libreddit.enable = true;
-      libretranslate.enable = true;
-      linkwarden.enable = true;
-      #matrix.ebale = true;
-      searxng.enable = true;
+    entertainment = {
+      jellyfin.enable = true;
+      lidarr.enable = true;
+      nzbhydra2.enable = true;
+      radarr.enable = true;
+      readarr.enable = true;
+      sabnzbd.enable = true;
+      sonarr.enable = true;
     };
     fileshare = {
       samba.enable = true;
       share.enable = true;
-      #sshfs.enable = true;
       webdav.enable = true;
     };
-    home = {
+    management = {
       cockpit.enable = true;
-      #cryptpad.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
-      jellyfin.enable = true;
-      networkingtoolbox.enable = true;
-      ollama.enable = true;
-      radicale.enable = true;
-      #stalwart.enable = true;
     };
     network = {
       mullvad-server.enable = true;
@@ -57,13 +48,27 @@
       pihole.enable = true;
       unbound.enable = true;
     };
-    usenet = {
-      lidarr.enable = true;
-      nzbhydra2.enable = true;
-      radarr.enable = true;
-      readarr.enable = true;
-      sabnzbd.enable = true;
-      sonarr.enable = true;
+    public = {
+      #cryptpad.enable = true;
+      #matrix.enable = true;
+      #murmur.enable = true;
+      #stalwart.enable = true;
+    };
+    sync = {
+      forgejo.enable = true;
+      linkwarden.enable = true;
+      radicale.enable = true;
+    };
+    tools = {
+      invidious.enable = true;
+      kiwix.enable = true;
+      languagetool.enable = true;
+      libreddit.enable = true;
+      libretranslate.enable = true;
+      #moneronode.enable = true;
+      networkingtoolbox.enable = true;
+      ollama.enable = true;
+      searxng.enable = true;
     };
   };
 }

@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.moneronode = {
+    server.tools.moneronode = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.moneronode.enable {
+  config = lib.mkIf config.nixos.server.tools.moneronode.enable {
     services.monero = {
       enable = true;
       dataDir = "/var/lib/moneronode";

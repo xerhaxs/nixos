@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.invidious = {
+    server.tools.invidious = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.invidious.enable {
+  config = lib.mkIf config.nixos.server.tools.invidious.enable {
     services.invidious = {
       enable = true;
       # sig helper is deprecated -> waiting for nixos pkg update to Invidious companion (see: https://docs.invidious.io/installation/#hardware-requirements)

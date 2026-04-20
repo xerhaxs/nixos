@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.linkwarden = {
+    server.sync.linkwarden = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.linkwarden.enable {
+  config = lib.mkIf config.nixos.server.sync.linkwarden.enable {
     services.linkwarden = {
       enable = true;
       host = "127.0.0.1";

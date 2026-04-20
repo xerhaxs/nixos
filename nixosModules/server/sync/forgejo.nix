@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.forgejo = {
+    server.sync.forgejo = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.forgejo.enable {
+  config = lib.mkIf config.nixos.server.sync.forgejo.enable {
     # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
     # https://forgejo.org/docs/latest/user/repo-mirror/
     # setup admin user: sudo -u forgejo forgejo --config /pool01/applications/forgejo/custom/conf/app.ini admin user create --username "administrator" --email "admin@${config.nixos.server.network.nginx.domain}" --password "SUPERSECRETPASSWORD" --admin

@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.usenet.nzbhydra2 = {
+    server.entertainment.nzbhydra2 = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.nzbhydra2.enable {
+  config = lib.mkIf config.nixos.server.entertainment.nzbhydra2.enable {
     services.nzbhydra2 = {
       enable = true;
       openFirewall = false;

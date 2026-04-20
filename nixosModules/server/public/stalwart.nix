@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.stalwart = {
+    server.public.stalwart = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.stalwart.enable {
+  config = lib.mkIf config.nixos.server.public.stalwart.enable {
     environment.etc = {
       "stalwart/mail-pw1".text = "foobar";
       "stalwart/mail-pw2".text = "foobar";

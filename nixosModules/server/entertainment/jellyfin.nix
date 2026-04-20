@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.jellyfin = {
+    server.entertainment.jellyfin = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.jellyfin.enable {
+  config = lib.mkIf config.nixos.server.entertainment.jellyfin.enable {
     services.jellyfin = {
       enable = true;
       openFirewall = false;

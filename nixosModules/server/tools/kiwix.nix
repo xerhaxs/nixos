@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.kiwix = {
+    server.tools.kiwix = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.kiwix.enable {
+  config = lib.mkIf config.nixos.server.tools.kiwix.enable {
     services.kiwix-serve = {
       enable = true;
       openFirewall = false;

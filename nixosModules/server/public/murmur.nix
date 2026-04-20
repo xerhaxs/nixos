@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.murmur = {
+    server.public.murmur = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.murmur.enable {
+  config = lib.mkIf config.nixos.server.public.murmur.enable {
     services.murmur = {
       enable = true;
       openFirewall = false;

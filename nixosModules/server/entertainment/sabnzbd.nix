@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.usenet.sabnzbd = {
+    server.entertainment.sabnzbd = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.sabnzbd.enable {
+  config = lib.mkIf config.nixos.server.entertainment.sabnzbd.enable {
     services.sabnzbd = {
       enable = true;
       user = "sabnzbd";
@@ -202,10 +202,10 @@
         };
 
         servers = {
-          "eunews.frugalusenet.com" = {
-            name = "eunews.frugalusenet.com";
-            displayname = "eunews.frugalusenet.com";
-            host = "eunews.frugalusenet.com";
+          "eunews.frugalentertainment.com" = {
+            name = "eunews.frugalentertainment.com";
+            displayname = "eunews.frugalentertainment.com";
+            host = "eunews.frugalentertainment.com";
             port = 563;
             timeout = 60;
             connections = 8;
@@ -217,10 +217,10 @@
             retention = 0;
             priority = 1;
           };
-          "news.frugalusenet.com" = {
-            name = "news.frugalusenet.com";
-            displayname = "news.frugalusenet.com";
-            host = "news.frugalusenet.com";
+          "news.frugalentertainment.com" = {
+            name = "news.frugalentertainment.com";
+            displayname = "news.frugalentertainment.com";
+            host = "news.frugalentertainment.com";
             port = 563;
             timeout = 60;
             connections = 8;
@@ -229,10 +229,10 @@
             enable = true;
             priority = 2;
           };
-          "bonus.frugalusenet.com" = {
-            name = "bonus.frugalusenet.com";
-            displayname = "bonus.frugalusenet.com";
-            host = "bonus.frugalusenet.com";
+          "bonus.frugalentertainment.com" = {
+            name = "bonus.frugalentertainment.com";
+            displayname = "bonus.frugalentertainment.com";
+            host = "bonus.frugalentertainment.com";
             port = 563;
             timeout = 60;
             connections = 8;

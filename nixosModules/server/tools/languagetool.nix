@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.languagetool = {
+    server.tools.languagetool = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.languagetool.enable {
+  config = lib.mkIf config.nixos.server.tools.languagetool.enable {
     services.languagetool = {
       enable = true;
       port = 8001;

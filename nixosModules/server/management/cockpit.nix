@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.cockpit = {
+    server.management.cockpit = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.cockpit.enable {
+  config = lib.mkIf config.nixos.server.management.cockpit.enable {
     services.cockpit = {
       enable = true;
       openFirewall = false;

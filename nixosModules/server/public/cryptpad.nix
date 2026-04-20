@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.cryptpad = {
+    server.public.cryptpad = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.cryptpad.enable { # https://docs.cryptpad.org/en/admin_guide/installation.html + https://github.com/cryptpad/cryptpad/blob/main/config/config.example.js
+  config = lib.mkIf config.nixos.server.public.cryptpad.enable { # https://docs.cryptpad.org/en/admin_guide/installation.html + https://github.com/cryptpad/cryptpad/blob/main/config/config.example.js
     services.cryptpad = {
       enable = true;
       settings = {

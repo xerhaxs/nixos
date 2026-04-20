@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.ollama = {
+    server.tools.ollama = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.ollama.enable {
+  config = lib.mkIf config.nixos.server.tools.ollama.enable {
     services.ollama = {
       enable = true;
       package = pkgs.ollama-vulkan;

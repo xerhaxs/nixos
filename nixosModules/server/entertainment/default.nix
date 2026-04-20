@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./jellyfin.nix
     ./lidarr.nix
     ./nzbhydra2.nix
     ./radarr.nix
@@ -16,18 +17,19 @@
   ];
 
   options.nixos = {
-    server.usenet = {
+    server.entertainment = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable usenet modules bundle.";
+        description = "Enable entertainment modules bundle.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.enable {
-    nixos.server.usenet = {
+  config = lib.mkIf config.nixos.server.entertainment.enable {
+    nixos.server.entertainment = {
+      jellyfin.enable = true;
       lidarr.enable = true;
       nzbhydra2.enable = true;
       radarr.enable = true;

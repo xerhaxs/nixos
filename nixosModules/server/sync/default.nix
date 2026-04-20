@@ -7,29 +7,27 @@
 
 {
   imports = [
-    ./samba.nix
-    ./share.nix
-    ./sshfs.nix
-    ./webdav.nix
+    ./forgejo.nix
+    ./linkwarden.nix
+    ./radicale.nix
   ];
 
   options.nixos = {
-    server.fileshare = {
+    server.sync = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable fileshare modules bundle.";
+        description = "Enable sync modules bundle.";
       };
     };
   };
 
-  config = lib.mkIf config.nixos.server.fileshare.enable {
-    nixos.server.fileshare = {
-      samba.enable = true;
-      share.enable = true;
-      sshfs.enable = true;
-      webdav.enable = true;
+  config = lib.mkIf config.nixos.server.sync.enable {
+    nixos.server.sync = {
+      forgejo.enable = true;
+      linkwarden.enable = true;
+      radicale.enable = true;
     };
   };
 }

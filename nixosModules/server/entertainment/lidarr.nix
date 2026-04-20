@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.usenet.lidarr = {
+    server.entertainment.lidarr = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.lidarr.enable {
+  config = lib.mkIf config.nixos.server.entertainment.lidarr.enable {
     services.lidarr = {
       enable = true;
       openFirewall = false;

@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.usenet.readarr = {
+    server.entertainment.readarr = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.readarr.enable {
+  config = lib.mkIf config.nixos.server.entertainment.readarr.enable {
     services.readarr = {
       enable = true;
       openFirewall = false;

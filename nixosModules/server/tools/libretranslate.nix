@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.libretranslate = {
+    server.tools.libretranslate = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.libretranslate.enable {
+  config = lib.mkIf config.nixos.server.tools.libretranslate.enable {
     services.libretranslate = {
       enable = true;
       host = "127.0.0.1";

@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.radicale = {
+    server.sync.radicale = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.radicale.enable {
+  config = lib.mkIf config.nixos.server.sync.radicale.enable {
     systemd.services.radicale.serviceConfig.EnvironmentFile = [
       config.sops.secrets."radicale/htpasswd".path
     ];

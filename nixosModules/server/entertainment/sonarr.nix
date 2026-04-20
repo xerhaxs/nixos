@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.usenet.sonarr = {
+    server.entertainment.sonarr = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.sonarr.enable {
+  config = lib.mkIf config.nixos.server.entertainment.sonarr.enable {
     services.sonarr = {
       enable = true;
       openFirewall = false;

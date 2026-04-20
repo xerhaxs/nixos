@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.searxng = {
+    server.tools.searxng = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.searxng.enable {
+  config = lib.mkIf config.nixos.server.tools.searxng.enable {
     systemd.services.searx-init.serviceConfig.EnvironmentFile = [
       config.sops.secrets."searxng/secret".path
     ];

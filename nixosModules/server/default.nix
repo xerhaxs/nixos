@@ -7,12 +7,14 @@
 
 {
   imports = [
-    ./fediverse
+    ./entertainment
     ./fileshare
     ./game
-    ./home
+    ./management
     ./network
-    ./usenet
+    ./public
+    ./sync
+    ./tools
   ];
 
   options.nixos = {
@@ -28,12 +30,14 @@
 
   config = lib.mkIf config.nixos.server.enable {
     nixos.server = {
-      fediverse.enable = true;
-      #fileshare.enable = true;
+      entertainment.enable = true;
+      fileshare.enable = true;
       game.enable = lib.mkDefault false;
-      home.enable = true;
+      management.enable = true;
       network.enable = true;
-      usenet.enable = true;
+      public.enable = lib.mkDefault false;
+      sync.enable = true;
+      tools.enable = true;
     };
   };
 }

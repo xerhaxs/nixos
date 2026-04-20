@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.home.glance = {
+    server.management.glance = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.glance.enable {
+  config = lib.mkIf config.nixos.server.management.glance.enable {
     services.glance = {
       enable = true;
       openFirewall = false;

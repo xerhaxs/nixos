@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.libreddit = {
+    server.tools.libreddit = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.libreddit.enable {
+  config = lib.mkIf config.nixos.server.tools.libreddit.enable {
     services.redlib = {
       enable = true;
       address = "127.0.0.1";

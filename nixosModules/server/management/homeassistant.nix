@@ -23,7 +23,7 @@ in
 
 {
   options.nixos = {
-    server.home.homeassistant = {
+    server.management.homeassistant = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -33,7 +33,7 @@ in
     };
   };
 
-  config = lib.mkIf config.nixos.server.home.homeassistant.enable {
+  config = lib.mkIf config.nixos.server.management.homeassistant.enable {
     services.home-assistant = {
       enable = true;
       openFirewall = false;

@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.fediverse.matrix = {
+    server.public.matrix = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.fediverse.matrix.enable {
+  config = lib.mkIf config.nixos.server.public.matrix.enable {
     services.matrix-synapse = {
       enable = true;
     };

@@ -7,7 +7,7 @@
 
 {
   options.nixos = {
-    server.usenet.radarr = {
+    server.entertainment.radarr = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.nixos.server.usenet.radarr.enable {
+  config = lib.mkIf config.nixos.server.entertainment.radarr.enable {
     services.radarr = {
       enable = true;
       openFirewall = false;
