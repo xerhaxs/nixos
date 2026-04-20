@@ -49,6 +49,7 @@
       #".config/steamtinkerlaunch"
       #".config/VSCodium"
       ".config/Joplin"
+      #".config/Clementinerc"
 
       ".local/cache"
 
