@@ -49,7 +49,6 @@
       #".config/steamtinkerlaunch"
       ".config/VSCodium"
       ".config/Joplin"
-      ".config/Clementinerc"
 
       ".local/cache"
 
@@ -95,6 +94,9 @@
     files = [
       ".bash_history"
       ".viminfo"
+
+      "Clementinerc"
+      "kilerc"
     ];
   };
 }
