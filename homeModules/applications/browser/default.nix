@@ -8,7 +8,6 @@
 {
   imports = [
     ./brave.nix
-    ./firefox.nix
     ./librewolf.nix
     ./tor.nix
   ];
@@ -27,7 +26,6 @@
   config = lib.mkIf config.homeManager.applications.browser.enable {
     homeManager.applications.browser = {
       brave.enable = true;
-      firefox.enable = true;
       librewolf.enable = true;
       tor.enable = true;
     };
