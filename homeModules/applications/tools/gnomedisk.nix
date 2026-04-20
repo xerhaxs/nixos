@@ -7,19 +7,18 @@
 
 {
   options.homeManager = {
-    applications.common = {
+    applications.tools.gnomedisk = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable common tools.";
+        description = "Enable gnomedisk";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.common.enable {
+  config = lib.mkIf config.homeManager.applications.tools.gnomedisk.enable {
     home.packages = with pkgs; [
-      qalculate-gtk
       gnome-disk-utility
     ];
   };

@@ -7,24 +7,19 @@
 
 {
   options.homeManager = {
-    base.texteditor.tex = {
+    applications.tools.qalculate = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable tex.";
+        description = "Enable qalculate";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.base.texteditor.tex.enable {
+  config = lib.mkIf config.homeManager.applications.tools.qalculate.enable {
     home.packages = with pkgs; [
-      lmodern
-      texliveFull
+      qalculate-gtk
     ];
-
-    #programs.texlive = {
-    #  enable = true;
-    #};
   };
 }

@@ -7,20 +7,25 @@
 
 {
   options.homeManager = {
-    base.tools.backup = {
+    applications.office.kile = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable backup tools.";
+        description = "Enable kile";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.backup.enable {
+  config = lib.mkIf config.homeManager.applications.office.kile.enable {
     home.packages = with pkgs; [
-      backintime
-      #grsync
+      kile
+      lmodern
+      texliveFull
     ];
+
+    #programs.texlive = {
+    #  enable = true;
+    #};
   };
 }

@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    base.tools.git = {
+    base.git = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.git.enable {
+  config = lib.mkIf config.homeManager.base.git.enable {
     programs.git = {
       enable = true;
       settings = {

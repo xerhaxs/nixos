@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    base.shell.starship = {
+    base.starship = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.shell.starship.enable {
+  config = lib.mkIf config.homeManager.base.starship.enable {
     programs.starship = {
       enable = true;
       enableBashIntegration = true;

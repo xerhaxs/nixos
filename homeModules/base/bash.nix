@@ -9,7 +9,7 @@
 
 {
   options.homeManager = {
-    base.shell.bash = {
+    base.bash = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -19,7 +19,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.shell.bash.enable {
+  config = lib.mkIf config.homeManager.base.bash.enable {
     programs.bash = {
       enable = true;
       enableCompletion = true;

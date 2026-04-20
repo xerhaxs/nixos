@@ -8,7 +8,7 @@
 
 {
   options.homeManager = {
-    base.texteditor.vim = {
+    base.vim = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -18,7 +18,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.texteditor.vim.enable {
+  config = lib.mkIf config.homeManager.base.vim.enable {
     programs.vim = {
       enable = true;
       defaultEditor = true;

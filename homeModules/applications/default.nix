@@ -19,10 +19,8 @@
     ./screenshot
     ./sync
     ./terminal
+    ./tools
     ./vpn
-
-    ./common.nix
-    ./keepassxc.nix
   ];
 
   options.homeManager = {
@@ -49,10 +47,8 @@
       screenshot.enable = true;
       sync.enable = true;
       terminal.enable = true;
+      tools.enable = true;
       vpn.enable = true;
-
-      common.enable = true;
-      keepassxc.enable = true;
     };
   };
 }

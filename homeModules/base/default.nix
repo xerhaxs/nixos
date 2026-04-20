@@ -7,9 +7,11 @@
 
 {
   imports = [
-    ./shell
-    ./texteditor
-    ./tools
+    ./bash.nix
+    ./btop.nix
+    ./git.nix
+    ./ranger.nix
+    ./starship.nix
   ];
 
   options.homeManager = {
@@ -25,9 +27,11 @@
 
   config = lib.mkIf config.homeManager.base.enable {
     homeManager.base = {
-      shell.enable = true;
-      texteditor.enable = true;
-      tools.enable = true;
+      bash.enable = true;
+      btop.enable = true;
+      git.enable = true;
+      ranger.enable = true;
+      starship.enable = true;
     };
   };
 }

@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    base.tools.ranger = {
+    base.ranger = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.ranger.enable {
+  config = lib.mkIf config.homeManager.base.ranger.enable {
     programs.ranger = {
       enable = true;
       #settings = { };

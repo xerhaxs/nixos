@@ -7,7 +7,7 @@
 
 {
   options.homeManager = {
-    base.tools.btop = {
+    base.btop = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.base.tools.btop.enable {
+  config = lib.mkIf config.homeManager.base.btop.enable {
     programs.btop = {
       enable = true;
       #settings = {};

@@ -9,6 +9,7 @@
   imports = [
     ./financial.nix
     ./joplin.nix
+    ./kile.nix
     ./office.nix
     ./okular.nix
     ./skanpage.nix
@@ -29,6 +30,7 @@
     homeManager.applications.office = {
       financial.enable = true;
       joplin.enable = true;
+      kile.enable = true;
       office.enable = true;
       okular.enable = true;
       skanpage.enable = true;
