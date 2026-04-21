@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -21,7 +22,7 @@
     programs.nh = {
       enable = true;
       flake = "${
-        config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+        config.home-manager.users.${userName}.xdg.userDirs.documents
       }/nixos";
       clean = {
         enable = true;

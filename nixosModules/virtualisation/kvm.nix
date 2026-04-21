@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -60,7 +61,7 @@
       win-spice
     ];
 
-    users.users."${config.nixos.system.user.defaultuser.name}" = {
+    users.users."${userName}" = {
       extraGroups = [
         "libvirtd"
       ];

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -30,7 +31,7 @@
       };
 
       gui = {
-        user = "${config.nixos.system.user.defaultuser.name}";
+        user = "${userName}";
         password = "$2b$05$SDrb7x02Wgr/hHSFu8nOZe06iYWeDQ674wKvgeabKds/w3EOeN0nS";
         theme = lib.strings.toLower "black";
         tls = false;

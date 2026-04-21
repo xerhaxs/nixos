@@ -6,6 +6,13 @@
 }:
 
 {
+  _module.args.userName = "admin";
+
+  users.users.${userName} = {
+    initialHashedPassword = "$y$j9T$MXbWf.peSOtvQQtYvZvuZ.$7XUvmCniT4h4o.SFaGqD29F13RWyGW7bNpBcMpHKHH3";
+    #hashedPasswordFile = config.sops.secrets."user/nixos-server1/admin".path;
+  };
+
   nixos.hardware = {
     amdcpu.enable = true;
     amdgpu.enable = true;
@@ -33,12 +40,6 @@
 
   boot.initrd.secrets = {
     "/etc/ssh/initrd_host_key" = "/etc/ssh/initrd_host_key";
-  };
-
-  nixos.system.user.defaultuser = {
-    name = "admin";
-    pass = "$y$j9T$MXbWf.peSOtvQQtYvZvuZ.$7XUvmCniT4h4o.SFaGqD29F13RWyGW7bNpBcMpHKHH3";
-    #passfile = config.sops.secrets."user/nixos-server1/admin".path;
   };
 
   nixos.system.secureboot.enable = true;

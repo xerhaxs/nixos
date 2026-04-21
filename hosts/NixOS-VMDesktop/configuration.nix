@@ -6,6 +6,13 @@
 }:
 
 {
+  _module.args.userName = "admin";
+
+  users.users.${userName} = {
+    initialHashedPassword = "$y$j9T$1/B9SU/ligzAtWZfeWUkN0$HpnDuMQ26LrBrhTxQrapc2Fx/q3MfL.kX27D4jL87o/";
+    #hashedPasswordFile = config.sops.secrets."user/nixos-vmdesktop/admin".path;
+  };
+
   nixos.desktop = {
     enable = true;
     desktopEnvironment = {
@@ -28,12 +35,6 @@
   nixos.hardware = {
     amdcpu.enable = true;
     amdgpu.enable = true;
-  };
-
-  nixos.system.user.defaultuser = {
-    name = "admin";
-    pass = "$y$j9T$1/B9SU/ligzAtWZfeWUkN0$HpnDuMQ26LrBrhTxQrapc2Fx/q3MfL.kX27D4jL87o/";
-    #passfile = config.sops.secrets."user/nixos-vmdesktop/admin".path;
   };
 
   nixos.userEnvironment.enable = true;

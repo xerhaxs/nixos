@@ -4,6 +4,7 @@
   home-manager,
   pkgs,
   specialArgs,
+  userName,
   ...
 }:
 
@@ -16,9 +17,9 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    extraSpecialArgs = specialArgs;
+    extraSpecialArgs = specialArgs // { inherit userName; };
 
-    users.${config.nixos.system.user.defaultuser.name} = import ./default.nix;
+    users.${userName} = import ./default.nix;
   };
 
   programs.dconf.enable = true;

@@ -3,6 +3,7 @@
   lib,
   pkgs,
   catppuccin,
+  userName,
   ...
 }:
 
@@ -15,8 +16,8 @@ let
       sha256 = "sha256-jgM22pvCQvb0bjQQXoiqGMgScR9AgCK3OfDF5Ud+/mk="; # sha256 = lib.fakeSha256;
     };
 
-    obsThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/obs-studio/themes";
-    heroicThemesDir = "/home/${config.nixos.system.user.defaultuser.name}/.config/heroic/themes";
+    obsThemesDir = "/home/${userName}/.config/obs-studio/themes";
+    heroicThemesDir = "/home/${userName}/.config/heroic/themes";
     flavorToLower = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
 
     liminePalettes = {
@@ -147,7 +148,7 @@ in
           sddm = lib.mkIf config.nixos.desktop.displayManager.sddm.enable {
             enable = true;
             font = "Noto Sans";
-            #background = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/STScI-01G7ETPF7DVBJAC42JR5N6EQRH.jpg";
+            #background = "${config.home-manager.users.${userName}.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/STScI-01G7ETPF7DVBJAC42JR5N6EQRH.jpg";
             background = "https://wallpapercave.com/wp/wp6058967.jpg";
             loginBackground = true;
           };
@@ -158,7 +159,7 @@ in
         nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";
 
         systemd.services.obsThemeChecker = {
-          # lib.mkIf config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.applications.media.obs-studio.enable {
+          # lib.mkIf config.home-manager.users.${userName}.homeManager.applications.media.obs-studio.enable {
           description = "Check and download OBS theme if not present";
 
           script = ''
@@ -177,7 +178,7 @@ in
         };
 
         systemd.services.heroicThemeChecker = {
-          # lib.mkIf config.home-manager.users.${config.nixos.system.user.defaultuser.name}.homeManager.homeManager.applications.media.obs-studio.enable {
+          # lib.mkIf config.home-manager.users.${userName}.homeManager.homeManager.applications.media.obs-studio.enable {
           description = "Check and download Heroic theme if not present";
 
           script = ''

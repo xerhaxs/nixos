@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -47,7 +48,7 @@
 
     services.hardware.bolt.enable = true;
 
-    users.users."${config.nixos.system.user.defaultuser.name}" = {
+    users.users."${userName}" = {
       extraGroups = [
         "dialout"
       ];

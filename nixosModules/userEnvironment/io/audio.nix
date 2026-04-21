@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -92,7 +93,7 @@
       fftw
     ];
 
-    users.users."${config.nixos.system.user.defaultuser.name}" = {
+    users.users."${userName}" = {
       extraGroups = [
         "audio"
       ];

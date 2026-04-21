@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -23,11 +24,11 @@
     services.syncthing = {
       enable = true;
       systemService = true;
-      user = "${config.nixos.system.user.defaultuser.name}";
+      user = "${userName}";
       group = "users";
       cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
       key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-      dataDir = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.home.homeDirectory
+      dataDir = "${config.home-manager.users.${userName}.home.homeDirectory
       }";
       configDir = config.services.syncthing.dataDir + "/.config/syncthing";
       overrideDevices = true;
@@ -45,7 +46,7 @@
         };
 
         gui = {
-          user = "${config.nixos.system.user.defaultuser.name}";
+          user = "${userName}";
           theme = lib.strings.toLower "black";
           tls = true;
         };
@@ -81,7 +82,7 @@
         folders = {
           # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
           "Desktop" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.desktop
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.desktop
             }";
             id = "Desktop";
             type = "sendreceive";
@@ -98,7 +99,7 @@
             rescanIntervalS = 60;
           };
           "Documents" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.documents
             }";
             id = "Documents";
             type = "sendreceive";
@@ -115,7 +116,7 @@
             rescanIntervalS = 60;
           };
           "Downloads" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.download
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.download
             }";
             id = "Downloads";
             type = "sendreceive";
@@ -133,7 +134,7 @@
             rescanIntervalS = 60;
           };
           "Music" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.music
             }";
             id = "Music";
             type = "sendreceive";
@@ -150,7 +151,7 @@
             rescanIntervalS = 3600;
           };
           "Pictures" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.pictures
             }";
             id = "Pictures";
             type = "sendreceive";
@@ -167,7 +168,7 @@
             rescanIntervalS = 3600;
           };
           "Videos" = {
-            path = "${config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.videos
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.videos
             }";
             id = "Videos";
             type = "sendreceive";
@@ -183,7 +184,7 @@
           };
 
           "FreeTube" = {
-            path = "/home/${config.nixos.system.user.defaultuser.name}/.config/FreeTube";
+            path = "/home/${userName}/.config/FreeTube";
             id = "FreeTube";
             type = "sendreceive";
             devices = [
@@ -201,7 +202,7 @@
 
           "Android" = {
             path = "${
-              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+              config.home-manager.users.${userName}.xdg.userDirs.documents
             }/GraphenOS/Android";
             id = "Android";
             type = "sendreceive";
@@ -214,7 +215,7 @@
           };
           "GraphenOS" = {
             path = "${
-              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+              config.home-manager.users.${userName}.xdg.userDirs.documents
             }/GraphenOS/GraphenOS";
             id = "GraphenOS";
             type = "sendreceive";
@@ -227,7 +228,7 @@
           };
           "Pixel 6a Kamera" = {
             path = "${
-              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.pictures
+              config.home-manager.users.${userName}.xdg.userDirs.pictures
             }/Pixel 6a Kamera";
             id = "Pixel 6a Kamera";
             type = "sendreceive";
@@ -240,7 +241,7 @@
           };
           "Pixel 6a Musik" = {
             path = "${
-              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.music
+              config.home-manager.users.${userName}.xdg.userDirs.music
             }/Musik";
             id = "Pixel 6a Musik";
             type = "sendonly";
@@ -253,7 +254,7 @@
           };
           "Wichtige Dateien" = {
             path = "${
-              config.home-manager.users.${config.nixos.system.user.defaultuser.name}.xdg.userDirs.documents
+              config.home-manager.users.${userName}.xdg.userDirs.documents
             }/Wichtige Datein";
             id = "Wichtige Dateien";
             type = "sendonly";

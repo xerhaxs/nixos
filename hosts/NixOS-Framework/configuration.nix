@@ -6,6 +6,13 @@
 }:
 
 {
+  _module.args.userName = "jf";
+
+  users.users.${userName} = {
+    initialHashedPassword = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
+    #hashedPasswordFile = config.sops.secrets."user/nixos-framework/jf".path;
+  };
+
   nixos.desktop = {
     enable = true;
     desktopEnvironment = {
@@ -28,12 +35,6 @@
   nixos.hardware = {
     amdcpu.enable = true;
     amdgpu.enable = true;
-  };
-
-  nixos.system.user.defaultuser = {
-    name = "jf";
-    pass = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
-    #passfile = config.sops.secrets."user/nixos-framework/admin".path;
   };
 
   nixos.system.secureboot.enable = true;

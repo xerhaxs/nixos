@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -55,7 +56,7 @@
 
     services.ipp-usb.enable = true;
 
-    users.users."${config.nixos.system.user.defaultuser.name}" = {
+    users.users."${userName}" = {
       extraGroups = [
         "scanner"
         "lp"

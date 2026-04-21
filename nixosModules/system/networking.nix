@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  userName,
   ...
 }:
 
@@ -147,7 +148,7 @@ in
       ];
     };
 
-    users.users."${config.nixos.system.user.defaultuser.name}" = {
+    users.users."${userName}" = {
       extraGroups = [ "networkmanager" ];
     };
   };

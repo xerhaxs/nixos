@@ -6,15 +6,16 @@
 }:
 
 {
+  _module.args.userName = "admin";
+
+  users.users.${userName} = {
+    initialHashedPassword = "$y$j9T$ZEmmQ3X2ZJ2SjdORzgtXH1$n7.HG3CbcKpKv1gZjrAhbFJzqsjNNUsh7mCxxzoEPbB";
+    #hashedPasswordFile = config.sops.secrets."user/nixos-vmserver/admin".path;
+  };
+
   nixos.hardware = {
     amdcpu.enable = true;
     amdgpu.enable = true;
-  };
-
-  nixos.system.user.defaultuser = {
-    name = "admin";
-    pass = "$y$j9T$ZEmmQ3X2ZJ2SjdORzgtXH1$n7.HG3CbcKpKv1gZjrAhbFJzqsjNNUsh7mCxxzoEPbB";
-    #passfile = config.sops.secrets."user/nixos-vmserver/admin".path;
   };
 
   services.getty.autologinUser = null;

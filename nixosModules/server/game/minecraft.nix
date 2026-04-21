@@ -3,6 +3,7 @@
   lib,
   pkgs,
   nix-minecraft,
+  userName,
   ...
 }:
 
@@ -517,7 +518,7 @@
       };
     };
 
-    users.users."${config.nixos.system.user.defaultuser.name}" = {
+    users.users."${userName}" = {
       extraGroups = [
         "minecraft"
       ];
