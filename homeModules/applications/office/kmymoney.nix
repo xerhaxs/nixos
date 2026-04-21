@@ -7,23 +7,23 @@
 
 {
   options.homeManager = {
-    applications.office.kile = {
+    applications.office.kmymoney = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable kile";
+        description = "Enable kmymoney";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.office.kile.enable {
+  config = lib.mkIf config.homeManager.applications.office.kmymoney.enable {
     home.packages = with pkgs; [
       aqbanking
       kmymoney
     ];
 
-    /* xdg.configFile."kilerc".text = ''
+    /* xdg.configFile."kmymoney".text = ''
       [General Options]
       AutoSaveFile=true
       ExpertMode=true

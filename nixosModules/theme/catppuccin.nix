@@ -85,13 +85,52 @@
   };
 
   config = lib.mkIf config.nixos.theme.catppuccin.enable {
-    # test https://nix.catppuccin.com/options/main/nixos/catppuccin/
     catppuccin = {
       enable = true;
       enableReleaseCheck = true;
-      accent = "mauve";
-      flavor = "mocha";
+      accent = lib.strings.toLower "${config.nixos.theme.catppuccin.accent}";
+      flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
       #sources = "";
+
+      sddm = {
+        font = "Noto Sans";
+        #background = "${config.home-manager.users.${userName}.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/STScI-01G7ETPF7DVBJAC42JR5N6EQRH.jpg";
+        background = "https://wallpapercave.com/wp/wp6058967.jpg";
+        loginBackground = true;
+      };
     };
+
+    nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";
+
+    environment.systemPackages = with pkgs; [
+      papirus-icon-theme
+
+      (catppuccin-kde.override {
+        accents = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.accent}" ];
+        flavour = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.flavor}" ];
+        winDecStyles = map (str: lib.strings.toLower str) [
+          "${config.nixos.theme.catppuccin.winDecStyles}"
+        ];
+      })
+
+      (catppuccin-gtk.override {
+        accents = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.accent}" ];
+        size = lib.strings.toLower "${config.nixos.theme.catppuccin.size}";
+        tweaks = map (str: lib.strings.toLower str) [ "${config.nixos.theme.catppuccin.tweaks}" ];
+        variant = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+      })
+
+      catppuccin-cursors
+
+      (catppuccin-papirus-folders.override {
+        accent = lib.strings.toLower "${config.nixos.theme.catppuccin.accent}";
+        flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+      })
+
+      (catppuccin-kvantum.override {
+        accent = lib.strings.toLower "${config.nixos.theme.catppuccin.accent}";
+        variant = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
+      })
+    ];
   };
 }
