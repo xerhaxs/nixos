@@ -141,6 +141,7 @@ in
 
       nativeMessagingHosts = with pkgs; [
         kdePackages.plasma-browser-integration
+        keepassxc
       ];
 
       settings = {
