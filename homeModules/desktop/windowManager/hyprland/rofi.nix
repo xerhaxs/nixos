@@ -49,7 +49,5 @@
         #  sidebar-mode = true;
       };
     };
-
-    catppuccin.rofi.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

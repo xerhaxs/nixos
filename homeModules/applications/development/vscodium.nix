@@ -21,9 +21,6 @@
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
-      #package = (pkgs.vscodium.overrideAttrs (oldAttrs: {
-      #  buildInputs = oldAttrs.buildInputs ++ [ pkgs.dotnet-sdk ];
-      #}));
       profiles.default = {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = true;
@@ -40,8 +37,6 @@
         };
 
         extensions = with pkgs.vscode-extensions; [
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
           #vscodevim.vim
           yzhang.markdown-all-in-one
           jnoortheen.nix-ide

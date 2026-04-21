@@ -20,7 +20,6 @@
   config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.dunst.enable {
     services.dunst = {
       enable = true;
-      catppuccin.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
       settings = { };
     };
   };

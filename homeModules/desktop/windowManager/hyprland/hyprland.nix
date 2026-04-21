@@ -231,7 +231,5 @@
         hyprlandPlugins.hyprgrass
       ];
     };
-
-    catppuccin.hyprland.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

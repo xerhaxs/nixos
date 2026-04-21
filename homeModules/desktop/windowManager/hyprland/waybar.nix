@@ -129,7 +129,5 @@
         }
       ];
     };
-
-    catppuccin.waybar.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

@@ -22,7 +22,5 @@
       enable = true;
       #settings = {};
     };
-
-    catppuccin.btop.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

@@ -30,7 +30,5 @@
         shell_integration = "enabled";
       };
     };
-
-    catppuccin.kitty.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }

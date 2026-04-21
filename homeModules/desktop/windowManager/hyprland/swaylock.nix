@@ -24,7 +24,5 @@
         show-failed-attempts = true;
       };
     };
-
-    catppuccin.swaylock.enable = lib.mkIf config.homeManager.theme.catppuccin.enable true;
   };
 }
