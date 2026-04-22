@@ -243,7 +243,6 @@
                   "applications:com.github.xeco23.WasIstLos.desktop"
                   "applications:legcord.desktop"
                   "applications:org.kde.kmymoney.desktop"
-                  "applications:joplin.desktop"
                   "applications:org.kde.kile.desktop"
                   "applications:writer.desktop"
                   "applications:calc.desktop"
