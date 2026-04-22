@@ -37,15 +37,22 @@
         };
 
         extensions = with pkgs.vscode-extensions; [
-          #vscodevim.vim
-          yzhang.markdown-all-in-one
-          jnoortheen.nix-ide
-          arrterian.nix-env-selector
-          streetsidesoftware.code-spell-checker
-          davidlday.languagetool-linter
-          #hediet.vscode-drawio
-          james-yu.latex-workshop
           alefragnani.bookmarks
+          arrterian.nix-env-selector
+          #cweijan.vscode-office
+          davidanson.vscode-markdownlint
+          davidlday.languagetool-linter
+          foam.foam-vscode
+          #gera2ld.markmap-vscode
+          hediet.vscode-drawio
+          james-yu.latex-workshop
+          jnoortheen.nix-ide
+          marp-team.marp-vscode
+          #pomdtr.excalidraw-editor
+          streetsidesoftware.code-spell-checker
+          #vscodevim.vim
+          #YuTengjing.open-in-external-app
+          yzhang.markdown-all-in-one
         ];
       };
     };
