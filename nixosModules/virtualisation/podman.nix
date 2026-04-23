@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -20,6 +21,7 @@
   config = lib.mkIf config.nixos.virtualisation.podman.enable {
     virtualisation.podman = {
       enable = true;
+      dockerCompat = true;
       enableNvidia = lib.mkIf (
         config.nixos.hardware.nvidiagpu.enable && config.nixos.virtualisation.podman.enable
       ) true;
@@ -27,6 +29,14 @@
 
     virtualisation.oci-containers = {
       backend = "podman";
+    };
+
+    users.users.${userName} = {
+      extraGroups = [
+        "podman"
+        "video"
+        "render"
+      ];
     };
   };
 }
