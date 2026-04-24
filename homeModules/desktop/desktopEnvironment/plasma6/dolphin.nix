@@ -18,6 +18,51 @@
   };
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.dolphin.enable {
+    programs.plasma.configFile."dolphinrc" = {
+      "ContentDisplay" = {
+        "DirectorySizeCount".value = false;
+        "DirectorySizeMode".value = "ContentSize";
+        "RecursiveDirectorySizeLimit".value = 20;
+        "UsePermissionsFormat".value = "CombinedFormat";
+      };
+
+      "ContextMenu" = {
+        "ShowCopyMoveMenu".value = true;
+      };
+
+      "DetailsMode" = {
+        "PreviewSize".value = 32;
+      };
+
+      "General" = {
+        "BrowseThroughArchives".value = true;
+        "ShowFullPath".value = true;
+        "ShowFullPathInTitlebar".value = true;
+        "ShowToolTips".value = false;
+        "SplitView".value = true;
+        "UseTabForSwitchingSplitView".value = true;
+      };
+
+      "IconsMode" = {
+        "IconSize".value = 22;
+        "PreviewSize".value = 48;
+      };
+
+      "KFileDialog Settings" = {
+        "Places Icons Auto-resize".value = false;
+        "Places Icons Static Size".value = 22;
+      };
+
+      "PreviewSettings" = {
+        "Plugins".value =
+          "audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mltpreview,mobithumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs";
+      };
+
+      "VersionControl" = {
+        "enabledPlugins".value = "Git";
+      };
+    };
+    
     xdg.dataFile."kxmlgui5/dolphin/dolphinui.rc".text = ''
       <?xml version='1.0'?>
       <!DOCTYPE gui SYSTEM 'kpartgui.dtd'>
