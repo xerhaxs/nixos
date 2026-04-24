@@ -73,7 +73,7 @@
 
         ui = {
           #DEFAULT_THEME = "forgejo-auto";
-          THEMES = "auto,forgejo-light,forgejo-dark,arc-green";
+          #THEMES = "auto,forgejo-light,forgejo-dark,arc-green";
         };
 
         repository = {
