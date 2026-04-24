@@ -107,7 +107,7 @@
           };
           whenLaptopLidClosed = "sleep";
           whenSleepingEnter = "standby";
-          displayBrightness = 10;
+          displayBrightness = 50;
           inhibitLidActionWhenExternalMonitorConnected = true;
           keyboardBrightness = 50;
           powerButtonAction = "shutDown";
@@ -138,10 +138,20 @@
           };
           whenLaptopLidClosed = "sleep";
           whenSleepingEnter = "standby";
-          displayBrightness = 5;
+          displayBrightness = 10;
           inhibitLidActionWhenExternalMonitorConnected = true;
           keyboardBrightness = 25;
           powerButtonAction = "shutDown";
+        };
+      };
+
+      session = {
+        general = {
+          askForConfirmationOnLogout = false;
+        };
+        
+        sessionRestore = {
+          restoreOpenApplicationsOnLogin = "startWithEmptySession";
         };
       };
 
