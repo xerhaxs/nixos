@@ -601,27 +601,6 @@
           "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.venv,venv,core-dumps,lost+found";
         "baloofilerc"."General"."exclude filters version" = 8;
         "baloofilerc"."General"."index hidden folders" = true;
-        "dolphinrc"."ContentDisplay"."DirectorySizeCount" = false;
-        "dolphinrc"."ContentDisplay"."DirectorySizeMode" = "ContentSize";
-        "dolphinrc"."ContentDisplay"."RecursiveDirectorySizeLimit" = 20;
-        "dolphinrc"."ContentDisplay"."UsePermissionsFormat" = "CombinedFormat";
-        "dolphinrc"."ContextMenu"."ShowCopyMoveMenu" = true;
-        "dolphinrc"."DetailsMode"."PreviewSize" = 32;
-        "dolphinrc"."General"."BrowseThroughArchives" = true;
-        "dolphinrc"."General"."ShowFullPath" = true;
-        "dolphinrc"."General"."ShowFullPathInTitlebar" = true;
-        "dolphinrc"."General"."ShowToolTips" = false;
-        "dolphinrc"."General"."SplitView" = true;
-        "dolphinrc"."General"."UseTabForSwitchingSplitView" = true;
-        "dolphinrc"."IconsMode"."IconSize" = 22;
-        "dolphinrc"."IconsMode"."PreviewSize" = 48;
-        "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
-        "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
-        "dolphinrc"."MainWindow"."MenuBar" = "Disabled";
-        "dolphinrc"."MainWindow"."ToolBarsMovable" = "Disabled";
-        "dolphinrc"."PreviewSettings"."Plugins" =
-          "audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mltpreview,mobithumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs";
-        "dolphinrc"."VersionControl"."enabledPlugins" = "Git";
         "kcminputrc"."Keyboard"."NumLock" = 0;
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Mouse"."PointerAccelerationProfile" = 1;
         "kcminputrc"."Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad"."ClickMethod" = 2;
