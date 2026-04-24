@@ -8,7 +8,6 @@
 {
   imports = [
     ./catppuccin.nix
-    ./theme.nix
   ];
 
   options.nixos = {
@@ -25,7 +24,6 @@
   config = lib.mkIf config.nixos.theme.enable {
     nixos.theme = {
       catppuccin.enable = true;
-      theme.enable = true;
     };
   };
 }
