@@ -12,7 +12,7 @@
     ./audio.nix
     ./compiler.nix
     ./image.nix
-    ./video.nix
+    ./kdenlive.nix
   ];
 
   options.homeManager = {
@@ -33,7 +33,7 @@
       audio.enable = true;
       compiler.enable = true;
       image.enable = true;
-      video.enable = true;
+      kdenlive.enable = true;
     };
   };
 }
