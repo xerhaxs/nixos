@@ -72,7 +72,7 @@
         };
 
         ui = {
-          DEFAULT_THEME = "forgejo-auto";
+          #DEFAULT_THEME = "forgejo-auto";
           THEMES = "auto,forgejo-light,forgejo-dark,arc-green";
         };
 
