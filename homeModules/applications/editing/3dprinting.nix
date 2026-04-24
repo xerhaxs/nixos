@@ -22,7 +22,6 @@
       #blender
       orca-slicer
       freecad-wayland
-      #cura-appimage
     ];
   };
 }
