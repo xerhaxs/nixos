@@ -14,6 +14,7 @@
     ./chromium-policies.nix
     ./fonts.nix
     ./kdeconnect.nix
+    ./mullvad.nix
     ./networkshares.nix
     ./obs-studio.nix
     ./syncthing.nix
@@ -39,6 +40,7 @@
       chromium-policies.enable = true;
       fonts.enable = true;
       kdeconnect.enable = true;
+      mullvad.enable = true;
       networkshares.enable = true;
       obs-studio.enable = true;
       syncthing.enable = true;
