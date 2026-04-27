@@ -19,7 +19,6 @@
 
   config = lib.mkIf config.homeManager.applications.development.virtualisation.enable {
     home.packages = with pkgs; [
-      kdePackages.krdp
       spice-gtk
       virt-viewer
     ];
