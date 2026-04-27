@@ -29,18 +29,9 @@
           swtpm.enable = true;
           runAsRoot = true; # may can cause problems
         };
-        extraConfig = ''
-          log_filters="3:qemu 1:libvirt"
-          log_outputs="2:file:/var/log/libvirt/libvirtd.log"
-        '';
-        #hooks.qemu = {
-        #  "win11gpu" = ./vm-win11gpu-hook.sh;
-        #};
       };
       spiceUSBRedirection.enable = true;
     };
-
-    #"/var/lib/libvirt/vgabios/patched.rom".source = ./patched.rom;
 
     programs.virt-manager.enable = true;
 
