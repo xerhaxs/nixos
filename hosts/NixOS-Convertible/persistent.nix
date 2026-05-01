@@ -17,7 +17,6 @@
       "/etc/mullvad-vpn"
       "/etc/nixos"
       "/etc/ssh"
-      "/etc/zfs"
       "/var/log"
       "/var/lib/sbctl"
       "/var/lib/nixos"
@@ -26,7 +25,6 @@
       "/var/lib/systemd/coredump"
       
       "/var/lib/NetworkManager"
-      "/var/lib/bluetooth"
       "/var/lib/bluetooth"
       "/var/lib/sshguard"
 
