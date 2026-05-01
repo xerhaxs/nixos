@@ -29,7 +29,7 @@
     homeManager.applications.gaming = {
       gameconqueror.enable = true;
       heroic.enable = true;
-      lutris.enable = true;
+      lutris.enable = lib.mkDefault false;
       mangohud.enable = true;
       prismlauncher.enable = true;
     };
