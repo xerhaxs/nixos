@@ -41,6 +41,7 @@
   nixos.system.secureboot.enable = false; # NEED TO BE CHANGED!!
 
   nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.game.enable = false;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;

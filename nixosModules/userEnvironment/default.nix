@@ -33,7 +33,7 @@
 
   config = lib.mkIf config.nixos.userEnvironment.enable {
     nixos.userEnvironment = {
-      game.enable = true;
+      game.enable = lib.mkDefault true;
       io.enable = true;
 
       appimage.enable = true;
