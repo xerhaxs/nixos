@@ -38,12 +38,10 @@
     intelgpu.enable = true;
   };
 
-  nixos.system.secureboot.enable = true;
+  nixos.system.secureboot.enable = false; # NEED TO BE CHANGED!!
 
   nixos.userEnvironment.enable = true;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;
-  
-  sops.age.keyFile = "/root/.secrets/keys.txt";
 }

@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./xdg.nix
+  imports = [    
     ./persistent.nix
+    ./xdg.nix
   ];
 }
