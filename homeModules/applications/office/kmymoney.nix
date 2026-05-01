@@ -20,6 +20,7 @@
   config = lib.mkIf config.homeManager.applications.office.kmymoney.enable {
     home.packages = with pkgs; [
       aqbanking
+      gwenhywfar
       kmymoney
     ];
 
