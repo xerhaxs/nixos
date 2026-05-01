@@ -20,7 +20,6 @@
   config = lib.mkIf config.nixos.userEnvironment.chromium-policies.enable {
     programs.chromium = {
       enable = true;
-      enablePlasmaBrowserIntegration = true;
 
       extensions = [
         "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
