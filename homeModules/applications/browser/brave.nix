@@ -35,9 +35,10 @@
 
     home.activation.braveNativeMessaging = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       NMHDIR="$HOME/.config/BraveSoftware/Brave-Browser/NativeMessagingHosts"
+      rm -rf "$NMHDIR"
       mkdir -p "$NMHDIR"
 
-      cat > "$NMHDIR/org.keepassxc.keepassxc_browser.json" << 'EOF'
+      cat > "$NMHDIR/org.keepassxc.keepassxc_browser.json" << EOF
       {
         "name": "org.keepassxc.keepassxc_browser",
         "description": "KeePassXC integration with native messaging support",
@@ -47,7 +48,7 @@
       }
       EOF
 
-      cat > "$NMHDIR/org.kde.plasma.browser_integration.json" << 'EOF'
+      cat > "$NMHDIR/org.kde.plasma.browser_integration.json" << EOF
       {
         "name": "org.kde.plasma.browser_integration",
         "description": "Native connector for KDE Plasma",
