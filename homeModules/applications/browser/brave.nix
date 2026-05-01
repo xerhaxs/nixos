@@ -33,32 +33,30 @@
       ];
     };
 
-    /* programs.brave.nativeMessagingHosts = with pkgs; [
-      kdePackages.plasma-browser-integration
-      keepassxc
-    ]; */
+    home.activation.braveNativeMessaging = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      NMHDIR="$HOME/.config/BraveSoftware/Brave-Browser/NativeMessagingHosts"
+      mkdir -p "$NMHDIR"
 
-    home.file.".config/BraveSoftware/Brave-Browser/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text =
-      builtins.toJSON {
-        name = "org.keepassxc.keepassxc_browser";
-        description = "KeePassXC integration with native messaging support";
-        path = "${pkgs.keepassxc}/bin/keepassxc-proxy";
-        type = "stdio";
-        allowed_origins = [
-          "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
-        ];
-      };
+      cat > "$NMHDIR/org.keepassxc.keepassxc_browser.json" << 'EOF'
+      {
+        "name": "org.keepassxc.keepassxc_browser",
+        "description": "KeePassXC integration with native messaging support",
+        "path": "${pkgs.keepassxc}/bin/keepassxc-proxy",
+        "type": "stdio",
+        "allowed_origins": ["chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"]
+      }
+      EOF
 
-    home.file.".config/BraveSoftware/Brave-Browser/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text =
-      builtins.toJSON {
-        name = "org.kde.plasma.browser_integration";
-        description = "Native connector for KDE Plasma";
-        path = "${pkgs.kdePackages.plasma-browser-integration}/bin/plasma-browser-integration-host";
-        type = "stdio";
-        allowed_origins = [
-          "chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/"
-        ];
-      };
+      cat > "$NMHDIR/org.kde.plasma.browser_integration.json" << 'EOF'
+      {
+        "name": "org.kde.plasma.browser_integration",
+        "description": "Native connector for KDE Plasma",
+        "path": "${pkgs.kdePackages.plasma-browser-integration}/bin/plasma-browser-integration-host",
+        "type": "stdio",
+        "allowed_origins": ["chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/"]
+      }
+      EOF
+    '';
 
     home.activation.braveConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       PREFS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Preferences"
