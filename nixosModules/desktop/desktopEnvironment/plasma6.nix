@@ -95,6 +95,7 @@ in
         [
           kaccounts-providers
           kaccounts-integration
+          merkuro
           plasma-browser-integration
           plasma-pa
           plasma-nm
