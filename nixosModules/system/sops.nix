@@ -3,6 +3,7 @@
   lib,
   pkgs,
   sops-nix,
+  userName,
   ...
 }:
 
@@ -40,6 +41,12 @@
       secrets = {
         changeme = { };
         changeme_env = { };
+
+        "alphavantage/api_key" = {
+          owner = config.users.users.${userName}.name;
+          group = config.users.users.${userName}.group;
+          mode = "0440";
+        };
 
         "cloudflare/api_key" = { };
 

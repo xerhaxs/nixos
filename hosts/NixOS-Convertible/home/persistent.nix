@@ -9,16 +9,15 @@
 {
   home.persistence."/persistent" = {
     directories = [
-      #".aqbanking"
+      ".aqbanking"
       ".cache"
       
       ".thunderbird"
       ".librewolf"
-      #".mozilla"
 
       ".steam"
       
-      #".tor project"
+      ".tor project"
       #".winboat"
       #".wine"
 
@@ -30,13 +29,12 @@
       "${config.home.homeDirectory}/Videos"
 
       ".config/BraveSoftware"
-      #".config/chromium"
       ".config/Clementine"
       ".config/Element"
       ".config/FreeTube"
       ".config/heroic"
       ".config/kdeconnect"
-      #".config/kmymoney"
+      ".config/kmymoney"
       ".config/legcord"
       #".config/libreoffice"
       ".config/Mullvad VPN"
