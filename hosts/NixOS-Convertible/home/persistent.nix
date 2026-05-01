@@ -92,8 +92,8 @@
       ".bash_history"
       ".viminfo"
 
-      "Clementinerc"
-      "kilerc"
+      ".config/Clementinerc"
+      ".config/kilerc"
     ];
   };
 }
