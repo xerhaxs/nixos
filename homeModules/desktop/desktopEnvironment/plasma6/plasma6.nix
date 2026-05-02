@@ -273,7 +273,7 @@
               name = "org.kde.plasma.systemtray";
               config = {
                 General = {
-                  hiddenItems = "KDE Connect Indicator,org.kde.plasma.clipboard,org.kde.plasma.mediacontroller,org.kde.plasma.weather,org.kde.merkuro.contact.applet,org.kde.plasma.brightness";
+                  hiddenItems = "KDE Connect Indicator,org.kde.plasma.clipboard,org.kde.plasma.mediacontroller,org.kde.plasma.weather,org.kde.merkuro.contact.applet,org.kde.plasma.brightness,Easy Effects";
                   shownItems = "org.kde.plasma.battery,org.kde.plasma.networkmanagement";
                 };
               };
