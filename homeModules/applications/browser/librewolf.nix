@@ -161,7 +161,7 @@ in
 
         "webgl.disabled" = false;
         "librewolf.webgl.prompt.hide" = false;
-        
+
         "media.ffmpeg.vaapi.enabled" = true;
         "media.rdd-ffmpeg.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
@@ -193,7 +193,8 @@ in
         "privacy.cpd.sessions" = true;
         "privacy.cpd.offlineApps" = true;
         "privacy.cpd.cookies" = true;
-        "privacy.sanitize.pending" = "[{'id':'shutdown','itemsToClear':['cache','formdata','siteSettings','browsingHistoryAndDownloads','cookiesAndStorage'],'options':{}}]";
+        "privacy.sanitize.pending" =
+          "[{'id':'shutdown','itemsToClear':['cache','formdata','siteSettings','browsingHistoryAndDownloads','cookiesAndStorage'],'options':{}}]";
       };
 
       policies = {
@@ -361,6 +362,36 @@ in
             defaultInjectInto = "auto";
             showAdvanced = true;
           };
+        };
+
+        Cookies = {
+          Allow = [
+            "https://forgejo.m4rx.cc"
+            "https://glance.m4rx.cc"
+            "https://homeassistant.m4rx.cc"
+            "https://jellyfin.m4rx.cc"
+            "https://kiwix.m4rx.cc"
+            "https://libretranslate.m4rx.cc"
+            "https://lidarr.m4rx.cc"
+            "https://linkwarden.m4rx.cc"
+            "https://networkingtoolbox.m4rx.cc"
+            "https://nzbhydra.m4rx.cc"
+            "https://ollama.m4rx.cc"
+            "https://radarr.m4rx.cc"
+            "https://radicale.m4rx.cc"
+            "https://readarr.m4rx.cc"
+            "https://sabnzbd.m4rx.cc"
+            "https://searxng.m4rx.cc"
+            "https://sonarr.m4rx.cc"
+            "https://syncthing.m4rx.cc"
+            "https://pihole.m4rx.cc"
+          ];
+          AllowSession = [ ];
+          Block = [ ];
+          Default = true;
+          AcceptThirdParty = "never";
+          ExpireAtSessionEnd = true;
+          Locked = false;
         };
       };
 
