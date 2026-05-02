@@ -442,12 +442,10 @@ install_nixos() {
 	# Create temporary SWAP file for resource intensive package compiling
 	echo -e "${BLUE}>>>${NC} ${TEXT}Creating swap file...${NC}"
 	echo ""
-	dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192 status=progress
-	chmod 600 /mnt/swapfile
-	mkswap /mnt/swapfile
-	swapon /mnt/swapfile
+	btrfs filesystem mkswapfile --size 32G /mnt/swap/swapfile
+	swapon /mnt/swap/swapfile
 	echo ""
-	print_box_success "Swap created and activated"
+	print_box_success "Swap file created and activated"
 	echo ""
 
 	# Move secrets
