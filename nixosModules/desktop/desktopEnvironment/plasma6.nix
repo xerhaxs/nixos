@@ -72,6 +72,15 @@ in
 
     programs.kdeconnect.package = lib.mkForce pkgs.kdePackages.kdeconnect-kde;
 
+    environment.sessionVariables = {
+      QML_IMPORT_PATH = [
+        "${pkgs.kdePackages.merkuro}/lib/qt-6/qml"
+        "${pkgs.kdePackages.kpeople}/lib/qt-6/qml"
+        "${pkgs.kdePackages.akonadi-contacts}/lib/qt-6/qml"
+        "${pkgs.kdePackages.kcontacts}/lib/qt-6/qml"
+      ];
+    };
+
     environment = {
       plasma6.excludePackages =
         with pkgs;
@@ -99,10 +108,11 @@ in
           colord-kde
           filelight
           kaccounts-integration
-          kaccounts-integration
           kaccounts-providers
           kate
+          kdepim-addons
           kdeplasma-addons
+          kcontacts
           konsole
           kpeople
           kpipewire
