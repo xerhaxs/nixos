@@ -77,54 +77,54 @@ in
         with pkgs;
         with kdePackages;
         [
+          breeze
+          breeze-gtk
+          breeze-icons
           elisa
           kwalletmanager
-          breeze
-          breeze-icons
-          breeze-gtk
           oxygen
           oxygen-icons
           oxygen-sounds
-          plasma-workspace-wallpapers
           plasma-welcome
+          plasma-workspace-wallpapers
         ];
 
       systemPackages =
         with pkgs;
         with kdePackages;
         [
-          kaccounts-providers
-          kaccounts-integration
-          merkuro
-          plasma-browser-integration
-          plasma-pa
-          plasma-nm
-          plasma-disks
-          plasma5support
-          plasma-desktop
-          plasma-activities
-          plasma-thunderbolt
-          plasma-integration
-          plasma-systemmonitor
-          plasma-activities-stats
-          plasma-wayland-protocols
-          print-manager
-          libplasma
-          systemsettings
-          powerdevil
-          kpipewire
-          konsole
-          bluedevil
-          kdeplasma-addons
-          kaccounts-integration
           akonadi
           akonadi-calendar-tools
-          filelight
-          plasma-keyboard
-          merkuro
-          kate
+          bluedevil
           colord-kde
+          filelight
+          kaccounts-integration
+          kaccounts-integration
+          kaccounts-providers
+          kate
+          kdeplasma-addons
+          konsole
+          kpeople
+          kpipewire
+          libplasma
+          merkuro
+          plasma-activities
+          plasma-activities-stats
+          plasma-browser-integration
+          plasma-desktop
+          plasma-disks
+          plasma-integration
+          plasma-keyboard
+          plasma-nm
+          plasma-pa
+          plasma-systemmonitor
+          plasma-thunderbolt
+          plasma-wayland-protocols
+          plasma5support
+          powerdevil
+          print-manager
           spectacle
+          systemsettings
           #wallpaper-engine-plugin
         ];
     };
