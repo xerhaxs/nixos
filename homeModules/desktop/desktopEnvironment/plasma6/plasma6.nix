@@ -685,8 +685,10 @@
           };
           "Libinput/2362/628/PIXA3854:00 093A:0274 Touchpad" = {
             "ClickMethod" = 2;
-            "LmrTapButtonMap" = true;
+            "LmrTapButtonMap" = false;
             "NaturalScroll" = true;
+            "ScrollFactor" = 1.5;
+            "TapToClick" = true;
           };
           "Tmp" = {
             "update_info" = "delete_cursor_old_default_size.upd:DeleteCursorOldDefaultSize";
