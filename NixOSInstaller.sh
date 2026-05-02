@@ -475,6 +475,7 @@ install_nixos() {
 	echo -e "${BLUE}>>>${NC} ${TEXT}Configuring build directory...${NC}"
 	echo ""
 	mkdir -p /mnt/nix/build
+	mount --bind /mnt/nix/build /nix/build
 	echo ""
 	print_box_success "Build directory configured"
 	echo ""
