@@ -471,10 +471,18 @@ install_nixos() {
 	print_box_success "Hardware config generated"
 	echo ""
 
+	# Set build directory to disk
+	echo -e "${BLUE}>>>${NC} ${TEXT}Configuring build directory...${NC}"
+	echo ""
+	mkdir -p /mnt/nix/build
+	echo ""
+	print_box_success "Build directory configured"
+	echo ""
+
 	# Install
 	echo -e "${BLUE}>>>${NC} ${TEXT}Installing NixOS (this may take a while)...${NC}"
 	echo ""
-	nixos-install --no-root-passwd --impure --flake "$INSTALLATION_TARGET"
+	nixos-install --no-root-passwd --impure --flake "$INSTALLATION_TARGET" --option build-dir /nix/build
 
 	echo ""
 	print_box_success "NixOS installed successfully!"
