@@ -474,6 +474,7 @@ install_nixos() {
 	# Set build directory to disk
 	echo -e "${BLUE}>>>${NC} ${TEXT}Configuring build directory...${NC}"
 	echo ""
+	mkdir -p /nix/build
 	mkdir -p /mnt/nix/build
 	mount --bind /mnt/nix/build /nix/build
 	echo ""
