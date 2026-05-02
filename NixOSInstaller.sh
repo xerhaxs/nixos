@@ -465,7 +465,7 @@ install_nixos() {
     # Install
     echo -e "${BLUE}>>>${NC} ${TEXT}Installing NixOS (this may take a while)...${NC}"
     echo ""
-    nixos-install --no-root-passwd --impure --keep-going --flake "$INSTALLATION_TARGET"
+    nixos-install --no-root-passwd --impure --flake "$INSTALLATION_TARGET"
     
     echo ""
     print_box_success "NixOS installed successfully!"
