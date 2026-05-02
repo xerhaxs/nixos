@@ -48,6 +48,7 @@
           james-yu.latex-workshop
           jnoortheen.nix-ide
           marp-team.marp-vscode
+          mkhl.shfmt
           #pomdtr.excalidraw-editor
           streetsidesoftware.code-spell-checker
           #vscodevim.vim
