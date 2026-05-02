@@ -15,7 +15,7 @@
     ./mpv.nix
     ./obs-studio.nix
     ./vlc.nix
-    ./yt-dlp.nix
+    #./yt-dlp.nix
   ];
 
   options.homeManager = {
@@ -39,7 +39,7 @@
       mpv.enable = true;
       obs-studio.enable = true;
       vlc.enable = true;
-      yt-dlp.enable = true;
+      #yt-dlp.enable = true;
     };
   };
 }
