@@ -43,7 +43,7 @@
 
       if ! ${pkgs.mullvad}/bin/mullvad account get 2>&1 | grep -q "Mullvad account:"; then
         ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
-          config.sops.secrets."mullvad".path
+          osConfig.sops.secrets."mullvad".path
         })
       fi
 
