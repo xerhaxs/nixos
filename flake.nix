@@ -114,16 +114,14 @@
       ...
     }:
     let
-      system = "x86_64-linux";
-
       mkHost =
         hostName:
         nixpkgs.lib.nixosSystem {
-          inherit system;
           specialArgs = inputs // {
             inherit inputs;
           };
           modules = [
+            { nixpkgs.hostPlatform = "x86_64-linux"; }
             catppuccin.nixosModules.catppuccin
             ./nixosModules/default.nix
             ./hosts/${hostName}/default.nix
