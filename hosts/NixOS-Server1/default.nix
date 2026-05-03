@@ -11,7 +11,6 @@
     ./disko.nix
     ./hardware-configuration.nix
     ./networking.nix
-    ./persistent.nix
     ./server.nix
     ./services.nix
     ./syncthing.nix
