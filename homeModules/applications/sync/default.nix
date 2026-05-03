@@ -11,6 +11,7 @@
     ./kdeconnect.nix
     ./onionshare.nix
     ./rclone.nix
+    ./syncthing.nix
   ];
 
   options.homeManager = {
@@ -29,6 +30,7 @@
       kdeconnect.enable = true;
       onionshare.enable = lib.mkDefault false;
       rclone.enable = lib.mkDefault false;
+      syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };
   };
 }
