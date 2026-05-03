@@ -1914,6 +1914,7 @@
       directories = [
         ".local/share/baloo"
         ".local/share/klipper"
+        ".local/share/kwalletd"
         ".local/share/plasma_notes"
       ];
     };
