@@ -102,49 +102,50 @@
 
     nixos.theme.catppuccin.prefer = lib.mkIf (config.nixos.theme.catppuccin.flavor == "Latte") "Light";
 
-    /* systemd.services.obsThemeChecker = {
-          # lib.mkIf config.home-manager.users.${userName}.homeManager.applications.media.obs-studio.enable {
-          description = "Check and download OBS theme if not present";
+    /*
+      systemd.services.obsThemeChecker = {
+         # lib.mkIf config.home-manager.users.${userName}.homeManager.applications.media.obs-studio.enable {
+         description = "Check and download OBS theme if not present";
 
-          script = ''
-            if [ ! -d "${catppuccin.obsThemesDir}" ]; then
-              mkdir -p "${catppuccin.obsThemesDir}"
-            fi
+         script = ''
+           if [ ! -d "${catppuccin.obsThemesDir}" ]; then
+             mkdir -p "${catppuccin.obsThemesDir}"
+           fi
 
-            if ! ls ${catppuccin.obsThemesDir}/*.qss 1> /dev/null 2>&1; then
-              curl -L https://raw.githubusercontent.com/catppuccin/obs/main/themes/Catppuccin%20${config.nixos.theme.catppuccin.flavor}.qss -o ${catppuccin.obsThemesDir}/Catppuccin\ ${config.nixos.theme.catppuccin.flavor}.qss
-            fi
-          '';
+           if ! ls ${catppuccin.obsThemesDir}/*.qss 1> /dev/null 2>&1; then
+             curl -L https://raw.githubusercontent.com/catppuccin/obs/main/themes/Catppuccin%20${config.nixos.theme.catppuccin.flavor}.qss -o ${catppuccin.obsThemesDir}/Catppuccin\ ${config.nixos.theme.catppuccin.flavor}.qss
+           fi
+         '';
 
-          wantedBy = [ "multi-user.target" ];
+         wantedBy = [ "multi-user.target" ];
 
-          path = with pkgs; [ curl ];
-        };
+         path = with pkgs; [ curl ];
+       };
 
-        systemd.services.heroicThemeChecker = {
-          # lib.mkIf config.home-manager.users.${userName}.homeManager.homeManager.applications.media.obs-studio.enable {
-          description = "Check and download Heroic theme if not present";
+       systemd.services.heroicThemeChecker = {
+         # lib.mkIf config.home-manager.users.${userName}.homeManager.homeManager.applications.media.obs-studio.enable {
+         description = "Check and download Heroic theme if not present";
 
-          script = ''
-            if [ ! -d "${catppuccin.heroicThemesDir}" ]; then
-              mkdir -p "${catppuccin.heroicThemesDir}"
-            fi
+         script = ''
+           if [ ! -d "${catppuccin.heroicThemesDir}" ]; then
+             mkdir -p "${catppuccin.heroicThemesDir}"
+           fi
 
-            if ! ls ${catppuccin.heroicThemesDir}/*.css 1> /dev/null 2>&1; then
-              curl -L https://raw.githubusercontent.com/catppuccin/heroic/main/themes/catppuccin-${catppuccin.flavorToLower}.css -o ${catppuccin.heroicThemesDir}/catppuccin-${catppuccin.flavorToLower}.css
-            fi
-          '';
+           if ! ls ${catppuccin.heroicThemesDir}/*.css 1> /dev/null 2>&1; then
+             curl -L https://raw.githubusercontent.com/catppuccin/heroic/main/themes/catppuccin-${catppuccin.flavorToLower}.css -o ${catppuccin.heroicThemesDir}/catppuccin-${catppuccin.flavorToLower}.css
+           fi
+         '';
 
-          wantedBy = [ "multi-user.target" ];
+         wantedBy = [ "multi-user.target" ];
 
-          path = with pkgs; [ curl ];
-        };
+         path = with pkgs; [ curl ];
+       };
+    */
 
-        system.activationScripts.deleteGtkrc = ''
-          rm -f /home/jf/.config/gtk-2.0/gtkrc
-        ''; */
+    system.activationScripts.deleteGtkrc = ''
+      rm -f /home/jf/.config/gtk-2.0/gtkrc
+    '';
 
-      
     environment.systemPackages = with pkgs; [
       papirus-icon-theme
 
