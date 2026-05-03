@@ -61,7 +61,7 @@
       #style.name = "catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-kde";
     }; */
 
-    /* gtk = {
+    gtk = {
       enable = true;
       theme = {
         name = lib.strings.toLower "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}-${osConfig.nixos.theme.catppuccin.size}+normal";
@@ -75,7 +75,6 @@
 
       iconTheme = {
         name = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
-        package = pkgs.papirus-icon-theme;
       };
 
       cursorTheme = {
@@ -112,7 +111,7 @@
           gtk-application-prefer-${osConfig.nixos.theme.catppuccin.prefer}-theme = 1
         '';
       };
-    }; */
+    };
 
     home.pointerCursor = {
       gtk.enable = true;
