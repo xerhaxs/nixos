@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig
   ...
 }:
 
@@ -22,6 +23,13 @@
       enable = true;
       logLevel = "info";
       package = pkgs.protonmail-bridge;
+    };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/protonmail"
+        ".local/share/protonmail"
+      ];
     };
   };
 }
