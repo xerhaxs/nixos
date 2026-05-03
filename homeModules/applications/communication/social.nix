@@ -28,18 +28,6 @@
       karere
     ];
 
-    home.activation.elementConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        cat > "$HOME/.config/Element/config.json" << 'EOF'
-      {
-        "features": {
-          "feature_video_rooms": true,
-          "feature_element_call_video_rooms": true,
-          "feature_group_calls": true
-        }
-      }
-      EOF
-    '';
-
     home.activation.cleanElementSingletons = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       for f in \
         "$HOME/.config/Element/SingletonCookie" \
