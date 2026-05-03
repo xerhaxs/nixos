@@ -40,6 +40,8 @@
 
     services.ratbagd.enable = true;
 
+    services.fprintd.enable = true;
+
     hardware = {
       spacenavd.enable = true;
       i2c.enable = true;
@@ -51,6 +53,12 @@
     users.users."${userName}" = {
       extraGroups = [
         "dialout"
+      ];
+    };
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/fprint"
       ];
     };
   };
