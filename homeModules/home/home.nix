@@ -31,22 +31,5 @@
     };
 
     programs.home-manager.enable = true;
-
-    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      directories = [
-        ".cache"
-        ".local/cache"
-        ".local/state"
-
-        #".winboat"
-        #".wine"
-        #".config/Proton"
-        #".config/Proton Mail"
-        #".config/steamtinkerlaunch"
-        #".local/share/protonmail"
-        #".local/share/wasistlos"
-        #".local/share/whatsapp-for-linux"
-      ];
-    };
   };
 }
