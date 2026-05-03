@@ -28,9 +28,7 @@
         #".winboat"
         #".wine"
         #".config/Proton"
-        #".config/Proton Mail"
         #".config/steamtinkerlaunch"
-        #".local/share/protonmail"
         #".local/share/wasistlos"
         #".local/share/whatsapp-for-linux"
         #karere
