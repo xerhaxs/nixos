@@ -67,5 +67,11 @@
         network-traffic = true;
       };
     };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/dconf"
+      ];
+    };
   };
 }
