@@ -78,7 +78,11 @@
         "monero/users/password" = { };
         "monero/users/address" = { };
 
-        "mullvad" = { };
+        "mullvad" = {
+          owner = config.users.users.${userName}.name;
+          group = config.users.users.${userName}.group;
+          mode = "0440";
+        };
 
         "nginx/acme/email" = { };
         "nginx/acme/api_key" = { };
