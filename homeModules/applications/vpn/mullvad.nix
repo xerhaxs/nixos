@@ -48,7 +48,6 @@
       fi
 
       ${pkgs.mullvad}/bin/mullvad lan set allow
-      ${pkgs.mullvad}/bin/mullvad auto-connect set off
     '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
