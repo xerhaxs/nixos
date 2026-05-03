@@ -12,6 +12,7 @@
     ./lutris.nix
     ./mangohud.nix
     ./prismlauncher.nix
+    ./steam.nix
   ];
 
   options.homeManager = {
@@ -32,6 +33,7 @@
       lutris.enable = lib.mkDefault false;
       mangohud.enable = true;
       prismlauncher.enable = true;
+      steam.enable = true;
     };
   };
 }

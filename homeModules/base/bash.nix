@@ -33,5 +33,11 @@
         urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
       };
     };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      files = [
+        ".bash_history"
+      ];
+    };
   };
 }

@@ -3,7 +3,7 @@
   lib,
   pkgs,
   osConfig,
-  
+
   ...
 }:
 
@@ -174,6 +174,12 @@
       "NewFileWizard" = {
         "UseWizardWhenCreatingEmptyFile".value = true;
       };
+    };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      files = [
+        ".config/kilerc"
+      ];
     };
   };
 }

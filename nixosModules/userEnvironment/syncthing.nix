@@ -28,8 +28,7 @@
       group = "users";
       cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
       key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
-      dataDir = "${config.home-manager.users.${userName}.home.homeDirectory
-      }";
+      dataDir = "${config.home-manager.users.${userName}.home.homeDirectory}";
       configDir = config.services.syncthing.dataDir + "/.config/syncthing";
       overrideDevices = true;
       overrideFolders = true;
@@ -82,8 +81,7 @@
         folders = {
           # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
           "Desktop" = {
-            path = "${config.home-manager.users.${userName}.xdg.userDirs.desktop
-            }";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.desktop}";
             id = "Desktop";
             type = "sendreceive";
             devices = [
@@ -99,8 +97,7 @@
             rescanIntervalS = 60;
           };
           "Documents" = {
-            path = "${config.home-manager.users.${userName}.xdg.userDirs.documents
-            }";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.documents}";
             id = "Documents";
             type = "sendreceive";
             devices = [
@@ -116,8 +113,7 @@
             rescanIntervalS = 60;
           };
           "Downloads" = {
-            path = "${config.home-manager.users.${userName}.xdg.userDirs.download
-            }";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.download}";
             id = "Downloads";
             type = "sendreceive";
             devices = [
@@ -134,8 +130,7 @@
             rescanIntervalS = 60;
           };
           "Music" = {
-            path = "${config.home-manager.users.${userName}.xdg.userDirs.music
-            }";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.music}";
             id = "Music";
             type = "sendreceive";
             devices = [
@@ -151,8 +146,7 @@
             rescanIntervalS = 3600;
           };
           "Pictures" = {
-            path = "${config.home-manager.users.${userName}.xdg.userDirs.pictures
-            }";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.pictures}";
             id = "Pictures";
             type = "sendreceive";
             devices = [
@@ -168,8 +162,7 @@
             rescanIntervalS = 3600;
           };
           "Videos" = {
-            path = "${config.home-manager.users.${userName}.xdg.userDirs.videos
-            }";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.videos}";
             id = "Videos";
             type = "sendreceive";
             devices = [
@@ -201,9 +194,7 @@
           };
 
           "Android" = {
-            path = "${
-              config.home-manager.users.${userName}.xdg.userDirs.documents
-            }/GraphenOS/Android";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.documents}/GraphenOS/Android";
             id = "Android";
             type = "sendreceive";
             devices = [ "GraphenOS" ];
@@ -214,9 +205,7 @@
             rescanIntervalS = 3600;
           };
           "GraphenOS" = {
-            path = "${
-              config.home-manager.users.${userName}.xdg.userDirs.documents
-            }/GraphenOS/GraphenOS";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.documents}/GraphenOS/GraphenOS";
             id = "GraphenOS";
             type = "sendreceive";
             devices = [ "GraphenOS" ];
@@ -227,9 +216,7 @@
             rescanIntervalS = 3600;
           };
           "Pixel 6a Kamera" = {
-            path = "${
-              config.home-manager.users.${userName}.xdg.userDirs.pictures
-            }/Pixel 6a Kamera";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.pictures}/Pixel 6a Kamera";
             id = "Pixel 6a Kamera";
             type = "sendreceive";
             devices = [ "GraphenOS" ];
@@ -240,9 +227,7 @@
             rescanIntervalS = 3600;
           };
           "Pixel 6a Musik" = {
-            path = "${
-              config.home-manager.users.${userName}.xdg.userDirs.music
-            }/Musik";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.music}/Musik";
             id = "Pixel 6a Musik";
             type = "sendonly";
             devices = [ "GraphenOS" ];
@@ -253,9 +238,7 @@
             rescanIntervalS = 3600;
           };
           "Wichtige Dateien" = {
-            path = "${
-              config.home-manager.users.${userName}.xdg.userDirs.documents
-            }/Wichtige Datein";
+            path = "${config.home-manager.users.${userName}.xdg.userDirs.documents}/Wichtige Datein";
             id = "Wichtige Dateien";
             type = "sendonly";
             devices = [ "GraphenOS" ];
@@ -267,6 +250,12 @@
           };
         };
       };
+    };
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/syncthing"
+      ];
     };
   };
 }

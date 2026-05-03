@@ -151,5 +151,11 @@ in
     users.users."${userName}" = {
       extraGroups = [ "networkmanager" ];
     };
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/NetworkManager"
+      ];
+    };
   };
 }

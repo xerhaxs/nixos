@@ -18,6 +18,7 @@
     ./nh.nix
     ./nixos.nix
     ./nixosvm.nix
+    ./persistent.nix
     ./powermanagement.nix
     ./secureboot.nix
     ./smartd.nix
@@ -50,6 +51,7 @@
       nh.enable = true;
       nixos.enable = true;
       nixosvm.enable = true;
+      persistent.enable = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable true;
       powermanagement.enable = true;
       secureboot.enable = lib.mkDefault false;
       smartd.enable = true;

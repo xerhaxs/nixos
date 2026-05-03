@@ -56,7 +56,7 @@
           "flakes"
         ];
         sandbox = true;
-        
+
         substituters = [
           "https://cache.nixos.org"
           "https://nix-community.cachix.org"
@@ -91,5 +91,12 @@
     programs.command-not-found.enable = false;
 
     programs.nix-index.enable = true;
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/etc/nixos"
+        "/var/lib/nixos"
+      ];
+    };
   };
 }

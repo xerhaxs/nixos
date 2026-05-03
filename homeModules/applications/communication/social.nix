@@ -19,12 +19,23 @@
 
   config = lib.mkIf config.homeManager.applications.communication.social.enable {
     home.packages = with pkgs; [
-      element-desktop
-      signal-desktop
       briar-desktop
+      element-desktop
+      mumble
+      signal-desktop
       telegram-desktop
       wasistlos
-      mumble
     ];
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".briar"
+        ".config/Element"
+        ".config/Mumble"
+        ".local/share/Mumble"
+        ".config/Signal"
+        ".local/share/TelegramDesktop"
+      ];
+    };
   };
 }

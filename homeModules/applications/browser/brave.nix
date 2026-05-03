@@ -104,5 +104,11 @@
         ' "$PREFS" > "$PREFS.tmp" && mv "$PREFS.tmp" "$PREFS"
       fi
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/BraveSoftware"
+      ];
+    };
   };
 }

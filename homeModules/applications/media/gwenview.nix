@@ -196,5 +196,11 @@
        </ActionProperties>
       </gui>
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".local/share/gwenview"
+      ];
+    };
   };
 }

@@ -135,5 +135,14 @@
         ${pkgs.crudini}/bin/crudini --set "$CONFIG" WiimotedevSettings use_notification    true
       fi
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/Clementine"
+      ];
+      files = [
+        ".config/Clementinerc"
+      ];
+    };
   };
 }

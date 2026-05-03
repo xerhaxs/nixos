@@ -63,7 +63,7 @@
         "enabledPlugins".value = "Git";
       };
     };
-    
+
     xdg.dataFile."kxmlgui5/dolphin/dolphinui.rc".text = ''
       <?xml version='1.0'?>
       <!DOCTYPE gui SYSTEM 'kpartgui.dtd'>
@@ -214,5 +214,11 @@
        </ActionProperties>
       </gui>
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".local/share/dolphin"
+      ];
+    };
   };
 }

@@ -188,5 +188,11 @@
         ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay server_refresh_rate      250
       fi
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/obs-studio"
+      ];
+    };
   };
 }

@@ -7,24 +7,21 @@
 
 {
   options.homeManager = {
-    applications.browser.tor = {
+    applications.gaming.steam = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable Tor browser.";
+        description = "Enable steam.";
       };
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.browser.tor.enable {
-    home.packages = with pkgs; [
-      tor-browser
-    ];
-
+  config = lib.mkIf config.homeManager.applications.gaming.steam.enable {
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
       directories = [
-        ".tor project"
+        ".steam"
+        ".local/share/Steam"
       ];
     };
   };

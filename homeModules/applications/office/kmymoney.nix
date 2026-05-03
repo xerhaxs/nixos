@@ -86,5 +86,13 @@
           "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=%1&apikey=$API_KEY"
       fi
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".aqbanking"
+        ".config/kmymoney"
+        ".local/share/kmymoney"
+      ];
+    };
   };
 }

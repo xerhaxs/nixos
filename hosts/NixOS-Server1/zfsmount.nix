@@ -112,4 +112,10 @@ in
       done
     '';
   };
+
+  environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+    directories = [
+      "/etc/zfs"
+    ];
+  };
 }

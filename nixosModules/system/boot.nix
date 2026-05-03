@@ -41,5 +41,12 @@
     services.acpid.enable = true;
 
     services.udisks2.enable = true; # power managment events
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/fwupd"
+        "/var/lib/systemd/coredump"
+      ];
+    };
   };
 }

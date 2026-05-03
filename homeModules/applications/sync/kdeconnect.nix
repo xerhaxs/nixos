@@ -23,5 +23,11 @@
       indicator = true;
       package = pkgs.kdePackages.kdeconnect-kde;
     };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/kdeconnect"
+      ];
+    };
   };
 }

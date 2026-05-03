@@ -114,5 +114,11 @@
         let g:lightline = {'colorscheme': 'catppuccin_${osConfig.nixos.theme.catppuccin.flavor}'}
       '';
     };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      files = [
+        ".viminfo"
+      ];
+    };
   };
 }

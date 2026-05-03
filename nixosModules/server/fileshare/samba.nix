@@ -153,5 +153,11 @@
       openFirewall = true;
       discovery = true;
     };
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/samba"
+      ];
+    };
   };
 }

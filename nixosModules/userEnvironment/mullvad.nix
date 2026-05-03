@@ -24,5 +24,11 @@
       enableEarlyBootBlocking = false;
       package = pkgs.mullvad-vpn;
     };
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/etc/mullvad-vpn"
+      ];
+    };
   };
 }

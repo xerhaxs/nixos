@@ -165,5 +165,11 @@
       plot_color=1
       plot_linewidth=2
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".local/share/qalculate"
+      ];
+    };
   };
 }
