@@ -25,7 +25,7 @@
       mumble
       signal-desktop
       telegram-desktop
-      wasistlos
+      karere
     ];
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
