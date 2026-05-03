@@ -21,12 +21,12 @@
       #".winboat"
       #".wine"
 
-      "${config.home.homeDirectory}/Desktop"
-      "${config.home.homeDirectory}/Dokumente"
-      "${config.home.homeDirectory}/Downloads"
-      "${config.home.homeDirectory}/Musik"
-      "${config.home.homeDirectory}/Bilder"
-      "${config.home.homeDirectory}/Videos"
+      "Desktop"
+      "Documents"
+      "Downloads"
+      "Music"
+      "Pictures"
+      "Videos"
 
       ".config/BraveSoftware"
       ".config/Clementine"

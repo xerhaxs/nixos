@@ -41,6 +41,7 @@
         "ShowToolTips".value = false;
         "SplitView".value = true;
         "UseTabForSwitchingSplitView".value = true;
+        "ViewMode".value = 2;
       };
 
       "IconsMode" = {
