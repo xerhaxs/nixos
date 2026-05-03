@@ -28,24 +28,6 @@
       karere
     ];
 
-    home.activation.cleanElementSingletons = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      for f in \
-        "$HOME/.config/Element/SingletonCookie" \
-        "$HOME/.config/Element/SingletonLock" \
-        "$HOME/.config/Element/SingletonSocket"; do
-        [ -L "$f" ] && rm -f "$f"
-      done
-    '';
-
-    home.activation.cleanSignalSingletons = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      for f in \
-        "$HOME/.config/Signal/SingletonCookie" \
-        "$HOME/.config/Signal/SingletonLock" \
-        "$HOME/.config/Signal/SingletonSocket"; do
-        [ -L "$f" ] && rm -f "$f"
-      done
-    '';
-
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".briar"
