@@ -7,7 +7,7 @@
 }:
 
 {
-  home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+  home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
     directories = [
       "Desktop"
       "Documents"

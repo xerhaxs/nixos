@@ -25,7 +25,7 @@
       package = pkgs.mullvad-vpn;
     };
 
-    environment.persistence."/persistent" = lib.mkIf config.nixos.disko-luks-btrfs-tmpfs.enable {
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         "/etc/mullvad-vpn"
       ];

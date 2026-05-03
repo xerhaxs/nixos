@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   userName,
   ...
 }:
@@ -472,7 +473,7 @@
         fi
     '';
 
-    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko-luks-btrfs-tmpfs.enable {
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".local/share/backintime"
       ];
