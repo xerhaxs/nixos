@@ -10,6 +10,7 @@
     ./bash.nix
     ./btop.nix
     ./git.nix
+    ./persistent.nix
     ./secrets.nix
     ./ranger.nix
     ./starship.nix
@@ -31,6 +32,7 @@
       bash.enable = true;
       btop.enable = true;
       git.enable = true;
+      persistent.enable = true;
       secrets.enable = true;
       ranger.enable = true;
       starship.enable = true;
