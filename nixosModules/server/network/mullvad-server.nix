@@ -28,13 +28,8 @@
     systemd.services.mullvad-setup = {
       description = "Mullvad VPN Setup";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "mullvad-daemon.service"
-      ];
-      requires = [
-        "mullvad-daemon.service"
-      ];
-      
+      after = [ "mullvad-daemon.service" ];
+      requires = [ "mullvad-daemon.service" ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -43,15 +38,15 @@
             sleep 1
           done
 
-          ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
-            config.sops.secrets."mullvad".path
-          })
+          if ! ${pkgs.mullvad}/bin/mullvad account get 2>&1 | grep -q "Mullvad account:"; then
+            ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
+              config.sops.secrets."mullvad".path
+            })
+          fi
 
           ${pkgs.mullvad}/bin/mullvad lan set allow
           ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
-
           ${pkgs.mullvad}/bin/mullvad dns set custom 127.0.0.1
-
           ${pkgs.mullvad}/bin/mullvad auto-connect set on
           ${pkgs.mullvad}/bin/mullvad connect
         '';
