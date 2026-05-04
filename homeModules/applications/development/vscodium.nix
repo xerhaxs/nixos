@@ -19,7 +19,7 @@
   };
 
   config = lib.mkIf config.homeManager.applications.development.vscodium.enable {
-    programs.vscode = {
+    programs.vscodium = {
       enable = true;
       package = pkgs.vscodium;
       profiles.default = {
@@ -35,11 +35,15 @@
           "cSpell.language" = "en,de";
           "window.titleBarStyle" = "native";
           "git.confirmSync" = false;
+          "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
+          "workbench.iconTheme" = "catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}";
         };
 
         extensions = with pkgs.vscode-extensions; [
           alefragnani.bookmarks
           arrterian.nix-env-selector
+          catppuccin.catppuccin-vsc # tmp fix
+          catppuccin.catppuccin-vsc-icons # tmp fix
           #cweijan.vscode-office
           davidanson.vscode-markdownlint
           davidlday.languagetool-linter
