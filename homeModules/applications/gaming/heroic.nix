@@ -92,21 +92,22 @@
         .defaultSettings.experimentalFeatures.enableNewDesign          = false |
         .defaultSettings.experimentalFeatures.enableHelp               = false |
         .defaultSettings.customThemesPath              = "${config.home.homeDirectory}/.config/heroic/themes" |
-        .defaultSettings.theme                         = "catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}-${lib.strings.toLower osConfig.nixos.theme.catppuccin.accent}.css" |
         .defaultSettings.downloadNoHttps               = true  |
         .defaultSettings.exitToTray                    = false |
         .defaultSettings.allowInstallationBrokenAnticheat = true
       '
+
+      THEME='"catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}-${lib.strings.toLower osConfig.nixos.theme.catppuccin.accent}.css"'
 
       if [ -f "$CONFIG" ]; then
         ${pkgs.jq}/bin/jq "$JQ_FILTER" "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
       fi
 
       if [ -f "$STORE" ]; then
-        ${pkgs.jq}/bin/jq "$JQ_FILTER" "$STORE" > "$STORE.tmp" && mv "$STORE.tmp" "$STORE"
+        ${pkgs.jq}/bin/jq "$JQ_FILTER | .theme = $THEME" "$STORE" > "$STORE.tmp" && mv "$STORE.tmp" "$STORE"
       fi
     '';
-    
+
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".config/heroic"
