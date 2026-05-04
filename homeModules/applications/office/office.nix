@@ -41,20 +41,40 @@
     ];
 
     home.activation.libreofficeConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      XCU="$HOME/.config/libreoffice/4/user/registrymodifications.xcu"
-      if [ -f "$XCU" ]; then
-        ${pkgs.gnused}/bin/sed -i \
-          's|<prop oor:name="ExtendedTip" oor:op="fuse"><value>true</value>|<prop oor:name="ExtendedTip" oor:op="fuse"><value>false</value>|g' \
-          "$XCU"
+        XCU="$HOME/.config/libreoffice/4/user/registrymodifications.xcu"
+        if [ -f "$XCU" ]; then
+          ${pkgs.python3.withPackages (ps: [ ps.lxml ])}/bin/python3 << 'EOF'
+      from lxml import etree
+      import os
 
-        ${pkgs.gnused}/bin/sed -i \
-          '/LanguageTool/{s|<prop oor:name="IsEnabled" oor:op="fuse"><value>false</value>|<prop oor:name="IsEnabled" oor:op="fuse"><value>true</value>|g}' \
-          "$XCU"
+      xcu = os.path.expanduser("~/.config/libreoffice/4/user/registrymodifications.xcu")
+      OOR = "http://openoffice.org/2001/registry"
 
-        ${pkgs.gnused}/bin/sed -i \
-          's|<prop oor:name="BaseURL" oor:op="fuse"><value>.*</value>|<prop oor:name="BaseURL" oor:op="fuse"><value>https://languagetool.m4rx.cc/v2/</value>|g' \
-          "$XCU"
-      fi
+      tree = etree.parse(xcu)
+      root = tree.getroot()
+
+      def ensure_item(path, name, value):
+          for item in root:
+              if item.get(f"{{{OOR}}}path") == path:
+                  for prop in item:
+                      if prop.get(f"{{{OOR}}}name") == name:
+                          prop.find("value").text = value
+                          return
+          item = etree.SubElement(root, "item")
+          item.set(f"{{{OOR}}}path", path)
+          prop = etree.SubElement(item, "prop")
+          prop.set(f"{{{OOR}}}name", name)
+          prop.set(f"{{{OOR}}}op", "fuse")
+          val = etree.SubElement(prop, "value")
+          val.text = value
+
+      ensure_item("/org.openoffice.Office.Common/Help",                          "ExtendedTip", "false")
+      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "IsEnabled", "true")
+      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "BaseURL",   "https://languagetool.m4rx.cc/v2/")
+
+      tree.write(xcu, encoding="UTF-8", xml_declaration=True, pretty_print=True)
+      EOF
+        fi
     '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
