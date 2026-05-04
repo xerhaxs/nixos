@@ -68,9 +68,14 @@
           val = etree.SubElement(prop, "value")
           val.text = value
 
-      ensure_item("/org.openoffice.Office.Common/Help",                          "ExtendedTip", "false")
-      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "IsEnabled", "true")
-      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "BaseURL",   "https://languagetool.m4rx.cc/v2/")
+      ensure_item("/org.openoffice.Office.Common/Help",                             "ExtendedTip",        "false")
+      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "IsEnabled",          "true")
+      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "BaseURL",            "https://languagetool.m4rx.cc/v2/")
+      ensure_item("/org.openoffice.Office.Linguistic/General",                      "DefaultLocale",      "de-DE")
+      ensure_item("/org.openoffice.Office.Linguistic/General",                      "DefaultLocale_CJK",  "")
+      ensure_item("/org.openoffice.Office.Linguistic/General",                      "DefaultLocale_CTL",  "")
+      ensure_item("/org.openoffice.Setup/L10N",                                     "ooSetupSystemLocale","de-DE")
+      ensure_item("/org.openoffice.Setup/L10N",                                     "DecimalSeparatorAsLocale", "true")
 
       tree.write(xcu, encoding="UTF-8", xml_declaration=True, pretty_print=True)
       EOF
