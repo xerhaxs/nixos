@@ -40,6 +40,33 @@
       xournalpp
     ];
 
+    home.activation.libreofficeConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      XCU="$HOME/.config/libreoffice/4/user/registrymodifications.xcu"
+      if [ -f "$XCU" ]; then
+        # Tooltips deaktivieren
+        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
+          -u "//item[@oor:path='/org.openoffice.Office.Common/Help']/prop[@oor:name='ExtendedTip']/value" \
+          -v "false" \
+          "$XCU" 2>/dev/null || \
+        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
+          -s "//oor:items" -t elem -n "item" \
+          -i "//oor:items/item[last()]" -t attr -n "oor:path" -v "/org.openoffice.Office.Common/Help" \
+          "$XCU"
+
+        # LanguageTool aktivieren
+        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
+          -u "//item[@oor:path='/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool']/prop[@oor:name='IsEnabled']/value" \
+          -v "true" \
+          "$XCU"
+
+        # LanguageTool BaseURL
+        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
+          -u "//item[@oor:path='/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool']/prop[@oor:name='BaseURL']/value" \
+          -v "https://languagetool.m4rx.cc/v2/" \
+          "$XCU"
+      fi
+    '';
+
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".config/libreoffice"
