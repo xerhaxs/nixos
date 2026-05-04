@@ -26,7 +26,7 @@
       };
       #environment = { };
       settings = {
-        confirm_os_window_close = -1;
+        confirm_os_window_close = 0; # -1 not working, but this would be the better option
         shell_integration = "enabled";
       };
     };
