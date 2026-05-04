@@ -43,26 +43,16 @@
     home.activation.libreofficeConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       XCU="$HOME/.config/libreoffice/4/user/registrymodifications.xcu"
       if [ -f "$XCU" ]; then
-        # Tooltips deaktivieren
-        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
-          -u "//item[@oor:path='/org.openoffice.Office.Common/Help']/prop[@oor:name='ExtendedTip']/value" \
-          -v "false" \
-          "$XCU" 2>/dev/null || \
-        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
-          -s "//oor:items" -t elem -n "item" \
-          -i "//oor:items/item[last()]" -t attr -n "oor:path" -v "/org.openoffice.Office.Common/Help" \
+        ${pkgs.gnused}/bin/sed -i \
+          's|<prop oor:name="ExtendedTip" oor:op="fuse"><value>true</value>|<prop oor:name="ExtendedTip" oor:op="fuse"><value>false</value>|g' \
           "$XCU"
 
-        # LanguageTool aktivieren
-        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
-          -u "//item[@oor:path='/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool']/prop[@oor:name='IsEnabled']/value" \
-          -v "true" \
+        ${pkgs.gnused}/bin/sed -i \
+          '/LanguageTool/{s|<prop oor:name="IsEnabled" oor:op="fuse"><value>false</value>|<prop oor:name="IsEnabled" oor:op="fuse"><value>true</value>|g}' \
           "$XCU"
 
-        # LanguageTool BaseURL
-        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
-          -u "//item[@oor:path='/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool']/prop[@oor:name='BaseURL']/value" \
-          -v "https://languagetool.m4rx.cc/v2/" \
+        ${pkgs.gnused}/bin/sed -i \
+          's|<prop oor:name="BaseURL" oor:op="fuse"><value>.*</value>|<prop oor:name="BaseURL" oor:op="fuse"><value>https://languagetool.m4rx.cc/v2/</value>|g' \
           "$XCU"
       fi
     '';
