@@ -1,9 +1,9 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   osConfig,
-  inputs,
   ...
 }:
 
@@ -33,7 +33,7 @@
       fi
     '';
 
-    home.activation.heroicConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    home.activation.heroicConfig = lib.hm.dag.entryAfter [ "writeBoundary" "heroicCatppuccinTheme" ] ''
       CONFIG="${config.xdg.configHome}/heroic/config.json"
       if [ -f "$CONFIG" ]; then
         ${pkgs.jq}/bin/jq '
