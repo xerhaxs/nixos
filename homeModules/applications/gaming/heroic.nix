@@ -26,10 +26,10 @@
 
     home.activation.heroicCatppuccinTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       THEME_DIR="${config.xdg.configHome}/heroic/themes"
-      THEME_FILE="$THEME_DIR/catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}.css"
+      THEME_FILE="$THEME_DIR/catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}-${lib.strings.toLower osConfig.nixos.theme.catppuccin.accent}.css"
       mkdir -p "$THEME_DIR"
       if [ ! -f "$THEME_FILE" ]; then
-        cp "${inputs.catppuccin-heroic}/themes/catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}.css" "$THEME_FILE"
+        cp "${inputs.catppuccin-heroic}/themes/catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}-${lib.strings.toLower osConfig.nixos.theme.catppuccin.accent}.css" "$THEME_FILE"
       fi
     '';
 
@@ -91,7 +91,7 @@
           .defaultSettings.experimentalFeatures.enableNewDesign          = false |
           .defaultSettings.experimentalFeatures.enableHelp               = false |
           .defaultSettings.customThemesPath              = "${config.home.homeDirectory}/.config/heroic/themes" |
-          .defaultSettings.theme                         = "catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}" |
+          .defaultSettings.theme = "catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}-${lib.strings.toLower osConfig.nixos.theme.catppuccin.accent}" |
           .defaultSettings.downloadNoHttps               = true  |
           .defaultSettings.exitToTray                    = false |
           .defaultSettings.allowInstallationBrokenAnticheat = true
