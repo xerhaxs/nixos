@@ -91,6 +91,7 @@
           .defaultSettings.experimentalFeatures.enableNewDesign          = false |
           .defaultSettings.experimentalFeatures.enableHelp               = false |
           .defaultSettings.customThemesPath              = "${config.home.homeDirectory}/.config/heroic/themes" |
+          .defaultSettings.theme                         = "catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}" |
           .defaultSettings.downloadNoHttps               = true  |
           .defaultSettings.exitToTray                    = false |
           .defaultSettings.allowInstallationBrokenAnticheat = true
