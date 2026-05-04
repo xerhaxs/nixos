@@ -23,6 +23,15 @@
       heroic
     ];
 
+    home.activation.heroicCatppuccinTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      THEME_DIR="${config.xdg.configHome}/heroic/themes"
+      THEME_FILE="$THEME_DIR/catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}.css"
+      mkdir -p "$THEME_DIR"
+      if [ ! -f "$THEME_FILE" ]; then
+        cp "${inputs.catppuccin-heroic}/themes/catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}.css" "$THEME_FILE"
+      fi
+    '';
+
     home.activation.heroicConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       CONFIG="${config.xdg.configHome}/heroic/config.json"
       if [ -f "$CONFIG" ]; then

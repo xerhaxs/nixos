@@ -25,6 +25,11 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
+    catppuccin-heroic = {
+      url = "github:catppuccin/heroic";
+      flake = false;
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
