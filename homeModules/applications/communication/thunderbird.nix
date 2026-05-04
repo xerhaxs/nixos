@@ -31,6 +31,9 @@
             "mail.accountmanager.accounts" = "account1,account3,account4,account2";
 
             # === General UI and behavior settings ===
+            "mailnews.start_page.enabled" = false;
+            "mailnews.start_page.url" = "";
+            
             "intl.locale.requested" = "de-DE"; # UI language
             "spellchecker.dictionary" = "de-DE"; # Spellcheck language
             "intl.regional_prefs.use_os_locales" = true; # Don't use OS locale
@@ -42,7 +45,7 @@
             "mailnews.default_news_sort_order" = 2;
 
             "mail.thread_structures_with_ids" = false; # No message grouping
-            "mail.ui.tableView" = false; # table view
+            "mail.ui.tableView" = true; # table view
             "mailnews.default_view_flags" = 0;
 
             "mail.folder.views.version" = 1; # Folder pane view
