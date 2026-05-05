@@ -262,6 +262,10 @@ in
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
           };
+          "{c49b13b1-5dee-4345-925e-0c793377e3fa}" = {
+            "installation_mode" = "force_installed";
+            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/youtube_enhancer_vc/latest.xpi";
+          };
 
           "uBlock0@raymondhill.net".adminSettings = {
             userSettings = rec {
