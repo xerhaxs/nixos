@@ -105,7 +105,7 @@
         "3rdparty" = {
           extensions = {
             "oboonakemofpalcgghocfoadofidjkkk" = {
-              adminSettings = {
+              settings = {
                 autoReconnect = true;
                 afterFillSorting = "sortByMatchingCredentials";
                 afterFillSortingTotp = "sortByRelevantEntry";
