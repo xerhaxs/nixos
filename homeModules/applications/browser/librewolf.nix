@@ -348,6 +348,20 @@ in
             };
           };
 
+          "languagetool-webextension@languagetool.org".adminSettings = {
+            serverUrl = "https://languagetool.m4rx.cc/v2/";
+            serverUrlForRemoteCheck = "https://languagetool.m4rx.cc/v2/";
+            havePremiumAccount = false;
+            motherTongue = "de-DE";
+            preferredLanguages = [
+              "de-DE"
+              "en-US"
+            ];
+            ignoreQuotedLines = true;
+            autoCheckOnEmptyPage = false;
+            showRemainingCharacters = false;
+          };
+
           settings = {
             isApplied = true;
             autoUpdate = 1;
@@ -523,6 +537,132 @@ in
         };
       };
     };
+
+    home.activation.librewolfManagedStorage = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        MANAGED="$HOME/.librewolf/managed-storage"
+        mkdir -p "$MANAGED"
+
+        cat > "$MANAGED/uBlock0@raymondhill.net.json" << 'EOF'
+      {
+        "name": "uBlock0@raymondhill.net",
+        "description": "uBlock Origin Settings",
+        "type": "storage",
+        "data": {
+          "userSettings": {
+            "advancedUserEnabled": true,
+            "uiTheme": "auto",
+            "uiAccentCustom": true,
+            "uiAccentCustom0": "#8839ef",
+            "cloudStorageEnabled": false,
+            "externalLists": "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt",
+            "popupPanelSections": 63,
+            "tooltipsDisabled": true
+          },
+          "selectedFilterLists": [
+            "user-filters",
+            "ublock-filters",
+            "ublock-badware",
+            "ublock-privacy",
+            "ublock-quick-fixes",
+            "ublock-unbreak",
+            "easylist",
+            "adguard-spyware",
+            "easyprivacy",
+            "urlhaus-1",
+            "plowe-0",
+            "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
+          ]
+        }
+      }
+      EOF
+
+        cat > "$MANAGED/keepassxc-browser@keepassxc.org.json" << 'EOF'
+      {
+        "name": "keepassxc-browser@keepassxc.org",
+        "description": "KeePassXC Browser Settings",
+        "type": "storage",
+        "data": {
+          "settings": {
+            "autoReconnect": true,
+            "afterFillSorting": "sortByMatchingCredentials",
+            "afterFillSortingTotp": "sortByRelevantEntry",
+            "autoCompleteUsernames": true,
+            "showGroupNameInAutocomplete": true,
+            "autoFillAndSend": false,
+            "autoFillSingleEntry": false,
+            "autoFillSingleTotp": true,
+            "autoRetrieveCredentials": true,
+            "autoSubmit": true,
+            "checkUpdateKeePassXC": 0,
+            "clearCredentialsTimeout": 10,
+            "colorTheme": "system",
+            "credentialSorting": "sortByGroupAndTitle",
+            "defaultGroupAlwaysAsk": true,
+            "downloadFaviconAfterSave": true,
+            "passkeys": true,
+            "passkeysFallback": true,
+            "saveDomainOnly": true,
+            "showGettingStartedGuideAlert": true,
+            "showTroubleshootingGuideAlert": true,
+            "showLoginFormIcon": true,
+            "showLoginNotifications": true,
+            "showNotifications": true,
+            "useMonochromeToolbarIcon": false,
+            "showOTPIcon": true,
+            "useObserver": true,
+            "usePredefinedSites": true,
+            "usePasswordGeneratorIcons": false
+          }
+        }
+      }
+      EOF
+
+        cat > "$MANAGED/languagetool-webextension@languagetool.org.json" << 'EOF'
+      {
+        "name": "languagetool-webextension@languagetool.org",
+        "description": "LanguageTool Settings",
+        "type": "storage",
+        "data": {
+          "serverUrl": "https://languagetool.m4rx.cc/v2/",
+          "serverUrlForRemoteCheck": "https://languagetool.m4rx.cc/v2/",
+          "havePremiumAccount": false,
+          "motherTongue": "de-DE",
+          "preferredLanguages": ["de-DE", "en-US"],
+          "ignoreQuotedLines": true,
+          "autoCheckOnEmptyPage": false,
+          "showRemainingCharacters": false
+        }
+      }
+      EOF
+
+        cat > "$MANAGED/{c49b13b1-5dee-4345-925e-0c793377e3fa}.json" << 'EOF'
+      {
+        "name": "{c49b13b1-5dee-4345-925e-0c793377e3fa}",
+        "description": "YouTube Settings",
+        "type": "storage",
+        "data": {
+          "settings": {
+            "enable_automatic_theater_mode": true,
+            "enable_automatically_disable_ambient_mode": true,
+            "enable_automatically_disable_closed_captions": true,
+            "enable_automatically_set_quality": true,
+            "enable_default_to_original_audio_track": true,
+            "enable_hide_artificial_intelligence_summary": true,
+            "enable_hide_paid_promotion_banner": true,
+            "enable_hide_playlist_recommendations_from_home_page": true,
+            "enable_hide_shorts": true,
+            "enable_hide_translate_comment": true,
+            "enable_pausing_background_players": false,
+            "enable_redirect_remover": true,
+            "enable_remaining_time": true,
+            "enable_timestamp_peek": true,
+            "enable_video_history": true,
+            "player_quality": "4k"
+          }
+        }
+      }
+      EOF
+    '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
