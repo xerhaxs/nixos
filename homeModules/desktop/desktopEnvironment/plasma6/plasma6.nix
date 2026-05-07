@@ -1782,6 +1782,8 @@
           };
           "Wayland" = {
             "InputMethod[$e]" = "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
+            "InputMethod\x5b$e\x5d" =
+              "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
             "InputMethod\\x5b$e\\x5d" =
               "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
             "VirtualKeyboardEnabled" = true;
