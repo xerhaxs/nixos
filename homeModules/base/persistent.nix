@@ -29,10 +29,6 @@
         #".wine"
         #".config/Proton"
         #".config/steamtinkerlaunch"
-        #".local/share/wasistlos"
-        #".local/share/whatsapp-for-linux"
-        #karere
-      ];
     };
   };
 }

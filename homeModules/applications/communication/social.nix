@@ -29,10 +29,11 @@
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
         postInstall = (old.postInstall or "") + ''
                   wrapProgram $out/bin/karere \
-          --unset WAYLAND_DISPLAY \
+          --set WAYLAND_DISPLAY "" \
           --prefix GST_PLUGIN_PATH : "${
             lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
               gst_all_1.gstreamer
+              gst_all_1.gst-plugins-bad
               gst_all_1.gst-plugins-base
               gst_all_1.gst-plugins-good
             ]
@@ -65,6 +66,7 @@
         ".config/Mumble"
         ".local/share/Mumble"
         ".config/Signal"
+        ".local/share/karere"
         ".local/share/TelegramDesktop"
       ];
     };

@@ -240,7 +240,7 @@
                   "applications:codium.desktop"
                   "applications:signal.desktop"
                   "applications:org.telegram.desktop.desktop"
-                  "applications:com.github.xeco23.WasIstLos.desktop"
+                  "applications:karere.desktop"
                   "applications:legcord.desktop"
                   "applications:org.kde.kmymoney.desktop"
                   "applications:org.kde.kile.desktop"
@@ -249,10 +249,7 @@
                   "applications:impress.desktop"
                   "applications:com.github.flxzt.rnote.desktop"
                   "applications:com.obsproject.Studio.desktop"
-                  #"applications:blender.desktop"
-                  #"applications:com.ultimaker.cura.desktop"
                   "applications:org.clementine_player.Clementine.desktop"
-                  #"applications:fluent-reader.desktop"
                   "applications:freetube.desktop"
                 ]
                 ++ lib.optionals osConfig.nixos.userEnvironment.game.enable [
@@ -262,7 +259,6 @@
                 ]
                 ++ lib.optionals config.homeManager.applications.vpn.enable [
                   "applications:mullvad-vpn.desktop"
-                  #"applications:protonvpn-app.desktop"
                 ];
               };
             }
@@ -294,23 +290,6 @@
           ];
         }
       ];
-
-      #
-      # Some mid-level settings:
-      #
-      #shortcuts = {
-      #  kwin = {
-      #    "Expose" = "Meta+,";
-      #    "Switch Window Down" = "Meta+J";
-      #    "Switch Window Left" = "Meta+H";
-      #    "Switch Window Right" = "Meta+L";
-      #    "Switch Window Up" = "Meta+K";
-      #  };
-      #};
-
-      #
-      # Some low-level settings:
-      #
 
       shortcuts = {
         "Clementine" = {
