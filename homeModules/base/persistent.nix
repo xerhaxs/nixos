@@ -29,6 +29,7 @@
         #".wine"
         #".config/Proton"
         #".config/steamtinkerlaunch"
+      ];
     };
   };
 }
