@@ -1780,6 +1780,10 @@
             "Right" = "LockScreen";
             "Top" = "KRunner";
           };
+          "Wayland" = {
+            "InputMethod[$e]" = "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
+            "VirtualKeyboardEnabled" = true;
+          };
           "Xwayland" = {
             "Scale" = 1;
           };
