@@ -639,33 +639,20 @@
 
         "kcminputrc" = {
           "Keyboard" = {
-            "NumLock" = 0;
-          };
-          "Libinput.10182.3396.DLL0B38:01 27C6:0D44 Mouse" = {
-            "PointerAccelerationProfile" = 1;
-          };
-          "Libinput.10182.3396.DLL0B38:01 27C6:0D44 Touchpad" = {
-            "ClickMethod" = 2;
-            "LmrTapButtonMap" = false;
-            "NaturalScroll" = true;
-            "PointerAccelerationProfile" = 2;
-            "ScrollFactor" = 1.5;
-            "TapToClick" = true;
-          };
-          "Libinput.PIXA3854:00 093A:0274 Touchpad" = {
-            "NaturalScroll" = true;
-            "ScrollFactor" = 2;
-          };
-          "Libinput/13364/1553/Keychron Keychron Q1 Pro Mouse" = {
-            "PointerAccelerationProfile" = 1;
-          };
-          "Libinput/5426/171/Razer Razer Basilisk V3 Pro" = {
-            "PointerAccelerationProfile" = 1;
+            "NumLock" = 1;
           };
           "Libinput/2362/628/PIXA3854:00 093A:0274 Touchpad" = {
             "ClickMethod" = 2;
             "LmrTapButtonMap" = false;
             "NaturalScroll" = true;
+            "ScrollFactor" = 1.5;
+            "TapToClick" = true;
+          };
+          "Libinput/1102/4632/Alps Alps Touchpad" = {
+            "ClickMethod" = 2;
+            "LmrTapButtonMap" = false;
+            "NaturalScroll" = true;
+            "PointerAccelerationProfile" = 2;
             "ScrollFactor" = 1.5;
             "TapToClick" = true;
           };
@@ -1794,9 +1781,7 @@
             "Top" = "KRunner";
           };
           "Wayland" = {
-            "InputMethod[$e]" = "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
-            "InputMethodx5b$ex5" =
-              "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
+            "InputMethod[$e]" = "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
             "VirtualKeyboardEnabled" = true;
           };
           "Xwayland" = {
@@ -1831,6 +1816,12 @@
             "LC_PAPER" = "de_DE.UTF-8";
             "LC_TELEPHONE" = "de_DE.UTF-8";
             "LC_TIME" = "de_DE.UTF-8";
+          };
+        };
+
+        "plasmakeyboardrc" = {
+          "General" = {
+            "enabledLocales" = "de_DE";
           };
         };
 
