@@ -1877,11 +1877,7 @@
     };
 
     home.activation.setPlasmaKeyboard = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
-      $DRY_RUN_CMD ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 \
-        --file kwinrc \
-        --group Wayland \
-        --key 'InputMethod[$e]' \
-        "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop"
+      $DRY_RUN_CMD sed -i 's|InputMethod\\x5b\$e\\x5d=|InputMethod[$e]=|g' "${config.xdg.configHome}/kwinrc"
     '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
