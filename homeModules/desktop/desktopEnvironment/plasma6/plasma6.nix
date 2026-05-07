@@ -1780,14 +1780,6 @@
             "Right" = "LockScreen";
             "Top" = "KRunner";
           };
-          "Wayland" = {
-            "InputMethod[$e]" = "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
-            "InputMethod\x5b$e\x5d" =
-              "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
-            "InputMethod\\x5b$e\\x5d" =
-              "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop";
-            "VirtualKeyboardEnabled" = true;
-          };
           "Xwayland" = {
             "Scale" = 1;
           };
@@ -1883,6 +1875,14 @@
         };
       };
     };
+
+    home.activation.setPlasmaKeyboard = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      $DRY_RUN_CMD ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 \
+        --file kwinrc \
+        --group Wayland \
+        --key "InputMethod[$e]" \
+        "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop"
+    '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
