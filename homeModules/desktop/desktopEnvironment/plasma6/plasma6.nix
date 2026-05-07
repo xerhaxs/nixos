@@ -1880,10 +1880,10 @@
       $DRY_RUN_CMD ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 \
         --file kwinrc \
         --group Wayland \
-        --key "InputMethod[$e]" \
+        --key 'InputMethod[$e]' \
         "/run/current-system/sw/share/applications/org.kde.plasma.keyboard.desktop"
     '';
-
+    
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".local/share/baloo"
