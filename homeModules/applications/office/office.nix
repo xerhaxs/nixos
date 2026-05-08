@@ -70,7 +70,7 @@
 
       ensure_item("/org.openoffice.Office.Common/Help",                             "ExtendedTip",        "false")
       ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "IsEnabled",          "true")
-      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "BaseURL",            "https://languagetool.m4rx.cc/v2/")
+      ensure_item("/org.openoffice.Office.Linguistic/GrammarChecking/LanguageTool", "BaseURL",            "https://languagetool.m4rx.cc/v2")
       ensure_item("/org.openoffice.Office.Linguistic/General",                      "DefaultLocale",      "de-DE")
       ensure_item("/org.openoffice.Office.Linguistic/General",                      "DefaultLocale_CJK",  "")
       ensure_item("/org.openoffice.Office.Linguistic/General",                      "DefaultLocale_CTL",  "")
