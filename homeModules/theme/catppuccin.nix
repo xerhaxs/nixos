@@ -41,25 +41,7 @@
         lookAndFeel = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-lookandfeel --list
         iconTheme = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
       };
-
-      configFile = {
-        #  "kdeglobals"."General"."ColorScheme" =
-        #    "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}";
-      };
     };
-
-    /* qt = {
-      enable = true;
-      #platformTheme.name = "kde";
-      style.package = pkgs.catppuccin-kde.override {
-        accents = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.accent}" ];
-        flavour = map (str: lib.strings.toLower str) [ "${osConfig.nixos.theme.catppuccin.flavor}" ];
-        winDecStyles = map (str: lib.strings.toLower str) [
-          "${osConfig.nixos.theme.catppuccin.winDecStyles}"
-        ];
-      };
-      #style.name = "catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-kde";
-    }; */
 
     gtk = {
       enable = true;
@@ -123,14 +105,5 @@
         };
       size = 24;
     };
-
-    /* xdg.configFile = {
-      "gtk-4.0/assets".source =
-        "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-      "gtk-4.0/gtk.css".source =
-        "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-      "gtk-4.0/gtk-dark.css".source =
-        "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
-    }; */
   };
 }
