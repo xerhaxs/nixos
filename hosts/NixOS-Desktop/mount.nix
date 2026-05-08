@@ -9,10 +9,10 @@
   environment.etc.crypttab = {
     enable = true;
     text = ''
-      data       /dev/disk/by-label/CRYPTDATA 	    /root/.secrets/keyfile.key 	luks
-      games      /dev/disk/by-label/CRYPTGAMES 	    /root/.secrets/keyfile.key 	luks
-      backup     /dev/disk/by-label/CRYPTBACKUP 	  /root/.secrets/keyfile.key 	luks
-    ''; # ,discard
+      data       /dev/disk/by-label/CRYPTDATA 	    /secrets/keyfile.key 	luks
+      games      /dev/disk/by-label/CRYPTGAMES 	    /secrets/keyfile.key 	luks
+      backup     /dev/disk/by-label/CRYPTBACKUP 	  /secrets/keyfile.key 	luks
+    '';
   };
 
   fileSystems."/mount/Data" = {
@@ -21,7 +21,6 @@
     options = [
       "defaults"
       "auto"
-      #"discard=async"
     ];
   };
 
@@ -31,7 +30,6 @@
     options = [
       "defaults"
       "auto"
-      #"discard=async"
     ];
   };
 
@@ -41,7 +39,6 @@
     options = [
       "defaults"
       "auto"
-      #"discard=async"
     ];
   };
 }
