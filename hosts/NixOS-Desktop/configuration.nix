@@ -38,7 +38,7 @@
     amdgpu.enable = true;
   };
 
-  nixos.system.secureboot.enable = false; # NEED TO BE CHANGED!!
+  nixos.system.secureboot.enable = true; # NEED TO BE CHANGED!!
 
   nixos.userEnvironment.enable = true;
 
