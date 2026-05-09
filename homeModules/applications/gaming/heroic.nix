@@ -54,6 +54,7 @@
         .libraryTopSection             = "recently_played" |
         .defaultSteamPath              = "${config.xdg.userDirs.extraConfig.GAMES}/Steam" |
         .defaultWinePrefix             = "${config.xdg.userDirs.extraConfig.GAMES}/Heroic/Wine" |
+        .defaultWinePrefixDir          = "${config.xdg.userDirs.extraConfig.GAMES}/Heroic/Wine" | 
         .hideChangelogsOnStartup       = false |
         .language                      = "de"  |
         .maxWorkers                    = 0     |
@@ -62,9 +63,9 @@
         .showFps                       = false |
         .useGameMode                   = true  |
         .wineCrossoverBottle           = "Heroic" |
-        .winePrefix                    = "${config.xdg.userDirs.extraConfig.GAMES}/Heroic/Prefixes/default" |
+        .winePrefix                    = "${config.xdg.userDirs.extraConfig.GAMES}/Heroic/Wine" |
         .wineVersion.bin               = "${config.home.homeDirectory}/.config/heroic/tools/wine/Wine-GE-latest/bin/wine" |
-        .wineVersion.name              = "Wine-GE-latest" |
+        .wineVersion.name              = "Proton-GE-latest" |
         .wineVersion.type              = "wine" |
         .wineVersion.lib               = "${config.home.homeDirectory}/.config/heroic/tools/wine/Wine-GE-latest/lib64" |
         .wineVersion.lib32             = "${config.home.homeDirectory}/.config/heroic/tools/wine/Wine-GE-latest/lib" |
