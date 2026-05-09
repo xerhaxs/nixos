@@ -18,4 +18,13 @@
       GAMES = "/mount/Games/Spiele";
     };
   };
+
+  home.file = {
+    "Desktop".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.desktop;
+    "Documents".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.documents;
+    "Downloads".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.download;
+    "Music".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.music;
+    "Pictures".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.pictures;
+    "Videos".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.videos;
+  };
 }
