@@ -15,7 +15,7 @@
     pictures = "/mount/Data/Datein/Bilder";
     videos = "/mount/Data/Datein/Videos";
     extraConfig = {
-      GAMES = lib.mkDefault "/mount/Games/Spiele";
+      GAMES = "/mount/Games/Spiele";
     };
   };
 }

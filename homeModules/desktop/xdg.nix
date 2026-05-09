@@ -44,7 +44,7 @@
         createDirectories = true;
         extraConfig = {
           SCREENSHOTS = "${config.xdg.userDirs.desktop}";
-          GAMES = "${config.home.homeDirectory}/Games";
+          GAMES = lib.mkDefault "${config.home.homeDirectory}/Games";
         };
       };
     };
