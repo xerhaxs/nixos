@@ -9,8 +9,8 @@
   imports = [
     ./3dprinting.nix
     ./ai.nix
-    ./audio.nix
     ./compiler.nix
+    ./gimp.nix
     ./image.nix
     ./kdenlive.nix
   ];
@@ -30,10 +30,11 @@
     homeManager.applications.editing = {
       "3dprinting".enable = true;
       ai.enable = true;
-      audio.enable = true;
       compiler.enable = true;
+      gimp.enable = true;
       image.enable = true;
       kdenlive.enable = true;
+      tenacity.enable = true;
     };
   };
 }
