@@ -451,14 +451,14 @@ install_nixos() {
 	# Move secrets
 	echo -e "${BLUE}>>>${NC} ${TEXT}Securing encryption keys...${NC}"
 	echo ""
-	mkdir -p /mnt/root/.secrets
-	mv -v /tmp/secret.key /mnt/root/.secrets/secret.key
-	chmod -v 0400 /mnt/root/.secrets/secret.key
-	chown -v root:root /mnt/root/.secrets/secret.key
+	mkdir -p /mnt/secrets
+	mv -v /tmp/secret.key /mnt/secrets/secret.key
+	chmod -v 0400 /mnt/secrets/secret.key
+	chown -v root:root /mnt/secrets/secret.key
 
-	mv -v /tmp/keyfile.key /mnt/root/.secrets/keyfile.key
-	chmod -v 0400 /mnt/root/.secrets/keyfile.key
-	chown -v root:root /mnt/root/.secrets/keyfile.key
+	mv -v /tmp/keyfile.key /mnt/secrets/keyfile.key
+	chmod -v 0400 /mnt/secrets/keyfile.key
+	chown -v root:root /mnt/secrets/keyfile.key
 	echo ""
 	print_box_success "Keys secured"
 	echo ""
