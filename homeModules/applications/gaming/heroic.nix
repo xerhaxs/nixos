@@ -65,7 +65,7 @@
         .wineCrossoverBottle           = "Heroic" |
         .winePrefix                    = "${config.xdg.userDirs.extraConfig.GAMES}/Heroic/Wine" |
         .wineVersion.bin               = "${config.home.homeDirectory}/.config/heroic/tools/wine/Wine-GE-latest/bin/wine" |
-        .wineVersion.name              = "Proton-GE-latest" |
+        .wineVersion.name              = "GE-Proton-latest" |
         .wineVersion.type              = "wine" |
         .wineVersion.lib               = "${config.home.homeDirectory}/.config/heroic/tools/wine/Wine-GE-latest/lib64" |
         .wineVersion.lib32             = "${config.home.homeDirectory}/.config/heroic/tools/wine/Wine-GE-latest/lib" |
