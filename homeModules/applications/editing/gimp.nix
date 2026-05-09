@@ -2,12 +2,13 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }:
 
 {
   options.homeManager = {
-    applications.editing.image = {
+    applications.editing.gimp = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -17,7 +18,7 @@
     };
   };
 
-  config = lib.mkIf config.homeManager.applications.editing.image.enable {
+  config = lib.mkIf config.homeManager.applications.editing.gimp.enable {
     home.packages = with pkgs; [
       gimp
     ];
