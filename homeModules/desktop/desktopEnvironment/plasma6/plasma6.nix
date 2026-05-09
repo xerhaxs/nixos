@@ -190,18 +190,13 @@
           floating = true;
 
           widgets = [
-            # We can configure the widgets by adding the name and config
-            # attributes. For example to add the the kickoff widget and set the
-            # icon to "nix-snowflake-white" use the below configuration. This will
-            # add the "icon" key to the "General" group for the widget in
-            # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
             {
               name = "org.kde.plasma.kickoff";
               config = {
                 General = {
                   icon = "nix-snowflake-white";
                   favoritesPortedToKAstats = "true";
-                  systemFavorites = "suspend\\,reboot\\,shutdown"; # no hibernation "suspend\\,hibernate\\,reboot\\,shutdown"
+                  systemFavorites = "suspend\\,reboot\\,shutdown";
                 };
               };
             }
@@ -214,6 +209,7 @@
               name = "org.kde.plasma.notes";
               config = {
                 General = {
+                  noteId = "bf565b14-c410-47c6-bd18-903f25470e";
                   color = "translucent-light";
                   fontSize = "12";
                 };
