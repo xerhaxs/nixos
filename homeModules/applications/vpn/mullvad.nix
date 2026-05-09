@@ -56,6 +56,7 @@
 
       ${pkgs.mullvad}/bin/mullvad lan set allow || true
     '';
+    
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".config/Mullvad VPN"

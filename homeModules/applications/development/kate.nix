@@ -230,7 +230,7 @@
         "TypeFormatting".value = true;
       };
     };
-    
+
     xdg.dataFile."kxmlgui5/kate/kateui.rc".text = ''
       <!DOCTYPE gui>
       <gui name="kate" translationDomain="kate" version="110">
@@ -655,5 +655,11 @@
        </ToolBar>
       </gui>
     '';
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".local/share/kate"
+      ];
+    };
   };
 }

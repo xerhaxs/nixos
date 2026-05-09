@@ -1887,9 +1887,11 @@
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".local/share/baloo"
+        ".local/share/kactivitymanagerd"
         ".local/share/klipper"
         ".local/share/kwalletd"
         ".local/share/plasma_notes"
+        ".local/share/RecentDocuments"
       ];
     };
   };
