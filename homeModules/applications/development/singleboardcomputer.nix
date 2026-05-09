@@ -19,10 +19,16 @@
 
   config = lib.mkIf config.homeManager.applications.development.singleboardcomputer.enable {
     home.packages = with pkgs; [
-      arduino-ide
       esphome
       fritzing
       rpi-imager
     ];
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/Fritzing"
+        ".local/share/Fritzing"
+      ];
+    };
   };
 }
