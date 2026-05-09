@@ -37,9 +37,12 @@
 
       "General" = {
         "BrowseThroughArchives".value = true;
+        "FilterBar".value = true;
         "ShowFullPath".value = true;
         "ShowFullPathInTitlebar".value = true;
+        "ShowStatusBar".value = "FullWidth";
         "ShowToolTips".value = false;
+        "ShowZoomSlider".value = true;
         "SplitView".value = true;
         "UseTabForSwitchingSplitView".value = true;
         "ViewMode".value = 1;
