@@ -12,7 +12,7 @@
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable image tools.";
+        description = "Enable GIMP";
       };
     };
   };

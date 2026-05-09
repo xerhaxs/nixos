@@ -9,6 +9,7 @@
   imports = [
     ./3dprinting.nix
     ./ai.nix
+    ./blender.nix
     ./compiler.nix
     ./gimp.nix
     ./image.nix
@@ -30,6 +31,7 @@
     homeManager.applications.editing = {
       "3dprinting".enable = true;
       ai.enable = true;
+      blender.enable = true;
       compiler.enable = true;
       gimp.enable = true;
       image.enable = true;
