@@ -92,7 +92,7 @@
 
       "UiSettings" = {
         "ColorScheme".value = "BreezeDark";
-        "ColorSchemePath".value = "BreezeDark.colors";
+        "ColorSchemePath".value = "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}.colors";
       };
 
       "sdl" = {
