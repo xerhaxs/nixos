@@ -13,8 +13,6 @@
     impermanence.nixosModules.impermanence
     ./disko-luks-btrfs-tmpfs.nix
     ./disko-vm-lvm-ext4.nix
-
-    ./disko-uefi-lvm-on-luks.nix
   ];
 
   options.nixos = {
@@ -32,8 +30,6 @@
     nixos.disko = {
       disko-luks-btrfs-tmpfs.enable = lib.mkDefault false;
       disko-vm-lvm-ext4.enable = lib.mkDefault false;
-
-      disko-uefi-lvm-on-luks.enable = lib.mkDefault false;
     };
   };
 }
