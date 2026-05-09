@@ -19,10 +19,13 @@
 
   config = lib.mkIf config.homeManager.applications.editing.image.enable {
     home.packages = with pkgs; [
-      exiftool
-      #inkscape-with-extensions
-      #krita
-      metapixel
+      gimp
     ];
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/GIMP"
+      ];
+    };
   };
 }
