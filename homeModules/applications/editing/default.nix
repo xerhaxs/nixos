@@ -14,6 +14,7 @@
     ./gimp.nix
     ./image.nix
     ./kdenlive.nix
+    ./tenacity.nix
   ];
 
   options.homeManager = {
