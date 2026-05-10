@@ -684,6 +684,7 @@
             "BrowserApplication" = "librewolf.desktop";
             "TerminalApplication" = "kitty";
             "TerminalService" = "kitty.desktop";
+            "MapApplication" = "openstreetmap-geo-handler.desktop";
           };
           "KDE" = {
             "ScrollbarLeftClickNavigatesByPage" = false;

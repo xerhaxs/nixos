@@ -18,6 +18,7 @@ let
   freetube = [ "freetube.desktop;" ];
   signal = [ "signal-desktop.desktop;" ];
   discord = [ "com.discordapp.Discord.desktop;" ];
+  maps = [ "openstreetmap-geo-handler.desktop;" ];
 
   associations = {
     "application/x-extension-htm" = browser;
@@ -33,6 +34,7 @@ let
     "x-scheme-handler/http" = browser;
     "x-scheme-handler/https" = browser;
     "x-scheme-handler/unknown" = editor;
+    "application/octet-stream" = editor;
     "text/plain" = editor;
     "text/markdown" = editor;
     "text/html" = editor;
@@ -46,6 +48,8 @@ let
     "x-scheme-handler/signalcaptcha" = signal;
     "x-scheme-handler/discord" = discord;
     "inode/directory" = filemanager;
+    "x-scheme-handler/geo" = maps;
+    "application/geo+json" = maps;
   };
 in
 
@@ -67,17 +71,13 @@ in
         enable = true;
         wlr = {
           enable = true;
-          #settings = {};
         };
         extraPortals = with pkgs; [
           xdg-desktop-portal
-          #  xdg-desktop-portal-wlr
           kdePackages.xdg-desktop-portal-kde
-          #  xdg-desktop-portal-gnome
           xdg-desktop-portal-gtk
         ];
         config.common.default = "kde";
-        #xdgOpenUsePortal = true;
       };
 
       mime = {
