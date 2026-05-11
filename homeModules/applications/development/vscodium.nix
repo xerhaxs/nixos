@@ -37,6 +37,9 @@
           "git.confirmSync" = false;
           "workbench.colorTheme" = "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}";
           "workbench.iconTheme" = "catppuccin-${lib.strings.toLower osConfig.nixos.theme.catppuccin.flavor}";
+          "[markdown]" = {
+            "editor.defaultFormatter" = "yzhang.markdown-all-in-one";
+          };
         };
 
         extensions = with pkgs.vscode-extensions; [
