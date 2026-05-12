@@ -161,7 +161,7 @@ in
           "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
 
         "webgl.disabled" = false;
-        "librewolf.webgl.prompt.hide" = false;
+        "librewolf.webgl.prompt.hide" = true;
 
         "media.ffmpeg.vaapi.enabled" = true;
         "media.rdd-ffmpeg.enabled" = true;
