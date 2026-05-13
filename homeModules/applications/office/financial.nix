@@ -100,12 +100,6 @@
     '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      files = [
-        ".local/share/recently-used.xbel"
-        ".local/share/user-places.xbel"
-        ".local/share/user-places.xbel.bak"
-        ".local/share/user-places.xbel.tbcache"
-      ];
       directories = [
         ".config/monero-project"
         ".local/share/Bisq2"
