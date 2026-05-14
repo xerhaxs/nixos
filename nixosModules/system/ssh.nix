@@ -24,7 +24,7 @@
       startWhenNeeded = true;
       openFirewall = true;
       settings = {
-        PasswordAuthentication = true;
+        PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
         X11Forwarding = false;
