@@ -12,6 +12,7 @@
     ./git.nix
     ./persistent.nix
     ./secrets.nix
+    ./ssh.nix
     ./ranger.nix
     ./starship.nix
   ];
@@ -34,6 +35,7 @@
       git.enable = true;
       persistent.enable = true;
       secrets.enable = true;
+      ssh.enable = true;
       ranger.enable = true;
       starship.enable = true;
     };

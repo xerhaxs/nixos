@@ -30,6 +30,10 @@
       };
     };
 
+    users.users.${userName}.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyndaaCmTLHdA5+sLBbxgSZNC6KXKtZkKiMK6AAY8Rt jf@NixOS-Desktop"
+    ];
+
     services.sshguard = {
       enable = true;
       services = [ "sshd" ];
