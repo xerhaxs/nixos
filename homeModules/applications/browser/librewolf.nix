@@ -404,6 +404,8 @@ in
             "https://sonarr.m4rx.cc"
             "https://syncthing.m4rx.cc"
             "https://pihole.m4rx.cc"
+
+            "https://claude.ai"
           ];
           AllowSession = [ ];
           Block = [ ];
