@@ -32,7 +32,9 @@
     };
 
     users.users.${userName}.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhC1nqSGZvIStHkFIrnYIeYP/hB+1QXKO+QW8KwuDtw jf@NixOS-Convertible"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyndaaCmTLHdA5+sLBbxgSZNC6KXKtZkKiMK6AAY8Rt jf@NixOS-Desktop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILuM9ISlzKCQNkkaPhGKCLeUdgko5uoVWGyqJUU6A/hi jf@NixOS-Framework"
     ];
 
     services.sshguard = {
