@@ -46,7 +46,6 @@
           alefragnani.bookmarks
           arrterian.nix-env-selector
           catppuccin.catppuccin-vsc # tmp fix
-          catppuccin.catppuccin-vsc-icons # tmp fix
           #cweijan.vscode-office
           davidanson.vscode-markdownlint
           davidlday.languagetool-linter
