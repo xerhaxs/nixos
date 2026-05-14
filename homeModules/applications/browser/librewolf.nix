@@ -195,7 +195,7 @@ in
         "privacy.cpd.offlineApps" = true;
         "privacy.cpd.cookies" = true;
         "privacy.sanitize.pending" =
-          "[{'id':'shutdown','itemsToClear':['cache','formdata','siteSettings','browsingHistoryAndDownloads','cookiesAndStorage'],'options':{}}]";
+          "[{'id':'shutdown','itemsToClear':['cache','formdata','browsingHistoryAndDownloads','cookiesAndStorage'],'options':{}}]"; # 'siteSettings' disabled
       };
 
       policies = {
