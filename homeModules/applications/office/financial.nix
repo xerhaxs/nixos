@@ -101,6 +101,7 @@
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
+        ".bitmonero"
         ".config/monero-project"
         ".local/share/Bisq2"
         ".local/share/libkunitconversion/"
