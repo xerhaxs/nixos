@@ -202,6 +202,9 @@
       directories = [
         ".local/share/gwenview"
       ];
+      files = [
+        ".config/gwenviewrc"
+      ];
     };
   };
 }
