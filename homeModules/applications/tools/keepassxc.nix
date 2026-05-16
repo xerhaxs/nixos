@@ -20,7 +20,7 @@
   config = lib.mkIf config.homeManager.applications.tools.keepassxc.enable {
     programs.keepassxc = {
       enable = true;
-      autostart = true;
+      autostart = false;
       settings = {
         General = {
           SingleInstance = true;
@@ -207,6 +207,15 @@
           #HidePreReleaseWarning = "";
         };
       };
+    };
+
+    programs.plasma.startup.startupScript."keepassxc" = {
+      text = ''
+        sleep 5
+        ${pkgs.keepassxc}/bin/keepassxc &
+      '';
+      runAlways = true;
+      priority = 8;
     };
   };
 }
