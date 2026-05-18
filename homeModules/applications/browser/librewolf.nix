@@ -184,7 +184,7 @@ in
         "privacy.clearOnShutdown.formdata" = true;
         "privacy.clearOnShutdown.history" = true;
         "privacy.clearOnShutdown.sessions" = true;
-        "privacy.clearOnShutdown.siteSettings" = false;
+        "privacy.clearOnShutdown.siteSettings" = true;
         "privacy.clearOnShutdown.cookies" = true;
         "privacy.clearOnShutdown.offlineApps" = true;
         "privacy.sanitize.timeSpan" = 0;
@@ -195,7 +195,7 @@ in
         "privacy.cpd.offlineApps" = true;
         "privacy.cpd.cookies" = true;
         "privacy.sanitize.pending" =
-          "[{'id':'shutdown','itemsToClear':['cache','formdata','browsingHistoryAndDownloads','cookiesAndStorage'],'options':{}}]"; # 'siteSettings' disabled
+          ''[{"id":"shutdown","itemsToClear":["cache","formdata","browsingHistoryAndDownloads","cookiesAndStorage"],"options":{}}]'';
       };
 
       policies = {
@@ -264,7 +264,8 @@ in
           };
           "{c49b13b1-5dee-4345-925e-0c793377e3fa}" = {
             "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/youtube-enhancer-vc/latest.xpi";
+            "install_url" =
+              "https://addons.mozilla.org/firefox/downloads/latest/youtube-enhancer-vc/latest.xpi";
           };
 
           "uBlock0@raymondhill.net".adminSettings = {
