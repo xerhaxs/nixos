@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./backintime.nix
     ./configuration.nix
     ./disko.nix
     ./hardware-configuration.nix

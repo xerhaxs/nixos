@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./backintime.nix
     ./xdg.nix
   ];
 }
