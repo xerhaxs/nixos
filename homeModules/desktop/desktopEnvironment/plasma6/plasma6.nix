@@ -39,16 +39,14 @@
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
+        wallpaper = lib.mkDefault "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
       };
 
       windows = {
         allowWindowsToRememberPositions = true;
       };
 
-      startup = {
-
-      };
+      startup = { };
 
       powerdevil = {
         general = {
@@ -621,6 +619,7 @@
         "plasmaparc"."General" = {
           "VolumeStep" = 1;
           "AudioFeedback" = false;
+          "GlobalMuteSources" = true;
         };
 
         "baloofilerc" = {
@@ -630,6 +629,12 @@
               "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.venv,venv,core-dumps,lost+found";
             "exclude filters version" = 8;
             "index hidden folders" = true;
+          };
+        };
+
+        "kactivitymanagerdrc" = {
+          "activities" = {
+            "38402596-f588-4024-a556-e6942b794c08" = "Default";
           };
         };
 
@@ -1884,11 +1889,20 @@
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".local/share/baloo"
-        ".local/share/kactivitymanagerd"
+        ".local/share/flatpak/db"
         ".local/share/klipper"
+        ".local/share/kscreen"
         ".local/share/kwalletd"
         ".local/share/plasma_notes"
         ".local/share/RecentDocuments"
+      ];
+      files = [
+        ".config/kwinoutputconfig.json"
+        ".local/share/krunnerstaterc"
+        ".local/share/recently-used.xbel"
+        ".local/share/user-places.xbel"
+        ".local/share/user-places.xbel.bak"
+        ".local/share/user-places.xbel.tbcache"
       ];
     };
   };
