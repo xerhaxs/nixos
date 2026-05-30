@@ -165,7 +165,7 @@
           rescanIntervalS = 3600;
         };
         
-        ".aqbanking" = {
+        "aqbanking" = {
           path = "/pool01/shares/jf/.aqbanking";
           id = "aqbanking";
           type = "sendreceive";
