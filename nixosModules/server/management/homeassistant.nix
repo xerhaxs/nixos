@@ -63,8 +63,7 @@ in
         default_config = { };
 
         lovelace = {
-          #mode = "yaml";
-          mode = "storage";
+          dashboards = { };
         };
 
         "automation" = "!include automations.yaml";
@@ -154,10 +153,12 @@ in
       };
     };
 
-    /* environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      directories = [
-        "/var/lib/hass"
-      ];
-    }; */
+    /*
+      environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+        directories = [
+          "/var/lib/hass"
+        ];
+      };
+    */
   };
 }
