@@ -15,6 +15,9 @@
     music = "${config.home.homeDirectory}/Music";
     pictures = "${config.home.homeDirectory}/Pictures";
     videos = "${config.home.homeDirectory}/Videos";
+    extraConfig = {
+      GAMES = "${config.home.homeDirectory}/Games";
+    };
   };
 
   home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
@@ -22,6 +25,7 @@
       "Desktop"
       "Documents"
       "Downloads"
+      "Games"
       "Music"
       "Pictures"
       "Videos"
