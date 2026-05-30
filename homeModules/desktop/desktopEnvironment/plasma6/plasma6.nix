@@ -632,11 +632,11 @@
           };
         };
 
-        "kactivitymanagerdrc" = {
+        /* "kactivitymanagerdrc" = {
           "activities" = {
             "38402596-f588-4024-a556-e6942b794c08" = "Default";
           };
-        };
+        }; */
 
         "kcminputrc" = {
           "Keyboard" = {
@@ -1898,7 +1898,7 @@
       ];
       files = [
         ".config/kwinoutputconfig.json"
-        ".local/share/krunnerstaterc"
+        #".local/share/krunnerstaterc"
         ".local/share/recently-used.xbel"
         ".local/share/user-places.xbel"
         ".local/share/user-places.xbel.bak"
