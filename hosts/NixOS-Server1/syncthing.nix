@@ -164,7 +164,23 @@
           fsWatcherDelayS = 60;
           rescanIntervalS = 3600;
         };
-
+        
+        ".aqbanking" = {
+          path = "/pool01/shares/jf/.aqbanking";
+          id = "aqbanking";
+          type = "sendreceive";
+          devices = [
+            "NixOS-Convertible"
+            "NixOS-Desktop"
+            "NixOS-Framework"
+            "NixOS-Server1"
+          ];
+          copyOwnershipFromParent = false;
+          ignorePerms = true;
+          fsWatcherEnabled = true;
+          fsWatcherDelayS = 60;
+          rescanIntervalS = 3600;
+        };
         "FreeTube" = {
           path = "/pool01/shares/jf/FreeTube";
           id = "FreeTube";
