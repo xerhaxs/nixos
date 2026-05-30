@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-JIZMzEWL26E0htBrAibqeRYMGhPfu4nCeZHxr2+j9ik=",
+        "narHash": "sha256-QvbP4POocwgARa72fWUD1hPqNlXM4MZxrwomLS9DR9k=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-hMAt9NR3GZCk1MOIVuUfcvEq4fudkgcrhL0TOOOov4g=",
+        "narHash": "sha256-QFdciao81NUq+uefwDg0kla/cy0jnMflcyXhS4KWlrI=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
