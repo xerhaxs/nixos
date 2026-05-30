@@ -176,7 +176,7 @@
             rescanIntervalS = 3600;
           };
 
-          ".aqbanking" = {
+          "aqbanking" = {
             path = "/home/${userName}/.aqbanking";
             id = "aqbanking";
             type = "sendreceive";
