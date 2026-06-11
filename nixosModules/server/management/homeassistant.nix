@@ -7,17 +7,43 @@
 }:
 
 let
+  haPython = pkgs.home-assistant.python3Packages;
+
+  weishaupt-webif-api = haPython.buildPythonPackage rec {
+    pname = "weishaupt-webif-api";
+    version = "0.1.2";
+    pyproject = true;
+
+    src = haPython.fetchPypi {
+      pname = "weishaupt_webif_api";
+      inherit version;
+      hash = "sha256-cq868AaeDWsIORi3U5vIwAoms6PJ1iILqOTHiNFL29g=";
+    };
+
+    build-system = [ haPython.setuptools ];
+
+    dependencies = with haPython; [
+      httpx
+      beautifulsoup4
+    ];
+
+    pythonImportsCheck = [ "weishaupt_webif_api" ];
+  };
+
   weishaupt_modbus = pkgs.buildHomeAssistantComponent {
     owner = "OStrama";
     domain = "weishaupt_modbus";
     version = "unstable";
     src = weishaupt-modbus;
-    dependencies = with pkgs.home-assistant.python3Packages; [
-      aiofiles
-      beautifulsoup4
-      pymodbus
-      matplotlib
-    ];
+    dependencies =
+      (with haPython; [
+        aiofiles
+        beautifulsoup4
+        pymodbus
+        matplotlib
+        httpx
+      ])
+      ++ [ weishaupt-webif-api ];
   };
 in
 
