@@ -60,6 +60,10 @@
             name = "NixOS-Desktop";
             id = "PVZV2NU-LFXP33P-6I4XSXQ-M3TZWJN-HJOB2UC-2GLQSIE-GGF2TZ4-N22MAQN";
             autoAcceptFolders = false;
+            addresses = [
+              "tcp://10.75.0.80:22000"
+              "dynamic"
+            ];
           };
           NixOS-Framework = {
             name = "NixOS-Framework";
@@ -70,6 +74,10 @@
             name = "NixOS-Server1";
             id = "7NQB6WA-LNGXLBN-4VCFKIX-Z64IF5D-RZSGTIT-7DP6I46-LSKOXYH-AVOV2QQ";
             autoAcceptFolders = false;
+            addresses = [
+              "tcp://10.75.0.21:22000"
+              "dynamic"
+            ];
           };
           GraphenOS = {
             name = "GraphenOS";
