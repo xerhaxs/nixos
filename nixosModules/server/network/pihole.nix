@@ -220,33 +220,6 @@
             # Possible values are:
             #     Array of custom DNS records each one in HOSTS form: "IP HOSTNAME"
             hosts = [
-              "10.75.0.21 NixOS-Server1"
-              "10.75.0.21 cockpit.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 dav.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 forgejo.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 glance.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 homeassistant.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 invidious.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 jellyfin.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 kiwix.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 languagetool.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 libreddit.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 libretranslate.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 linkwarden.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 networkingtoolbox.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 ollama.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 pihole.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 radicale.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 searxng.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 syncthing.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 webdav.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 lidarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 nzbhydra.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 radarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 readarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 sabnzbd.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 sonarr.${config.nixos.server.network.nginx.domain}"
-              "10.75.0.21 stalwart.${config.nixos.server.network.nginx.domain}"
             ]; # ## CHANGED, default = []
 
             # If set, A and AAAA queries for plain names, without dots or domain parts, are never
