@@ -11,8 +11,8 @@ let
   fetchBlocklist = name: inputs.${name};
 
   enabledBlocklists = [
-    "adobe"
-    #"amazonFireTV"
+    #"adobe"
+    "amazonFireTV"
     #"malware"
     #"phishing"
     #"ransomware"
