@@ -131,9 +131,9 @@ in
 
       hosts = hostEntries;
 
-      hostFiles = lib.mkIf config.nixos.system.networking.blocklists.enable (
-        map fetchBlocklist config.nixos.system.networking.blocklists.urls
-      );
+      #hostFiles = lib.mkIf config.nixos.system.networking.blocklists.enable (
+      #  map fetchBlocklist config.nixos.system.networking.blocklists.urls
+      #);
 
       defaultGateway = "10.75.0.1";
       defaultGateway6 = "fe80::1";
