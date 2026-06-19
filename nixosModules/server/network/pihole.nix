@@ -670,14 +670,14 @@
               #
               # Possible values are:
               #     <valid Pi-hole password hash>
-              #pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU="; # ## CHANGED, default = ""
+              pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU="; # ## CHANGED, default = ""
 
               # Pi-hole 2FA TOTP secret. When set to something different than "", 2FA authentication
               # will be enforced for the API and the web interface. [...]
               #
               # Possible values are:
               #     <valid TOTP secret (20 Bytes in Base32 encoding)>
-              #totp_secret = "";
+              totp_secret = "";
 
               # Pi-hole application password.
               # After you turn on two-factor (2FA) verification and set up an Authenticator app, you
@@ -686,7 +686,7 @@
               #
               # Possible values are:
               #     <valid Pi-hole password hash>
-              #app_pwhash = "";
+              app_pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU=";
 
               # Should application password API sessions be allowed to modify config settings?
               # Setting this to true allows third-party applications using the application password
