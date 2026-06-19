@@ -129,7 +129,7 @@ in
       tempAddresses = "default";
       useDHCP = false;
 
-      #hosts = hostEntries;
+      hosts = hostEntries;
 
       #hostFiles = lib.mkIf config.nixos.system.networking.blocklists.enable (
       #  map fetchBlocklist config.nixos.system.networking.blocklists.urls
