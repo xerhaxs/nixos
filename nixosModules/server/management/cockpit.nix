@@ -28,7 +28,7 @@
       ];
       settings = { };
       plugins = with pkgs; [
-        cockpit-zfs
+        #cockpit-zfs
         cockpit-files
         cockpit-podman
         cockpit-machines
