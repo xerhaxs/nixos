@@ -38,7 +38,7 @@
       enable = true;
       efiSupport = true;
       enableEditor = false;
-      maxGenerations = 32;
+      maxGenerations = 8;
       validateChecksums = true;
       panicOnChecksumMismatch = true;
     };
