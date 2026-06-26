@@ -38,6 +38,7 @@
       "General" = {
         "BrowseThroughArchives".value = true;
         "FilterBar".value = true;
+        "GlobalViewProps".value = true;
         "ShowFullPath".value = true;
         "ShowFullPathInTitlebar".value = true;
         "ShowStatusBar".value = "FullWidth";
