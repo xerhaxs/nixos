@@ -32,7 +32,11 @@
       };
 
       "DetailsMode" = {
-        "PreviewSize".value = 32;
+        "IconSize".value = 32;
+      };
+
+      "CompactMode" = {
+        "IconSize".value = 32;
       };
 
       "General" = {
@@ -50,8 +54,7 @@
       };
 
       "IconsMode" = {
-        "IconSize".value = 22;
-        "PreviewSize".value = 48;
+        "IconSize".value = 48;
       };
 
       "KFileDialog Settings" = {
