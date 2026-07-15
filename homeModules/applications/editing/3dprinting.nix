@@ -21,7 +21,7 @@
   config = lib.mkIf config.homeManager.applications.editing."3dprinting".enable {
     home.packages = with pkgs; [
       orca-slicer
-      freecad-wayland
+      #freecad-wayland
     ];
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
