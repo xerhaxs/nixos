@@ -11,13 +11,13 @@ let
 
   weishaupt-webif-api = haPython.buildPythonPackage rec {
     pname = "weishaupt-webif-api";
-    version = "0.1.2";
+    version = "0.1.4";
     pyproject = true;
 
     src = haPython.fetchPypi {
       pname = "weishaupt_webif_api";
       inherit version;
-      hash = "sha256-cq868AaeDWsIORi3U5vIwAoms6PJ1iILqOTHiNFL29g=";
+      hash = "sha256-WIRVAH5EZNvfmQDn94iZAo5voIYXlgKPK450XdfPZkw=";
     };
 
     build-system = [ haPython.setuptools ];
