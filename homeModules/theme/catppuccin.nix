@@ -26,6 +26,7 @@
   config = lib.mkIf osConfig.nixos.theme.catppuccin.enable {
     catppuccin = {
       enable = true;
+      autoEnable = true;
       enableReleaseCheck = true;
       accent = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.accent}";
       flavor = lib.strings.toLower "${osConfig.nixos.theme.catppuccin.flavor}";
