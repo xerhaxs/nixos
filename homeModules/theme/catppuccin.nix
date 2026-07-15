@@ -96,6 +96,7 @@
     };
 
     home.pointerCursor = {
+      enable = true;
       gtk.enable = true;
       name = lib.strings.toLower "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
       package =

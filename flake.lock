@@ -3,7 +3,7 @@
     "adobe": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-dpeHa0pFotBgwXhZmT0mUdBXlisFWSJfnZHPuLFJK0Y=",
+        "narHash": "sha256-WTwU9b/qcxQfyrgXk+aLW6fgQ3zH5iYYw0WocqvjlF0=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/adobe.txt"
       },
@@ -15,7 +15,7 @@
     "ads": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-9qLMR+lUNIZ7o+r6CiTgvSQAgSgnV4rSYyC+EHI+vFU=",
+        "narHash": "sha256-fckguwzHn3h/KTqI7oW2jhIr2h4F8Rc4T0Z8vcIlghE=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/ads.txt"
       },
@@ -57,11 +57,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1782462517,
-        "narHash": "sha256-HPzOASBxx1bAnPREm4syM5oTb8ls2qbudkLW4BTB94s=",
+        "lastModified": 1783674541,
+        "narHash": "sha256-vmUhEF/jBCZJeK0dInOls+HOAR0yiiQusN1+FZKaJss=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "3f3b3511f9c433b93f20b24be32de01f675b046d",
+        "rev": "96799f24cf1366fe88e1293c3d27521a8f2129cf",
         "type": "github"
       },
       "original": {
@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782423922,
-        "narHash": "sha256-qPNd6lUohHP5gcJhqQ7rLV87RwIx0xYR2A4Frb9Zjc4=",
+        "lastModified": 1783963347,
+        "narHash": "sha256-r376E2XpakiXwModDHIxlvB6qLq4iFVEq730vxOO4JY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5d320ab301cfaaca7d32514f13815d19d109f5f4",
+        "rev": "a45a7c451455a51ae740ec3bce4024b312809c29",
         "type": "github"
       },
       "original": {
@@ -185,7 +185,7 @@
     "malware": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-UM3QgTwUbktLOJkq16EfE843e5z1HPk7HXHKiv3r3p4=",
+        "narHash": "sha256-RwAxhzjsSkj7PDdZI1cgSZiDUePgUZe5OOMQYnidso4=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/malware.txt"
       },
@@ -222,11 +222,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1782360767,
-        "narHash": "sha256-KFsLn544BrDrBI1jsT/XtWxlfs2oTCrJZ77XxUxZS6I=",
+        "lastModified": 1784085260,
+        "narHash": "sha256-mjbmVWnAQ9tplJp48amDOT9lABRYb0HsOF12QfOevlA=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "7e4eb48f80c90dab1ea331c43eb332b47e4cc59e",
+        "rev": "24aad4148c0caa90f9a7b364a71f3c8403347b3c",
         "type": "github"
       },
       "original": {
@@ -276,11 +276,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1782379505,
-        "narHash": "sha256-zPvPiU+a7pqtH47xrtZLNRABJKpOjfZQclDbcvNtH+I=",
+        "lastModified": 1783792734,
+        "narHash": "sha256-50rvY9GdFvpYDcMLcD/4cWSi0hVxArT5wsGlVsHy8eY=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "603d3afd1b6145bd66e97ae38a34d91c95df70cf",
+        "rev": "8efb4337e857949f4cfac86d12ef1066f417f31f",
         "type": "github"
       },
       "original": {
@@ -292,11 +292,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1782175435,
-        "narHash": "sha256-8d2wCNWKnd86GzKZvbuqqlS+HqMrheXkvRf0qGJ/oA0=",
-        "rev": "89570f24e97e614aa34aa9ab1c927b6578a43775",
+        "lastModified": 1783279667,
+        "narHash": "sha256-2l8yOB5aYd+05Q9V9Y1YhgbSa1j1o5QX+nvYs5FL80A=",
+        "rev": "f205b5574fd0cb7da5b702a2da51507b7f4fdd1b",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1020805.89570f24e97e/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1028110.f205b5574fd0/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
@@ -320,11 +320,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1782335603,
-        "narHash": "sha256-sZkQH1CkiZtdvcaLx4sGQD9Q9h+A8qB04DRpqQCN530=",
+        "lastModified": 1782847189,
+        "narHash": "sha256-twXPFqFsrrY5r28Zh7Homgcp2gUMBgQ6WDS98Q/3xFI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "03c72920da828594fae523aaef96f33dff10b340",
+        "rev": "b6018f87da91d19d0ab4cf979885689b469cdd41",
         "type": "github"
       },
       "original": {
@@ -365,11 +365,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1781577229,
-        "narHash": "sha256-lrp67w8AulE9Ks53n27I45ADSzbOCn4H+CNW1Ck8B+8=",
+        "lastModified": 1784007870,
+        "narHash": "sha256-djcLt/JJphyNt4eDY9XTly+/WbCK5lqWq9lSgCmJkkQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+        "rev": "18b9261cb3294b6d2a06d03f96872827b8fe2698",
         "type": "github"
       },
       "original": {
@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-gOyPUjk9QWs30tm+vDQM3I1S1ax0r5LenRyo2gbjbZM=",
+        "narHash": "sha256-tr6lPY02VwF1vsIltp+w13U47t1qJvxx5O8fnIM5vvg=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-GKH8LgNDdw/cOWtFojme4O0gC0DGv672YCavluv/azE=",
+        "narHash": "sha256-kfolqQWPxWGKvA75oyUZmgdqRlpesgX6dYXSmhoW9t4=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
@@ -406,7 +406,7 @@
     "phishing": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-lrHL/npOZcsLOwSBuW7iLXM9RK8WtWvM3pevjW5DPFI=",
+        "narHash": "sha256-p/VTu8iW7g20HmomMRqPmh32fdT6M09+syzZsKQiPc0=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/phishing.txt"
       },
@@ -425,11 +425,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775856943,
-        "narHash": "sha256-b7Mp7P+q2Md5AGt4rjHfMcBykzMumFTen10ST++AuTU=",
+        "lastModified": 1783574839,
+        "narHash": "sha256-ICof1tV4/9XheBLBGf7dhMhfMq4dOs1zwTHrr7zGFlA=",
         "owner": "pjones",
         "repo": "plasma-manager",
-        "rev": "a524a6160e6df89f7673ba293cf7d78b559eb1a5",
+        "rev": "c551f0687658e4bb699cfff6015436ad7ee57a0d",
         "type": "github"
       },
       "original": {
@@ -441,7 +441,7 @@
     "ransomware": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-OBkLN8po1672pGqMmy1/iGE+yHT5SbrsukfhJHqoTZ0=",
+        "narHash": "sha256-o+lZNPdR6z+c2fCgqgDo6RkanxNzWEQPi92lnfEspes=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/ransomware.txt"
       },
@@ -453,7 +453,7 @@
     "redirect": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-vWDD8fj+mS36N5/AFrCIwzRMXJFThv71MR7YCO3j0tw=",
+        "narHash": "sha256-ogA75DboB1HvFwZiySr8+lbsS/Zg2lR5bndiCfzoEVI=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/redirect.txt"
       },
@@ -497,7 +497,7 @@
     "scam": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-nD5/SPiReitEY9DZTMHE89E7EAuXV7PBvDpAXvsZOjo=",
+        "narHash": "sha256-V9dJ38ENmKCLYMSdMXNAqAjVjh1wM0x7ACUHoEG33Hg=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/scam.txt"
       },
@@ -509,7 +509,7 @@
     "smart-tv": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-SmMPErVinIzX6bDX7gpT/bmAqsU/Cs+HZ57/BYIAEjA=",
+        "narHash": "sha256-ILo3tCT6CutGZA6/uWADa7dSt8J9Ns4EAlut6Qwx/7c=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/smart-tv.txt"
       },
@@ -525,11 +525,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782165805,
-        "narHash": "sha256-478kKQBvK6SYTOdN2h9jhKJv94nbXRbFMfuL1WshErg=",
+        "lastModified": 1783174389,
+        "narHash": "sha256-aCWC8ngycU7OdJrU2+Je3qf+1a2ykuBvpPhZT/9tXMc=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "56b24064fdcaedca53553b1a6d607fd23b613a24",
+        "rev": "f1406619a3884cd5c47992a70b8b35c9c0fcb4c9",
         "type": "github"
       },
       "original": {
@@ -541,7 +541,7 @@
     "stevenBlack": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-tKp1JQRk5PrlOhKCQSLhOvuXxEhwsF1DH+mrmKz06Eg=",
+        "narHash": "sha256-xvScb3zhnVhltHoEcB4Nq/+pjDNbxOa9zemID63q3Sc=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
       },
@@ -568,7 +568,7 @@
     "tiktok": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-iLTdushkoUTBhKTsBHVG73sK/IzC6P2LZXZqH5vFLe4=",
+        "narHash": "sha256-dBb7ZbkF0yQtk99lHS4gEC3Uu4wA2oedN8pez7VQBho=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/tiktok.txt"
       },
@@ -580,7 +580,7 @@
     "tracking": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-4Qwq0Wg2vPwdWqieqB9xAuUq/6uZwqcx85Q1Efst2Jc=",
+        "narHash": "sha256-AV526+NNp3VicqW8eXgEec/v6JfITmmaYb8en2zyLhs=",
         "type": "file",
         "url": "https://blocklistproject.github.io/Lists/tracking.txt"
       },
@@ -592,11 +592,11 @@
     "weishaupt-modbus": {
       "flake": false,
       "locked": {
-        "lastModified": 1781035782,
-        "narHash": "sha256-QGMk4v3YeyeGK9PGQ7uYhPriQRmP4fGRD7t6PsagHZU=",
+        "lastModified": 1784093948,
+        "narHash": "sha256-py/xK1lfIE24o/rYJeDsHJYcU5VnxtmcZfj2ht4Dg38=",
         "owner": "OStrama",
         "repo": "weishaupt_modbus",
-        "rev": "2b8c103b7fc80d9b530aafca0d00c55c7269be26",
+        "rev": "e5ce16da1a6f7bb9c9a1c00c3c3a12e4c231d9a1",
         "type": "github"
       },
       "original": {
