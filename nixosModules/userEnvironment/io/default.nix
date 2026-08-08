@@ -9,6 +9,7 @@
   imports = [
     ./audio.nix
     ./bluetooth.nix
+    ./camera.nix
     ./input.nix
     ./printing.nix
   ];
@@ -28,6 +29,7 @@
     nixos.userEnvironment.io = {
       audio.enable = true;
       bluetooth.enable = true;
+      camera.enable = true;
       input.enable = true;
       printing.enable = true;
     };
