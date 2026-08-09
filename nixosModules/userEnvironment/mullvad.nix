@@ -20,9 +20,10 @@
   config = lib.mkIf config.nixos.userEnvironment.mullvad.enable {
     services.mullvad-vpn = {
       enable = true;
+      package = pkgs.mullvad;
+      gui.enable = true;
       enableExcludeWrapper = true;
       enableEarlyBootBlocking = false;
-      package = pkgs.mullvad-vpn;
     };
 
     environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
