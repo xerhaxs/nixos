@@ -18,7 +18,7 @@
   };
 
   config = lib.mkIf config.nixos.server.network.pihole.enable {
-    networking.networkmanager.dns = lib.mkDefault "none";
+    networking.networkmanager.dns = "none";
     
     services.resolved.enable = false;
 
