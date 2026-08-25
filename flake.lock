@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787379775,
-        "narHash": "sha256-XL2qfqmocfsvuEGyomZg4nOZfkuSe8vZtrOX99I+b6I=",
+        "lastModified": 1787540599,
+        "narHash": "sha256-MHwk52ty3NsLhq9a1IbIfBJZlCUJIdiUYFo52JLK9hY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ec1a8fdf74ed3f276148ee106299a2ba0e65d51f",
+        "rev": "03f4cd46bc1dd4f3a96da778d2ce9f7ce39dd450",
         "type": "github"
       },
       "original": {
@@ -222,11 +222,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1787190026,
-        "narHash": "sha256-CSEylZHMoKeuK3esYddRYDVs3KFgh10qx0MsxZw2HJs=",
+        "lastModified": 1787622081,
+        "narHash": "sha256-N79fmlnKWnOxkXw0o8dyiB14DTNOoBHmGy+VpUbJ6Zw=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "4db432c1ba0173573628cffc14a95769eeec5608",
+        "rev": "25b4dfcd9a7c1215d1647529326250a9cf871fa7",
         "type": "github"
       },
       "original": {
@@ -365,11 +365,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1787360063,
-        "narHash": "sha256-dt4WdcvsA8/RCe+VZZwqU0X+XMM3wBbGCWA0/sFWzGo=",
+        "lastModified": 1787498568,
+        "narHash": "sha256-9i/VTdusq/+NM/tz+J1Re+ojkMB8MBf0QshnYfzHz30=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2c423e03bbafcff28bfadc6781a4a8257f205cb5",
+        "rev": "56c02bc00adcf003215cc4bd996d6efaf4cff188",
         "type": "github"
       },
       "original": {
@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-/XH824sy0sHJ3E24jYTg6mHi79DdiedymU53v6SQ+4c=",
+        "narHash": "sha256-AwPapWfIpQzscDc5jKF8j7R2BNcJ3faOvVP4aG69eXo=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-nX2rcJSfumV7jI45weWnZPazE3xiVrkyPIYwpLZ0JXA=",
+        "narHash": "sha256-/0xacke70qMf6cjKvZaQqujokaifHtjkCFXcFQUL8IM=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
@@ -541,7 +541,7 @@
     "stevenBlack": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-6L1n3nKfkLq1bi/pTA38kubbNqy1dr0k8awSb32Aj8g=",
+        "narHash": "sha256-5OxNUelBfk+190nMvaXu2HGvzQpCfNrBrKA0nY4+GBE=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
       },
