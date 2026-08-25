@@ -112,7 +112,7 @@ in
     networking = {
       networkmanager = {
         enable = true;
-        dns = lib.mkDefault "default";
+        dns = "systemd-resolved";
         wifi = {
           scanRandMacAddress = true;
           powersave = false;
@@ -142,6 +142,8 @@ in
         "2620:fe::9"
       ];
     };
+
+    services.resolved.enable = true;
 
     users.users."${userName}" = {
       extraGroups = [ "networkmanager" ];

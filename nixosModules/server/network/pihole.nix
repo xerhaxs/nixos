@@ -18,6 +18,14 @@
   };
 
   config = lib.mkIf config.nixos.server.network.pihole.enable {
+    networking.networkmanager.dns = lib.mkDefault "none";
+    
+    services.resolved.enable = false;
+
+    environment.etc."resolv.conf".text = ''
+      nameserver 127.0.0.1
+    '';
+
     services = {
       pihole-ftl = {
         enable = true;
