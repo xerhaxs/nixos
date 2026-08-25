@@ -29,7 +29,7 @@
       hyphen
       kdePackages.ghostwriter
       languagetool
-      libreoffice-qt-fresh
+      libreoffice-qt-stable
       multimarkdown
       mythes
       pandoc
