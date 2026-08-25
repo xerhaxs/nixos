@@ -19,7 +19,7 @@
 
   config = lib.mkIf config.nixos.server.network.pihole.enable {
     networking.networkmanager.dns = "none";
-    
+    networking.resolvconf.enable = false;
     services.resolved.enable = false;
 
     environment.etc."resolv.conf".text = ''
