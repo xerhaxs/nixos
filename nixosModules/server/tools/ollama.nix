@@ -30,7 +30,7 @@
       environmentVariables = {
         OLLAMA_VULKAN = "1";
       };
-      models = "/pool01/applications/ollama/models";
+      modelsDir = "/pool01/applications/ollama/models";
       #models = "/var/lib/ollama/models";
       loadModels = [
         "deepseek-r1:1.5b"

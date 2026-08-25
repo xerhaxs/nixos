@@ -26,7 +26,7 @@
       enable = true;
       redisCreateLocally = false;
       configureUwsgi = false;
-      settingsFile = config/searxng.yml;
+      settingsPath = config/searxng.yml;
       environmentFile = config.sops.secrets."searxng/secret".path;
       settings = {
         server.port = 8888;
