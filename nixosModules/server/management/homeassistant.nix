@@ -42,6 +42,7 @@ let
         pymodbus
         matplotlib
         httpx
+        pygal
       ])
       ++ [ weishaupt-webif-api ];
   };
