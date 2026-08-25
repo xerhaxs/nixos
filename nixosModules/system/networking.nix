@@ -112,7 +112,7 @@ in
     networking = {
       networkmanager = {
         enable = true;
-        dns = lib.mkDefault "systemd-resolved";
+        dns = lib.mkDefault "default";
         wifi = {
           scanRandMacAddress = true;
           powersave = false;
