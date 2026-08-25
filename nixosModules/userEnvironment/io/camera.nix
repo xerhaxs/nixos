@@ -23,6 +23,7 @@
 
     environment.systemPackages = with pkgs; [
       gphoto2
+      kdePackages.kamera
     ];
 
     users.users."${userName}" = {
