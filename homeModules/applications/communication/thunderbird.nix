@@ -27,9 +27,6 @@
           isDefault = true;
 
           settings = {
-            # === Setup Mail Accounts ===
-            "mail.accountmanager.accounts" = "account1,account3,account4,account2";
-
             # === General UI and behavior settings ===
             "mailnews.start_page.enabled" = false;
             "mailnews.start_page.url" = "";
