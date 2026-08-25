@@ -112,17 +112,12 @@ in
     networking = {
       networkmanager = {
         enable = true;
-        dns = "default";
+        dns = lib.mkDefault "systemd-resolved";
         wifi = {
           scanRandMacAddress = true;
           powersave = false;
           macAddress = "stable";
         };
-      };
-
-      wireless = {
-        enable = true;
-        userControlled = true;
       };
 
       enableIPv6 = true;
