@@ -35,6 +35,12 @@ let
     domain = "weishaupt_modbus";
     version = "unstable";
     src = weishaupt-modbus;
+
+    postPatch = ''
+      find . -type f -name '*.py' -exec sed -i \
+        's/from config\.custom_components\.weishaupt_modbus\./from ./g' {} +
+    '';
+
     dependencies =
       (with haPython; [
         aiofiles
