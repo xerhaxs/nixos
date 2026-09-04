@@ -156,6 +156,10 @@ in
       customComponents = [ weishaupt_modbus ];
     };
 
+    systemd.tmpfiles.rules = [
+      "z /pool01/applications/hass/www/local/weishaupt_modbus_powermap.svg 0644 hass hass -"
+    ];
+
     services.nginx = {
       virtualHosts = {
         "homeassistant.${config.nixos.server.network.nginx.domain}" = {
