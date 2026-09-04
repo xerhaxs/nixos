@@ -49,6 +49,7 @@ let
         matplotlib
         httpx
         pygal
+        scipy
       ])
       ++ [ weishaupt-webif-api ];
   };
