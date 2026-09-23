@@ -150,6 +150,7 @@ in
         "panasonic_viera"
         "prometheus"
         "sony_projector"
+        "otbr"
         "thread"
       ];
 
@@ -159,6 +160,32 @@ in
     systemd.tmpfiles.rules = [
       "z /pool01/applications/hass/www/local/weishaupt_modbus_powermap.svg 0644 hass hass -"
     ];
+
+    services.matter-server = {
+      enable = true;
+      openFirewall = false;
+    };
+
+    services.openthread-border-router = {
+      enable = true;
+      backboneInterfaces = [ "eno1" ];
+      openFirewall = true;
+      radio = {
+        device = "/dev/serial/by-id/usb-Nabu_Casa_Home_Assistant_Connect_ZBT-1_3ca08035a338ef11b2653a7af3d9b1e5-if00-port0";
+        baudRate = 460800;
+        flowControl = true;
+      };
+      rest = {
+        listenAddress = "::";
+        listenPort = 8081;
+      };
+    };
+
+    services.avahi = {
+      enable = true;
+      publish.enable = true;
+      publish.userServices = true;
+    };
 
     services.nginx = {
       virtualHosts = {
@@ -181,12 +208,12 @@ in
       };
     };
 
-    /*
-      environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-        directories = [
-          "/var/lib/hass"
-        ];
-      };
-    */
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/thread"
+        "/var/lib/private/matter-server"
+        #"/var/lib/hass"
+      ];
+    };
   };
 }
