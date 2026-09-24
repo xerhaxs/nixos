@@ -50,6 +50,9 @@
 
     services.hardware.bolt.enable = true;
 
+    services.udev.packages = [ pkgs.via ];
+    hardware.keyboard.qmk.enable = true;
+
     users.users."${userName}" = {
       extraGroups = [
         "dialout"
