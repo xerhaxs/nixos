@@ -32,6 +32,7 @@
         #"facetimehd-calibration"
         #"facetimehd-firmware"
         #"xow_dongle-firmware"
+        "via"
 
         # nixosModules/userEnvironment/game/steam.nix
         "steam"
