@@ -15,7 +15,7 @@
     workspace = {
       wallpaperSlideShow = lib.mkForce {
         path = "${config.xdg.userDirs.pictures}/Desktopbilder/Kanada";
-        interval = 60;
+        interval = 600;
       };
     };
 
