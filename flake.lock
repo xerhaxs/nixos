@@ -365,11 +365,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1790689126,
-        "narHash": "sha256-ilerN1WLSvF+HMjziC/Wv99J5y02maDH+6hZPwsORKg=",
+        "lastModified": 1790822859,
+        "narHash": "sha256-69xHQhAeMAD2wDXO7T2pcOZIF9Sga2W+JkmY2a11Ops=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b4fd65b198c599cbe814fcb9f42d25d021595ec9",
+        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
         "type": "github"
       },
       "original": {
@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-8tFSNxqGSZLlrYT2kAU1orQHyBxF981w7VkiDfbDaJA=",
+        "narHash": "sha256-jEIqOtv0gE1NXjQ0jt7lkyo7lv00Cwz7I92WbLRGRRc=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-alsLtFVTV9KcJsMX5Z3w8Qb8hQAugtNew8s4BYvCIo4=",
+        "narHash": "sha256-GxgGPvtlOSWnH59i26bST4EUDUpbMLFi7IYsWomm7K8=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
