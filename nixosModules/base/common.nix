@@ -83,7 +83,6 @@
 
       # system call monitoring
       lsof # list open files
-      ltrace # library call monitoring
       strace # system call monitoring
 
       # system tools
