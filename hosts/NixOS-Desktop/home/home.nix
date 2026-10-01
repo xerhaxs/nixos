@@ -13,7 +13,10 @@
 
   programs.plasma = {
     workspace = {
-      wallpaper = "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
+      wallpaperSlideShow = lib.mkForce {
+        path = "${config.xdg.userDirs.pictures}/Desktopbilder/Kanada";
+        interval = 60;
+      };
     };
 
     configFile = {

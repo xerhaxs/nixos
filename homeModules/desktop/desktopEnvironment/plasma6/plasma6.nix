@@ -39,7 +39,11 @@
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        wallpaper = lib.mkDefault "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
+        #wallpaper = lib.mkDefault "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
+        #wallpaperSlideShow = lib.mkForce {
+        #  path = "${config.xdg.userDirs.pictures}/Desktopbilder/Kanada";
+        #  interval = 60;
+        #};
       };
 
       windows = {
@@ -631,11 +635,13 @@
           };
         };
 
-        /* "kactivitymanagerdrc" = {
-          "activities" = {
-            "38402596-f588-4024-a556-e6942b794c08" = "Default";
+        /*
+          "kactivitymanagerdrc" = {
+            "activities" = {
+              "38402596-f588-4024-a556-e6942b794c08" = "Default";
+            };
           };
-        }; */
+        */
 
         "kcminputrc" = {
           "Keyboard" = {
