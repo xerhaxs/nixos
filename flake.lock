@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790819692,
-        "narHash": "sha256-rvubAPbh3QCliic3sAK+CXTrPCGgJstY52OTs/5H1J4=",
+        "lastModified": 1790911008,
+        "narHash": "sha256-r7KBcjLlw7LzuvCYUU1V50L81uf+0YgHTCnhymTwwpw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c8ecc29e5175452bee4a2aa1ba2383856d795338",
+        "rev": "a439f71e75b94c88300022045713c790c79ba007",
         "type": "github"
       },
       "original": {
@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-jEIqOtv0gE1NXjQ0jt7lkyo7lv00Cwz7I92WbLRGRRc=",
+        "narHash": "sha256-9VDhpCiu7Q26ts3dFBekGcZdqhaosJXQzJZt5Tnw+Yk=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-GxgGPvtlOSWnH59i26bST4EUDUpbMLFi7IYsWomm7K8=",
+        "narHash": "sha256-yCBkpg7ogXQ9Q+S7Oq3Q6Q99mXoHSUrqyJxGGjidvk4=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
