@@ -58,7 +58,7 @@ in
     fileSystems."/mount/nas/games" = {
       device = "//NixOS-Server1/games";
       fsType = "cifs";
-      options = nas-options;
+      options = nas-options ++ [ "nobrl" ];
     };
     fileSystems."/mount/nas/jf" = {
       device = "//NixOS-Server1/jf";
