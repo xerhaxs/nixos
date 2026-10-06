@@ -46,6 +46,7 @@
       spacenavd.enable = true;
       i2c.enable = true;
       sensor.iio.enable = true;
+      xone.enable = true;
     };
 
     services.hardware.bolt.enable = true;
