@@ -30,8 +30,7 @@
         #"b43-firmware"
         #"broadcom-bt-firmware"
         #"facetimehd-calibration"
-        #"facetimehd-firmware"
-        #"xow_dongle-firmware"        
+        #"facetimehd-firmware"     
 
         # nixosModules/userEnvironment/game/steam.nix
         "steam"
@@ -39,11 +38,10 @@
 
         # nixosModules/userEnvironment/io/input.nix
         "via"
-        "xow_dongle-firmware"
+        "xone-dongle-firmware"
 
         # nixosModules/userEnvironment/io/printing.nix
         "cups-kyocera-ecosys-m2x35-40-p2x35-40dnw"
-
       ];
 
     programs.nix-ld.enable = true;
