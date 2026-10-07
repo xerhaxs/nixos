@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791227480,
-        "narHash": "sha256-+lrD+sxc2RKUWXRBAcggn7uBCFeJgnV75jD/cz7gJRA=",
+        "lastModified": 1791306979,
+        "narHash": "sha256-KuLePuhwJM9NLt/gTLHzXaOoSZKGoB3m7NfXjiQ98HY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "aa23f720d022187228bc264f759aef6b80233bcf",
+        "rev": "fae6e9e42c3b762ab47635cddcfaf6f52374a61b",
         "type": "github"
       },
       "original": {
@@ -222,11 +222,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1791266349,
-        "narHash": "sha256-YlpFl08xHnBk4VUQsoYVQsGwXr64AzPUAVNZCOkIihw=",
+        "lastModified": 1791351229,
+        "narHash": "sha256-8K8/PTKQoBiC9xIop4/QtL4w3zx/xmqgJl6oQoAN3r8=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "b396a87e2947da565f7631d1cd6f8821f761ff70",
+        "rev": "21c8cd17e4ea0d842a9d63e311a634deda381689",
         "type": "github"
       },
       "original": {
@@ -276,11 +276,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1791128201,
-        "narHash": "sha256-rlsYY/Dg/LhbIj51Aa6TLvRpZeb3KZgUTd7llQ5XcJE=",
+        "lastModified": 1791373788,
+        "narHash": "sha256-c3oMt0QoE+4yiRk6u1m2L9ogjaUw0uTGn9yk808KkgE=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "31cc5f4d9b9ba601071e8b8504601b9b176e2756",
+        "rev": "4bc63156b109ee7b4103e3ec30565c8c92bde435",
         "type": "github"
       },
       "original": {
@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-m7z62vC4oo18CY550AOJqYVxIWLjvG2AidOUuAGqFPA=",
+        "narHash": "sha256-HgZMtLhb0lmqe+qcwXj5dB9G0C7/IWv2pIymFwZP50o=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-ADAW4Jr0yl8BZJi1n1zmCldYZjnOU8LYGbbeHfcoAW0=",
+        "narHash": "sha256-3Eyx4QrGQroaRSGCQWImZ9BPoZCFe0EockQxlREHXU4=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
@@ -592,11 +592,11 @@
     "weishaupt-modbus": {
       "flake": false,
       "locked": {
-        "lastModified": 1784444233,
-        "narHash": "sha256-xMqb017G38UTyhCTuDI/p0ihzd+k9ftCskAlyvCccsE=",
+        "lastModified": 1791372616,
+        "narHash": "sha256-ecZ6JopkMvTr+0LSBZwCj4V5kBmHq71RSB5EijubbK8=",
         "owner": "OStrama",
         "repo": "weishaupt_modbus",
-        "rev": "a6da6dba37bbfd4740fb86dee62e253a5397191e",
+        "rev": "e44b9168d4a3b3a4bd0051c4dae2ef9d0d840096",
         "type": "github"
       },
       "original": {
