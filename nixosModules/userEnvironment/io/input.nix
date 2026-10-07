@@ -51,6 +51,12 @@
 
     services.hardware.bolt.enable = true;
 
+    services.usbmuxd.enable = true;
+    environment.systemPackages = with pkgs; [
+      libimobiledevice
+      ifuse
+    ];
+
     services.udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", MODE="0660", GROUP="users"
     '';
