@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791306979,
-        "narHash": "sha256-KuLePuhwJM9NLt/gTLHzXaOoSZKGoB3m7NfXjiQ98HY=",
+        "lastModified": 1791465139,
+        "narHash": "sha256-hXTjOf2VQDXrNt4aU9rmNhc0qdOhnjy9FcA4tlPEdq8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fae6e9e42c3b762ab47635cddcfaf6f52374a61b",
+        "rev": "678e6c11cd5d24226087dc758d17f705c7c4106a",
         "type": "github"
       },
       "original": {
@@ -222,11 +222,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1791351229,
-        "narHash": "sha256-8K8/PTKQoBiC9xIop4/QtL4w3zx/xmqgJl6oQoAN3r8=",
+        "lastModified": 1791438093,
+        "narHash": "sha256-zryw8GINYZUIjsxVz9W6Ew7CsCR9QSHu6WPWEPUDljU=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "21c8cd17e4ea0d842a9d63e311a634deda381689",
+        "rev": "10ce1ff36b95ec4cdfb7158c67b67abebb76888e",
         "type": "github"
       },
       "original": {
@@ -382,7 +382,7 @@
     "oisd-big": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-HgZMtLhb0lmqe+qcwXj5dB9G0C7/IWv2pIymFwZP50o=",
+        "narHash": "sha256-QZ2X9gDGGg/P34IiHzZkklwU23B1jQHWWBUzQQY/4vI=",
         "type": "file",
         "url": "https://big.oisd.nl/"
       },
@@ -394,7 +394,7 @@
     "oisd-small": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-3Eyx4QrGQroaRSGCQWImZ9BPoZCFe0EockQxlREHXU4=",
+        "narHash": "sha256-lKV3MkONG4PgzwAryPE6tXJGy3CxhM3OcMePdIqPuXg=",
         "type": "file",
         "url": "https://small.oisd.nl/"
       },
@@ -541,7 +541,7 @@
     "stevenBlack": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-tQOLREmbQ+Sxtmk846/JA4/iuXVW66KF7Dvl6nfJbXA=",
+        "narHash": "sha256-NnEGZkbPvS6LAenm9DQ+FD9gaptr+p9tqXW96gHrpdg=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
       },
@@ -592,11 +592,11 @@
     "weishaupt-modbus": {
       "flake": false,
       "locked": {
-        "lastModified": 1791372616,
-        "narHash": "sha256-ecZ6JopkMvTr+0LSBZwCj4V5kBmHq71RSB5EijubbK8=",
+        "lastModified": 1791442329,
+        "narHash": "sha256-DMshEk2zpdMVBID2kxCJAJQRXdZPzZdXI1jrPFHyZXA=",
         "owner": "OStrama",
         "repo": "weishaupt_modbus",
-        "rev": "e44b9168d4a3b3a4bd0051c4dae2ef9d0d840096",
+        "rev": "891bea397ae7c4dd5e4701594948914f7446600b",
         "type": "github"
       },
       "original": {
