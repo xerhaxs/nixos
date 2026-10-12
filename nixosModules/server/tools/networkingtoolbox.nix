@@ -20,7 +20,7 @@
   config = lib.mkIf config.nixos.server.tools.networkingtoolbox.enable {
     virtualisation.oci-containers.containers = {
       networking-toolbox = {
-        image = "lissy93/networking-toolbox:latest";
+        image = "docker.io/lissy93/networking-toolbox:latest";
 
         ports = [
           "3872:3000"
