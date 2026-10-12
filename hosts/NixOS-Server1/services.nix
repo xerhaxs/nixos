@@ -96,15 +96,15 @@
       RemainAfterExit = true;
     };
     script = ''
-      install -d -m 0700 -o matter-server -g matter-server /pool01/applications/matter
+      install -d -m 0700 -o matter-server -g matter-server /pool01/applications/matterjs
       install -d -m 0755 -o root -g otbr /pool01/applications/thread
     '';
   };
 
   systemd.mounts = [
     {
-      what = "/pool01/applications/matter";
-      where = "/var/lib/matter-server";
+      what = "/pool01/applications/matterjs";
+      where = "/var/lib/matterjs-server";
       type = "none";
       options = "bind";
       requires = [ "matter-thread-dirs.service" ];
@@ -122,6 +122,6 @@
     }
   ];
 
-  systemd.services.matter-server.unitConfig.RequiresMountsFor = "/var/lib/matter-server";
+  systemd.services.matterjs-server.unitConfig.RequiresMountsFor = "/var/lib/matterjs-server";
   systemd.services.otbr-agent.unitConfig.RequiresMountsFor = "/var/lib/thread";
 }

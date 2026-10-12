@@ -161,22 +161,24 @@ in
       "z /pool01/applications/hass/www/local/weishaupt_modbus_powermap.svg 0644 hass hass -"
     ];
 
-    services.matter-server = {
+    services.matterjs-server = {
       enable = true;
       openFirewall = false;
-      package = pkgs.python-matter-server.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          sed -i 's|^        cert = x509.load_pem_x509_certificate(pem_certificate.encode())$|        try:\n            cert = x509.load_pem_x509_certificate(pem_certificate.encode())\n        except ValueError as err:\n            LOGGER.warning("Skipping unparsable PAA certificate %s: %s", subject, err)\n            return False|' \
-            matter_server/server/helpers/paa_certificates.py
-          grep -q "Skipping unparsable PAA certificate" matter_server/server/helpers/paa_certificates.py
-        '';
-      });
+      extraArgs = [ "--ble-proxy" ];
     };
 
-    systemd.services.matter-server.serviceConfig = {
-      DynamicUser = lib.mkForce false;
-      User = "matter-server";
-      Group = "matter-server";
+    systemd.services.matterjs-server = {
+      serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "matter-server";
+        Group = "matter-server";
+      };
+      unitConfig.RequiresMountsFor = "/var/lib/matterjs-server";
+    };
+
+    systemd.services.home-assistant = {
+      after = [ "matterjs-server.service" ];
+      wants = [ "matterjs-server.service" ];
     };
 
     services.openthread-border-router = {
@@ -226,7 +228,7 @@ in
     #     "/var/lib/hass"
     #     "/var/lib/thread"
     #     {
-    #       directory = "/var/lib/matter-server";
+    #       directory = "var/lib/matterjs-server";
     #       user = "matter-server";
     #       group = "matter-server";
     #       mode = "0700";
