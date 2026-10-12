@@ -164,6 +164,13 @@ in
     services.matter-server = {
       enable = true;
       openFirewall = false;
+      package = pkgs.python-matter-server.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          sed -i 's|^        cert = x509.load_pem_x509_certificate(pem_certificate.encode())$|        try:\n            cert = x509.load_pem_x509_certificate(pem_certificate.encode())\n        except ValueError as err:\n            LOGGER.warning("Skipping unparsable PAA certificate %s: %s", subject, err)\n            return False|' \
+            matter_server/server/helpers/paa_certificates.py
+          grep -q "Skipping unparsable PAA certificate" matter_server/server/helpers/paa_certificates.py
+        '';
+      });
     };
 
     services.openthread-border-router = {
