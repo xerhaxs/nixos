@@ -85,4 +85,43 @@
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
   };
+
+  systemd.services.matter-thread-dirs = {
+    description = "Create Matter and Thread state directories on ZFS";
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+    restartIfChanged = false;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      install -d -m 0700 -o matter-server -g matter-server /pool01/applications/matter
+      install -d -m 0755 -o root -g otbr /pool01/applications/thread
+    '';
+  };
+
+  systemd.mounts = [
+    {
+      what = "/pool01/applications/matter";
+      where = "/var/lib/matter-server";
+      type = "none";
+      options = "bind";
+      requires = [ "matter-thread-dirs.service" ];
+      after = [ "matter-thread-dirs.service" ];
+      unitConfig.DefaultDependencies = false;
+    }
+    {
+      what = "/pool01/applications/thread";
+      where = "/var/lib/thread";
+      type = "none";
+      options = "bind";
+      requires = [ "matter-thread-dirs.service" ];
+      after = [ "matter-thread-dirs.service" ];
+      unitConfig.DefaultDependencies = false;
+    }
+  ];
+
+  systemd.services.matter-server.unitConfig.RequiresMountsFor = "/var/lib/matter-server";
+  systemd.services.otbr-agent.unitConfig.RequiresMountsFor = "/var/lib/thread";
 }

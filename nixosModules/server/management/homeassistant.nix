@@ -173,6 +173,12 @@ in
       });
     };
 
+    systemd.services.matter-server.serviceConfig = {
+      DynamicUser = lib.mkForce false;
+      User = "matter-server";
+      Group = "matter-server";
+    };
+
     services.openthread-border-router = {
       enable = true;
       backboneInterfaces = [ "eno1" ];
@@ -215,12 +221,17 @@ in
       };
     };
 
-    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      directories = [
-        "/var/lib/thread"
-        "/var/lib/private/matter-server"
-        #"/var/lib/hass"
-      ];
-    };
+    # environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+    #   directories = [
+    #     "/var/lib/hass"
+    #     "/var/lib/thread"
+    #     {
+    #       directory = "/var/lib/matter-server";
+    #       user = "matter-server";
+    #       group = "matter-server";
+    #       mode = "0700";
+    #     }
+    #   ];
+    # };
   };
 }

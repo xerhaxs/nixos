@@ -14,6 +14,7 @@
     kiwix.gid = 543;
     lidarr.gid = 306;
     linkwarden.gid = 970;
+    matter-server.gid = 545;
     nzbhydra2.gid = 994;
     ollama.gid = 993;
     postgres.gid = 71;
@@ -60,6 +61,12 @@
     };
 
     linkwarden.uid = 970;
+
+    matter-server = {
+      isSystemUser = true;
+      uid = 545;
+      group = "matter-server";
+    };
 
     meli.uid = 994;
 
