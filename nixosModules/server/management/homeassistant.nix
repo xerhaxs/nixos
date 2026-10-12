@@ -184,7 +184,7 @@ in
     services.openthread-border-router = {
       enable = true;
       backboneInterfaces = [ "eno1" ];
-      openFirewall = true;
+      openFirewall = false;
       radio = {
         device = "/dev/serial/by-id/usb-Nabu_Casa_Home_Assistant_Connect_ZBT-1_3ca08035a338ef11b2653a7af3d9b1e5-if00-port0";
         baudRate = 460800;
