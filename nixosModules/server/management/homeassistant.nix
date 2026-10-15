@@ -196,6 +196,11 @@ in
       };
     };
 
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
     services.avahi = {
       enable = true;
       publish.enable = true;
