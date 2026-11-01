@@ -31,7 +31,7 @@ Konventionen:
 - [X] 1.5 In `secrets/nixos-portable.yaml` die Platzhalter `REPLACE_ME` ersetzen (`sops secrets/nixos-portable.yaml`): WLAN, Mullvad, NAS-SMB-Zugang, Alpha-Vantage-Key, `glance` → `ENV_LOCATION`. Die Werte kopierst du aus `sops -d secrets/secrets.yaml` im öffentlichen Repo.
 - [X] 1.6 Committen: `git add -A && git commit -m "site data, initial passwords, portable host"`.
 - [X] 1.7 Im öffentlichen Repo den Lock aktualisieren: `cd $REPO && nix flake update private`.
-- [ ] 1.8 Die neuen Änderungen im privaten Repo committen: `cd $PRIV && git add -A && git commit -m "gaming server, mail accounts, remove school wifi"`, danach `cd $REPO && nix flake update private`. Geändert sind `site.nix` (`serverGaming`, Vorlage `mailAccounts`), `secrets/.sops.yaml`, `secrets/nixos-portable.yaml` (Schul-WLAN entfernt), neu ist `secrets/nixos-servergaming.yaml` mit Platzhaltern. Ohne diesen Schritt evaluieren NixOS-ServerGaming und NixOS-VMServerGaming nicht.
+- [X] 1.8 Die neuen Änderungen im privaten Repo committen: `cd $PRIV && git add -A && git commit -m "gaming server, mail accounts, remove school wifi"`, danach `cd $REPO && nix flake update private`. Geändert sind `site.nix` (`serverGaming`, Vorlage `mailAccounts`), `secrets/.sops.yaml`, `secrets/nixos-portable.yaml` (Schul-WLAN entfernt), neu ist `secrets/nixos-servergaming.yaml` mit Platzhaltern. Ohne diesen Schritt evaluieren NixOS-ServerGaming und NixOS-VMServerGaming nicht.
 
 ## Phase 2 – Öffentliches Repository committen
 
@@ -39,7 +39,7 @@ Konventionen:
 - [X] 2.2 Alle Dateien hinzufügen (Flakes ignorieren untracked files): `git add -A`.
 - [X] 2.3 Prüfen, dass nichts Privates im öffentlichen Repo landet: `git diff --cached -- . ':!TODO.md' | grep -E '^\+' | grep -iE '<deine Domains>|BEGIN (OPENSSH|PGP) PRIVATE'` darf nichts finden (Ausnahme: die Git-Autoradresse in `homeModules/base/git.nix`, die ohnehin in jedem Commit steht). Einfache Anführungszeichen sind nötig, sonst bricht bash bei `!` mit „event not found“ ab. `^\+` beschränkt die Prüfung auf hinzugefügte Zeilen; entfernte Zeilen (`-`) sind gewollt, denn dort verschwinden die alten Domains.
 - [X] 2.4 `git commit -m "rework: hyprland, portable host, dangerzone, hardening, docs"`.
-- [ ] 2.5 Hinweis: Der Input `private` zeigt noch auf einen lokalen Pfad. Das private GitHub-Repo kommt erst in Phase 17. Bis dahin vom Desktop aus deployen (`nixos-rebuild --target-host`, `nixos-anywhere`) und `rework` nicht nach `main` mergen. Lokale Rebuilds auf den Laptops und auf Portable gehen bis dahin nicht, `system.autoUpgrade` ist bewusst aus.
+- [X] 2.5 Hinweis: Der Input `private` zeigt noch auf einen lokalen Pfad. Das private GitHub-Repo kommt erst in Phase 17. Bis dahin vom Desktop aus deployen (`nixos-rebuild --target-host`, `nixos-anywhere`) und `rework` nicht nach `main` mergen. Lokale Rebuilds auf den Laptops und auf Portable gehen bis dahin nicht, `system.autoUpgrade` ist bewusst aus.
 - [ ] 2.6 Die zweite Runde committen: `git add -A`, Prüfung aus 2.3 wiederholen, dann `git commit -m "pins in flake.lock, cve scan, glance, gaming server, bluemap, countdown"`.
 
 ## Phase 3 – Bauen und testen, ohne etwas zu aktivieren
