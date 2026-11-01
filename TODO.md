@@ -40,7 +40,7 @@ Konventionen:
 - [X] 2.3 Prüfen, dass nichts Privates im öffentlichen Repo landet: `git diff --cached -- . ':!TODO.md' | grep -E '^\+' | grep -iE '<deine Domains>|BEGIN (OPENSSH|PGP) PRIVATE'` darf nichts finden (Ausnahme: die Git-Autoradresse in `homeModules/base/git.nix`, die ohnehin in jedem Commit steht). Einfache Anführungszeichen sind nötig, sonst bricht bash bei `!` mit „event not found“ ab. `^\+` beschränkt die Prüfung auf hinzugefügte Zeilen; entfernte Zeilen (`-`) sind gewollt, denn dort verschwinden die alten Domains.
 - [X] 2.4 `git commit -m "rework: hyprland, portable host, dangerzone, hardening, docs"`.
 - [X] 2.5 Hinweis: Der Input `private` zeigt noch auf einen lokalen Pfad. Das private GitHub-Repo kommt erst in Phase 17. Bis dahin vom Desktop aus deployen (`nixos-rebuild --target-host`, `nixos-anywhere`) und `rework` nicht nach `main` mergen. Lokale Rebuilds auf den Laptops und auf Portable gehen bis dahin nicht, `system.autoUpgrade` ist bewusst aus.
-- [ ] 2.6 Die zweite Runde committen: `git add -A`, Prüfung aus 2.3 wiederholen, dann `git commit -m "pins in flake.lock, cve scan, glance, gaming server, bluemap, countdown"`.
+- [X] 2.6 Die zweite Runde committen: `git add -A`, Prüfung aus 2.3 wiederholen, dann `git commit -m "pins in flake.lock, cve scan, glance, gaming server, bluemap, countdown"`.
 
 ## Phase 3 – Bauen und testen, ohne etwas zu aktivieren
 
