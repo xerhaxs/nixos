@@ -18,9 +18,16 @@
   };
 
   config = lib.mkIf config.nixos.server.sync.forgejo.enable {
-    # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
-    # https://forgejo.org/docs/latest/user/repo-mirror/
-    # setup admin user: sudo -u forgejo forgejo --config /pool01/applications/forgejo/custom/conf/app.ini admin user create --username "administrator" --email "admin@${config.nixos.server.network.nginx.domain}" --password "SUPERSECRETPASSWORD" --admin
+    sops.secrets."forgejo/secret" = {
+      owner = config.services.forgejo.user;
+      group = config.services.forgejo.group;
+      mode = "0400";
+    };
+    sops.secrets."forgejo/token" = {
+      owner = config.services.forgejo.user;
+      group = config.services.forgejo.group;
+      mode = "0400";
+    };
 
     environment.systemPackages = [
       pkgs.forgejo
@@ -31,7 +38,7 @@
       user = "forgejo";
       group = "forgejo";
       #stateDir = "/var/lib/forgejo";
-      stateDir = "/pool01/applications/forgejo";
+      stateDir = "${config.nixos.server.dataDir}/forgejo";
 
       database = {
         type = "sqlite3";
@@ -46,7 +53,7 @@
           ROOT_URL = "https://forgejo.${config.nixos.server.network.nginx.domain}";
           HTTP_PORT = 3005;
           DISABLE_SSH = true;
-          LANDING_PAGE = "explore"; # home, explore, organizations, login, custom
+          LANDING_PAGE = "explore";
           LFS_START_SERVER = true;
         };
 

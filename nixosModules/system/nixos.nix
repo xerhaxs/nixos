@@ -23,32 +23,38 @@
     nixpkgs.config.allowUnfreePredicate =
       pkg:
       builtins.elem (lib.getName pkg) [
-        # nixosModules/base/tools/common.nix
         "unrar"
 
-        # nixosModules/hardware/amdcpu.nix + nixosModules/hardware/intelcpui.nix
         #"b43-firmware"
         #"broadcom-bt-firmware"
         #"facetimehd-calibration"
-        #"facetimehd-firmware"     
+        #"facetimehd-firmware"
 
-        # nixosModules/userEnvironment/game/steam.nix
+        "ventoy"
+
+        "lsfg-vk"
+
+        "minecraft-server"
+
         "steam"
         "steam-unwrapped"
 
-        # nixosModules/userEnvironment/io/input.nix
         "via"
         "xone-dongle-firmware"
 
-        # nixosModules/userEnvironment/io/printing.nix
         "cups-kyocera-ecosys-m2x35-40-p2x35-40dnw"
       ];
 
-    programs.nix-ld.enable = true;
+    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.17" ];
+
+    programs.nix-ld.enable = lib.mkDefault config.nixos.desktop.enable;
 
     system.autoUpgrade = {
-      enable = true;
-      channel = "https://nixos.org/channels/nixos-unstable";
+      enable = lib.mkDefault false;
+      flake = "github:xerhaxs/nixos";
+      dates = "04:30";
+      randomizedDelaySec = "45min";
+      allowReboot = false;
     };
 
     nix = {
@@ -80,8 +86,6 @@
         options = "--delete-older-than 7d";
       };
     };
-
-    system.stateVersion = "25.11";
 
     environment.systemPackages = with pkgs; [
       nix-output-monitor

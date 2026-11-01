@@ -23,7 +23,6 @@
       openFirewall = false;
       user = "readarr";
       group = "readarr";
-      #environmentFiles = [];
       settings = {
         server = {
           urlbase = "localhost";
@@ -40,7 +39,7 @@
         };
       };
       #dataDir = "/var/lib/readarr/";
-      dataDir = "/pool01/applications/readarr/";
+      dataDir = "${config.nixos.server.dataDir}/readarr/";
     };
 
     systemd.services.readarr.serviceConfig.UMask = "0007";

@@ -7,6 +7,8 @@
 
 {
   imports = [
+    ./codeserver.nix
+    ./comfyui.nix
     ./invidious.nix
     ./kiwix.nix
     ./languagetool.nix
@@ -31,6 +33,8 @@
 
   config = lib.mkIf config.nixos.server.tools.enable {
     nixos.server.tools = {
+      codeserver.enable = lib.mkDefault false;
+      comfyui.enable = lib.mkDefault false;
       invidious.enable = true;
       kiwix.enable = true;
       languagetool.enable = true;

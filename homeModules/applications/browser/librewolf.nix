@@ -7,67 +7,72 @@
 }:
 
 let
+  domain = osConfig.nixos.site.domain;
+  homeDomain = osConfig.nixos.site.homeDomain;
+  mailDomain = osConfig.nixos.site.mailDomain;
+
+  ownServices =
+    lib.filter (lib.hasSuffix ".${homeDomain}") (
+      lib.flatten (lib.attrValues osConfig.nixos.system.networking.lan.hosts)
+    )
+    ++ map (service: "${service}.${domain}") [
+      "cloud"
+      "office"
+      "matrix"
+      "cryptpad"
+      "push"
+      "rss"
+      "stalwart"
+      "code"
+    ]
+    ++ [
+      "mail.${mailDomain}"
+      domain
+    ];
+
   customization = {
     # Translation
     "browser.translations.panelShown" = true;
     "browser.translations.neverTranslateLanguages" = "de,en";
 
-    # set HOME+NEWWINDOW page
-    "browser.startup.homepage" = "https://glance.m4rx.cc/";
+    "browser.startup.homepage" = "https://glance.${homeDomain}/";
 
-    # enable user interaction for security by always asking where to download
     "browser.download.useDownloadDir" = false;
 
-    # enable downloads panel opening on every download [FF96+]
     "browser.download.alwaysOpenPanel" = true;
 
-    # enable adding downloads to the system's "recent documents" list
     "browser.download.manager.addToRecentDocs" = true;
 
-    # enable user interaction for security by always asking how to handle new mimetypes [FF101+]
     "browser.download.always_ask_before_handling_new_types" = true;
 
-    # set new window size rounding max values [FF55+]
     "privacy.window.maxInnerWidth" = 2200;
     "privacy.window.maxInnerHeight" = 1200;
 
-    # mime system handler
     "widget.use-xdg-desktop-portal.mime-handler" = 1;
     "widget.use-xdg-desktop-portal.file-picker" = 1;
 
-    # go back with backspace
     "browser.backspace_action" = 0;
 
-    # enable system titlebar
     "browser.tabs.inTitlebar" = 0;
 
-    # prefer system print dialog
     "print.prefer_system_dialog" = true;
 
-    # show full url in urlbar
     "browser.urlbar.trimURLs" = false;
 
-    # warn on close
     "browser.tabs.warnOnClose" = true;
 
-    # enable vaapi ffmpeg support
     "media.ffmpeg.vaapi.enabled" = true;
 
-    # enable enterprise policies
     "security.enterprise_roots.enabled" = true;
 
-    # always display bookmarks toolbar
     "browser.toolbars.bookmarks.visibility" = "always";
 
-    # customize librewolf toolbars
     "browser.uiCustomization.state" = {
       "placements" = {
         "widget-overflow-fixed-list" = [ ];
         "unified-extensions-area" = [
           "addon_darkreader_org-browser-action"
-          "idcac-pub_guus_ninja-browser-action"
           "plasma-browser-integration_kde_org-browser-action"
-          "canvasblocker_kkapsner_de-browser-action"
         ];
         "nav-bar" = [
           "back-button"
@@ -101,12 +106,10 @@ let
       "seen" = [
         "developer-button"
         "addon_simplelogin-browser-action"
-        "idcac-pub_guus_ninja-browser-action"
         "floccus_handmadeideas_org-browser-action"
         "ublock0_raymondhill_net-browser-action"
         "keepassxc-browser_keepassxc_org-browser-action"
         "plasma-browser-integration_kde_org-browser-action"
-        "canvasblocker_kkapsner_de-browser-action"
       ];
       "dirtyAreaCache" = [
         "nav-bar"
@@ -137,7 +140,6 @@ in
       enable = true;
       #package = pkgs.librewolf-unwrapped.override {
       #  pipewireSupport = true;
-      #  #alsaSupport = true;
       #};
 
       nativeMessagingHosts = with pkgs; [
@@ -147,6 +149,13 @@ in
 
       settings = {
         "privacy.resistFingerprinting" = false;
+        "privacy.fingerprintingProtection" = true;
+
+        "media.peerconnection.ice.default_address_only" = true;
+        "media.peerconnection.ice.no_host" = true;
+        "media.peerconnection.ice.proxy_only_if_behind_proxy" = true;
+
+        "network.trr.mode" = 5;
         #"security.OCSP.require" = false;
         "browser.safebrowsing.malware.enabled" = true;
         "browser.safebrowsing.phishing.enabled" = true;
@@ -160,8 +169,8 @@ in
         "browser.safebrowsing.provider.google.updateURL" =
           "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
 
-        "webgl.disabled" = false;
-        "librewolf.webgl.prompt.hide" = true;
+        "webgl.disabled" = true;
+        "librewolf.webgl.prompt.hide" = false;
 
         "media.ffmpeg.vaapi.enabled" = true;
         "media.rdd-ffmpeg.enabled" = true;
@@ -217,7 +226,6 @@ in
         EncryptedMediaExtensions = true;
 
         ExtensionSettings = {
-          # Get Extension IDs about:debugging#/runtime/this-firefox
           "floccus@handmadeideas.org" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
@@ -231,7 +239,6 @@ in
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
           };
           "languagetool-webextension@languagetool.org" = {
-            # set domain to https://languagetool.m4rx.cc/v2/
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/languagetool/latest.xpi";
           };
@@ -247,16 +254,6 @@ in
           "uBlock0@raymondhill.net" = {
             "installation_mode" = "force_installed";
             "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          };
-          "CanvasBlocker@kkapsner.de" = {
-            # set if privacy.resistFingerprinting = false or webgl.disabled = false
-            "installation_mode" = "force_installed";
-            "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi";
-          };
-          "idcac-pub@guus.ninja" = {
-            "installation_mode" = "force_installed";
-            "install_url" =
-              "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
           };
           "addon@darkreader.org" = {
             "installation_mode" = "force_installed";
@@ -294,6 +291,16 @@ in
               "easyprivacy"
               "urlhaus-1"
               "plowe-0"
+              "ublock-cookies-easylist"
+              "ublock-cookies-adguard"
+              "fanboy-cookiemonster"
+              "adguard-cookies"
+              "ublock-annoyances"
+              "adguard-popup-overlays"
+              "adguard-social"
+              "adguard-widgets"
+              "easylist-newsletters"
+              "easylist-notifications"
               "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
             ];
           };
@@ -354,8 +361,8 @@ in
           };
 
           "languagetool-webextension@languagetool.org".adminSettings = {
-            serverUrl = "https://languagetool.m4rx.cc/v2/";
-            serverUrlForRemoteCheck = "https://languagetool.m4rx.cc/v2/";
+            serverUrl = "https://languagetool.${homeDomain}/v2/";
+            serverUrlForRemoteCheck = "https://languagetool.${homeDomain}/v2/";
             havePremiumAccount = false;
             motherTongue = "de-DE";
             preferredLanguages = [
@@ -385,31 +392,7 @@ in
         };
 
         Cookies = {
-          Allow = [
-            "https://forgejo.m4rx.cc"
-            "https://glance.m4rx.cc"
-            "https://homeassistant.m4rx.cc"
-            "https://jellyfin.m4rx.cc"
-            "https://kiwix.m4rx.cc"
-            "https://libretranslate.m4rx.cc"
-            "https://lidarr.m4rx.cc"
-            "https://linkwarden.m4rx.cc"
-            "https://networkingtoolbox.m4rx.cc"
-            "https://nzbhydra.m4rx.cc"
-            "https://ollama.m4rx.cc"
-            "https://radarr.m4rx.cc"
-            "https://radicale.m4rx.cc"
-            "https://readarr.m4rx.cc"
-            "https://sabnzbd.m4rx.cc"
-            "https://searxng.m4rx.cc"
-            "https://sonarr.m4rx.cc"
-            "https://syncthing.m4rx.cc"
-            "https://pihole.m4rx.cc"
-
-            "https://m4rx.cc"
-
-            "https://claude.ai"
-          ];
+          Allow = map (host: "https://${host}") ownServices ++ [ "https://claude.ai" ];
           AllowSession = [ ];
           Block = [ ];
           Default = true;
@@ -493,14 +476,14 @@ in
 
               "NixOS Wiki" = {
                 urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
-                updateInterval = 24 * 60 * 60 * 1000; # every day
+                updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = [ "@nw" ];
                 icon = "https://nixos.wiki/favicon.png";
               };
               "SearXNG" = {
-                urls = [ { template = "https://searxng.m4rx.cc/search?q={searchTerms}"; } ];
+                urls = [ { template = "https://searxng.${homeDomain}/search?q={searchTerms}"; } ];
                 definedAliases = [ "@s" ];
-                icon = "https://searxng.m4rx.cc/favicon";
+                icon = "https://searxng.${homeDomain}/favicon";
               };
 
               "ddg" = {
@@ -632,8 +615,8 @@ in
         "description": "LanguageTool Settings",
         "type": "storage",
         "data": {
-          "serverUrl": "https://languagetool.m4rx.cc/v2/",
-          "serverUrlForRemoteCheck": "https://languagetool.m4rx.cc/v2/",
+          "serverUrl": "https://languagetool.${homeDomain}/v2/",
+          "serverUrlForRemoteCheck": "https://languagetool.${homeDomain}/v2/",
           "havePremiumAccount": false,
           "motherTongue": "de-DE",
           "preferredLanguages": ["de-DE", "en-US"],

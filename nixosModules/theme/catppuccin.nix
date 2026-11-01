@@ -91,7 +91,6 @@
       enableReleaseCheck = true;
       accent = lib.strings.toLower "${config.nixos.theme.catppuccin.accent}";
       flavor = lib.strings.toLower "${config.nixos.theme.catppuccin.flavor}";
-      #sources = "";
 
       sddm = {
         font = "Noto Sans";

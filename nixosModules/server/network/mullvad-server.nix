@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -18,6 +19,12 @@
   };
 
   config = lib.mkIf config.nixos.server.network.mullvad-server.enable {
+    sops.secrets."mullvad" = {
+      owner = config.users.users.${userName}.name;
+      group = config.users.users.${userName}.group;
+      mode = "0440";
+    };
+
     services.mullvad-vpn = {
       enable = true;
       package = pkgs.mullvad;

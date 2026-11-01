@@ -22,12 +22,11 @@
     virtualisation = {
       libvirtd = {
         enable = true;
-        #allowedBridges = [];
         onBoot = "ignore";
         onShutdown = "suspend";
         qemu = {
           swtpm.enable = true;
-          runAsRoot = true; # may can cause problems
+          runAsRoot = true;
         };
       };
       spiceUSBRedirection.enable = true;

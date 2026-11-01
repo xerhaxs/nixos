@@ -9,6 +9,7 @@
   imports = [
     ./home.nix
     ./hyprland.nix
+    ./machine.nix
     ./xdg.nix
   ];
 }

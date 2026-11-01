@@ -18,6 +18,17 @@
   };
 
   config = lib.mkIf config.nixos.server.sync.linkwarden.enable {
+    sops.secrets."linkwarden/secret" = {
+      owner = config.services.linkwarden.user;
+      group = config.services.linkwarden.group;
+      mode = "0400";
+    };
+    sops.secrets."linkwarden/postgres" = {
+      owner = config.services.linkwarden.user;
+      group = config.services.linkwarden.group;
+      mode = "0400";
+    };
+
     services.linkwarden = {
       enable = true;
       host = "127.0.0.1";
@@ -36,7 +47,7 @@
         POSTGRES_PASSWORD = config.sops.secrets."linkwarden/postgres".path;
       };
 
-      storageLocation = "/pool01/applications/linkwarden";
+      storageLocation = "${config.nixos.server.dataDir}/linkwarden";
 
       database = {
         name = "linkwarden";
@@ -44,13 +55,6 @@
         createLocally = true;
       };
     };
-
-    services.postgresql = {
-      dataDir = "/pool01/applications/postgresql";
-    };
-
-    users.users.postgres.group = "postgres";
-    users.groups.postgres = { };
 
     environment.systemPackages = with pkgs; [
       linkwarden

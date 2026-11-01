@@ -30,8 +30,6 @@
       ];
     };
 
-    # Working API Domain: https://languagetool.${config.nixos.server.network.nginx.domain}/v2/
-
     services.nginx = {
       virtualHosts = {
         "languagetool.${config.nixos.server.network.nginx.domain}" = {

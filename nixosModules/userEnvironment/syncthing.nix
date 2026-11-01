@@ -19,6 +19,9 @@
   };
 
   config = lib.mkIf config.nixos.userEnvironment.syncthing.enable {
+    sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert" = { };
+    sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key" = { };
+
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
     services.syncthing = {
@@ -87,7 +90,6 @@
         };
 
         folders = {
-          # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
           "Desktop" = {
             path = "${config.home-manager.users.${userName}.xdg.userDirs.desktop}";
             id = "Desktop";

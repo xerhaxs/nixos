@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./home.nix
+    ../../NixOS-Desktop/home/home.nix
     ./xdg.nix
   ];
 }

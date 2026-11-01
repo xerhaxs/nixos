@@ -23,7 +23,6 @@
       blesh.enable = false;
       vteIntegration = true;
       #shellAliases = { };
-      #shellInit = "";
     };
 
     programs.nix-index.enableBashIntegration = true;

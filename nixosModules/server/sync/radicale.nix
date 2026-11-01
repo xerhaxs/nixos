@@ -31,8 +31,8 @@
       settings = {
         server = {
           hosts = [
-            "0.0.0.0:5232"
-            "[::]:5232"
+            "127.0.0.1:5232"
+            "[::1]:5232"
           ];
         };
 
@@ -43,7 +43,7 @@
         };
 
         storage = {
-          filesystem_folder = "/pool01/applications/radicale";
+          filesystem_folder = "${config.nixos.server.dataDir}/radicale";
           #filesystem_folder = "/var/lib/radicale/";
         };
       };
@@ -68,10 +68,12 @@
       };
     };
 
-    /* environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      directories = [
-        "/var/lib/radicale"
-      ];
-    }; */
+    /*
+      environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+        directories = [
+          "/var/lib/radicale"
+        ];
+      };
+    */
   };
 }

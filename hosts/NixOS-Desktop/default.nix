@@ -11,6 +11,7 @@
     ./configuration.nix
     ./disko.nix
     ./hardware-configuration.nix
+    ./machine.nix
     ./mount.nix
     ./networking.nix
     ./xserver.nix

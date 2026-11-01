@@ -10,6 +10,8 @@
     ./cockpit.nix
     ./glance.nix
     ./homeassistant.nix
+    ./homebox.nix
+    ./monitoring.nix
   ];
 
   options.nixos = {
@@ -28,6 +30,8 @@
       cockpit.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
+      homebox.enable = true;
+      monitoring.enable = true;
     };
   };
 }

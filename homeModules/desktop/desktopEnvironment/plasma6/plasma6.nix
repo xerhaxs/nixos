@@ -9,7 +9,6 @@
 }:
 
 {
-  # Option Search https://nix-community.github.io/plasma-manager/options.xhtml
   imports = [
     plasma-manager.homeModules.plasma-manager
   ];
@@ -247,6 +246,7 @@
                   "applications:com.github.flxzt.rnote.desktop"
                   "applications:com.obsproject.Studio.desktop"
                   "applications:org.clementine_player.Clementine.desktop"
+                  "applications:fluent-reader.desktop"
                   "applications:freetube.desktop"
                 ]
                 ++ lib.optionals osConfig.nixos.userEnvironment.game.enable [

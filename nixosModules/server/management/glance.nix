@@ -18,6 +18,8 @@
   };
 
   config = lib.mkIf config.nixos.server.management.glance.enable {
+    sops.secrets."glance" = { };
+
     services.glance = {
       enable = true;
       openFirewall = false;
@@ -490,11 +492,11 @@
                   {
                     type = "videos";
                     channels = [
-                      "UC5NOEUbkLheQcaaRldYW5GA" # Tagesschau
-                      "UChqUTb7kYRX8-EiaN3XFrSQ" # Reuters
-                      "UCLLibJTCy3sXjHLVaDimnpQ" # ARTEde
-                      "UCHnyfMqiRRG1u-2MsSQLbXA" # Veritasium
-                      "UC3swwxiALG5c0Tvom83tPGg" # Two Steps From Hell
+                      "UC5NOEUbkLheQcaaRldYW5GA"
+                      "UChqUTb7kYRX8-EiaN3XFrSQ"
+                      "UCLLibJTCy3sXjHLVaDimnpQ"
+                      "UCHnyfMqiRRG1u-2MsSQLbXA"
+                      "UC3swwxiALG5c0Tvom83tPGg"
                     ];
                   }
                   {
@@ -528,7 +530,6 @@
                         type = "monitor";
                         cache = "1m";
                         sites = [
-                          # di for Dashboard icons https://github.com/homarr-labs/dashboard-icons
                           {
                             title = "Cockpit";
                             url = "https://cockpit.${config.nixos.server.network.nginx.domain}";
@@ -598,6 +599,11 @@
                             icon = "auto-invert di:ollama";
                           }
                           {
+                            title = "ComfyUI";
+                            url = "https://comfyui.${config.nixos.server.network.nginx.domain}";
+                            icon = "auto-invert di:comfy-ui";
+                          }
+                          {
                             title = "Libretranslate";
                             url = "https://libretranslate.${config.nixos.server.network.nginx.domain}";
                             icon = "auto-invert di:libretranslate";
@@ -633,29 +639,31 @@
                             url = "https://invidious.${config.nixos.server.network.nginx.domain}";
                             icon = "di:invidious";
                           }
-                          
+
                           {
                             title = "LibReddit";
                             url = "https://libreddit.${config.nixos.server.network.nginx.domain}";
                             icon = "di:redlib";
                           }
 
-/*                           {
-                            title = "Matrix";
-                            url = "https://matrix.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:matrix-light";
-                          }
-                          {
-                            title = "Mumble";
-                            url = "https://mumble.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:mumble";
-                          }
-                          {
-                            title = "Flolserver";
-                            url = "https://flolserver.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:minecraft";
-                            allow-insecure = true;
-                          } */
+                          /*
+                            {
+                                                     title = "Matrix";
+                                                     url = "https://matrix.${config.nixos.site.domain}";
+                                                     icon = "di:matrix-light";
+                                                   }
+                                                   {
+                                                     title = "Mumble";
+                                                     url = "https://murmur.${config.nixos.site.domain}";
+                                                     icon = "di:mumble";
+                                                   }
+                                                   {
+                                                     title = "Flolserver";
+                                                     url = "https://flolserver.${config.nixos.site.domain}";
+                                                     icon = "di:minecraft";
+                                                     allow-insecure = true;
+                                                   }
+                          */
                         ];
                       }
                     ];

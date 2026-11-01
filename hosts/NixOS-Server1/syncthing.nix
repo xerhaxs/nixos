@@ -7,6 +7,9 @@
 }:
 
 {
+  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert" = { };
+  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key" = { };
+
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
   services.syncthing = {
@@ -68,7 +71,6 @@
       };
 
       folders = {
-        # "sendreceive", "sendonly", "receiveonly", "receiveencrypted"
         "Desktop" = {
           path = "/pool01/shares/jf/Desktop";
           id = "Desktop";
@@ -164,7 +166,7 @@
           fsWatcherDelayS = 60;
           rescanIntervalS = 3600;
         };
-        
+
         "aqbanking" = {
           path = "/pool01/shares/jf/.aqbanking";
           id = "aqbanking";

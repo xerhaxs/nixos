@@ -22,7 +22,6 @@
     programs.ranger = {
       enable = true;
       #settings = { };
-      #plugins = [ ];
     };
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {

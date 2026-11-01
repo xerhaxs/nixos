@@ -23,7 +23,6 @@
       openFirewall = false;
       user = "sonarr";
       group = "sonarr";
-      #environmentFiles = [];
       settings = {
         server = {
           urlbase = "localhost";
@@ -40,7 +39,7 @@
         };
       };
       #dataDir = "/var/lib/sonarr";
-      dataDir = "/pool01/applications/sonarr";
+      dataDir = "${config.nixos.server.dataDir}/sonarr";
     };
 
     systemd.services.sonarr.serviceConfig.UMask = lib.mkForce "0007";

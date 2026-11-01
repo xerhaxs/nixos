@@ -17,7 +17,9 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    extraSpecialArgs = specialArgs // { inherit userName; };
+    extraSpecialArgs = specialArgs // {
+      inherit userName;
+    };
 
     users.${userName} = import ./default.nix;
   };

@@ -9,10 +9,7 @@
 {
   _module.args.userName = "jf";
 
-  users.users.${userName} = {
-    initialHashedPassword = "$y$j9T$VLRm4nCKGD/ww64EwANZr0$Jrfk/VugVr/U7LP82BGFD.wlKOqwDAatzcZCAOOSRs2";
-    #hashedPasswordFile = config.sops.secrets."user/nixos-framework/jf".path;
-  };
+  system.stateVersion = "25.11";
 
   nixos.desktop = {
     enable = true;
@@ -24,7 +21,7 @@
       sddm.enable = true;
     };
     windowManager = {
-      hyprland.enable = false;
+      hyprland.enable = true;
     };
   };
 
@@ -38,10 +35,12 @@
     amdgpu.enable = true;
   };
 
-  nixos.system.secureboot.enable = true; # NEED TO BE CHANGED!!
+  nixos.system.secureboot.enable = true;
+  nixos.disko.disko-luks-btrfs-tmpfs.tpm2 = true;
 
   nixos.userEnvironment.enable = true;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;
+  nixos.virtualisation.podman.enable = true;
 }

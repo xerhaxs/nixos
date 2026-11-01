@@ -31,13 +31,13 @@
 
   config = lib.mkIf config.nixos.nixosModules.enable {
     nixos = {
-      base.enable = true;
+      base.enable = lib.mkDefault true;
       desktop.enable = lib.mkDefault false;
-      disko.enable = true;
-      hardware.enable = true;
-      server.enable = false;
-      system.enable = true;
-      theme.enable = true;
+      disko.enable = lib.mkDefault true;
+      hardware.enable = lib.mkDefault true;
+      server.enable = lib.mkDefault false;
+      system.enable = lib.mkDefault true;
+      theme.enable = lib.mkDefault true;
       userEnvironment.enable = lib.mkDefault false;
       virtualisation.enable = lib.mkDefault false;
     };

@@ -5,6 +5,31 @@
   ...
 }:
 
+let
+  domain = config.nixos.server.network.nginx.domain;
+  mailDomain = config.nixos.site.mailDomain;
+  hostname = "mail.${mailDomain}";
+
+  mailVhosts = [
+    hostname
+    "autoconfig.${mailDomain}"
+    "autodiscover.${mailDomain}"
+    "mta-sts.${mailDomain}"
+  ];
+
+  pgpKey = config.nixos.site.pgpPublicKey;
+
+  # Web Key Directory (advanced method): openpgpkey.<mailDomain>/.well-known/openpgpkey/<domain>/hu/<hash>
+  wkd = pkgs.runCommand "wkd-${mailDomain}" { nativeBuildInputs = [ pkgs.gnupg ]; } ''
+    export GNUPGHOME="$(mktemp -d)"
+    mkdir -p $out/.well-known/openpgpkey
+    gpg --batch --show-keys --with-colons ${pgpKey} \
+      | awk -F: '$1 == "uid" { print $10 }' | grep -oi '[a-z0-9._%+-]*@${lib.escapeRegex mailDomain}' | sort -u \
+      | while read -r mbox; do gpg-wks-client --install-key -C $out/.well-known/openpgpkey ${pgpKey} "$mbox"; done
+    touch $out/.well-known/openpgpkey/${mailDomain}/policy
+  '';
+in
+
 {
   options.nixos = {
     server.public.stalwart = {
@@ -18,91 +43,69 @@
   };
 
   config = lib.mkIf config.nixos.server.public.stalwart.enable {
-    environment.etc = {
-      "stalwart/mail-pw1".text = "foobar";
-      "stalwart/mail-pw2".text = "foobar";
-      "stalwart/admin-pw".text = "foobar";
-      "stalwart/acme-secret".text = "secret123";
-    };
+    sops.secrets."stalwart/admin" = { };
 
     services.stalwart = {
       enable = true;
-      openFirewall = true;
-      stateVersion = "25.11";
+      openFirewall = false;
+      stateVersion = "26.05";
+      dataDir = "${config.nixos.server.dataDir}/stalwart";
+
       credentials = {
-        mail-pw1 = /etc/stalwart/mail-pw1;
-        mail-pw2 = /etc/stalwart/mail-pw2;
-        acme-secret = /etc/stalwart/acme-secret;
+        "admin-pw" = config.sops.secrets."stalwart/admin".path;
+        "cert.pem" = "${config.security.acme.certs.${hostname}.directory}/fullchain.pem";
+        "key.pem" = "${config.security.acme.certs.${hostname}.directory}/key.pem";
       };
+
       settings = {
         server = {
-          hostname = "mx1.example.org";
+          hostname = hostname;
           tls = {
             enable = true;
-            implicit = true;
+            implicit = false;
           };
           listener = {
             smtp = {
+              bind = [ "[::]:25" ];
               protocol = "smtp";
-              bind = "[::]:25";
+            };
+            submission = {
+              bind = [ "[::]:587" ];
+              protocol = "smtp";
             };
             submissions = {
-              bind = "[::]:465";
+              bind = [ "[::]:465" ];
               protocol = "smtp";
               tls.implicit = true;
             };
             imaps = {
-              bind = "[::]:993";
+              bind = [ "[::]:993" ];
               protocol = "imap";
               tls.implicit = true;
             };
-            jmap = {
-              bind = "[::]:8080";
-              url = "https://mail.example.org";
-              protocol = "http";
-            };
-            management = {
+            http = {
               bind = [ "127.0.0.1:8080" ];
               protocol = "http";
             };
           };
         };
+
+        http = {
+          url = "'https://${hostname}'";
+          use-x-forwarded = true;
+        };
+
         lookup.default = {
-          hostname = "mx1.example.org";
-          domain = "example.org";
+          hostname = hostname;
+          domain = mailDomain;
         };
-        acme."letsencrypt" = {
-          directory = "https://acme-v02.api.letsencrypt.org/directory";
-          challenge = "dns-01";
-          contact = "user1@example.org";
-          domains = [ "example.org" "mx1.example.org" ];
-          provider = "cloudflare";
-          secret = "%{file:/run/credentials/stalwart.service/acme-secret}%";
+
+        certificate.default = {
+          cert = "%{file:/run/credentials/stalwart.service/cert.pem}%";
+          private-key = "%{file:/run/credentials/stalwart.service/key.pem}%";
+          default = true;
         };
-        session.auth = {
-          mechanisms = "[plain]";
-          directory = "'in-memory'";
-        };
-        storage.directory = "in-memory";
-        session.rcpt.directory = "'in-memory'";
-        directory."imap".lookup.domains = [ "example.org" ];
-        directory."in-memory" = {
-          type = "memory";
-          principals = [
-            {
-              class = "individual";
-              name = "User 1";
-              secret = "%{file:/run/credentials/stalwart.service/mail-pw1}%";
-              email = [ "user1@example.org" ];
-            }
-            {
-              class = "individual";
-              name = "postmaster";
-              secret = "%{file:/run/credentials/stalwart.service/mail-pw1}%";
-              email = [ "postmaster@example.org" ];
-            }
-          ];
-        };
+
         authentication.fallback-admin = {
           user = "admin";
           secret = "%{file:/run/credentials/stalwart.service/admin-pw}%";
@@ -110,20 +113,79 @@
       };
     };
 
+    networking.firewall.allowedTCPPorts = [
+      25
+      465
+      587
+      993
+    ];
+
+    systemd.services.stalwart = {
+      wants = [ "acme-${hostname}.service" ];
+      after = [ "acme-${hostname}.service" ];
+    };
+
     services.nginx = {
-      virtualHosts = {
-        "stalwart.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = true;
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:9090/";
-            proxyWebsockets = true;
+      virtualHosts =
+        let
+          stalwartProxy = {
+            forceSSL = true;
+            enableACME = true;
+            kTLS = true;
+            http2 = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:8080";
+              proxyWebsockets = true;
+            };
+          };
+        in
+        lib.genAttrs mailVhosts (_: stalwartProxy)
+        // {
+          # webadmin
+          "stalwart.${domain}" = stalwartProxy // {
+            acmeRoot = null;
+          };
+        }
+        // lib.optionalAttrs (pgpKey != null) {
+          "openpgpkey.${mailDomain}" = {
+            forceSSL = true;
+            enableACME = true;
+            root = wkd;
+            locations."/.well-known/openpgpkey/".extraConfig = ''
+              default_type application/octet-stream;
+              add_header Access-Control-Allow-Origin "*" always;
+              ${config.nixos.server.network.nginx.securityHeaders}
+            '';
           };
         };
-      };
     };
+
+    security.acme.certs =
+      lib.genAttrs (mailVhosts ++ lib.optional (pgpKey != null) "openpgpkey.${mailDomain}") (_: {
+        dnsProvider = null;
+      })
+      // {
+        ${hostname} = {
+          dnsProvider = null;
+          reloadServices = [ "stalwart.service" ];
+        };
+      };
+
+    environment.persistence."/persistent" =
+      lib.mkIf
+        (
+          config.nixos.disko.disko-luks-btrfs-tmpfs.enable
+          && lib.hasPrefix "/var/lib/" config.services.stalwart.dataDir
+        )
+        {
+          directories = [
+            {
+              directory = config.services.stalwart.dataDir;
+              user = config.services.stalwart.user;
+              group = config.services.stalwart.group;
+              mode = "0700";
+            }
+          ];
+        };
   };
 }

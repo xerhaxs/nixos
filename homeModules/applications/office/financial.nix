@@ -15,6 +15,12 @@
         example = true;
         description = "Enable financial tools.";
       };
+
+      miningPool = lib.mkOption {
+        type = lib.types.str;
+        default = "NixOS-Server1:3333";
+        description = "P2Pool stratum address used by monero-mine (xmrig).";
+      };
     };
   };
 
@@ -25,6 +31,23 @@
       p2pool
       xmrig
     ];
+
+    home.file.".local/bin/monero-mine" = {
+      executable = true;
+      text = ''
+        #!/bin/sh
+        exec ${pkgs.xmrig}/bin/xmrig --url ${config.homeManager.applications.office.financial.miningPool} \
+          --user "$(hostname)" --cpu-max-threads-hint=75 --cpu-priority=0 --donate-level=0 "$@"
+      '';
+    };
+
+    xdg.desktopEntries.monero-mine = {
+      name = "Monero Mining (P2Pool)";
+      comment = "Mine with xmrig against P2Pool on ${config.homeManager.applications.office.financial.miningPool}";
+      exec = "${config.home.homeDirectory}/.local/bin/monero-mine";
+      terminal = true;
+      categories = [ "Finance" ];
+    };
 
     home.activation.moneroConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         CONFIG="$HOME/.config/monero-project/monero-gui.conf"
@@ -78,13 +101,13 @@
       proxyEnabled=false
       pruneBlockchain=true
       receiveShowAdvanced=false
-      remoteNodeAddress=
+      remoteNodeAddress=NixOS-Server1:18089
       remoteNodesSerialized="{\"selected\":0,\"nodes\":[]}"
       restore_height=2318014
       segregatePreForkOutputs=true
       segregationHeight=0
       transferShowAdvanced=false
-      useRemoteNode=false
+      useRemoteNode=true
       walletMode=2
       wallet_path=${config.xdg.userDirs.documents}/Wichtige Datein/Wallet/Monero/xerhaxs_monero/xerhaxs_monero.keys
 

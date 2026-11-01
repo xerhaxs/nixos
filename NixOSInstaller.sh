@@ -452,13 +452,30 @@ install_nixos() {
 	echo -e "${BLUE}>>>${NC} ${TEXT}Securing encryption keys...${NC}"
 	echo ""
 	mkdir -p /mnt/secrets
-	mv -v /tmp/secret.key /mnt/secrets/secret.key
-	chmod -v 0400 /mnt/secrets/secret.key
-	chown -v root:root /mnt/secrets/secret.key
+	chmod 0700 /mnt/secrets
+
+	# the passphrase is only needed by disko for formatting, never store it in plain text
+	shred -u /tmp/secret.key
 
 	mv -v /tmp/keyfile.key /mnt/secrets/keyfile.key
 	chmod -v 0400 /mnt/secrets/keyfile.key
 	chown -v root:root /mnt/secrets/keyfile.key
+
+	# sops age key of this host (sops-nix decrypts on first boot, it is not needed to build)
+	echo ""
+	echo -e "${TEXT}Paste the sops age key of this host (AGE-SECRET-KEY-1...).${NC}"
+	echo -e "${GRAY}Leave empty to skip and copy it to /secrets/keys.txt later.${NC}"
+	local agekey
+	agekey=$(read_password "   Age key: ")
+	echo ""
+	if [[ -n "$agekey" ]]; then
+		echo "$agekey" >/mnt/secrets/keys.txt
+		chmod -v 0400 /mnt/secrets/keys.txt
+		chown -v root:root /mnt/secrets/keys.txt
+	else
+		print_box_info "No age key set, secrets will not be decrypted until /secrets/keys.txt exists"
+	fi
+	agekey=""
 	echo ""
 	print_box_success "Keys secured"
 	echo ""

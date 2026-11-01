@@ -23,7 +23,7 @@
         image = "docker.io/lissy93/networking-toolbox:latest";
 
         ports = [
-          "3872:3000"
+          "127.0.0.1:3872:3000"
         ];
 
         environment = {
@@ -51,8 +51,6 @@
         Restart = lib.mkOverride 90 "always";
       };
     };
-
-    networking.firewall.allowedTCPPorts = [ 3872 ];
 
     services.nginx = {
       virtualHosts = {

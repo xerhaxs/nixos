@@ -20,7 +20,6 @@
   config = lib.mkIf config.nixos.server.tools.invidious.enable {
     services.invidious = {
       enable = true;
-      # sig helper is deprecated -> waiting for nixos pkg update to Invidious companion (see: https://docs.invidious.io/installation/#hardware-requirements)
       #sig-helper = {
       #  enable = true;
       #  listenAddress = "127.0.0.1:2999";

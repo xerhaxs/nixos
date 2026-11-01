@@ -6,7 +6,32 @@
 }:
 
 {
+  services.postgresql.dataDir = "${config.nixos.server.dataDir}/postgresql";
+
+  users.users.postgres.group = "postgres";
+  users.groups.postgres = { };
+
   systemd.services.forgejo = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.grafana = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.homebox = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.loki = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.prometheus = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
   };
@@ -32,6 +57,11 @@
   };
 
   systemd.services.linkwarden = {
+    after = [ "zfs-mounts-ready.service" ];
+    requires = [ "zfs-mounts-ready.service" ];
+  };
+
+  systemd.services.monero = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
   };
@@ -91,7 +121,7 @@
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];
     restartIfChanged = false;
-    serviceConfig = {
+    serviceConfig = config.nixos.system.hardening.unitHardening // {
       Type = "oneshot";
       RemainAfterExit = true;
     };

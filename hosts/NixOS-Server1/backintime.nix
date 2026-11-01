@@ -8,6 +8,23 @@
 {
   environment.systemPackages = with pkgs; [
     backintime
+    (writeShellApplication {
+      name = "backup-external";
+      runtimeInputs = [
+        backintime
+        cryptsetup
+        util-linux
+      ];
+      # usage: sudo backup-external [luks partition], progress: tail -f /root/.local/share/backintime/takesnapshot_.log
+      text = ''
+        device="''${1:-/dev/sdi1}"
+        cryptsetup open "$device" WD2_10TB_BCK
+        trap 'umount /mnt/WD2_10TB_BCK || true; cryptsetup close WD2_10TB_BCK' EXIT
+        mkdir -p /mnt/WD2_10TB_BCK
+        mount /dev/mapper/WD2_10TB_BCK /mnt/WD2_10TB_BCK
+        backintime --config /etc/backintime/config backup
+      '';
+    })
   ];
 
   environment.etc."backintime/config".text = ''

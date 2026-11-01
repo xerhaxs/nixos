@@ -28,7 +28,7 @@
     ];
 
     hardware = {
-      enableAllFirmware = false; # unfree firmware drivers
+      enableAllFirmware = false;
       enableRedistributableFirmware = true;
       cpu.amd.updateMicrocode = true;
     };

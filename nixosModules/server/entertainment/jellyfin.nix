@@ -23,7 +23,7 @@
       openFirewall = false;
       user = "jellyfin";
       group = "jellyfin";
-      dataDir = "/pool01/applications/jellyfin";
+      dataDir = "${config.nixos.server.dataDir}/jellyfin";
       #dataDir = "/var/lib/jellyfin";
       #configDir = "/var/lib/jellyfin/config";
       #logDir = "/var/log/jellyfin";
@@ -32,7 +32,7 @@
       hardwareAcceleration = {
         enable = true;
         device = "/dev/dri/renderD129";
-        type = "qsv"; # "none", "amf", "qsv", "nvenc", "v4l2m2m", "vaapi", "rkmpp"
+        type = "qsv";
       };
 
       transcoding = {
@@ -103,10 +103,12 @@
       };
     };
 
-    /* environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      directories = [
-        "/var/lib/jellyfin"
-      ];
-    }; */
+    /*
+      environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+        directories = [
+          "/var/lib/jellyfin"
+        ];
+      };
+    */
   };
 }

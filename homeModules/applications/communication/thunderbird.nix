@@ -25,34 +25,34 @@
       profiles = {
         "default" = {
           isDefault = true;
+          withExternalGnupg = true;
 
           settings = {
-            # === General UI and behavior settings ===
             "mailnews.start_page.enabled" = false;
             "mailnews.start_page.url" = "";
-            
-            "intl.locale.requested" = "de-DE"; # UI language
-            "spellchecker.dictionary" = "de-DE"; # Spellcheck language
-            "intl.regional_prefs.use_os_locales" = true; # Don't use OS locale
-            "intl.regional_prefs.locales" = "de-DE"; # Use metric etc.
 
-            "mailnews.default_sort_type" = 18; # Sort by date
-            "mailnews.default_sort_order" = 2; # Newest first
+            "intl.locale.requested" = "de-DE";
+            "spellchecker.dictionary" = "de-DE";
+            "intl.regional_prefs.use_os_locales" = true;
+            "intl.regional_prefs.locales" = "de-DE";
+
+            "mailnews.default_sort_type" = 18;
+            "mailnews.default_sort_order" = 2;
             "mailnews.default_news_sort_type" = 18;
             "mailnews.default_news_sort_order" = 2;
 
-            "mail.thread_structures_with_ids" = false; # No message grouping
-            "mail.ui.tableView" = true; # table view
+            "mail.thread_structures_with_ids" = false;
+            "mail.ui.tableView" = true;
             "mailnews.default_view_flags" = 0;
 
-            "mail.folder.views.version" = 1; # Folder pane view
-            "mail.ui.folderpane.expand_state" = "All"; # Expand all folders
+            "mail.folder.views.version" = 1;
+            "mail.ui.folderpane.expand_state" = "All";
 
-            "mail.SpellCheckBeforeSend" = true; # Check before sending
-            "mail.spellcheck.inline" = true; # Inline spellcheck
+            "mail.SpellCheckBeforeSend" = true;
+            "mail.spellcheck.inline" = true;
 
-            "mail.tabs.drawInTitlebar" = false; # No tabs in title bar
-            "mail.tabs.autoHide" = false; # Always show tabs
+            "mail.tabs.drawInTitlebar" = false;
+            "mail.tabs.autoHide" = false;
 
             "privacy.donottrackheader.enabled" = true;
             "network.cookie.cookieBehavior" = 2;
@@ -82,17 +82,71 @@
             "mail.e2ee.auto_enable" = true;
             "mail.e2ee.auto_disable" = true;
 
-            ## Optional user-agent override
-            "general.useragent.override" = "";
+            "mailnews.headers.sendUserAgent" = false;
+            "mail.smtpserver.default.hello_argument" = "[127.0.0.1]";
+
+            "mailnews.display.html_as" = 3;
+            "javascript.enabled" = false;
+
+            "mailnews.reply_header_type" = 1;
 
             "thunderbird.policies.runOncePerModification.extensionsInstall" =
               "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/german-dictionary-de_de-for-sp/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/cardbook/latest/latest.xpi";
           };
 
           #extraConfig = ''
-          #  lockPref("extensions.autoDisableScopes", 0);
-          #'';
         };
+      };
+    };
+
+    accounts.email.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+      primary = true;
+      address = osConfig.nixos.site.mailAddress;
+      userName = osConfig.nixos.site.mailAddress;
+      realName = osConfig.nixos.site.mailRealName;
+      imap = {
+        host = "mail.${osConfig.nixos.site.mailDomain}";
+        port = 993;
+        tls.enable = true;
+      };
+      smtp = {
+        host = "mail.${osConfig.nixos.site.mailDomain}";
+        port = 465;
+        tls.enable = true;
+      };
+      gpg = lib.mkIf (osConfig.nixos.site.pgpFingerprint != null) {
+        key = osConfig.nixos.site.pgpFingerprint;
+        signByDefault = true;
+        encryptByDefault = false;
+      };
+      thunderbird = {
+        enable = true;
+        profiles = [ "default" ];
+      };
+    };
+
+    # Stalwart serves CalDAV/CardDAV for the same account (default collections).
+    accounts.calendar.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+      remote = {
+        type = "caldav";
+        url = "https://mail.${osConfig.nixos.site.mailDomain}/dav/cal/${osConfig.nixos.site.mailAddress}/default/";
+        userName = osConfig.nixos.site.mailAddress;
+      };
+      thunderbird = {
+        enable = true;
+        profiles = [ "default" ];
+      };
+    };
+
+    accounts.contact.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+      remote = {
+        type = "carddav";
+        url = "https://mail.${osConfig.nixos.site.mailDomain}/dav/card/${osConfig.nixos.site.mailAddress}/default/";
+        userName = osConfig.nixos.site.mailAddress;
+      };
+      thunderbird = {
+        enable = true;
+        profiles = [ "default" ];
       };
     };
 

@@ -55,7 +55,6 @@
     services.xserver = {
       xkb.layout = "${config.nixos.system.locals.consolekbd}";
       xkb.variant = "";
-      #xkb.options = "";
     };
   };
 }

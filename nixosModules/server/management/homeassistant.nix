@@ -30,6 +30,12 @@ let
     pythonImportsCheck = [ "weishaupt_webif_api" ];
   };
 
+  killswitchScript = pkgs.writeShellScript "killswitch-publish" ''
+    set -a; . ${config.sops.secrets."killswitch/ha-env".path}; set +a
+    exec ${pkgs.curl}/bin/curl -fsS --max-time 20 -H "Authorization: Bearer $NTFY_TOKEN" \
+      -H "Priority: urgent" -d poweroff "${config.nixos.system.killswitch.url}/$KILLSWITCH_TOPIC"
+  '';
+
   weishaupt_modbus = pkgs.buildHomeAssistantComponent {
     owner = "OStrama";
     domain = "weishaupt_modbus";
@@ -64,13 +70,27 @@ in
         example = true;
         description = "Enable Home Assistant.";
       };
+
+      killswitch = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = "Provide script.killswitch, which publishes poweroff to the killswitch ntfy topic (secret killswitch/ha-env with NTFY_TOKEN and KILLSWITCH_TOPIC).";
+      };
     };
   };
 
   config = lib.mkIf config.nixos.server.management.homeassistant.enable {
+    sops.secrets."killswitch/ha-env" =
+      lib.mkIf config.nixos.server.management.homeassistant.killswitch
+        {
+          owner = "hass";
+          mode = "0400";
+        };
+
     services.home-assistant = {
       enable = true;
-      configDir = "/pool01/applications/hass";
+      configDir = "${config.nixos.server.dataDir}/hass";
       #configDir = "/var/lib/hass";
       #configWritable = true;
 
@@ -80,8 +100,18 @@ in
           unit_system = "metric";
           time_zone = "Europe/Berlin";
           temperature_unit = "C";
-          #longitude =
-          #latitude =
+
+          packages = lib.optionalAttrs config.nixos.server.management.homeassistant.killswitch {
+            killswitch = {
+              shell_command.killswitch = "${killswitchScript}";
+              script.killswitch = {
+                alias = "Killswitch";
+                icon = "mdi:power";
+                mode = "single";
+                sequence = [ { action = "shell_command.killswitch"; } ];
+              };
+            };
+          };
         };
 
         default_config = { };
@@ -94,21 +124,6 @@ in
         "scene" = "!include scenes.yaml";
         "script" = "!include scripts.yaml";
 
-        switch = [
-          {
-            platform = "sony_projector";
-            host = "10.75.0.97";
-            name = "SonyBeamer";
-          }
-        ];
-
-        media_player = [
-          {
-            platform = "panasonic_bluray";
-            host = "10.75.0.60";
-            name = "UHD Player";
-          }
-        ];
       };
 
       /*
@@ -122,17 +137,13 @@ in
       */
 
       extraComponents = [
-        # Components required to complete the onboarding
         "analytics"
         "google_translate"
         "met"
         "radio_browser"
         "shopping_list"
-        # Recommended for fast zlib compression
-        # https://www.home-assistant.io/integrations/isal
         "isal"
 
-        # for home integration
         "androidtv_remote"
         "co2signal"
         "denon"
@@ -150,15 +161,20 @@ in
         "panasonic_viera"
         "prometheus"
         "sony_projector"
+        "tankerkoenig"
         "otbr"
         "thread"
       ];
 
       customComponents = [ weishaupt_modbus ];
+
+      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+        tankerkoenig-card
+      ];
     };
 
     systemd.tmpfiles.rules = [
-      "z /pool01/applications/hass/www/local/weishaupt_modbus_powermap.svg 0644 hass hass -"
+      "z ${config.nixos.server.dataDir}/hass/www/local/weishaupt_modbus_powermap.svg 0644 hass hass -"
     ];
 
     services.matterjs-server = {
@@ -179,21 +195,6 @@ in
     systemd.services.home-assistant = {
       after = [ "matterjs-server.service" ];
       wants = [ "matterjs-server.service" ];
-    };
-
-    services.openthread-border-router = {
-      enable = true;
-      backboneInterfaces = [ "eno1" ];
-      openFirewall = false;
-      radio = {
-        device = "/dev/serial/by-id/usb-Nabu_Casa_Home_Assistant_Connect_ZBT-1_3ca08035a338ef11b2653a7af3d9b1e5-if00-port0";
-        baudRate = 460800;
-        flowControl = true;
-      };
-      rest = {
-        listenAddress = "::";
-        listenPort = 8081;
-      };
     };
 
     hardware.bluetooth = {

@@ -20,33 +20,25 @@
   config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.rofi.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
-      terminal = "kitty";
+      package = pkgs.rofi;
 
       plugins = with pkgs; [
         rofi-calc
         rofi-bluetooth
         rofi-screenshot
         rofi-power-menu
-        #rofi-file-browser
       ];
 
-      location = "center";
-
-      extraConfig = {
-        #  modi = "run,drun,window";
-        #  #icon-theme = "Oranchelo";
-        #  show-icons = true;
-        #  terminal = "kitty";
-        #  drun-display-format = "{icon} {name}";
-        #  location = 0;
-        #  disable-history = false;
-        #  hide-scrollbar = true;
-        #  display-drun = "   Apps ";
-        #  display-run = "   Run ";
-        #  display-window = " 﩯  Window";
-        #  display-Network = " 󰤨  Network";
-        #  sidebar-mode = true;
+      settings = {
+        terminal = "kitty";
+        location = 0;
+        modi = "drun,run,window,calc";
+        show-icons = true;
+        drun-display-format = "{name}";
+        display-drun = "Apps";
+        display-run = "Run";
+        display-window = "Windows";
+        display-calc = "Calc";
       };
     };
   };

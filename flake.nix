@@ -6,6 +6,11 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nix-colors.url = "github:misterio77/nix-colors";
 
+    private = {
+      url = "git+file:///mount/Data/Datein/Dokumente/nixos-private";
+      flake = false;
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -126,7 +131,10 @@
             inherit inputs;
           };
           modules = [
-            { nixpkgs.hostPlatform = "x86_64-linux"; }
+            {
+              nixpkgs.hostPlatform = "x86_64-linux";
+              nixpkgs.overlays = [ (import ./pkgs) ];
+            }
             catppuccin.nixosModules.catppuccin
             ./nixosModules/default.nix
             ./hosts/${hostName}/default.nix
@@ -138,10 +146,12 @@
         "NixOS-Convertible"
         "NixOS-Desktop"
         "NixOS-Framework"
+        "NixOS-Portable"
         "NixOS-Server1"
         "NixOS-ServerPublic"
         "NixOS-VMDesktop"
         "NixOS-VMServer"
+        "NixOS-VMServerPublic"
       ];
 
     in
@@ -152,5 +162,16 @@
           value = mkHost host;
         }) hosts
       );
+
+      packages.x86_64-linux =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ (import ./pkgs) ];
+          };
+        in
+        {
+          inherit (pkgs) dangerzone;
+        };
     };
 }

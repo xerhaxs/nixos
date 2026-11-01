@@ -25,6 +25,13 @@
         example = true;
         description = "Enable server modules bundle.";
       };
+
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib";
+        example = "/pool01/applications";
+        description = "Base directory for the state of server applications (<dataDir>/<service>).";
+      };
     };
   };
 

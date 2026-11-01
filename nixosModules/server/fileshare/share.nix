@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -85,12 +86,22 @@ in
       api = { };
     };
 
+    # On a host where jf is the login user (portable host) the share groups are added to that user.
     users.users = {
-      jf = {
-        isSystemUser = true;
-        group = "share";
-        extraGroups = [ "tmjf" ];
-      };
+      jf =
+        if userName == "jf" then
+          {
+            extraGroups = [
+              "share"
+              "tmjf"
+            ];
+          }
+        else
+          {
+            isSystemUser = true;
+            group = "share";
+            extraGroups = [ "tmjf" ];
+          };
       meli = {
         isSystemUser = true;
         group = "share";

@@ -438,6 +438,22 @@
         "type": "github"
       }
     },
+    "private": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793556283,
+        "narHash": "sha256-ZmOe5R/JtQnq0eyMQwUsykaFWl03ZfjIk3ve4YmBh7I=",
+        "ref": "refs/heads/main",
+        "rev": "11781c14e1583b75ae311165809b84c12553ea56",
+        "revCount": 2,
+        "type": "git",
+        "url": "file:///mount/Data/Datein/Dokumente/nixos-private"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///mount/Data/Datein/Dokumente/nixos-private"
+      }
+    },
     "ransomware": {
       "flake": false,
       "locked": {
@@ -483,6 +499,7 @@
         "oisd-small": "oisd-small",
         "phishing": "phishing",
         "plasma-manager": "plasma-manager",
+        "private": "private",
         "ransomware": "ransomware",
         "redirect": "redirect",
         "scam": "scam",

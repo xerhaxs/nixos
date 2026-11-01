@@ -29,10 +29,66 @@ in
         example = true;
         description = "Enable mounting of networkshares.";
       };
+
+      server = lib.mkOption {
+        type = lib.types.str;
+        default = "NixOS-Server1";
+        description = "Hostname of the NAS providing the SMB shares.";
+      };
+
+      webdav = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          example = true;
+          description = "Mount the WebDAV share of NixOS-Server1 (dav.<homeDomain>) on /mount/dav (secret webdav-share/davfs).";
+        };
+
+        url = lib.mkOption {
+          type = lib.types.str;
+          default = "https://dav.${config.nixos.site.homeDomain}/";
+          defaultText = lib.literalExpression ''"https://dav.''${config.nixos.site.homeDomain}/"'';
+          description = "URL of the WebDAV share.";
+        };
+      };
     };
   };
 
   config = lib.mkIf config.nixos.userEnvironment.networkshares.enable {
+    sops.secrets."nas-smb/user" = { };
+
+    # Line format: <url> <user> <password>
+    sops.secrets."webdav-share/davfs" =
+      lib.mkIf config.nixos.userEnvironment.networkshares.webdav.enable
+        {
+          path = "/etc/davfs2/secrets";
+          mode = "0600";
+        };
+
+    services.davfs2 = lib.mkIf config.nixos.userEnvironment.networkshares.webdav.enable {
+      enable = true;
+      settings.globalSection = {
+        use_locks = false;
+        cache_size = 512;
+      };
+    };
+
+    fileSystems."/mount/dav" = lib.mkIf config.nixos.userEnvironment.networkshares.webdav.enable {
+      device = config.nixos.userEnvironment.networkshares.webdav.url;
+      fsType = "davfs";
+      options = [
+        "nofail"
+        "_netdev"
+        "x-systemd.automount"
+        "x-systemd.idle-timeout=600"
+        "x-systemd.mount-timeout=30s"
+        "uid=${userName}"
+        "gid=users"
+        "file_mode=0640"
+        "dir_mode=0750"
+      ];
+    };
+
     services.gvfs.enable = true;
 
     environment.systemPackages = with pkgs; [
@@ -46,37 +102,37 @@ in
     };
 
     fileSystems."/mount/nas/backup" = {
-      device = "//NixOS-Server1/backup";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/backup";
       fsType = "cifs";
       options = nas-options;
     };
     fileSystems."/mount/nas/document" = {
-      device = "//NixOS-Server1/document";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/document";
       fsType = "cifs";
       options = nas-options;
     };
     fileSystems."/mount/nas/games" = {
-      device = "//NixOS-Server1/games";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/games";
       fsType = "cifs";
       options = nas-options ++ [ "nobrl" ];
     };
     fileSystems."/mount/nas/jf" = {
-      device = "//NixOS-Server1/jf";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/jf";
       fsType = "cifs";
       options = nas-options;
     };
     fileSystems."/mount/nas/music" = {
-      device = "//NixOS-Server1/music";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/music";
       fsType = "cifs";
       options = nas-options;
     };
     fileSystems."/mount/nas/photo" = {
-      device = "//NixOS-Server1/photo";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/photo";
       fsType = "cifs";
       options = nas-options;
     };
     fileSystems."/mount/nas/video" = {
-      device = "//NixOS-Server1/video";
+      device = "//${config.nixos.userEnvironment.networkshares.server}/video";
       fsType = "cifs";
       options = nas-options;
     };

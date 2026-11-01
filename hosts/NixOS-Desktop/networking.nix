@@ -7,7 +7,6 @@
 
 {
   networking = {
-
     hostName = "NixOS-Desktop";
 
     interfaces = {
@@ -33,6 +32,8 @@
 
   nixos.system.networking = {
     enable = true;
+    wifi.enable = true;
+    macRandomization.wifi = true;
     localIP = "10.75.0.80";
   };
 }

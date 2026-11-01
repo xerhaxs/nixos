@@ -28,12 +28,27 @@
         "/root/.cache"
         "/var/log"
         "/var/cache"
+        {
+          directory = "/var/lib/private";
+          mode = "0700";
+        }
         #{ directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
+      ]
+      ++
+        lib.optionals
+          (config.services.postgresql.enable && lib.hasPrefix "/var/lib/" config.services.postgresql.dataDir)
+          [
+            {
+              directory = "/var/lib/postgresql";
+              user = "postgres";
+              group = "postgres";
+              mode = "0750";
+            }
+          ];
+      # A new machine-id on every boot splits the journal (journalctl only shows the current boot).
+      files = [
+        "/etc/machine-id"
       ];
-      #files = [
-      #  "/etc/machine-id"
-      #  { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
-      #];
     };
   };
 }

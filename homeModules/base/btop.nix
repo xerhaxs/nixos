@@ -20,7 +20,6 @@
   config = lib.mkIf config.homeManager.base.btop.enable {
     programs.btop = {
       enable = true;
-      #settings = {};
     };
   };
 }

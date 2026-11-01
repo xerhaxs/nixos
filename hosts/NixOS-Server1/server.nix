@@ -11,7 +11,7 @@
 
   nixos.virtualisation.podman.enable = true;
 
-  nixos.server.fileshare.share.path = "/pool01/shares";
+  nixos.server.network.nginx.domain = config.nixos.site.homeDomain;
 
   nixos.server = {
     entertainment = {
@@ -32,6 +32,11 @@
       cockpit.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
+      homebox = {
+        enable = true;
+        allowRegistration = true;
+      };
+      monitoring.enable = true;
     };
     network = {
       mullvad-server.enable = true;
@@ -51,14 +56,18 @@
       radicale.enable = true;
     };
     tools = {
+      comfyui.enable = true;
       invidious.enable = true;
       kiwix.enable = true;
       languagetool.enable = true;
       libreddit.enable = true;
       libretranslate.enable = true;
-      #moneronode.enable = true;
+      moneronode.enable = true;
       networkingtoolbox.enable = true;
-      ollama.enable = true;
+      ollama = {
+        enable = true;
+        gpu = "intel";
+      };
       searxng.enable = true;
     };
   };

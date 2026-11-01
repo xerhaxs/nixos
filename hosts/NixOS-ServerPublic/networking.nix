@@ -5,28 +5,53 @@
   ...
 }:
 
+let
+  net = config.nixos.site.serverPublic;
+in
+
 {
   networking = {
-
     hostName = "NixOS-ServerPublic";
 
-    #interfaces = {
-    #  enp0s18 = {
-    #    ipv4.addresses = [ {
-    #      address = "10.75.0.22";
-    #      prefixLength = 24;
-    #    } ];
-    #    ipv6.addresses = [ {
-    #      address = "fe80::5702:f205:97a3:516f";
-    #      prefixLength = 64;
-    #    } ];
-    #  };
-    #};
-
-    hosts = {
-      "127.0.0.1" = [
-        "flolserver.${config.nixos.server.network.nginx.domain}"
+    interfaces.${net.interface} = {
+      ipv4.addresses = [
+        {
+          address = net.ipv4;
+          prefixLength = net.ipv4PrefixLength;
+        }
+      ];
+      ipv6.addresses = [
+        {
+          address = net.ipv6;
+          prefixLength = net.ipv6PrefixLength;
+        }
       ];
     };
+
+    defaultGateway = {
+      address = net.ipv4Gateway;
+      interface = net.interface;
+    };
+    defaultGateway6 = {
+      address = "fe80::1";
+      interface = net.interface;
+    };
+
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+      "2620:fe::fe"
+      "2620:fe::9"
+    ];
+
+    tempAddresses = lib.mkForce "disabled";
   };
+
+  nixos.system.networking = {
+    enable = true;
+    networkmanager.enable = false;
+    lan.enable = false;
+  };
+
+  nixos.system.ssh.whitelist = [ "10.100.0.0/24" ];
 }

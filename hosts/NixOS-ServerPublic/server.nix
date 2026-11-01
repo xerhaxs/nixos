@@ -6,40 +6,19 @@
 }:
 
 {
-  services.getty.autologinUser = null;
+  nixos.server.network.nginx.enable = true;
 
-  nixos.server.network.nginx = {
+  nixos.server.public = {
     enable = true;
-    challenge = "http-01";
+    matrix.bridges = {
+      discord.enable = true;
+      signal.enable = true;
+      telegram.enable = true;
+      whatsapp.enable = true;
+    };
   };
 
   nixos.server.game.minecraft.enable = true;
 
-  nixos.system.mount.enable = lib.mkForce false;
-
-  nixos.disko.enable = lib.mkForce false;
-
-  nixos.system.bootloader.enable = lib.mkForce false;
-
-  nixos.system.sops.enable = lib.mkForce false;
-
-  services.openssh = {
-    #allowSFTP = true;
-    settings = {
-      PasswordAuthentication = lib.mkForce false;
-    };
-  };
-
-  nixos.disko.disko-uefi-lvm.enable = lib.mkForce true;
-  _module.args.disks = [ "/dev/sda" ];
-
-  fileSystems."/" = {
-    device = lib.mkForce "/dev/pool/root";
-    fsType = "ext4";
-  };
-
-  fileSystems."/home" = {
-    device = lib.mkForce "/dev/pool/home";
-    fsType = "ext4";
-  };
+  nixos.server.tools.codeserver.enable = true;
 }

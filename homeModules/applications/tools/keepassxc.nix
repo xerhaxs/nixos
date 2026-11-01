@@ -58,13 +58,6 @@
           GlobalAutoTypeRetypeTime = 0;
           FaviconDownloadTimeout = 10;
           UpdateCheckMessageShown = false;
-          #DefaultDatabaseFileName = "";
-          #LastDatabases = "";
-          #LastKeyFiles = "";
-          #LastChallengeResponse = "";
-          #LastActiveDatabase = "";
-          #LastOpenedDatabases = "";
-          #LastDir = "";
         };
 
         GUI = {
@@ -95,14 +88,6 @@
           ShowExpiredEntriesOnDatabaseUnlock = true;
           ShowExpiredEntriesOnDatabaseUnlockOffsetDays = 3;
           FontSizeOffset = 0;
-          #MainWindowGeometry = "";
-          #MainWindowState = "";
-          #ListViewState = "";
-          #SearchViewState = "";
-          #SplitterState = "";
-          #GroupSplitterState = "";
-          #PreviewSplitterState = "";
-          #AutoTypeSelectDialogSize = "";
         };
 
         Security = {
@@ -138,7 +123,6 @@
           MatchUrlScheme = true;
           SupportBrowserProxy = true;
           UseCustomProxy = false;
-          #CustomProxyLocation = "";
           UpdateBinaryPath = false;
           AllowGetDatabaseEntriesRequest = false;
           AllowExpiredCredentials = false;
@@ -158,8 +142,6 @@
           Enable = true;
           UseOpenSSH = true;
           UsePageant = false;
-          #AuthSockOverride = "";
-          #SecurityKeyProviderOverride = "";
         };
 
         FdoSecrets = {
@@ -172,9 +154,6 @@
 
         KeeShare = {
           QuietSuccess = false;
-          #Own = "";
-          #Foreign = "";
-          #Active = "";
         };
 
         PasswordGenerator = {
@@ -190,8 +169,6 @@
           Dashes = true;
           Math = true;
           Logograms = true;
-          #AdditionalChars = "";
-          #ExcludedChars = "";
           ExcludeAlike = true;
           EnsureEvery = true;
           Length = 128;
@@ -204,10 +181,13 @@
 
         Messages = {
           NoLegacyKeyFileWarning = false;
-          #HidePreReleaseWarning = "";
         };
       };
     };
+
+    # KeePassXC adds the SSH keys of the unlocked database to this agent and removes them when it locks.
+    services.ssh-agent.enable = true;
+    systemd.user.sessionVariables.SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/ssh-agent";
 
     programs.plasma.startup.startupScript."keepassxc" = {
       text = ''

@@ -16,6 +16,13 @@
         example = true;
         description = "Enable backintime";
       };
+
+      dailyProfile = lib.mkOption {
+        type = lib.types.nullOr lib.types.ints.positive;
+        default = null;
+        example = 1;
+        description = "Profile id which is backed up daily by a systemd user timer (instead of the non persistent crontab).";
+      };
     };
   };
 
@@ -37,7 +44,7 @@
       profile1.schedule.custom_time=8,12,18,23
       profile1.schedule.day=1
       profile1.schedule.debug=false
-      profile1.schedule.mode=1
+      profile1.schedule.mode=0
       profile1.schedule.repeatedly.period=1
       profile1.schedule.repeatedly.unit=20
       profile1.schedule.time=0
@@ -480,5 +487,29 @@
         ".local/share/backintime"
       ];
     };
+
+    systemd.user.services.backintime-backup =
+      lib.mkIf (config.homeManager.applications.tools.backintime.dailyProfile != null)
+        {
+          Unit.Description = "Back In Time backup of profile ${toString config.homeManager.applications.tools.backintime.dailyProfile}";
+          Service = {
+            Type = "oneshot";
+            Nice = 19;
+            IOSchedulingClass = "idle";
+            ExecStart = "${pkgs.backintime}/bin/backintime --profile-id ${toString config.homeManager.applications.tools.backintime.dailyProfile} backup";
+          };
+        };
+
+    systemd.user.timers.backintime-backup =
+      lib.mkIf (config.homeManager.applications.tools.backintime.dailyProfile != null)
+        {
+          Unit.Description = "Daily Back In Time backup";
+          Timer = {
+            OnCalendar = "daily";
+            RandomizedDelaySec = "1h";
+            Persistent = true;
+          };
+          Install.WantedBy = [ "timers.target" ];
+        };
   };
 }

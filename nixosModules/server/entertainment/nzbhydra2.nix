@@ -22,7 +22,7 @@
       enable = true;
       openFirewall = false;
       #dataDir = "/var/lib/nzbhydra2";
-      dataDir = "/pool01/applications/nzbhydra2";
+      dataDir = "${config.nixos.server.dataDir}/nzbhydra2";
     };
 
     systemd.services.nzbhydra2.serviceConfig.UMask = "0007";

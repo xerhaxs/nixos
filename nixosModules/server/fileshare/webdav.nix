@@ -18,6 +18,8 @@
   };
 
   config = lib.mkIf config.nixos.server.fileshare.webdav.enable {
+    sops.secrets."webdav-share/user-jf" = { };
+
     systemd.services.webdav.serviceConfig.EnvironmentFile = [
       config.sops.secrets."webdav-share/user-jf".path
     ];
@@ -35,7 +37,7 @@
           {
             username = "jf";
             password = "{env}ENV_PASSWORD";
-            directory = "/pool01/applications/webdav/jf";
+            directory = "${config.nixos.server.dataDir}/webdav/jf";
             permissions = "CRUD";
           }
         ];

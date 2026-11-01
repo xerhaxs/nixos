@@ -7,7 +7,6 @@
 
 {
   networking = {
-
     hostName = "NixOS-Server1";
 
     interfaces = {
@@ -34,5 +33,6 @@
   nixos.system.networking = {
     enable = true;
     localIP = "10.75.0.21";
+    blocklists.enable = false;
   };
 }

@@ -14,6 +14,20 @@
         example = true;
         description = "Enable ClamAV virus scanner.";
       };
+
+      extraScanDirectories = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        example = [ "/mount/Data" ];
+        description = "Additional directories of the daily scan (user data, shares, uploads).";
+      };
+
+      excludePaths = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        example = [ "^/pool01/shares/video" ];
+        description = "Regular expressions of paths that are not scanned (ExcludePath).";
+      };
     };
   };
 
@@ -21,14 +35,21 @@
     services.clamav = {
       daemon = {
         enable = true;
-        #settings = {};
+        settings = {
+          ExcludePath = [
+            "^/proc/"
+            "^/sys/"
+            "/\\.zfs/"
+            "/\\.snapshots/"
+          ]
+          ++ config.nixos.system.clamav.excludePaths;
+        };
       };
 
       updater = {
         enable = true;
         interval = "hourly";
         frequency = 12;
-        #settings = {};
       };
 
       scanner = {
@@ -40,7 +61,8 @@
           "/tmp"
           "/etc"
           "/var/tmp"
-        ];
+        ]
+        ++ config.nixos.system.clamav.extraScanDirectories;
       };
     };
 

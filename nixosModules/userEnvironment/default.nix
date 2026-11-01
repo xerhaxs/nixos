@@ -43,7 +43,7 @@
       mullvad.enable = true;
       networkshares.enable = true;
       obs-studio.enable = true;
-      syncthing.enable = true;
+      syncthing.enable = lib.mkDefault true;
     };
   };
 }

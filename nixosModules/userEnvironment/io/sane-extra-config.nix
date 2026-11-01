@@ -5,8 +5,6 @@
   ...
 }:
 
-# thanks to https://raw.githubusercontent.com/michalrus/dotfiles/refs/heads/master/modules/sane-extra-config/default.nix
-
 with lib;
 
 let

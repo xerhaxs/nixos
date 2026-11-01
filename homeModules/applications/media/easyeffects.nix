@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -22,30 +23,20 @@
       crosspipe
     ];
 
+    # Microphone chain: DeepFilterNet noise reduction (RNNoise kept as bypassed alternative), soft gate,
+    # EQ (high-pass 80 Hz, presence), compressor 3:1, de-esser, limiter -1.5 dB.
+    # Based on https://gist.github.com/jtrv/47542c8be6345951802eebcf9dc7da31, tune per microphone.
     services.easyeffects = {
-      enable = false;
-      package = pkgs.easyeffects;
-      #preset = "";
-      extraPresets = {
-        my-preset = {
-          input = {
-            blocklist = [ ];
-            "plugins_order" = [
-              "rnnoise#0"
-            ];
-            "rnnoise#0" = {
-              bypass = false;
-              "enable-vad" = false;
-              "input-gain" = 0.0;
-              "model-path" = "";
-              "output-gain" = 0.0;
-              release = 20.0;
-              "vad-thres" = 50.0;
-              wet = 0.0;
-            };
-          };
-        };
-      };
+      enable = true;
+      preset.input = "microphone";
+      extraPresets.microphone.input = lib.importJSON ./easyeffects-microphone.json;
+    };
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        ".config/easyeffects"
+        ".local/share/easyeffects"
+      ];
     };
   };
 }

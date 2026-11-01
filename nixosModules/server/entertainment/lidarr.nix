@@ -23,7 +23,6 @@
       openFirewall = false;
       user = "lidarr";
       group = "lidarr";
-      #environmentFiles = [];
       settings = {
         server = {
           urlbase = "localhost";
@@ -40,7 +39,7 @@
         };
       };
       #dataDir = "/var/lib/lidarr";
-      dataDir = "/pool01/applications/lidarr";
+      dataDir = "${config.nixos.server.dataDir}/lidarr";
     };
 
     systemd.services.lidarr.serviceConfig.UMask = "0007";

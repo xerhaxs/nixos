@@ -28,7 +28,7 @@
 
   config = lib.mkIf config.homeManager.applications.gaming.enable {
     homeManager.applications.gaming = {
-      gameconqueror.enable = true;
+      gameconqueror.enable = lib.mkDefault false;
       heroic.enable = true;
       lutris.enable = lib.mkDefault false;
       mangohud.enable = true;

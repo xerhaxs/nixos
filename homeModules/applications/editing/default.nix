@@ -11,6 +11,7 @@
     ./ai.nix
     ./blender.nix
     ./compiler.nix
+    ./fusion360.nix
     ./gimp.nix
     ./image.nix
     ./kdenlive.nix
@@ -30,10 +31,11 @@
 
   config = lib.mkIf config.homeManager.applications.editing.enable {
     homeManager.applications.editing = {
-      "3dprinting".enable = true;
-      ai.enable = true;
-      blender.enable = true;
+      "3dprinting".enable = lib.mkDefault false;
+      ai.enable = lib.mkDefault false;
+      blender.enable = lib.mkDefault false;
       compiler.enable = true;
+      fusion360.enable = lib.mkDefault false;
       gimp.enable = true;
       image.enable = true;
       kdenlive.enable = true;

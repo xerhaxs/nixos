@@ -26,7 +26,7 @@ brand:
   custom:
   #   # Custom entries in the footer: [title]: [link]
     links:
-      Glance: https://glance.m4rx.cc
+      Glance: https://glance.@domain@
       GitHub NixOS Config: https://github.com/xerhaxs/nixos
   #     Uptime: https://uptime.searxng.org/history/darmarit-org
   #     About: "https://searxng.org"

@@ -18,14 +18,18 @@
         interval = 600;
       };
     };
-
-    configFile = {
-      "plasmaparc"."General" = {
-        "GlobalMuteSourcesMutedDevices" =
-          "alsa_input.usb-Burr-Brown_from_TI_USB_Audio_CODEC-00.analog-stereo-input.0";
-      };
-    };
   };
 
-  homeManager.applications.enable = true;
+  homeManager.applications = {
+    enable = true;
+    development = {
+      bottles.enable = true;
+      hex.enable = true;
+    };
+    editing = {
+      "3dprinting".enable = true;
+      fusion360.enable = true;
+    };
+    tools.backintime.enable = true;
+  };
 }

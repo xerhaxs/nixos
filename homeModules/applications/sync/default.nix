@@ -28,7 +28,7 @@
   config = lib.mkIf config.homeManager.applications.sync.enable {
     homeManager.applications.sync = {
       kdeconnect.enable = true;
-      onionshare.enable = lib.mkDefault false;
+      onionshare.enable = lib.mkDefault true;
       rclone.enable = lib.mkDefault false;
       syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };

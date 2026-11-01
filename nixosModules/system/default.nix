@@ -13,18 +13,26 @@
     ./cron.nix
     ./dbus.nix
     ./firewall.nix
+    ./hardening.nix
+    ./initrdssh.nix
+    ./killswitch.nix
     ./locals.nix
+    ./monitoring-agent.nix
     ./networking.nix
     ./nh.nix
     ./nixos.nix
     ./nixosvm.nix
+    ./notify.nix
     ./persistent.nix
     ./powermanagement.nix
+    ./restic.nix
     ./secureboot.nix
+    ./site.nix
     ./smartd.nix
     ./sops.nix
     ./ssh.nix
     ./user.nix
+    ./wireguard.nix
   ];
 
   options.nixos = {
@@ -46,18 +54,23 @@
       cron.enable = true;
       dbus.enable = true;
       firewall.enable = true;
+      hardening.enable = lib.mkDefault true;
+      initrdssh.enable = lib.mkDefault false;
       locals.enable = true;
+      monitoring-agent.enable = lib.mkDefault true;
       networking.enable = true;
       nh.enable = true;
       nixos.enable = true;
       nixosvm.enable = true;
       persistent.enable = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable true;
       powermanagement.enable = true;
+      restic.enable = lib.mkDefault false;
       secureboot.enable = lib.mkDefault false;
       smartd.enable = true;
       sops.enable = true;
       ssh.enable = true;
       user.enable = true;
+      wireguard.enable = lib.mkDefault false;
     };
   };
 }

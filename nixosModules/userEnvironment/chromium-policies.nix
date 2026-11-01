@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userName,
   ...
 }:
 
@@ -22,59 +23,52 @@
       enable = true;
 
       extensions = [
-        "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
-        "edibdbjcniadpccecjdfdjjppcpchdlm" # I still don't care about cookies
-        "fnaicdffflnofjppbagibeoednhnbjhg" # floccus bookmark sync
-        "oboonakemofpalcgghocfoadofidjkkk" # KeePassXC-Browser
-        "dphilobhebphkdjbpfohgikllaljmgbn" # SimpleLogin
-        "mafpmfcccpbjnhfhjnllmmalhifmlcie" # Snowflake
+        "cimiefiiaegbelhefglklhhakcgmhkai"
+        "edibdbjcniadpccecjdfdjjppcpchdlm"
+        "fnaicdffflnofjppbagibeoednhnbjhg"
+        "oboonakemofpalcgghocfoadofidjkkk"
+        "dphilobhebphkdjbpfohgikllaljmgbn"
+        "mafpmfcccpbjnhfhjnllmmalhifmlcie"
       ];
 
       #initialPrefs = { };
 
       extraOpts = {
-        # ── Chromium-Cor: Login & Sync ───────────────────────────────
         "BrowserSignin" = 0;
         "SyncDisabled" = true;
 
-        # ── Telemetry & Reporting ────────────────────────────────────
         "MetricsReportingEnabled" = false;
         "SafeBrowsingExtendedReportingEnabled" = false;
         "BraveP3AEnabled" = false;
         "BraveStatsPingEnabled" = false;
 
-        # ── UI & Behavior ────────────────────────────────────────────
         "TranslateEnabled" = false;
         "BookmarkBarEnabled" = true;
         "ShowFullUrlsInAddressBar" = true;
-        "RestoreOnStartup" = 5; # Neue Tab-Seite
+        "RestoreOnStartup" = 5;
         "PromptForDownloadLocation" = true;
-        "DefaultDownloadDirectory" = "/mount/Data/Datein/Downloads";
+        "DefaultDownloadDirectory" = config.home-manager.users.${userName}.xdg.userDirs.download;
         "BackgroundModeEnabled" = false;
+        "HttpsOnlyMode" = "force_enabled";
+        "DnsOverHttpsMode" = "automatic";
         "OsColorMode" = "auto";
-        #"BrowserThemeColor" = ;
 
-        # ── Autofill & Passwords ─────────────────────────────────────
         "AutofillCreditCardEnabled" = false;
         "AutofillAddressEnabled" = false;
         "PasswordManagerEnabled" = false;
 
-        # ── Language & Spellchecking ─────────────────────────────────
         "SpellcheckLanguage" = [
           "de"
           "en-US"
         ];
 
-        # ── Privacy Sandbox ───────────────────────────────────────────
         "PrivacySandboxAdTopicsEnabled" = false;
         "PrivacySandboxSiteEnabledAdsEnabled" = false;
         "PrivacySandboxAdMeasurementEnabled" = false;
         "PrivacySandboxFirstPartySetsEnabled" = false;
 
-        # ── Manifest V2 ─────────────────────────────────────────
         "ExtensionManifestV2Availability" = 2;
 
-        # ── Brave: Deactivate Bloatware ─────────────────────────────
         "PromotionsEnabled" = false;
         "TorDisabled" = true;
         "BraveWalletDisabled" = true;
@@ -87,12 +81,10 @@
         "BraveWaybackMachineEnabled" = false;
         "BraveWebDiscoveryEnabled" = false;
 
-        # ── Brave Shields: aggressive ──────────────────────────────────
         "BraveShieldsAdBlockLevel" = 2;
         "BraveShieldsTrackerBlockLevel" = 2;
         "BraveShieldsFingerprintingBlockLevel" = 1;
 
-        # ── Remove Date on Close ────────────────────────────────
         "ClearBrowsingDataOnExitList" = [
           "browsing_history"
           "download_history"

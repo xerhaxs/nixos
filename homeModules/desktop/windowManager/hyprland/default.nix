@@ -8,11 +8,18 @@
 
 {
   imports = [
-    #./dunst.nix
+    ./display.nix
+    ./hypridle.nix
     ./hyprland.nix
-    ./swaylock.nix
-    ./waybar.nix
+    ./hyprlock.nix
+    ./pyprland.nix
     ./rofi.nix
+    ./swaync.nix
+    ./touch.nix
+    ./utilities.nix
+    ./wallpaper.nix
+    ./waybar.nix
+    ./wlogout.nix
   ];
 
   options.homeManager = {
@@ -34,11 +41,18 @@
       )
       {
         homeManager.desktop.windowManager.hyprland = {
-          #dunst.enable = true;
+          display.enable = true;
+          hypridle.enable = true;
           hyprland.enable = true;
-          swaylock.enable = true;
-          waybar.enable = true;
+          hyprlock.enable = true;
+          pyprland.enable = true;
           rofi.enable = true;
+          swaync.enable = true;
+          touch.enable = lib.mkDefault false;
+          utilities.enable = true;
+          wallpaper.enable = true;
+          waybar.enable = true;
+          wlogout.enable = true;
         };
       };
 }

@@ -21,6 +21,7 @@
     boot.loader.limine = {
       secureBoot.enable = true;
       secureBoot.sbctl = pkgs.sbctl;
+      secureBoot.autoGenerateKeys = true;
     };
 
     environment.systemPackages = with pkgs; [

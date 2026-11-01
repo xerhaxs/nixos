@@ -44,8 +44,8 @@
 
         extensions = with pkgs.vscode-extensions; [
           alefragnani.bookmarks
+          anthropic.claude-code
           arrterian.nix-env-selector
-          catppuccin.catppuccin-vsc # tmp fix
           #cweijan.vscode-office
           davidanson.vscode-markdownlint
           davidlday.languagetool-linter

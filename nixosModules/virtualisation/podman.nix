@@ -42,5 +42,11 @@
     environment.systemPackages = with pkgs; [
       podman-compose
     ];
+
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/var/lib/containers"
+      ];
+    };
   };
 }

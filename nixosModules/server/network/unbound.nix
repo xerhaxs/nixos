@@ -41,6 +41,12 @@
 
           harden-glue = true;
           harden-dnssec-stripped = true;
+          harden-below-nxdomain = true;
+          harden-algo-downgrade = true;
+          qname-minimisation = true;
+          aggressive-nsec = true;
+          val-clean-additional = true;
+          prefetch-key = true;
           use-caps-for-id = false;
           prefetch = true;
           edns-buffer-size = 1232;
@@ -65,18 +71,6 @@
           ];
         };
 
-        forward-zone = [
-          {
-            name = ".";
-            forward-addr = [
-              "9.9.9.9#dns.quad9.net"
-              "149.112.112.112#dns.quad9.net"
-            ];
-            forward-tls-upstream = true;
-          }
-        ];
-
-        remote-control.control-enable = false;
       };
     };
 

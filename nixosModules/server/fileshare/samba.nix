@@ -18,6 +18,9 @@
   };
 
   config = lib.mkIf config.nixos.server.fileshare.samba.enable {
+    sops.secrets."smb-share/user-jf" = { };
+    sops.secrets."smb-share/user-meli" = { };
+
     services.samba = {
       enable = true;
       openFirewall = true;
@@ -29,11 +32,11 @@
       settings = {
         global = {
           "workgroup" = "TMJF";
-          "serverString" = "NixOS-Server1";
+          "serverString" = config.networking.hostName;
           "security" = "user";
           "encrypt passwords" = "yes";
           "smb encrypt" = "required";
-          "hosts allow" = "10.75.0. 127.0.0.1 localhost";
+          "hosts allow" = "${config.nixos.system.networking.lan.subnet} 127.0.0.1 localhost";
           "hosts deny" = "0.0.0.0/0";
           "map to guest" = "Never";
           "min protocol" = "SMB3";

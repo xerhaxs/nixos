@@ -6,9 +6,21 @@
 }:
 
 {
-  wayland.windowManager.hyprland = {
-    settings = {
-      monitor = "DP-1,3840x1600@144,0x0,1,bitdepth,10";
-    };
-  };
+  homeManager.desktop.windowManager.hyprland.wallpaper.directory =
+    "${config.xdg.userDirs.pictures}/Desktopbilder/Kanada";
+
+  services.kanshi.settings = [
+    {
+      profile.name = "desktop";
+      profile.outputs = [
+        {
+          criteria = "DP-1";
+          mode = "3840x1600@144";
+          position = "0,0";
+          scale = 1.0;
+          adaptiveSync = true;
+        }
+      ];
+    }
+  ];
 }

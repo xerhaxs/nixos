@@ -23,7 +23,6 @@
       openFirewall = false;
       user = "radarr";
       group = "radarr";
-      #environmentFiles = [];
       settings = {
         server = {
           urlbase = "localhost";
@@ -40,7 +39,7 @@
         };
       };
       #dataDir = "/var/lib/radarr/.config/radarr";
-      dataDir = "/pool01/applications/radarr";
+      dataDir = "${config.nixos.server.dataDir}/radarr";
     };
 
     systemd.services.radarr.serviceConfig.UMask = lib.mkForce "0007";

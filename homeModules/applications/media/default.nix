@@ -10,6 +10,7 @@
     ./clementine.nix
     ./easyeffects.nix
     ./ffmpeg.nix
+    ./fluentreader.nix
     ./freetube.nix
     ./gwenview.nix
     ./mpv.nix
@@ -34,6 +35,7 @@
       clementine.enable = true;
       easyeffects.enable = true;
       ffmpeg.enable = true;
+      fluentreader.enable = true;
       freetube.enable = true;
       gwenview.enable = true;
       mpv.enable = true;

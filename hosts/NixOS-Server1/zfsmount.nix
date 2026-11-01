@@ -18,6 +18,10 @@ let
   );
 in
 {
+  sops.secrets."zfs/pool01" = {
+    mode = "0400";
+  };
+
   system.activationScripts.zfs-cache-key = {
     text = ''
       cp /run/secrets/zfs/pool01 /secrets/zfs-cache.key

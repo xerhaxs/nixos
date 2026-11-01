@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./fail2ban.nix
     ./mullvad-server.nix
     ./nginx.nix
     ./pihole.nix
@@ -26,6 +27,7 @@
 
   config = lib.mkIf config.nixos.server.network.enable {
     nixos.server.network = {
+      fail2ban.enable = lib.mkDefault false;
       mullvad-server.enable = true;
       nginx.enable = true;
       pihole.enable = true;

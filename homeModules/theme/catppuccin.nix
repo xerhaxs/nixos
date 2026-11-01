@@ -36,10 +36,10 @@
 
     programs.plasma = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.plasma6.enable {
       workspace = {
-        theme = "default"; # plasma-apply-desktoptheme --list-themes
-        colorScheme = "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-colorscheme --list-schemes
-        cursor.theme = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors"; # plasma-apply-cursortheme --list-themes
-        lookAndFeel = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}"; # plasma-apply-lookandfeel --list
+        theme = "default";
+        colorScheme = "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}";
+        cursor.theme = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
+        lookAndFeel = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}";
         iconTheme = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
       };
     };

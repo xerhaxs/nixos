@@ -18,6 +18,12 @@
   };
 
   config = lib.mkIf config.nixos.server.entertainment.sabnzbd.enable {
+    sops.secrets."sabnzbd" = {
+      owner = config.services.sabnzbd.user;
+      group = config.services.sabnzbd.group;
+      mode = "0400";
+    };
+
     services.sabnzbd = {
       enable = true;
       user = "sabnzbd";
@@ -32,7 +38,7 @@
       settings = {
         misc = {
           auto_browser = 0;
-          bandwidth_max = "5M";
+          bandwidth_max = "10M";
           bandwidth_perc = 0;
           cache_limit = "1G";
           check_new_rel = 0;
@@ -66,7 +72,6 @@
           web_color = "Auto";
           https_chain = "";
           socks5_proxy_url = "";
-          #permissions = "";
           download_free = "";
           complete_free = "1T";
           fulldisk_autoresume = 1;

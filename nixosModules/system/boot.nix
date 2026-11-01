@@ -36,16 +36,15 @@
 
     services.fwupd.enable = true;
 
-    security.polkit.enable = true; # login für actions without root
+    security.polkit.enable = true;
 
     services.acpid.enable = true;
 
-    services.udisks2.enable = true; # power managment events
+    services.udisks2.enable = true;
 
     environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         "/var/lib/fwupd"
-        "/var/lib/systemd/coredump"
       ];
     };
   };
