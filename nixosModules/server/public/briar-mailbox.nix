@@ -1,4 +1,5 @@
 {
+  briar-mailbox,
   config,
   lib,
   pkgs,
@@ -6,13 +7,8 @@
 }:
 
 let
-  version = "1.0.9";
-
-  src = pkgs.fetchgit {
-    url = "https://code.briarproject.org/briar/briar-mailbox.git";
-    rev = "4beef6f36a5cc6ac5f6b2879c2d7b1cab8710999";
-    hash = "sha256-FF0kST35EvBkRJCzaoaKkSjY7+kSLufsmn2yAWJr65U=";
-  };
+  src = briar-mailbox;
+  version = briar-mailbox.shortRev;
 
   image = "localhost/briar-mailbox:${version}";
   podman = "${config.virtualisation.podman.package}/bin/podman";

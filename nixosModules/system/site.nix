@@ -58,6 +58,18 @@ in
         defaultText = lib.literalExpression "private site.nix (initialHashedPasswords)";
         description = "Initial password hash of the user per host (lowercase hostname), used until user.passwordFromSops is enabled.";
       };
+      mailAccounts = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
+        default = site.mailAccounts or { };
+        defaultText = lib.literalExpression "private site.nix (mailAccounts)";
+        example = {
+          proton.address = "me@proton.me";
+        };
+        description = "Addresses of the other mail accounts in Thunderbird: proton, dlrg, oneandone (address, optional realName).";
+      };
+      serverGaming =
+        mkSiteOption (lib.types.attrsOf lib.types.anything) "serverGaming"
+          "Network data of NixOS-ServerGaming.";
       serverPublic =
         mkSiteOption (lib.types.attrsOf lib.types.anything) "serverPublic"
           "Network data of NixOS-ServerPublic.";

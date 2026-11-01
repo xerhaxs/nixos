@@ -32,6 +32,10 @@ let
       ip = "10.100.0.5";
       publicKey = null;
     };
+    NixOS-ServerGaming = {
+      ip = "10.100.0.6";
+      publicKey = null;
+    };
     GrapheneOS = {
       ip = "10.100.0.10";
       publicKey = null;
@@ -89,6 +93,13 @@ in
         readOnly = true;
         default = validPeers != { };
         description = "Whether peers with public keys exist for this host.";
+      };
+
+      enrolled = lib.mkOption {
+        type = lib.types.bool;
+        readOnly = true;
+        default = (peers.${hostName} or { publicKey = null; }).publicKey != null;
+        description = "Whether this host has a public key in the peer list, so the hub accepts it.";
       };
 
       mullvadBypass = lib.mkOption {

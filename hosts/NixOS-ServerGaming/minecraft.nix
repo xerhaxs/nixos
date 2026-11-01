@@ -1,5 +1,7 @@
 {
+  bluemap,
   config,
+  fabric-api,
   lib,
   pkgs,
   ...
@@ -7,6 +9,8 @@
 
 let
   defaults = config.nixos.server.game.minecraft.serverProperties;
+  domain = config.nixos.server.network.nginx.domain;
+  bluemapPort = 8100;
 in
 
 {
@@ -17,6 +21,25 @@ in
       openFirewall = true;
       jvmOpts = "-Xmx12288M -Dlog4j2.formatMsgNoLookups=true";
       package = pkgs.fabricServers.fabric-1_21_11;
+      symlinks = {
+        "mods/bluemap.jar" = bluemap;
+        "mods/fabric-api.jar" = fabric-api;
+      };
+      files = {
+        # accept-download: BlueMap fetches the Minecraft client for its textures (Mojang EULA).
+        "config/bluemap/core.conf" = pkgs.writeText "bluemap-core.conf" ''
+          accept-download: true
+          data: "bluemap"
+          render-thread-count: 2
+          metrics: false
+        '';
+        "config/bluemap/webserver.conf" = pkgs.writeText "bluemap-webserver.conf" ''
+          enabled: true
+          webroot: "bluemap/web"
+          ip: "127.0.0.1"
+          port: ${toString bluemapPort}
+        '';
+      };
       whitelist = {
         Ecki_0709 = "a36b2d29-b75c-4958-a7e7-05f65d2dd130";
         FaL4Fl = "8d385243-ee7c-4a95-88f0-f1243d528b7d";
@@ -123,14 +146,16 @@ in
 
   services.nginx = {
     virtualHosts = {
-      "flolserver.${config.nixos.server.network.nginx.domain}" = {
+      "bluemap.${domain}" = {
+        serverAliases = [ "flolserver.${domain}" ];
         forceSSL = true;
         enableACME = true;
         acmeRoot = null;
         kTLS = true;
         http2 = true;
         locations."/" = {
-          proxyPass = "http://127.0.0.1:8100";
+          proxyPass = "http://127.0.0.1:${toString bluemapPort}";
+          proxyWebsockets = true;
         };
       };
     };

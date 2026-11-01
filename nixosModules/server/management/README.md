@@ -9,6 +9,8 @@ Management, dashboards, home automation, inventory and monitoring.
 - Cockpit (server administration), Glance (start page), Home Assistant (with Matter, Thread, Tankerkoenig, killswitch script), HomeBox (inventory).
 - `monitoring.nix`: Prometheus, Alertmanager, Loki and Grafana with pinned dashboards from grafana.com (node, ZFS, SMART, nginx, PostgreSQL, Pi-hole, Unbound, blackbox, WireGuard, Alertmanager, logs). The exporters run on every host (`nixosModules/system/monitoring-agent.nix`).
 - Alert rules: host down, disk space, memory, failed units, SMART, ZFS pool, certificates, endpoints. Alerts go to ntfy and/or mail (`alerts.*`).
+- `glance-server-page.nix`: page Server of Glance with a section per server, the stats of the other hosts come from Prometheus. Jellyfin, calendar, Miniflux and Home Assistant are options and need API keys in the secret `glance`.
+- `update-check.nix`: compares the pinned sources and images with upstream once a day (`docs/updates-and-vulnerabilities.md`), `dashboards/security-updates.nix` is the Grafana dashboard.
 
 ## Contents
 
@@ -16,10 +18,13 @@ Management, dashboards, home automation, inventory and monitoring.
 |---|---|
 | `cockpit.nix` | Enable cockpit. |
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.server.management.enable`. |
+| [`dashboards/`](dashboards/) | Own Grafana dashboards. |
+| `glance-server-page.nix` | Page Server of Glance. |
 | `glance.nix` | Enable glance. |
 | `homeassistant.nix` | Enable Home Assistant. |
 | `homebox.nix` | Enable HomeBox inventory management. |
 | `monitoring.nix` | Enable Prometheus, Alertmanager, Loki and Grafana. |
+| `update-check.nix` | Compare the pinned sources and container images with upstream. |
 
 ## Options
 
@@ -27,7 +32,13 @@ Management, dashboards, home automation, inventory and monitoring.
 |---|---|---|---|
 | `nixos.server.management.cockpit.enable` | boolean | `false` | Enable cockpit. |
 | `nixos.server.management.enable` | boolean | `false` | Enable management modules bundle. |
+| `nixos.server.management.glance.calendar.enable` | boolean | `false` | Show the Sonarr and Radarr calendar on the page Server (needs ENV_SONARR_KEY and ENV_RADARR_KEY in the secret glance). |
 | `nixos.server.management.glance.enable` | boolean | `false` | Enable glance. |
+| `nixos.server.management.glance.homeassistant.enable` | boolean | `false` | Show Home Assistant sensors on the page Server (needs ENV_HA_TOKEN in the secret glance). |
+| `nixos.server.management.glance.homeassistant.entities` | list of string | `[ ]` | Entities shown on the page Server. |
+| `nixos.server.management.glance.jellyfin.enable` | boolean | `false` | Show Jellyfin on the page Server (needs ENV_JELLYFIN_TOKEN in the secret glance). |
+| `nixos.server.management.glance.miniflux.enable` | boolean | `false` | Show the unread entries of Miniflux on the page Server (needs ENV_MINIFLUX_TOKEN in the secret glance). |
+| `nixos.server.management.glance.serverPage` | boolean | `config.networking.hostName == "NixOS-Server1"` | Add the page Server with a section per server, alerts and vulnerabilities. |
 | `nixos.server.management.homeassistant.enable` | boolean | `false` | Enable Home Assistant. |
 | `nixos.server.management.homeassistant.killswitch` | boolean | `false` | Provide script.killswitch, which publishes poweroff to the killswitch ntfy topic (secret killswitch/ha-env with NTFY_TOKEN and KILLSWITCH_TOPIC). |
 | `nixos.server.management.homebox.allowRegistration` | boolean | `false` | Allow new accounts (enable once to create the accounts). |
@@ -39,6 +50,9 @@ Management, dashboards, home automation, inventory and monitoring.
 | `nixos.server.management.monitoring.pihole` | boolean | `false` | Export Pi-hole metrics (secret monitoring/pihole-env with PIHOLE_PASSWORD). |
 | `nixos.server.management.monitoring.probes` | list of string | `all nginx vhosts of this host and the main public services` | HTTPS endpoints checked for availability and certificate expiry. |
 | `nixos.server.management.monitoring.retention` | string | `"180d"` | Retention of the metrics. |
+
+| `nixos.server.management.update-check.enable` | boolean | `false` | Compare the pinned sources and container images with upstream once a day. |
+| `nixos.server.management.update-check.minecraftVersion` | string | `"1.21.11"` | Minecraft version the pinned Fabric mods have to support. |
 
 ## Notes
 

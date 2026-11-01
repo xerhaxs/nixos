@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./countdown.nix
     ./minecraft.nix
   ];
 

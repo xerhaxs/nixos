@@ -5,6 +5,20 @@
   ...
 }:
 
+let
+  cfg = config.nixos.server.management.glance;
+
+  # API keys are added to the secret glance, a widget stays off until its key exists there.
+  integration =
+    name: variable:
+    lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = "Show ${name} on the page Server (needs ${variable} in the secret glance).";
+    };
+in
+
 {
   options.nixos = {
     server.management.glance = {
@@ -14,10 +28,32 @@
         example = true;
         description = "Enable glance.";
       };
+
+      serverPage = lib.mkOption {
+        type = lib.types.bool;
+        default = config.networking.hostName == "NixOS-Server1";
+        defaultText = lib.literalExpression config.networking.hostName == "NixOS-Server1";
+        description = "Add the page Server with a section per server, alerts and vulnerabilities (needs the monitoring of this host).";
+      };
+
+      calendar.enable = integration "the Sonarr and Radarr calendar" "ENV_SONARR_KEY and ENV_RADARR_KEY";
+      jellyfin.enable = integration "Jellyfin" "ENV_JELLYFIN_TOKEN";
+      miniflux.enable = integration "the unread entries of Miniflux" "ENV_MINIFLUX_TOKEN";
+
+      homeassistant = {
+        enable = integration "Home Assistant sensors" "ENV_HA_TOKEN";
+
+        entities = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          example = [ "sensor.waermepumpe_leistung" ];
+          description = "Entities shown on the page Server.";
+        };
+      };
     };
   };
 
-  config = lib.mkIf config.nixos.server.management.glance.enable {
+  config = lib.mkIf cfg.enable {
     sops.secrets."glance" = { };
 
     services.glance = {
@@ -522,153 +558,16 @@
                       }
                     ];
                   }
-                  {
-                    type = "group";
-                    title = "Server Monitoring";
-                    widgets = [
-                      {
-                        type = "monitor";
-                        cache = "1m";
-                        sites = [
-                          {
-                            title = "Cockpit";
-                            url = "https://cockpit.${config.nixos.server.network.nginx.domain}";
-                            icon = "auto-invert di:cockpit";
-                          }
-                          {
-                            title = "Pi-hole";
-                            url = "https://pihole.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:pi-hole";
-                          }
-                          {
-                            title = "Home Assistant";
-                            url = "https://homeassistant.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:home-assistant";
-                          }
-
-                          {
-                            title = "Radicale";
-                            url = "https://radicale.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:radicale";
-                          }
-                          {
-                            title = "Linkwarden";
-                            url = "https://linkwarden.${config.nixos.server.network.nginx.domain}";
-                            icon = "sh:linkwarden";
-                          }
-                          {
-                            title = "Jellyfin";
-                            url = "https://jellyfin.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:jellyfin";
-                          }
-                          {
-                            title = "SABnzbd";
-                            url = "https://sabnzbd.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:sabnzbd";
-                          }
-
-                          {
-                            title = "NZBHydra2";
-                            url = "https://nzbhydra.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:nzbhydra2";
-                          }
-                          {
-                            title = "Radarr";
-                            url = "https://radarr.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:radarr";
-                          }
-                          {
-                            title = "Sonarr";
-                            url = "https://sonarr.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:sonarr";
-                          }
-
-                          {
-                            title = "Lidarr";
-                            url = "https://lidarr.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:lidarr";
-                          }
-                          {
-                            title = "Readarr";
-                            url = "https://readarr.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:readarr";
-                          }
-                          {
-                            title = "Ollama";
-                            url = "https://ollama.${config.nixos.server.network.nginx.domain}";
-                            icon = "auto-invert di:ollama";
-                          }
-                          {
-                            title = "ComfyUI";
-                            url = "https://comfyui.${config.nixos.server.network.nginx.domain}";
-                            icon = "auto-invert di:comfy-ui";
-                          }
-                          {
-                            title = "Libretranslate";
-                            url = "https://libretranslate.${config.nixos.server.network.nginx.domain}";
-                            icon = "auto-invert di:libretranslate";
-                          }
-                          {
-                            title = "SearXNG";
-                            url = "https://searxng.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:searxng";
-                          }
-                          {
-                            title = "Kiwix";
-                            url = "https://kiwix.${config.nixos.server.network.nginx.domain}/#lang=";
-                            icon = "auto-invert di:kiwix";
-                          }
-                          {
-                            title = "Networking Toolbox";
-                            url = "https://networkingtoolbox.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:networking-toolbox-dark";
-                          }
-
-                          {
-                            title = "Syncthing";
-                            url = "https://syncthing.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:syncthing";
-                          }
-                          {
-                            title = "Forgejo";
-                            url = "https://forgejo.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:forgejo";
-                          }
-                          {
-                            title = "Invidious";
-                            url = "https://invidious.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:invidious";
-                          }
-
-                          {
-                            title = "LibReddit";
-                            url = "https://libreddit.${config.nixos.server.network.nginx.domain}";
-                            icon = "di:redlib";
-                          }
-
-                          /*
-                            {
-                                                     title = "Matrix";
-                                                     url = "https://matrix.${config.nixos.site.domain}";
-                                                     icon = "di:matrix-light";
-                                                   }
-                                                   {
-                                                     title = "Mumble";
-                                                     url = "https://murmur.${config.nixos.site.domain}";
-                                                     icon = "di:mumble";
-                                                   }
-                                                   {
-                                                     title = "Flolserver";
-                                                     url = "https://flolserver.${config.nixos.site.domain}";
-                                                     icon = "di:minecraft";
-                                                     allow-insecure = true;
-                                                   }
-                          */
-                        ];
-                      }
-                    ];
-                  }
-                ];
+                ]
+                ++ lib.optional (!cfg.serverPage) {
+                  type = "monitor";
+                  title = "Dienste";
+                  cache = "1m";
+                  sites = map (name: {
+                    title = lib.head (lib.splitString "." name);
+                    url = "https://${name}";
+                  }) (lib.filter (name: name != "_") (lib.attrNames config.services.nginx.virtualHosts));
+                };
               }
 
               {
@@ -789,7 +688,8 @@
               }
             ];
           }
-        ];
+        ]
+        ++ lib.optional cfg.serverPage (import ./glance-server-page.nix { inherit config lib; });
       };
     };
 

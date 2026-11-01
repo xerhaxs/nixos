@@ -32,6 +32,7 @@
     ./sops.nix
     ./ssh.nix
     ./user.nix
+    ./vulnscan.nix
     ./wireguard.nix
   ];
 
@@ -70,6 +71,7 @@
       sops.enable = true;
       ssh.enable = true;
       user.enable = true;
+      vulnscan.enable = lib.mkDefault config.nixos.system.monitoring-agent.enable;
       wireguard.enable = lib.mkDefault false;
     };
   };

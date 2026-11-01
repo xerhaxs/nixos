@@ -23,9 +23,9 @@
       crosspipe
     ];
 
-    # Microphone chain: DeepFilterNet noise reduction (RNNoise kept as bypassed alternative), soft gate,
-    # EQ (high-pass 80 Hz, presence), compressor 3:1, de-esser, limiter -1.5 dB.
-    # Based on https://gist.github.com/jtrv/47542c8be6345951802eebcf9dc7da31, tune per microphone.
+    # Chain for a Rode Procaster on input 1 of a Behringer UMC22 (docs/microphone.md): mono from the left
+    # channel, DeepFilterNet against preamp noise, soft gate, EQ (high-pass 85 Hz, less 200 and 450 Hz,
+    # a little presence), compressor 3:1, de-esser, limiter -1 dB.
     services.easyeffects = {
       enable = true;
       preset.input = "microphone";

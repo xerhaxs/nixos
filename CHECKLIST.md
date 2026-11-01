@@ -25,7 +25,7 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 
 | ✓ | Änderung | Wo | Prüfung |
 |---|---|---|---|
-| [ ] | `stateVersion` pro Host, Flake-autoUpgrade (Server, ohne Reboot) | `hosts/*/machine.nix` | `systemctl list-timers \| grep nixos-upgrade` auf den Servern |
+| [ ] | `stateVersion` pro Host, Flake-autoUpgrade (Server, ohne Reboot) | `hosts/*/machine.nix`, bei Framework und Convertible `configuration.nix` | `systemctl list-timers \| grep nixos-upgrade` auf den Servern |
 | [ ] | Power-Taste fährt sofort herunter, logind auf allen Hosts, upower `PowerOff` bei 3 % | `nixosModules/system/powermanagement.nix` | Laptop: `upower -d \| grep -i action` |
 | [ ] | Hardening: sysctls, Kernel-Parameter, Modul-Blacklist, hidepid, auditd, sudo-Log, Coredump-Limits | `nixosModules/system/hardening.nix` | `sysctl kernel.kptr_restrict`, `cat /proc/cmdline`, `mount \| grep hidepid` |
 | [ ] | Neu: `dev.tty.ldisc_autoload=0`, `vm.unprivileged_userfaultfd=0` | dito | `sysctl dev.tty.ldisc_autoload vm.unprivileged_userfaultfd` |
@@ -155,3 +155,28 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 - Ob Stalwart die CalDAV/CardDAV-Pfade `/dav/cal/<adresse>/default/` und `/dav/card/<adresse>/default/` so bereitstellt. Falls nicht, die URL in `thunderbird.nix` anpassen.
 - Hardened Malloc auf ServerPublic: zuerst in VMServerPublic testen (TODO 8.5).
 - Ob der Loki-Alarm im Audit-Format deiner Kernel-Version greift (TODO 6.7).
+
+## J. Dritte Arbeitsrunde
+
+Stand der Verifikation: Alle elf Hosts evaluieren (mit dem uncommitteten privaten Repo per `--override-input`). Real getestet habe ich den CVE-Scan auf NixOS-Desktop (SBOM, grype, Metrik-Export, `promtool`), `update-check` gegen die echten Upstreams, die 13 Alarmregeln, alle Glance-Widgets gegen Stub-APIs und die Countdown-Seite im Browser (Handy- und Desktop-Breite). Nicht getestet sind Grafana-Darstellung, BlueMap, die Thunderbird-Konten und das EasyEffects-Preset mit echtem Mikrofon.
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | Pins über `flake.lock`: Dangerzone, hyprgrass, wf-touch, Briar Mailbox, Weishaupt-API, BlueMap, Fabric API, Grafana-Dashboards | `flake.nix`, `pkgs/`, Module | `git grep -n 'sha256-' -- '*.nix'` zeigt nur auskommentierte Kiwix-Einträge |
+| [ ] | Container-Images per Digest, ein Ort, Update-Befehl | `pkgs/images.json`, `pkgs/update-images.nix` | `nix run .#update-images -- --check` |
+| [ ] | CVE-Scan auf allen Hosts | `nixosModules/system/vulnscan.nix` | `sudo systemctl start vulnscan`, `cat /var/lib/prometheus-node-exporter/vulnscan.prom` |
+| [ ] | Versionsstand pro Host (Commit, Neustart nötig, Alter der Inputs) | `nixosModules/system/monitoring-agent.nix` | `cat /var/lib/prometheus-node-exporter/nixos-version.prom` |
+| [ ] | Update-Prüfung auf Server1 | `nixosModules/server/management/update-check.nix` | `sudo systemctl start update-check`, Dashboard |
+| [ ] | Grafana-Dashboard „Security und Updates“, vier neue Alarme | `nixosModules/server/management/dashboards/`, `monitoring.nix` | Grafana → NixOS |
+| [ ] | Glance: Seite „Server“ mit Abschnitten pro Server, Stats aus Prometheus, Alarme, CVEs, Minecraft | `nixosModules/server/management/glance-server-page.nix` | `https://glance.<homeDomain>/server` |
+| [ ] | Glance-Widgets Jellyfin, Kalender, Miniflux, Home Assistant (aus, bis die Keys existieren) | dito | TODO 13.12 |
+| [ ] | Neuer Host NixOS-ServerGaming und NixOS-VMServerGaming, Minecraft von ServerPublic dorthin verschoben | `hosts/NixOS-ServerGaming` | TODO 8B |
+| [ ] | BlueMap auf `bluemap.<domain>` (`flolserver.<domain>` als Alias) | `hosts/NixOS-ServerGaming/minecraft.nix` | Karte im Browser |
+| [ ] | Countdown-Seite auf `countdown.<domain>`, Datum in `server.nix` | `nixosModules/server/game/countdown.*` | Seite auf dem Handy öffnen |
+| [ ] | EasyEffects-Preset für Rode Procaster und Behringer UMC22 | `homeModules/applications/media/`, `docs/microphone.md` | Probeaufnahme |
+| [ ] | Thunderbird mit vier Konten, Proton als Hauptkonto | `homeModules/applications/communication/thunderbird.nix` | nach TODO 1.3 und 11.5 |
+| [ ] | Schul-WLAN entfernt (Modul, `secrets.yaml`, `nixos-portable.yaml`) | `nixosModules/system/networking.nix` | `nmcli connection`, kein Profil `school` |
+| [ ] | `system.autoUpgrade` auf den Servern aus, bis gemergt ist | `hosts/*/configuration.nix` | TODO Phase 17 |
+| [ ] | Fix: fail2ban setzte die Nextcloud-Filterdatei auch ohne Nextcloud | `nixosModules/server/network/fail2ban.nix` | Eval von NixOS-ServerGaming |
+| [ ] | Fix: Claude-Code-Erweiterung im Unfree-Prädikat, Clients evaluierten sonst nicht | `nixosModules/system/nixos.nix` | TODO 3.1 |
+| [ ] | Wiki-Inhaltsliste | `WIKI-TODO.md` | TODO 15.10 |

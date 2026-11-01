@@ -22,8 +22,10 @@ let
       "cryptpad"
       "push"
       "rss"
-      "stalwart"
+      "bluemap"
       "code"
+      "countdown"
+      "stalwart"
     ]
     ++ [
       "mail.${mailDomain}"

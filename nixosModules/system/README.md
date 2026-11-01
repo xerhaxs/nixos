@@ -47,6 +47,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `sops.nix` | Enable Sops. |
 | `ssh.nix` | Enable ssh with sshguard. |
 | `user.nix` | Setup the system user. |
+| `vulnscan.nix` | Scan the closure of the running system for known vulnerabilities. |
 | `wireguard.nix` | Enable the WireGuard network. |
 
 ## Options
@@ -59,10 +60,12 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.site.homeDomain` | string | `private site.nix (homeDomain)` | Domain of the services in the home network. |
 | `nixos.site.initialHashedPasswords` | attribute set of string | `private site.nix (initialHashedPasswords)` | Initial password hash of the user per host (lowercase hostname), used until user.passwordFromSops is enabled. |
 | `nixos.site.mailAddress` | null or string | `private site.nix (mailAddress)` | Own mail address on the mail server (Thunderbird account). |
+| `nixos.site.mailAccounts` | attribute set of attribute set of string | `private site.nix (mailAccounts)` | Addresses of the other mail accounts in Thunderbird: proton, dlrg, oneandone (address, optional realName). |
 | `nixos.site.mailDomain` | string | `private site.nix (mailDomain)` | Domain of the mail addresses and the mail server. |
 | `nixos.site.mailRealName` | string | `private site.nix (mailRealName)` | Display name of the own mail address. |
 | `nixos.site.pgpFingerprint` | null or string | `private site.nix (pgpFingerprint)` | Fingerprint of the own OpenPGP key (Thunderbird identity, GnuPG default key). |
 | `nixos.site.pgpPublicKey` | null or absolute path | `private pgp/public.asc if it exists` | Own OpenPGP public key (ASCII armored), published by WKD on the mail server and imported into GnuPG. |
+| `nixos.site.serverGaming` | attribute set of anything | `private site.nix (serverGaming)` | Network data of NixOS-ServerGaming. |
 | `nixos.site.serverPublic` | attribute set of anything | `private site.nix (serverPublic)` | Network data of NixOS-ServerPublic. |
 | `nixos.system.boot.enable` | boolean | `false` | Set boot options. |
 | `nixos.system.bootloader.biosDevice` | null or string | `null` | Additionally install limine for legacy BIOS boot on this device (e.g. VPS without UEFI). |
@@ -123,7 +126,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict). Pi-hole is used through WireGuard when it is up. Captive portals need a manual workaround. |
 | `nixos.system.networking.wifi.enable` | boolean | `false` | Provide the wifi networks from sops (secret wifi) as read-only NetworkManager profiles. |
 | `nixos.system.networking.wifi.homeNetworks` | list of string | `[   "HOME" ]` | Networks of the sops wifi profiles which use the permanent MAC address. |
-| `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10;   HOTSPOT = 5;   SCHOOL = 0; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
+| `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10;   HOTSPOT = 5; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
 | `nixos.system.nh.enable` | boolean | `false` | Enable nh. |
 | `nixos.system.nixos.enable` | boolean | `false` | Enable the default NixOS settings. |
 | `nixos.system.nixosvm.enable` | boolean | `false` | Enable nixosvm. |
@@ -160,8 +163,12 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.ssh.whitelist` | list of string | `[   "10.75.0.40"   "10.75.0.80" ]` | Addresses or networks never blocked by sshguard. |
 | `nixos.system.user.enable` | boolean | `false` | Setup the system user. |
 | `nixos.system.user.passwordFromSops` | boolean | `false` | Read the password hash of the system user from sops (user/<hostname>/<username>). |
+| `nixos.system.vulnscan.enable` | boolean | `false` | Scan the closure of the running system for known vulnerabilities (sbomnix + grype) and export the result to Prometheus. |
+| `nixos.system.vulnscan.ignore` | list of string | `[ ]` | Checked false positives. |
+| `nixos.system.vulnscan.interval` | string | `"weekly"` on desktops, `"daily"` on servers | systemd OnCalendar expression of the scan. |
 | `nixos.system.wireguard.dns` | null or string | `Pi-hole on NixOS-Server1 for desktops` | DNS server used for all domains while the tunnel is up (Pi-hole on NixOS-Server1). |
 | `nixos.system.wireguard.enable` | boolean | `false` | Enable the WireGuard network. |
+| `nixos.system.wireguard.enrolled` | boolean | `false` | Whether this host has a public key in the peer list, so the hub accepts it. |
 | `nixos.system.wireguard.hasPeers` | boolean | `true` | Whether peers with public keys exist for this host. |
 | `nixos.system.wireguard.hubAddress` | string | `config.nixos.site.serverPublic.ipv4` | Public IP of the hub (an IP, so the tunnel works without DNS and can bypass Mullvad). |
 | `nixos.system.wireguard.interface` | string | `"wg0"` | Name of the WireGuard interface. |

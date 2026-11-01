@@ -12,6 +12,7 @@
     ./homeassistant.nix
     ./homebox.nix
     ./monitoring.nix
+    ./update-check.nix
   ];
 
   options.nixos = {
@@ -32,6 +33,7 @@
       homeassistant.enable = true;
       homebox.enable = true;
       monitoring.enable = true;
+      update-check.enable = lib.mkDefault false;
     };
   };
 }

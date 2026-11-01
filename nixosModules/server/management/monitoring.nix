@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -37,69 +38,44 @@ let
   alertmanagerPort = 9093;
   blackboxPort = 9115;
 
+  # The JSON of grafana.com comes from the flake inputs grafana-<name> (always the latest revision).
   dashboard =
-    id: revision: hash:
-    pkgs.runCommand "grafana-dashboard-${toString id}.json"
-      {
-        src = pkgs.fetchurl {
-          url = "https://grafana.com/api/dashboards/${toString id}/revisions/${toString revision}/download";
-          name = "grafana-dashboard-${toString id}-${toString revision}.json";
-          inherit hash;
-        };
-      }
-      ''
-        sed -e 's/\''${DS_PROMETHEUS}/prometheus/g' \
-            -e 's/\''${DS_SIGNCL-PROMETHEUS}/prometheus/g' \
-            -e 's/\''${DS_LOKI}/loki/g' \
-            "$src" > "$out"
-      '';
+    name:
+    pkgs.runCommand "grafana-dashboard-${name}.json" { src = inputs."grafana-${name}"; } ''
+      sed -e 's/\''${DS_PROMETHEUS}/prometheus/g' \
+          -e 's/\''${DS_SIGNCL-PROMETHEUS}/prometheus/g' \
+          -e 's/\''${DS_LOKI}/loki/g' \
+          "$src" > "$out"
+    '';
 
-  dashboards = pkgs.linkFarm "grafana-dashboards" [
-    {
-      name = "node-exporter-full.json";
-      path = dashboard 1860 45 "sha256-GExrdAnzBtp1Ul13cvcZRbEM6iOtFrXXjEaY6g6lGYY=";
-    }
-    {
-      name = "zfs.json";
-      path = dashboard 7845 4 "sha256-zJD1o7oQY711mZqNUKjqKBixN88lAjXDAiWCpUEut9c=";
-    }
-    {
-      name = "smartctl.json";
-      path = dashboard 22604 4 "sha256-ah36BdFIcaprUz39hRzuYVzfp3diEBckmalMaOls5kY=";
-    }
-    {
-      name = "nginx.json";
-      path = dashboard 12708 1 "sha256-T1HqWbwt+i/We+Y2B7hcl3CijGxZF5QI38aPcXjk9y0=";
-    }
-    {
-      name = "postgresql.json";
-      path = dashboard 9628 8 "sha256-UhusNAZbyt7fJV/DhFUK4FKOmnTpG0R15YO2r+nDnMc=";
-    }
-    {
-      name = "pihole.json";
-      path = dashboard 10176 3 "sha256-MB4J1WAqLlV2eMFG67sYUbhJk3g1LnfjU+iEWejgyKE=";
-    }
-    {
-      name = "unbound.json";
-      path = dashboard 11705 1 "sha256-Thje1QgDEb+Qyj3FlwG6syIl/86vs6L7qX53NkctsZk=";
-    }
-    {
-      name = "blackbox.json";
-      path = dashboard 7587 3 "sha256-zkA7uHjiLdJQd1t6qFIZE+YgF0EXfKlU+npPsd2Jj6w=";
-    }
-    {
-      name = "wireguard.json";
-      path = dashboard 12177 1 "sha256-0rQvtdMUS8hIDTQD1VX9e3pgk1IVzHSWRA7G7GnDgq8=";
-    }
-    {
-      name = "alertmanager.json";
-      path = dashboard 9578 4 "sha256-/scCKBKqTjRKKImIrEYLBKGweOUnkx+QsD5yLfdXW5o=";
-    }
-    {
-      name = "logs.json";
-      path = dashboard 13639 2 "sha256-2dRUkooIA1E0Qshg58N+9duIW25iRruu1oW8ckBUNIA=";
-    }
-  ];
+  dashboards = pkgs.linkFarm "grafana-dashboards" (
+    map
+      (name: {
+        name = "${name}.json";
+        path = dashboard name;
+      })
+      [
+        "alertmanager"
+        "blackbox"
+        "logs"
+        "nginx"
+        "node-exporter-full"
+        "pihole"
+        "postgresql"
+        "smartctl"
+        "unbound"
+        "wireguard"
+        "zfs"
+      ]
+    ++ [
+      {
+        name = "security-updates.json";
+        path = pkgs.writeText "security-updates.json" (
+          builtins.toJSON (import ./dashboards/security-updates.nix)
+        );
+      }
+    ]
+  );
 
   nodeTargets = lib.mapAttrsToList (name: address: {
     targets = [ "${address}:9100" ];
@@ -121,7 +97,7 @@ let
         rules = [
           {
             alert = "InstanceDown";
-            expr = ''up{job="node", instance=~"NixOS-Server1|NixOS-ServerPublic"} == 0'';
+            expr = ''up{job="node", instance=~"NixOS-Server1|NixOS-ServerGaming|NixOS-ServerPublic"} == 0'';
             "for" = "5m";
             labels.severity = "critical";
             annotations.summary = "{{ $labels.instance }} is not reachable";
@@ -179,6 +155,33 @@ let
             labels.severity = "warning";
             annotations.summary = "{{ $labels.instance }} is not reachable";
           }
+          {
+            alert = "NewCriticalVulnerability";
+            expr = ''delta(nixos_cve_open{severity="Critical"}[1d]) > 0'';
+            labels.severity = "warning";
+            annotations.summary = "{{ $labels.instance }}: new critical CVE candidates, see the dashboard Security und Updates";
+          }
+          {
+            alert = "VulnerabilityScanStale";
+            expr = "time() - nixos_cve_scan_timestamp_seconds > 14 * 86400";
+            "for" = "1h";
+            labels.severity = "warning";
+            annotations.summary = "{{ $labels.instance }}: the last vulnerability scan is older than 14 days";
+          }
+          {
+            alert = "RebootRequired";
+            expr = "nixos_reboot_required == 1";
+            "for" = "3d";
+            labels.severity = "warning";
+            annotations.summary = "{{ $labels.instance }} runs an old kernel or initrd, reboot it";
+          }
+          {
+            alert = "NixpkgsOutdated";
+            expr = ''(time() - nixos_flake_input_last_modified_seconds{input="nixpkgs"}) / 86400 > 21'';
+            "for" = "1d";
+            labels.severity = "warning";
+            annotations.summary = "{{ $labels.instance }}: nixpkgs is older than 21 days, update flake.lock";
+          }
         ];
       }
     ];
@@ -202,6 +205,7 @@ in
           NixOS-Desktop = "10.75.0.80";
           NixOS-Framework = "10.100.0.4";
           NixOS-Convertible = "10.100.0.5";
+          NixOS-ServerGaming = "10.100.0.6";
           NixOS-ServerPublic = "10.100.0.1";
         };
         description = "Hosts to scrape (hostname -> address in the LAN or the WireGuard network).";
@@ -220,6 +224,8 @@ in
             "matrix"
             "cryptpad"
             "push"
+            "bluemap"
+            "countdown"
           ]
           ++ [ "https://mail.${config.nixos.site.mailDomain}" ];
         defaultText = lib.literalExpression "all nginx vhosts of this host and the main public services";
@@ -304,6 +310,7 @@ in
         ])
         (exporterJob "nginx" 9113 [
           "NixOS-Server1"
+          "NixOS-ServerGaming"
           "NixOS-ServerPublic"
         ])
         (exporterJob "postgres" 9187 [
@@ -311,8 +318,9 @@ in
           "NixOS-ServerPublic"
         ])
         (exporterJob "wireguard" 9586 [
-          "NixOS-ServerPublic"
           "NixOS-Server1"
+          "NixOS-ServerGaming"
+          "NixOS-ServerPublic"
         ])
         {
           job_name = "unbound";

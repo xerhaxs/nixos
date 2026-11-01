@@ -7,7 +7,7 @@ Media players, recording, RSS and download tools.
 ## How it works
 
 - mpv, VLC, Clementine, FreeTube, Fluent Reader, OBS Studio, EasyEffects, FFmpeg, yt-dlp, Gwenview.
-- EasyEffects loads the microphone chain `easyeffects-microphone.json` (DeepFilterNet noise reduction, gate, EQ, compressor, de-esser, limiter) as input preset.
+- EasyEffects loads the microphone chain `easyeffects-microphone.json` for a Rode Procaster on a Behringer UMC22 as input preset (`docs/microphone.md`).
 - Fluent Reader is prefilled with the Miniflux sync of NixOS-ServerPublic (`rss.<domain>`, API key entered once in the app).
 
 ## Contents

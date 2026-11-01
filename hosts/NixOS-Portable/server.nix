@@ -12,7 +12,7 @@
     { config, ... }:
     {
       imports = [
-        ../NixOS-ServerPublic/minecraft.nix
+        ../NixOS-ServerGaming/minecraft.nix
       ];
 
       system.nixos.tags = [ "server" ];

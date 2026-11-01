@@ -25,6 +25,40 @@ let
       iptables -A nixos-fw -p tcp -s ${source} --dport ${toString port} -j nixos-fw-accept
     '') ports
   ) cfg.scrapers;
+
+  textfileDir = "/var/lib/prometheus-node-exporter";
+
+  lock = lib.importJSON ../../flake.lock;
+
+  inputMetrics = pkgs.writeText "flake-inputs.prom" (
+    lib.concatStrings (
+      lib.mapAttrsToList (
+        name: node:
+        let
+          locked = lock.nodes.${node}.locked or { };
+          rev = lib.substring 0 7 (locked.rev or "");
+        in
+        lib.optionalString (locked ? lastModified) ''
+          nixos_flake_input_last_modified_seconds{input="${name}",rev="${rev}"} ${toString locked.lastModified}
+        ''
+      ) lock.nodes.root.inputs
+    )
+  );
+
+  versionMetrics = pkgs.writeShellScript "nixos-version-metrics" ''
+    reboot=0
+    for item in initrd kernel kernel-modules; do
+      if [ "$(readlink /run/booted-system/$item)" != "$(readlink /run/current-system/$item)" ]; then
+        reboot=1
+      fi
+    done
+    {
+      cat ${inputMetrics}
+      echo "nixos_reboot_required $reboot"
+      echo "nixos_system_info{revision=\"$(/run/current-system/sw/bin/nixos-version --configuration-revision | cut -c1-7)\",kernel=\"$(${pkgs.coreutils}/bin/uname -r)\"} 1"
+    } > ${textfileDir}/nixos-version.prom.tmp
+    mv ${textfileDir}/nixos-version.prom.tmp ${textfileDir}/nixos-version.prom
+  '';
 in
 
 {
@@ -105,8 +139,28 @@ in
     services.nginx.statusPage = lib.mkIf config.services.nginx.enable true;
 
     systemd.tmpfiles.rules = [
-      "d /var/lib/prometheus-node-exporter 0755 root root -"
+      "d ${textfileDir} 0755 root root -"
     ];
+
+    # Age of the flake inputs, deployed commit and whether a reboot is pending.
+    systemd.services.nixos-version-metrics = {
+      description = "Export the version of the running system";
+      path = [ pkgs.coreutils ];
+      serviceConfig = config.nixos.system.hardening.unitHardening // {
+        Type = "oneshot";
+        ExecStart = versionMetrics;
+        ProtectSystem = "strict";
+        ReadWritePaths = [ textfileDir ];
+      };
+    };
+
+    systemd.timers.nixos-version-metrics = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "2min";
+        OnUnitActiveSec = "1h";
+      };
+    };
 
     networking.firewall.extraCommands = firewallRules;
 

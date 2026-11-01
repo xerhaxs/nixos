@@ -34,6 +34,8 @@
 
         "lsfg-vk"
 
+        "vscode-extension-anthropic-claude-code"
+
         "minecraft-server"
 
         "steam"

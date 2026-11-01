@@ -1,6 +1,6 @@
 # TODO – Schritt-für-Schritt-Anleitung
 
-Stand: Alle Änderungen liegen nur im Working Tree. Es wurde noch nichts committet und kein Rebuild gemacht. Arbeite die Phasen in dieser Reihenfolge ab. Jeder Punkt ist ein Häkchen. Die Abnahme-Checkliste (was wurde geändert und wie prüfe ich es?) steht in [`CHECKLIST.md`](CHECKLIST.md).
+Stand: Das Rework liegt als Commit `f8c6420` auf dem Branch `rework`, noch nicht gepusht und noch ohne Rebuild. Die zweite Runde (Pins, CVE-Scan, Glance, ServerGaming, BlueMap, Countdown, EasyEffects, Thunderbird) liegt noch uncommittet im Working Tree, siehe 1.8 und 2.6. Arbeite die Phasen in dieser Reihenfolge ab. Jeder Punkt ist ein Häkchen. Die Abnahme-Checkliste (was wurde geändert und wie prüfe ich es?) steht in [`CHECKLIST.md`](CHECKLIST.md).
 
 Konventionen:
 
@@ -12,7 +12,7 @@ Konventionen:
 
 ## Phase 0 – Sichern und Überblick verschaffen
 
-- [X] 0.1 Sicherung beider Repos anlegen: `cp -a $REPO ~/nixos-backup-$(date +%F)` und `cp -a $PRIV ~/nixos-private-backup-$(date +%F)`.
+- [ ] 0.1 Sicherung beider Repos anlegen, nicht nach `~`, denn das Home liegt auf tmpfs und ist nach einem Reboot weg: `cp -a $REPO /mount/Backup/nixos-backup-$(date +%F)` und `cp -a $PRIV /mount/Backup/nixos-private-backup-$(date +%F)`.
 - [X] 0.2 Aktuelle Generation notieren: `nixos-rebuild list-generations | tail -3` (für einen möglichen Rollback).
 - [X] 0.3 Änderungen ansehen: `cd $REPO && git status && git diff --stat`. Neue Ordner: `pkgs/`, `docs/`, `hosts/NixOS-Portable/`, `hosts/NixOS-VMServerPublic/`, Hyprland-Module.
 - [X] 0.4 [`CHECKLIST.md`](CHECKLIST.md) einmal komplett durchlesen.
@@ -25,21 +25,26 @@ Konventionen:
   - [ ] `mailAddress = "<du>@<mailDomain>";` und `mailRealName = "<Name>";` (Thunderbird-Konto, CalDAV/CardDAV von Stalwart)
   - [ ] `pgpFingerprint = "<40 Zeichen>";` (sobald der PGP-Schlüssel existiert, siehe Phase 11)
   - [ ] `serverPublic`: echte VPS-Daten (Interface, IPv4/IPv6, Gateway, Storage Box)
+  - [ ] `serverGaming`: echte VPS-Daten des Gaming-Servers
+  - [ ] `mailAccounts`: Adressen von Proton, DLRG und 1&1 (Vorlage steht auskommentiert in `site.nix`)
 - [ ] 1.4 Optional: Den öffentlichen PGP-Schlüssel ablegen: `mkdir -p pgp && gpg --armor --export <adresse> > pgp/public.asc`. Er wird per WKD veröffentlicht und in GnuPG importiert.
 - [X] 1.5 In `secrets/nixos-portable.yaml` die Platzhalter `REPLACE_ME` ersetzen (`sops secrets/nixos-portable.yaml`): WLAN, Mullvad, NAS-SMB-Zugang, Alpha-Vantage-Key, `glance` → `ENV_LOCATION`. Die Werte kopierst du aus `sops -d secrets/secrets.yaml` im öffentlichen Repo.
 - [X] 1.6 Committen: `git add -A && git commit -m "site data, initial passwords, portable host"`.
 - [X] 1.7 Im öffentlichen Repo den Lock aktualisieren: `cd $REPO && nix flake update private`.
+- [ ] 1.8 Die neuen Änderungen im privaten Repo committen: `cd $PRIV && git add -A && git commit -m "gaming server, mail accounts, remove school wifi"`, danach `cd $REPO && nix flake update private`. Geändert sind `site.nix` (`serverGaming`, Vorlage `mailAccounts`), `secrets/.sops.yaml`, `secrets/nixos-portable.yaml` (Schul-WLAN entfernt), neu ist `secrets/nixos-servergaming.yaml` mit Platzhaltern. Ohne diesen Schritt evaluieren NixOS-ServerGaming und NixOS-VMServerGaming nicht.
 
 ## Phase 2 – Öffentliches Repository committen
 
-- [ ] 2.1 Eigenen Branch anlegen: `git switch -c rework`.
-- [ ] 2.2 Alle Dateien hinzufügen (Flakes ignorieren untracked files): `git add -A`.
-- [ ] 2.3 Prüfen, dass nichts Privates im öffentlichen Repo landet: `git diff --cached -- . ":!TODO.md" | grep -iE "<deine Domains>|BEGIN (OPENSSH|PGP) PRIVATE"` darf nichts finden (Ausnahme: die Git-Autoradresse in `homeModules/base/git.nix`, die ohnehin in jedem Commit steht).
-- [ ] 2.4 `git commit -m "rework: hyprland, portable host, dangerzone, hardening, docs"`.
+- [X] 2.1 Eigenen Branch anlegen: `git switch -c rework`.
+- [X] 2.2 Alle Dateien hinzufügen (Flakes ignorieren untracked files): `git add -A`.
+- [X] 2.3 Prüfen, dass nichts Privates im öffentlichen Repo landet: `git diff --cached -- . ':!TODO.md' | grep -E '^\+' | grep -iE '<deine Domains>|BEGIN (OPENSSH|PGP) PRIVATE'` darf nichts finden (Ausnahme: die Git-Autoradresse in `homeModules/base/git.nix`, die ohnehin in jedem Commit steht). Einfache Anführungszeichen sind nötig, sonst bricht bash bei `!` mit „event not found“ ab. `^\+` beschränkt die Prüfung auf hinzugefügte Zeilen; entfernte Zeilen (`-`) sind gewollt, denn dort verschwinden die alten Domains.
+- [X] 2.4 `git commit -m "rework: hyprland, portable host, dangerzone, hardening, docs"`.
+- [ ] 2.5 Hinweis: Der Input `private` zeigt noch auf einen lokalen Pfad. Das private GitHub-Repo kommt erst in Phase 17. Bis dahin vom Desktop aus deployen (`nixos-rebuild --target-host`, `nixos-anywhere`) und `rework` nicht nach `main` mergen. Lokale Rebuilds auf den Laptops und auf Portable gehen bis dahin nicht, `system.autoUpgrade` ist bewusst aus.
+- [ ] 2.6 Die zweite Runde committen: `git add -A`, Prüfung aus 2.3 wiederholen, dann `git commit -m "pins in flake.lock, cve scan, glance, gaming server, bluemap, countdown"`.
 
 ## Phase 3 – Bauen und testen, ohne etwas zu aktivieren
 
-- [ ] 3.1 Alle Hosts evaluieren: `for h in NixOS-Desktop NixOS-Framework NixOS-Convertible NixOS-Server1 NixOS-ServerPublic NixOS-Portable NixOS-VMDesktop NixOS-VMServer NixOS-VMServerPublic; do nix eval --raw .#nixosConfigurations.$h.config.system.build.toplevel.drvPath >/dev/null && echo "OK $h"; done`
+- [ ] 3.1 Alle Hosts evaluieren: `for h in NixOS-Desktop NixOS-Framework NixOS-Convertible NixOS-Server1 NixOS-ServerGaming NixOS-ServerPublic NixOS-Portable NixOS-VMDesktop NixOS-VMServer NixOS-VMServerGaming NixOS-VMServerPublic; do nix eval --raw .#nixosConfigurations.$h.config.system.build.toplevel.drvPath >/dev/null && echo "OK $h"; done`
 - [ ] 3.2 Den Desktop bauen: `nixos-rebuild build --flake .#NixOS-Desktop`. Das dauert, DangerZone und hyprgrass werden lokal gebaut.
 - [ ] 3.3 Unterschiede ansehen: `nix run nixpkgs#nvd -- diff /run/current-system ./result`.
 - [ ] 3.4 Optional in einer VM testen: `nixos-rebuild build-vm --flake .#NixOS-VMDesktop && ./result/bin/run-NixOS-VMDesktop-vm`. Darin Hyprland (SDDM → Hyprland) und Plasma starten.
@@ -50,7 +55,7 @@ Konventionen:
 Vorbereitung (vor dem Rebuild):
 
 - [ ] 4.1 machine-id dauerhaft machen (sonst bekommt jeder Boot eine neue ID): `sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id`.
-- [ ] 4.2 Dateien wegräumen, die Home Manager jetzt selbst verwaltet. Sonst bricht die Aktivierung mit "would be clobbered" ab:
+- [ ] 4.2 Dateien wegräumen, die Home Manager jetzt selbst verwaltet. Sonst bricht die Aktivierung mit "would be clobbered" ab (auf NixOS-Desktop gab es am 01.11.2026 keine dieser Dateien):
   - [ ] `mv ~/.ssh/config ~/.ssh/config.bak` (falls vorhanden; eigene Einträge später nach `homeModules/base/ssh.nix` übernehmen)
   - [ ] `mv ~/.gnupg/gpg.conf ~/.gnupg/gpg.conf.bak; mv ~/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf.bak` (falls vorhanden)
   - [ ] EasyEffects: falls `~/.local/share/easyeffects/input/microphone.json` existiert, umbenennen
@@ -64,18 +69,18 @@ Umstellen:
 
 Nacharbeiten:
 
-- [ ] 4.7 Back In Time: In `~/.config/backintime/config` den Wert `profile1.schedule.mode=1` auf `0` setzen und den alten Cron-Eintrag löschen: `crontab -r`. Der systemd-User-Timer übernimmt jetzt das tägliche Backup (`systemctl --user list-timers | grep backintime`).
+- [ ] 4.7 Back In Time: In `~/.config/backintime/config` den Wert `profile1.schedule.mode=1` auf `0` setzen. Einen alten Cron-Eintrag gibt es nicht mehr (`crontab -l` war am 01.11.2026 leer), das tägliche Backup lief bis hierhin also vermutlich nicht. Der systemd-User-Timer übernimmt jetzt das tägliche Backup (`systemctl --user list-timers | grep backintime`).
 - [ ] 4.8 KeePassXC-SSH-Agent einrichten: [`docs/keepassxc-ssh-agent.md`](docs/keepassxc-ssh-agent.md). Danach `ssh-add -l`.
 - [ ] 4.9 DangerZone einmal starten. Beim ersten Start lädt es das Container-Image und prüft es mit cosign. Danach eine Test-PDF umwandeln.
 - [ ] 4.10 Fluent Reader: In Miniflux unter Einstellungen → API-Schlüssel einen Key anlegen und ihn in Fluent Reader unter Einstellungen → Dienst eintragen. Funktioniert erst, wenn ServerPublic läuft.
-- [ ] 4.11 EasyEffects: Das Mikrofon-Preset ist geladen. Feinabstimmung pro Mikrofon: Gate-Schwelle, EQ, Kompressor. Wenn das Mikro nur links ankommt, Stereo Tools mit `LR>LL` ergänzen.
+- [ ] 4.11 EasyEffects: Das Preset `microphone` ist auf Rode Procaster und Behringer UMC22 abgestimmt (Eingang 1, 48V aus). Den Gain am UMC22 so einstellen, dass normale Sprache bei -18 bis -12 dBFS liegt, dann Probeaufnahme machen. Die Werte stammen aus den Datenblättern und sind nicht gemessen, Feinabstimmung siehe [`docs/microphone.md`](docs/microphone.md).
 - [ ] 4.12 Hyprland ausprobieren: Abmelden → SDDM → Session „Hyprland“. Tastenkürzel siehe `homeModules/desktop/windowManager/hyprland/README.md`.
 - [ ] 4.13 Fusion 360: `fusion360-install` einmal ausführen (braucht Internet und Autodesk-Konto), danach `fusion360` starten. Funktioniert es unter Wine nicht, ist die Alternative eine Windows-VM (siehe [`docs/virtual-machines.md`](docs/virtual-machines.md)).
 - [ ] 4.14 VRR/HDR wird beim Login per `kscreen-doctor` gesetzt. Den AVR-Monitor als Spiegel des Hauptmonitors einmalig in den KDE-Bildschirmeinstellungen einrichten (der Ausgabename ist unbekannt).
 
 ## Phase 5 – Laptops (NixOS-Framework, NixOS-Convertible)
 
-- [ ] 5.1 Pro Laptop: Phase 4.1 bis 4.6 wiederholen (`.#NixOS-Framework` bzw. `.#NixOS-Convertible`).
+- [ ] 5.1 Pro Laptop: Phase 4.1 bis 4.6 wiederholen (`.#NixOS-Framework` bzw. `.#NixOS-Convertible`). Solange Phase 17 offen ist, vom Desktop aus mit `--target-host jf@<laptop> --sudo` bauen.
 - [ ] 5.2 Convertible: In Hyprland Touch-Gesten, die Bildschirmtastatur (Wisch vom unteren Rand nach oben) und die automatische Drehung (Tablet-Modus) testen.
 - [ ] 5.3 Laptops: kanshi-Profile prüfen (Laptop allein / mit externem Monitor). Positionen bei Bedarf in `hosts/<host>/home/hyprland.nix` anpassen.
 
@@ -84,10 +89,12 @@ Nacharbeiten:
 - [ ] 6.1 machine-id sichern: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id'`.
 - [ ] 6.2 Bauen und als Boot-Generation setzen: `nixos-rebuild boot --flake .#NixOS-Server1 --target-host admin@NixOS-Server1 --sudo`, dann neu starten (Remote-Unlock per initrd-ssh).
 - [ ] 6.3 Intel-GPU für Ollama prüfen: `ssh admin@NixOS-Server1 'nix shell nixpkgs#vulkan-tools -c vulkaninfo --summary'` muss die Intel-GPU zeigen. Danach im Log `journalctl -u ollama | grep -i vulkan`.
-- [ ] 6.4 ComfyUI: `systemctl status podman-comfyui`. Der erste Start lädt das Image (mehrere GB). Danach `https://comfyui.<homeDomain>` öffnen und ein Modell (z. B. SDXL oder Flux) in `/pool01/applications/comfyui/models/checkpoints` legen. Später das Image-Digest in `nixosModules/server/tools/comfyui.nix` regelmäßig aktualisieren.
+- [ ] 6.4 ComfyUI: `systemctl status podman-comfyui`. Der erste Start lädt das Image (mehrere GB). Danach `https://comfyui.<homeDomain>` öffnen und ein Modell (z. B. SDXL oder Flux) in `/pool01/applications/comfyui/models/checkpoints` legen. Falls der Container nach einem Neustart nicht startet: `podman-comfyui` ist in `hosts/NixOS-Server1/services.nix` noch nicht hinter `zfs-mounts-ready` eingereiht, dann dort ergänzen.
 - [ ] 6.5 Neue DNS-Namen im Pi-hole: `comfyui`, `grafana`, `homebox` (kommen automatisch aus `lan.hosts`).
 - [ ] 6.6 Externe Sicherung jetzt per Skript: Platte anstecken, dann `sudo backup-external /dev/sdX1`. Fortschritt: `sudo tail -f /root/.local/share/backintime/takesnapshot_.log`.
 - [ ] 6.7 Loki-Alarm „ExecOutsideNixStore“ testen: per ssh eine Kopie von `/run/current-system/sw/bin/true` nach `/tmp` legen und ausführen. Innerhalb von 5 Minuten muss ein Alarm kommen (nach Phase 10).
+- [ ] 6.8 Glance prüfen: Seite „Server“ mit den Abschnitten pro Server. Die externen Server zeigen erst Daten, wenn WireGuard steht (Phase 9).
+- [ ] 6.9 Grafana: Dashboard „Security und Updates“ öffnen. Den ersten Scan von Hand starten: `sudo systemctl start vulnscan update-check` (lädt rund 3 GB Datenbank). Treffer sind Kandidaten, siehe [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
 
 ## Phase 7 – Passwörter, Schlüssel und sops neu aufsetzen
 
@@ -110,9 +117,9 @@ Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind 
 | LUKS-Passphrase | `sudo cryptsetup luksChangeKey /dev/disk/by-partlabel/disk-NIXOS-LUKS` (Mirror: `disk-NIXOS2-LUKS`) | nur KeePassXC |
 | TPM2 + PIN neu binden | `systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-with-pin=yes --tpm2-pcrs=7 <luks>` | – |
 | Recovery-Key | `systemd-cryptenroll --recovery-key <luks>` | Papier / KeePassXC |
-| SSH-Benutzerschlüssel | `ssh-keygen -t ed25519 -C jf@<host>` | KeePassXC; Public Key in `nixos.system.ssh.authorizedKeys` und `nixos.system.initrdssh.authorizedKeys` (`hosts/*/machine.nix`) |
+| SSH-Benutzerschlüssel | `ssh-keygen -t ed25519 -C jf@<host>` | KeePassXC; Public Key in `authorizedKeys` in `nixosModules/system/ssh.nix` und `nixos.system.initrdssh.authorizedKeys` in `hosts/NixOS-Server1/machine.nix` |
 | SSH-Hostkeys | `sudo rm /etc/ssh/ssh_host_*; sudo systemctl restart sshd` | `known_hosts` der Clients aktualisieren |
-| initrd-Hostkey (Server) | `ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key` | – |
+| initrd-Hostkey (Server) | `ssh-keygen -t ed25519 -N "" -f /etc/ssh/initrd_host_key` | – |
 | WireGuard | `wg genkey \| tee priv \| wg pubkey` | sops `wireguard/<hostname>/private`, Public Key in `nixosModules/system/wireguard.nix` |
 | Syncthing-Gerät | `syncthing generate --home /tmp/st` | sops `syncthing/<hostname>/cert` und `/key`; die neue Geräte-ID in `hosts/NixOS-Server1/syncthing.nix` |
 | WLAN | im Router ändern | sops `wifi` (`ENV_HOME_SSID`, `ENV_HOME_PSK`, …) |
@@ -122,18 +129,39 @@ Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind 
 | Forgejo | `openssl rand -hex 32` | sops `forgejo/secret`, `forgejo/token` |
 | Linkwarden | Zufallswert | sops `linkwarden/postgres`, `linkwarden/secret` |
 | SearXNG | `openssl rand -hex 32` | sops `searxng/secret` (`SEARXNG_SECRET=`) |
-| Glance | – | sops `glance` (`ENV_PIHOLE_PASSWORD`, `ENV_LOCATION`) |
+| Glance | – | sops `glance` (`ENV_PIHOLE_PASSWORD`, `ENV_LOCATION`, optional siehe 13.12) |
+| Pi-hole-Weboberfläche | `sudo pihole setpassword`, danach `pwhash` aus `/etc/pihole/pihole.toml` kopieren | steht als Hash im öffentlichen Repo (`nixosModules/server/network/pihole.nix`), besser ins private `site.nix` verschieben |
+| Grafana-Admin | beim ersten Login (Standard `admin`/`admin`) sofort ändern | nur KeePassXC |
+| Syncthing-GUI, code-server, Matrix, coturn, Nextcloud, Stalwart | Zufallswert | sops der jeweiligen Hosts, siehe 7.7 und Phase 8 |
+| NixOS-ServerGaming | wie ServerPublic: Login-Hash, DNS-API-Token, WireGuard, restic | `$PRIV/secrets/nixos-servergaming.yaml` |
 | SABnzbd, Monero-RPC | in der App | sops `sabnzbd`, `monero/users/*` |
 | ZFS-Schlüssel (Server1) | nur bei Neuanlage des Pools | sops `zfs/pool01` |
 | Cloudflare / DNS-API | beim Anbieter neu erzeugen, nur Zone:DNS:Edit | sops `nginx/acme/api_key` |
 | Mullvad, Alpha Vantage | beim Anbieter | sops `mullvad`, `alphavantage/api_key` |
 | Unbenutzte Altlasten | löschen | `changeme`, `changeme_env`, `cloudflare/api_key`, `nginx/acme/email`, `user/nixos-vmdesktop/admin`, `user/nixos-vmserver/admin` |
-| Dienst-Konten | in der jeweiligen Web-UI | Home Assistant, Grafana, Jellyfin, Forgejo, Nextcloud, Stalwart, Matrix, Miniflux, HomeBox, Linkwarden |
-| Externe Konten | beim Anbieter, 2FA prüfen | Proton, Mullvad, Registrar, VPS, Storage Box, GitHub/Codeberg |
+| Dienst-Konten | in der jeweiligen Web-UI | Home Assistant, Jellyfin, Forgejo, Nextcloud, Stalwart, Matrix, Miniflux, HomeBox, Linkwarden |
+| Externe Konten | beim Anbieter, 2FA prüfen | Proton, DLRG, 1&1, Mullvad, Registrar, VPS, Storage Box, GitHub/Codeberg |
 
 - [ ] 7.6 Danach auf jedem Host: `nixos-rebuild switch` und einmal neu anmelden.
 - [ ] 7.7 Syncthing-GUI-Passwort von Server1 als bcrypt-Hash nach sops verschieben (`services.syncthing.guiPasswordFile`).
 - [ ] 7.8 Radicale: htpasswd auf bcrypt umstellen (`htpasswd -B`), dann `htpasswd_encryption = "bcrypt"`.
+
+7C – Alle Passwörter ändern: Ablauf für jeden Eintrag der Tabelle 7B
+
+Jedes Passwort wird in KeePassXC erzeugt und dort zuerst gespeichert. So gibt es keinen Moment, in dem der neue Wert nur im Dienst steht.
+
+- [ ] 7.9 In KeePassXC eine Gruppe `NixOS` mit Untergruppen pro Host anlegen. Für jedes Geheimnis ein Eintrag, Titel = sops-Name, z. B. `user/nixos-desktop/jf`, im Notizfeld die Datei (`secrets/secrets.yaml` oder `$PRIV/secrets/<hostname>.yaml`).
+- [ ] 7.10 Passwort erzeugen, Würfel-Symbol im Eintrag:
+  - Login, LUKS, alles was du tippst: Reiter „Passphrase“, 7 Wörter
+  - Dienste und Tokens: Reiter „Passwort“, 40 Zeichen, nur Buchstaben und Ziffern, weil Sonderzeichen in Env-Dateien und YAML Probleme machen
+  - Eintrag speichern, erst dann weitermachen
+- [ ] 7.11 Wert eintragen, je nach Spalte in 7B:
+  - Klartext-Secret: `sops <datei>`, den Schlüssel ersetzen, Format beibehalten (`ENV_PASSWORD=<wert>`, `jf:<wert>`, `username=` und `password=`)
+  - Login-Passwort: Hash erzeugen mit `mkpasswd -m sha-512 -R 500000`, das Passwort aus KeePassXC einfügen, den Hash in sops unter `user/<hostname>/<user>` speichern. Nur der Hash kommt in sops.
+  - Nur in der App oder Web-UI (Spalte „nur KeePassXC“, Dienst-Konten, externe Konten): dort ändern, sops bleibt unberührt
+- [ ] 7.12 Dienste mit Klartext-Secret: Passwort zuerst im Dienst ändern, dann sops, dann `nixos-rebuild switch`. Dienst danach neu anmelden und testen.
+- [ ] 7.13 Liste abarbeiten: In KeePassXC im Eintrag das Ablaufdatum auf ein Jahr setzen, dann erinnert KeePassXC an die nächste Rotation.
+- [ ] 7.14 Abschluss: `git add` im jeweiligen Repo, committen, altes Passwort aus dem KeePassXC-Verlauf nur behalten, bis alle Geräte neu angemeldet sind. Danach sind die Werte in der alten Git-Historie wertlos.
 
 ## Phase 8 – NixOS-ServerPublic installieren
 
@@ -141,11 +169,23 @@ Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind 
 - [ ] 8.2 Den Host-Key vor der Installation erzeugen: `age-keygen -o keys.txt`, den Public Key in `.sops.yaml` als `sops_serverpublic` eintragen, dann `sops updatekeys secrets/nixos-serverpublic.yaml`.
 - [ ] 8.3 Die Platzhalter in `nixos-serverpublic.yaml` ersetzen: `nginx/acme/api_key` (DNS-API-Token), `mautrix-telegram/env` (API-ID und Hash von my.telegram.org), `user/nixos-serverpublic/admin` (neuer Hash, `mkpasswd -m sha-512 -R 500000`).
 - [ ] 8.4 Den Storage-Box-Public-Key (`restic@NixOS-ServerPublic`) in der Storage Box hinterlegen.
-- [ ] 8.5 Zuerst in der VM testen: `nixos-rebuild build-vm --flake .#NixOS-VMServerPublic`. Der hardened malloc ist aktiv. Prüfen, ob alle Dienste starten: `systemctl --failed`. Bricht ein Dienst ab, `nixos.system.hardening.hardenedMalloc = false;` setzen und das hier notieren.
-- [ ] 8.6 Installieren: `nixos-anywhere --flake .#NixOS-ServerPublic --disk-encryption-keys /tmp/secret.key <passphrase-datei> --disk-encryption-keys /tmp/keyfile.key <keyfile> --extra-files <dir mit secrets/keys.txt und etc/ssh/initrd_host_key> root@<ip>`.
+- [ ] 8.5 Zuerst in der VM testen: `nixos-rebuild build-vm --flake .#NixOS-VMServerPublic`. Der hardened malloc und `security.lockKernelModules` sind aktiv. Die VM hat keinen age-Key, Dienste mit Secrets können deshalb unabhängig davon scheitern. Prüfen, ob die übrigen Dienste starten: `systemctl --failed`. Bricht ein Dienst ab, `nixos.system.hardening.hardenedMalloc = false;` setzen und das hier notieren.
+- [ ] 8.6 Installieren: `nixos-anywhere --flake .#NixOS-ServerPublic --disk-encryption-keys /tmp/secret.key <passphrase-datei> --disk-encryption-keys /tmp/keyfile.key <keyfile> --extra-files <dir mit secrets/keys.txt, etc/ssh/initrd_host_key und persistent/etc/ssh/initrd_host_key> root@<ip>`. Den Hostkey in beide Pfade legen: Die Installation liest ihn unter `/etc/ssh`, nach dem ersten Boot kommt `/etc/ssh` aus `/persistent` (noch nicht getestet).
 - [ ] 8.7 DNS-Einträge anlegen: A/AAAA für alle Dienstnamen, dazu `openpgpkey.<mailDomain>`. Für die Mail-Domain MX, SPF, DKIM, DMARC, MTA-STS und TLS-RPT (die Werte zeigt die Stalwart-Weboberfläche), außerdem CAA und PTR beim Anbieter. Port 25 beim Anbieter freischalten lassen.
 - [ ] 8.8 Ersteinrichtung: Stalwart-Konten, Matrix-Nutzer (`register_new_matrix_user`), Bridge-Logins, Miniflux-Admin (`sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`), CryptPad `adminKeys`, ntfy-Admin, QR-Code der Briar-Mailbox (`journalctl -u podman-briar-mailbox`).
 - [ ] 8.9 Ping ist absichtlich deaktiviert (`icmp_echo_ignore_all`). Monitoring per Ping funktioniert deshalb nicht, IPv6/ICMPv6 bleibt erlaubt.
+
+8B – NixOS-ServerGaming installieren (Minecraft, BlueMap, Countdown)
+
+- [ ] 8.10 Eigenen VPS bestellen, 16 GB RAM oder mehr (Minecraft nutzt bis zu 12 GB), Daten in `$PRIV/site.nix` → `serverGaming` eintragen, committen, `nix flake update private`.
+- [ ] 8.11 Host-Key erzeugen wie in 8.2, in `$PRIV/secrets/.sops.yaml` als `sops_servergaming` eintragen, Zeilen aktivieren, `sops updatekeys nixos-servergaming.yaml`.
+- [ ] 8.12 Die Platzhalter in `nixos-servergaming.yaml` ersetzen: `user/nixos-servergaming/admin`, `nginx/acme/api_key`, `wireguard/nixos-servergaming/private`, `restic/*`.
+- [ ] 8.13 Countdown: In `hosts/NixOS-ServerGaming/server.nix` das echte Datum bei `target` eintragen (jetzt Platzhalter 01.01.2027) und die Texte prüfen. Der Name steht damit im öffentlichen Repo.
+- [ ] 8.14 Testen in der VM (`nixos-rebuild build-vm --flake .#NixOS-VMServerGaming`), dann installieren wie in 8.6 mit `.#NixOS-ServerGaming`.
+- [ ] 8.15 DNS: A/AAAA für `bluemap`, `countdown` und `flolserver` auf den Gaming-VPS.
+- [ ] 8.16 Die Welt und die Mods vom alten Server nach `/srv/minecraft/flolserver` kopieren. BlueMap und Fabric API kommen aus dem Flake, gleichnamige alte Jars in `mods/` löschen. Prüfen: `https://bluemap.<domain>` (das erste Rendern dauert lange), `https://countdown.<domain>`.
+- [ ] 8.17 WireGuard: Key erzeugen (Tabelle 7B), Public Key in `nixosModules/system/wireguard.nix` bei `NixOS-ServerGaming` eintragen, beide VPS neu bauen. Erst dann ist ssh nur noch über WireGuard erreichbar. Vorher `ssh admin@10.100.0.6` über den Tunnel testen, sonst bleibt nur initrd-ssh und die VNC-Konsole des Anbieters.
+- [ ] 8.18 Restic-Benutzer `nixos-servergaming` in `resticserver/htpasswd` von Server1 ergänzen, Storage-Box-Key hinterlegen.
 
 ## Phase 9 – WireGuard und Backups
 
@@ -178,7 +218,7 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
 - [ ] 11.2 Den DNS-Eintrag `openpgpkey.<mailDomain>` anlegen, ServerPublic neu bauen und WKD prüfen: `gpg --auto-key-locate clear,wkd --locate-keys <adresse>`.
 - [ ] 11.3 Stalwart Encryption at Rest: Auf `https://stalwart.<domain>` mit dem Mailkonto anmelden → Encryption at rest → Public Key einfügen → OpenPGP/AES256.
 - [ ] 11.4 Thunderbird: Den geheimen Schlüssel importieren oder per GnuPG/Smartcard nutzen. Das Konto, die Signatur und CalDAV/CardDAV kommen deklarativ.
-- [ ] 11.5 Die alten Konten (Proton Bridge, DLRG, Papa) sowie die Add-ons LanguageTool und CardBook bleiben manuell (siehe `Notes/Post-Installation.md`).
+- [ ] 11.5 Thunderbird: Proton (Hauptkonto über die Bridge), Stalwart, DLRG und 1&1 kommen deklarativ aus `mailAccounts`. Einmalig: Bridge einrichten (`systemctl --user stop protonmail-bridge`, `protonmail-bridge --cli`, `login`, `info` zeigt das Bridge-Passwort) und deren Zertifikat in Thunderbird bestätigen, je Konto das Passwort eingeben. Zu prüfen: DLRG `mail.dlrg.de` (Quelle ist das DLRG-Wiki) und 1&1 `imap.1und1.de`/`smtp.1und1.de`, beide nicht getestet. Die Add-ons LanguageTool und CardBook bleiben manuell (siehe `Notes/Post-Installation.md`).
 - [ ] 11.6 JMAP: Thunderbird Desktop kann noch kein JMAP. Auf dem Handy Sterna Mail (F-Droid) verwenden, optional Bulwark als Webmail auf ServerPublic. Sobald Thunderbird JMAP unterstützt: Konto umstellen.
 - [ ] 11.7 Die JMAP-Unterstützung von Thunderbird regelmäßig prüfen: roadmaps.thunderbird.net (Desktop, Android, iOS).
 
@@ -210,12 +250,19 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
 - [ ] 13.3 JetBrains: Die OSS-Editionen sind in nixpkgs unsicher und ungepflegt. Entscheiden, ob `idea` und `pycharm` (unfree) ins Unfree-Prädikat in `nixosModules/system/nixos.nix` sollen, dann `homeManager.applications.development.jetbrains.enable` setzen.
 - [ ] 13.4 hyprgrass: Nach dem nächsten `nix flake update` prüfen, ob `pkgs.hyprlandPlugins.hyprgrass` wieder baut. Dann `pkgs/hyprgrass` löschen und in `touch.nix` `pkgs.hyprlandPlugins.hyprgrass` verwenden.
 - [ ] 13.5 Ventoy ist mit Version als unsicheres Paket erlaubt (`nixosModules/system/nixos.nix`). Die Version nach nixpkgs-Updates anpassen.
-- [ ] 13.6 Das Image von networkingtoolbox auf ein Digest pinnen statt `:latest` mit `--pull=always`. Ebenso das ComfyUI-Image regelmäßig aktualisieren.
+- [X] 13.6 Die Images von networkingtoolbox und ComfyUI sind per Digest in `pkgs/images.json` gepinnt. Aktualisieren: `nix run .#update-images`, siehe [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
 - [ ] 13.7 Den Installer-Download (`curl ... | bash`) auf einen Tag oder Commit pinnen und eine Prüfsumme verifizieren.
 - [ ] 13.8 HomeBox: Nach dem Anlegen der Konten `allowRegistration = false` setzen. Linkwarden: `enableRegistration` abschalten.
 - [ ] 13.9 Monero: Secret `monero/p2pool-env` (`WALLET_ADDRESS=...`) und `nixos.server.tools.moneronode.p2pool.enable = true`. Bestehende monero-gui-Configs brauchen den Remote-Node `NixOS-Server1:18089` (manuell).
 - [ ] 13.10 Optional: MollySocket (`nixos.server.public.mollysocket`, Secret `mollysocket/env`), Murmur-Serverpasswort (`passwordProtected`, Secret `murmur/env`).
 - [ ] 13.11 WebDAV-Mount auf den Clients einschalten: Secret `webdav-share/davfs` anlegen und `nixos.userEnvironment.networkshares.webdav.enable = true`.
+- [ ] 13.12 Glance-Widgets einschalten: API-Keys in sops `glance` ergänzen, dann in `hosts/NixOS-Server1/server.nix` unter `glance` einschalten:
+  - [ ] Jellyfin: Dashboard → API-Schlüssel, `ENV_JELLYFIN_TOKEN=`, `jellyfin.enable`
+  - [ ] Sonarr und Radarr: Einstellungen → Allgemein, `ENV_SONARR_KEY=`, `ENV_RADARR_KEY=`, `calendar.enable`
+  - [ ] Miniflux: Einstellungen → API-Schlüssel, `ENV_MINIFLUX_TOKEN=`, `miniflux.enable`
+  - [ ] Home Assistant: Profil → langlebiges Token, `ENV_HA_TOKEN=`, `homeassistant.enable` und `homeassistant.entities`
+- [ ] 13.13 Pins aktuell halten: Der Update-Check meldete am 01.11.2026 Dangerzone v0.11.1 (gepinnt ist v0.11.0), dazu neuere Commits und Images. Ablauf in [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
+- [ ] 13.14 CVE-Kandidaten sichten: Dashboard „Security und Updates“. Geprüfte False Positives in `nixos.system.vulnscan.ignore` eintragen.
 
 ## Phase 14 – Security, später entschieden
 
@@ -248,6 +295,7 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - Tools: cryinkfly/Autodesk-Fusion-360-on-Linux (Codeberg), Winetricks/winetricks, ventoy, FreeCAD, SoftFever/OrcaSlicer, flxzt/rnote, xournalpp
 - [ ] 15.8 RDP über Plasma KRDP testen: `krdp` in den KDE-Systemeinstellungen → Remote Desktop aktivieren, Benutzer anlegen, mit Remmina oder einem Windows-RDP-Client verbinden. Port 3389 nur im LAN/WireGuard öffnen.
 - [ ] 15.9 Handy (GrapheneOS): Capy Reader oder Read You für Miniflux, Sterna Mail für JMAP, ntfy für UnifiedPush (README).
+- [ ] 15.10 Wiki: In Forgejo das Repository `wiki` anlegen und das Wiki aktivieren. Die Inhalte stehen in [`WIKI-TODO.md`](WIKI-TODO.md).
 
 ## Phase 16 – Deklarative Konfiguration weiterer Programme (niedrige Priorität, zuletzt)
 
@@ -268,3 +316,18 @@ Ziel: Erst das Programm von Hand einstellen, dann die Konfiguration übernehmen.
 - [ ] 16.4 rclone
 - [ ] 16.5 Rnote
 - [ ] 16.6 Xournal++
+
+## Phase 17 – Privates Repo auf GitHub, Merge nach `main` und automatische Updates
+
+Erst wenn die Hosts auf dem neuen Stand laufen. Bis dahin ist `system.autoUpgrade` aus, sonst würden die Server nachts auf den alten Stand von `main` zurückspringen.
+
+- [ ] 17.1 Privates Repository anlegen. `site.nix` enthält Domains und Passwort-Hashes, die YAML-Dateien sind verschlüsselt:
+  - [ ] `cd $PRIV && gh auth login` (GitHub.com, Protokoll SSH, `~/.ssh/id_ed25519.pub` hochladen)
+  - [ ] `gh repo create xerhaxs/nixos-private --private --source=. --remote=origin --push`
+  - [ ] `gh repo view xerhaxs/nixos-private --json visibility` muss `PRIVATE` zeigen
+- [ ] 17.2 In `flake.nix` umstellen: `url = "git+ssh://git@github.com/xerhaxs/nixos-private.git";`, dann `nix flake update private`, `nix flake metadata | grep private`, committen.
+- [ ] 17.3 Ab jetzt lokal `nixos-rebuild boot --sudo --flake .#<host>` statt `sudo nixos-rebuild ...` verwenden, dann läuft die Evaluation als `jf` mit deinem SSH-Key. root hat keinen.
+- [ ] 17.4 Deploy-Keys für Server1, ServerPublic und ServerGaming: pro Host `ssh-keygen -t ed25519 -N "" -f deploy`, den Public Key in GitHub unter Repo → Settings → Deploy keys eintragen (nur Lesezugriff), den Private Key in sops als `github/deploy-key`. Dafür fehlt noch ein Modul: Secret deklarieren, System-SSH für `github.com` darauf zeigen, `programs.ssh.knownHosts` setzen. `/root` liegt auf tmpfs, der Key kann also nicht dort liegen.
+- [ ] 17.5 Installer: Das Live-System braucht ebenfalls Zugriff auf das private Repo, in `NixOSInstaller.sh` ergänzen (Key abfragen wie den age-Key).
+- [ ] 17.6 `rework` nach `main` mergen und pushen, vorher Prüfung aus 2.3 auf dem gesamten Diff.
+- [ ] 17.7 In `hosts/NixOS-Server1/configuration.nix`, `hosts/NixOS-ServerPublic/configuration.nix` und `hosts/NixOS-ServerGaming/configuration.nix` wieder `system.autoUpgrade.enable = true;` setzen, committen, einmal deployen. Am nächsten Morgen `systemctl status nixos-upgrade` prüfen.

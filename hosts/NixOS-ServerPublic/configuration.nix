@@ -13,7 +13,8 @@
 
   services.getty.autologinUser = null;
 
-  system.autoUpgrade.enable = true;
+  # Off until the rework is merged, it would switch back to the old configuration of main (TODO phase 17).
+  system.autoUpgrade.enable = false;
 
   services.postgresql.package = pkgs.postgresql_17;
 

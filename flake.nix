@@ -58,6 +58,82 @@
       flake = false;
     };
 
+    # Sources pinned to a release or commit: the version is in the URL, the hash in flake.lock.
+    bluemap = {
+      url = "https://cdn.modrinth.com/data/swbUV1cr/versions/TROfpX7m/bluemap-5.16-fabric.jar";
+      flake = false;
+    };
+    briar-mailbox = {
+      url = "git+https://code.briarproject.org/briar/briar-mailbox.git?ref=refs/tags/release-1.0.9";
+      flake = false;
+    };
+    dangerzone = {
+      url = "github:freedomofpress/dangerzone/v0.11.0";
+      flake = false;
+    };
+    fabric-api = {
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/6qAuTtLR/fabric-api-0.141.6%2B1.21.11.jar";
+      flake = false;
+    };
+    hyprgrass-src = {
+      url = "github:horriblename/hyprgrass/8e605468cbf429791d61ddbfaeb14ff5e08fec3e";
+      flake = false;
+    };
+    weishaupt-webif-api-src = {
+      url = "https://files.pythonhosted.org/packages/source/w/weishaupt_webif_api/weishaupt_webif_api-0.1.4.tar.gz";
+      flake = false;
+    };
+    wf-touch-src = {
+      url = "github:WayfireWM/wf-touch/8974eb0f6a65464b63dd03b842795cb441fb6403";
+      flake = false;
+    };
+
+    # Grafana dashboards, nix flake update fetches the latest revision.
+    grafana-alertmanager = {
+      url = "https://grafana.com/api/dashboards/9578/revisions/latest/download";
+      flake = false;
+    };
+    grafana-blackbox = {
+      url = "https://grafana.com/api/dashboards/7587/revisions/latest/download";
+      flake = false;
+    };
+    grafana-logs = {
+      url = "https://grafana.com/api/dashboards/13639/revisions/latest/download";
+      flake = false;
+    };
+    grafana-nginx = {
+      url = "https://grafana.com/api/dashboards/12708/revisions/latest/download";
+      flake = false;
+    };
+    grafana-node-exporter-full = {
+      url = "https://grafana.com/api/dashboards/1860/revisions/latest/download";
+      flake = false;
+    };
+    grafana-pihole = {
+      url = "https://grafana.com/api/dashboards/10176/revisions/latest/download";
+      flake = false;
+    };
+    grafana-postgresql = {
+      url = "https://grafana.com/api/dashboards/9628/revisions/latest/download";
+      flake = false;
+    };
+    grafana-smartctl = {
+      url = "https://grafana.com/api/dashboards/22604/revisions/latest/download";
+      flake = false;
+    };
+    grafana-unbound = {
+      url = "https://grafana.com/api/dashboards/11705/revisions/latest/download";
+      flake = false;
+    };
+    grafana-wireguard = {
+      url = "https://grafana.com/api/dashboards/12177/revisions/latest/download";
+      flake = false;
+    };
+    grafana-zfs = {
+      url = "https://grafana.com/api/dashboards/7845/revisions/latest/download";
+      flake = false;
+    };
+
     adobe = {
       url = "https://blocklistproject.github.io/Lists/adobe.txt";
       flake = false;
@@ -124,6 +200,8 @@
       ...
     }:
     let
+      overlay = import ./pkgs inputs;
+
       mkHost =
         hostName:
         nixpkgs.lib.nixosSystem {
@@ -133,7 +211,8 @@
           modules = [
             {
               nixpkgs.hostPlatform = "x86_64-linux";
-              nixpkgs.overlays = [ (import ./pkgs) ];
+              nixpkgs.overlays = [ overlay ];
+              system.configurationRevision = self.rev or self.dirtyRev or "unknown";
             }
             catppuccin.nixosModules.catppuccin
             ./nixosModules/default.nix
@@ -148,11 +227,18 @@
         "NixOS-Framework"
         "NixOS-Portable"
         "NixOS-Server1"
+        "NixOS-ServerGaming"
         "NixOS-ServerPublic"
         "NixOS-VMDesktop"
         "NixOS-VMServer"
+        "NixOS-VMServerGaming"
         "NixOS-VMServerPublic"
       ];
+
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [ overlay ];
+      };
 
     in
     {
@@ -163,15 +249,13 @@
         }) hosts
       );
 
-      packages.x86_64-linux =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            overlays = [ (import ./pkgs) ];
-          };
-        in
-        {
-          inherit (pkgs) dangerzone;
-        };
+      packages.x86_64-linux = {
+        inherit (pkgs) dangerzone update-images;
+      };
+
+      apps.x86_64-linux.update-images = {
+        type = "app";
+        program = nixpkgs.lib.getExe pkgs.update-images;
+      };
     };
 }

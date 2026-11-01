@@ -10,7 +10,7 @@ Personal NixOS configuration based on flakes, disko, impermanence, sops-nix and 
 | [`nixosModules/`](nixosModules/README.md) | System modules (`options.nixos.*`), grouped by category. All implementation lives here. |
 | [`homeModules/`](homeModules/README.md) | Home Manager modules (`options.homeManager.*`). |
 | [`hosts/`](hosts/README.md) | One folder per host, only options. Profile (`configuration.nix`, `server.nix`) and machine (`machine.nix`, `disko.nix`, `hardware-configuration.nix`) are separated, the VM hosts reuse the profile of their model. |
-| [`pkgs/`](pkgs/README.md) | Own packages (overlay): Dangerzone, hyprgrass fix. `nix build .#dangerzone` |
+| [`pkgs/`](pkgs/README.md) | Own packages (overlay): Dangerzone, hyprgrass fix, image pins (`images.json`, `nix run .#update-images`). |
 | [`secrets/`](secrets/README.md) | Legacy sops file of the home hosts (to be split, see `TODO.md`). |
 | [`docs/`](docs/README.md) | Background documents: disaster recovery, E2EE, isolation, VMs, offline installation, providers, mail/PGP, ... |
 | `NixOSInstaller.sh` | Installer script for the live ISO. |
@@ -27,8 +27,9 @@ Every folder has a `README.md` with its purpose, contents and options.
 | NixOS-Framework, NixOS-Convertible | Laptops |
 | NixOS-Portable | All-in-one installation on an external SSD (every application, boot entry `server` with the offline capable services) |
 | NixOS-Server1 | Home server (ZFS pool, media, shares, Home Assistant, DNS, git, monitoring) |
-| NixOS-ServerPublic | Public VPS (mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, Minecraft, code-server, Miniflux, Briar Mailbox), WireGuard hub |
-| NixOS-VMDesktop, NixOS-VMServer, NixOS-VMServerPublic | Test VMs with the profile of the corresponding host |
+| NixOS-ServerGaming | Public VPS for games (Minecraft with BlueMap, countdown website) |
+| NixOS-ServerPublic | Public VPS (mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, code-server, Miniflux, Briar Mailbox), WireGuard hub |
+| NixOS-VMDesktop, NixOS-VMServer, NixOS-VMServerGaming, NixOS-VMServerPublic | Test VMs with the profile of the corresponding host |
 
 ## Private repository
 
@@ -111,7 +112,7 @@ Logs of earlier boots: `journalctl -b -1 -p err` (needs the persisted `/etc/mach
 
 Unlock a server after a reboot: `ssh root@<host>` (NixOS-ServerPublic: port 2222), then `systemd-tty-ask-password-agent --query`.
 
-NixOS-Server1 and NixOS-ServerPublic deploy the pushed configuration nightly (`system.autoUpgrade`, no automatic reboot).
+`system.autoUpgrade` is off until the rework is merged (TODO phase 17), afterwards the servers deploy the pushed configuration nightly without automatic reboot.
 
 ## Security concept
 
@@ -123,6 +124,7 @@ NixOS-Server1 and NixOS-ServerPublic deploy the pushed configuration nightly (`s
 - Network: firewall with only the needed ports, services behind nginx on localhost, catch-all vhost, HSTS, WireGuard for internal access (code-server, backups, monitoring, ssh of NixOS-ServerPublic), fail2ban and sshguard, recursive DNSSEC validating resolver, Pi-hole through WireGuard on the clients, DNS over TLS fallback, MAC randomization.
 - Data: restic backups (append-only REST server at home, Storage Box, Proton Drive for NixOS-Server1), ZFS and btrfs snapshots before backups, ClamAV scans with alerts.
 - Monitoring: Prometheus, Loki and Grafana on NixOS-Server1, alerts by mail and ntfy.
+- Vulnerabilities and updates: every host scans its closure (sbomnix, grype), NixOS-Server1 compares the pins with upstream, the result is in Grafana (`docs/updates-and-vulnerabilities.md`).
 - Killswitch: a Home Assistant script publishes to an ntfy topic, every host powers off immediately.
 
 Protection while running (beyond encryption at rest, details in `docs/e2ee-and-runtime-protection.md` and `docs/isolation.md`): end-to-end encrypted services (CryptPad, Matrix, Nextcloud end-to-end encryption, Briar), Stalwart encryption at rest with the PGP/S/MIME key of the user, the killswitch, and on the VPS confidential computing (AMD SEV-SNP/Intel TDX) if the provider offers it. The provider of a VPS can still read the memory of a running VM without confidential computing.

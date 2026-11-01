@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, Minecraft, code-server, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1 and a Storage Box.
+Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, code-server, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1 and a Storage Box.
 
 ## How it works
 
@@ -19,7 +19,6 @@ Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, Minecraft, code-ser
 | `disko.nix` | Disk layout selection (`nixos.disko.*`, disks, swap size, data pool). |
 | `hardware-configuration.nix` | Generated hardware configuration (kernel modules for the hardware). |
 | `machine.nix` | Machine: state version, password fallback, hardware modules, Secure Boot, TPM2, initrd ssh and machine specific paths. |
-| `minecraft.nix` | Minecraft server instances. |
 | `networking.nix` | Hostname, addresses, LAN and DNS options. |
 | `server.nix` | Enabled server services (on NixOS-Portable: the `server` specialisation). |
 | `wireguard.nix` | WireGuard hub of the network. |

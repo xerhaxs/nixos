@@ -1,0 +1,4 @@
+{
+  "comfyui": "docker.io/yanwk/comfyui-boot:xpu-20261012@sha256:310bc8d9c6ba4e688d33ddae0edaf14018a012e39977f21cf5f842b93a18d75f",
+  "networking-toolbox": "docker.io/lissy93/networking-toolbox:latest@sha256:c85cfbf1267e4d48ca6f5cfc4e019049c8a075ce0cd757fc01e22338e484e132"
+}

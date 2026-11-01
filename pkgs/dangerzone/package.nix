@@ -1,7 +1,7 @@
 {
   lib,
   python3Packages,
-  fetchFromGitHub,
+  src,
   cosign,
   tesseract,
   qt6,
@@ -17,15 +17,10 @@ in
 
 python3Packages.buildPythonApplication rec {
   pname = "dangerzone";
-  version = "0.11.0";
+  version = lib.trim (builtins.readFile "${src}/share/version.txt");
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "freedomofpress";
-    repo = "dangerzone";
-    tag = "v${version}";
-    hash = "sha256-K2v0u1BEqnf1skshw0SrkHcuIeYph9QhbggV3N52Qq0=";
-  };
+  inherit src;
 
   # Resources are looked up below sys.prefix (the Python interpreter in Nix) and
   # tessdata only in FHS paths, point both to this package.

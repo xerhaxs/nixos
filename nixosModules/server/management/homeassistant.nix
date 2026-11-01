@@ -3,22 +3,19 @@
   lib,
   pkgs,
   weishaupt-modbus,
+  weishaupt-webif-api-src,
   ...
 }:
 
 let
   haPython = pkgs.home-assistant.python3Packages;
 
-  weishaupt-webif-api = haPython.buildPythonPackage rec {
+  weishaupt-webif-api = haPython.buildPythonPackage {
     pname = "weishaupt-webif-api";
-    version = "0.1.4";
+    version = (lib.importTOML "${weishaupt-webif-api-src}/pyproject.toml").project.version;
     pyproject = true;
 
-    src = haPython.fetchPypi {
-      pname = "weishaupt_webif_api";
-      inherit version;
-      hash = "sha256-WIRVAH5EZNvfmQDn94iZAo5voIYXlgKPK450XdfPZkw=";
-    };
+    src = weishaupt-webif-api-src;
 
     build-system = [ haPython.setuptools ];
 

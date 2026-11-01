@@ -22,7 +22,8 @@ in
 
       image = lib.mkOption {
         type = lib.types.str;
-        default = "docker.io/yanwk/comfyui-boot:xpu-20261012@sha256:310bc8d9c6ba4e688d33ddae0edaf14018a012e39977f21cf5f842b93a18d75f";
+        default = (lib.importJSON ../../../pkgs/images.json).comfyui;
+        defaultText = lib.literalExpression "comfyui in pkgs/images.json";
         description = "Container image, pinned to a digest. Variants: xpu (Intel), rocm (AMD), cpu.";
       };
 

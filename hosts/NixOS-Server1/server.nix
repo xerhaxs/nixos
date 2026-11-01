@@ -32,6 +32,7 @@
       cockpit.enable = true;
       glance.enable = true;
       homeassistant.enable = true;
+      update-check.enable = true;
       homebox = {
         enable = true;
         allowRegistration = true;

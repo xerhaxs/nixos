@@ -6,7 +6,7 @@ Messengers, mail and voice.
 
 ## How it works
 
-- Thunderbird with privacy settings (no user agent, anonymous HELO, simplified HTML, no JavaScript) and the own Stalwart account from the site data, Proton Mail Bridge, Discord, Briar, Element, Mumble, Signal, Telegram, Karere (WhatsApp).
+- Thunderbird with privacy settings (no user agent, anonymous HELO, simplified HTML, no JavaScript) and the accounts Proton (main, through the bridge), Stalwart, DLRG and 1&1 from the site data, Proton Mail Bridge, Discord, Briar, Element, Mumble, Signal, Telegram, Karere (WhatsApp).
 
 ## Contents
 

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11111b">
+<meta name="robots" content="noindex">
+<title>@title@</title>
+<style>
+  :root {
+    --base: #11111b;
+    --tile: #1e1e2e;
+    --line: #313244;
+    --text: #cdd6f4;
+    --muted: #a6adc8;
+    --pink: #f5c2e7;
+    --mauve: #cba6f7;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    display: grid;
+    place-items: center;
+    padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+    background:
+      radial-gradient(60rem 40rem at 50% -10%, #313244 0%, transparent 60%),
+      radial-gradient(40rem 30rem at 85% 110%, #45275a55 0%, transparent 60%),
+      var(--base);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+    text-align: center;
+  }
+
+  main { width: min(100%, 44rem); }
+
+  .heart {
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0 auto 1.25rem;
+    fill: var(--pink);
+    filter: drop-shadow(0 0 1rem #f5c2e766);
+    animation: beat 1.8s ease-in-out infinite;
+  }
+
+  @keyframes beat {
+    0%, 40%, 100% { transform: scale(1); }
+    15% { transform: scale(1.14); }
+    28% { transform: scale(1.04); }
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    background: linear-gradient(90deg, var(--pink), var(--mauve));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: clamp(1rem, 3.5vw, 1.15rem);
+  }
+
+  .units {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.5rem, 2vw, 1rem);
+    margin-top: clamp(1.75rem, 6vw, 2.75rem);
+  }
+
+  .unit {
+    padding: clamp(0.9rem, 4vw, 1.75rem) 0.25rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--tile);
+  }
+
+  .value {
+    display: block;
+    font-size: clamp(1.9rem, 10vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .label {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: clamp(0.7rem, 2.6vw, 0.85rem);
+    letter-spacing: 0.04em;
+  }
+
+  .date { margin-top: 1.5rem; font-size: 0.9rem; }
+
+  @media (max-width: 22rem) {
+    .units { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .heart { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21s-7.5-4.6-10-9.2C.4 8.7 2 5 5.6 5c2.1 0 3.6 1.1 4.4 2.5h4C14.8 6.1 16.3 5 18.4 5 22 5 23.6 8.7 22 11.8 19.5 16.4 12 21 12 21z"/>
+    </svg>
+    <h1 id="title">@title@</h1>
+    <p id="subtitle">@subtitle@</p>
+
+    <div class="units" id="units" role="timer" aria-live="off">
+      <div class="unit"><span class="value" id="days">0</span><span class="label">Tage</span></div>
+      <div class="unit"><span class="value" id="hours">00</span><span class="label">Stunden</span></div>
+      <div class="unit"><span class="value" id="minutes">00</span><span class="label">Minuten</span></div>
+      <div class="unit"><span class="value" id="seconds">00</span><span class="label">Sekunden</span></div>
+    </div>
+
+    <p class="date" id="date"></p>
+  </main>
+
+  <script>
+    const target = new Date("@target@");
+    const doneText = "@doneText@";
+    const pad = (value) => String(value).padStart(2, "0");
+    const set = (id, value) => { document.getElementById(id).textContent = value; };
+
+    set("date", target.toLocaleString("de-DE", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Berlin" }) + " Uhr");
+
+    function tick() {
+      const left = Math.floor((target - Date.now()) / 1000);
+      if (left <= 0) {
+        set("title", doneText);
+        document.getElementById("subtitle").hidden = true;
+        document.getElementById("units").hidden = true;
+        document.getElementById("date").hidden = true;
+        clearInterval(timer);
+        return;
+      }
+      set("days", Math.floor(left / 86400));
+      set("hours", pad(Math.floor(left / 3600) % 24));
+      set("minutes", pad(Math.floor(left / 60) % 60));
+      set("seconds", pad(left % 60));
+    }
+
+    const timer = setInterval(tick, 1000);
+    tick();
+  </script>
+</body>
+</html>

@@ -203,7 +203,6 @@ in
           type = lib.types.attrsOf lib.types.int;
           default = {
             HOME = 10;
-            SCHOOL = 0;
             HOTSPOT = 5;
           };
           description = "Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network.";

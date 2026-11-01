@@ -52,6 +52,35 @@
         "type": "github"
       }
     },
+    "bluemap": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-O/9+ioERTFB+5+xYUHLPprCACWyqguptTPgYZbJM7HQ=",
+        "type": "file",
+        "url": "https://cdn.modrinth.com/data/swbUV1cr/versions/TROfpX7m/bluemap-5.16-fabric.jar"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://cdn.modrinth.com/data/swbUV1cr/versions/TROfpX7m/bluemap-5.16-fabric.jar"
+      }
+    },
+    "briar-mailbox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720517833,
+        "narHash": "sha256-FF0kST35EvBkRJCzaoaKkSjY7+kSLufsmn2yAWJr65U=",
+        "ref": "refs/tags/release-1.0.9",
+        "rev": "4beef6f36a5cc6ac5f6b2879c2d7b1cab8710999",
+        "revCount": 551,
+        "type": "git",
+        "url": "https://code.briarproject.org/briar/briar-mailbox.git"
+      },
+      "original": {
+        "ref": "refs/tags/release-1.0.9",
+        "type": "git",
+        "url": "https://code.briarproject.org/briar/briar-mailbox.git"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -86,6 +115,23 @@
         "type": "github"
       }
     },
+    "dangerzone": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782913086,
+        "narHash": "sha256-K2v0u1BEqnf1skshw0SrkHcuIeYph9QhbggV3N52Qq0=",
+        "owner": "freedomofpress",
+        "repo": "dangerzone",
+        "rev": "6cc19db50166658feff4d72df605f30e97308f16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "freedomofpress",
+        "ref": "v0.11.0",
+        "repo": "dangerzone",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -106,6 +152,18 @@
         "type": "github"
       }
     },
+    "fabric-api": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-TOvySxML5vu/h50AP01WLpX2xgBXCoQE9r7gbKcUoPc=",
+        "type": "file",
+        "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/6qAuTtLR/fabric-api-0.141.6%2B1.21.11.jar"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/6qAuTtLR/fabric-api-0.141.6%2B1.21.11.jar"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -120,6 +178,138 @@
         "owner": "edolstra",
         "repo": "flake-compat",
         "type": "github"
+      }
+    },
+    "grafana-alertmanager": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-jOINQJbKhaBSntco+3XP9n7l1XDYQy5iZ+TbKPfseCM=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/9578/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/9578/revisions/latest/download"
+      }
+    },
+    "grafana-blackbox": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-welS5artUPJZiGl0zf19Er8UPb/QHaousia88enHBq8=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/7587/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/7587/revisions/latest/download"
+      }
+    },
+    "grafana-logs": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-Q2KL5NEAKXFXOBT+Eqb7wvxmbRMdnzJ2rOAp/CSnRvY=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/13639/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/13639/revisions/latest/download"
+      }
+    },
+    "grafana-nginx": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-UD0Pojh3z8Vp456E/Aciv4ctL7WsS/hRoZzptibEB1U=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/12708/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/12708/revisions/latest/download"
+      }
+    },
+    "grafana-node-exporter-full": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-2CNB5SU9ChNkTfOjJ/KCD9alCKb6ciLVVN4/fpqGyrg=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/1860/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/1860/revisions/latest/download"
+      }
+    },
+    "grafana-pihole": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-RUDtzP2BjIdq2qEyPlpuVz62vn2V1grDR5Y7J+Np7aY=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/10176/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/10176/revisions/latest/download"
+      }
+    },
+    "grafana-postgresql": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-VDX4BfGbY3PW5YHcRilg4g6+6uN22EK5+r+Ph67xXAY=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/9628/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/9628/revisions/latest/download"
+      }
+    },
+    "grafana-smartctl": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-0+Cgl6TryTnvlLQDpDNJa7USyM6GAZsRPqc4DqjXozc=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/22604/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/22604/revisions/latest/download"
+      }
+    },
+    "grafana-unbound": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-OD2ic+VMaJKroM3l8A2MqmI4uG/8QM1mJugW8ynqgpE=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/11705/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/11705/revisions/latest/download"
+      }
+    },
+    "grafana-wireguard": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-uSF82AvM38fNApIhvSmwFLVffmpa7NXYhW+6NXP9hgw=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/12177/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/12177/revisions/latest/download"
+      }
+    },
+    "grafana-zfs": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-k+6ExQjx1JKPoNXapkUz6ECAvqjg4R/qwmb7zg1CG+8=",
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/7845/revisions/latest/download"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://grafana.com/api/dashboards/7845/revisions/latest/download"
       }
     },
     "home-manager": {
@@ -160,6 +350,23 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "hyprgrass-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786449355,
+        "narHash": "sha256-0nXTqzvZQSoTbpKcDmc4kciHmlIXfMZfLk5E1Ax9CP0=",
+        "owner": "horriblename",
+        "repo": "hyprgrass",
+        "rev": "8e605468cbf429791d61ddbfaeb14ff5e08fec3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "repo": "hyprgrass",
+        "rev": "8e605468cbf429791d61ddbfaeb14ff5e08fec3e",
         "type": "github"
       }
     },
@@ -483,10 +690,26 @@
         "adobe": "adobe",
         "ads": "ads",
         "amazonFireTV": "amazonFireTV",
+        "bluemap": "bluemap",
+        "briar-mailbox": "briar-mailbox",
         "catppuccin": "catppuccin",
         "catppuccin-heroic": "catppuccin-heroic",
+        "dangerzone": "dangerzone",
         "disko": "disko",
+        "fabric-api": "fabric-api",
+        "grafana-alertmanager": "grafana-alertmanager",
+        "grafana-blackbox": "grafana-blackbox",
+        "grafana-logs": "grafana-logs",
+        "grafana-nginx": "grafana-nginx",
+        "grafana-node-exporter-full": "grafana-node-exporter-full",
+        "grafana-pihole": "grafana-pihole",
+        "grafana-postgresql": "grafana-postgresql",
+        "grafana-smartctl": "grafana-smartctl",
+        "grafana-unbound": "grafana-unbound",
+        "grafana-wireguard": "grafana-wireguard",
+        "grafana-zfs": "grafana-zfs",
         "home-manager": "home-manager",
+        "hyprgrass-src": "hyprgrass-src",
         "impermanence": "impermanence",
         "malware": "malware",
         "nix-colors": "nix-colors",
@@ -508,7 +731,9 @@
         "stevenBlack": "stevenBlack",
         "tiktok": "tiktok",
         "tracking": "tracking",
-        "weishaupt-modbus": "weishaupt-modbus"
+        "weishaupt-modbus": "weishaupt-modbus",
+        "weishaupt-webif-api-src": "weishaupt-webif-api-src",
+        "wf-touch-src": "wf-touch-src"
       }
     },
     "scam": {
@@ -619,6 +844,36 @@
       "original": {
         "owner": "OStrama",
         "repo": "weishaupt_modbus",
+        "type": "github"
+      }
+    },
+    "weishaupt-webif-api-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784115566,
+        "narHash": "sha256-FLvdIMrOy2TAeLdFHscIIwtctIHXLdCqogeeQ0ZvtTc=",
+        "type": "tarball",
+        "url": "https://files.pythonhosted.org/packages/source/w/weishaupt_webif_api/weishaupt_webif_api-0.1.4.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://files.pythonhosted.org/packages/source/w/weishaupt_webif_api/weishaupt_webif_api-0.1.4.tar.gz"
+      }
+    },
+    "wf-touch-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1616165799,
+        "narHash": "sha256-MjsYeKWL16vMKETtKM5xWXszlYUOEk3ghwYI85Lv4SE=",
+        "owner": "WayfireWM",
+        "repo": "wf-touch",
+        "rev": "8974eb0f6a65464b63dd03b842795cb441fb6403",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WayfireWM",
+        "repo": "wf-touch",
+        "rev": "8974eb0f6a65464b63dd03b842795cb441fb6403",
         "type": "github"
       }
     }

@@ -20,7 +20,7 @@
   config = lib.mkIf config.nixos.server.tools.networkingtoolbox.enable {
     virtualisation.oci-containers.containers = {
       networking-toolbox = {
-        image = "docker.io/lissy93/networking-toolbox:latest";
+        image = (lib.importJSON ../../../pkgs/images.json).networking-toolbox;
 
         ports = [
           "127.0.0.1:3872:3000"
@@ -36,7 +36,6 @@
         };
 
         extraOptions = [
-          "--pull=always"
           "--health-cmd=wget -qO- http://127.0.0.1:3000/health || exit 1"
           "--health-interval=30s"
           "--health-timeout=10s"

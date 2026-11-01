@@ -26,7 +26,7 @@
       enable = true;
       enableDefaultConfig = false;
       settings = {
-        "NixOS-Server1 NixOS-ServerPublic 10.100.0.*" = lib.hm.dag.entryBefore [ "*" ] {
+        "NixOS-Server1 NixOS-ServerGaming NixOS-ServerPublic 10.100.0.*" = lib.hm.dag.entryBefore [ "*" ] {
           IdentitiesOnly = "yes";
           IdentityFile = "~/.ssh/id_ed25519.pub";
         };

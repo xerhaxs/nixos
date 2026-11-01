@@ -6,6 +6,35 @@
   ...
 }:
 
+let
+  site = osConfig.nixos.site;
+
+  # Addresses come from the private site data, an account without address does not exist here.
+  mkAccount =
+    name: server:
+    lib.mkIf (site.mailAccounts ? ${name}) (
+      lib.recursiveUpdate server rec {
+        address = site.mailAccounts.${name}.address or "";
+        userName = address;
+        realName = site.mailAccounts.${name}.realName or site.mailRealName;
+        thunderbird = {
+          enable = true;
+          profiles = [ "default" ];
+        };
+      }
+    );
+
+  accountOrder =
+    lib.filter (name: site.mailAccounts ? ${name}) [
+      "proton"
+    ]
+    ++ lib.optional (site.mailAddress != null) "stalwart"
+    ++ lib.filter (name: site.mailAccounts ? ${name}) [
+      "dlrg"
+      "oneandone"
+    ];
+in
+
 {
   options.homeManager = {
     applications.communication.thunderbird = {
@@ -26,6 +55,7 @@
         "default" = {
           isDefault = true;
           withExternalGnupg = true;
+          accountsOrder = accountOrder;
 
           settings = {
             "mailnews.start_page.enabled" = false;
@@ -99,8 +129,55 @@
       };
     };
 
-    accounts.email.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+    # Proton Mail Bridge on this machine, the password comes from the bridge (protonmail-bridge --cli, info).
+    accounts.email.accounts.proton = mkAccount "proton" {
       primary = true;
+      imap = {
+        host = "127.0.0.1";
+        port = 1143;
+        tls = {
+          enable = true;
+          useStartTls = true;
+        };
+      };
+      smtp = {
+        host = "127.0.0.1";
+        port = 1025;
+        tls = {
+          enable = true;
+          useStartTls = true;
+        };
+      };
+    };
+
+    accounts.email.accounts.dlrg = mkAccount "dlrg" {
+      imap = {
+        host = "mail.dlrg.de";
+        port = 993;
+        tls.enable = true;
+      };
+      smtp = {
+        host = "mail.dlrg.de";
+        port = 465;
+        tls.enable = true;
+      };
+    };
+
+    accounts.email.accounts.oneandone = mkAccount "oneandone" {
+      imap = {
+        host = "imap.1und1.de";
+        port = 993;
+        tls.enable = true;
+      };
+      smtp = {
+        host = "smtp.1und1.de";
+        port = 465;
+        tls.enable = true;
+      };
+    };
+
+    accounts.email.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+      primary = !(site.mailAccounts ? proton);
       address = osConfig.nixos.site.mailAddress;
       userName = osConfig.nixos.site.mailAddress;
       realName = osConfig.nixos.site.mailRealName;

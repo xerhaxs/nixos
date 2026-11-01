@@ -8,6 +8,8 @@ Background documents, evaluations and plans that are not tied to a single module
 
 | File | Description |
 |---|---|
+| [`microphone.md`](microphone.md) | Rode Procaster on a Behringer UMC22: hardware setup and the EasyEffects chain. |
+| [`updates-and-vulnerabilities.md`](updates-and-vulnerabilities.md) | Where versions are pinned, how to update them, CVE scan and update status in Grafana. |
 | [`disaster-recovery.md`](disaster-recovery.md) | Data classes, backup copies, keys to keep offline, recovery per scenario, restore tests. |
 | [`e2ee-and-runtime-protection.md`](e2ee-and-runtime-protection.md) | Why LUKS does not protect a running server, end-to-end encrypted options (Ente, Cryptomator, Syncthing untrusted devices) with pros and cons. |
 | [`isolation.md`](isolation.md) | NixOS containers and microvm.nix for the exposed services, recommendation and example. |

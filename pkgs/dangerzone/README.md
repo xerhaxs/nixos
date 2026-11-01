@@ -18,4 +18,4 @@ Dangerzone built from source.
 
 ## Notes
 
-- Update: change `version` and `hash` (`nix-prefetch-url --unpack https://github.com/freedomofpress/dangerzone/archive/refs/tags/v<version>.tar.gz`).
+- Update: change the tag of the input `dangerzone` in `flake.nix`, then `nix flake update dangerzone`. The version comes from `share/version.txt`.

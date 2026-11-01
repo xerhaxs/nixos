@@ -2,28 +2,24 @@
 # Hyprland v0.56.2 (hyprpm.toml) with the wf-touch revision it was developed against. Remove after a
 # nixpkgs update ships a working hyprgrass.
 {
-  fetchFromGitHub,
+  hyprgrass-src,
   hyprlandPlugins,
+  lib,
   wf-touch,
+  wf-touch-src,
 }:
+
+let
+  unstableVersion = input: "0-unstable-${lib.substring 0 8 input.lastModifiedDate}";
+in
 
 (hyprlandPlugins.hyprgrass.override {
   wf-touch = wf-touch.overrideAttrs {
-    version = "0-unstable-2021-03-19";
-    src = fetchFromGitHub {
-      owner = "WayfireWM";
-      repo = "wf-touch";
-      rev = "8974eb0f6a65464b63dd03b842795cb441fb6403";
-      hash = "sha256-MjsYeKWL16vMKETtKM5xWXszlYUOEk3ghwYI85Lv4SE=";
-    };
+    version = unstableVersion wf-touch-src;
+    src = wf-touch-src;
   };
 }).overrideAttrs
   {
-    version = "0.8.2-unstable-2026-08-11";
-    src = fetchFromGitHub {
-      owner = "horriblename";
-      repo = "hyprgrass";
-      rev = "8e605468cbf429791d61ddbfaeb14ff5e08fec3e";
-      hash = "sha256-0nXTqzvZQSoTbpKcDmc4kciHmlIXfMZfLk5E1Ax9CP0=";
-    };
+    version = unstableVersion hyprgrass-src;
+    src = hyprgrass-src;
   }

@@ -18,7 +18,5 @@
     };
   };
 
-  nixos.server.game.minecraft.enable = true;
-
   nixos.server.tools.codeserver.enable = true;
 }
