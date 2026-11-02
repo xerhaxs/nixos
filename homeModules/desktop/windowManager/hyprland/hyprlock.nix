@@ -53,7 +53,7 @@
           }
           {
             monitor = "";
-            text = ''cmd[update:60000] date +"%A, %d. %B"'';
+            text = ''cmd[update:60000] LC_ALL=en_US.UTF-8 date +"%A, %B %d"'';
             color = "$subtext1";
             font_size = 22;
             font_family = "JetBrainsMono Nerd Font Propo";
@@ -77,7 +77,7 @@
             fail_color = "$red";
             capslock_color = "$yellow";
             fade_on_empty = false;
-            placeholder_text = "Passwort";
+            placeholder_text = "Password";
             fail_text = "$FAIL";
             rounding = -1;
             position = "0, -40";

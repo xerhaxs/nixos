@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Public VPS for games only: Minecraft with BlueMap and the countdown website, no other services. Backups to NixOS-Server1 and a Storage Box.
+Public VPS for games only: Minecraft with BlueMap and the countdown website, no other services. Backups to NixOS-Server1.
 
 ## How it works
 

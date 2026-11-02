@@ -1,0 +1,172 @@
+(defwidget meter [label value text ?class]
+  (box :class "meter ${class}" :orientation "v" :space-evenly false
+    (box :space-evenly false
+      (label :class "meter-label" :halign "start" :hexpand true :text label)
+      (label :class "meter-value" :halign "end" :text text))
+    (progress :class "bar" :value value :orientation "h")))
+
+(defwidget section [icon title]
+  (box :class "section" :space-evenly false :spacing 10
+    (label :class "section-icon" :text icon)
+    (label :class "section-title" :text title)))
+
+(defwidget stat [icon text]
+  (box :class "stat" :space-evenly false :spacing 8 :hexpand true
+    (label :class "stat-icon" :text icon)
+    (label :class "stat-text" :text text)))
+
+(defwidget clock []
+  (box :class "card clock" :orientation "v" :space-evenly false
+    (label :class "clock-time" :halign "start" :text {formattime(EWW_TIME, "%H:%M")})
+    (label :class "clock-date" :halign "start" :text {clock_date})))
+
+(defwidget weather-setup []
+  (box :class "card" :orientation "v" :space-evenly false :visible {!weather.ready}
+    (section :icon {i.weather} :title "Weather")
+    (label :class "hint" :halign "start" :wrap true
+      :text "Set your location once: weather-location \"<city>\"")))
+
+(defwidget weather-now []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 14 :visible {weather.ready}
+    (box :space-evenly false :spacing 18
+      (label :class "now-icon" :text {weather.current.icon})
+      (box :orientation "v" :space-evenly false :valign "center" :hexpand true
+        (label :class "now-temp" :halign "start" :text "${weather.current.temp}°")
+        (label :class "now-text" :halign "start" :text {weather.current.text}))
+      (box :orientation "v" :space-evenly false :valign "center"
+        (label :class "now-place" :halign "end" :text {weather.name})
+        (label :class "now-feels" :halign "end" :text "Feels like ${weather.current.feels}°")))
+    (box :class "stats" :orientation "v" :spacing 6
+      (box
+        (stat :icon {i.wind} :text "${weather.current.wind} km/h ${weather.current.direction}")
+        (stat :icon {i.humidity} :text "${weather.current.humidity}% humidity"))
+      (box
+        (stat :icon {i.pressure} :text "${weather.current.pressure} hPa")
+        (stat :icon {i.uv} :text "UV ${weather.current.uv}"))
+      (box
+        (stat :icon {i.sunrise} :text {weather.current.sunrise})
+        (stat :icon {i.sunset} :text {weather.current.sunset})))))
+
+(defwidget weather-hours []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 10 :visible {weather.ready}
+    (section :icon {i.clock} :title "Next hours")
+    (box
+      (for hour in {weather.hourly}
+        (box :class "hour" :orientation "v" :space-evenly false :spacing 2
+          (label :class "hour-time" :text {hour.time})
+          (label :class "hour-icon" :text {hour.icon})
+          (label :class "hour-temp" :text "${hour.temp}°")
+          (label :class "hour-rain" :text "${hour.rain}%"))))))
+
+(defwidget weather-days []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 6 :visible {weather.ready}
+    (section :icon {i.calendar} :title "7 day forecast")
+    (box :orientation "v" :space-evenly false :spacing 6
+    (for day in {weather.daily}
+      (box :class "day" :space-evenly false :spacing 10
+        (label :class "day-name" :xalign 0 :width 62 :text {day.name})
+        (label :class "day-icon" :width 30 :text {day.icon})
+        (label :class "day-rain" :xalign 1 :width 46 :text "${day.rain}%")
+        (label :class "day-min" :xalign 1 :width 40 :text "${day.min}°")
+        (box :class "range" :hexpand true :space-evenly false :valign "center"
+          (box :class "range-fill" :hexpand false :valign "center"
+            :style "margin-left: ${day.offset}px; min-width: ${day.width}px;"))
+        (label :class "day-max" :xalign 0 :width 40 :text "${day.max}°"))))))
+
+(defwidget cpu []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 10
+    (section :icon {i.cpu} :title "Processor")
+    (meter :class "blue" :label "Load" :value {EWW_CPU.avg} :text "${round(EWW_CPU.avg, 0)}%")
+    (box :class "graph-box"
+      (graph :class "graph blue" :value {EWW_CPU.avg} :thickness 2 :time-range "120s"
+        :min 0 :max 100 :dynamic false :line-style "round" :height 54))
+    (box :class "cores" :space-evenly true :spacing 3
+      (for core in {EWW_CPU.cores}
+        (progress :class "core" :value {core.usage} :orientation "v" :flipped true :height 34)))
+    (box
+      (stat :icon {i.temp} :text "${sys.cpu_temp}°C")
+      (stat :icon {i.load} :text {sys.load}))))
+
+(defwidget memory []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 10
+    (section :icon {i.memory} :title "Memory")
+    (meter :class "green" :label "RAM"
+      :value {EWW_RAM.used_mem_perc}
+      :text "${round(EWW_RAM.used_mem / 1073741824, 1)} / ${round(EWW_RAM.total_mem / 1073741824, 0)} GiB")
+    (meter :class "teal" :label "Swap" :value {sys.swap_percent} :text {sys.swap})))
+
+(defwidget gpu []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 10 :visible {sys.gpu_present}
+    (section :icon {i.gpu} :title "Graphics")
+    (meter :class "mauve" :label "Load" :value {sys.gpu_busy} :text "${sys.gpu_busy}%")
+    (meter :class "pink" :label "VRAM" :value {sys.vram_percent} :text {sys.vram})
+    (box
+      (stat :icon {i.temp} :text "${sys.gpu_temp}°C")
+      (stat :icon {i.power} :text "${sys.gpu_power} W"))))
+
+(defwidget network []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 10
+    (section :icon {i.network} :title "Network")
+    (box :class "graph-box"
+      (graph :class "graph sky" :value {sys.net_down_bytes} :thickness 2 :time-range "120s"
+        :dynamic true :line-style "round" :height 44))
+    (box
+      (stat :icon {i.down} :text {sys.net_down})
+      (stat :icon {i.up} :text {sys.net_up}))))
+
+(defwidget storage []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 10
+    (section :icon {i.disk} :title "Storage")
+    (for disk in {sys.disks}
+      (meter :class "peach" :label {disk.mount} :value {disk.percent} :text {disk.text}))))
+
+(defwidget processes []
+  (box :class "card" :orientation "v" :space-evenly false :spacing 4
+    (section :icon {i.list} :title "Top processes")
+    (for process in {sys.processes}
+      (box :class "process" :space-evenly false
+        (label :class "process-name" :halign "start" :hexpand true :limit-width 26 :text {process.name})
+        (label :class "process-value" :halign "end" :text "${process.cpu}%")))))
+
+(defwindow left
+  :monitor 0
+  :stacking "bottom"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-desktop"
+  :geometry (geometry :x "24px" :y "74px" :width "460px" :height "92%" :anchor "top left")
+  (box :class "column" :orientation "v" :space-evenly false :spacing 14 :valign "start"
+    (clock)
+    (weather-setup)
+    (weather-now)
+    (weather-hours)
+    (weather-days)))
+
+(defwindow right
+  :monitor 0
+  :stacking "bottom"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-desktop"
+  :geometry (geometry :x "24px" :y "74px" :width "860px" :height "92%" :anchor "top right")
+  (box :class "columns" :space-evenly true :spacing 14 :valign "start"
+    (box :class "column" :orientation "v" :space-evenly false :spacing 14 :valign "start"
+      (cpu)
+      (memory)
+      (processes))
+    (box :class "column" :orientation "v" :space-evenly false :spacing 14 :valign "start"
+      (gpu)
+      (network)
+      (storage))))
+
+(defwindow dock
+  :monitor 0
+  :stacking "bottom"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-desktop"
+  :geometry (geometry :y "18px" :anchor "bottom center")
+  (box :class "dock" :space-evenly false :spacing 4
+    (for app in {favorites}
+      (button :class "dock-app" :tooltip {app.name} :onclick "${launch} ${app.id} &"
+        (image :path {app.path} :image-width 32 :image-height 32)))))

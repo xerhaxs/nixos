@@ -16,8 +16,8 @@ Plan for losing a disk, a host, the home or the VPS, or the whole site (fire, th
 | Data | Copy 1 | Copy 2 (other medium) | Copy 3 (off-site) | Offline / immutable |
 |---|---|---|---|---|
 | A + B of NixOS-Server1 | ZFS pool (raid) + snapshots | Back In Time to the external disk WD2_10TB_BCK (`backup-external`) | restic to Proton Drive (encrypted before upload, `hosts/NixOS-Server1/backup.nix`) | external disk is disconnected after the backup |
-| A + B of NixOS-ServerPublic | btrfs on one disk (raid1 only with a second disk) | restic to the append-only REST server on NixOS-Server1 (WireGuard) | restic to the Hetzner Storage Box | append-only REST server (the VPS cannot delete its backups) |
-| A + B of NixOS-ServerGaming (Minecraft worlds) | btrfs on one disk | restic to the append-only REST server on NixOS-Server1 (WireGuard) | restic to the Hetzner Storage Box | append-only REST server |
+| A + B of NixOS-ServerPublic | btrfs on one disk (raid1 only with a second disk) | restic to the append-only REST server on NixOS-Server1 (WireGuard) | full disk backup at the provider | append-only REST server (the VPS cannot delete its backups) |
+| A + B of NixOS-ServerGaming (Minecraft worlds) | btrfs on one disk | restic to the append-only REST server on NixOS-Server1 (WireGuard) | full disk backup at the provider | append-only REST server |
 | Clients | btrfs on the client | Syncthing to NixOS-Server1 / Back In Time (Desktop) | through NixOS-Server1 to Proton Drive | - |
 | C (videos, music) | ZFS pool | optional: second large disk or cold storage | not covered | - |
 | D | local git | Forgejo on NixOS-Server1 | TODO: second remote (Codeberg private repo or a Forgejo instance on NixOS-ServerPublic) | Portable SSD (contains the configuration) |
@@ -47,15 +47,15 @@ Keep these on paper or on two offline USB sticks (encrypted with a passphrase yo
 | One disk of a mirror fails | Replace the disk, `zpool replace` (Server1) or `btrfs replace` (ServerPublic with two disks). |
 | Client lost or broken | Install with `NixOSInstaller.sh`, copy the host age key to `/secrets/keys.txt` (or create a new one and `sops updatekeys`), restore the home data from NixOS-Server1 (Syncthing, Back In Time). |
 | NixOS-Server1 lost | New machine, install the host, create the ZFS pool, restore `applications` and `shares` from the external disk (fast) or from Proton Drive (`restic -r rclone:proton:nixos-server1 restore latest --target /`). Videos only from the optional copy. |
-| NixOS-ServerPublic lost | New VPS, `nixos-anywhere` (see `TODO.md`), restore `/var/lib` and the PostgreSQL dumps from the REST server on NixOS-Server1 or from the Storage Box, change the DNS records to the new IP. |
+| NixOS-ServerPublic lost | New VPS, `nixos-anywhere` (see `TODO.md`), restore `/var/lib` and the PostgreSQL dumps from the REST server on NixOS-Server1 or the full disk backup at the provider, change the DNS records to the new IP. |
 | NixOS-ServerGaming lost | New VPS, `nixos-anywhere`, restore `/persistent/srv/minecraft` with restic, change the DNS records. |
 | Ransomware on a client or server | The append-only REST server and the offline external disk cannot be encrypted by the attacker; ZFS snapshots are read-only. Restore from a snapshot older than the infection. Rotate all secrets afterwards. |
-| Home destroyed (fire, theft) | Proton Drive (A + B of Server1), Storage Box (ServerPublic), the off-site copy of the keys. Rebuild the hosts from git (the Portable SSD or the remote mirror of the repository). |
+| Home destroyed (fire, theft) | Proton Drive (A + B of Server1), full disk backups of the VPS at the provider, the off-site copy of the keys. Rebuild the hosts from git (the Portable SSD or the remote mirror of the repository). |
 | Proton account locked | The other copies stay; move the restic repository with `restic copy` to another backend. |
 
 ## Tests (every 3 months)
 
-1. `restic check --read-data-subset=5%` for every repository (Proton Drive, REST server, Storage Box).
+1. `restic check --read-data-subset=5%` for every repository (Proton Drive, REST server).
 2. Restore one random directory of each class to `/tmp` and compare with `diff -r`.
 3. Restore a PostgreSQL dump into a test database (VMServerPublic) and start Nextcloud against it.
 4. Boot VMServer / VMServerPublic from the repository to prove the configuration still builds without the real hardware.

@@ -22,7 +22,7 @@
       pyprland
     ];
 
-    xdg.configFile."hypr/pyprland.toml".source = (pkgs.formats.toml { }).generate "pyprland.toml" {
+    xdg.configFile."pypr/config.toml".source = (pkgs.formats.toml { }).generate "config.toml" {
       pyprland.plugins = [
         "scratchpads"
         "magnify"
@@ -35,6 +35,15 @@
           class = "kitty-dropdown";
           size = "75% 60%";
           max_size = "1920px 100%";
+        };
+
+        monitor = {
+          animation = "fromTop";
+          command = "kitty --class kitty-monitor -o background_opacity=0.85 btop";
+          class = "kitty-monitor";
+          size = "70% 75%";
+          unfocus = "hide";
+          lazy = true;
         };
 
         volume = {

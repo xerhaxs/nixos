@@ -56,7 +56,7 @@ let
               current="''${ref#refs/tags/}"
               prefix="$(sed -E 's/[0-9].*$//' <<< "$current")"
               latest="$(git ls-remote --tags --refs "$url" "$prefix*" 2>/dev/null \
-                | sed 's|.*refs/tags/||' | grep -E "^$prefix[0-9.]+$" | sort -V | tail -n 1 || true)"
+                | sed 's|.*refs/tags/||' | grep -E "^''${prefix}[0-9.]+$" | sort -V | tail -n 1 || true)"
               if [ -n "$latest" ] && [ "$latest" != "$current" ]; then
                 emit release "$name" "$current" "$latest"
               fi

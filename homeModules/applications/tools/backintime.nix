@@ -7,6 +7,15 @@
   ...
 }:
 
+let
+  cfg = config.homeManager.applications.tools.backintime;
+
+  # The package calls the crontab of the store, which has no setuid bit and cannot read /var/cron.
+  common = pkgs.backintime-common.override {
+    cron = pkgs.writeShellScriptBin "crontab" ''exec /run/wrappers/bin/crontab "$@"'';
+  };
+in
+
 {
   options.homeManager = {
     applications.tools.backintime = {
@@ -21,14 +30,15 @@
         type = lib.types.nullOr lib.types.ints.positive;
         default = null;
         example = 1;
-        description = "Profile id which is backed up daily by a systemd user timer (instead of the non persistent crontab).";
+        description = "Profile id which is backed up once a day. The hourly job of `nixos.system.cron` starts it, Back In Time skips it until a day has passed, so a missed backup catches up.";
       };
     };
   };
 
   config = lib.mkIf config.homeManager.applications.tools.backintime.enable {
-    home.packages = with pkgs; [
-      backintime
+    home.packages = [
+      common
+      (pkgs.backintime-qt.override { backintime-common = common; })
     ];
 
     home.activation.backintimeConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -480,6 +490,9 @@
       profiles.version=1
       EOF
         fi
+        ${lib.optionalString (cfg.dailyProfile != null) ''
+          ${pkgs.gnused}/bin/sed -i 's/^profile${toString cfg.dailyProfile}\.schedule\.mode=.*/profile${toString cfg.dailyProfile}.schedule.mode=25/' "$CONFIG"
+        ''}
     '';
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
@@ -487,29 +500,5 @@
         ".local/share/backintime"
       ];
     };
-
-    systemd.user.services.backintime-backup =
-      lib.mkIf (config.homeManager.applications.tools.backintime.dailyProfile != null)
-        {
-          Unit.Description = "Back In Time backup of profile ${toString config.homeManager.applications.tools.backintime.dailyProfile}";
-          Service = {
-            Type = "oneshot";
-            Nice = 19;
-            IOSchedulingClass = "idle";
-            ExecStart = "${pkgs.backintime}/bin/backintime --profile-id ${toString config.homeManager.applications.tools.backintime.dailyProfile} backup";
-          };
-        };
-
-    systemd.user.timers.backintime-backup =
-      lib.mkIf (config.homeManager.applications.tools.backintime.dailyProfile != null)
-        {
-          Unit.Description = "Daily Back In Time backup";
-          Timer = {
-            OnCalendar = "daily";
-            RandomizedDelaySec = "1h";
-            Persistent = true;
-          };
-          Install.WantedBy = [ "timers.target" ];
-        };
   };
 }

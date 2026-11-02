@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, code-server, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1 and a Storage Box.
+Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, code-server, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1.
 
 ## How it works
 

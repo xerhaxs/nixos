@@ -42,6 +42,7 @@ Every reverse proxy in front of the server (like Cloudflare today) terminates TL
 
 | Provider | Monero | Notes |
 |---|---|---|
+| Contabo | no | used for NixOS-ServerPublic and NixOS-ServerGaming, S3 compatible object storage, gateway and netmask are shown in the customer panel (static network) |
 | Hetzner Cloud / dedicated | no | good price, DDoS protection, Storage Box for backups (already used), data centers in Germany/Finland |
 | netcup | no | cheap root servers with dedicated cores, Germany |
 | OVH | no | DDoS protection (VAC), bare metal with AMD SEV-SNP options |

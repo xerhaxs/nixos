@@ -5,37 +5,11 @@
   ...
 }:
 
-let
-  net = config.nixos.site.serverGaming;
-in
-
 {
+  imports = [ (import ../vps-uplink.nix "serverGaming") ];
+
   networking = {
     hostName = "NixOS-ServerGaming";
-
-    interfaces.${net.interface} = {
-      ipv4.addresses = [
-        {
-          address = net.ipv4;
-          prefixLength = net.ipv4PrefixLength;
-        }
-      ];
-      ipv6.addresses = [
-        {
-          address = net.ipv6;
-          prefixLength = net.ipv6PrefixLength;
-        }
-      ];
-    };
-
-    defaultGateway = {
-      address = net.ipv4Gateway;
-      interface = net.interface;
-    };
-    defaultGateway6 = {
-      address = "fe80::1";
-      interface = net.interface;
-    };
 
     nameservers = [
       "9.9.9.9"

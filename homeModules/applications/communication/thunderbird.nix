@@ -9,6 +9,10 @@
 let
   site = osConfig.nixos.site;
 
+  # Changes only the display name. The account id comes from the attribute name, a new name would
+  # create a new account in Thunderbird.
+  showAddress = address: id: { "mail.server.server_${id}.name" = address; };
+
   # Addresses come from the private site data, an account without address does not exist here.
   mkAccount =
     name: server:
@@ -20,6 +24,7 @@ let
         thunderbird = {
           enable = true;
           profiles = [ "default" ];
+          settings = showAddress address;
         };
       }
     );
@@ -199,31 +204,36 @@ in
       thunderbird = {
         enable = true;
         profiles = [ "default" ];
+        settings = showAddress osConfig.nixos.site.mailAddress;
       };
     };
 
     # Stalwart serves CalDAV/CardDAV for the same account (default collections).
-    accounts.calendar.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
-      remote = {
-        type = "caldav";
-        url = "https://mail.${osConfig.nixos.site.mailDomain}/dav/cal/${osConfig.nixos.site.mailAddress}/default/";
-        userName = osConfig.nixos.site.mailAddress;
-      };
-      thunderbird = {
-        enable = true;
-        profiles = [ "default" ];
+    accounts.calendar.accounts = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+      ${osConfig.nixos.site.mailAddress} = {
+        remote = {
+          type = "caldav";
+          url = "https://mail.${osConfig.nixos.site.mailDomain}/dav/cal/${osConfig.nixos.site.mailAddress}/default/";
+          userName = osConfig.nixos.site.mailAddress;
+        };
+        thunderbird = {
+          enable = true;
+          profiles = [ "default" ];
+        };
       };
     };
 
-    accounts.contact.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
-      remote = {
-        type = "carddav";
-        url = "https://mail.${osConfig.nixos.site.mailDomain}/dav/card/${osConfig.nixos.site.mailAddress}/default/";
-        userName = osConfig.nixos.site.mailAddress;
-      };
-      thunderbird = {
-        enable = true;
-        profiles = [ "default" ];
+    accounts.contact.accounts = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
+      ${osConfig.nixos.site.mailAddress} = {
+        remote = {
+          type = "carddav";
+          url = "https://mail.${osConfig.nixos.site.mailDomain}/dav/card/${osConfig.nixos.site.mailAddress}/default/";
+          userName = osConfig.nixos.site.mailAddress;
+        };
+        thunderbird = {
+          enable = true;
+          profiles = [ "default" ];
+        };
       };
     };
 

@@ -4,8 +4,8 @@ KeePassXC can store SSH private keys as attachments of database entries and load
 
 ## Setup in this repository
 
-- `homeModules/applications/tools/keepassxc.nix`: `SSHAgent.Enable = true`, and since now an ssh-agent user service (`services.ssh-agent`) with `SSH_AUTH_SOCK` exported to the graphical session, so KeePassXC finds the agent. Before this change no agent was running, the integration had nothing to talk to.
-- `homeModules/base/ssh.nix`: for the own servers only `~/.ssh/id_ed25519.pub` is offered (`IdentitiesOnly`), the private key may stay only in KeePassXC. The servers allow only 3 authentication attempts, an agent with many keys would fail otherwise.
+- `homeModules/applications/tools/keepassxc.nix`: `SSHAgent.Enabled = true`, and since now an ssh-agent user service (`services.ssh-agent`) with `SSH_AUTH_SOCK` exported to the graphical session, so KeePassXC finds the agent. Before this change no agent was running, the integration had nothing to talk to.
+- `homeModules/base/ssh.nix`: for the own servers only `~/.ssh/id_ed25519` is offered (`IdentitiesOnly`). ssh uses the key from the agent when it is loaded and the file otherwise, the private key may stay only in KeePassXC as long as `id_ed25519.pub` exists. The servers allow only 3 authentication attempts, an agent with many keys would fail otherwise.
 
 ## Steps (once)
 

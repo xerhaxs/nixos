@@ -19,6 +19,7 @@
     ./utilities.nix
     ./wallpaper.nix
     ./waybar.nix
+    ./widgets.nix
     ./wlogout.nix
   ];
 
@@ -52,6 +53,7 @@
           utilities.enable = true;
           wallpaper.enable = true;
           waybar.enable = true;
+          widgets.enable = true;
           wlogout.enable = true;
         };
       };

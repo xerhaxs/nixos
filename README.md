@@ -123,7 +123,7 @@ Unlock a server after a reboot: `ssh root@<host>` (NixOS-ServerPublic: port 2222
 - SSH: keys only, post-quantum key exchange (mlkem768x25519), 3 attempts, verbose logging, sshguard; SSH keys can live in KeePassXC (`docs/keepassxc-ssh-agent.md`).
 - Untrusted documents: Dangerzone converts them to safe PDFs in a gVisor sandbox.
 - Network: firewall with only the needed ports, services behind nginx on localhost, catch-all vhost, HSTS, WireGuard for internal access (code-server, backups, monitoring, ssh of NixOS-ServerPublic), fail2ban and sshguard, recursive DNSSEC validating resolver, Pi-hole through WireGuard on the clients, DNS over TLS fallback, MAC randomization.
-- Data: restic backups (append-only REST server at home, Storage Box, Proton Drive for NixOS-Server1), ZFS and btrfs snapshots before backups, ClamAV scans with alerts.
+- Data: restic backups (append-only REST server at home, Proton Drive for NixOS-Server1), ZFS and btrfs snapshots before backups, ClamAV scans with alerts.
 - Monitoring: Prometheus, Loki and Grafana on NixOS-Server1, alerts by mail and ntfy.
 - Vulnerabilities and updates: every host scans its closure (sbomnix, grype), NixOS-Server1 compares the pins with upstream, the result is in Grafana (`docs/updates-and-vulnerabilities.md`).
 - Killswitch: a Home Assistant script publishes to an ntfy topic, every host powers off immediately.

@@ -27,7 +27,17 @@
       xwayland.enable = true;
       systemd = {
         enable = true;
-        variables = [ "--all" ];
+        # Not --all: the user manager outlives the session and Plasma inherits what is imported here.
+        # NIXOS_OZONE_WL alone gives Electron applications in Plasma their own title bar.
+        variables = [
+          "DISPLAY"
+          "HYPRLAND_INSTANCE_SIGNATURE"
+          "PATH"
+          "WAYLAND_DISPLAY"
+          "XDG_CURRENT_DESKTOP"
+          "XDG_DATA_DIRS"
+          "XDG_SESSION_TYPE"
+        ];
       };
 
       plugins = with pkgs.hyprlandPlugins; [

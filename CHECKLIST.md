@@ -79,7 +79,7 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | [ ] | Neu: Ollama auf der Intel-GPU (`gpu = "intel"` über `VK_DRIVER_FILES`), Modellliste als Option | `nixosModules/server/tools/ollama.nix` | `journalctl -u ollama \| grep -i vulkan` nennt die Intel-GPU |
 | [ ] | Neu: ComfyUI (Stable Diffusion) als Podman-Container mit Intel XPU, `comfyui.<homeDomain>`, Image per Digest gepinnt, Link in Glance | `nixosModules/server/tools/comfyui.nix` | Weboberfläche öffnen, Bild generieren, `intel_gpu_top` zeigt Last |
 | [ ] | Neu: `backup-external` für die externe Backup-Platte von Server1 | `hosts/NixOS-Server1/backintime.nix` | `sudo backup-external /dev/sdX1` |
-| [ ] | Restic-REST-Server (append-only) auf Server1, Restic auf ServerPublic (Server1 + Storage Box) | `nixosModules/server/sync/resticserver.nix`, `hosts/NixOS-ServerPublic/backup.nix` | `restic snapshots` |
+| [ ] | Restic-REST-Server (append-only) auf Server1, Restic auf ServerPublic (nach Server1) | `nixosModules/server/sync/resticserver.nix`, `hosts/NixOS-ServerPublic/backup.nix` | `restic snapshots` |
 | [ ] | Neu: Samba-Share-Modul kollidiert nicht mehr mit einem Login-Benutzer `jf` | `nixosModules/server/fileshare/share.nix` | Portable-Server-Modus: `id jf` zeigt die Gruppen `share`, `tmjf` |
 
 ## E. Desktop und Anwendungen
@@ -107,7 +107,7 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | [ ] | Neu: GnuPG (WKD, gpg-agent, eigener Public Key) | `homeModules/base/gpg.nix` | `gpg --list-keys`, `gpgconf --list-options gpg-agent` |
 | [ ] | Thunderbird: Datenschutz-Prefs, Stalwart-Konto (jetzt `primary`), neu: PGP-Identität, externes GnuPG, CalDAV/CardDAV von Stalwart | `homeModules/applications/communication/thunderbird.nix` | Konto, Kalender und Adressbuch erscheinen, Signieren aktiv |
 | [ ] | LibreWolf/Brave: Fingerprinting-Schutz, WebRTC, DoH, eigene Dienste erlaubt | `homeModules/applications/browser/` | https://coveryourtracks.eff.org |
-| [ ] | Back In Time täglich per systemd-Timer (Fix) | `homeModules/applications/tools/backintime.nix` | `systemctl --user list-timers` |
+| [ ] | Back In Time täglich über cron (siehe M) | `homeModules/applications/tools/backintime.nix` | TODO 4.7 |
 | [ ] | Neu: VRR/HDR des Hauptmonitors beim Login | `hosts/NixOS-Desktop/home/machine.nix` | `kscreen-doctor -o` zeigt VRR automatisch, HDR an |
 | [ ] | Neu: WebDAV-Mount `dav.<homeDomain>` auf `/mount/dav` (ausgeschaltet, bis das Secret existiert) | `nixosModules/userEnvironment/networkshares.nix` | nach TODO 13.11: `ls /mount/dav` |
 | [ ] | Neu: JetBrains-Modul nutzt die gepflegten Pakete (`idea`, `pycharm`, unfree), nirgends aktiv | `homeModules/applications/development/jetbrains.nix` | Entscheidung TODO 13.3 |
@@ -212,3 +212,36 @@ Stand der Verifikation: Die Reparatur aus K ist nach dem Neustart bestätigt. Da
 | [ ] | Fix: GTK-Dark-Einstellung stand als ungültiger Schlüssel `Settings` in der `settings.ini` | `homeModules/theme/catppuccin.nix` | Keine Meldung `Unknown key Settings` im Journal |
 | [ ] | Fix: CPU-Temperatur in Waybar auf dem Desktop (k10temp) | `hosts/NixOS-Desktop/home/hyprland.nix` | Temperatur sichtbar |
 | [ ] | `audit_backlog_limit` auf 8192 | `nixosModules/system/hardening.nix` | TODO 13.1 |
+
+## M. Sechste Arbeitsrunde: Journal, Rice, Back In Time, Fusion 360
+
+Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Screenshot auf 3840x1600 in einem isolierten Hyprland geprüft, Klicks in der echten Session nicht. Der Shutdown-Hook ist mit einem `systemctl`-Stub geprüft, die Fusion-Schritte in einem Test-Prefix unter Xvfb.
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | Fix: Dienste stoppen beim Abmelden, solange der Compositor läuft (Coredump-Kette) | `config/hyprland.lua` | Aus Hyprland abmelden, `coredumpctl list -S today` zeigt nichts Neues |
+| [ ] | Fix: Unter Hyprland das Hyprland-Portal statt KDE | `nixosModules/desktop/xdg.nix` | In Hyprland `cat /etc/xdg/xdg-desktop-portal/hyprland-portals.conf`, `systemctl --user status plasma-xdg-desktop-portal-kde` ist inaktiv |
+| [ ] | Fix: `ordering cycle` von wallpaper-random | `wallpaper.nix` | `journalctl -b --user | grep -c "ordering cycle"` ist 0, Wallpaper wechselt beim Login |
+| [ ] | Alle Texte in Hyprland englisch | `wlogout.nix`, `hyprlock.nix`, `rofi.nix`, `waybar.nix`, `widgets.nix` | Power-Menü, Sperrbildschirm, Suche, Datum |
+| [ ] | Neu: Desktop-Widgets (Uhr, Wetter mit Stunden und 7 Tagen, CPU, RAM, GPU, Netz, Laufwerke, Prozesse, Favoriten-Dock) | `widgets.nix`, `config/eww.yuck` | Leerer Workspace, Super+Shift+B blendet sie aus |
+| [ ] | Neu: Favoriten aus der Plasma-Taskleiste in Rofi | `homeModules/desktop/favorites.nix`, `rofi.nix` | Super+D, Stern in Waybar, Plasma-Taskleiste unverändert |
+| [ ] | Neu: Quick-Menü mit Untermenüs (Screenshot, Audio, Netzwerk, Aussehen, System) | `rofi.nix` | Super+X oder Klick aufs NixOS-Logo |
+| [ ] | Neu: Waybar mit Wetter, Laufwerk, VPN, Energieprofil, Werkzeug- und Session-Schublade | `waybar.nix` | Über Werkzeug- und Power-Symbol fahren, Mittelklick auf Audio |
+| [ ] | Fix: Back In Time über cron, Crontab-Pfad des Pakets, `bin/backintime` vorhanden | `backintime.nix`, `nixosModules/system/cron.nix` | TODO 4.7 |
+| [ ] | Fix: `fusion360-install` scheiterte in winetricks am fehlenden `wine64` | `fusion360.nix` | TODO 4.13 |
+| [ ] | D-Bus-Duplikate aus dem Journal gefiltert | `nixosModules/system/dbus.nix` | TODO 13.1 |
+
+## N. Siebte Arbeitsrunde: Server, Titelleisten, Thunderbird
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | Fix: Hyprland-Variablen gelangen nicht mehr in die Plasma-Sitzung | `homeModules/desktop/windowManager/hyprland/hyprland.nix` | TODO 13.17 |
+| [ ] | Neu: Netzwerk der VPS ohne Interface-Namen, statisch oder per DHCP, auch im initrd | `hosts/vps-uplink.nix` | Evaluiert für beide Fälle, echter Boot steht aus (TODO 8.6) |
+| [ ] | Thunderbird zeigt Konten mit ihrer Adresse, Konto-IDs bleiben gleich | `homeModules/applications/communication/thunderbird.nix` | Kontenliste, bestehende Konten bleiben erhalten |
+| [ ] | Stalwart-Konto für Thunderbird vorbereitet, aktiv sobald `mailAddress` gesetzt ist | `thunderbird.nix` | Mit Testadresse gebaut, echter Login nach TODO 8.8 |
+| [ ] | KeePassXC: `SSHAgent.Enabled` und weitere Schlüsselnamen korrigiert | `homeModules/applications/tools/keepassxc.nix` | SSH-Agent-Seite am Eintrag sichtbar |
+| [ ] | SSH nutzt `~/.ssh/id_ed25519` statt `.pub` | `homeModules/base/ssh.nix` | `ssh admin@NixOS-Server1` |
+| [ ] | Fix: Der Start von Fusion 360 fand den Ordner `production` nicht, Wine legt keine Menüeinträge mehr an | `fusion360.nix` | `fusion360` |
+| [ ] | Fix: `update-check` scheiterte an shellcheck (`$prefix[0-9.]`), Build von Server1 brach ab | `nixosModules/server/management/update-check.nix` | Build von Server1 |
+| [ ] | Storage Box aus den Backups der VPS entfernt, Sicherung nach Server1 bleibt | `hosts/NixOS-Server{Public,Gaming}/backup.nix` | Host evaluiert ohne `storageBox` |
+| [ ] | Speicherlimit 5 GB pro Nutzer in Nextcloud und CryptPad | `nextcloud.nix`, `cryptpad.nix` | Nextcloud: Benutzerverwaltung, CryptPad: Einstellungen des Kontos |

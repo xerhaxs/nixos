@@ -226,37 +226,7 @@
             {
               name = "org.kde.plasma.icontasks";
               config = {
-                General.launchers = [
-                  "applications:virt-manager.desktop"
-                  "applications:qalculate-gtk.desktop"
-                  "applications:org.kde.dolphin.desktop"
-                  "applications:librewolf.desktop"
-                  "applications:thunderbird.desktop"
-                  "applications:org.kde.kate.desktop"
-                  "applications:codium.desktop"
-                  "applications:signal.desktop"
-                  "applications:org.telegram.desktop.desktop"
-                  "applications:io.github.tobagin.karere.desktop"
-                  "applications:legcord.desktop"
-                  "applications:org.kde.kmymoney.desktop"
-                  "applications:org.kde.kile.desktop"
-                  "applications:writer.desktop"
-                  "applications:calc.desktop"
-                  "applications:impress.desktop"
-                  "applications:com.github.flxzt.rnote.desktop"
-                  "applications:com.obsproject.Studio.desktop"
-                  "applications:org.clementine_player.Clementine.desktop"
-                  "applications:fluent-reader.desktop"
-                  "applications:freetube.desktop"
-                ]
-                ++ lib.optionals osConfig.nixos.userEnvironment.game.enable [
-                  "applications:org.prismlauncher.PrismLauncher.desktop"
-                  "applications:com.heroicgameslauncher.hgl.desktop"
-                  "applications:steam.desktop"
-                ]
-                ++ lib.optionals config.homeManager.applications.vpn.enable [
-                  "applications:mullvad-vpn.desktop"
-                ];
+                General.launchers = map (id: "applications:${id}.desktop") config.homeManager.desktop.favorites;
               };
             }
 

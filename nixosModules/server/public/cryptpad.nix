@@ -48,6 +48,7 @@
         archiveRetentionTime = 14;
         accountRetentionTime = 365;
         maxUploadSize = 100 * 1024 * 1024;
+        defaultStorageLimit = 5 * 1024 * 1024 * 1024;
       };
     };
 

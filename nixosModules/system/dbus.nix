@@ -18,6 +18,15 @@
   };
 
   config = lib.mkIf config.nixos.system.dbus.enable {
+    # Each service file is found twice, in system-path and in its package. These messages are
+    # harmless, but they fill journalctl -p err and hide real errors.
+    systemd.services.dbus-broker = lib.mkIf (config.services.dbus.implementation == "broker") {
+      serviceConfig.LogFilterPatterns = "~Ignoring duplicate name";
+    };
+    systemd.user.services.dbus-broker = lib.mkIf (config.services.dbus.implementation == "broker") {
+      serviceConfig.LogFilterPatterns = "~Ignoring duplicate name";
+    };
+
     services.dbus = {
       enable = true;
     };

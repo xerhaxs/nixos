@@ -127,6 +127,7 @@ in
         }";
       };
       script = ''
+        ${occ} config:app:set files default_quota --value="5 GB"
         ${lib.optionalString config.nixos.server.public.collabora.enable ''
           ${occ} config:app:set richdocuments wopi_url --value="https://${officeHostname}"
           ${occ} config:app:set richdocuments public_wopi_url --value="https://${officeHostname}"

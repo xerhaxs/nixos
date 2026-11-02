@@ -8,10 +8,12 @@ Lua configuration files of Hyprland.
 
 - `hyprland.lua`: look and feel, animations, keybinds, window and layer rules, plugin settings.
 - `touch.lua`: hyprgrass gestures, only loaded with `touch.enable`.
+- `eww.yuck`: desktop widgets, `widgets.nix` puts the variables and polls in front of it.
 
 ## Contents
 
 | Path | Description |
 |---|---|
+| `eww.yuck` | Desktop widgets of `widgets.nix`. |
 | `hyprland.lua` | Lua configuration file. |
 | `touch.lua` | Lua configuration file. |

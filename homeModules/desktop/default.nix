@@ -10,6 +10,7 @@
     ./desktopEnvironment
     ./windowManager
 
+    ./favorites.nix
     ./xdg.nix
     ./xserver.nix
   ];

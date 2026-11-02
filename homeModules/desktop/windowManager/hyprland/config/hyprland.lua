@@ -18,6 +18,13 @@ hl.env("NIXOS_OZONE_WL", "1")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
+-- Stop the session while the compositor still runs, ExecStop of Qt services needs a display.
+-- The user manager outlives the session, a stale WAYLAND_DISPLAY crashes everything it activates later.
+hl.on("hyprland.shutdown", function()
+  os.execute("systemctl --user stop hyprland-session.target")
+  os.execute("systemctl --user unset-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE HYPRLAND_INSTANCE_SIGNATURE QT_QPA_PLATFORM QT_WAYLAND_DISABLE_WINDOWDECORATION NIXOS_OZONE_WL")
+end)
+
 hl.on("hyprland.start", function()
   hl.exec_cmd("keepassxc")
 end)
@@ -49,8 +56,8 @@ hl.config({
     },
     blur = {
       enabled = true,
-      size = 8,
-      passes = 3,
+      size = 6,
+      passes = 2,
       vibrancy = 0.1696,
       popups = true,
     },
@@ -116,6 +123,10 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show favorites -show-icons"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("quick-menu"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("desktop-widgets toggle"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pypr toggle monitor"))
 hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("hyprpicker --autocopy"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client --toggle-panel --skip-wait"))
@@ -237,7 +248,7 @@ hl.window_rule({
 
 hl.layer_rule({
   name = "blur-shell",
-  match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window|logout_dialog)$" },
+  match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window|logout_dialog|eww-desktop)$" },
   blur = true,
   ignore_alpha = 0.3,
 })

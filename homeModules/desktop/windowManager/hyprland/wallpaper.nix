@@ -79,7 +79,7 @@ in
           ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
           ExecStart = lib.getExe randomWallpaper;
         };
-        Install.WantedBy = [ config.wayland.systemd.target ];
+        Install.WantedBy = [ "awww.service" ];
       };
     };
 

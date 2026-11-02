@@ -23,31 +23,31 @@ let
     {
       label = "lock";
       action = "loginctl lock-session";
-      text = "Sperren";
+      text = "Lock";
       keybind = "l";
     }
     {
       label = "logout";
       action = "hyprctl dispatch 'hl.dsp.exit()'";
-      text = "Abmelden";
+      text = "Log out";
       keybind = "e";
     }
     {
       label = "suspend";
       action = "systemctl suspend";
-      text = "Standby";
+      text = "Suspend";
       keybind = "u";
     }
     {
       label = "reboot";
       action = "systemctl reboot";
-      text = "Neustart";
+      text = "Reboot";
       keybind = "r";
     }
     {
       label = "shutdown";
       action = "systemctl poweroff";
-      text = "Aus";
+      text = "Shut down";
       keybind = "s";
     }
   ];

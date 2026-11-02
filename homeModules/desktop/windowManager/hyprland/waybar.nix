@@ -5,6 +5,37 @@
   ...
 }:
 
+let
+  glyph = import ./glyphs.nix { inherit lib; };
+
+  vpn = config.homeManager.applications.vpn.enable;
+
+  vpnStatus = pkgs.writeShellScript "vpn-status" ''
+    status=$(${pkgs.mullvad}/bin/mullvad status 2>/dev/null | ${pkgs.coreutils}/bin/head -n 2)
+    case "$status" in
+      Connected*) icon="${glyph "F0565"}" class=connected ;;
+      *) icon="${glyph "F099D"}" class=disconnected ;;
+    esac
+    ${pkgs.jq}/bin/jq -nc --arg text "$icon" --arg class "$class" --arg tooltip "$status" \
+      '{text: $text, class: $class, tooltip: $tooltip}'
+  '';
+
+  vpnToggle = pkgs.writeShellScript "vpn-toggle" ''
+    case "$(${pkgs.mullvad}/bin/mullvad status)" in
+      Connected*) ${pkgs.mullvad}/bin/mullvad disconnect ;;
+      *) ${pkgs.mullvad}/bin/mullvad connect ;;
+    esac
+  '';
+
+  button = icon: tooltip: action: {
+    format = glyph icon;
+    tooltip-format = tooltip;
+    on-click = action;
+  };
+
+  monitor = "pypr toggle monitor";
+in
+
 {
   options.homeManager = {
     desktop.windowManager.hyprland.waybar = {
@@ -33,20 +64,23 @@
 
         modules-left = [
           "custom/launcher"
+          "custom/favorites"
           "hyprland/workspaces"
           "hyprland/window"
         ];
         modules-center = [
           "clock"
+          "custom/weather"
           "mpris"
         ];
         modules-right = [
           "group/stats"
           "group/audio"
           "group/connections"
+          "group/tools"
           "tray"
           "custom/notification"
-          "custom/power"
+          "group/session"
         ];
 
         "group/stats" = {
@@ -55,6 +89,7 @@
             "cpu"
             "memory"
             "temperature"
+            "disk"
             "battery"
           ];
         };
@@ -73,15 +108,61 @@
           modules = [
             "network"
             "bluetooth"
+          ]
+          ++ lib.optional vpn "custom/vpn"
+          ++ [
+            "power-profiles-daemon"
             "idle_inhibitor"
+          ];
+        };
+
+        "group/tools" = {
+          orientation = "horizontal";
+          drawer = {
+            transition-duration = 150;
+            transition-left-to-right = false;
+          };
+          modules = [
+            "custom/tools"
+            "custom/screenshot"
+            "custom/clipboard"
+            "custom/colorpicker"
+            "custom/wallpaper"
+            "custom/nightlight"
+            "custom/widgets"
+          ];
+        };
+
+        "group/session" = {
+          orientation = "horizontal";
+          drawer = {
+            transition-duration = 150;
+            transition-left-to-right = false;
+          };
+          modules = [
+            "custom/power"
+            "custom/lock"
+            "custom/logout"
+            "custom/reboot"
+            "custom/shutdown"
           ];
         };
 
         "custom/launcher" = {
           format = "󱄅";
           tooltip = false;
-          on-click = "rofi -show drun -show-icons";
-          on-click-right = "waypaper";
+          on-click = "quick-menu";
+          on-click-middle = "rofi -show window -show-icons";
+          on-click-right = "rofi -show drun -show-icons";
+        };
+
+        "custom/favorites" = button "F04CE" "Favorites" "rofi -show favorites -show-icons";
+
+        "custom/weather" = {
+          exec = "desktop-weather --bar";
+          return-type = "json";
+          interval = 900;
+          on-click-right = "desktop-weather --bar";
         };
 
         "hyprland/workspaces" = {
@@ -99,8 +180,9 @@
         };
 
         clock = {
+          locale = "en_US.UTF-8";
           format = "󰅐  {:%H:%M}";
-          format-alt = "󰃭  {:L%A, %d. %B %Y}";
+          format-alt = "󰃭  {:%A, %B %d %Y}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "month";
@@ -114,6 +196,9 @@
         };
 
         mpris = {
+          on-scroll-up = "playerctl next";
+          on-scroll-down = "playerctl previous";
+          on-click-right = "playerctl next";
           format = "{player_icon}  {title}";
           format-paused = "{status_icon}  <i>{title}</i>";
           max-length = 40;
@@ -122,16 +207,27 @@
         };
 
         cpu = {
+          on-click = monitor;
           format = "󰻠  {usage}%";
           interval = 5;
         };
 
         memory = {
+          on-click = monitor;
           format = "󰍛  {percentage}%";
           interval = 10;
         };
 
+        disk = {
+          path = "/nix";
+          interval = 60;
+          format = "${glyph "F02CA"}  {percentage_used}%";
+          tooltip-format = "{used} of {total} used on {path}";
+          on-click = monitor;
+        };
+
         temperature = {
+          on-click = monitor;
           critical-threshold = 85;
           format = "󰔏  {temperatureC}°";
         };
@@ -163,6 +259,7 @@
           ];
           on-click = "pypr toggle volume";
           on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-middle = "quick-menu audio";
         };
 
         "pulseaudio#microphone" = {
@@ -194,7 +291,8 @@
           format-ethernet = "󰈀";
           format-disconnected = "󰖪";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}\n{essid}";
-          on-click = "kitty --class nmtui -e nmtui";
+          on-click = "quick-menu network";
+          on-click-right = "kitty --class nmtui -e nmtui";
         };
 
         bluetooth = {
@@ -202,6 +300,17 @@
           format-connected = "󰂱  {num_connections}";
           format-disabled = "󰂲";
           on-click = "rofi-bluetooth";
+        };
+
+        power-profiles-daemon = {
+          format = "{icon}";
+          tooltip-format = "Power profile: {profile}";
+          format-icons = {
+            default = glyph "F05D1";
+            performance = glyph "F04C5";
+            balanced = glyph "F05D1";
+            power-saver = glyph "F032A";
+          };
         };
 
         idle_inhibitor = {
@@ -234,9 +343,37 @@
         };
 
         "custom/power" = {
-          format = "󰐥";
+          format = glyph "F0425";
           tooltip = false;
           on-click = "power-menu";
+        };
+
+        "custom/lock" = button "F033E" "Lock" "loginctl lock-session";
+        "custom/logout" = button "F0343" "Log out" "hyprctl dispatch 'hl.dsp.exit()'";
+        "custom/reboot" = button "F0709" "Reboot" "systemctl reboot";
+        "custom/shutdown" = button "F0425" "Shut down" "systemctl poweroff";
+
+        "custom/tools" = {
+          format = glyph "F1064";
+          tooltip = false;
+          on-click = "quick-menu";
+        };
+
+        "custom/screenshot" = button "F0100" "Screenshot" "flameshot gui";
+        "custom/clipboard" = button "F0147" "Clipboard history" "quick-menu clipboard";
+        "custom/colorpicker" = button "F020A" "Pick a color" "hyprpicker --autocopy";
+        "custom/wallpaper" =
+          button "F02E9" "Random wallpaper"
+            "systemctl --user start wallpaper-random.service";
+        "custom/nightlight" = button "F0594" "Toggle night light" "quick-menu nightlight";
+        "custom/widgets" = button "F072C" "Toggle desktop widgets" "desktop-widgets toggle";
+      }
+      // lib.optionalAttrs vpn {
+        "custom/vpn" = {
+          exec = "${vpnStatus}";
+          return-type = "json";
+          interval = 15;
+          on-click = "${vpnToggle}";
         };
       };
 
@@ -266,6 +403,9 @@
         }
 
         #custom-launcher,
+        #custom-favorites,
+        #custom-weather,
+        #tools,
         #workspaces,
         #window,
         #clock,
@@ -275,7 +415,7 @@
         #connections,
         #tray,
         #custom-notification,
-        #custom-power {
+        #session {
           background: alpha(@crust, 0.78);
           border: 1px solid alpha(@surface2, 0.35);
           border-radius: 14px;
@@ -286,7 +426,15 @@
           color: @accent;
           font-size: 20px;
           padding: 0 15px 0 12px;
-          transition: color 200ms ease;
+        }
+
+        #custom-favorites {
+          color: @yellow;
+          font-size: 17px;
+        }
+
+        #custom-weather {
+          color: @sky;
         }
 
         #custom-launcher:hover {
@@ -303,7 +451,6 @@
           padding: 0 9px;
           margin: 5px 1px;
           border-radius: 10px;
-          transition: all 200ms ease;
         }
 
         #workspaces button:hover {
@@ -348,6 +495,7 @@
           color: @overlay1;
         }
 
+        #disk,
         #cpu,
         #memory,
         #temperature,
@@ -421,6 +569,24 @@
           color: @overlay1;
         }
 
+        #disk {
+          color: @mauve;
+        }
+
+        #custom-vpn,
+        #power-profiles-daemon {
+          padding: 0 7px;
+          color: @lavender;
+        }
+
+        #custom-vpn.disconnected {
+          color: @overlay1;
+        }
+
+        #custom-vpn.connected {
+          color: @green;
+        }
+
         #idle_inhibitor {
           color: @overlay1;
         }
@@ -434,15 +600,52 @@
           font-size: 16px;
         }
 
-        #custom-power {
-          color: @red;
+        #custom-tools,
+        #custom-screenshot,
+        #custom-clipboard,
+        #custom-colorpicker,
+        #custom-wallpaper,
+        #custom-nightlight,
+        #custom-widgets {
+          color: @teal;
           font-size: 16px;
-          padding: 0 15px 0 13px;
+          padding: 0 7px;
         }
 
-        #custom-power:hover {
-          color: @crust;
-          background: @red;
+        #custom-power,
+        #custom-lock,
+        #custom-logout,
+        #custom-reboot,
+        #custom-shutdown {
+          color: @red;
+          font-size: 16px;
+          padding: 0 7px;
+        }
+
+        #custom-lock {
+          color: @blue;
+        }
+
+        #custom-logout {
+          color: @yellow;
+        }
+
+        #custom-reboot {
+          color: @peach;
+        }
+
+        #custom-tools:hover,
+        #custom-screenshot:hover,
+        #custom-clipboard:hover,
+        #custom-colorpicker:hover,
+        #custom-wallpaper:hover,
+        #custom-nightlight:hover,
+        #custom-widgets:hover,
+        #custom-lock:hover,
+        #custom-logout:hover,
+        #custom-reboot:hover,
+        #custom-shutdown:hover {
+          color: @text;
         }
       '';
     };

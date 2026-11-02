@@ -1,6 +1,6 @@
 # TODO – Schritt-für-Schritt-Anleitung
 
-Stand 02.11.2026: Das Rework liegt auf dem Branch `rework`, noch nicht gepusht. NixOS-Desktop läuft auf der neuen Generation, die Reparatur 4.5a bis 4.5e ist erledigt und geprüft. Arbeite die Phasen in dieser Reihenfolge ab. Jeder Punkt ist ein Häkchen. Die Abnahme-Checkliste (was wurde geändert und wie prüfe ich es?) steht in [`CHECKLIST.md`](CHECKLIST.md).
+Stand 02.11.2026 abends: Das Rework liegt auf dem Branch `rework`, noch nicht gepusht. NixOS-Desktop läuft auf der neuen Generation, die Reparatur 4.5a bis 4.5g ist erledigt. Offen auf dem Desktop: einmal neu starten, damit die Prüfungen aus 13.1 und 13.17 greifen. Als Nächstes kommt Server1 (6.2), Secrets der Dienste folgen vor den VPS (8.2 und 8.3), die Clients danach (Phase 5). Die Provider-Daten liegen in der privaten `site.nix`, die Login-Hashes sind gesetzt. Arbeite die Phasen in dieser Reihenfolge ab. Jeder Punkt ist ein Häkchen. Die Abnahme-Checkliste (was wurde geändert und wie prüfe ich es?) steht in [`CHECKLIST.md`](CHECKLIST.md).
 
 Konventionen:
 
@@ -20,13 +20,13 @@ Konventionen:
 ## Phase 1 – Privates Repository vorbereiten
 
 - [X] 1.1 `cd $PRIV && git status`. Neu bzw. geändert sind `site.nix` (initiale Passwort-Hashes), `secrets/.sops.yaml` (Regeln für `initial-passwords.yaml` und `nixos-portable.yaml`), `secrets/initial-passwords.yaml` und `secrets/nixos-portable.yaml`.
-- [X] 1.2 Initiale Passwörter ansehen und in KeePassXC speichern: `sops -d secrets/initial-passwords.yaml`. Je Host gibt es eine Wort-Passphrase. Die Hashes (sha512crypt, 500 000 Runden) stehen in `site.nix` unter `initialHashedPasswords`.
+- [X] 1.2 Eigene Login-Passwörter in KeePassXC anlegen. Klartext liegt nur dort, die Hashes (sha512crypt, 500 000 Runden) stehen in `site.nix` unter `initialHashedPasswords`, bei ServerPublic und ServerGaming in sops. `secrets/initial-passwords.yaml` ist gelöscht (02.11.2026).
 - [ ] 1.3 In `site.nix` ergänzen:
-  - [ ] `mailAddress = "<du>@<mailDomain>";` und `mailRealName = "<Name>";` (Thunderbird-Konto, CalDAV/CardDAV von Stalwart)
+  - [X] `mailAddress = "<du>@<mailDomain>";` und `mailRealName = "<Name>";` (Thunderbird-Konto, CalDAV/CardDAV von Stalwart)
   - [ ] `pgpFingerprint = "<40 Zeichen>";` (sobald der PGP-Schlüssel existiert, siehe Phase 11)
-  - [ ] `serverPublic`: echte VPS-Daten (Interface, IPv4/IPv6, Gateway, Storage Box)
-  - [ ] `serverGaming`: echte VPS-Daten des Gaming-Servers
-  - [ ] `mailAccounts`: Adressen von Proton, DLRG und 1&1 (Vorlage steht auskommentiert in `site.nix`)
+  - [X] `serverPublic`: Daten aus dem Contabo Customer Panel unter Network Services → IP Assignment, Button (i): `ipv4`, `ipv4Gateway`, `ipv4PrefixLength` (aus der Netzmaske, 255.255.240.0 ist 20), `ipv6` (eine Adresse aus dem Netz, z. B. `<Präfix>::1`) und `ipv6PrefixLength`. Die Einträge `interface` und `storageBox` löschen, beide werden nicht mehr gelesen.
+  - [X] `serverGaming`: dasselbe für den Gaming-Server
+  - [X] `mailAccounts`: Adressen von Proton, DLRG und 1&1
 - [ ] 1.4 Optional: Den öffentlichen PGP-Schlüssel ablegen: `mkdir -p pgp && gpg --armor --export <adresse> > pgp/public.asc`. Er wird per WKD veröffentlicht und in GnuPG importiert.
 - [X] 1.5 In `secrets/nixos-portable.yaml` die Platzhalter `REPLACE_ME` ersetzen (`sops secrets/nixos-portable.yaml`): WLAN, Mullvad, NAS-SMB-Zugang, Alpha-Vantage-Key, `glance` → `ENV_LOCATION`. Die Werte kopierst du aus `sops -d secrets/secrets.yaml` im öffentlichen Repo.
 - [X] 1.6 Committen: `git add -A && git commit -m "site data, initial passwords, portable host"`.
@@ -77,31 +77,33 @@ Befund vom 01.11.2026: `home-manager-jf.service` brach beim Boot mit `mkdir: Per
 - [X] 4.5d Neu starten.
 - [X] 4.5e Prüfen: `systemctl status home-manager-jf` ist erfolgreich, `systemctl --failed` und `systemctl --user --failed` sind leer, `grep " /persistent/home " /etc/fstab` enthält `x-initrd.mount` (`findmnt` zeigt `x-`-Optionen nicht), `ls -la ~/.config/hypr ~/.claude.json` zeigt die Konfiguration und den Symlink.
 - [X] 4.5f Sichtprüfung: Plasma hat wieder Panels, Theme und Wallpaper. Nach 10 Minuten ohne Eingabe darf in Plasma kein `hyprlock` erscheinen.
-- [ ] 4.5g Optional aufräumen: Unter dem Mountpunkt liegt im root-Subvolume noch ein alter verdeckter Baum. Er stört nicht. Wegräumen: `sudo mount -o subvol=/root /dev/mapper/system /mnt`, `/mnt/home` ansehen und den Inhalt löschen, dann `sudo umount /mnt`. Das echte Home liegt im Subvolume `/home` und ist davon nicht betroffen.
+- [X] 4.5g Optional aufräumen: Unter dem Mountpunkt liegt im root-Subvolume noch ein alter verdeckter Baum. Er stört nicht. Wegräumen: `sudo mount -o subvol=/root /dev/mapper/system /mnt`, prüfen mit `findmnt /mnt`, `/mnt/home` ansehen und nur dessen Inhalt löschen, dann `sudo umount /mnt`. Das echte Home liegt im Subvolume `/home` und ist davon nicht betroffen. **Das Ziel `/mnt` darf nicht fehlen:** Ohne Ziel nimmt `mount` den Eintrag aus der `fstab`, das Subvolume landet dann auf `/nix` und verdeckt den Store (am 02.11.2026 passiert: alle Programme und Icons weg, auch `sudo`, nur ein Neustart hilft). Im Subvolume liegt der gesamte persistente Systemzustand, außerhalb von `/mnt/home` nichts löschen.
 
 Nacharbeiten:
 
-- [ ] 4.7 Back In Time: In `~/.config/backintime/config` den Wert `profile1.schedule.mode=1` auf `0` setzen. Einen alten Cron-Eintrag gibt es nicht mehr (`crontab -l` war am 01.11.2026 leer), das tägliche Backup lief bis hierhin also vermutlich nicht. Der systemd-User-Timer übernimmt jetzt das tägliche Backup (`systemctl --user list-timers | grep backintime`).
-- [ ] 4.8 KeePassXC-SSH-Agent einrichten: [`docs/keepassxc-ssh-agent.md`](docs/keepassxc-ssh-agent.md). Danach `ssh-add -l`.
+- [ ] 4.7 Der erste Lauf über cron startete am 02.11.2026 um 17:07, der letzte fertige Snapshot war vom 26.08.2026. Abgeschlossen, wenn `last_snapshot` auf einen Snapshot von November zeigt. Back In Time läuft jetzt über cron: Ein Eintrag im System-Crontab startet stündlich `backup-job`, das Profil steht auf Modus 25 (anacron) und Back In Time sichert, sobald ein Tag vergangen ist. So holt es eine Sicherung nach, wenn der Rechner aus war. Der System-Crontab kommt aus der Konfiguration und übersteht den tmpfs, die Zeitstempel liegen im persistierten `~/.local/share/backintime`. Prüfen: `sudo grep backintime /etc/crontab`, `grep schedule.mode=25 ~/.config/backintime/config`, Back In Time öffnen (kein Fehler `cannot chdir(/var/cron)`). Nach spätestens einer Stunde: `ls -la /mount/Backup/backintime/*/*/*/ | tail` zeigt einen neuen Snapshot. Der alte Timer lief nie, weil `bin/backintime` im Paket fehlte, der letzte Snapshot kann also alt sein.
+- [X] 4.8 KeePassXC-SSH-Agent einrichten: [`docs/keepassxc-ssh-agent.md`](docs/keepassxc-ssh-agent.md). Danach `ssh-add -l`. Bis dahin nutzt ssh die Datei `~/.ssh/id_ed25519`. Diese ist ohne Passphrase, nach der Einrichtung also aus `~/.ssh` löschen, `id_ed25519.pub` bleibt.
 - [X] 4.9 DangerZone einmal starten. Beim ersten Start lädt es das Container-Image und prüft es mit cosign. Danach eine Test-PDF umwandeln.
 - [ ] 4.10 Fluent Reader: In Miniflux unter Einstellungen → API-Schlüssel einen Key anlegen und ihn in Fluent Reader unter Einstellungen → Dienst eintragen. Funktioniert erst, wenn ServerPublic läuft.
 - [ ] 4.11 EasyEffects: Das Preset `microphone` ist auf Rode Procaster und Behringer UMC22 abgestimmt (Eingang 1, 48V aus). Den Gain am UMC22 so einstellen, dass normale Sprache bei -18 bis -12 dBFS liegt, dann Probeaufnahme machen. Die Werte stammen aus den Datenblättern und sind nicht gemessen, Feinabstimmung siehe [`docs/microphone.md`](docs/microphone.md).
-- [ ] 4.12 Hyprland ausprobieren: Abmelden → SDDM → Session „Hyprland“. Tastenkürzel siehe `homeModules/desktop/windowManager/hyprland/README.md`.
-- [ ] 4.13 Fusion 360: `fusion360-install` einmal ausführen (braucht Internet und Autodesk-Konto), danach `fusion360` starten. Funktioniert es unter Wine nicht, ist die Alternative eine Windows-VM (siehe [`docs/virtual-machines.md`](docs/virtual-machines.md)).
+- [ ] 4.12 Hyprland ausprobieren: Abmelden → SDDM → Session „Hyprland“. Einmalig den Wetterort setzen: `weather-location "<Stadt>"`. Der Ort liegt in `~/.local/state/desktop-weather` und nicht im Repo. Tastenkürzel: Super+X → System → Keybindings oder `homeModules/desktop/windowManager/hyprland/README.md`.
+- [ ] 4.13 Fusion 360: Die Installation ist fertig (02.11.2026, 11 GB im Prefix). `fusion360` starten und anmelden, die Anmeldung läuft über den Browser. Im Menü den Eintrag „Autodesk Fusion 360“ verwenden, nicht den von Wine erzeugten „Autodesk Fusion“ (Status 127, verschwindet beim Neustart). Startet es unter Wine nicht, ist die Alternative eine Windows-VM (siehe [`docs/virtual-machines.md`](docs/virtual-machines.md)).
 - [X] 4.14 VRR/HDR wird beim Login per `kscreen-doctor` gesetzt. Den AVR-Monitor als Spiegel des Hauptmonitors einmalig in den KDE-Bildschirmeinstellungen einrichten (der Ausgabename ist unbekannt).
 
 ## Phase 5 – Laptops (NixOS-Framework, NixOS-Convertible)
 
-- [ ] 5.1 Pro Laptop: Phase 4.1 bis 4.6 wiederholen (`.#NixOS-Framework` bzw. `.#NixOS-Convertible`). Solange Phase 17 offen ist, vom Desktop aus mit `--target-host jf@<laptop> --sudo` bauen.
+- [ ] 5.1 Pro Laptop: Phase 4.1 bis 4.6 wiederholen (`.#NixOS-Framework` bzw. `.#NixOS-Convertible`). Solange Phase 17 offen ist, vom Desktop aus mit `--target-host jf@<laptop> --sudo --ask-sudo-password` bauen.
+- [ ] 5.1b Pro Laptop: SSH-Schlüssel in KeePassXC übernehmen. Der Agent selbst kommt mit dem Rollout aus der Konfiguration, die Einstellungen am Eintrag liegen in der Datenbank. Jeder Host hat einen eigenen Schlüssel, nur `~/.ssh/id_ed25519.pub` entscheidet, welcher angeboten wird. Deshalb pro Laptop: Eintrag „SSH id_ed25519 <Host>“ mit dem privaten Schlüssel dieses Laptops als Anhang anlegen, im Eintrag unter „SSH Agent“ Private key auf Attachment stellen, beide Haken setzen, Datenbank speichern. Prüfen mit `ssh-add -l` und `ssh admin@NixOS-Server1`, danach `rm ~/.ssh/id_ed25519`, die `.pub` bleibt. Liegt die Datenbank nicht auf dem Laptop, zuerst dorthin kopieren, sonst fehlt der Schlüssel im Agenten. NixOS-Portable hat noch keinen Schlüssel in `authorizedKeys`, das erledigt Tabelle 7B.
+- [ ] 5.1a Pro Client (Framework, Convertible, Portable): Journal abarbeiten wie auf dem Desktop. Einmal in Plasma und in Hyprland an- und abmelden, neu starten, dann `journalctl -b -p err` und `coredumpctl list -S today`. Jede Meldung bewerten und in 13.1 eintragen. Erwartet: keine Coredumps nach dem Abmelden, kein `ordering cycle`, kein `kauditd hold queue overflow`, `systemctl --failed` und `systemctl --user --failed` sind leer. Eine einzelne Meldung `Failed to activate with specified passphrase` ist nur ein Tippfehler bei der LUKS-Eingabe.
 - [ ] 5.2 Convertible: In Hyprland Touch-Gesten, die Bildschirmtastatur (Wisch vom unteren Rand nach oben) und die automatische Drehung (Tablet-Modus) testen.
 - [ ] 5.3 Laptops: kanshi-Profile prüfen (Laptop allein / mit externem Monitor). Positionen bei Bedarf in `hosts/<host>/home/hyprland.nix` anpassen.
 
 ## Phase 6 – NixOS-Server1
 
-- [ ] 6.1 machine-id sichern: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id'`.
-- [ ] 6.1a Mullvad-Gerät vor dem Neustart sichern, sonst braucht der erste Boot noch einmal einen freien Geräteplatz: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc/mullvad-vpn && sudo cp -a /etc/mullvad-vpn/. /persistent/etc/mullvad-vpn/'`. Bisher lag `device.json` auf tmpfs, jeder Boot belegte einen neuen der fünf Plätze.
-- [ ] 6.1b Verwaiste Geräte entfernen: `ssh admin@NixOS-Server1 'mullvad account get; mullvad account list-devices'` zeigt das aktuelle Gerät und alle anderen. Geräte, die zu keinem aktiven Rechner gehören, mit `mullvad account revoke-device "<Name>"` entfernen. Nicht das eigene Gerät und nicht die der Clients entfernen.
-- [ ] 6.2 Bauen und als Boot-Generation setzen: `nixos-rebuild boot --flake .#NixOS-Server1 --target-host admin@NixOS-Server1 --sudo`, dann neu starten (Remote-Unlock per initrd-ssh).
+- [X] 6.1 machine-id sichern: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id'`.
+- [X] 6.1a Mullvad-Gerät vor dem Neustart sichern, sonst braucht der erste Boot noch einmal einen freien Geräteplatz: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc/mullvad-vpn && sudo cp -a /etc/mullvad-vpn/. /persistent/etc/mullvad-vpn/'`. Bisher lag `device.json` auf tmpfs, jeder Boot belegte einen neuen der fünf Plätze.
+- [X] 6.1b Verwaiste Geräte entfernen: `ssh admin@NixOS-Server1 'mullvad account get; mullvad account list-devices'` zeigt das aktuelle Gerät und alle anderen. Geräte, die zu keinem aktiven Rechner gehören, mit `mullvad account revoke-device "<Name>"` entfernen. Nicht das eigene Gerät und nicht die der Clients entfernen.
+- [ ] 6.2 Bauen und als Boot-Generation setzen: `nixos-rebuild boot --flake .#NixOS-Server1 --target-host admin@NixOS-Server1 --sudo --ask-sudo-password`, dann neu starten (Remote-Unlock per initrd-ssh). `sudo` fragt dabei noch nach dem bisherigen Passwort. Der erste Build dauert länger als 10 Minuten. Nach dem Neustart gilt für `admin` das neue Passwort aus KeePassXC (Hash in `site.nix`), das alte nicht mehr. `mutableUsers` ist aus.
 - [ ] 6.2a Mullvad prüfen: Nach zwei Neustarts zeigt `mullvad account get` denselben `Device name`, `mullvad account list-devices` hat keinen neuen Eintrag, und `journalctl -b -u mullvad-daemon | grep login_account` ist leer.
 - [ ] 6.3 Intel-GPU für Ollama prüfen: `ssh admin@NixOS-Server1 'nix shell nixpkgs#vulkan-tools -c vulkaninfo --summary'` muss die Intel-GPU zeigen. Danach im Log `journalctl -u ollama | grep -i vulkan`.
 - [ ] 6.4 ComfyUI: `systemctl status podman-comfyui`. Der erste Start lädt das Image (mehrere GB). Danach `https://comfyui.<homeDomain>` öffnen und ein Modell (z. B. SDXL oder Flux) in `/pool01/applications/comfyui/models/checkpoints` legen. Falls der Container nach einem Neustart nicht startet: `podman-comfyui` ist in `hosts/NixOS-Server1/services.nix` noch nicht hinter `zfs-mounts-ready` eingereiht, dann dort ergänzen.
@@ -120,7 +122,7 @@ Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind 
 - [ ] 7.1 Pro Host einen neuen age-Key erzeugen: `sudo nix shell nixpkgs#age -c age-keygen -o /secrets/keys.txt && sudo chmod 400 /secrets/keys.txt`. Den Public Key zeigt `age-keygen -y /secrets/keys.txt`.
 - [ ] 7.2 Die Public Keys in `$PRIV/secrets/.sops.yaml` eintragen und die auskommentierten Zeilen (`#- *sops_desktop` usw.) aktivieren.
 - [ ] 7.3 Pro Host eine Datei `$PRIV/secrets/<hostname>.yaml` anlegen und die Werte aus `sops -d $REPO/secrets/secrets.yaml` übernehmen, aber nur die des jeweiligen Hosts (Schlüsselliste unten).
-- [ ] 7.4 Auf jedem Host `nixos.system.sops.perHostFile = true;` setzen (Portable und ServerPublic haben das schon).
+- [ ] 7.4 Auf jedem Host `nixos.system.sops.perHostFile = true;` setzen (Portable, ServerPublic und ServerGaming haben das schon).
 - [ ] 7.5 Wenn alle Hosts umgestellt sind: `git rm secrets/secrets.yaml secrets/.sops.yaml` im öffentlichen Repo.
 
 7B – Was neu gesetzt werden muss und wo es eingetragen wird:
@@ -128,7 +130,7 @@ Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind 
 | Was | Neu erzeugen mit | Eintragen in |
 |---|---|---|
 | Login-Passwort pro Host | `mkpasswd -m sha-512 -R 500000` (Hash) | sops `user/<hostname>/<user>`, dann `nixos.system.user.passwordFromSops = true;` |
-| Initiales Passwort (vor sops) | erledigt (Phase 1.2) | `$PRIV/site.nix` → `initialHashedPasswords` |
+| Login-Passwort vor sops | erledigt (Phase 1.2), Hash mit `mkpasswd` | `$PRIV/site.nix` → `initialHashedPasswords` |
 | LUKS-Passphrase | `sudo cryptsetup luksChangeKey /dev/disk/by-partlabel/disk-NIXOS-LUKS` (Mirror: `disk-NIXOS2-LUKS`) | nur KeePassXC |
 | TPM2 + PIN neu binden | `systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-with-pin=yes --tpm2-pcrs=7 <luks>` | – |
 | Recovery-Key | `systemd-cryptenroll --recovery-key <luks>` | Papier / KeePassXC |
@@ -155,7 +157,7 @@ Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind 
 | Mullvad, Alpha Vantage | beim Anbieter | sops `mullvad`, `alphavantage/api_key` |
 | Unbenutzte Altlasten | löschen | `changeme`, `changeme_env`, `cloudflare/api_key`, `nginx/acme/email`, `user/nixos-vmdesktop/admin`, `user/nixos-vmserver/admin` |
 | Dienst-Konten | in der jeweiligen Web-UI | Home Assistant, Jellyfin, Forgejo, Nextcloud, Stalwart, Matrix, Miniflux, HomeBox, Linkwarden |
-| Externe Konten | beim Anbieter, 2FA prüfen | Proton, DLRG, 1&1, Mullvad, Registrar, VPS, Storage Box, GitHub/Codeberg |
+| Externe Konten | beim Anbieter, 2FA prüfen | Proton, DLRG, 1&1, Mullvad, Registrar, Contabo, GitHub/Codeberg |
 
 - [ ] 7.6 Danach auf jedem Host: `nixos-rebuild switch` und einmal neu anmelden.
 - [ ] 7.7 Syncthing-GUI-Passwort von Server1 als bcrypt-Hash nach sops verschieben (`services.syncthing.guiPasswordFile`).
@@ -180,11 +182,11 @@ Jedes Passwort wird in KeePassXC erzeugt und dort zuerst gespeichert. So gibt es
 
 ## Phase 8 – NixOS-ServerPublic installieren
 
-- [ ] 8.1 Den VPS bestellen (Anbieter siehe [`docs/providers.md`](docs/providers.md)) und die Daten in `$PRIV/site.nix` → `serverPublic` eintragen, committen, `nix flake update private`.
-- [ ] 8.2 Den Host-Key vor der Installation erzeugen: `age-keygen -o keys.txt`, den Public Key in `.sops.yaml` als `sops_serverpublic` eintragen, dann `sops updatekeys secrets/nixos-serverpublic.yaml`.
-- [ ] 8.3 Die Platzhalter in `nixos-serverpublic.yaml` ersetzen: `nginx/acme/api_key` (DNS-API-Token), `mautrix-telegram/env` (API-ID und Hash von my.telegram.org), `user/nixos-serverpublic/admin` (neuer Hash, `mkpasswd -m sha-512 -R 500000`).
-- [ ] 8.4 Den Storage-Box-Public-Key (`restic@NixOS-ServerPublic`) in der Storage Box hinterlegen.
+- [X] 8.1 Den VPS bestellen (Contabo, Anbieter siehe [`docs/providers.md`](docs/providers.md)) und die Daten in `$PRIV/site.nix` → `serverPublic` eintragen, committen, `nix flake update private`.
+- [ ] 8.2 Den Host-Key vor der Installation erzeugen: `nix shell nixpkgs#age -c age-keygen -o keys.txt`, den Public Key in `.sops.yaml` als `sops_serverpublic` eintragen, dann `sops updatekeys secrets/nixos-serverpublic.yaml`.
+- [ ] 8.3 Die Platzhalter in `nixos-serverpublic.yaml` ersetzen (`cd $PRIV/secrets && sops nixos-serverpublic.yaml`). Der Login ist erledigt. Hash statt Klartext: `stalwart/admin` (`mkpasswd -m sha-512 -R 500000`), `codeserver/env` (`HASHED_PASSWORD=<argon2-Hash>`). Klartext nötig: `nextcloud/admin` (nach der Einrichtung in der Weboberfläche ändern), `restic/password`, `restic/home-env`, `nginx/acme/api_key` (DNS-API-Token), `mautrix-telegram/env` (API-ID und Hash von my.telegram.org), `mautrix-signal/env`, `mautrix-whatsapp/env`. Zufallswerte (`openssl rand -hex 32`): `matrix/*`, `coturn/secret`. WireGuard: `wireguard/nixos-serverpublic/private` (`wg genkey`). Nicht mehr gelesen, löschen: `codeserver/password`, `restic/storagebox-ssh-key`. Danach committen und `nix flake update private`.
 - [ ] 8.5 Zuerst in der VM testen: `nixos-rebuild build-vm --flake .#NixOS-VMServerPublic`. Der hardened malloc und `security.lockKernelModules` sind aktiv. Die VM hat keinen age-Key, Dienste mit Secrets können deshalb unabhängig davon scheitern. Prüfen, ob die übrigen Dienste starten: `systemctl --failed`. Bricht ein Dienst ab, `nixos.system.hardening.hardenedMalloc = false;` setzen und das hier notieren.
+- [ ] 8.5a Vor der Installation im Rescue-System von Contabo prüfen: `lsblk` (die Hosts erwarten `/dev/sda`, sonst `hosts/<Host>/disko.nix` anpassen) und `ls /sys/firmware/efi` (fehlt der Ordner, bootet der VPS per BIOS, dann `nixos.system.bootloader.biosDevice` setzen). Das konnte ich nicht testen.
 - [ ] 8.6 Installieren: `nixos-anywhere --flake .#NixOS-ServerPublic --disk-encryption-keys /tmp/secret.key <passphrase-datei> --disk-encryption-keys /tmp/keyfile.key <keyfile> --extra-files <dir mit secrets/keys.txt, etc/ssh/initrd_host_key und persistent/etc/ssh/initrd_host_key> root@<ip>`. Den Hostkey in beide Pfade legen: Die Installation liest ihn unter `/etc/ssh`, nach dem ersten Boot kommt `/etc/ssh` aus `/persistent` (noch nicht getestet).
 - [ ] 8.7 DNS-Einträge anlegen: A/AAAA für alle Dienstnamen, dazu `openpgpkey.<mailDomain>`. Für die Mail-Domain MX, SPF, DKIM, DMARC, MTA-STS und TLS-RPT (die Werte zeigt die Stalwart-Weboberfläche), außerdem CAA und PTR beim Anbieter. Port 25 beim Anbieter freischalten lassen.
 - [ ] 8.8 Ersteinrichtung: Stalwart-Konten, Matrix-Nutzer (`register_new_matrix_user`), Bridge-Logins, Miniflux-Admin (`sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`), CryptPad `adminKeys`, ntfy-Admin, QR-Code der Briar-Mailbox (`journalctl -u podman-briar-mailbox`).
@@ -192,15 +194,15 @@ Jedes Passwort wird in KeePassXC erzeugt und dort zuerst gespeichert. So gibt es
 
 8B – NixOS-ServerGaming installieren (Minecraft, BlueMap, Countdown)
 
-- [ ] 8.10 Eigenen VPS bestellen, 16 GB RAM oder mehr (Minecraft nutzt bis zu 12 GB), Daten in `$PRIV/site.nix` → `serverGaming` eintragen, committen, `nix flake update private`.
+- [X] 8.10 Eigener VPS bei Contabo (200 GB), Daten stehen in `$PRIV/site.nix`. Minecraft nutzt bis zu 12 GB RAM, der VPS braucht also 16 GB oder mehr.
 - [ ] 8.11 Host-Key erzeugen wie in 8.2, in `$PRIV/secrets/.sops.yaml` als `sops_servergaming` eintragen, Zeilen aktivieren, `sops updatekeys nixos-servergaming.yaml`.
-- [ ] 8.12 Die Platzhalter in `nixos-servergaming.yaml` ersetzen: `user/nixos-servergaming/admin`, `nginx/acme/api_key`, `wireguard/nixos-servergaming/private`, `restic/*`.
+- [ ] 8.12 Die Platzhalter in `nixos-servergaming.yaml` ersetzen: `nginx/acme/api_key`, `wireguard/nixos-servergaming/private`, `restic/password`, `restic/home-env`. Der Login ist erledigt, `restic/storagebox-ssh-key` wird nicht mehr gelesen.
 - [ ] 8.13 Countdown: In `hosts/NixOS-ServerGaming/server.nix` das echte Datum bei `target` eintragen (jetzt Platzhalter 01.01.2027) und die Texte prüfen. Der Name steht damit im öffentlichen Repo.
 - [ ] 8.14 Testen in der VM (`nixos-rebuild build-vm --flake .#NixOS-VMServerGaming`), dann installieren wie in 8.6 mit `.#NixOS-ServerGaming`.
 - [ ] 8.15 DNS: A/AAAA für `bluemap`, `countdown` und `flolserver` auf den Gaming-VPS.
 - [ ] 8.16 Die Welt und die Mods vom alten Server nach `/srv/minecraft/flolserver` kopieren. BlueMap und Fabric API kommen aus dem Flake, gleichnamige alte Jars in `mods/` löschen. Prüfen: `https://bluemap.<domain>` (das erste Rendern dauert lange), `https://countdown.<domain>`.
 - [ ] 8.17 WireGuard: Key erzeugen (Tabelle 7B), Public Key in `nixosModules/system/wireguard.nix` bei `NixOS-ServerGaming` eintragen, beide VPS neu bauen. Erst dann ist ssh nur noch über WireGuard erreichbar. Vorher `ssh admin@10.100.0.6` über den Tunnel testen, sonst bleibt nur initrd-ssh und die VNC-Konsole des Anbieters.
-- [ ] 8.18 Restic-Benutzer `nixos-servergaming` in `resticserver/htpasswd` von Server1 ergänzen, Storage-Box-Key hinterlegen.
+- [ ] 8.18 Restic-Benutzer `nixos-servergaming` in `resticserver/htpasswd` von Server1 ergänzen.
 
 ## Phase 9 – WireGuard und Backups
 
@@ -233,7 +235,7 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
 - [ ] 11.2 Den DNS-Eintrag `openpgpkey.<mailDomain>` anlegen, ServerPublic neu bauen und WKD prüfen: `gpg --auto-key-locate clear,wkd --locate-keys <adresse>`.
 - [ ] 11.3 Stalwart Encryption at Rest: Auf `https://stalwart.<domain>` mit dem Mailkonto anmelden → Encryption at rest → Public Key einfügen → OpenPGP/AES256.
 - [ ] 11.4 Thunderbird: Den geheimen Schlüssel importieren oder per GnuPG/Smartcard nutzen. Das Konto, die Signatur und CalDAV/CardDAV kommen deklarativ.
-- [ ] 11.5 Thunderbird: Proton (Hauptkonto über die Bridge), Stalwart, DLRG und 1&1 kommen deklarativ aus `mailAccounts`. Einmalig: Bridge einrichten (`systemctl --user stop protonmail-bridge`, `protonmail-bridge --cli`, `login`, `info` zeigt das Bridge-Passwort) und deren Zertifikat in Thunderbird bestätigen, je Konto das Passwort eingeben. Zu prüfen: DLRG `mail.dlrg.de` (Quelle ist das DLRG-Wiki) und 1&1 `imap.1und1.de`/`smtp.1und1.de`, beide nicht getestet. Die Add-ons LanguageTool und CardBook bleiben manuell (siehe `Notes/Post-Installation.md`).
+- [ ] 11.5 Thunderbird: Proton (Hauptkonto über die Bridge), Stalwart, DLRG und 1&1 kommen deklarativ aus `mailAccounts` und `mailAddress`, angezeigt werden sie mit ihrer Adresse. Einmalig: Bridge einrichten (`systemctl --user stop protonmail-bridge`, `protonmail-bridge --cli`, `login`, `info` zeigt das Bridge-Passwort) und deren Zertifikat in Thunderbird bestätigen, je Konto das Passwort eingeben. Zu prüfen: DLRG `mail.dlrg.de` (Quelle ist das DLRG-Wiki) und 1&1 `imap.1und1.de`/`smtp.1und1.de`, beide nicht getestet. Die Add-ons LanguageTool und CardBook bleiben manuell (siehe `Notes/Post-Installation.md`).
 - [ ] 11.6 JMAP: Thunderbird Desktop kann noch kein JMAP. Auf dem Handy Sterna Mail (F-Droid) verwenden, optional Bulwark als Webmail auf ServerPublic. Sobald Thunderbird JMAP unterstützt: Konto umstellen.
 - [ ] 11.7 Die JMAP-Unterstützung von Thunderbird regelmäßig prüfen: roadmaps.thunderbird.net (Desktop, Android, iOS).
 
@@ -246,22 +248,27 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [ ] `sudo nix run github:nix-community/disko -- --mode destroy,format,mount --flake .#NixOS-Portable`
   - [ ] `sudo nixos-install --flake .#NixOS-Portable --root /mnt --no-root-passwd`
   - [ ] `sudo install -m 400 keys.txt /mnt/secrets/keys.txt; sudo install -m 400 /tmp/keyfile.key /mnt/secrets/keyfile.key; shred -u /tmp/secret.key /tmp/keyfile.key`
+- [ ] 12.3a Journal prüfen wie in 5.1a.
 - [ ] 12.4 Testen: Einen UEFI-Rechner (Secure Boot aus) und einen alten BIOS-Rechner davon booten. In der Bootauswahl den Eintrag mit `server` wählen: Die Dienste sind dann unter `https://<dienst>.portable.internal` erreichbar (selbstsigniertes Zertifikat einmal akzeptieren).
 - [ ] 12.5 Kiwix-ZIMs, Jellyfin-Medien und die Ollama-/ComfyUI-Modelle (im Server-Modus `qwen3.5:4b`) nach `/persistent/server/...` kopieren.
 - [ ] 12.6 Regelmäßig aktualisieren: `nixos-rebuild switch --flake .#NixOS-Portable --target-host` ist nicht möglich, wenn die SSD steckt. Stattdessen von ihr booten und `sudo nixos-rebuild switch --flake .#NixOS-Portable` ausführen.
 
 ## Phase 13 – Fehler, offene Prüfungen
 
-- [ ] 13.1 Boot-Log auf jedem Host prüfen: `journalctl -b 0 -p err` (nur Fehler) und `journalctl -b 0 -p warning`. Befund auf NixOS-Desktop (18.10.2026):
+- [ ] 13.1 Boot-Log auf jedem Host prüfen: `journalctl -b 0 -p err` (nur Fehler) und `journalctl -b 0 -p warning`. Auf den Clients ist das Punkt 5.1a. Befund auf NixOS-Desktop (18.10. und 02.11.2026):
   - [x] `systemd-cryptsetup: key file '/tmp/secret.key' missing`: behoben (disko `passwordFile` statt `settings.keyFile`)
   - [x] `bootctl: /boot ... random seed ... world accessible`: behoben (ESP mit `fmask=0077`)
   - [x] Journal zeigt nur den aktuellen Boot: behoben (`/etc/machine-id` persistiert, Phase 4.1)
-  - [ ] `dbus-broker-launch: Ignoring duplicate name ...`: Kosmetik (der Dienst kommt doppelt aus system-path und Paket), nicht schädlich. Nach nixpkgs-Updates erneut ansehen.
+  - [ ] `dbus-broker-launch: Ignoring duplicate name ...`: Kosmetik (der Dienst kommt doppelt aus system-path und Paket). Jetzt per `LogFilterPatterns` aus dem Journal gefiltert (`nixosModules/system/dbus.nix`). Nach dem nächsten Reboot prüfen: `journalctl -b -p err | grep -c duplicate` muss 0 sein. Für die `user@`-Instanzen ist das nicht bestätigt, bleiben sie, ist das nur Kosmetik.
   - [ ] `Invalid framebuffer status: GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT` (16-mal): Prozess finden (`journalctl -b -p err -o verbose | grep -B20 GL_FRAMEBUFFER | grep _COMM`), vermutlich KWin/Plasma mit amdgpu
-  - [ ] `kauditd hold queue overflow`: Das Audit-Backlog lief beim Boot über, `backlogLimit` ist jetzt 8192 (`nixosModules/system/hardening.nix`). Nach dem nächsten Reboot prüfen: `journalctl -b -p err | grep -c kauditd` muss 0 sein.
+  - [x] `kauditd hold queue overflow`: behoben, `backlogLimit` ist 8192 (`nixosModules/system/hardening.nix`), am 02.11.2026 nach dem Reboot 0 Treffer.
+  - [ ] Coredump-Kette beim Abmelden aus Hyprland (EasyEffects, xdg-desktop-portal-kde, awww, 40-mal drkonqi): Die Dienste stoppten erst, als der Compositor weg war, `easyeffects --quit` und das Portal stürzten ohne Display ab, drkonqi meldet das und stürzt selbst ab. Behoben durch den synchronen Stopp im Hook `hyprland.shutdown` (`config/hyprland.lua`). Nach dem nächsten Abmelden prüfen: `coredumpctl list -S today` zeigt nichts Neues, `systemctl --failed` ist leer.
+  - [x] `wallpaper-random: Found ordering cycle`: behoben, der Dienst hängt jetzt an `awww.service` statt am Target.
+  - [x] `backintime: cannot chdir(/var/cron)`: behoben, siehe 4.7.
+  - [x] `systemd-cryptsetup: Failed to activate with specified passphrase`: einmaliger Tippfehler bei der LUKS-Eingabe (15:01:29), der zweite Versuch 6 Sekunden später war erfolgreich. Keine Konfiguration betroffen.
   - [x] `chronyd: Could not connect ... No route to host`: harmlos. IPv6 ist beim Start von chronyd noch nicht bereit, 15 Sekunden später steht NTS (`chronyc -n sources`).
   - [ ] ddcutil-Meldungen (`dw_start_watch_displays`): von PowerDevil, harmlos
-  - [ ] `baloo_file_extractor ... App info not found`: harmlos, ggf. Baloo-Indexierung einschränken
+  - [ ] `baloo_file_extractor ... App info not found` und `MDB_BAD_RSLOT` (einmal pro Boot, 10 Minuten nach dem Login): harmlos, die Indexierung läuft weiter. Der Index ist 12 GiB groß, ggf. Baloo einschränken (`balooctl6 status`)
   - [ ] Dasselbe auf Framework, Convertible, Server1 und ServerPublic prüfen und hier ergänzen
 - [ ] 13.2 nscd: In 128 Boot-Journalen gibt es keinen Startfehler nach dem Reboot. Der einzige Ausfall (18.10. 18:02) kam von einem Netzwerkausfall (IPv6-Präfixwechsel, DNS degradiert): Alle nsncd-Worker hingen an DNS-Anfragen, systemd hat den Dienst neu gestartet. Nach Phase 4 (machine-id) nach dem nächsten Reboot `journalctl -b -1 -u nscd` und `systemctl status nscd` prüfen. Tritt es wieder auf: `journalctl -b -u nscd` und die Zeit mit `journalctl -b -u NetworkManager` vergleichen.
 - [ ] 13.3 JetBrains: Die OSS-Editionen sind in nixpkgs unsicher und ungepflegt. Entscheiden, ob `idea` und `pycharm` (unfree) ins Unfree-Prädikat in `nixosModules/system/nixos.nix` sollen, dann `homeManager.applications.development.jetbrains.enable` setzen.
@@ -281,6 +288,8 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
 - [ ] 13.13 Pins aktuell halten: Der Update-Check meldete am 01.11.2026 Dangerzone v0.11.1 (gepinnt ist v0.11.0), dazu neuere Commits und Images. Ablauf in [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
 - [ ] 13.14 CVE-Kandidaten sichten: Dashboard „Security und Updates“. Geprüfte False Positives in `nixos.system.vulnscan.ignore` eintragen.
 - [ ] 13.15 hypr-dynamic-cursors: Die Version aus nixpkgs (2026-07-21) wirft auf Hyprland 0.56.2 beim Laden eine Exception und ist deshalb aus `plugins` in `homeModules/desktop/windowManager/hyprland/hyprland.nix` entfernt. Nach einem `nix flake update` wieder eintragen und mit `hyprctl plugin list` prüfen, die Einstellungen in `config/hyprland.lua` sind noch da.
+- [ ] 13.17 Titelleisten in Plasma prüfen: Unter Hyprland gesetzte Variablen (`NIXOS_OZONE_WL`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`) landeten über `variables = --all` im User-Manager und damit in der nächsten Plasma-Sitzung. Electron-Programme liefen dadurch nativ auf Wayland mit eigener Titelleiste. Jetzt werden nur noch die nötigen Variablen exportiert. Nach dem Neustart prüfen: `systemctl --user show-environment | grep -c NIXOS_OZONE_WL` ist 0, auch nach einem Wechsel von Hyprland zu Plasma.
+- [ ] 13.16 Hyprland: Lag beim Klick auf Waybar-Elemente beobachten. In der Sandbox nicht reproduzierbar: rofi, wlogout, pavucontrol und kitty öffnen in 0,06 bis 0,27 s, auch mit den echten 87 `XDG_DATA_DIRS`, Waybar liegt im Leerlauf bei 0 % CPU. Geändert wurden die wahrscheinlichsten Ursachen der echten Session: Unter Hyprland lief das KDE-Portal (`portals.conf` mit `default=kde` hatte Vorrang), jetzt `hyprland;gtk`. Außerdem keine CSS-Übergänge mehr in Waybar und weniger Blur. Tritt es noch auf, zuerst notieren, welches Element es trifft (Tray-Menüs, Tooltips oder alles), dann `hyprctl plugin unload` für hyprtasking testen (das Plugin hängt an den Mausklicks) und `journalctl --user -b | grep -iE "portal|timeout"` ansehen.
 
 ## Phase 14 – Security, später entschieden
 

@@ -77,7 +77,13 @@ in
           kdePackages.xdg-desktop-portal-kde
           xdg-desktop-portal-gtk
         ];
-        config.common.default = "kde";
+        config = {
+          common.default = "kde";
+          hyprland.default = [
+            "hyprland"
+            "gtk"
+          ];
+        };
       };
 
       mime = {

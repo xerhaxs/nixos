@@ -20,15 +20,17 @@
   };
 
   config = lib.mkIf config.homeManager.base.ssh.enable {
-    # The servers allow 3 authentication attempts, offer only the own key there (the private key may
-    # live in the KeePassXC agent, the public key file is enough).
+    # The servers allow 3 authentication attempts, offer only the own key there. Without .pub this works
+    # with the key in the KeePassXC agent and, while the agent is empty, with the file. ssh finds the
+    # public key next to it, the private key file may be missing. A path to the .pub only works with
+    # the agent, otherwise ssh tries to load it as a private key.
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
       settings = {
         "NixOS-Server1 NixOS-ServerGaming NixOS-ServerPublic 10.100.0.*" = lib.hm.dag.entryBefore [ "*" ] {
           IdentitiesOnly = "yes";
-          IdentityFile = "~/.ssh/id_ed25519.pub";
+          IdentityFile = "~/.ssh/id_ed25519";
         };
         "*" = {
           AddKeysToAgent = "no";

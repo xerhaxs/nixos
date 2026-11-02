@@ -20,9 +20,10 @@ One folder per host. Hosts only set options of the modules, there is no implemen
 | [`NixOS-Framework/`](NixOS-Framework/README.md) | Framework laptop (AMD), Plasma 6, sops wifi, private DNS, MAC randomization, TPM2. |
 | [`NixOS-Portable/`](NixOS-Portable/README.md) | Portable all-in-one installation on one external SSD: every application, hybrid BIOS/UEFI boot, LUKS, impermanence; boot entry `server` starts the offline capable server services on `*.portable.internal`. |
 | [`NixOS-Server1/`](NixOS-Server1/README.md) | Home server with ZFS pool `pool01`: media, file shares, Home Assistant, DNS, git, monitoring, Monero node, HomeBox. Application state on `/pool01/applications`. |
-| [`NixOS-ServerGaming/`](NixOS-ServerGaming/README.md) | Public VPS for games: Minecraft with BlueMap, countdown website; backups to NixOS-Server1 and a Storage Box. |
-| [`NixOS-ServerPublic/`](NixOS-ServerPublic/README.md) | Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, code-server, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1 and a Storage Box. |
+| [`NixOS-ServerGaming/`](NixOS-ServerGaming/README.md) | Public VPS for games: Minecraft with BlueMap, countdown website; backups to NixOS-Server1. |
+| [`NixOS-ServerPublic/`](NixOS-ServerPublic/README.md) | Public VPS: mail, Nextcloud, Matrix, CryptPad, Mumble, ntfy, code-server, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1. |
 | [`NixOS-VMDesktop/`](NixOS-VMDesktop/README.md) | Virtual machine with the profile of NixOS-Desktop. |
 | [`NixOS-VMServer/`](NixOS-VMServer/README.md) | Virtual machine with the profile of NixOS-Server1 (without ZFS pool, devices and backups). |
 | [`NixOS-VMServerGaming/`](NixOS-VMServerGaming/README.md) | Virtual machine with the profile of NixOS-ServerGaming (without WireGuard identity and backups, uses the secrets of NixOS-ServerGaming). |
 | [`NixOS-VMServerPublic/`](NixOS-VMServerPublic/README.md) | Virtual machine with the profile of NixOS-ServerPublic (without WireGuard identity and backups, uses the secrets of NixOS-ServerPublic). |
+| `vps-uplink.nix` | Network of the VPS hosts, static or DHCP, without interface name. |

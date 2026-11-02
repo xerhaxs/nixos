@@ -23,10 +23,15 @@ let
     text = ''
       export WINEPREFIX=${lib.escapeShellArg prefix}
       export WINEARCH=win64
+      # Wine would add menu entries that cannot find wine, the launcher below replaces them.
+      export WINEDLLOVERRIDES=winemenubuilder.exe=d
+      # winetricks looks for wine64, which this wine does not ship, and then runs nothing.
+      export WINE64=${wine}/bin/wine
       downloads="$WINEPREFIX/drive_c/users/$USER/Downloads"
       mkdir -p "$WINEPREFIX"
 
       wineboot --init
+      wineserver --wait
       winetricks -q sandbox
       winetricks -q atmlib gdiplus arial corefonts cjkfonts dotnet452 msxml4 msxml6 vcrun2017 fontsmooth=rgb winhttp win10
       winetricks -q win10
@@ -65,7 +70,7 @@ let
     ];
     text = ''
       export WINEPREFIX=${lib.escapeShellArg prefix}
-      exe="$(find "$WINEPREFIX/drive_c" -name Fusion360.exe -path '*Production*' -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)"
+      exe="$(find "$WINEPREFIX/drive_c" -name Fusion360.exe -ipath '*production*' -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)"
       if [ -z "$exe" ]; then
         echo "Fusion 360 is not installed, run fusion360-install first." >&2
         exit 1

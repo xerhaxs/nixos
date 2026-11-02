@@ -67,7 +67,7 @@
           MovableToolbar = false;
           HideGroupPanel = false;
           HidePreviewPanel = false;
-          AlwaysOnTop = false;
+          GUI_AlwaysOnTop = false;
           ToolButtonStyle = "ToolButtonIconOnly";
           LaunchAtStartup = true;
           ShowTrayIcon = true;
@@ -95,7 +95,7 @@
           ClearClipboardTimeout = 10;
           ClearSearch = true;
           ClearSearchTimeout = 10;
-          HideNotes = false;
+          Security_HideNotes = false;
           LockDatabaseIdle = false;
           LockDatabaseIdleSeconds = 900;
           LockDatabaseMinimize = false;
@@ -106,7 +106,7 @@
           PasswordEmptyPlaceholder = false;
           HidePasswordPreviewPanel = true;
           HideTotpPreviewPanel = true;
-          AutoTypeAsk = true;
+          AutotypeAsk = true;
           AutoTypeSkipMainWindowConfirmation = false;
           IconDownloadFallback = true;
           NoConfirmMoveEntryToRecycleBin = false;
@@ -139,13 +139,13 @@
         };
 
         SSHAgent = {
-          Enable = true;
+          Enabled = true;
           UseOpenSSH = true;
           UsePageant = false;
         };
 
         FdoSecrets = {
-          Enable = false;
+          Enabled = false;
           ShowNotification = true;
           ConfirmDeleteItem = true;
           ConfirmAccessItem = true;

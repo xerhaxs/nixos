@@ -24,7 +24,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `boot.nix` | Set boot options. |
 | `bootloader.nix` | Enable Bootloader. |
 | `clamav.nix` | Enable ClamAV virus scanner. |
-| `cron.nix` | Enable cron service. |
+| `cron.nix` | Enable cron service and the hourly Back In Time job of `dailyProfile`. |
 | `dbus.nix` | Enable dbus. |
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.system.enable`. |
 | `firewall.nix` | Enable network firewall. |
