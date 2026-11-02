@@ -24,7 +24,7 @@
   (box :class "card" :orientation "v" :space-evenly false :visible {!weather.ready}
     (section :icon {i.weather} :title "Weather")
     (label :class "hint" :halign "start" :wrap true
-      :text "Set your location once: weather-location \"<city>\"")))
+      :text "No weather data yet")))
 
 (defwidget weather-now []
   (box :class "card" :orientation "v" :space-evenly false :spacing 14 :visible {weather.ready}

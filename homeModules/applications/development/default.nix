@@ -12,7 +12,6 @@
     ./diff.nix
     ./hex.nix
     ./imager.nix
-    ./jetbrains.nix
     ./kate.nix
     ./singleboardcomputer.nix
     ./virtualisation.nix
@@ -36,7 +35,6 @@
       diff.enable = lib.mkDefault false;
       hex.enable = lib.mkDefault false;
       imager.enable = lib.mkDefault true;
-      jetbrains.enable = lib.mkDefault false;
       kate.enable = true;
       singleboardcomputer.enable = lib.mkDefault true;
       virtualisation.enable = lib.mkIf osConfig.nixos.virtualisation.kvm.enable true;

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -107,32 +108,6 @@ let
     processes = [ ];
   };
 
-  weatherLocation = pkgs.writeShellApplication {
-    name = "weather-location";
-    runtimeInputs = with pkgs; [
-      coreutils
-      curl
-      jq
-    ];
-    text = ''
-      if [ "$#" -eq 0 ]; then
-        echo 'usage: weather-location "<city>"' >&2
-        exit 1
-      fi
-      state="''${XDG_STATE_HOME:-$HOME/.local/state}/desktop-weather"
-      place=$(curl -fsSG --max-time 15 https://geocoding-api.open-meteo.com/v1/search \
-        --data-urlencode "name=$*" -d count=1 -d language=en -d format=json \
-        | jq -ce '.results[0] | {name, latitude, longitude, country}') || {
-        echo "Location not found: $*" >&2
-        exit 1
-      }
-      mkdir -p "$state"
-      printf '%s\n' "$place" > "$state/location.json"
-      rm -f "''${XDG_CACHE_HOME:-$HOME/.cache}/desktop-weather.json"
-      jq -r '"Weather location: \(.name), \(.country) (\(.latitude), \(.longitude))"' <<< "$place"
-    '';
-  };
-
   desktopWeather = pkgs.writeShellApplication {
     name = "desktop-weather";
     runtimeInputs = with pkgs; [
@@ -142,7 +117,7 @@ let
     ];
     text = ''
       export LC_ALL=en_US.UTF-8
-      location="''${XDG_STATE_HOME:-$HOME/.local/state}/desktop-weather/location.json"
+      location=${osConfig.sops.secrets."weather-location".path}
       cache="''${XDG_CACHE_HOME:-$HOME/.cache}/desktop-weather.json"
 
       refresh() {
@@ -375,7 +350,6 @@ in
     home.packages = [
       desktopWeather
       desktopWidgets
-      weatherLocation
     ];
 
     programs.eww = {

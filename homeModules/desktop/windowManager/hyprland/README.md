@@ -64,5 +64,5 @@ Hyprland desktop (second session next to Plasma, selectable in SDDM) with Catppu
 - Terminals are translucent only when started from Hyprland (`kitty -o background_opacity`), Plasma keeps opaque ones.
 - Waybar, Rofi and the widgets use Material Design glyphs (U+F0000 and up). New glyphs go through `glyphs.nix`, literal ones can get lost when a file is written.
 - All texts of the shell are English, `LC_TIME` stays German for applications, so the date commands set `LC_ALL=en_US.UTF-8` themselves.
-- Weather comes from Open-Meteo (no API key). `weather-location "<city>"` stores the place in `~/.local/state/desktop-weather`, not in the repo. `desktop-weather` caches for 9 minutes in `~/.cache`, Waybar and eww share that file.
+- Weather comes from Open-Meteo (no API key). The place is the sops secret `weather-location`, JSON with `name`, `latitude` and `longitude`. `desktop-weather` caches for 9 minutes in `~/.cache`, Waybar and eww share that file.
 - The list of `Keybindings` in the quick menu is static in `rofi.nix`, Lua binds report no name through `hyprctl binds`. Change it together with `config/hyprland.lua`.

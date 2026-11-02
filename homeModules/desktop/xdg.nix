@@ -19,6 +19,12 @@
   };
 
   config = lib.mkIf config.homeManager.desktop.xdg.enable {
+    # flake.nix reads the private repository through this link.
+    home.file.".nixos-private" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.userDirs.documents}/nixos-private";
+      force = true;
+    };
+
     xdg = {
       enable = true;
       cacheHome = config.home.homeDirectory + "/.local/cache";

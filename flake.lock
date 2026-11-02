@@ -1,41 +1,5 @@
 {
   "nodes": {
-    "adobe": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-WTwU9b/qcxQfyrgXk+aLW6fgQ3zH5iYYw0WocqvjlF0=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/adobe.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/adobe.txt"
-      }
-    },
-    "ads": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-90RSsrQjDj8NM+5mu0UX6FfsQK0Ep4EEyHn/OtqiQ+A=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/ads.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/ads.txt"
-      }
-    },
-    "amazonFireTV": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-Oki3RMwazzmF7vq0xp9Si3WiIg13AiSy3b5GK+w5CTg=",
-        "type": "file",
-        "url": "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt"
-      }
-    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -49,6 +13,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-schemes",
+        "type": "github"
+      }
+    },
+    "blocklistproject": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784552733,
+        "narHash": "sha256-TGR2W8BDqsDEIVsJNAPJoCWA/JSA/qY4640ITEut1hE=",
+        "owner": "blocklistproject",
+        "repo": "Lists",
+        "rev": "ee3bdbaddf49c756cf3340bb2e6a9dee5282d1c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "blocklistproject",
+        "repo": "Lists",
         "type": "github"
       }
     },
@@ -185,11 +165,11 @@
       "locked": {
         "narHash": "sha256-jOINQJbKhaBSntco+3XP9n7l1XDYQy5iZ+TbKPfseCM=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/9578/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/9578/revisions/4/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/9578/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/9578/revisions/4/download"
       }
     },
     "grafana-blackbox": {
@@ -197,11 +177,11 @@
       "locked": {
         "narHash": "sha256-welS5artUPJZiGl0zf19Er8UPb/QHaousia88enHBq8=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/7587/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/7587/revisions/3/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/7587/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/7587/revisions/3/download"
       }
     },
     "grafana-logs": {
@@ -209,11 +189,11 @@
       "locked": {
         "narHash": "sha256-Q2KL5NEAKXFXOBT+Eqb7wvxmbRMdnzJ2rOAp/CSnRvY=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/13639/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/13639/revisions/2/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/13639/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/13639/revisions/2/download"
       }
     },
     "grafana-nginx": {
@@ -221,11 +201,11 @@
       "locked": {
         "narHash": "sha256-UD0Pojh3z8Vp456E/Aciv4ctL7WsS/hRoZzptibEB1U=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/12708/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/12708/revisions/1/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/12708/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/12708/revisions/1/download"
       }
     },
     "grafana-node-exporter-full": {
@@ -233,11 +213,11 @@
       "locked": {
         "narHash": "sha256-2CNB5SU9ChNkTfOjJ/KCD9alCKb6ciLVVN4/fpqGyrg=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/1860/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/1860/revisions/46/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/1860/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/1860/revisions/46/download"
       }
     },
     "grafana-pihole": {
@@ -245,11 +225,11 @@
       "locked": {
         "narHash": "sha256-RUDtzP2BjIdq2qEyPlpuVz62vn2V1grDR5Y7J+Np7aY=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/10176/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/10176/revisions/3/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/10176/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/10176/revisions/3/download"
       }
     },
     "grafana-postgresql": {
@@ -257,11 +237,11 @@
       "locked": {
         "narHash": "sha256-VDX4BfGbY3PW5YHcRilg4g6+6uN22EK5+r+Ph67xXAY=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/9628/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/9628/revisions/8/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/9628/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/9628/revisions/8/download"
       }
     },
     "grafana-smartctl": {
@@ -269,11 +249,11 @@
       "locked": {
         "narHash": "sha256-0+Cgl6TryTnvlLQDpDNJa7USyM6GAZsRPqc4DqjXozc=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/22604/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/22604/revisions/4/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/22604/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/22604/revisions/4/download"
       }
     },
     "grafana-unbound": {
@@ -281,11 +261,11 @@
       "locked": {
         "narHash": "sha256-OD2ic+VMaJKroM3l8A2MqmI4uG/8QM1mJugW8ynqgpE=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/11705/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/11705/revisions/1/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/11705/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/11705/revisions/1/download"
       }
     },
     "grafana-wireguard": {
@@ -293,11 +273,11 @@
       "locked": {
         "narHash": "sha256-uSF82AvM38fNApIhvSmwFLVffmpa7NXYhW+6NXP9hgw=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/12177/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/12177/revisions/1/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/12177/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/12177/revisions/1/download"
       }
     },
     "grafana-zfs": {
@@ -305,11 +285,11 @@
       "locked": {
         "narHash": "sha256-k+6ExQjx1JKPoNXapkUz6ECAvqjg4R/qwmb7zg1CG+8=",
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/7845/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/7845/revisions/4/download"
       },
       "original": {
         "type": "file",
-        "url": "https://grafana.com/api/dashboards/7845/revisions/latest/download"
+        "url": "https://grafana.com/api/dashboards/7845/revisions/4/download"
       }
     },
     "home-manager": {
@@ -387,18 +367,6 @@
         "owner": "nix-community",
         "repo": "impermanence",
         "type": "github"
-      }
-    },
-    "malware": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-3feutfairvRsCWFU+Jhd6n2QJ8VbKuOKGMVUDDXVnrY=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/malware.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/malware.txt"
       }
     },
     "nix-colors": {
@@ -586,40 +554,20 @@
         "type": "github"
       }
     },
-    "oisd-big": {
+    "perflyst": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-00L0tL20jZXEZUiCsKSMC+gGxAeOw7H/D5vZW8wmd+0=",
-        "type": "file",
-        "url": "https://big.oisd.nl/"
+        "lastModified": 1788951601,
+        "narHash": "sha256-RW6qlCudWAG7Cn3urqsU9AMoHzrf4oAFuybJEIibri4=",
+        "owner": "Perflyst",
+        "repo": "PiHoleBlocklist",
+        "rev": "ad5020ba0e0a979970486b57b883aba0925f2801",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://big.oisd.nl/"
-      }
-    },
-    "oisd-small": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-RDIWgeqi8cqrA/ts5MCjeinXiw7ssfqFwzJvssw+oBI=",
-        "type": "file",
-        "url": "https://small.oisd.nl/"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://small.oisd.nl/"
-      }
-    },
-    "phishing": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-p/VTu8iW7g20HmomMRqPmh32fdT6M09+syzZsKQiPc0=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/phishing.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/phishing.txt"
+        "owner": "Perflyst",
+        "repo": "PiHoleBlocklist",
+        "type": "github"
       }
     },
     "plasma-manager": {
@@ -648,48 +596,22 @@
     "private": {
       "flake": false,
       "locked": {
-        "lastModified": 1793640888,
-        "narHash": "sha256-7oy5a80C+XnEKdI5K5wz1RUSt9UZLW9/B1J+zNi9pSk=",
+        "lastModified": 1793644154,
+        "narHash": "sha256-3SBioOK6WLOQN+TxvErhECrcj6eVt6rEBbqFdVF5fKE=",
         "ref": "refs/heads/main",
-        "rev": "5f84f536d8eb720ad204a212ab050d601d7f248c",
-        "revCount": 5,
+        "rev": "954621caa2fc7a9c746129db9c4e7ac7b731ffc7",
+        "revCount": 6,
         "type": "git",
-        "url": "file:///mount/Data/Datein/Dokumente/nixos-private"
+        "url": "file:///home/jf/.nixos-private"
       },
       "original": {
         "type": "git",
-        "url": "file:///mount/Data/Datein/Dokumente/nixos-private"
-      }
-    },
-    "ransomware": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-o+lZNPdR6z+c2fCgqgDo6RkanxNzWEQPi92lnfEspes=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/ransomware.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/ransomware.txt"
-      }
-    },
-    "redirect": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-ogA75DboB1HvFwZiySr8+lbsS/Zg2lR5bndiCfzoEVI=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/redirect.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/redirect.txt"
+        "url": "file:///home/jf/.nixos-private"
       }
     },
     "root": {
       "inputs": {
-        "adobe": "adobe",
-        "ads": "ads",
-        "amazonFireTV": "amazonFireTV",
+        "blocklistproject": "blocklistproject",
         "bluemap": "bluemap",
         "briar-mailbox": "briar-mailbox",
         "catppuccin": "catppuccin",
@@ -711,53 +633,20 @@
         "home-manager": "home-manager",
         "hyprgrass-src": "hyprgrass-src",
         "impermanence": "impermanence",
-        "malware": "malware",
         "nix-colors": "nix-colors",
         "nix-minecraft": "nix-minecraft",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-stable": "nixpkgs-stable",
-        "oisd-big": "oisd-big",
-        "oisd-small": "oisd-small",
-        "phishing": "phishing",
+        "perflyst": "perflyst",
         "plasma-manager": "plasma-manager",
         "private": "private",
-        "ransomware": "ransomware",
-        "redirect": "redirect",
-        "scam": "scam",
-        "smart-tv": "smart-tv",
         "sops-nix": "sops-nix",
         "stevenBlack": "stevenBlack",
-        "tiktok": "tiktok",
-        "tracking": "tracking",
         "weishaupt-modbus": "weishaupt-modbus",
         "weishaupt-webif-api-src": "weishaupt-webif-api-src",
         "wf-touch-src": "wf-touch-src"
-      }
-    },
-    "scam": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-xur0XiXe/xr6fKB5pqCQMvTtvEsE/cgDIfFxcXCQGXA=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/scam.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/scam.txt"
-      }
-    },
-    "smart-tv": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-ILo3tCT6CutGZA6/uWADa7dSt8J9Ns4EAlut6Qwx/7c=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/smart-tv.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/smart-tv.txt"
       }
     },
     "sops-nix": {
@@ -783,13 +672,17 @@
     "stevenBlack": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-NnEGZkbPvS6LAenm9DQ+FD9gaptr+p9tqXW96gHrpdg=",
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+        "lastModified": 1793559351,
+        "narHash": "sha256-p+gx9oQuf12pcT2DO9hSmN5MsucWkj9Mdww/g0cMLz0=",
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "rev": "6d56ab44f2b3d27de062b5194eb51bcd8115a773",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "type": "github"
       }
     },
     "systems": {
@@ -805,30 +698,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "tiktok": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-dBb7ZbkF0yQtk99lHS4gEC3Uu4wA2oedN8pez7VQBho=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/tiktok.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/tiktok.txt"
-      }
-    },
-    "tracking": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-X9kPoJIxotrR1g3j8jlK7ZcDH+ZvbuW0dZ2+DjO29Qg=",
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/tracking.txt"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://blocklistproject.github.io/Lists/tracking.txt"
       }
     },
     "weishaupt-modbus": {

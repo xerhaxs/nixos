@@ -12,7 +12,23 @@ let
   homeDomain = config.nixos.site.homeDomain;
   publicDomain = config.nixos.site.domain;
 
-  fetchBlocklist = name: inputs.${name};
+  # Files of the flake inputs, flake.lock pins them and nix flake update refreshes them.
+  blocklistFiles = {
+    ads = "${inputs.blocklistproject}/ads.txt";
+    adobe = "${inputs.blocklistproject}/adobe.txt";
+    amazonFireTV = "${inputs.perflyst}/AmazonFireTV.txt";
+    malware = "${inputs.blocklistproject}/malware.txt";
+    phishing = "${inputs.blocklistproject}/phishing.txt";
+    ransomware = "${inputs.blocklistproject}/ransomware.txt";
+    redirect = "${inputs.blocklistproject}/redirect.txt";
+    scam = "${inputs.blocklistproject}/scam.txt";
+    smart-tv = "${inputs.blocklistproject}/smart-tv.txt";
+    stevenBlack = "${inputs.stevenBlack}/hosts";
+    tiktok = "${inputs.blocklistproject}/tiktok.txt";
+    tracking = "${inputs.blocklistproject}/tracking.txt";
+  };
+
+  fetchBlocklist = name: blocklistFiles.${name};
 
   enabledBlocklists = [
     "adobe"
@@ -26,8 +42,6 @@ let
     "tiktok"
     "tracking"
     # "ads"
-    # "oisd-big"
-    # "oisd-small"
     # "redirect"
   ];
 
@@ -225,7 +239,7 @@ in
         urls = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = enabledBlocklists;
-          description = "List of blocklist URLs to use.";
+          description = "Names of the blocklists to use.";
         };
       };
     };

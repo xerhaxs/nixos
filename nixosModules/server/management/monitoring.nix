@@ -38,7 +38,7 @@ let
   alertmanagerPort = 9093;
   blackboxPort = 9115;
 
-  # The JSON of grafana.com comes from the flake inputs grafana-<name> (always the latest revision).
+  # The JSON of grafana.com comes from the flake inputs grafana-<name>, the revision is in flake.nix.
   dashboard =
     name:
     pkgs.runCommand "grafana-dashboard-${name}.json" { src = inputs."grafana-${name}"; } ''

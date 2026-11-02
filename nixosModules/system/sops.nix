@@ -53,6 +53,12 @@
           mode = "0440";
         };
 
+        "weather-location" = {
+          owner = config.users.users.${userName}.name;
+          group = config.users.users.${userName}.group;
+          mode = "0440";
+        };
+
         "mullvad" = {
           owner = config.users.users.${userName}.name;
           group = config.users.users.${userName}.group;

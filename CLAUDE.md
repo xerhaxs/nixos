@@ -14,6 +14,9 @@ Das Repo ist öffentlich: Hier nichts Privates ablegen (keine Domains, Adressen,
 - Nur committen, wenn es ausdrücklich verlangt wird. Branch ist `rework`, `main` erst in Phase 17.
 - Flakes ignorieren untracked Dateien: Neue `.nix`-Dateien vor dem Build mit `git add` aufnehmen.
 - `.nix` mit nixfmt formatieren, Import- und Bundle-Listen alphabetisch, neue Optionen in der README des Ordners nachtragen.
+- Deploys von außen brauchen `--build-host`: `admin` und `jf` sind bewusst keine `trusted-users` (das wäre Root ohne Passwort), Server lehnen unsignierte Pakete ab. `.drv`-Dateien nehmen sie an und bauen selbst.
+- `flake.nix` liest `private` aus `~/.nixos-private`, Home Manager verlinkt das nach `xdg.userDirs.documents`. Ein Flake-Input ist fester Text und kann keine Option lesen. Relativ (`git+file:../`) warnt Nix und will es abschaffen, `path:` hat keinen Hash in der `flake.lock`.
+- Keine veränderlichen URLs als Flake-Input (`master`, `latest`, `github.io`): Die `flake.lock` nagelt den Hash fest, auf frischen Hosts bricht der Build dann mit `mismatch in field narHash` ab. Der Desktop merkt das nicht, er hat die alte Datei im Store. Stattdessen `github:`-Inputs: keine Hashes in `flake.nix`, der Stand steht in der `flake.lock`.
 - Die Claude-Shell hat kein `sudo` (Passwort nötig). Was root braucht (`nixos-rebuild`, `chown`), führt der Benutzer aus. Bauen geht ohne root: `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`.
 
 ## Stolperfallen dieses Systems

@@ -109,7 +109,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.monitoring-agent.scrapers` | list of string | `[   "10.75.0.21"   "10.100.0.2" ]` | Addresses of the monitoring server (LAN and WireGuard) allowed to scrape the exporters. |
 | `nixos.system.monitoring-agent.smart` | boolean | `smartd enabled and no VM` | Export SMART values of the disks. |
 | `nixos.system.networking.blocklists.enable` | boolean | `true` | Enable DNS blocklists. |
-| `nixos.system.networking.blocklists.urls` | list of string | `[   "adobe"   "amazonFireTV"   "malware"   "phishing"   "...` | List of blocklist URLs to use. |
+| `nixos.system.networking.blocklists.urls` | list of string | `[   "adobe"   "amazonFireTV"   "malware"   "phishing"   "...` | Names of the blocklists to use. |
 | `nixos.system.networking.dnssec` | boolean | `config.nixos.desktop.enable` | Validate DNSSEC in systemd-resolved (allow-downgrade). |
 | `nixos.system.networking.enable` | boolean | `false` | Enable networking and network config. |
 | `nixos.system.networking.lan.enable` | boolean | `true` | Host is part of the home LAN (gateway, nameservers and local host entries). |

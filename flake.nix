@@ -6,8 +6,25 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nix-colors.url = "github:misterio77/nix-colors";
 
+    blocklistproject = {
+      url = "github:blocklistproject/Lists";
+      flake = false;
+    };
+
+    perflyst = {
+      url = "github:Perflyst/PiHoleBlocklist";
+      flake = false;
+    };
+
+    stevenBlack = {
+      url = "github:StevenBlack/hosts";
+      flake = false;
+    };
+
+    # Home Manager links this path to nixos-private in the XDG documents directory of the host.
+    # A flake input is a fixed string, it cannot read that option itself.
     private = {
-      url = "git+file:///mount/Data/Datein/Dokumente/nixos-private";
+      url = "git+file:///home/jf/.nixos-private";
       flake = false;
     };
 
@@ -90,106 +107,50 @@
 
     # Grafana dashboards, nix flake update fetches the latest revision.
     grafana-alertmanager = {
-      url = "https://grafana.com/api/dashboards/9578/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/9578/revisions/4/download";
       flake = false;
     };
     grafana-blackbox = {
-      url = "https://grafana.com/api/dashboards/7587/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/7587/revisions/3/download";
       flake = false;
     };
     grafana-logs = {
-      url = "https://grafana.com/api/dashboards/13639/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/13639/revisions/2/download";
       flake = false;
     };
     grafana-nginx = {
-      url = "https://grafana.com/api/dashboards/12708/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/12708/revisions/1/download";
       flake = false;
     };
     grafana-node-exporter-full = {
-      url = "https://grafana.com/api/dashboards/1860/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/1860/revisions/46/download";
       flake = false;
     };
     grafana-pihole = {
-      url = "https://grafana.com/api/dashboards/10176/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/10176/revisions/3/download";
       flake = false;
     };
     grafana-postgresql = {
-      url = "https://grafana.com/api/dashboards/9628/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/9628/revisions/8/download";
       flake = false;
     };
     grafana-smartctl = {
-      url = "https://grafana.com/api/dashboards/22604/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/22604/revisions/4/download";
       flake = false;
     };
     grafana-unbound = {
-      url = "https://grafana.com/api/dashboards/11705/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/11705/revisions/1/download";
       flake = false;
     };
     grafana-wireguard = {
-      url = "https://grafana.com/api/dashboards/12177/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/12177/revisions/1/download";
       flake = false;
     };
     grafana-zfs = {
-      url = "https://grafana.com/api/dashboards/7845/revisions/latest/download";
+      url = "https://grafana.com/api/dashboards/7845/revisions/4/download";
       flake = false;
     };
 
-    adobe = {
-      url = "https://blocklistproject.github.io/Lists/adobe.txt";
-      flake = false;
-    };
-    ads = {
-      url = "https://blocklistproject.github.io/Lists/ads.txt";
-      flake = false;
-    };
-    amazonFireTV = {
-      url = "https://perflyst.github.io/PiHoleBlocklist/AmazonFireTV.txt";
-      flake = false;
-    };
-    malware = {
-      url = "https://blocklistproject.github.io/Lists/malware.txt";
-      flake = false;
-    };
-    oisd-big = {
-      url = "https://big.oisd.nl/";
-      flake = false;
-    };
-    oisd-small = {
-      url = "https://small.oisd.nl/";
-      flake = false;
-    };
-    phishing = {
-      url = "https://blocklistproject.github.io/Lists/phishing.txt";
-      flake = false;
-    };
-    ransomware = {
-      url = "https://blocklistproject.github.io/Lists/ransomware.txt";
-      flake = false;
-    };
-    redirect = {
-      url = "https://blocklistproject.github.io/Lists/redirect.txt";
-      flake = false;
-    };
-    scam = {
-      url = "https://blocklistproject.github.io/Lists/scam.txt";
-      flake = false;
-    };
-    smart-tv = {
-      url = "https://blocklistproject.github.io/Lists/smart-tv.txt";
-      flake = false;
-    };
-    stevenBlack = {
-      url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
-      flake = false;
-    };
-    tiktok = {
-      url = "https://blocklistproject.github.io/Lists/tiktok.txt";
-      flake = false;
-    };
-    tracking = {
-      url = "https://blocklistproject.github.io/Lists/tracking.txt";
-      flake = false;
-    };
   };
 
   outputs =

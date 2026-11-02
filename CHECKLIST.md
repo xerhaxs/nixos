@@ -110,7 +110,6 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | [ ] | Back In Time täglich über cron (siehe M) | `homeModules/applications/tools/backintime.nix` | TODO 4.7 |
 | [ ] | Neu: VRR/HDR des Hauptmonitors beim Login | `hosts/NixOS-Desktop/home/machine.nix` | `kscreen-doctor -o` zeigt VRR automatisch, HDR an |
 | [ ] | Neu: WebDAV-Mount `dav.<homeDomain>` auf `/mount/dav` (ausgeschaltet, bis das Secret existiert) | `nixosModules/userEnvironment/networkshares.nix` | nach TODO 13.11: `ls /mount/dav` |
-| [ ] | Neu: JetBrains-Modul nutzt die gepflegten Pakete (`idea`, `pycharm`, unfree), nirgends aktiv | `homeModules/applications/development/jetbrains.nix` | Entscheidung TODO 13.3 |
 | [ ] | Software-Auswahl pro Gerät (Bundles, CLI-Gruppen) nach deinen Antworten aus Runde 1 | `homeModules/applications/*/default.nix`, `nixosModules/base/common.nix` | `nvd diff` (TODO 3.3) |
 
 ## F. Mail, PGP, JMAP
@@ -145,7 +144,7 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | [ ] | Eine SSD, LUKS, tmpfs-Root, Swap 8 GB | `hosts/NixOS-Portable/disko.nix`, `machine.nix` | Installation TODO Phase 12 |
 | [ ] | Hybrid-Boot: limine für BIOS (EF02-Partition) und UEFI als Wechselmedium | `nixosModules/system/bootloader.nix` (`removable`, `biosPartitionIndex`), disko `biosBoot` | Boot auf UEFI- und BIOS-Rechner |
 | [ ] | Alle CPU-/GPU-Treiber, redistributable Firmware, breite initrd-Module | `machine.nix`, `hardware-configuration.nix` | LUKS-Abfrage erscheint auf fremden Rechnern, Tastatur geht |
-| [ ] | Alle Anwendungen (auch die sonst abgeschalteten, außer JetBrains/Back In Time), Plasma + Hyprland mit Touch | `hosts/NixOS-Portable/home/home.nix` | Anwendungsmenü |
+| [ ] | Alle Anwendungen (auch die sonst abgeschalteten, außer Back In Time), Plasma + Hyprland mit Touch | `hosts/NixOS-Portable/home/home.nix` | Anwendungsmenü |
 | [ ] | Boot-Eintrag `server`: Jellyfin, Kiwix, Ollama (`qwen3.5:4b`), ComfyUI, LanguageTool, LibreTranslate, Nextcloud + Collabora, Forgejo, Radicale, Linkwarden, HomeBox, Miniflux, Home Assistant, Monitoring, Samba + WebDAV, Glance, SearXNG, code-server, CryptPad, Minecraft (4 GB) | `hosts/NixOS-Portable/server.nix` | `https://glance.portable.internal` |
 | [ ] | Eigene sops-Datei (Server-Secrets zufällig erzeugt, persönliche Werte als `REPLACE_ME`) | `$PRIV/secrets/nixos-portable.yaml` | `sops -d` zeigt keine `REPLACE_ME` mehr (TODO 1.5) |
 
@@ -242,6 +241,12 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | KeePassXC: `SSHAgent.Enabled` und weitere Schlüsselnamen korrigiert | `homeModules/applications/tools/keepassxc.nix` | SSH-Agent-Seite am Eintrag sichtbar |
 | [ ] | SSH nutzt `~/.ssh/id_ed25519` statt `.pub` | `homeModules/base/ssh.nix` | `ssh admin@NixOS-Server1` |
 | [ ] | Fix: Der Start von Fusion 360 fand den Ordner `production` nicht, Wine legt keine Menüeinträge mehr an | `fusion360.nix` | `fusion360` |
+| [ ] | Input `private` über `~/.nixos-private`, Ziel aus `xdg.userDirs.documents` | `flake.nix`, `homeModules/desktop/xdg.nix` | `ls -l ~/.nixos-private`, auf einem Laptop bauen, TODO 5.1 |
+| [ ] | Blocklisten als `github:`-Inputs, Grafana-Dashboards mit fester Revision, `oisd` entfernt | `flake.nix`, `nixosModules/system/networking.nix` | Build auf einem frischen Host, kein `mismatch in field narHash` |
+| [ ] | JetBrains entfernt | `homeModules/applications/development/` | `grep -ri pycharm` findet nichts |
+| [ ] | Deploy mit `--build-host`, weil Server unsignierte Pakete ablehnen | TODO 6.2 | Server1 bootet die neue Generation |
 | [ ] | Fix: `update-check` scheiterte an shellcheck (`$prefix[0-9.]`), Build von Server1 brach ab | `nixosModules/server/management/update-check.nix` | Build von Server1 |
+| [ ] | Ab Mitte November: Snapshots von Back In Time kontrollieren. Entstehen sie täglich, werden alte gelöscht, stimmt der Platz auf der Platte? | Back In Time, `/mount/Backup/backintime/NixOS-PC/jf/1/` | `ls /mount/Backup/backintime/NixOS-PC/jf/1/` zeigt tägliche Snapshots, `readlink last_snapshot` ist aktuell, `new_snapshot` existiert nicht dauerhaft, `journalctl -t backintime -p err` ist leer, ein Restore einer Testdatei klappt |
+| [ ] | Wetterort aus sops statt lokaler Datei, `weather-location` entfällt | `widgets.nix`, `nixosModules/system/sops.nix` | Wetterkarte zeigt Wilnsdorf |
 | [ ] | Storage Box aus den Backups der VPS entfernt, Sicherung nach Server1 bleibt | `hosts/NixOS-Server{Public,Gaming}/backup.nix` | Host evaluiert ohne `storageBox` |
 | [ ] | Speicherlimit 5 GB pro Nutzer in Nextcloud und CryptPad | `nextcloud.nix`, `cryptpad.nix` | Nextcloud: Benutzerverwaltung, CryptPad: Einstellungen des Kontos |

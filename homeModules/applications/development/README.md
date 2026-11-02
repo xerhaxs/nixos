@@ -6,7 +6,7 @@ Development tools.
 
 ## How it works
 
-- Editors and IDEs (Kate, VSCodium, JetBrains), Bottles, diff and hex viewers, USB image writers, ESP/Raspberry Pi tools and VM viewers.
+- Editors (Kate, VSCodium), Bottles, diff and hex viewers, USB image writers, ESP/Raspberry Pi tools and VM viewers.
 
 ## Contents
 
@@ -17,7 +17,6 @@ Development tools.
 | `diff.nix` | Enable diff tools. |
 | `hex.nix` | Enable hex tools. |
 | `imager.nix` | Enable imager tools. |
-| `jetbrains.nix` | Enable JetBrains IntelliJ IDEA and PyCharm (unfree, add idea and pycharm to the unfree predicate in nixosModules/system/nixos.nix first). |
 | `kate.nix` | Enable kate. |
 | `singleboardcomputer.nix` | Enable Single-Board Computer software. |
 | `virtualisation.nix` | Enable Virtualisation GUIs. |
@@ -32,7 +31,6 @@ Development tools.
 | `homeManager.applications.development.enable` | boolean | `false` | Enable development modules bundle. |
 | `homeManager.applications.development.hex.enable` | boolean | `false` | Enable hex tools. |
 | `homeManager.applications.development.imager.enable` | boolean | `false` | Enable imager tools. |
-| `homeManager.applications.development.jetbrains.enable` | boolean | `false` | Enable JetBrains IntelliJ IDEA and PyCharm (unfree, add idea and pycharm to the unfree predicate in nixosModules/system/nixos.nix first). |
 | `homeManager.applications.development.kate.enable` | boolean | `false` | Enable kate. |
 | `homeManager.applications.development.singleboardcomputer.enable` | boolean | `false` | Enable Single-Board Computer software. |
 | `homeManager.applications.development.singleboardcomputer.rpiImager` | boolean | `false` | Install the Raspberry Pi Imager. |
