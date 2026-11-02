@@ -24,5 +24,9 @@
     };
 
     programs.hyprlock.enable = true;
+
+    # hyprlock enables a user unit that graphical-session.target also starts in Plasma.
+    # Home Manager binds hypridle to hyprland-session.target instead.
+    services.hypridle.enable = lib.mkForce false;
   };
 }

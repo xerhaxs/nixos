@@ -68,7 +68,18 @@
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [
         ".config/VSCodium"
+        ".vscode-oss/extensions"
         ".vscode-oss-shared"
+        {
+          directory = ".claude";
+          mode = "0700";
+        }
+      ];
+      files = [
+        {
+          file = ".claude.json";
+          method = "symlink";
+        }
       ];
     };
   };

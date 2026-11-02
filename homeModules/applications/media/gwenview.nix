@@ -203,7 +203,10 @@
         ".local/share/gwenview"
       ];
       files = [
-        ".config/gwenviewrc"
+        {
+          file = ".config/gwenviewrc";
+          method = "symlink";
+        }
       ];
     };
   };

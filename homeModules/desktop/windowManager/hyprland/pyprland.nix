@@ -31,7 +31,7 @@
       scratchpads = {
         term = {
           animation = "fromTop";
-          command = "kitty --class kitty-dropdown";
+          command = "kitty --class kitty-dropdown -o background_opacity=0.85";
           class = "kitty-dropdown";
           size = "75% 60%";
           max_size = "1920px 100%";

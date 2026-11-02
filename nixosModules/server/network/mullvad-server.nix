@@ -45,7 +45,10 @@
             sleep 1
           done
 
-          if ! ${pkgs.mullvad}/bin/mullvad account get 2>&1 | grep -q "Mullvad account:"; then
+          # Every login registers a new device, the account allows five. The first line is printed
+          # even if the API is unreachable, a pipe into grep -q would kill mullvad with SIGPIPE.
+          ACCOUNT=$(${pkgs.mullvad}/bin/mullvad account get 2>&1 || true)
+          if [[ $ACCOUNT != *"Mullvad account:"* ]]; then
             ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
               config.sops.secrets."mullvad".path
             })
@@ -58,6 +61,13 @@
           ${pkgs.mullvad}/bin/mullvad connect
         '';
       };
+    };
+
+    # device.json identifies this device, without it every boot starts logged out.
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [
+        "/etc/mullvad-vpn"
+      ];
     };
   };
 }

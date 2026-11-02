@@ -42,7 +42,7 @@
 
     home.activation.obsConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             GLOBAL="$HOME/.config/obs-studio/global.ini"
-            USER="$HOME/.config/obs-studio/user.ini"
+            USER_INI="$HOME/.config/obs-studio/user.ini"
             BASIC="$HOME/.config/obs-studio/basic/profiles/Untitled/basic.ini"
 
             if [ -f "$GLOBAL" ]; then
@@ -108,85 +108,85 @@
               ${pkgs.crudini}/bin/crudini --set "$GLOBAL" input-overlay regex                  false
             fi
 
-            if [ -f "$USER" ]; then
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   Pre19Defaults                false
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   Pre21Defaults                false
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   Pre23Defaults                false
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   "Pre24.1Defaults"            false
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   MaxLogs                      10
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   ProcessPriority              Normal
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   EnableAutoUpdates            true
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   ConfirmOnExit                true
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   HotkeyFocusType              NeverDisableHotkeys
-              ${pkgs.crudini}/bin/crudini --set "$USER" General   CurrentTheme3                "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}"
+            if [ -f "$USER_INI" ]; then
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   Pre19Defaults                false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   Pre21Defaults                false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   Pre23Defaults                false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   "Pre24.1Defaults"            false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   MaxLogs                      10
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   ProcessPriority              Normal
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   EnableAutoUpdates            true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   ConfirmOnExit                true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   HotkeyFocusType              NeverDisableHotkeys
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" General   CurrentTheme3                "Catppuccin ${osConfig.nixos.theme.catppuccin.flavor}"
 
-              ${pkgs.crudini}/bin/crudini --set "$USER" Video     Renderer                     OpenGL
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Video     Renderer                     OpenGL
 
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow PreviewEnabled             true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow PreviewProgramMode         true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SceneDuplicationMode       true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SwapScenesMode             true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SnappingEnabled            true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow ScreenSnapping             true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SourceSnapping             true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow CenterSnapping             false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SnapDistance               10
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SpacingHelpersEnabled      true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow RecordWhenStreaming         true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow KeepRecordingWhenStreamStops true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SysTrayEnabled             true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SysTrayWhenStarted         false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SaveProjectors             true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow ShowTransitions            true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow ShowListboxToolbars        true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow ShowStatusBar              true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow ShowSourceIcons            true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow ShowContextToolbars        true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow StudioModeLabels           true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow VerticalVolControl         false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MultiviewMouseSwitch       true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MultiviewDrawNames         true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MultiviewDrawAreas         true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MediaControlsCountdownTimer true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow WarnBeforeStartingStream   true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow WarnBeforeStoppingStream   true
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow WarnBeforeStoppingRecord   false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow AlwaysOnTop                false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow EditPropertiesMode         false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow DocksLocked                false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow SideDocks                  false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow VerticalVolumeControl      false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MixerShowInactive          false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MixerKeepInactiveLast      false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MixerShowHidden            false
-              ${pkgs.crudini}/bin/crudini --set "$USER" BasicWindow MixerKeepHiddenLast        false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow PreviewEnabled             true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow PreviewProgramMode         true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SceneDuplicationMode       true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SwapScenesMode             true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SnappingEnabled            true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow ScreenSnapping             true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SourceSnapping             true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow CenterSnapping             false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SnapDistance               10
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SpacingHelpersEnabled      true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow RecordWhenStreaming         true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow KeepRecordingWhenStreamStops true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SysTrayEnabled             true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SysTrayWhenStarted         false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SaveProjectors             true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow ShowTransitions            true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow ShowListboxToolbars        true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow ShowStatusBar              true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow ShowSourceIcons            true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow ShowContextToolbars        true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow StudioModeLabels           true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow VerticalVolControl         false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MultiviewMouseSwitch       true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MultiviewDrawNames         true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MultiviewDrawAreas         true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MediaControlsCountdownTimer true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow WarnBeforeStartingStream   true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow WarnBeforeStoppingStream   true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow WarnBeforeStoppingRecord   false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow AlwaysOnTop                false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow EditPropertiesMode         false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow DocksLocked                false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow SideDocks                  false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow VerticalVolumeControl      false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MixerShowInactive          false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MixerKeepInactiveLast      false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MixerShowHidden            false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" BasicWindow MixerKeepHiddenLast        false
 
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility SelectRed                255
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility SelectGreen              65280
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility SelectBlue               16744192
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility MixerGreen               2522918
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility MixerYellow              2523007
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility MixerRed                 2500223
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility MixerGreenActive         5046092
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility MixerYellowActive        5046271
-              ${pkgs.crudini}/bin/crudini --set "$USER" Accessibility MixerRedActive           5000447
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility SelectRed                255
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility SelectGreen              65280
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility SelectBlue               16744192
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility MixerGreen               2522918
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility MixerYellow              2523007
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility MixerRed                 2500223
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility MixerGreenActive         5046092
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility MixerYellowActive        5046271
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Accessibility MixerRedActive           5000447
 
-              ${pkgs.crudini}/bin/crudini --set "$USER" PropertiesWindow cx                    720
-              ${pkgs.crudini}/bin/crudini --set "$USER" PropertiesWindow cy                    580
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" PropertiesWindow cx                    720
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" PropertiesWindow cy                    580
 
-              ${pkgs.crudini}/bin/crudini --set "$USER" Appearance  FontScale                  10
-              ${pkgs.crudini}/bin/crudini --set "$USER" Appearance  Density                    -4
-              ${pkgs.crudini}/bin/crudini --set "$USER" Appearance  Theme                      "com.obsproject.Catppuccin.${osConfig.nixos.theme.catppuccin.flavor}"
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Appearance  FontScale                  10
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Appearance  Density                    -4
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" Appearance  Theme                      "com.obsproject.Catppuccin.${osConfig.nixos.theme.catppuccin.flavor}"
 
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay iohook                   true
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay gamepad                  true
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay overlay                  true
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay wss_address              0.0.0.0
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay logging                  false
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay server_port              1608
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay wss_port                 16899
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay enable_wss               false
-              ${pkgs.crudini}/bin/crudini --set "$USER" input-overlay server_refresh_rate      250
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay iohook                   true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay gamepad                  true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay overlay                  true
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay wss_address              0.0.0.0
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay logging                  false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay server_port              1608
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay wss_port                 16899
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay enable_wss               false
+              ${pkgs.crudini}/bin/crudini --set "$USER_INI" input-overlay server_refresh_rate      250
             fi
 
             mkdir -p "$(dirname "$BASIC")"

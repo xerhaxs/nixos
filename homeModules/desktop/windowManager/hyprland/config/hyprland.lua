@@ -2,12 +2,12 @@ local ok, colors = pcall(require, "themes.catppuccin")
 if not ok then
   colors = {
     accent = "rgb(cba6f7)",
-    lavender = "rgb(b4befe)",
+    blue = "rgb(89b4fa)",
     surface1 = "rgb(45475a)",
   }
 end
 
-local terminal = "kitty"
+local terminal = "kitty -o background_opacity=0.82"
 local fileManager = "dolphin"
 local launcher = "rofi -show drun -show-icons"
 local mainMod = "SUPER"
@@ -24,11 +24,11 @@ end)
 
 hl.config({
   general = {
-    gaps_in = 5,
-    gaps_out = 12,
+    gaps_in = 6,
+    gaps_out = 14,
     border_size = 2,
     col = {
-      active_border = { colors = { colors.accent, colors.lavender }, angle = 45 },
+      active_border = { colors = { colors.accent, colors.blue }, angle = 45 },
       inactive_border = colors.surface1,
     },
     resize_on_border = true,
@@ -37,20 +37,20 @@ hl.config({
   },
 
   decoration = {
-    rounding = 12,
+    rounding = 14,
     rounding_power = 2,
     active_opacity = 1.0,
-    inactive_opacity = 0.95,
+    inactive_opacity = 0.97,
     shadow = {
       enabled = true,
-      range = 12,
+      range = 24,
       render_power = 3,
-      color = 0xee11111b,
+      color = 0x99000000,
     },
     blur = {
       enabled = true,
-      size = 6,
-      passes = 2,
+      size = 8,
+      passes = 3,
       vibrancy = 0.1696,
       popups = true,
     },
@@ -122,7 +122,7 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client --toggle-panel --skip-
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("waypaper"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("systemctl --user start wallpaper-random.service"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
-hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("wlogout --protocol layer-shell"))
+hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("power-menu"))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
 hl.bind("XF86Calculator", hl.dsp.exec_cmd("qalculate-gtk"))
 

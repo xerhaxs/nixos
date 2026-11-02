@@ -36,7 +36,10 @@
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       files = [
-        ".bash_history"
+        {
+          file = ".bash_history";
+          method = "symlink";
+        }
       ];
     };
   };

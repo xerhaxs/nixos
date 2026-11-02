@@ -290,8 +290,10 @@ in
       ];
     };
 
+    # The initrd activation creates the persistent home directories, otherwise they end up below the mount point.
     fileSystems."/persistent/home" = {
       device = systemDevice;
+      neededForBoot = true;
       fsType = "btrfs";
       options = [
         "subvol=/home"

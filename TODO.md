@@ -1,6 +1,6 @@
 # TODO – Schritt-für-Schritt-Anleitung
 
-Stand: Das Rework liegt als Commit `f8c6420` auf dem Branch `rework`, noch nicht gepusht und noch ohne Rebuild. Die zweite Runde (Pins, CVE-Scan, Glance, ServerGaming, BlueMap, Countdown, EasyEffects, Thunderbird) liegt noch uncommittet im Working Tree, siehe 1.8 und 2.6. Arbeite die Phasen in dieser Reihenfolge ab. Jeder Punkt ist ein Häkchen. Die Abnahme-Checkliste (was wurde geändert und wie prüfe ich es?) steht in [`CHECKLIST.md`](CHECKLIST.md).
+Stand 02.11.2026: Das Rework liegt auf dem Branch `rework`, noch nicht gepusht. NixOS-Desktop läuft auf der neuen Generation, die Reparatur 4.5a bis 4.5e ist erledigt und geprüft. Arbeite die Phasen in dieser Reihenfolge ab. Jeder Punkt ist ein Häkchen. Die Abnahme-Checkliste (was wurde geändert und wie prüfe ich es?) steht in [`CHECKLIST.md`](CHECKLIST.md).
 
 Konventionen:
 
@@ -12,7 +12,7 @@ Konventionen:
 
 ## Phase 0 – Sichern und Überblick verschaffen
 
-- [ ] 0.1 Sicherung beider Repos anlegen, nicht nach `~`, denn das Home liegt auf tmpfs und ist nach einem Reboot weg: `cp -a $REPO /mount/Backup/nixos-backup-$(date +%F)` und `cp -a $PRIV /mount/Backup/nixos-private-backup-$(date +%F)`.
+- [X] 0.1 Sicherung beider Repos anlegen, nicht nach `~`, denn das Home liegt auf tmpfs und ist nach einem Reboot weg: `cp -a $REPO /mount/Backup/nixos-backup-$(date +%F)` und `cp -a $PRIV /mount/Backup/nixos-private-backup-$(date +%F)`.
 - [X] 0.2 Aktuelle Generation notieren: `nixos-rebuild list-generations | tail -3` (für einen möglichen Rollback).
 - [X] 0.3 Änderungen ansehen: `cd $REPO && git status && git diff --stat`. Neue Ordner: `pkgs/`, `docs/`, `hosts/NixOS-Portable/`, `hosts/NixOS-VMServerPublic/`, Hyprland-Module.
 - [X] 0.4 [`CHECKLIST.md`](CHECKLIST.md) einmal komplett durchlesen.
@@ -44,39 +44,51 @@ Konventionen:
 
 ## Phase 3 – Bauen und testen, ohne etwas zu aktivieren
 
-- [ ] 3.1 Alle Hosts evaluieren: `for h in NixOS-Desktop NixOS-Framework NixOS-Convertible NixOS-Server1 NixOS-ServerGaming NixOS-ServerPublic NixOS-Portable NixOS-VMDesktop NixOS-VMServer NixOS-VMServerGaming NixOS-VMServerPublic; do nix eval --raw .#nixosConfigurations.$h.config.system.build.toplevel.drvPath >/dev/null && echo "OK $h"; done`
-- [ ] 3.2 Den Desktop bauen: `nixos-rebuild build --flake .#NixOS-Desktop`. Das dauert, DangerZone und hyprgrass werden lokal gebaut.
-- [ ] 3.3 Unterschiede ansehen: `nix run nixpkgs#nvd -- diff /run/current-system ./result`.
+- [X] 3.1 Alle Hosts evaluieren: `for h in NixOS-Desktop NixOS-Framework NixOS-Convertible NixOS-Server1 NixOS-ServerGaming NixOS-ServerPublic NixOS-Portable NixOS-VMDesktop NixOS-VMServer NixOS-VMServerGaming NixOS-VMServerPublic; do nix eval --raw .#nixosConfigurations.$h.config.system.build.toplevel.drvPath >/dev/null && echo "OK $h"; done`
+- [X] 3.2 Den Desktop bauen: `nixos-rebuild build --flake .#NixOS-Desktop`. Das dauert, DangerZone und hyprgrass werden lokal gebaut.
+- [X] 3.3 Unterschiede ansehen: `nix run nixpkgs#nvd -- diff /run/current-system ./result`.
 - [ ] 3.4 Optional in einer VM testen: `nixos-rebuild build-vm --flake .#NixOS-VMDesktop && ./result/bin/run-NixOS-VMDesktop-vm`. Darin Hyprland (SDDM → Hyprland) und Plasma starten.
-- [ ] 3.5 Die Hyprland-Konfiguration prüfen: `Hyprland --verify-config -c ./result/...` (oder nach dem Switch `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`).
+- [X] 3.5 Die Hyprland-Konfiguration prüfen: `Hyprland --verify-config -c ./result/...` (oder nach dem Switch `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`).
 
 ## Phase 4 – NixOS-Desktop umstellen (dieser Rechner)
 
 Vorbereitung (vor dem Rebuild):
 
-- [ ] 4.1 machine-id dauerhaft machen (sonst bekommt jeder Boot eine neue ID): `sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id`.
-- [ ] 4.2 Dateien wegräumen, die Home Manager jetzt selbst verwaltet. Sonst bricht die Aktivierung mit "would be clobbered" ab (auf NixOS-Desktop gab es am 01.11.2026 keine dieser Dateien):
-  - [ ] `mv ~/.ssh/config ~/.ssh/config.bak` (falls vorhanden; eigene Einträge später nach `homeModules/base/ssh.nix` übernehmen)
-  - [ ] `mv ~/.gnupg/gpg.conf ~/.gnupg/gpg.conf.bak; mv ~/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf.bak` (falls vorhanden)
-  - [ ] EasyEffects: falls `~/.local/share/easyeffects/input/microphone.json` existiert, umbenennen
-- [ ] 4.3 Secure Boot: `secureBoot.autoGenerateKeys` erzeugt fehlende Keys jetzt automatisch beim Bootloader-Install. Sind schon Keys in `/var/lib/sbctl`, bleiben sie.
+- [X] 4.1 machine-id dauerhaft machen (sonst bekommt jeder Boot eine neue ID): `sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id`.
+- [X] 4.2 Dateien wegräumen, die Home Manager jetzt selbst verwaltet. Sonst bricht die Aktivierung mit "would be clobbered" ab (auf NixOS-Desktop gab es am 01.11.2026 keine dieser Dateien):
+  - [X] `mv ~/.ssh/config ~/.ssh/config.bak` (falls vorhanden; eigene Einträge später nach `homeModules/base/ssh.nix` übernehmen)
+  - [X] `mv ~/.gnupg/gpg.conf ~/.gnupg/gpg.conf.bak; mv ~/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf.bak` (falls vorhanden)
+  - [X] EasyEffects: falls `~/.local/share/easyeffects/input/microphone.json` existiert, umbenennen
+- [X] 4.3 Secure Boot: `secureBoot.autoGenerateKeys` erzeugt fehlende Keys jetzt automatisch beim Bootloader-Install. Sind schon Keys in `/var/lib/sbctl`, bleiben sie.
 
 Umstellen:
 
-- [ ] 4.4 Nicht `switch`, sondern `boot` verwenden (Kernel-Parameter, initrd und Zeitdienst ändern sich): `sudo nixos-rebuild boot --flake .#NixOS-Desktop`.
-- [ ] 4.5 Neu starten. LUKS fragt wie bisher nach der Passphrase. Die Fehlermeldung `key file '/tmp/secret.key' missing` ist jetzt weg.
-- [ ] 4.6 Nach dem Boot: `journalctl -b -p err` ansehen und mit dem alten Stand vergleichen (siehe Phase 13.1).
+- [X] 4.4 Nicht `switch`, sondern `boot` verwenden (Kernel-Parameter, initrd und Zeitdienst ändern sich): `sudo nixos-rebuild boot --flake .#NixOS-Desktop`.
+- [X] 4.5 Neu starten. LUKS fragt wie bisher nach der Passphrase. Die Fehlermeldung `key file '/tmp/secret.key' missing` ist jetzt weg.
+- [X] 4.6 Nach dem Boot: `journalctl -b -p err` ansehen und mit dem alten Stand vergleichen (siehe Phase 13.1).
+
+Reparatur nach dem ersten Boot (vor den Nacharbeiten erledigen):
+
+Befund vom 01.11.2026: `home-manager-jf.service` brach beim Boot mit `mkdir: Permission denied` in `~/.local/share/easyeffects` ab. Deshalb fehlten alle Links im Home (Hyprland-Konfiguration, Autostart-Skripte von plasma-manager, VSCodium-Erweiterungen). `/persistent/home` war im initrd nicht gemountet: Neue persistierte Ordner landeten verdeckt im root-Subvolume, systemd legte die echten als `root:root` an. `neededForBoot` ist jetzt gesetzt, die 11 betroffenen leeren Ordner müssen einmalig umgestellt werden. Zusätzlich sind `~/.claude`, `~/.claude.json` und `~/.vscode-oss/extensions` persistiert, damit Erweiterung, Anmeldung und Speicher von Claude Code den Neustart überleben.
+
+- [X] 4.5a Eigentümer reparieren: `sudo find /persistent/home/jf -xdev -user root -exec chown jf:users {} +`. Danach darf `find /persistent/home/jf -xdev -user root` nichts mehr finden.
+- [X] 4.5b Neue Generation setzen (`boot`, nicht `switch`, sonst legt sich der Mount über die laufende VSCodium-Erweiterung): `cd $REPO && sudo nixos-rebuild boot --flake .#NixOS-Desktop`.
+- [X] 4.5c VSCodium schließen, dann in einem Terminal den aktuellen Stand von Claude Code sichern: `mkdir -p /persistent/home/jf/.vscode-oss/extensions && cp -a ~/.claude ~/.claude.json /persistent/home/jf/ && cp -a ~/.vscode-oss/extensions/anthropic.claude-code-* /persistent/home/jf/.vscode-oss/extensions/`.
+- [X] 4.5d Neu starten.
+- [X] 4.5e Prüfen: `systemctl status home-manager-jf` ist erfolgreich, `systemctl --failed` und `systemctl --user --failed` sind leer, `grep " /persistent/home " /etc/fstab` enthält `x-initrd.mount` (`findmnt` zeigt `x-`-Optionen nicht), `ls -la ~/.config/hypr ~/.claude.json` zeigt die Konfiguration und den Symlink.
+- [X] 4.5f Sichtprüfung: Plasma hat wieder Panels, Theme und Wallpaper. Nach 10 Minuten ohne Eingabe darf in Plasma kein `hyprlock` erscheinen.
+- [ ] 4.5g Optional aufräumen: Unter dem Mountpunkt liegt im root-Subvolume noch ein alter verdeckter Baum. Er stört nicht. Wegräumen: `sudo mount -o subvol=/root /dev/mapper/system /mnt`, `/mnt/home` ansehen und den Inhalt löschen, dann `sudo umount /mnt`. Das echte Home liegt im Subvolume `/home` und ist davon nicht betroffen.
 
 Nacharbeiten:
 
 - [ ] 4.7 Back In Time: In `~/.config/backintime/config` den Wert `profile1.schedule.mode=1` auf `0` setzen. Einen alten Cron-Eintrag gibt es nicht mehr (`crontab -l` war am 01.11.2026 leer), das tägliche Backup lief bis hierhin also vermutlich nicht. Der systemd-User-Timer übernimmt jetzt das tägliche Backup (`systemctl --user list-timers | grep backintime`).
 - [ ] 4.8 KeePassXC-SSH-Agent einrichten: [`docs/keepassxc-ssh-agent.md`](docs/keepassxc-ssh-agent.md). Danach `ssh-add -l`.
-- [ ] 4.9 DangerZone einmal starten. Beim ersten Start lädt es das Container-Image und prüft es mit cosign. Danach eine Test-PDF umwandeln.
+- [X] 4.9 DangerZone einmal starten. Beim ersten Start lädt es das Container-Image und prüft es mit cosign. Danach eine Test-PDF umwandeln.
 - [ ] 4.10 Fluent Reader: In Miniflux unter Einstellungen → API-Schlüssel einen Key anlegen und ihn in Fluent Reader unter Einstellungen → Dienst eintragen. Funktioniert erst, wenn ServerPublic läuft.
 - [ ] 4.11 EasyEffects: Das Preset `microphone` ist auf Rode Procaster und Behringer UMC22 abgestimmt (Eingang 1, 48V aus). Den Gain am UMC22 so einstellen, dass normale Sprache bei -18 bis -12 dBFS liegt, dann Probeaufnahme machen. Die Werte stammen aus den Datenblättern und sind nicht gemessen, Feinabstimmung siehe [`docs/microphone.md`](docs/microphone.md).
 - [ ] 4.12 Hyprland ausprobieren: Abmelden → SDDM → Session „Hyprland“. Tastenkürzel siehe `homeModules/desktop/windowManager/hyprland/README.md`.
 - [ ] 4.13 Fusion 360: `fusion360-install` einmal ausführen (braucht Internet und Autodesk-Konto), danach `fusion360` starten. Funktioniert es unter Wine nicht, ist die Alternative eine Windows-VM (siehe [`docs/virtual-machines.md`](docs/virtual-machines.md)).
-- [ ] 4.14 VRR/HDR wird beim Login per `kscreen-doctor` gesetzt. Den AVR-Monitor als Spiegel des Hauptmonitors einmalig in den KDE-Bildschirmeinstellungen einrichten (der Ausgabename ist unbekannt).
+- [X] 4.14 VRR/HDR wird beim Login per `kscreen-doctor` gesetzt. Den AVR-Monitor als Spiegel des Hauptmonitors einmalig in den KDE-Bildschirmeinstellungen einrichten (der Ausgabename ist unbekannt).
 
 ## Phase 5 – Laptops (NixOS-Framework, NixOS-Convertible)
 
@@ -87,7 +99,10 @@ Nacharbeiten:
 ## Phase 6 – NixOS-Server1
 
 - [ ] 6.1 machine-id sichern: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc && sudo cp /etc/machine-id /persistent/etc/machine-id'`.
+- [ ] 6.1a Mullvad-Gerät vor dem Neustart sichern, sonst braucht der erste Boot noch einmal einen freien Geräteplatz: `ssh admin@NixOS-Server1 'sudo mkdir -p /persistent/etc/mullvad-vpn && sudo cp -a /etc/mullvad-vpn/. /persistent/etc/mullvad-vpn/'`. Bisher lag `device.json` auf tmpfs, jeder Boot belegte einen neuen der fünf Plätze.
+- [ ] 6.1b Verwaiste Geräte entfernen: `ssh admin@NixOS-Server1 'mullvad account get; mullvad account list-devices'` zeigt das aktuelle Gerät und alle anderen. Geräte, die zu keinem aktiven Rechner gehören, mit `mullvad account revoke-device "<Name>"` entfernen. Nicht das eigene Gerät und nicht die der Clients entfernen.
 - [ ] 6.2 Bauen und als Boot-Generation setzen: `nixos-rebuild boot --flake .#NixOS-Server1 --target-host admin@NixOS-Server1 --sudo`, dann neu starten (Remote-Unlock per initrd-ssh).
+- [ ] 6.2a Mullvad prüfen: Nach zwei Neustarts zeigt `mullvad account get` denselben `Device name`, `mullvad account list-devices` hat keinen neuen Eintrag, und `journalctl -b -u mullvad-daemon | grep login_account` ist leer.
 - [ ] 6.3 Intel-GPU für Ollama prüfen: `ssh admin@NixOS-Server1 'nix shell nixpkgs#vulkan-tools -c vulkaninfo --summary'` muss die Intel-GPU zeigen. Danach im Log `journalctl -u ollama | grep -i vulkan`.
 - [ ] 6.4 ComfyUI: `systemctl status podman-comfyui`. Der erste Start lädt das Image (mehrere GB). Danach `https://comfyui.<homeDomain>` öffnen und ein Modell (z. B. SDXL oder Flux) in `/pool01/applications/comfyui/models/checkpoints` legen. Falls der Container nach einem Neustart nicht startet: `podman-comfyui` ist in `hosts/NixOS-Server1/services.nix` noch nicht hinter `zfs-mounts-ready` eingereiht, dann dort ergänzen.
 - [ ] 6.5 Neue DNS-Namen im Pi-hole: `comfyui`, `grafana`, `homebox` (kommen automatisch aus `lan.hosts`).
@@ -243,6 +258,8 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [x] Journal zeigt nur den aktuellen Boot: behoben (`/etc/machine-id` persistiert, Phase 4.1)
   - [ ] `dbus-broker-launch: Ignoring duplicate name ...`: Kosmetik (der Dienst kommt doppelt aus system-path und Paket), nicht schädlich. Nach nixpkgs-Updates erneut ansehen.
   - [ ] `Invalid framebuffer status: GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT` (16-mal): Prozess finden (`journalctl -b -p err -o verbose | grep -B20 GL_FRAMEBUFFER | grep _COMM`), vermutlich KWin/Plasma mit amdgpu
+  - [ ] `kauditd hold queue overflow`: Das Audit-Backlog lief beim Boot über, `backlogLimit` ist jetzt 8192 (`nixosModules/system/hardening.nix`). Nach dem nächsten Reboot prüfen: `journalctl -b -p err | grep -c kauditd` muss 0 sein.
+  - [x] `chronyd: Could not connect ... No route to host`: harmlos. IPv6 ist beim Start von chronyd noch nicht bereit, 15 Sekunden später steht NTS (`chronyc -n sources`).
   - [ ] ddcutil-Meldungen (`dw_start_watch_displays`): von PowerDevil, harmlos
   - [ ] `baloo_file_extractor ... App info not found`: harmlos, ggf. Baloo-Indexierung einschränken
   - [ ] Dasselbe auf Framework, Convertible, Server1 und ServerPublic prüfen und hier ergänzen
@@ -263,6 +280,7 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [ ] Home Assistant: Profil → langlebiges Token, `ENV_HA_TOKEN=`, `homeassistant.enable` und `homeassistant.entities`
 - [ ] 13.13 Pins aktuell halten: Der Update-Check meldete am 01.11.2026 Dangerzone v0.11.1 (gepinnt ist v0.11.0), dazu neuere Commits und Images. Ablauf in [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
 - [ ] 13.14 CVE-Kandidaten sichten: Dashboard „Security und Updates“. Geprüfte False Positives in `nixos.system.vulnscan.ignore` eintragen.
+- [ ] 13.15 hypr-dynamic-cursors: Die Version aus nixpkgs (2026-07-21) wirft auf Hyprland 0.56.2 beim Laden eine Exception und ist deshalb aus `plugins` in `homeModules/desktop/windowManager/hyprland/hyprland.nix` entfernt. Nach einem `nix flake update` wieder eintragen und mit `hyprctl plugin list` prüfen, die Einstellungen in `config/hyprland.lua` sind noch da.
 
 ## Phase 14 – Security, später entschieden
 

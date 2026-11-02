@@ -16,6 +16,7 @@ Personal NixOS configuration based on flakes, disko, impermanence, sops-nix and 
 | `NixOSInstaller.sh` | Installer script for the live ISO. |
 | [`TODO.md`](TODO.md) | Step-by-step list of the manual steps (German). |
 | [`CHECKLIST.md`](CHECKLIST.md) | Acceptance checklist of all changes (German). |
+| [`CLAUDE.md`](CLAUDE.md) | Context notes for Claude Code (German). |
 
 Every folder has a `README.md` with its purpose, contents and options.
 

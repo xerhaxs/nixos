@@ -87,16 +87,16 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | ✓ | Änderung | Wo | Prüfung |
 |---|---|---|---|
 | [ ] | Neu: Hyprland auf allen Clients als zweite Sitzung (Lua-Konfiguration, Catppuccin) | `homeModules/desktop/windowManager/hyprland/` | SDDM → Hyprland |
-| [ ] | Waybar (Workspaces, Fenster, Uhr, MPRIS, CPU/RAM/Temp, Audio, Mikro, Netz, Bluetooth, Akku, Tray, Benachrichtigungen, Power) | `waybar.nix` | Leiste sichtbar, Klicks funktionieren |
+| [ ] | Waybar als schwebende Inseln (Workspaces, Fenster, Uhr, MPRIS, CPU/RAM/Temp, Audio, Mikro, Netz, Bluetooth, Akku, Tray, Benachrichtigungen, Power) | `waybar.nix` | Leiste sichtbar, Klicks funktionieren |
 | [ ] | Rofi (Apps, Rechner, Zwischenablage, Bluetooth) | `rofi.nix` | Super+R, Super+., Super+V |
 | [ ] | SwayNC (Benachrichtigungszentrale), Dunst entfernt | `swaync.nix` | `notify-send test`, Super+N |
 | [ ] | awww (swww) + waypaper, Slideshow alle 10 min aus dem Host-Ordner | `wallpaper.nix`, `hosts/*/home/hyprland.nix` | Super+W, Super+Shift+W |
 | [ ] | hyprlock + hypridle (dimmen 4 min, sperren 5 min, Bildschirm aus 6 min, Suspend 30 min), Swaylock entfernt | `hypridle.nix`, `hyprlock.nix` | Super+L, warten |
-| [ ] | wlogout | `wlogout.nix` | Super+Shift+E |
+| [ ] | wlogout mit fünf Karten über `power-menu` (Hibernate entfernt, das System bootet mit `nohibernate`) | `wlogout.nix` | Super+Shift+E |
 | [ ] | Flameshot (über das Screenshot-Portal) | Keybinds | Print, Shift+Print, Super+Print |
 | [ ] | hyprsunset (21–7 Uhr 4000 K), kanshi-Profile pro Host | `display.nix`, `hosts/*/home/hyprland.nix` | `kanshictl status`, abends wärmere Farben |
 | [ ] | pyprland: Dropdown-Terminal, Lautstärkemixer, Zoom | `pyprland.nix` | Super+`, Super+A, Super+Z |
-| [ ] | Workspace-Übersicht (hyprtasking), hypr-dynamic-cursors | `hyprland.nix` | Super+Tab, Maus schütteln |
+| [ ] | Workspace-Übersicht (hyprtasking); hypr-dynamic-cursors ist vorerst entfernt (TODO 13.15) | `hyprland.nix` | Super+Tab |
 | [ ] | imv, hyprpicker, cliphist, hyprpolkitagent, nwg-look, playerctl, brightnessctl, pavucontrol | `utilities.nix` | Super+C, Medientasten |
 | [ ] | Touch (Convertible, Portable): hyprgrass-Gesten, wvkbd, iio-hyprland, Touchpad-Gesten | `touch.nix` | Wisch von unten (Tastatur), Drehen |
 | [ ] | Neu: DangerZone auf allen Clients (aus dem Quellcode gebaut, Podman rootless) | `pkgs/dangerzone`, `homeModules/applications/tools/dangerzone.nix` | PDF umwandeln (TODO 4.9) |
@@ -180,3 +180,35 @@ Stand der Verifikation: Alle elf Hosts evaluieren (mit dem uncommitteten private
 | [ ] | Fix: fail2ban setzte die Nextcloud-Filterdatei auch ohne Nextcloud | `nixosModules/server/network/fail2ban.nix` | Eval von NixOS-ServerGaming |
 | [ ] | Fix: Claude-Code-Erweiterung im Unfree-Prädikat, Clients evaluierten sonst nicht | `nixosModules/system/nixos.nix` | TODO 3.1 |
 | [ ] | Wiki-Inhaltsliste | `WIKI-TODO.md` | TODO 15.10 |
+
+## K. Vierte Arbeitsrunde: Reparatur nach dem ersten Boot
+
+Stand der Verifikation: Die bestehende Home-Manager-Generation lief in einer Sandbox mit leerem Home vollständig durch (`exit 0`), der einzige Blocker sind also die `root:root`-Ordner. Hyprland lief darin verschachtelt mit `hyprland.lua`: keine Konfigurationsfehler, 74 Binds, Optionen gesetzt, hyprtasking geladen. Die Plasma-Skripte brauchen eine echte Sitzung und sind nur auf Syntax geprüft. Der Neustart selbst steht aus, deshalb sind `neededForBoot` und die Persistenz noch nicht zur Laufzeit bestätigt.
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | Fix: `/persistent/home` im initrd gemountet, neue persistierte Ordner gehören dem Benutzer | `nixosModules/disko/disko-luks-btrfs-tmpfs.nix` | TODO 4.5e |
+| [ ] | Persistierte Dateien bleiben Symlinks, auch mit gemountetem Home | `bash.nix`, `clementine.nix`, `gwenview.nix`, `kile.nix`, `plasma6.nix`, `vscodium.nix` | `ls -la ~/.config/gwenviewrc ~/.bash_history` zeigt Symlinks |
+| [ ] | Neu: `~/.claude`, `~/.claude.json`, `~/.vscode-oss/extensions` persistiert | `homeModules/applications/development/vscodium.nix` | Nach zwei Neustarts: Erweiterung da, angemeldet, Speicher vorhanden |
+| [ ] | Fix: hypridle läuft nur noch in Hyprland, nicht mehr in Plasma | `nixosModules/desktop/windowManager/hyprland.nix` | In Plasma: `systemctl --user is-active hypridle` ist `inactive` |
+| [ ] | Fix: OBS-Aktivierung überschrieb `$USER` für alle folgenden Schritte | `homeModules/applications/media/obs-studio.nix` | Keine `pkill: invalid user name`-Zeile in `journalctl -b -u home-manager-jf` |
+| [ ] | Fix: `mullvadSetup` beendete bei nicht erreichbarem Daemon die gesamte Aktivierung still mit `exit 0` | `homeModules/applications/vpn/mullvad.nix` | `journalctl -b -u home-manager-jf` endet mit `waypaperConfig` |
+| [ ] | Fix: Server1 meldet Mullvad nicht mehr bei jedem Boot neu an (`/etc/mullvad-vpn` persistiert) | `nixosModules/server/network/mullvad-server.nix` | TODO 6.2a |
+| [ ] | Fix: Mullvad-Prüfung scheiterte unter `pipefail` an `grep -q` (SIGPIPE), Clients meldeten sich bei jeder Aktivierung neu an und tauschten dabei ihr Gerät | `homeModules/applications/vpn/mullvad.nix`, `mullvad-server.nix` | `journalctl -b -u mullvad-daemon \| grep login_account` ist leer, `Device name` bleibt gleich |
+| [ ] | hypr-dynamic-cursors entfernt, lädt nicht auf Hyprland 0.56.2 | `homeModules/desktop/windowManager/hyprland/hyprland.nix` | `hyprctl plugin list` zeigt nur Hyprtasking, keine rote Meldung beim Login |
+| [ ] | `CLAUDE.md` als Kontextspeicher, `result` in `.gitignore` | Repo-Wurzel | `git status` zeigt `result` nicht |
+
+## L. Fünfte Arbeitsrunde: Hyprland-Design und Plasma-Benachrichtigungen
+
+Stand der Verifikation: Die Reparatur aus K ist nach dem Neustart bestätigt. Das Design habe ich per Screenshot geprüft: Hyprland lief isoliert mit einem Headless-Ausgang in 2560x1080, darin Waybar, Rofi, swaync, wlogout und hyprlock. Nicht real getestet sind die Darstellung auf 3840x1600 sowie Klicks und Tastenkürzel. Dass Plasma den Benachrichtigungsdienst behält, ist bisher nur über die Bedingung der Unit geprüft.
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | Fix: swaync startet in Plasma nicht mehr per D-Bus-Aktivierung | `homeModules/desktop/windowManager/hyprland/swaync.nix` | In Plasma: `busctl --user status org.freedesktop.Notifications \| grep Comm` zeigt `plasmashell` |
+| [ ] | Fix: 11 leere Icons in Waybar, Workspaces waren unsichtbar | `waybar.nix` | Icons und Nummern sichtbar, `grep -c 'format = ""' waybar.nix` ist 0 |
+| [ ] | Neu: Rofi-Thema, wlogout-Karten, hyprlock mit Uhr und Blur, schwebendes swaync-Panel | `rofi.nix`, `wlogout.nix`, `hyprlock.nix`, `swaync.nix` | Super+R, Super+Shift+E, Super+L, Super+N |
+| [ ] | Neu: Transparente Terminals nur unter Hyprland, Gradient-Rahmen, mehr Blur | `config/hyprland.lua`, `pyprland.nix` | Super+Return, in Plasma bleibt kitty deckend |
+| [ ] | Fix: wlogout-Icons als PNG, GTK lud die SVGs nicht | `wlogout.nix` | Icons sichtbar |
+| [ ] | Fix: GTK-Dark-Einstellung stand als ungültiger Schlüssel `Settings` in der `settings.ini` | `homeModules/theme/catppuccin.nix` | Keine Meldung `Unknown key Settings` im Journal |
+| [ ] | Fix: CPU-Temperatur in Waybar auf dem Desktop (k10temp) | `hosts/NixOS-Desktop/home/hyprland.nix` | Temperatur sichtbar |
+| [ ] | `audit_backlog_limit` auf 8192 | `nixosModules/system/hardening.nix` | TODO 13.1 |

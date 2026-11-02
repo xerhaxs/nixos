@@ -142,7 +142,10 @@
         ".config/Clementine"
       ];
       files = [
-        ".config/Clementinerc"
+        {
+          file = ".config/Clementinerc";
+          method = "symlink";
+        }
       ];
     };
   };

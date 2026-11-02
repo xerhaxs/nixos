@@ -203,6 +203,8 @@ in
     security.auditd.enable = cfg.audit;
     security.audit = lib.mkIf cfg.audit {
       enable = true;
+      # The default of 1024 overflows during boot, before auditd consumes the queue.
+      backlogLimit = 8192;
       rules = [
         "-w /etc/passwd -p wa -k identity"
         "-w /etc/shadow -p wa -k identity"

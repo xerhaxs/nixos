@@ -17,7 +17,7 @@ Network services: reverse proxy, DNS, VPN and brute force protection.
 |---|---|
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.server.network.enable`. |
 | `fail2ban.nix` | Enable fail2ban for the web services (ssh is protected by sshguard). |
-| `mullvad-server.nix` | Enable mullvad vpn for server. |
+| `mullvad-server.nix` | Enable mullvad vpn for server (logs in only if no device exists, `/etc/mullvad-vpn` is persisted). |
 | `nginx.nix` | Enable Nginx. |
 | `pihole.nix` | Enable PiHole. |
 | `unbound.nix` | Enable unbound. |

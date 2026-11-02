@@ -177,7 +177,10 @@
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       files = [
-        ".config/kilerc"
+        {
+          file = ".config/kilerc";
+          method = "symlink";
+        }
       ];
     };
   };

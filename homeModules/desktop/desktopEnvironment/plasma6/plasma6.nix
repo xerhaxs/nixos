@@ -1901,14 +1901,21 @@
         ".local/share/plasma_notes"
         ".local/share/RecentDocuments"
       ];
-      files = [
-        ".config/kwinoutputconfig.json"
-        #".local/share/krunnerstaterc"
-        ".local/share/recently-used.xbel"
-        ".local/share/user-places.xbel"
-        #".local/share/user-places.xbel.bak"
-        ".local/share/user-places.xbel.tbcache"
-      ];
+      # Symlinks: KDE replaces these files by rename, which fails on a bind mount.
+      files =
+        map
+          (file: {
+            inherit file;
+            method = "symlink";
+          })
+          [
+            ".config/kwinoutputconfig.json"
+            #".local/share/krunnerstaterc"
+            ".local/share/recently-used.xbel"
+            ".local/share/user-places.xbel"
+            #".local/share/user-places.xbel.bak"
+            ".local/share/user-places.xbel.tbcache"
+          ];
     };
   };
 }
