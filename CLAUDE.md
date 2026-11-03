@@ -28,6 +28,8 @@ Das Repo ist öffentlich: Hier nichts Privates ablegen (keine Domains, Adressen,
 - Alle `home.activation`-Schritte teilen sich eine Shell. `USER`, `HOME`, `PATH` nicht überschreiben, und ein `exit` beendet die gesamte Aktivierung, auch mit Status 0. Ein `exit=0` beweist also nichts, die Schritte bis `waypaperConfig` zählen.
 - `home.activation` läuft mit `set -eu -o pipefail`. `befehl | grep -q` kann dort trotz Treffer falsch sein (SIGPIPE, Status 141). Ausgabe erst in eine Variable lesen. Dasselbe Skript verhält sich in `writeShellScript` anders, dort gilt kein `pipefail`.
 - Dienste, die sich bei einem Anbieter anmelden, brauchen ihren Zustand in der Persistenz, auch im Server-Modul (Beispiel Mullvad: `/etc/mullvad-vpn`, sonst ein neues Gerät pro Boot).
+- `mullvad account get` gibt bei einem widerrufenen Gerät trotzdem `Mullvad account:` aus. Neu anmelden nur bei `Not logged in` oder `has been revoked`, nicht schon ohne `Device name:`, denn ohne Netz fehlt diese Zeile auch.
+- Mullvad lehnt Port 53 zu jeder Adresse außer seinem Custom-DNS ab, auch im Tunnel. Ein rekursiver Resolver hinter Mullvad (unbound auf Server1) braucht deshalb DNS-over-TLS als Forwarder.
 - Hyprland-Dienste gehören an `hyprland-session.target`, nicht an `graphical-session.target`, sonst laufen sie auch in Plasma. D-Bus-aktivierbare Dienste brauchen zusätzlich `ConditionEnvironment=XDG_CURRENT_DESKTOP=Hyprland` (Beispiel swaync).
 - Nerd-Font-Icons aus U+E000 bis U+F8FF gehen beim Schreiben von Dateien verloren und hinterlassen leere Strings. Glyphen ab U+F0000 über `homeModules/desktop/windowManager/hyprland/glyphs.nix` per Code-Point einsetzen.
 - `findmnt` zeigt keine `x-`-Optionen. Für `x-initrd.mount` in `/etc/fstab` nachsehen.

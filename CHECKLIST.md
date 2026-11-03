@@ -193,6 +193,7 @@ Stand der Verifikation: Die bestehende Home-Manager-Generation lief in einer San
 | [ ] | Fix: OBS-Aktivierung überschrieb `$USER` für alle folgenden Schritte | `homeModules/applications/media/obs-studio.nix` | Keine `pkill: invalid user name`-Zeile in `journalctl -b -u home-manager-jf` |
 | [ ] | Fix: `mullvadSetup` beendete bei nicht erreichbarem Daemon die gesamte Aktivierung still mit `exit 0` | `homeModules/applications/vpn/mullvad.nix` | `journalctl -b -u home-manager-jf` endet mit `waypaperConfig` |
 | [ ] | Fix: Server1 meldet Mullvad nicht mehr bei jedem Boot neu an (`/etc/mullvad-vpn` persistiert) | `nixosModules/server/network/mullvad-server.nix` | TODO 6.2a |
+| [ ] | Fix: Mullvad-Autologin erkennt widerrufene Geräte (`has been revoked`) | `mullvad.nix`, `mullvad-server.nix` | Nach einem Widerruf meldet sich der Dienst beim nächsten Start neu an |
 | [ ] | Fix: Mullvad-Prüfung scheiterte unter `pipefail` an `grep -q` (SIGPIPE), Clients meldeten sich bei jeder Aktivierung neu an und tauschten dabei ihr Gerät | `homeModules/applications/vpn/mullvad.nix`, `mullvad-server.nix` | `journalctl -b -u mullvad-daemon \| grep login_account` ist leer, `Device name` bleibt gleich |
 | [ ] | hypr-dynamic-cursors entfernt, lädt nicht auf Hyprland 0.56.2 | `homeModules/desktop/windowManager/hyprland/hyprland.nix` | `hyprctl plugin list` zeigt nur Hyprtasking, keine rote Meldung beim Login |
 | [ ] | `CLAUDE.md` als Kontextspeicher, `result` in `.gitignore` | Repo-Wurzel | `git status` zeigt `result` nicht |

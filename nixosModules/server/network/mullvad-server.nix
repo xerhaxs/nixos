@@ -48,7 +48,9 @@
           # Every login registers a new device, the account allows five. The first line is printed
           # even if the API is unreachable, a pipe into grep -q would kill mullvad with SIGPIPE.
           ACCOUNT=$(${pkgs.mullvad}/bin/mullvad account get 2>&1 || true)
-          if [[ $ACCOUNT != *"Mullvad account:"* ]]; then
+          # A revoked device still prints "Mullvad account:", only these two states need a new login.
+          if [[ $ACCOUNT == *"Not logged in"* || $ACCOUNT == *"has been revoked"* ]]; then
+            ${pkgs.mullvad}/bin/mullvad account logout > /dev/null 2>&1 || true
             ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
               config.sops.secrets."mullvad".path
             })

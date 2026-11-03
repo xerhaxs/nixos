@@ -8,7 +8,7 @@ Network services: reverse proxy, DNS, VPN and brute force protection.
 
 - nginx with recommended TLS settings, a catch-all vhost that rejects unknown hostnames and global security headers (`securityHeaders`, repeat them in locations with own `add_header`).
 - ACME via Cloudflare dns-01 (`challenge`), the mail domain uses http-01; `selfsigned` replaces ACME with one self-signed wildcard certificate (offline, portable host).
-- Pi-hole (blocklists, local DNS records from `nixos.system.networking.lan.hosts`) in front of Unbound (recursive, DNSSEC validating resolver).
+- Pi-hole (blocklists, local DNS records from `nixos.system.networking.lan.hosts`) in front of Unbound (DNSSEC validating resolver, recursive without Mullvad; with Mullvad it forwards over DNS-over-TLS to dns.mullvad.net, because Mullvad rejects plain DNS to other servers).
 - Mullvad on the server (lockdown mode), fail2ban for the web services.
 
 ## Contents

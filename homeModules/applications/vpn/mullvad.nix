@@ -52,7 +52,9 @@
 
         # A pipe into grep -q kills mullvad with SIGPIPE, with pipefail that reads as logged out.
         ACCOUNT=$(${pkgs.mullvad}/bin/mullvad account get 2>&1 || true)
-        if [[ $ACCOUNT != *"Mullvad account:"* ]]; then
+        # A revoked device still prints "Mullvad account:", only these two states need a new login.
+        if [[ $ACCOUNT == *"Not logged in"* || $ACCOUNT == *"has been revoked"* ]]; then
+          ${pkgs.mullvad}/bin/mullvad account logout > /dev/null 2>&1 || true
           ${pkgs.mullvad}/bin/mullvad account login $(tr -d '[:space:]' < ${
             osConfig.sops.secrets."mullvad".path
           }) || true

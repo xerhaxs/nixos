@@ -561,7 +561,7 @@ in
                 ]
                 ++ lib.optional (!cfg.serverPage) {
                   type = "monitor";
-                  title = "Dienste";
+                  title = "Services";
                   cache = "1m";
                   sites = map (name: {
                     title = lib.head (lib.splitString "." name);

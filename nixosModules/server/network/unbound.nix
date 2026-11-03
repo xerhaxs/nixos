@@ -71,6 +71,18 @@
           ];
         };
 
+        # Mullvad rejects port 53 to every address except its custom DNS 127.0.0.1, also inside the
+        # tunnel, so recursion to the root servers fails. Forward over TLS (port 853) through the tunnel.
+        forward-zone = lib.mkIf config.nixos.server.network.mullvad-server.enable [
+          {
+            name = ".";
+            forward-tls-upstream = true;
+            forward-addr = [
+              "194.242.2.2@853#dns.mullvad.net"
+              "2a07:e340::2@853#dns.mullvad.net"
+            ];
+          }
+        ];
       };
     };
 

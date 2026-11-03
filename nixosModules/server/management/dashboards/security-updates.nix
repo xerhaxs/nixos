@@ -90,7 +90,7 @@ in
 
 {
   uid = "security-updates";
-  title = "Security und Updates";
+  title = "Security and Updates";
   tags = [ "nixos" ];
   timezone = "browser";
   refresh = "5m";
@@ -101,56 +101,56 @@ in
   };
 
   panels = [
-    (stat "Kritische CVEs (Kandidaten)" 0 0 ''sum(nixos_cve_open{severity="Critical"})'' (
+    (stat "Critical CVEs (candidates)" 0 0 ''sum(nixos_cve_open{severity="Critical"})'' (
       greenAbove 1 "red"
     ))
-    (stat "Hohe CVEs (Kandidaten)" 6 0 ''sum(nixos_cve_open{severity="High"})'' (greenAbove 1 "orange"))
-    (stat "Hosts mit Neustart-Bedarf" 12 0 "sum(nixos_reboot_required)" (greenAbove 1 "orange"))
-    (stat "Verfügbare Updates" 18 0 "sum(nixos_update_available)" (greenAbove 1 "blue"))
+    (stat "High CVEs (candidates)" 6 0 ''sum(nixos_cve_open{severity="High"})'' (greenAbove 1 "orange"))
+    (stat "Hosts needing a reboot" 12 0 "sum(nixos_reboot_required)" (greenAbove 1 "orange"))
+    (stat "Available updates" 18 0 "sum(nixos_update_available)" (greenAbove 1 "blue"))
 
-    (table "Notwendige Aktualisierungen: Pins und Container-Images" 4 9 "nixos_update_available == 1" {
-      kind = "Art";
+    (table "Pending updates: pins and container images" 4 9 "nixos_update_available == 1" {
+      kind = "Kind";
       name = "Name";
-      current = "Aktuell";
-      latest = "Neu";
+      current = "Current";
+      latest = "Latest";
     })
 
-    (table "Alter der Flake-Inputs (Tage)" 13 9
+    (table "Age of the flake inputs (days)" 13 9
       "(time() - nixos_flake_input_last_modified_seconds{instance=\"NixOS-Server1\"}) / 86400"
       {
         input = "Input";
         rev = "Revision";
-        Value = "Tage";
+        Value = "Days";
       }
     )
 
-    (table "Stand der Hosts" 22 7 "nixos_system_info" {
+    (table "Host versions" 22 7 "nixos_system_info" {
       instance = "Host";
       revision = "Commit";
       kernel = "Kernel";
     })
 
-    (table "Offene CVEs je Host" 29 7 "nixos_cve_open" {
+    (table "Open CVEs per host" 29 7 "nixos_cve_open" {
       instance = "Host";
-      severity = "Schweregrad";
-      Value = "Anzahl";
+      severity = "Severity";
+      Value = "Count";
     })
 
-    (table "Kritische und hohe CVEs (Kandidaten, Abgleich nach Name und Version)" 36 14
+    (table "Critical and high CVEs (candidates, matched by name and version)" 36 14
       "nixos_cve_package"
       {
         instance = "Host";
-        severity = "Schweregrad";
+        severity = "Severity";
         cve = "CVE";
-        package = "Paket";
+        package = "Package";
         version = "Version";
-        fixed_in = "Behoben in";
+        fixed_in = "Fixed in";
       }
     )
 
-    (table "Letzter Scan (Tage her)" 50 7 "(time() - nixos_cve_scan_timestamp_seconds) / 86400" {
+    (table "Last scan (days ago)" 50 7 "(time() - nixos_cve_scan_timestamp_seconds) / 86400" {
       instance = "Host";
-      Value = "Tage";
+      Value = "Days";
     })
   ];
 }

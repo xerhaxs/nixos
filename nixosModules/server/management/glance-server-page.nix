@@ -56,7 +56,7 @@ let
       template = ''
         {{ $metrics := sortByString "metric.metric" "asc" (.JSON.Array "data.result") }}
         {{ if eq (len $metrics) 0 }}
-          <p class="color-negative">Keine Daten in Prometheus</p>
+          <p class="color-negative">No data in Prometheus</p>
         {{ else }}
           <div class="flex justify-between text-center">
           {{ range $metrics }}
@@ -77,14 +77,14 @@ let
 
   alerts = {
     type = "custom-api";
-    title = "Aktive Alarme";
+    title = "Active Alerts";
     title-url = "https://grafana.${homeDomain}/alerting";
     cache = "1m";
     url = "${alertmanager}/api/v2/alerts?active=true&silenced=false&inhibited=false";
     template = ''
       {{ $alerts := .JSON.Array "" }}
       {{ if eq (len $alerts) 0 }}
-        <p class="color-positive">Keine aktiven Alarme</p>
+        <p class="color-positive">No active alerts</p>
       {{ else }}
         <ul class="list list-gap-10 collapsible-container" data-collapse-after="5">
         {{ range $alerts }}
@@ -100,7 +100,7 @@ let
 
   vulnerabilities = {
     type = "custom-api";
-    title = "CVEs und Updates";
+    title = "CVEs and Updates";
     title-url = grafana;
     cache = "10m";
     url = prometheus;
@@ -110,7 +110,7 @@ let
       {{ $reboot := newRequest "${prometheus}" | withParameter "query" "sum(nixos_reboot_required)" | getResponse }}
       <div class="flex justify-between text-center margin-bottom-10">
         ${stat ''{{ $updates.JSON.Float "data.result.0.value.1" | toInt }}'' "Updates"}
-        ${stat ''{{ $reboot.JSON.Float "data.result.0.value.1" | toInt }}'' "Neustarts"}
+        ${stat ''{{ $reboot.JSON.Float "data.result.0.value.1" | toInt }}'' "Reboots"}
       </div>
       <ul class="list list-gap-6">
       {{ range sortByString "metric.instance" "asc" (.JSON.Array "data.result") }}
@@ -122,7 +122,7 @@ let
         {{ end }}
       {{ end }}
       </ul>
-      <p class="size-h6 margin-top-10">Kandidaten nach Name und Version, nicht jeder Treffer betrifft dich.</p>
+      <p class="size-h6 margin-top-10">Candidates matched by name and version, not every hit affects you.</p>
     '';
   };
 
@@ -136,7 +136,7 @@ let
       {{ if .JSON.Bool "online" }}
         <div class="flex justify-between text-center">
           ${stat ''<span class="color-positive">online</span>'' "Status"}
-          ${stat ''{{ .JSON.Int "players.online" }} / {{ .JSON.Int "players.max" }}'' "Spieler"}
+          ${stat ''{{ .JSON.Int "players.online" }} / {{ .JSON.Int "players.max" }}'' "Players"}
           ${stat ''{{ .JSON.String "version.name_clean" }}'' "Version"}
         </div>
       {{ else }}
@@ -187,7 +187,7 @@ let
     in
     {
       type = "custom-api";
-      title = "Neu in dieser Woche";
+      title = "New This Week";
       cache = "1h";
       template = ''
         {{ $start := now | formatTime "2006-01-02" }}
@@ -207,7 +207,7 @@ let
 
   miniflux = {
     type = "custom-api";
-    title = "RSS ungelesen";
+    title = "RSS Unread";
     title-url = "https://rss.${domain}";
     cache = "10m";
     url = "https://rss.${domain}/v1/categories?counts=true";
@@ -270,16 +270,16 @@ in
             }
           ];
         }
-        (monitor "Server1: Verwaltung" [
+        (monitor "Server1: Management" [
           (app "Cockpit" "cockpit" "auto-invert di:cockpit")
           (app "Grafana" "grafana" "di:grafana")
           (app "Home Assistant" "homeassistant" "di:home-assistant")
           (app "HomeBox" "homebox" "di:homebox")
           (app "Pi-hole" "pihole" "di:pi-hole")
-          (app "Forgejo und Wiki" "forgejo" "di:forgejo")
+          (app "Forgejo and Wiki" "forgejo" "di:forgejo")
           (app "Syncthing" "syncthing" "di:syncthing")
         ])
-        (monitor "Server1: Medien" [
+        (monitor "Server1: Media" [
           (app "Jellyfin" "jellyfin" "di:jellyfin")
           (app "Sonarr" "sonarr" "di:sonarr")
           (app "Radarr" "radarr" "di:radarr")
@@ -289,7 +289,7 @@ in
           (app "NZBHydra2" "nzbhydra" "di:nzbhydra2")
           (app "Kiwix" "kiwix" "auto-invert di:kiwix")
         ])
-        (monitor "Server1: Werkzeuge" [
+        (monitor "Server1: Tools" [
           (app "Ollama" "ollama" "auto-invert di:ollama")
           (app "ComfyUI" "comfyui" "auto-invert di:comfy-ui")
           (app "SearXNG" "searxng" "di:searxng")
@@ -343,7 +343,7 @@ in
                     url = "https://forgejo.${homeDomain}/jf/wiki/wiki";
                   }
                   {
-                    title = "Security und Updates";
+                    title = "Security and Updates";
                     url = grafana;
                   }
                 ];

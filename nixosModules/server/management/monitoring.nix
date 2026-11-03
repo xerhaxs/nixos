@@ -159,7 +159,7 @@ let
             alert = "NewCriticalVulnerability";
             expr = ''delta(nixos_cve_open{severity="Critical"}[1d]) > 0'';
             labels.severity = "warning";
-            annotations.summary = "{{ $labels.instance }}: new critical CVE candidates, see the dashboard Security und Updates";
+            annotations.summary = "{{ $labels.instance }}: new critical CVE candidates, see the dashboard Security and Updates";
           }
           {
             alert = "VulnerabilityScanStale";
