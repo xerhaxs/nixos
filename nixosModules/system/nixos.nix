@@ -47,7 +47,7 @@
         "cups-kyocera-ecosys-m2x35-40-p2x35-40dnw"
       ];
 
-    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.17" ];
+    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.18" ];
 
     programs.nix-ld.enable = lib.mkDefault config.nixos.desktop.enable;
 

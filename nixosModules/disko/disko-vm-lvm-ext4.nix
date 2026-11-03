@@ -21,7 +21,6 @@
   config = lib.mkIf config.nixos.disko.disko-vm-lvm-ext4.enable {
     boot.initrd.luks.devices = {
       "system" = {
-        preLVM = true;
         allowDiscards = true;
         device = "/dev/disk/by-partlabel/disk-NIXOS-SYSTEM";
       };

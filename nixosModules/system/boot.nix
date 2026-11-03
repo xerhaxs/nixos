@@ -30,8 +30,6 @@
     boot.initrd.kernelModules = [ "dm-snapshot" ];
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    boot.initrd.systemd.enable = true;
-
     boot.plymouth.enable = true;
 
     services.fwupd.enable = true;

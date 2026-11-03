@@ -12,7 +12,10 @@ let
     name = "session-logout";
     text = ''
       timeout 20 systemctl --user stop hyprland-session.target || true
-      hyprctl dispatch 'hl.dsp.exit()'
+      hyprctl dispatch 'hl.dsp.exit()' || true
+      # If Hyprland hangs on exit, end the session, SDDM takes over again.
+      sleep 5
+      loginctl terminate-session "''${XDG_SESSION_ID:-}" 2> /dev/null || true
     '';
   };
 in

@@ -16,6 +16,6 @@ Own packages, added to nixpkgs as overlay in `flake.nix` (also `nix build .#dang
 |---|---|
 | [`dangerzone/`](dangerzone/README.md) | Dangerzone built from source. |
 | [`hyprgrass/`](hyprgrass/README.md) | hyprgrass (touch gestures for Hyprland) at the commit that builds against Hyprland 0.56.2. |
-| `default.nix` | Overlay that adds the own packages, the sources are flake inputs. |
+| `default.nix` | Overlay that adds the own packages (sources are flake inputs) and relaxes the typepy pin of sqliteschema and SimpleSQLite for sbomnix. |
 | `images.json` | Container images with digest, the only pins outside of `flake.lock`. |
 | `update-images.nix` | `nix run .#update-images` updates `images.json`, `--check` only compares. |

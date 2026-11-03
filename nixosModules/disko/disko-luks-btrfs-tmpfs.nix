@@ -244,7 +244,6 @@ in
 
     boot.initrd.luks.devices = {
       "system" = {
-        preLVM = true;
         allowDiscards = true;
         device = "/dev/disk/by-partlabel/disk-NIXOS-LUKS";
         crypttabExtraOpts = lib.mkIf cfg.tpm2 [ "tpm2-device=auto" ];

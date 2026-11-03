@@ -18,7 +18,7 @@
       sddm.enable = true;
     };
     windowManager = {
-      hyprland.enable = true;
+      hyprland.enable = false; # disabled 2026-11-03, see TODO 16.7
     };
   };
 

@@ -24,7 +24,6 @@
 
       extensions = [
         "cimiefiiaegbelhefglklhhakcgmhkai"
-        "edibdbjcniadpccecjdfdjjppcpchdlm"
         "fnaicdffflnofjppbagibeoednhnbjhg"
         "oboonakemofpalcgghocfoadofidjkkk"
         "dphilobhebphkdjbpfohgikllaljmgbn"

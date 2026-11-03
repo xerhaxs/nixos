@@ -31,7 +31,7 @@
     };
     gaming = {
       gameconqueror.enable = true;
-      lutris.enable = true;
+      lutris.enable = false; # needs gtk2, which nixpkgs marks as broken, see TODO 13.20
     };
     sync.rclone.enable = true;
     vpn.protonvpn.enable = true;

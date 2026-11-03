@@ -250,6 +250,8 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | Fix: Bluetooth-Menü, `rofi-bluetooth` fehlte im PATH | `rofi.nix` | Klick auf Bluetooth, Gerät verbinden |
 | [ ] | WLAN-Profile heißen wie die SSID | `nixosModules/system/networking.nix` | Plasma-Netzwerkliste, `nmcli connection` |
 | [ ] | Quick-Menü: KeePassXC, Energieprofil, Auto-Lock | `rofi.nix` | Super+X |
+| [ ] | Hyprland auf allen Clients deaktiviert, nur Plasma | `hosts/<Host>/configuration.nix` | SDDM bietet nur Plasma an, TODO 16.7 |
+| [ ] | flake.lock aktualisiert, Anpassungen für nixpkgs (initrd, preLVM, Nextcloud-Admin, Ventoy, Lutris auf Portable) | `flake.lock`, `nixosModules/` | Alle Hosts bauen |
 | [ ] | Neu: Dashboard mit Suche, Favoriten, Zuletzt, Clipboard, Schaltern, Lautstärke, Akku | `popups.nix`, `config/eww-popups.yuck` | Super+R, Tippen und Enter, Escape, Klick daneben |
 | [ ] | Neu: Kalender-Popup mit Radicale-Terminen | `popups.nix` | Klick auf die Uhr, `systemctl --user status desktop-calendar-sync` |
 | [ ] | Neu: Sound-Popup mit Geräten, Apps und Helligkeit, Media-Popup mit Fortschrittsleiste | `popups.nix` | Klick auf Audio und Player |

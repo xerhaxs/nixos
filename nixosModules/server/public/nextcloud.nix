@@ -25,12 +25,6 @@ in
   };
 
   config = lib.mkIf config.nixos.server.public.nextcloud.enable {
-    sops.secrets."nextcloud/admin" = {
-      owner = "nextcloud";
-      group = "nextcloud";
-      mode = "0400";
-    };
-
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud35;
@@ -44,8 +38,6 @@ in
 
       config = {
         dbtype = "pgsql";
-        adminuser = "admin";
-        adminpassFile = config.sops.secrets."nextcloud/admin".path;
       };
 
       appstoreEnable = false;
