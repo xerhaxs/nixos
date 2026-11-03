@@ -602,11 +602,11 @@
         "rev": "954621caa2fc7a9c746129db9c4e7ac7b731ffc7",
         "revCount": 6,
         "type": "git",
-        "url": "file:///home/jf/.nixos-private"
+        "url": "file:///home/jf/Documents/nixos-private"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/jf/.nixos-private"
+        "url": "file:///home/jf/Documents/nixos-private"
       }
     },
     "root": {

@@ -261,7 +261,7 @@ in
           environmentFiles = [ config.sops.secrets."wifi".path ];
           profiles = lib.mapAttrs (name: priority: {
             connection = {
-              id = lib.toLower name;
+              id = "\$ENV_${name}_SSID";
               type = "wifi";
               autoconnect = true;
               autoconnect-priority = priority;

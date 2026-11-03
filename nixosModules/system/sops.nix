@@ -53,6 +53,13 @@
           mode = "0440";
         };
 
+        # Read by the calendar sync of the desktop, the Radicale module of a server sets its own owner.
+        "radicale/htpasswd" = {
+          owner = lib.mkDefault config.users.users.${userName}.name;
+          group = lib.mkDefault config.users.users.${userName}.group;
+          mode = lib.mkDefault "0440";
+        };
+
         "weather-location" = {
           owner = config.users.users.${userName}.name;
           group = config.users.users.${userName}.group;

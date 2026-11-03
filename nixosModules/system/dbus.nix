@@ -23,9 +23,6 @@
     systemd.services.dbus-broker = lib.mkIf (config.services.dbus.implementation == "broker") {
       serviceConfig.LogFilterPatterns = "~Ignoring duplicate name";
     };
-    systemd.user.services.dbus-broker = lib.mkIf (config.services.dbus.implementation == "broker") {
-      serviceConfig.LogFilterPatterns = "~Ignoring duplicate name";
-    };
 
     services.dbus = {
       enable = true;

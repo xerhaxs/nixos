@@ -12,6 +12,7 @@
     ./hypridle.nix
     ./hyprland.nix
     ./hyprlock.nix
+    ./popups.nix
     ./pyprland.nix
     ./rofi.nix
     ./swaync.nix
@@ -46,6 +47,7 @@
           hypridle.enable = true;
           hyprland.enable = true;
           hyprlock.enable = true;
+          popups.enable = true;
           pyprland.enable = true;
           rofi.enable = true;
           swaync.enable = true;

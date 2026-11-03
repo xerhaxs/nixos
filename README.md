@@ -100,8 +100,8 @@ cryptsetup luksAddKey /dev/disk/by-label/CRYPTDATA /secrets/keyfile.key
 nix flake update --commit-lock-file
 nixos-rebuild switch --flake .#HOSTNAME
 
-# build on this machine, deploy to a server
-nixos-rebuild switch --flake .#SERVERHOSTNAME --target-host REMOTEUSER@SERVERHOSTNAME --sudo
+# deploy to a server, it builds itself because it rejects unsigned paths
+nixos-rebuild switch --flake .#SERVERHOSTNAME --build-host REMOTEUSER@SERVERHOSTNAME --target-host REMOTEUSER@SERVERHOSTNAME --sudo --ask-sudo-password
 
 # firmware updates
 fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update
@@ -114,6 +114,32 @@ Logs of earlier boots: `journalctl -b -1 -p err` (needs the persisted `/etc/mach
 Unlock a server after a reboot: `ssh root@<host>` (NixOS-ServerPublic: port 2222), then `systemd-tty-ask-password-agent --query`.
 
 `system.autoUpgrade` is off until the rework is merged (TODO phase 17), afterwards the servers deploy the pushed configuration nightly without automatic reboot.
+
+### Back In Time on the external disk of NixOS-Server1
+
+Plug in the disk and run this on NixOS-Server1. The script asks for the LUKS passphrase of the disk, mounts it, takes a snapshot and unmounts it again.
+
+```bash
+sudo backup-external            # uses /dev/sdi1
+sudo backup-external /dev/sdX1  # other device, check with lsblk
+```
+
+Follow the log in a second terminal:
+
+```bash
+sudo tail -f /root/.local/share/backintime/takesnapshot_.log
+```
+
+Manually, if the script is not available:
+
+```bash
+sudo cryptsetup open /dev/sdi1 WD2_10TB_BCK
+sudo mkdir -p /mnt/WD2_10TB_BCK
+sudo mount /dev/mapper/WD2_10TB_BCK /mnt/WD2_10TB_BCK
+sudo backintime --config /etc/backintime/config backup
+sudo umount /mnt/WD2_10TB_BCK
+sudo cryptsetup close WD2_10TB_BCK
+```
 
 ## Security concept
 

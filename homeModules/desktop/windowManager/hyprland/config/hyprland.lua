@@ -9,7 +9,7 @@ end
 
 local terminal = "kitty -o background_opacity=0.82"
 local fileManager = "dolphin"
-local launcher = "rofi -show drun -show-icons"
+local launcher = "desktop-popup launcher"
 local mainMod = "SUPER"
 
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
@@ -18,10 +18,9 @@ hl.env("NIXOS_OZONE_WL", "1")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
--- Stop the session while the compositor still runs, ExecStop of Qt services needs a display.
 -- The user manager outlives the session, a stale WAYLAND_DISPLAY crashes everything it activates later.
 hl.on("hyprland.shutdown", function()
-  os.execute("systemctl --user stop hyprland-session.target")
+  os.execute("systemctl --user --no-block stop hyprland-session.target")
   os.execute("systemctl --user unset-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE HYPRLAND_INSTANCE_SIGNATURE QT_QPA_PLATFORM QT_WAYLAND_DISABLE_WINDOWDECORATION NIXOS_OZONE_WL")
 end)
 
@@ -125,6 +124,7 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show favorites -show-icons"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("quick-menu"))
+hl.bind("escape", hl.dsp.exec_cmd("desktop-popup close"), { non_consuming = true })
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("desktop-widgets toggle"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pypr toggle monitor"))
 hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort"))
@@ -134,7 +134,7 @@ hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("waypaper"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("systemctl --user start wallpaper-random.service"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("power-menu"))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("session-logout"))
 hl.bind("XF86Calculator", hl.dsp.exec_cmd("qalculate-gtk"))
 
 -- screenshots
@@ -248,7 +248,7 @@ hl.window_rule({
 
 hl.layer_rule({
   name = "blur-shell",
-  match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window|logout_dialog|eww-desktop)$" },
+  match = { namespace = "^(waybar|rofi|swaync-control-center|swaync-notification-window|logout_dialog|eww-desktop|eww-popup)$" },
   blur = true,
   ignore_alpha = 0.3,
 })

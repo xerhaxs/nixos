@@ -21,10 +21,9 @@
       flake = false;
     };
 
-    # Home Manager links this path to nixos-private in the XDG documents directory of the host.
-    # A flake input is a fixed string, it cannot read that option itself.
+    # On NixOS-Desktop ~/Documents is a symlink to the data disk.
     private = {
-      url = "git+file:///home/jf/.nixos-private";
+      url = "git+file:///home/jf/Documents/nixos-private";
       flake = false;
     };
 

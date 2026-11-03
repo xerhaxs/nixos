@@ -137,6 +137,11 @@ let
           action = "open_rofi -show drun";
         }
         {
+          icon = "F0306";
+          label = "KeePassXC";
+          action = "run keepassxc";
+        }
+        {
           icon = "F05B3";
           label = "Open windows";
           action = "open_rofi -show window";
@@ -182,6 +187,16 @@ let
           action = "system";
         }
         {
+          icon = "F05D1";
+          label = "Power profile";
+          action = "profile";
+        }
+        {
+          icon = "F033E";
+          label = "Toggle auto lock";
+          action = "autolock";
+        }
+        {
           icon = "F0425";
           label = "Session";
           action = "run power-menu";
@@ -203,7 +218,7 @@ let
           action = "run flameshot screen --clipboard";
         }
         {
-          icon = "F0D4F";
+          icon = "F0379";
           label = "All screens to clipboard";
           action = "run flameshot full --clipboard";
         }
@@ -253,11 +268,6 @@ let
           icon = "F04C5";
           label = "System monitor";
           action = "run pypr toggle monitor";
-        }
-        {
-          icon = "F05D1";
-          label = "Power profile";
-          action = "profile";
         }
         {
           icon = "F009A";
@@ -339,6 +349,7 @@ let
     name = "quick-menu";
     runtimeInputs = [
       pkgs.cliphist
+      pkgs.libnotify
       pkgs.jq
       pkgs.networkmanagerapplet
       pkgs.pulseaudio
@@ -353,6 +364,15 @@ let
       open_rofi() { run rofi "$@" -show-icons; }
       pick() { rofi -dmenu -i -no-custom -p "$1" -l "$2" -theme-str "$list_theme"; }
       nightlight() { toggle_unit hyprsunset.service; }
+
+      autolock() {
+        toggle_unit hypridle.service
+        if systemctl --user is-active --quiet hypridle.service; then
+          notify-send "Auto lock on" "Lock after 5 minutes, standby after 30 minutes"
+        else
+          notify-send "Auto lock off" "No lock and no standby until it is turned on again"
+        fi
+      }
 
       toggle_unit() {
         if systemctl --user is-active --quiet "$1"; then
@@ -531,6 +551,7 @@ in
 
     home.packages = [
       favoritesList
+      pkgs.rofi-bluetooth
       quickMenu
     ];
 

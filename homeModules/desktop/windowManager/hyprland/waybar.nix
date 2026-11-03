@@ -8,6 +8,17 @@
 let
   glyph = import ./glyphs.nix { inherit lib; };
 
+  # Waybar sends the old "dispatch workspace", with a Lua config Hyprland expects a Lua expression.
+  waybar = pkgs.waybar.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace src/modules/hyprland/workspace.cpp \
+        --replace-fail '"dispatch workspace " + std::to_string(id())' \
+          '"dispatch hl.dsp.focus({ workspace = " + std::to_string(id()) + " })"' \
+        --replace-fail '"dispatch workspace name:" + name()' \
+          '"dispatch hl.dsp.focus({ workspace = \"" + name() + "\" })"'
+    '';
+  });
+
   vpn = config.homeManager.applications.vpn.enable;
 
   vpnStatus = pkgs.writeShellScript "vpn-status" ''
@@ -51,6 +62,7 @@ in
   config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.waybar.enable {
     programs.waybar = {
       enable = true;
+      package = waybar;
       systemd.enable = true;
 
       settings.mainBar = {
@@ -153,7 +165,7 @@ in
           tooltip = false;
           on-click = "quick-menu";
           on-click-middle = "rofi -show window -show-icons";
-          on-click-right = "rofi -show drun -show-icons";
+          on-click-right = "desktop-popup launcher";
         };
 
         "custom/favorites" = button "F04CE" "Favorites" "rofi -show favorites -show-icons";
@@ -182,23 +194,15 @@ in
         clock = {
           locale = "en_US.UTF-8";
           format = "󰅐  {:%H:%M}";
-          format-alt = "󰃭  {:%A, %B %d %Y}";
-          tooltip-format = "<tt><small>{calendar}</small></tt>";
-          calendar = {
-            mode = "month";
-            weeks-pos = "left";
-            on-scroll = 1;
-            format = {
-              today = "<span color='#f38ba8'><b><u>{}</u></b></span>";
-              weeks = "<span color='#94e2d5'><b>W{}</b></span>";
-            };
-          };
+          tooltip = false;
+          on-click = "desktop-popup calendar";
         };
 
         mpris = {
           on-scroll-up = "playerctl next";
           on-scroll-down = "playerctl previous";
-          on-click-right = "playerctl next";
+          on-click = "desktop-popup media";
+          on-click-right = "playerctl play-pause";
           format = "{player_icon}  {title}";
           format-paused = "{status_icon}  <i>{title}</i>";
           max-length = 40;
@@ -257,9 +261,9 @@ in
             "󰖀"
             "󰕾"
           ];
-          on-click = "pypr toggle volume";
+          on-click = "desktop-popup audio";
           on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-middle = "quick-menu audio";
+          on-click-middle = "pypr toggle volume";
         };
 
         "pulseaudio#microphone" = {
@@ -270,6 +274,7 @@ in
         };
 
         backlight = {
+          on-click = "desktop-popup audio";
           format = "{icon}  {percent}%";
           format-icons = [
             "󰃞"
@@ -349,7 +354,7 @@ in
         };
 
         "custom/lock" = button "F033E" "Lock" "loginctl lock-session";
-        "custom/logout" = button "F0343" "Log out" "hyprctl dispatch 'hl.dsp.exit()'";
+        "custom/logout" = button "F0343" "Log out" "session-logout";
         "custom/reboot" = button "F0709" "Reboot" "systemctl reboot";
         "custom/shutdown" = button "F0425" "Shut down" "systemctl poweroff";
 
@@ -426,6 +431,7 @@ in
           color: @accent;
           font-size: 20px;
           padding: 0 15px 0 12px;
+          transition: color 200ms ease;
         }
 
         #custom-favorites {
@@ -451,6 +457,7 @@ in
           padding: 0 9px;
           margin: 5px 1px;
           border-radius: 10px;
+          transition: all 200ms ease;
         }
 
         #workspaces button:hover {

@@ -241,10 +241,18 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | KeePassXC: `SSHAgent.Enabled` und weitere Schlüsselnamen korrigiert | `homeModules/applications/tools/keepassxc.nix` | SSH-Agent-Seite am Eintrag sichtbar |
 | [ ] | SSH nutzt `~/.ssh/id_ed25519` statt `.pub` | `homeModules/base/ssh.nix` | `ssh admin@NixOS-Server1` |
 | [ ] | Fix: Der Start von Fusion 360 fand den Ordner `production` nicht, Wine legt keine Menüeinträge mehr an | `fusion360.nix` | `fusion360` |
-| [ ] | Input `private` über `~/.nixos-private`, Ziel aus `xdg.userDirs.documents` | `flake.nix`, `homeModules/desktop/xdg.nix` | `ls -l ~/.nixos-private`, auf einem Laptop bauen, TODO 5.1 |
+| [ ] | Input `private` fest auf `/home/jf/Documents/nixos-private` | `flake.nix` | Auf einem Laptop bauen, TODO 5.1 |
 | [ ] | Blocklisten als `github:`-Inputs, Grafana-Dashboards mit fester Revision, `oisd` entfernt | `flake.nix`, `nixosModules/system/networking.nix` | Build auf einem frischen Host, kein `mismatch in field narHash` |
 | [ ] | JetBrains entfernt | `homeModules/applications/development/` | `grep -ri pycharm` findet nichts |
 | [ ] | Deploy mit `--build-host`, weil Server unsignierte Pakete ablehnen | TODO 6.2 | Server1 bootet die neue Generation |
+| [ ] | Fix: Hyprland fror beim Abmelden ein, neu `session-logout` | `hyprland.nix`, `config/hyprland.lua`, `wlogout.nix`, `waybar.nix` | Super+Shift+Q, Abmelden über Waybar und Power-Menü |
+| [ ] | Fix: Workspaces per Klick wechseln (Waybar gepatcht) | `waybar.nix` | Klick auf eine Nummer in der Leiste |
+| [ ] | Fix: Bluetooth-Menü, `rofi-bluetooth` fehlte im PATH | `rofi.nix` | Klick auf Bluetooth, Gerät verbinden |
+| [ ] | WLAN-Profile heißen wie die SSID | `nixosModules/system/networking.nix` | Plasma-Netzwerkliste, `nmcli connection` |
+| [ ] | Quick-Menü: KeePassXC, Energieprofil, Auto-Lock | `rofi.nix` | Super+X |
+| [ ] | Neu: Dashboard mit Suche, Favoriten, Zuletzt, Clipboard, Schaltern, Lautstärke, Akku | `popups.nix`, `config/eww-popups.yuck` | Super+R, Tippen und Enter, Escape, Klick daneben |
+| [ ] | Neu: Kalender-Popup mit Radicale-Terminen | `popups.nix` | Klick auf die Uhr, `systemctl --user status desktop-calendar-sync` |
+| [ ] | Neu: Sound-Popup mit Geräten, Apps und Helligkeit, Media-Popup mit Fortschrittsleiste | `popups.nix` | Klick auf Audio und Player |
 | [ ] | Fix: `update-check` scheiterte an shellcheck (`$prefix[0-9.]`), Build von Server1 brach ab | `nixosModules/server/management/update-check.nix` | Build von Server1 |
 | [ ] | Ab Mitte November: Snapshots von Back In Time kontrollieren. Entstehen sie täglich, werden alte gelöscht, stimmt der Platz auf der Platte? | Back In Time, `/mount/Backup/backintime/NixOS-PC/jf/1/` | `ls /mount/Backup/backintime/NixOS-PC/jf/1/` zeigt tägliche Snapshots, `readlink last_snapshot` ist aktuell, `new_snapshot` existiert nicht dauerhaft, `journalctl -t backintime -p err` ist leer, ein Restore einer Testdatei klappt |
 | [ ] | Wetterort aus sops statt lokaler Datei, `weather-location` entfällt | `widgets.nix`, `nixosModules/system/sops.nix` | Wetterkarte zeigt Wilnsdorf |

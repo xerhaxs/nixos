@@ -1,0 +1,192 @@
+(defwidget popup-title [icon title]
+  (box :class "popup-title" :space-evenly false :spacing 10
+    (label :class "popup-icon" :text icon)
+    (label :class "popup-heading" :hexpand true :halign "start" :text title)))
+
+(defwidget slider [icon label value onchange onmute ?max]
+  (box :class "slider" :orientation "v" :space-evenly false :spacing 4
+    (box :space-evenly false :spacing 8
+      (button :class "slider-icon" :onclick onmute (label :text icon))
+      (label :class "slider-label" :hexpand true :halign "start" :limit-width 40 :text label)
+      (label :class "slider-value" :text "${round(value, 0)}%"))
+    (scale :class "popup-scale" :min 0 :max {max ?: 101} :value value :onchange onchange :round-digits 0)))
+
+(defwidget device-list [devices command]
+  (box :class "devices" :orientation "v" :space-evenly false :spacing 2 :visible {arraylength(devices) > 1}
+    (for device in devices
+      (button :class "device ${device.active ? 'active' : ''}" :onclick "${command} ${device.name}"
+        (label :halign "start" :limit-width 44 :text {device.label})))))
+
+(defwidget audio-card []
+  (box :class "popup" :orientation "v" :space-evenly false :spacing 12 :valign "start"
+    (popup-title :icon {pi.audio} :title "Sound")
+    (slider :icon {audio.sink.muted ? pi.muted : pi.audio} :label {audio.sink.label ?: "Output"}
+      :value {audio.sink.volume ?: 0}
+      :onchange "${cmd.pactl} set-sink-volume @DEFAULT_SINK@ {}%"
+      :onmute "${cmd.pactl} set-sink-mute @DEFAULT_SINK@ toggle")
+    (device-list :devices {audio.sinks} :command "${cmd.pactl} set-default-sink")
+    (slider :icon {audio.source.muted ? pi.micoff : pi.mic} :label {audio.source.label ?: "Input"}
+      :value {audio.source.volume ?: 0}
+      :onchange "${cmd.pactl} set-source-volume @DEFAULT_SOURCE@ {}%"
+      :onmute "${cmd.pactl} set-source-mute @DEFAULT_SOURCE@ toggle")
+    (device-list :devices {audio.sources} :command "${cmd.pactl} set-default-source")
+    (box :orientation "v" :space-evenly false :spacing 8 :visible {arraylength(audio.apps) > 0}
+      (label :class "popup-section" :halign "start" :text "Applications")
+      (for app in {audio.apps}
+        (slider :icon {app.muted ? pi.muted : pi.audio} :label {app.name} :value {app.volume}
+          :onchange "${cmd.pactl} set-sink-input-volume ${app.id} {}%"
+          :onmute "${cmd.pactl} set-sink-input-mute ${app.id} toggle")))
+    (box :orientation "v" :space-evenly false :visible {brightness.present}
+      (slider :icon {pi.brightness} :label "Display brightness" :value {brightness.value} :max 100
+        :onchange "${cmd.brightness} set {}" :onmute ""))
+    (button :class "popup-button" :onclick "${cmd.popup} close; ${cmd.mixer} &"
+      (label :text "Advanced"))))
+
+(defwidget media-card []
+  (box :class "popup" :orientation "v" :space-evenly false :spacing 12
+    (label :class "popup-empty" :visible {!media.present} :text "Nothing is playing")
+    (box :orientation "v" :space-evenly false :spacing 12 :visible {media.present}
+      (box :space-evenly false :spacing 16
+        (box :class "media-cover" :style {media.art != "" ? "background-image: url('${media.art}');" : ""})
+        (box :orientation "v" :space-evenly false :valign "center" :hexpand true
+          (label :class "media-title" :halign "start" :limit-width 34 :text {media.title})
+          (label :class "media-artist" :halign "start" :limit-width 38 :text {media.artist})
+          (label :class "media-album" :halign "start" :limit-width 38 :text {media.album})))
+      (box :orientation "v" :space-evenly false :visible {media.length > 0}
+        (scale :class "popup-scale" :min 0 :max {media.length} :value {media.position}
+          :onchange "${cmd.playerctl} position {}")
+        (box
+          (label :class "media-time" :halign "start" :text {media.position_text})
+          (label :class "media-time" :halign "end" :text {media.length_text})))
+      (box :class "media-controls" :halign "center" :space-evenly false :spacing 18
+        (button :onclick "${cmd.playerctl} position 10-" (label :text {pi.back10}))
+        (button :onclick "${cmd.playerctl} previous" (label :text {pi.previous}))
+        (button :class "media-play" :onclick "${cmd.playerctl} play-pause"
+          (label :text {media.status == "Playing" ? pi.pause : pi.play}))
+        (button :onclick "${cmd.playerctl} next" (label :text {pi.next}))
+        (button :onclick "${cmd.playerctl} position 10+" (label :text {pi.forward10}))))))
+
+(defwidget calendar-card []
+  (box :class "popup" :space-evenly false :spacing 20
+    (box :orientation "v" :space-evenly false :spacing 8
+      (label :class "calendar-day" :halign "start" :text {clock_date})
+      (calendar :class "month" :show-week-numbers true :onclick "${cmd.calendar} --day {0} {1} {2}"))
+    (box :class "agenda" :orientation "v" :space-evenly false :spacing 6 :hexpand true
+      (label :class "popup-section" :halign "start" :text "Events")
+      (label :class "popup-empty" :halign "start" :visible {arraylength(events) == 0} :text "No events")
+      (scroll :vscroll true :hscroll false :height 300
+        (box :orientation "v" :space-evenly false :spacing 8
+          (for event in events
+            (box :class "event" :orientation "v" :space-evenly false
+              (label :class "event-time" :halign "start" :text {event.when})
+              (label :class "event-title" :halign "start" :limit-width 34 :text {event.title}))))))))
+
+(defwindow popup-closer
+  :monitor 0
+  :stacking "overlay"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-closer"
+  :geometry (geometry :width "100%" :height "100%" :anchor "top left")
+  (eventbox :onclick "${cmd.popup} close" (box)))
+
+(defwindow audio-popup
+  :monitor 0
+  :stacking "overlay"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-popup"
+  :geometry (geometry :x "14px" :y "60px" :width "440px" :height "760px" :anchor "top right")
+  (audio-card))
+
+(defwindow media-popup
+  :monitor 0
+  :stacking "overlay"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-popup"
+  :geometry (geometry :y "60px" :width "480px" :anchor "top center")
+  (media-card))
+
+(defwindow calendar-popup
+  :monitor 0
+  :stacking "overlay"
+  :focusable "none"
+  :exclusive false
+  :namespace "eww-popup"
+  :geometry (geometry :y "60px" :width "780px" :anchor "top center")
+  (calendar-card))
+
+(defwidget app-tile [app]
+  (button :class "app-tile" :tooltip {app.name} :onclick "${cmd.launcher} launch ${app.id} &"
+    (box :orientation "v" :space-evenly false :spacing 6 :width 96
+      (image :path {app.path} :image-width 44 :image-height 44)
+      (label :class "app-name" :limit-width 12 :text {app.name}))))
+
+(defwidget app-rows [rows]
+  (box :orientation "v" :space-evenly false :spacing 4
+    (for row in rows
+      (box :space-evenly false :spacing 4
+        (for app in row
+          (app-tile :app app))))))
+
+(defwidget toggle-tile [icon label detail active action]
+  (button :class "toggle-tile ${active ? 'active' : ''}" :onclick "${cmd.launcher} toggle ${action}"
+    (box :space-evenly false :spacing 10
+      (label :class "toggle-icon" :text icon)
+      (box :orientation "v" :space-evenly false :hexpand true
+        (label :class "toggle-label" :halign "start" :text label)
+        (label :class "toggle-detail" :halign "start" :limit-width 16 :text detail)))))
+
+(defwidget launcher-card []
+  (box :class "popup launcher" :orientation "v" :space-evenly false :spacing 16
+    (box :class "search" :space-evenly false :spacing 12
+      (label :class "popup-icon" :text {pi.search})
+      (input :class "search-input" :hexpand true :timeout "150ms"
+        :onchange "${cmd.launcher} search {}"
+        :onaccept "${cmd.launcher} accept {}"))
+    (box :space-evenly false :spacing 20 :vexpand true
+      (box :class "launcher-apps" :orientation "v" :space-evenly false :spacing 12 :hexpand true
+        (box :orientation "v" :space-evenly false :spacing 8 :visible {search != ""}
+          (label :class "popup-section" :halign "start" :text "Results")
+          (label :class "popup-empty" :halign "start" :visible {arraylength(launcher_results) == 0} :text "No application found")
+          (app-rows :rows launcher_results))
+        (box :orientation "v" :space-evenly false :spacing 12 :visible {search == ""}
+          (label :class "popup-section" :halign "start" :text "Favorites")
+          (app-rows :rows favorite_rows)
+          (box :orientation "v" :space-evenly false :spacing 8 :visible {arraylength(launcher_state.recent) > 0}
+            (label :class "popup-section" :halign "start" :text "Recent")
+            (app-rows :rows {launcher_state.recent}))))
+      (box :class "launcher-side" :orientation "v" :space-evenly false :spacing 12 :width 330
+        (box :orientation "v" :space-evenly false :spacing 6
+          (toggle-tile :icon {launcher_state.muted ? pi.muted : pi.audio} :label "Sound"
+            :detail {launcher_state.muted ? "Muted" : "On"} :active {!launcher_state.muted} :action "mute")
+          (toggle-tile :icon {launcher_state.mic_muted ? pi.micoff : pi.mic} :label "Microphone"
+            :detail {launcher_state.mic_muted ? "Muted" : "On"} :active {!launcher_state.mic_muted} :action "mic")
+          (toggle-tile :icon {pi.bluetooth} :label "Bluetooth"
+            :detail {launcher_state.bluetooth} :active {launcher_state.bluetooth != "Off"} :action "bluetooth")
+          (toggle-tile :icon {pi.wifi} :label "Network"
+            :detail {launcher_state.network} :active {launcher_state.wifi} :action "wifi")
+          (toggle-tile :icon {pi.lock} :label "Auto lock"
+            :detail {launcher_state.autolock ? "On" : "Off"} :active {launcher_state.autolock} :action "autolock"))
+        (slider :icon {launcher_state.muted ? pi.muted : pi.audio} :label "Volume"
+          :value {audio.sink.volume ?: 0}
+          :onchange "${cmd.pactl} set-sink-volume @DEFAULT_SINK@ {}%"
+          :onmute "${cmd.launcher} toggle mute")
+        (box :class "battery" :space-evenly false :spacing 10 :visible {launcher_state.battery != ""}
+          (label :class "toggle-icon" :text {pi.battery})
+          (label :class "toggle-label" :text {launcher_state.battery}))
+        (box :orientation "v" :space-evenly false :spacing 4 :visible {arraylength(launcher_state.clipboard) > 0}
+          (label :class "popup-section" :halign "start" :text "Clipboard")
+          (for item in {launcher_state.clipboard}
+            (button :class "clip" :onclick "${cmd.launcher} clip ${item.id}"
+              (label :halign "start" :limit-width 38 :text {item.text}))))))))
+
+(defwindow launcher-popup
+  :monitor 0
+  :stacking "overlay"
+  :focusable "exclusive"
+  :exclusive false
+  :namespace "eww-popup"
+  :geometry (geometry :width "1180px" :height "760px" :anchor "center")
+  (launcher-card))

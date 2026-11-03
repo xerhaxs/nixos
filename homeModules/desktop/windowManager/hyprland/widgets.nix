@@ -326,7 +326,7 @@ let
 
   prelude = ''
     (defvar i '${builtins.toJSON icons}')
-    (defvar launch "${pkgs.gtk3}/bin/gtk-launch")
+    (defvar launch "desktop-launcher launch")
     (defpoll weather :interval "600s" :initial '${emptyWeather}' "${lib.getExe desktopWeather}")
     (defpoll clock_date :interval "60s" "LC_ALL=en_US.UTF-8 ${pkgs.coreutils}/bin/date '+%A, %B %d'")
     (defpoll favorites :interval "3600s" :initial "[]" "favorites-list --json")
@@ -457,7 +457,10 @@ in
         After = [ config.wayland.systemd.target ];
       };
       Service = {
-        Environment = "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin";
+        Environment = [
+          "PATH=${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
+          "LC_TIME=en_US.UTF-8"
+        ];
         ExecStart = "${eww}/bin/eww daemon --no-daemonize";
         ExecStartPost = "${lib.getExe desktopWidgets} open";
         Restart = "on-failure";

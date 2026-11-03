@@ -5,6 +5,18 @@
   ...
 }:
 
+let
+  # Stops the services while the compositor runs. The hyprland.shutdown hook must not do that, it
+  # blocks the compositor, the services wait for it and Hyprland freezes.
+  sessionLogout = pkgs.writeShellApplication {
+    name = "session-logout";
+    text = ''
+      timeout 20 systemctl --user stop hyprland-session.target || true
+      hyprctl dispatch 'hl.dsp.exit()'
+    '';
+  };
+in
+
 {
   options.homeManager = {
     desktop.windowManager.hyprland.hyprland = {
@@ -18,6 +30,8 @@
   };
 
   config = lib.mkIf config.homeManager.desktop.windowManager.hyprland.hyprland.enable {
+    home.packages = [ sessionLogout ];
+
     # Bind the helper services (waybar, swaync, hypridle, ...) to the Hyprland session only, not to Plasma.
     wayland.systemd.target = "hyprland-session.target";
 

@@ -28,7 +28,7 @@ let
     }
     {
       label = "logout";
-      action = "hyprctl dispatch 'hl.dsp.exit()'";
+      action = "session-logout";
       text = "Log out";
       keybind = "e";
     }

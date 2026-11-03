@@ -15,7 +15,7 @@ Das Repo ist öffentlich: Hier nichts Privates ablegen (keine Domains, Adressen,
 - Flakes ignorieren untracked Dateien: Neue `.nix`-Dateien vor dem Build mit `git add` aufnehmen.
 - `.nix` mit nixfmt formatieren, Import- und Bundle-Listen alphabetisch, neue Optionen in der README des Ordners nachtragen.
 - Deploys von außen brauchen `--build-host`: `admin` und `jf` sind bewusst keine `trusted-users` (das wäre Root ohne Passwort), Server lehnen unsignierte Pakete ab. `.drv`-Dateien nehmen sie an und bauen selbst.
-- `flake.nix` liest `private` aus `~/.nixos-private`, Home Manager verlinkt das nach `xdg.userDirs.documents`. Ein Flake-Input ist fester Text und kann keine Option lesen. Relativ (`git+file:../`) warnt Nix und will es abschaffen, `path:` hat keinen Hash in der `flake.lock`.
+- `flake.nix` holt `private` fest aus `/home/jf/Documents/nixos-private`. Auf dem Desktop ist `~/Documents` ein Symlink auf `/mount/Data/Datein/Dokumente`, der Pfad gilt also auf allen Clients. Relativ (`git+file:../`) warnt Nix und will es abschaffen, `path:` hat keinen Hash in der `flake.lock`.
 - Keine veränderlichen URLs als Flake-Input (`master`, `latest`, `github.io`): Die `flake.lock` nagelt den Hash fest, auf frischen Hosts bricht der Build dann mit `mismatch in field narHash` ab. Der Desktop merkt das nicht, er hat die alte Datei im Store. Stattdessen `github:`-Inputs: keine Hashes in `flake.nix`, der Stand steht in der `flake.lock`.
 - Die Claude-Shell hat kein `sudo` (Passwort nötig). Was root braucht (`nixos-rebuild`, `chown`), führt der Benutzer aus. Bauen geht ohne root: `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`.
 
@@ -37,7 +37,7 @@ Das Repo ist öffentlich: Hier nichts Privates ablegen (keine Domains, Adressen,
 - KeePassXC ignoriert unbekannte Schlüssel der `keepassxc.ini` ohne Meldung (der Agent heißt `SSHAgent/Enabled`, nicht `Enable`). Neue Einstellungen gegen `src/core/Config.cpp` der installierten Version prüfen.
 - Nur nötige Variablen an den User-Manager geben, nie `--all`: Er überlebt die Sitzung, und die nächste Plasma-Sitzung erbt alles (siehe TODO 13.17). In KWin prüfen mit `tr "\0" "\n" < /proc/$(pgrep -f kwin_wayland | head -1)/environ`.
 - `grep` ist hier `ugrep` (erweiterte Regex), `${` in Mustern schlägt fehl. Für solche Stellen `grep -F` oder `awk` nehmen.
-- Der User-Manager überlebt die Sitzung. Beim Ende einer Sitzung darf kein Dienst mehr ein Display brauchen: Die Hyprland-Dienste stoppt `hyprland.shutdown` synchron per `os.execute`, sonst stürzen Qt-Prozesse ab und drkonqi gleich mit.
+- Der User-Manager überlebt die Sitzung. Beim Ende einer Sitzung darf kein Dienst mehr ein Display brauchen, sonst stürzen Qt-Prozesse ab und drkonqi gleich mit. Die Dienste stoppt `session-logout`, solange Hyprland läuft. Nie blockierend im Hook `hyprland.shutdown` stoppen: Der Compositor wartet dann auf die Dienste und die Dienste auf ihn, Hyprland friert ein (der Hook von Home Manager tut das, läuft nach `session-logout` aber ins Leere).
 
 ## Testen ohne Reboot
 

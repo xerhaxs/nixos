@@ -8,10 +8,11 @@
 {
   environment.systemPackages = with pkgs; [
     backintime
+    backintime-common
     (writeShellApplication {
       name = "backup-external";
       runtimeInputs = [
-        backintime
+        backintime-common
         cryptsetup
         util-linux
       ];
@@ -55,7 +56,14 @@
     profile1.snapshots.exclude.3.type=2
     profile1.snapshots.exclude.4.value=.recycle
     profile1.snapshots.exclude.4.type=2
-    profile1.snapshots.exclude.size=4
+    profile1.snapshots.exclude.5.value=/pool01/shares/*/FreeTube/Cache
+    profile1.snapshots.exclude.5.type=0
+    profile1.snapshots.exclude.size=5
+
+    # Old Windows streams that Samba stored as xattrs, up to 2 MB each. ext4 cannot hold them, rsync
+    # then reports code 23 and skips deleting removed files in the snapshot.
+    profile1.snapshots.rsync_options.enabled=true
+    profile1.snapshots.rsync_options.value=--filter='-x user.DosStream.*'
 
     profile1.snapshots.remove_old_snapshots.enabled=false
     profile1.snapshots.smart_remove=false
