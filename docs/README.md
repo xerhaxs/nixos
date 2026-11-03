@@ -21,3 +21,4 @@ Background documents, evaluations and plans that are not tied to a single module
 | [`mail-pgp-jmap.md`](mail-pgp-jmap.md) | OpenPGP with Stalwart (WKD, encryption at rest), GnuPG, Thunderbird, JMAP clients. |
 | [`proton-drive.md`](proton-drive.md) | Proton Drive backup through restic/rclone and access from the phone. |
 | [`rss.md`](rss.md) | RSS: Miniflux, Fluent Reader on the clients, apps for the phone. |
+| [`service-settings.md`](service-settings.md) | Which settings of each server service live in NixOS and which in the service itself. |

@@ -288,7 +288,14 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [ ] ddcutil-Meldungen (`dw_start_watch_displays`): von PowerDevil, harmlos
   - [x] `ucsi_acpi USBC000:00: GET_CABLE_PROPERTY failed` (Framework): Firmware meldet die Kabeldaten nicht, harmlos.
   - [ ] `baloo_file_extractor ... App info not found` und `MDB_BAD_RSLOT` (einmal pro Boot, 10 Minuten nach dem Login): harmlos, die Indexierung läuft weiter. Der Index ist 12 GiB groß, ggf. Baloo einschränken (`balooctl6 status`)
-  - [ ] Dasselbe auf Framework, Convertible, Server1 und ServerPublic prüfen und hier ergänzen
+  - Befund auf NixOS-Convertible (03.11.2026):
+    - [x] 5 Coredumps `iio-hyprland` (SIGABRT): behoben. `touch.enable` war im Host gesetzt und hing nicht am Hyprland-Bundle. Ohne Hyprland liefen `iio-hyprland` und `wvkbd` in Plasma und fanden keinen Hyprland-Socket. Das Touch-Modul wirkt jetzt nur noch mit Hyprland.
+    - [x] `ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PC00.PEG0.PXSX]`: Fehler in der Firmware-Tabelle (verweist auf einen nicht vorhandenen PCIe-Slot), harmlos.
+    - [ ] `int3472-tps68470 ... No board-data found for this model`: Der Kernel kennt die Stromversorgung der Kamera dieses Modells nicht. Harmlos, falls die Kamera nicht gebraucht wird. Sonst prüfen, ob sie in einer Videokonferenz funktioniert.
+    - [ ] `i2c_hid_acpi i2c-WCOM4A04:00: device returned incorrect report` (5-mal beim Start): Wacom-Digitizer beim Initialisieren, harmlos, wenn Stift und Touch funktionieren (in Phase 5.2 testen).
+    - [ ] `soundwire_intel ... Bus clash` und `Clock stop failed -110`: SoundWire-Audio beim Start bzw. beim ersten Energiesparen. Harmlos, wenn Lautsprecher und Mikrofon nach dem Start und nach dem Aufwachen funktionieren, das einmal testen.
+    - [ ] `dbus-broker-launch: Ignoring duplicate name ...`: wie auf dem Desktop, Kosmetik.
+  - [ ] Dasselbe auf Framework, Server1 und ServerPublic prüfen und hier ergänzen
 - [ ] 13.2 nscd: In 128 Boot-Journalen gibt es keinen Startfehler nach dem Reboot. Der einzige Ausfall (18.10. 18:02) kam von einem Netzwerkausfall (IPv6-Präfixwechsel, DNS degradiert): Alle nsncd-Worker hingen an DNS-Anfragen, systemd hat den Dienst neu gestartet. Nach Phase 4 (machine-id) nach dem nächsten Reboot `journalctl -b -1 -u nscd` und `systemctl status nscd` prüfen. Tritt es wieder auf: `journalctl -b -u nscd` und die Zeit mit `journalctl -b -u NetworkManager` vergleichen.
 - [ ] 13.4 hyprgrass: Nach dem nächsten `nix flake update` prüfen, ob `pkgs.hyprlandPlugins.hyprgrass` wieder baut. Dann `pkgs/hyprgrass` löschen und in `touch.nix` `pkgs.hyprlandPlugins.hyprgrass` verwenden.
 - [ ] 13.5 Ventoy ist mit Version (1.1.18) als unsicheres Paket erlaubt (`nixosModules/system/nixos.nix`). Die Version nach nixpkgs-Updates anpassen.
@@ -386,3 +393,4 @@ Erst wenn die Hosts auf dem neuen Stand laufen. Bis dahin ist `system.autoUpgrad
 - [ ] 17.5 Installer: Das Live-System braucht ebenfalls Zugriff auf das private Repo, in `NixOSInstaller.sh` ergänzen (Key abfragen wie den age-Key).
 - [ ] 17.6 `rework` nach `main` mergen und pushen, vorher Prüfung aus 2.3 auf dem gesamten Diff.
 - [ ] 17.7 In `hosts/NixOS-Server1/configuration.nix`, `hosts/NixOS-ServerPublic/configuration.nix` und `hosts/NixOS-ServerGaming/configuration.nix` wieder `system.autoUpgrade.enable = true;` setzen, committen, einmal deployen. Am nächsten Morgen `systemctl status nixos-upgrade` prüfen.
+- [ ] 17.8 Abschluss, wenn alles steht (nach 17.7): Journal und Coredumps auf allen Clients (Desktop, Framework, Convertible, Portable) und allen Servern (Server1, ServerPublic, ServerGaming) noch einmal prüfen, auch wenn 5.1a und 13.1 schon erledigt sind. Pro Host einmal neu starten, auf Clients in Plasma an- und abmelden, dann `journalctl -b -p err` und `coredumpctl list -S today`. Jede neue Meldung in 13.1 bewerten.

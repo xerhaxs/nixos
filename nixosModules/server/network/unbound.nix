@@ -51,6 +51,9 @@
           prefetch = true;
           edns-buffer-size = 1232;
 
+          # Query types, rcodes, DNSSEC and memory for the exporter and its dashboard.
+          extended-statistics = true;
+
           hide-identity = true;
           hide-version = true;
           num-threads = 1;

@@ -291,9 +291,9 @@ in
         ])
         (monitor "Server1: Tools" [
           (app "Ollama" "ollama" "auto-invert di:ollama")
-          (app "ComfyUI" "comfyui" "auto-invert di:comfy-ui")
+          (app "ComfyUI" "comfyui" "di:comfyui")
           (app "SearXNG" "searxng" "di:searxng")
-          (app "LanguageTool" "languagetool" "di:languagetool")
+          (app "LanguageTool" "languagetool" "sh:languagetool")
           (app "LibreTranslate" "libretranslate" "auto-invert di:libretranslate")
           (app "Linkwarden" "linkwarden" "sh:linkwarden")
           (app "Radicale" "radicale" "di:radicale")
@@ -315,7 +315,7 @@ in
           (publicApp "ntfy" "push" "di:ntfy")
           (publicApp "Miniflux" "rss" "di:miniflux")
           (publicApp "Mumble" "murmur" "di:mumble")
-          (publicApp "code-server" "code" "di:code-server")
+          (publicApp "code-server" "code" "di:code-server.png")
         ])
         (hostStats "NixOS-ServerGaming" "NixOS-ServerGaming")
         minecraft

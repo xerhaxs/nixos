@@ -9,15 +9,21 @@
   users.groups = {
     api.gid = 998;
     forgejo.gid = 976;
+    grafana.gid = 972;
     hass.gid = 286;
+    homebox.gid = 969;
     jellyfin.gid = 996;
     kiwix.gid = 543;
     lidarr.gid = 306;
     linkwarden.gid = 970;
+    loki.gid = 968;
     matter-server.gid = 545;
+    monero.gid = 967;
     nzbhydra2.gid = 994;
     ollama.gid = 993;
+    otbr.gid = 973;
     postgres.gid = 71;
+    prometheus.gid = 255;
     radarr.gid = 275;
     radicale.gid = 990;
     readarr.gid = 989;
@@ -37,7 +43,11 @@
 
     forgejo.uid = 979;
 
+    grafana.uid = 196;
+
     hass.uid = 286;
+
+    homebox.uid = 976;
 
     jellyfin = {
       uid = 996;
@@ -62,6 +72,8 @@
 
     linkwarden.uid = 970;
 
+    loki.uid = 975;
+
     matter-server = {
       isSystemUser = true;
       uid = 545;
@@ -69,6 +81,8 @@
     };
 
     meli.uid = 994;
+
+    monero.uid = 974;
 
     nzbhydra2 = {
       uid = 991;
@@ -84,6 +98,8 @@
     };
 
     postgres.uid = 71;
+
+    prometheus.uid = 255;
 
     radarr = {
       uid = 275;

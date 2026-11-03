@@ -77,6 +77,13 @@ in
           '';
         };
 
+        # The modules only create their data dirs as the home of the user, at activation. On a
+        # dataset that is mounted later (encrypted ZFS), tmpfiles has to create them again.
+        systemd.tmpfiles.rules = [
+          "d ${config.services.monero.dataDir} 0750 monero monero -"
+        ]
+        ++ lib.optional cfg.p2pool.enable "d ${config.services.p2pool.dataDir} 0750 p2pool p2pool -";
+
         networking.firewall = {
           extraCommands = ''
             iptables -A nixos-fw -p tcp -s ${lanSubnet} --dport ${toString cfg.restrictedRpcPort} -j nixos-fw-accept

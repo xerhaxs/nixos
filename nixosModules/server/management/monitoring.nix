@@ -39,14 +39,26 @@ let
   blackboxPort = 9115;
 
   # The JSON of grafana.com comes from the flake inputs grafana-<name>, the revision is in flake.nix.
+  # Alloy labels the journal with unit and host, the logs dashboard expects job.
+  dashboardFixes.logs = ''
+    walk(if type == "string" then
+      gsub("label_values\\(job\\)"; "label_values(unit)") | gsub("job=\"\\$app\""; "unit=\"$app\"")
+    else . end)
+  '';
+
   dashboard =
     name:
-    pkgs.runCommand "grafana-dashboard-${name}.json" { src = inputs."grafana-${name}"; } ''
-      sed -e 's/\''${DS_PROMETHEUS}/prometheus/g' \
-          -e 's/\''${DS_SIGNCL-PROMETHEUS}/prometheus/g' \
-          -e 's/\''${DS_LOKI}/loki/g' \
-          "$src" > "$out"
-    '';
+    pkgs.runCommand "grafana-dashboard-${name}.json"
+      {
+        src = inputs."grafana-${name}";
+        nativeBuildInputs = [ pkgs.jq ];
+      }
+      ''
+        sed -e 's/\''${DS_PROMETHEUS}/prometheus/g' \
+            -e 's/\''${DS_SIGNCL-PROMETHEUS}/prometheus/g' \
+            -e 's/\''${DS_LOKI}/loki/g' \
+            "$src" | jq ${lib.escapeShellArg (dashboardFixes.${name} or ".")} > "$out"
+      '';
 
   dashboards = pkgs.linkFarm "grafana-dashboards" (
     map
@@ -486,6 +498,9 @@ in
             kvstore.store = "inmemory";
           };
         };
+        # gRPC only listens on localhost, the default advertises the LAN address to the querier
+        # and every query through the frontend times out.
+        frontend.address = "127.0.0.1";
         schema_config.configs = [
           {
             from = "2026-01-01";
