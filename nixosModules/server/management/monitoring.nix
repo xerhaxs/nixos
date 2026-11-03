@@ -281,6 +281,8 @@ in
 
     systemd.tmpfiles.rules = lib.mkIf (!lib.hasPrefix "/var/lib" dataDir) [
       "d ${dataDir}/prometheus 0750 prometheus prometheus -"
+      # The loki module only creates its data dir as the home of the user, at activation.
+      "d ${dataDir}/loki 0750 loki loki -"
     ];
     systemd.services.prometheus.serviceConfig.BindPaths = lib.mkIf (!lib.hasPrefix "/var/lib" dataDir) [
       "${dataDir}/prometheus:/var/lib/prometheus2"

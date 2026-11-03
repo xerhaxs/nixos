@@ -22,7 +22,7 @@ Downloads at runtime have no pin: the wine prefix of Fusion 360, the first start
 | `nixos-version-metrics` | all hosts | hourly | `nixos-version.prom` |
 | `update-check` | NixOS-Server1 | daily | `updates.prom` |
 
-Prometheus collects the files through the textfile collector of the node exporter. Grafana shows them in the dashboard `Security und Updates`, Glance on the page `Server`.
+Prometheus collects the files through the textfile collector of the node exporter. Grafana shows them in the dashboard `Security and Updates`, Glance on the page `Server`.
 
 ## Reading the results
 

@@ -114,6 +114,9 @@ in
       until mountpoint -q /pool01/shares && mountpoint -q /pool01/applications; do
         sleep 1
       done
+      # systemd-tmpfiles-setup ran before the encrypted datasets were mounted, its directories
+      # below /pool01 ended up hidden under the mount points.
+      ${config.systemd.package}/bin/systemd-tmpfiles --create --prefix=/pool01
     '';
   };
 

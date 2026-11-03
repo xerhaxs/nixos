@@ -166,7 +166,7 @@ Stand der Verifikation: Alle elf Hosts evaluieren (mit dem uncommitteten private
 | [ ] | CVE-Scan auf allen Hosts | `nixosModules/system/vulnscan.nix` | `sudo systemctl start vulnscan`, `cat /var/lib/prometheus-node-exporter/vulnscan.prom` |
 | [ ] | Versionsstand pro Host (Commit, Neustart nötig, Alter der Inputs) | `nixosModules/system/monitoring-agent.nix` | `cat /var/lib/prometheus-node-exporter/nixos-version.prom` |
 | [ ] | Update-Prüfung auf Server1 | `nixosModules/server/management/update-check.nix` | `sudo systemctl start update-check`, Dashboard |
-| [ ] | Grafana-Dashboard „Security und Updates“, vier neue Alarme | `nixosModules/server/management/dashboards/`, `monitoring.nix` | Grafana → NixOS |
+| [ ] | Grafana-Dashboard „Security and Updates“, vier neue Alarme | `nixosModules/server/management/dashboards/`, `monitoring.nix` | Grafana → NixOS |
 | [ ] | Glance: Seite „Server“ mit Abschnitten pro Server, Stats aus Prometheus, Alarme, CVEs, Minecraft | `nixosModules/server/management/glance-server-page.nix` | `https://glance.<homeDomain>/server` |
 | [ ] | Glance-Widgets Jellyfin, Kalender, Miniflux, Home Assistant (aus, bis die Keys existieren) | dito | TODO 13.12 |
 | [ ] | Neuer Host NixOS-ServerGaming und NixOS-VMServerGaming, Minecraft von ServerPublic dorthin verschoben | `hosts/NixOS-ServerGaming` | TODO 8B |
