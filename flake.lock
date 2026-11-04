@@ -596,11 +596,11 @@
     "private": {
       "flake": false,
       "locked": {
-        "lastModified": 1793644154,
-        "narHash": "sha256-3SBioOK6WLOQN+TxvErhECrcj6eVt6rEBbqFdVF5fKE=",
+        "lastModified": 1793821456,
+        "narHash": "sha256-WQjTNOJztgPDpLWoQQM227u5pSMA/M/sfRkvOiLaFvk=",
         "ref": "refs/heads/main",
-        "rev": "954621caa2fc7a9c746129db9c4e7ac7b731ffc7",
-        "revCount": 6,
+        "rev": "e148699f3fa11f78585d6bb2087c1298d2c53d7e",
+        "revCount": 7,
         "type": "git",
         "url": "file:///home/jf/Documents/nixos-private"
       },
