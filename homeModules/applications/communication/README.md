@@ -6,7 +6,7 @@ Messengers, mail and voice.
 
 ## How it works
 
-- Thunderbird with privacy settings (no user agent, anonymous HELO, simplified HTML, no JavaScript) and the accounts Proton (main, through the bridge), Stalwart, DLRG and 1&1 from the site data, Proton Mail Bridge, Discord, Briar, Element, Mumble, Signal, Telegram, Karere (WhatsApp).
+- Thunderbird with privacy settings (no user agent, anonymous HELO, simplified HTML, no JavaScript) and the accounts Stalwart (first), Proton (through the bridge, default account, switch with `primaryAccount`), DLRG (with signature) and 1&1 from the site data, Proton Mail Bridge, Discord, Briar, Element, Mumble, Signal, Telegram, Karere (WhatsApp).
 
 ## Contents
 
@@ -27,3 +27,4 @@ Messengers, mail and voice.
 | `homeManager.applications.communication.protonmail-bridge.enable` | boolean | `false` | Enable Protonmail bridge. |
 | `homeManager.applications.communication.social.enable` | boolean | `false` | Enable social communication apps. |
 | `homeManager.applications.communication.thunderbird.enable` | boolean | `false` | Enable Thunderbird. |
+| `homeManager.applications.communication.thunderbird.primaryAccount` | one of "proton", "stalwart" | `"proton"` | Default account, new mails are sent from it. Falls back to the other one if its address is missing in the site data. |

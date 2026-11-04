@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Hyprland desktop (second session next to Plasma, selectable in SDDM) with Catppuccin theme. Disabled on all hosts since 2026-11-03 (TODO 16.7).
+Hyprland desktop (second session next to Plasma, selectable in SDDM) with Catppuccin theme. Disabled on all hosts since 2026-11-03 (TODO phase 18).
 
 ## How it works
 

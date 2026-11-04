@@ -251,7 +251,7 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | Fix: Bluetooth-Menü, `rofi-bluetooth` fehlte im PATH | `rofi.nix` | Klick auf Bluetooth, Gerät verbinden |
 | [ ] | WLAN-Profile heißen wie die SSID | `nixosModules/system/networking.nix` | Plasma-Netzwerkliste, `nmcli connection` |
 | [ ] | Quick-Menü: KeePassXC, Energieprofil, Auto-Lock | `rofi.nix` | Super+X |
-| [ ] | Hyprland auf allen Clients deaktiviert, nur Plasma | `hosts/<Host>/configuration.nix` | SDDM bietet nur Plasma an, TODO 16.7 |
+| [ ] | Hyprland auf allen Clients deaktiviert, nur Plasma | `hosts/<Host>/configuration.nix` | SDDM bietet nur Plasma an, TODO Phase 18 |
 | [ ] | flake.lock aktualisiert, Anpassungen für nixpkgs (initrd, preLVM, Nextcloud-Admin, Ventoy, Lutris auf Portable) | `flake.lock`, `nixosModules/` | Alle Hosts bauen |
 | [ ] | Neu: Dashboard mit Suche, Favoriten, Zuletzt, Clipboard, Schaltern, Lautstärke, Akku | `popups.nix`, `config/eww-popups.yuck` | Super+R, Tippen und Enter, Escape, Klick daneben |
 | [ ] | Neu: Kalender-Popup mit Radicale-Terminen | `popups.nix` | Klick auf die Uhr, `systemctl --user status desktop-calendar-sync` |
@@ -261,3 +261,17 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | Wetterort aus sops statt lokaler Datei, `weather-location` entfällt | `widgets.nix`, `nixosModules/system/sops.nix` | Wetterkarte zeigt Wilnsdorf |
 | [ ] | Storage Box aus den Backups der VPS entfernt, Sicherung nach Server1 bleibt | `hosts/NixOS-Server{Public,Gaming}/backup.nix` | Host evaluiert ohne `storageBox` |
 | [ ] | Speicherlimit 5 GB pro Nutzer in Nextcloud und CryptPad | `nextcloud.nix`, `cryptpad.nix` | Nextcloud: Benutzerverwaltung, CryptPad: Einstellungen des Kontos |
+
+## O. Achte Arbeitsrunde: Zertifikate, ClamAV, Testdienste
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | Fix: lego 5 kennt `--dns.propagation-wait` nicht mehr, neue Zertifikate (comfyui, grafana, homebox, libretranslate) blieben selbstsigniert | `nixosModules/server/network/nginx.nix` | TODO 13.23 |
+| [ ] | ClamAV schreibt Funde, Fehler und Zeitpunkt als Metriken, verpasste Scans laufen nach dem Boot nach, Funde lassen die Unit nicht mehr scheitern | `nixosModules/system/clamav.nix` | `cat /var/lib/prometheus-node-exporter/clamav.prom` nach `sudo systemctl start clamdscan` |
+| [ ] | Grafana: ClamAV-Panels, Alarme `MalwareFound` und `MalwareScanStale`, CVEs und Versionen offline gegangener Clients mit letztem Stand (14 Tage) | `dashboards/security-updates.nix`, `monitoring.nix` | TODO 13.24 und 13.26 |
+| [ ] | Metriken von vulnscan und ClamAV überleben den Neustart | `nixosModules/system/monitoring-agent.nix` | nach dem Neustart liegt `vulnscan.prom` noch da |
+| [ ] | EasyEffects mit dem Mikrofon-Preset nur noch auf dem Desktop | `hosts/NixOS-Desktop/home/home.nix`, Media-Bundle | auf den Laptops kein `easyeffects` im Tray |
+| [ ] | Thunderbird: Stalwart steht oben, Standardkonto per `primaryAccount` umschaltbar (jetzt Proton), Signatur für DLRG aus den privaten Daten | `thunderbird.nix`, `$PRIV/site.nix` | neue Mail im DLRG-Konto zeigt die Signatur |
+| [ ] | Nextcloud mit Collabora, Mumble, code-server und Countdown nur noch zum Testen auf ServerGaming | `hosts/NixOS-ServerGaming/temp/`, `hosts/NixOS-ServerPublic/server.nix` | TODO Phase 19 |
+| [ ] | Firewall-Tabelle mit Regelname und Quelle | `TODO.md` 8.4 | Regeln im Contabo-Panel gleich benannt |
+| [ ] | Hyprland-TODOs in Phase 18 zusammengeführt | `TODO.md` | – |

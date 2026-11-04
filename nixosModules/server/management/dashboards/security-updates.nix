@@ -76,6 +76,10 @@ let
         ];
       };
 
+  # Current values of reachable hosts, the last value of the past 14 days for offline clients.
+  lastKnown =
+    metric: ''(${metric} or (last_over_time(${metric}[14d]) unless on(instance) up{job="node"} == 1))'';
+
   greenAbove = limit: color: [
     {
       color = "green";
@@ -101,10 +105,12 @@ in
   };
 
   panels = [
-    (stat "Critical CVEs (candidates)" 0 0 ''sum(nixos_cve_open{severity="Critical"})'' (
+    (stat "Critical CVEs (candidates)" 0 0 "sum(${lastKnown ''nixos_cve_open{severity="Critical"}''})" (
       greenAbove 1 "red"
     ))
-    (stat "High CVEs (candidates)" 6 0 ''sum(nixos_cve_open{severity="High"})'' (greenAbove 1 "orange"))
+    (stat "High CVEs (candidates)" 6 0 "sum(${lastKnown ''nixos_cve_open{severity="High"}''})" (
+      greenAbove 1 "orange"
+    ))
     (stat "Hosts needing a reboot" 12 0 "sum(nixos_reboot_required)" (greenAbove 1 "orange"))
     (stat "Available updates" 18 0 "sum(nixos_update_available)" (greenAbove 1 "blue"))
 
@@ -124,20 +130,20 @@ in
       }
     )
 
-    (table "Host versions" 22 7 "nixos_system_info" {
+    (table "Host versions (offline hosts: last known state)" 22 7 (lastKnown "nixos_system_info") {
       instance = "Host";
       revision = "Commit";
       kernel = "Kernel";
     })
 
-    (table "Open CVEs per host" 29 7 "nixos_cve_open" {
+    (table "Open CVEs per host (offline hosts: last known state)" 29 7 (lastKnown "nixos_cve_open") {
       instance = "Host";
       severity = "Severity";
       Value = "Count";
     })
 
     (table "Critical and high CVEs (candidates, matched by name and version)" 36 14
-      "nixos_cve_package"
+      (lastKnown "nixos_cve_package")
       {
         instance = "Host";
         severity = "Severity";
@@ -148,9 +154,34 @@ in
       }
     )
 
-    (table "Last scan (days ago)" 50 7 "(time() - nixos_cve_scan_timestamp_seconds) / 86400" {
-      instance = "Host";
-      Value = "Days";
-    })
+    (table "Last CVE scan (days ago)" 50 7
+      "(time() - ${lastKnown "nixos_cve_scan_timestamp_seconds"}) / 86400"
+      {
+        instance = "Host";
+        Value = "Days";
+      }
+    )
+
+    (stat "Infected files (ClamAV)" 0 57 "sum(${lastKnown "clamav_scan_infected_files"})" (
+      greenAbove 1 "red"
+    ))
+    (stat "ClamAV scan errors" 6 57 "sum(${lastKnown "clamav_scan_errors"})" (greenAbove 1 "orange"))
+
+    (table "ClamAV findings (verify before deleting, see docs/updates-and-vulnerabilities.md)" 61 10
+      (lastKnown "clamav_infected_file")
+      {
+        instance = "Host";
+        signature = "Signature";
+        path = "Path";
+      }
+    )
+
+    (table "Last ClamAV scan (days ago)" 71 7
+      "(time() - ${lastKnown "clamav_scan_timestamp_seconds"}) / 86400"
+      {
+        instance = "Host";
+        Value = "Days";
+      }
+    )
   ];
 }

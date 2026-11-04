@@ -142,6 +142,11 @@ in
       "d ${textfileDir} 0755 root root -"
     ];
 
+    # Results of vulnscan and ClamAV survive a reboot, Grafana shows the last known state.
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [ textfileDir ];
+    };
+
     # Age of the flake inputs, deployed commit and whether a reboot is pending.
     systemd.services.nixos-version-metrics = {
       description = "Export the version of the running system";

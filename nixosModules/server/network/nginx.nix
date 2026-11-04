@@ -123,8 +123,9 @@ in
           #dnsResolver = "127.0.0.1"; # for usage behind mullvad vpn
           dnsProvider = "cloudflare";
           #dnsPropagationCheck = false; # for usage behind mullvad vpn
+          # lego 5 renamed the flag, an unknown flag fails every new order and renewal.
           extraLegoFlags = [
-            "--dns.propagation-wait"
+            "--dns.propagation.wait"
             "60s"
           ];
           renewInterval = "daily";

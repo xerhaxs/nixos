@@ -65,7 +65,7 @@ in
         example = {
           proton.address = "me@proton.me";
         };
-        description = "Addresses of the other mail accounts in Thunderbird: proton, dlrg, oneandone (address, optional realName).";
+        description = "Addresses of the other mail accounts in Thunderbird: proton, dlrg, oneandone (address, optional realName and signature).";
       };
       serverGaming =
         mkSiteOption (lib.types.attrsOf lib.types.anything) "serverGaming"

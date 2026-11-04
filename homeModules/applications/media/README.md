@@ -6,8 +6,8 @@ Media players, recording, RSS and download tools.
 
 ## How it works
 
-- mpv, VLC, Clementine, FreeTube, Fluent Reader, OBS Studio, EasyEffects, FFmpeg, yt-dlp, Gwenview.
-- EasyEffects loads the microphone chain `easyeffects-microphone.json` for a Rode Procaster on a Behringer UMC22 as input preset (`docs/microphone.md`).
+- mpv, VLC, Clementine, FreeTube, Fluent Reader, OBS Studio, FFmpeg, yt-dlp, Gwenview.
+- EasyEffects is not part of the bundle, only NixOS-Desktop enables it (the microphone is connected there). It loads the microphone chain `easyeffects-microphone.json` for a Rode Procaster on a Behringer UMC22 as input preset (`docs/microphone.md`).
 - Fluent Reader is prefilled with the Miniflux sync of NixOS-ServerPublic (`rss.<domain>`, API key entered once in the app).
 
 ## Contents

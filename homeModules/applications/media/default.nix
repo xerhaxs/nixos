@@ -33,7 +33,6 @@
   config = lib.mkIf config.homeManager.applications.media.enable {
     homeManager.applications.media = {
       clementine.enable = true;
-      easyeffects.enable = true;
       ffmpeg.enable = true;
       fluentreader.enable = true;
       freetube.enable = true;

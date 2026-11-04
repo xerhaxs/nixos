@@ -20,8 +20,6 @@
 
   nixos.server.network.fail2ban.enable = true;
 
-  nixos.system.clamav.extraScanDirectories = [ "${config.services.nextcloud.home}/data" ];
-
   nixos.system.hardening.hardenedMalloc = true;
 
   boot.kernel.sysctl."net.ipv4.icmp_echo_ignore_all" = 1;

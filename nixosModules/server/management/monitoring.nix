@@ -181,6 +181,19 @@ let
             annotations.summary = "{{ $labels.instance }}: the last vulnerability scan is older than 14 days";
           }
           {
+            alert = "MalwareFound";
+            expr = "clamav_scan_infected_files > 0";
+            labels.severity = "critical";
+            annotations.summary = "{{ $labels.instance }}: ClamAV found {{ $value }} infected files, see the dashboard Security and Updates";
+          }
+          {
+            alert = "MalwareScanStale";
+            expr = "time() - clamav_scan_timestamp_seconds > 3 * 86400";
+            "for" = "1h";
+            labels.severity = "warning";
+            annotations.summary = "{{ $labels.instance }}: the last ClamAV scan is older than 3 days";
+          }
+          {
             alert = "RebootRequired";
             expr = "nixos_reboot_required == 1";
             "for" = "3d";

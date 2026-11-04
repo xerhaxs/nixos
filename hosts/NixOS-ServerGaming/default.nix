@@ -15,6 +15,7 @@
     ./minecraft.nix
     ./networking.nix
     ./server.nix
+    ./temp
     ./wireguard.nix
   ];
 }

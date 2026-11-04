@@ -21,6 +21,11 @@ let
         address = site.mailAccounts.${name}.address or "";
         userName = address;
         realName = site.mailAccounts.${name}.realName or site.mailRealName;
+        # Plain text from the private site data, Thunderbird adds the "-- " separator.
+        signature = lib.mkIf (site.mailAccounts.${name} ? signature) {
+          text = site.mailAccounts.${name}.signature;
+          showSignature = "append";
+        };
         thunderbird = {
           enable = true;
           profiles = [ "default" ];
@@ -29,12 +34,16 @@ let
       }
     );
 
+  hasProton = site.mailAccounts ? proton;
+  hasStalwart = site.mailAddress != null;
+  wanted = config.homeManager.applications.communication.thunderbird.primaryAccount;
+  primary = if wanted == "stalwart" && hasStalwart || !hasProton then "stalwart" else "proton";
+
+  # Stalwart (own server) first.
   accountOrder =
-    lib.filter (name: site.mailAccounts ? ${name}) [
-      "proton"
-    ]
-    ++ lib.optional (site.mailAddress != null) "stalwart"
+    lib.optional (site.mailAddress != null) "stalwart"
     ++ lib.filter (name: site.mailAccounts ? ${name}) [
+      "proton"
       "dlrg"
       "oneandone"
     ];
@@ -48,6 +57,16 @@ in
         default = false;
         example = true;
         description = "Enable Thunderbird.";
+      };
+
+      primaryAccount = lib.mkOption {
+        type = lib.types.enum [
+          "proton"
+          "stalwart"
+        ];
+        default = "proton";
+        example = "stalwart";
+        description = "Default account, new mails are sent from it. Falls back to the other one if its address is missing in the site data.";
       };
     };
   };
@@ -136,7 +155,7 @@ in
 
     # Proton Mail Bridge on this machine, the password comes from the bridge (protonmail-bridge --cli, info).
     accounts.email.accounts.proton = mkAccount "proton" {
-      primary = true;
+      primary = primary == "proton";
       imap = {
         host = "127.0.0.1";
         port = 1143;
@@ -182,7 +201,7 @@ in
     };
 
     accounts.email.accounts.stalwart = lib.mkIf (osConfig.nixos.site.mailAddress != null) {
-      primary = !(site.mailAccounts ? proton);
+      primary = primary == "stalwart";
       address = osConfig.nixos.site.mailAddress;
       userName = osConfig.nixos.site.mailAddress;
       realName = osConfig.nixos.site.mailRealName;

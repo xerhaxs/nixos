@@ -86,7 +86,7 @@ Nacharbeiten:
 - [X] 4.9 DangerZone einmal starten. Beim ersten Start lädt es das Container-Image und prüft es mit cosign. Danach eine Test-PDF umwandeln.
 - [ ] 4.10 Fluent Reader: In Miniflux unter Einstellungen → API-Schlüssel einen Key anlegen und ihn in Fluent Reader unter Einstellungen → Dienst eintragen. Funktioniert erst, wenn ServerPublic läuft.
 - [ ] 4.11 EasyEffects: Das Preset `microphone` ist auf Rode Procaster und Behringer UMC22 abgestimmt (Eingang 1, 48V aus). Den Gain am UMC22 so einstellen, dass normale Sprache bei -18 bis -12 dBFS liegt, dann Probeaufnahme machen. Die Werte stammen aus den Datenblättern und sind nicht gemessen, Feinabstimmung siehe [`docs/microphone.md`](docs/microphone.md).
-- [ ] 4.12 (Hyprland ist deaktiviert, siehe 16.7.) Hyprland ausprobieren: Abmelden → SDDM → Session „Hyprland“. Der Wetterort kommt aus sops (`weather-location`: Name, Breite, Länge als JSON, in `secrets/secrets.yaml` und `$PRIV/secrets/nixos-portable.yaml`). Tastenkürzel: Super+X → System → Keybindings oder `homeModules/desktop/windowManager/hyprland/README.md`.
+- [ ] 4.12 Hyprland: nach Phase 18 verschoben.
 - [ ] 4.13 Fusion 360: Die Installation ist fertig (02.11.2026, 11 GB im Prefix). `fusion360` starten und anmelden, die Anmeldung läuft über den Browser. Im Menü den Eintrag „Autodesk Fusion 360“ verwenden, nicht den von Wine erzeugten „Autodesk Fusion“ (Status 127, verschwindet beim Neustart). Startet es unter Wine nicht, ist die Alternative eine Windows-VM (siehe [`docs/virtual-machines.md`](docs/virtual-machines.md)).
 - [X] 4.14 VRR/HDR wird beim Login per `kscreen-doctor` gesetzt. Den AVR-Monitor als Spiegel des Hauptmonitors einmalig in den KDE-Bildschirmeinstellungen einrichten (der Ausgabename ist unbekannt).
 - [ ] 4.15 Browser-Erweiterungen entfernen: In LibreWolf CanvasBlocker und „I still don't care about cookies“ von Hand deinstallieren (`about:addons`), beide stehen nicht in der Config. In Brave dasselbe unter `brave://extensions`. „I still don't care about cookies“ war dort per Richtlinie zwangsinstalliert, ist seit 03.11.2026 aus `nixosModules/userEnvironment/chromium-policies.nix` entfernt und verschwindet nach dem Rebuild vermutlich von selbst. Sonst von Hand entfernen.
@@ -96,8 +96,12 @@ Nacharbeiten:
 - [X] 5.1 Pro Laptop: Phase 4.1 bis 4.6 wiederholen. Am einfachsten direkt auf dem Laptop, beide Repos liegen dort durch Syncthing in `~/Documents`. `cd ~/Documents/nixos && sudo nixos-rebuild boot --flake .#NixOS-Framework` (bzw. `.#NixOS-Convertible`). Vorher prüfen, dass beide Repos samt `.git` aktuell sind (`git log -1`). Vom Desktop aus geht es mit der IP (`ip -br a` auf dem Laptop, die Laptops haben im Netz keinen Namen) und `--build-host jf@<IP> --target-host jf@<IP> --sudo --ask-sudo-password`, ohne `--build-host` kommt derselbe Signaturfehler wie auf dem Server.
 - [X] 5.1b Pro Laptop: SSH-Schlüssel in KeePassXC übernehmen. Der Agent selbst kommt mit dem Rollout aus der Konfiguration, die Einstellungen am Eintrag liegen in der Datenbank. Jeder Host hat einen eigenen Schlüssel, nur `~/.ssh/id_ed25519.pub` entscheidet, welcher angeboten wird. Deshalb pro Laptop: Eintrag „SSH id_ed25519 <Host>“ mit dem privaten Schlüssel dieses Laptops als Anhang anlegen, im Eintrag unter „SSH Agent“ Private key auf Attachment stellen, beide Haken setzen, Datenbank speichern. Prüfen mit `ssh-add -l` und `ssh admin@NixOS-Server1`, danach `rm ~/.ssh/id_ed25519`, die `.pub` bleibt. Liegt die Datenbank nicht auf dem Laptop, zuerst dorthin kopieren, sonst fehlt der Schlüssel im Agenten. NixOS-Portable hat noch keinen Schlüssel in `authorizedKeys`, das erledigt Tabelle 7B.
 - [X] 5.1a Pro Client (Framework, Convertible, Portable): Journal abarbeiten wie auf dem Desktop. Einmal in Plasma und in Hyprland an- und abmelden, neu starten, dann `journalctl -b -p err` und `coredumpctl list -S today`. Jede Meldung bewerten und in 13.1 eintragen. Erwartet: keine Coredumps nach dem Abmelden, kein `ordering cycle`, kein `kauditd hold queue overflow`, `systemctl --failed` und `systemctl --user --failed` sind leer. Eine einzelne Meldung `Failed to activate with specified passphrase` ist nur ein Tippfehler bei der LUKS-Eingabe.
-- [ ] 5.2 Convertible: In Hyprland Touch-Gesten, die Bildschirmtastatur (Wisch vom unteren Rand nach oben) und die automatische Drehung (Tablet-Modus) testen.
-- [ ] 5.3 Laptops: kanshi-Profile prüfen (Laptop allein / mit externem Monitor). Positionen bei Bedarf in `hosts/<host>/home/hyprland.nix` anpassen.
+- [ ] 5.2 Convertible in Plasma: automatische Drehung testen. Der Lagesensor läuft über `iio-sensor-proxy` (`hardware.sensor.iio.enable`), KWin dreht damit selbst.
+  - [ ] Sensor prüfen: `nix shell nixpkgs#iio-sensor-proxy -c monitor-sensor`, dann das Gerät drehen. Es muss `Accelerometer orientation changed` erscheinen.
+  - [ ] Systemeinstellungen → Anzeige und Monitor → Ausrichtung: „Automatisch“ bzw. „Nur im Tablet-Modus“. In den Tablet-Modus klappen und drehen, das Bild muss folgen. Tut es das nur bei „Automatisch“, meldet das Gerät den Tablet-Modus nicht (`libinput debug-events | grep -i switch` beim Umklappen).
+  - [ ] Touch und Stift folgen der Drehung (die Eingabe zeigt nach dem Drehen auf die richtige Stelle), dabei auch die Wacom-Meldungen aus 13.1 prüfen.
+  - [ ] Bildschirmtastatur in Plasma: Systemeinstellungen → Tastatur → Virtuelle Tastatur. Ist keine auswählbar, hier notieren.
+- [ ] 5.3 Hyprland-Punkte der Laptops (kanshi, Touch-Gesten): nach Phase 18 verschoben.
 
 ## Phase 6 – NixOS-Server1
 
@@ -185,37 +189,39 @@ Jedes Passwort wird in KeePassXC erzeugt und dort zuerst gespeichert. So gibt es
 
 - [X] 8.1 Den VPS bestellen (Contabo, Anbieter siehe [`docs/providers.md`](docs/providers.md)) und die Daten in `$PRIV/site.nix` → `serverPublic` eintragen, committen, `nix flake update private`.
 - [ ] 8.2 Den Host-Key vor der Installation erzeugen, Datei `keys.txt` außerhalb beider Repos ablegen: `nix shell nixpkgs#age -c age-keygen -o keys.txt`, den Public Key in `.sops.yaml` als `sops_serverpublic` eintragen, dann `sops updatekeys secrets/nixos-serverpublic.yaml`.
-- [ ] 8.3 Die Platzhalter in `nixos-serverpublic.yaml` ersetzen (`cd $PRIV/secrets && sops nixos-serverpublic.yaml`). Der Login ist erledigt. Hash statt Klartext: `stalwart/admin` (`mkpasswd -m sha-512 -R 500000`), `codeserver/env` (`HASHED_PASSWORD=<argon2-Hash>`). Klartext nötig: `restic/password`, `restic/home-env`, `nginx/acme/api_key` (DNS-API-Token), `mautrix-telegram/env` (API-ID und Hash von my.telegram.org), `mautrix-signal/env`, `mautrix-whatsapp/env`. Zufallswerte (`openssl rand -hex 32`): `matrix/*`, `coturn/secret`. WireGuard: `wireguard/nixos-serverpublic/private` (`wg genkey`). Nicht mehr gelesen, löschen: `nextcloud/admin`, `codeserver/password`, `restic/storagebox-ssh-key`. Danach committen und `nix flake update private`.
+- [ ] 8.3 Die Platzhalter in `nixos-serverpublic.yaml` ersetzen (`cd $PRIV/secrets && sops nixos-serverpublic.yaml`). Der Login ist erledigt. Hash statt Klartext: `stalwart/admin` (`mkpasswd -m sha-512 -R 500000`). Klartext nötig: `restic/password`, `restic/home-env`, `nginx/acme/api_key` (DNS-API-Token), `mautrix-telegram/env` (API-ID und Hash von my.telegram.org), `mautrix-signal/env`, `mautrix-whatsapp/env`. Zufallswerte (`openssl rand -hex 32`): `matrix/*`, `coturn/secret`. WireGuard: `wireguard/nixos-serverpublic/private` (`wg genkey`). Nicht mehr gelesen, löschen: `nextcloud/admin`, `codeserver/password`, `restic/storagebox-ssh-key`. `codeserver/env` und `murmur/env` gehören seit 04.11.2026 in `nixos-servergaming.yaml` (Phase 19), hier löschen. Danach committen und `nix flake update private`.
 - [ ] 8.4 Firewall im Contabo-Panel: Network Services → Firewall, Firewall pro Server anlegen, unter Inbound Rules die Regeln unten als Accept Rule mit Source „Any“ (IPv4 und IPv6) anlegen und den VPS unter Active VPS/VDS zuweisen. Eingehend bleibt alles andere gesperrt, ausgehend ist alles frei. Die Regeln greifen vor NixOS, dessen eigene Firewall bleibt zusätzlich aktiv. Prometheus-Ports (9100 usw.) laufen über WireGuard und brauchen keine Regel. Zuerst nur 22 und 2222 anlegen und installieren, die Dienste danach freigeben. Danach prüfen, ob ausgehende Verbindungen gehen (`curl -I https://nixos.org`, `chronyc sources`), die Doku von Contabo sagt nicht, ob die Regeln zustandsbehaftet sind.
 
-| Port | Protokoll | ServerPublic | ServerGaming | Wofür |
-|---|---|---|---|---|
-| 22 | TCP | bis WireGuard steht | bis WireGuard steht | SSH, danach Regel löschen (8.17) |
-| 2222 | TCP | ja | ja | LUKS-Entsperrung im initrd bei jedem Neustart, nie löschen |
-| 80, 443 | TCP | ja | ja | Webdienste, BlueMap, Countdown |
-| 25 | TCP | ja | nein | Mail von anderen Servern |
-| 465, 587 | TCP | ja | nein | Mail senden |
-| 993 | TCP | ja | nein | IMAP |
-| 3478, 5349 | TCP und UDP | ja | nein | STUN/TURN (coturn) |
-| 49152-49999 | UDP | ja | nein | TURN-Relay für Anrufe |
-| 64738 | TCP und UDP | ja | nein | Mumble |
-| 51820 | UDP | ja | nein | WireGuard-Hub |
-| 25565 | TCP | nein | ja | Minecraft |
-| ICMP | ICMP | ja | ja | IPv6 braucht ICMP, Ping beantwortet der Server trotzdem nicht |
+Die Spalte „Name“ ist der Regelname im Panel, „Quelle“ das Feld Source. „Any“ heißt: eine Regel für IPv4 (0.0.0.0/0) und eine für IPv6 (::/0). Stand 04.11.2026 aus `networking.firewall` beider Hosts, nach dem Umzug der Testdienste auf ServerGaming (Phase 19).
+
+| Name | Port | Protokoll | Quelle | ServerPublic | ServerGaming | Wofür |
+|---|---|---|---|---|---|---|
+| ssh | 22 | TCP | Any | bis WireGuard steht | bis WireGuard steht | SSH, danach Regel löschen (8.17) |
+| initrd-ssh | 2222 | TCP | Any | ja | ja | LUKS-Entsperrung im initrd bei jedem Neustart, nie löschen |
+| web | 80, 443 | TCP | Any | ja | ja | Webdienste, BlueMap, Testdienste |
+| smtp | 25 | TCP | Any | ja | nein | Mail von anderen Servern |
+| submission | 465, 587 | TCP | Any | ja | nein | Mail senden |
+| imaps | 993 | TCP | Any | ja | nein | IMAP |
+| stun-turn | 3478, 5349 | TCP und UDP | Any | ja | nein | STUN/TURN (coturn) |
+| turn-relay | 49152-49999 | UDP | Any | ja | nein | TURN-Relay für Anrufe |
+| wireguard | 51820 | UDP | Any | ja | nein | WireGuard-Hub |
+| minecraft | 25565 | TCP | Any | nein | ja | Minecraft |
+| mumble-test | 64738 | TCP und UDP | Any | nein | ja | Mumble, nur zum Testen, wird mit Phase 19 gelöscht |
+| icmp | – | ICMP | Any | ja | ja | IPv6 braucht ICMP, Ping beantwortet der Server trotzdem nicht |
 
 - [ ] 8.5 Zuerst in der VM testen: `nixos-rebuild build-vm --flake .#NixOS-VMServerPublic`. Der hardened malloc und `security.lockKernelModules` sind aktiv. Die VM hat keinen age-Key, Dienste mit Secrets können deshalb unabhängig davon scheitern. Prüfen, ob die übrigen Dienste starten: `systemctl --failed`. Bricht ein Dienst ab, `nixos.system.hardening.hardenedMalloc = false;` setzen und das hier notieren.
 - [ ] 8.5a Vor der Installation im Rescue-System von Contabo prüfen: `lsblk` (die Hosts erwarten `/dev/sda`, sonst `hosts/<Host>/disko.nix` anpassen) und `ls /sys/firmware/efi` (fehlt der Ordner, bootet der VPS per BIOS, dann `nixos.system.bootloader.biosDevice` setzen). Das konnte ich nicht testen.
 - [ ] 8.6 Installieren: `nixos-anywhere --flake .#NixOS-ServerPublic --disk-encryption-keys /tmp/secret.key <passphrase-datei> --disk-encryption-keys /tmp/keyfile.key <keyfile> --extra-files <dir mit secrets/keys.txt, etc/ssh/initrd_host_key und persistent/etc/ssh/initrd_host_key> root@<ip>`. Den Hostkey in beide Pfade legen: Die Installation liest ihn unter `/etc/ssh`, nach dem ersten Boot kommt `/etc/ssh` aus `/persistent` (noch nicht getestet).
 - [ ] 8.7 DNS-Einträge anlegen: A/AAAA für alle Dienstnamen, dazu `openpgpkey.<mailDomain>`. Für die Mail-Domain MX, SPF, DKIM, DMARC, MTA-STS und TLS-RPT (die Werte zeigt die Stalwart-Weboberfläche), außerdem CAA und PTR beim Anbieter. Port 25 beim Anbieter freischalten lassen.
-- [ ] 8.8 Ersteinrichtung: Nextcloud-Admin anlegen, NixOS setzt ihn seit dem Update vom 03.11.2026 nicht mehr selbst: `sudo nextcloud-occ user:add <name>`, dann `sudo nextcloud-occ group:adduser admin <name>`. Stalwart-Konten, Matrix-Nutzer (`register_new_matrix_user`), Bridge-Logins, Miniflux-Admin (`sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`), CryptPad `adminKeys`, ntfy-Admin, QR-Code der Briar-Mailbox (`journalctl -u podman-briar-mailbox`).
+- [ ] 8.8 Ersteinrichtung (Nextcloud liegt seit 04.11.2026 auf ServerGaming, siehe Phase 19): Stalwart-Konten, Matrix-Nutzer (`register_new_matrix_user`), Bridge-Logins, Miniflux-Admin (`sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`), CryptPad `adminKeys`, ntfy-Admin, QR-Code der Briar-Mailbox (`journalctl -u podman-briar-mailbox`).
 - [ ] 8.9 Ping ist absichtlich deaktiviert (`icmp_echo_ignore_all`). Monitoring per Ping funktioniert deshalb nicht, IPv6/ICMPv6 bleibt erlaubt.
 
 8B – NixOS-ServerGaming installieren (Minecraft, BlueMap, Countdown)
 
 - [X] 8.10 Eigener VPS bei Contabo (200 GB), Daten stehen in `$PRIV/site.nix`. Minecraft nutzt bis zu 12 GB RAM, der VPS braucht also 16 GB oder mehr.
 - [ ] 8.11 Host-Key erzeugen wie in 8.2, in `$PRIV/secrets/.sops.yaml` als `sops_servergaming` eintragen, Zeilen aktivieren, `sops updatekeys nixos-servergaming.yaml`.
-- [ ] 8.12 Die Platzhalter in `nixos-servergaming.yaml` ersetzen: `nginx/acme/api_key`, `wireguard/nixos-servergaming/private`, `restic/password`, `restic/home-env`. Der Login ist erledigt, `restic/storagebox-ssh-key` wird nicht mehr gelesen.
-- [ ] 8.13 Countdown: In `hosts/NixOS-ServerGaming/server.nix` das echte Datum bei `target` eintragen (jetzt Platzhalter 01.01.2027) und die Texte prüfen. Der Name steht damit im öffentlichen Repo.
+- [ ] 8.12 Die Platzhalter in `nixos-servergaming.yaml` ersetzen: `nginx/acme/api_key`, `wireguard/nixos-servergaming/private`, `restic/password`, `restic/home-env`. Für die Testdienste zusätzlich `codeserver/env` und `murmur/env` (Phase 19). Der Login ist erledigt, `restic/storagebox-ssh-key` wird nicht mehr gelesen.
+- [ ] 8.13 Countdown: In `hosts/NixOS-ServerGaming/temp/default.nix` das echte Datum bei `target` eintragen (jetzt Platzhalter 01.01.2027) und die Texte prüfen. Der Name steht damit im öffentlichen Repo.
 - [ ] 8.14 Testen in der VM (`nixos-rebuild build-vm --flake .#NixOS-VMServerGaming`), dann installieren wie in 8.6 mit `.#NixOS-ServerGaming`.
 - [ ] 8.15 DNS: A/AAAA für `bluemap`, `countdown` und `flolserver` auf den Gaming-VPS.
 - [ ] 8.16 Die Welt und die Mods vom alten Server nach `/srv/minecraft/flolserver` kopieren. BlueMap und Fabric API kommen aus dem Flake, gleichnamige alte Jars in `mods/` löschen. Prüfen: `https://bluemap.<domain>` (das erste Rendern dauert lange), `https://countdown.<domain>`.
@@ -280,7 +286,6 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [ ] `dbus-broker-launch: Ignoring duplicate name ...`: Kosmetik (der Dienst kommt doppelt aus system-path und Paket). Für den System-Bus per `LogFilterPatterns` gefiltert (`nixosModules/system/dbus.nix`). Die Meldungen des Session-Busses bleiben, der Filter wirkt nicht in User-Units.
   - [ ] `Invalid framebuffer status: GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT` (16-mal): Prozess finden (`journalctl -b -p err -o verbose | grep -B20 GL_FRAMEBUFFER | grep _COMM`), vermutlich KWin/Plasma mit amdgpu
   - [x] `kauditd hold queue overflow`: behoben, `backlogLimit` ist 8192 (`nixosModules/system/hardening.nix`), am 02.11.2026 nach dem Reboot 0 Treffer.
-  - [ ] Coredump-Kette und Einfrieren beim Abmelden aus Hyprland: Die Hooks in `hyprland.shutdown` (auch der von Home Manager) stoppen die Dienste blockierend, der Compositor wartet auf die Dienste und die Dienste auf ihn. `session-logout` stoppt sie jetzt vorher, Super+Shift+Q, wlogout und Waybar nutzen es. Prüfen: Abmelden dauert wenige Sekunden, `coredumpctl list -S today` zeigt nichts Neues.
   - [x] `wallpaper-random: Found ordering cycle`: behoben, der Dienst hängt jetzt an `awww.service` statt am Target.
   - [x] `backintime: cannot chdir(/var/cron)`: behoben, siehe 4.7.
   - [x] `systemd-cryptsetup: Failed to activate with specified passphrase`: einmaliger Tippfehler bei der LUKS-Eingabe (15:01:29), der zweite Versuch 6 Sekunden später war erfolgreich. Keine Konfiguration betroffen.
@@ -297,7 +302,6 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
     - [ ] `dbus-broker-launch: Ignoring duplicate name ...`: wie auf dem Desktop, Kosmetik.
   - [ ] Dasselbe auf Framework, Server1 und ServerPublic prüfen und hier ergänzen
 - [ ] 13.2 nscd: In 128 Boot-Journalen gibt es keinen Startfehler nach dem Reboot. Der einzige Ausfall (18.10. 18:02) kam von einem Netzwerkausfall (IPv6-Präfixwechsel, DNS degradiert): Alle nsncd-Worker hingen an DNS-Anfragen, systemd hat den Dienst neu gestartet. Nach Phase 4 (machine-id) nach dem nächsten Reboot `journalctl -b -1 -u nscd` und `systemctl status nscd` prüfen. Tritt es wieder auf: `journalctl -b -u nscd` und die Zeit mit `journalctl -b -u NetworkManager` vergleichen.
-- [ ] 13.4 hyprgrass: Nach dem nächsten `nix flake update` prüfen, ob `pkgs.hyprlandPlugins.hyprgrass` wieder baut. Dann `pkgs/hyprgrass` löschen und in `touch.nix` `pkgs.hyprlandPlugins.hyprgrass` verwenden.
 - [ ] 13.5 Ventoy ist mit Version (1.1.18) als unsicheres Paket erlaubt (`nixosModules/system/nixos.nix`). Die Version nach nixpkgs-Updates anpassen.
 - [X] 13.6 Die Images von networkingtoolbox und ComfyUI sind per Digest in `pkgs/images.json` gepinnt. Aktualisieren: `nix run .#update-images`, siehe [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
 - [ ] 13.7 Den Installer-Download (`curl ... | bash`) auf einen Tag oder Commit pinnen und eine Prüfsumme verifizieren.
@@ -312,14 +316,18 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [ ] Home Assistant: Profil → langlebiges Token, `ENV_HA_TOKEN=`, `homeassistant.enable` und `homeassistant.entities`
 - [ ] 13.13 Blocklisten aktualisiert `nix flake update` (`blocklistproject`, `perflyst`, `stevenBlack` sind `github:`-Inputs). Die Grafana-Dashboards haben kein Repo, ihre Revision steht als Zahl in `flake.nix` und wird dort von Hand erhöht, `revisions/latest` bricht auf frischen Hosts mit `mismatch in field narHash` ab. Pins aktuell halten: Der Update-Check meldete am 01.11.2026 Dangerzone v0.11.1 (gepinnt ist v0.11.0), dazu neuere Commits und Images. Ablauf in [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
 - [ ] 13.14 CVE-Kandidaten sichten: Dashboard „Security and Updates“. Geprüfte False Positives in `nixos.system.vulnscan.ignore` eintragen.
-- [ ] 13.15 hypr-dynamic-cursors: Die Version aus nixpkgs (2026-07-21) wirft auf Hyprland 0.56.2 beim Laden eine Exception und ist deshalb aus `plugins` in `homeModules/desktop/windowManager/hyprland/hyprland.nix` entfernt. Nach einem `nix flake update` wieder eintragen und mit `hyprctl plugin list` prüfen, die Einstellungen in `config/hyprland.lua` sind noch da.
 - [ ] 13.17 Titelleisten in Plasma prüfen: Unter Hyprland gesetzte Variablen (`NIXOS_OZONE_WL`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`) landeten über `variables = --all` im User-Manager und damit in der nächsten Plasma-Sitzung. Electron-Programme liefen dadurch nativ auf Wayland mit eigener Titelleiste. Jetzt werden nur noch die nötigen Variablen exportiert. Nach dem Neustart prüfen: `systemctl --user show-environment | grep -c NIXOS_OZONE_WL` ist 0, auch nach einem Wechsel von Hyprland zu Plasma.
 - [ ] 13.18 Server nach dem Einspielen von Updates neu starten. Kernel und initrd greifen erst dann, Server1 und die VPS warten danach auf die LUKS-Entsperrung per SSH.
 - [ ] 13.19 `flake.lock` am 03.11.2026 aktualisiert (Kernel 7.3.1, Hyprland 0.57). Angepasst: `boot.initrd.systemd.enable` und `preLVM` entfallen, Nextcloud-Admin per `nextcloud-occ` (8.8), Ventoy 1.1.18. Nach jedem Update alle Hosts bauen.
 - [ ] 13.20 Lutris ist auf NixOS-Portable aus, die FHS-Umgebung braucht GTK2, das nixpkgs als kaputt markiert. Nach einem Update wieder in `hosts/NixOS-Portable/home/home.nix` aktivieren.
 - [ ] 13.21 Overlay `pkgs/default.nix`: `sqliteschema` und `SimpleSQLite` verlangen `typepy < 2`, nixpkgs liefert 2.0 (für `sbomnix` bzw. `vulnscan`). Die Grenze ist per `pythonRelaxDeps` gelockert. Nach einem Update prüfen, ob nixpkgs das selbst behoben hat, dann den Block entfernen.
 - [ ] 13.22 `nixosModules/virtualisation/kvm.nix`: `vendor-reset` installiert in nixpkgs nur die `.ko`. Seit Kernel 7.3 erwartet `aggregateModules` zu jedem externen Modul eine `.ko.cer`, sonst scheitert `linux-*-modules`. Der Override installiert über kbuilds `modules_install` (wie `broadcom-sta` in nixpkgs). Nach einem Update prüfen, ob das Paket in nixpkgs selbst `modules_install` nutzt, dann den Override entfernen.
-- [ ] 13.16 Hyprland: Lag beim Klick auf Waybar-Elemente beobachten. In der Sandbox nicht reproduzierbar: rofi, wlogout, pavucontrol und kitty öffnen in 0,06 bis 0,27 s, auch mit den echten 87 `XDG_DATA_DIRS`, Waybar liegt im Leerlauf bei 0 % CPU. Geändert wurden die wahrscheinlichsten Ursachen der echten Session: Unter Hyprland lief das KDE-Portal (`portals.conf` mit `default=kde` hatte Vorrang), jetzt `hyprland;gtk`. Außerdem keine CSS-Übergänge mehr in Waybar und weniger Blur. Tritt es noch auf, zuerst notieren, welches Element es trifft (Tray-Menüs, Tooltips oder alles), dann `hyprctl plugin unload` für hyprtasking testen (das Plugin hängt an den Mausklicks) und `journalctl --user -b | grep -iE "portal|timeout"` ansehen.
+- [ ] 13.23 Zertifikate auf Server1: `comfyui`, `grafana`, `homebox` und `libretranslate` hatten nur das selbstsignierte Ersatzzertifikat. Ursache: lego 5 (Update vom 03.11.2026) kennt `--dns.propagation-wait` nicht mehr, jede neue Bestellung und jede Verlängerung brach ab. Mullvad und unbound waren nicht beteiligt. Jetzt `--dns.propagation.wait` in `nixosModules/server/network/nginx.nix`. Nach dem Deploy prüfen: `systemctl list-units --all 'acme-order-renew-*' | grep -v -E 'dead|exited'` ist leer, im Browser zeigen die vier Seiten ein Zertifikat von Let's Encrypt. Bei jedem lego-Update die Flags in `extraLegoFlags` gegen `lego run --help` prüfen.
+- [ ] 13.24 ClamAV in Grafana prüfen: Nach dem Deploy auf jedem Host einmal `sudo systemctl start clamdscan` (dauert auf dem Desktop gut eine Stunde), danach im Dashboard „Security and Updates“ die Zeilen „Infected files“, „ClamAV findings“ und „Last ClamAV scan“. Alarme: `MalwareFound` (Fund) und `MalwareScanStale` (älter als 3 Tage).
+- [ ] 13.25 ClamAV-Funde auf dem Desktop vom 03.11.2026 bewerten (13 Treffer):
+  - [ ] `Win.Trojan.Virut-248` in `d3d11.dll` (32 Bit) von DXVK in allen Versionen, unter Heroic, im winetricks-Cache und im Fusion-360-Prefix. Sehr wahrscheinlich ein Fehlalarm: Virut infiziert beliebige Programme, hier trifft es nur dieselbe DLL aus unabhängigen Quellen. Prüfen: die Datei bei VirusTotal per Hash suchen (`sha256sum`, nicht hochladen). Bestätigt sich der Fehlalarm, die Signatur in ClamAV ignorieren (eigene Option `ignoreSignatures` in `nixosModules/system/clamav.nix`, schreibt `local.ign2`), sonst die Prefixe neu anlegen.
+  - [ ] `Email.Phishing.VOF1-6336236-0` im Mailordner `PC-Infos` (1&1) und in alten Thunderbird-Sicherungen unter `Wichtige Datein/Mail`: eine gespeicherte Phishing-Mail. Löschen oder behalten, sie ist ungefährlich, solange niemand den Link öffnet.
+- [ ] 13.26 CVEs der Clients: Ergebnisse liegen jetzt in der Persistenz (`/var/lib/prometheus-node-exporter`), das Dashboard zeigt für nicht erreichbare Hosts den letzten Stand der letzten 14 Tage. Prüfen: auf einem Laptop `sudo systemctl start vulnscan`, danach erscheint er im Dashboard, auch nachdem er wieder aus ist. Voraussetzung ist, dass Prometheus den Laptop erreicht (LAN oder WireGuard, Phase 9).
 
 ## Phase 14 – Security, später entschieden
 
@@ -373,11 +381,6 @@ Ziel: Erst das Programm von Hand einstellen, dann die Konfiguration übernehmen.
 - [ ] 16.4 rclone
 - [ ] 16.5 Rnote
 - [ ] 16.6 Xournal++
-- [ ] 16.7 Hyprland später wieder aufnehmen. Seit 03.11.2026 auf allen Clients aus (`hyprland.enable = false` in `hosts/<Host>/configuration.nix`), Plasma ist der einzige Desktop. Die Module bleiben im Repo. Beim Wiedereinschalten:
-  - [ ] `hyprtasking` (Super+Tab) und `hyprgrass` (Touch am Convertible) bauen gegen Hyprland 0.57 nicht, auch nicht in der neuesten Version. Neue Versionen prüfen oder die Plugins weglassen.
-  - [ ] Abmelden testen: Super+Shift+Q, Power-Menü und Waybar nutzen `session-logout`. Es stoppt die Dienste, beendet Hyprland und beendet nach 5 Sekunden die Session per `loginctl`, falls Hyprland hängt. Am 03.11.2026 auf dem Framework noch fehlerhaft, die Ursache ist ungeklärt: `journalctl --user -b -g "session-logout|hyprland"` dabei mitschneiden.
-  - [ ] Prüfen, ob der Waybar-Patch für Workspace-Klicks noch nötig ist (`waybar.nix`).
-  - [ ] In der echten Session testen: Enter im Dashboard, Helligkeit per DDC, Kalender-Sync mit Radicale, Lag aus 13.16, Titelleisten aus 13.17.
 
 ## Phase 17 – Privates Repo auf GitHub, Merge nach `main` und automatische Updates
 
@@ -394,3 +397,37 @@ Erst wenn die Hosts auf dem neuen Stand laufen. Bis dahin ist `system.autoUpgrad
 - [ ] 17.6 `rework` nach `main` mergen und pushen, vorher Prüfung aus 2.3 auf dem gesamten Diff.
 - [ ] 17.7 In `hosts/NixOS-Server1/configuration.nix`, `hosts/NixOS-ServerPublic/configuration.nix` und `hosts/NixOS-ServerGaming/configuration.nix` wieder `system.autoUpgrade.enable = true;` setzen, committen, einmal deployen. Am nächsten Morgen `systemctl status nixos-upgrade` prüfen.
 - [ ] 17.8 Abschluss, wenn alles steht (nach 17.7): Journal und Coredumps auf allen Clients (Desktop, Framework, Convertible, Portable) und allen Servern (Server1, ServerPublic, ServerGaming) noch einmal prüfen, auch wenn 5.1a und 13.1 schon erledigt sind. Pro Host einmal neu starten, auf Clients in Plasma an- und abmelden, dann `journalctl -b -p err` und `coredumpctl list -S today`. Jede neue Meldung in 13.1 bewerten.
+
+## Phase 18 – Hyprland (später)
+
+Alle Hyprland-Punkte an einer Stelle, zusammengeführt am 04.11.2026 aus 4.12, 5.2, 5.3, 13.1, 13.4, 13.15, 13.16 und 16.7. Hyprland ist seit 03.11.2026 auf allen Clients aus (`hyprland.enable = false` in `hosts/<Host>/configuration.nix`), Plasma ist der einzige Desktop. Die Module bleiben im Repo, das Touch-Modul wirkt nur mit Hyprland.
+
+- [ ] 18.1 Wieder einschalten: in `hosts/<Host>/configuration.nix` die Zeile `hyprland.enable = false;` entfernen, bauen, abmelden → SDDM → Session „Hyprland“. Der Wetterort kommt aus sops (`weather-location`: Name, Breite, Länge als JSON, in `secrets/secrets.yaml` und `$PRIV/secrets/nixos-portable.yaml`). Tastenkürzel: Super+X → System → Keybindings oder `homeModules/desktop/windowManager/hyprland/README.md`.
+- [ ] 18.2 Plugins: `hyprtasking` (Super+Tab) und `hyprgrass` (Touch am Convertible) bauen gegen Hyprland 0.57 nicht, auch nicht in der neuesten Version. Neue Versionen prüfen oder die Plugins weglassen.
+  - [ ] hyprgrass: prüfen, ob `pkgs.hyprlandPlugins.hyprgrass` wieder baut. Dann `pkgs/hyprgrass` löschen und in `touch.nix` `pkgs.hyprlandPlugins.hyprgrass` verwenden.
+  - [ ] hypr-dynamic-cursors: Die Version aus nixpkgs (2026-07-21) warf auf Hyprland 0.56.2 beim Laden eine Exception und ist deshalb aus `plugins` in `homeModules/desktop/windowManager/hyprland/hyprland.nix` entfernt. Wieder eintragen und mit `hyprctl plugin list` prüfen, die Einstellungen in `config/hyprland.lua` sind noch da.
+- [ ] 18.3 Abmelden testen: Super+Shift+Q, Power-Menü und Waybar nutzen `session-logout`. Es stoppt die Dienste, beendet Hyprland und beendet nach 5 Sekunden die Session per `loginctl`, falls Hyprland hängt. Am 03.11.2026 auf dem Framework noch fehlerhaft, die Ursache ist ungeklärt: `journalctl --user -b -g "session-logout|hyprland"` dabei mitschneiden. Hintergrund: Die Hooks in `hyprland.shutdown` (auch der von Home Manager) stoppen die Dienste blockierend, der Compositor wartet auf die Dienste und die Dienste auf ihn. Erwartet: Abmelden dauert wenige Sekunden, `coredumpctl list -S today` zeigt nichts Neues.
+- [ ] 18.4 Lag beim Klick auf Waybar-Elemente beobachten. In der Sandbox nicht reproduzierbar: rofi, wlogout, pavucontrol und kitty öffnen in 0,06 bis 0,27 s, auch mit den echten 87 `XDG_DATA_DIRS`, Waybar liegt im Leerlauf bei 0 % CPU. Geändert wurden die wahrscheinlichsten Ursachen: Unter Hyprland lief das KDE-Portal (`portals.conf` mit `default=kde` hatte Vorrang), jetzt `hyprland;gtk`. Außerdem keine CSS-Übergänge mehr in Waybar und weniger Blur. Tritt es noch auf, zuerst notieren, welches Element es trifft (Tray-Menüs, Tooltips oder alles), dann `hyprctl plugin unload` für hyprtasking testen (das Plugin hängt an den Mausklicks) und `journalctl --user -b | grep -iE "portal|timeout"` ansehen.
+- [ ] 18.5 Prüfen, ob der Waybar-Patch für Workspace-Klicks noch nötig ist (`waybar.nix`).
+- [ ] 18.6 In der echten Session testen: Enter im Dashboard, Helligkeit per DDC, Kalender-Sync mit Radicale, Lag aus 18.4, danach in Plasma die Titelleisten aus 13.17.
+- [ ] 18.7 Convertible: Touch-Gesten, Bildschirmtastatur (Wisch vom unteren Rand nach oben) und automatische Drehung (`iio-hyprland`) testen.
+- [ ] 18.8 Laptops: kanshi-Profile prüfen (Laptop allein / mit externem Monitor). Positionen bei Bedarf in `hosts/<host>/home/hyprland.nix` anpassen.
+- [ ] 18.9 Journal wie in 5.1a, diesmal in Hyprland an- und abmelden.
+
+## Phase 19 – Test-Anwendungen auf ServerGaming (zuletzt wieder entfernen)
+
+Nextcloud mit Collabora, Mumble, code-server und die Countdown-Seite laufen nur zum Testen auf ServerGaming, nicht auf ServerPublic. Alles steht in `hosts/NixOS-ServerGaming/temp/`, die Module bleiben in `nixosModules/`. Auf ServerPublic bleiben Stalwart, Matrix mit Bridges und coturn, ntfy, Miniflux, CryptPad und Briar Mailbox.
+
+Einrichten (nach 8B, wenn ServerGaming läuft):
+
+- [ ] 19.1 Secrets: `codeserver/env` (`HASHED_PASSWORD=<argon2-Hash>`) und `murmur/env` aus `nixos-serverpublic.yaml` nach `nixos-servergaming.yaml` übertragen (`cd $PRIV/secrets && sops nixos-servergaming.yaml`), dann in `nixos-serverpublic.yaml` löschen, committen, `nix flake update private`.
+- [ ] 19.2 DNS: A/AAAA für `cloud`, `office`, `code` und `murmur` auf den Gaming-VPS umstellen (`countdown` steht schon in 8.15).
+- [ ] 19.3 Firewall im Contabo-Panel: Regel „mumble-test“ (64738 TCP und UDP) für ServerGaming, siehe Tabelle in 8.4.
+- [ ] 19.4 Nextcloud-Admin anlegen, NixOS setzt ihn seit dem Update vom 03.11.2026 nicht mehr selbst: `sudo nextcloud-occ user:add <name>`, dann `sudo nextcloud-occ group:adduser admin <name>`. Passwort nur in KeePassXC. Talk hat hier keinen TURN-Server (coturn läuft auf ServerPublic).
+
+Entfernen (ganz zum Schluss):
+
+- [ ] 19.5 Daten sichern, die bleiben sollen (Nextcloud-Dateien, Kalender und Kontakte), z. B. per Nextcloud-Client oder `sudo -u nextcloud nextcloud-occ` Export.
+- [ ] 19.6 `hosts/NixOS-ServerGaming/temp/` löschen und die Zeile `./temp` in `hosts/NixOS-ServerGaming/default.nix` und `hosts/NixOS-VMServerGaming/default.nix` entfernen. Den Abschnitt „ServerGaming: Test“ in `nixosModules/server/management/glance-server-page.nix` löschen. Bauen, deployen.
+- [ ] 19.7 Reste auf dem Server löschen: `/persistent/var/lib/nextcloud`, die PostgreSQL-Datenbank `nextcloud` (`sudo -u postgres dropdb nextcloud`), `/persistent/var/lib/redis-nextcloud`.
+- [ ] 19.8 DNS-Einträge `cloud`, `office`, `code`, `murmur` und `countdown` löschen, Firewall-Regel „mumble-test“ im Contabo-Panel löschen, Secrets `codeserver/env` und `murmur/env` aus `nixos-servergaming.yaml` entfernen.

@@ -308,20 +308,23 @@ in
             url = "https://mail.${mailDomain}";
             icon = "di:stalwart";
           }
-          (publicApp "Nextcloud" "cloud" "di:nextcloud")
-          (publicApp "Nextcloud Office" "office" "di:collabora-online")
           (publicApp "CryptPad" "cryptpad" "di:cryptpad")
           (publicApp "Matrix" "matrix" "di:matrix-light")
           (publicApp "ntfy" "push" "di:ntfy")
           (publicApp "Miniflux" "rss" "di:miniflux")
-          (publicApp "Mumble" "murmur" "di:mumble")
-          (publicApp "code-server" "code" "di:code-server.png")
         ])
         (hostStats "NixOS-ServerGaming" "NixOS-ServerGaming")
         minecraft
         (monitor "ServerGaming" [
           (publicApp "BlueMap" "bluemap" "di:minecraft")
+        ])
+        # hosts/NixOS-ServerGaming/temp, removed later.
+        (monitor "ServerGaming: Test" [
           (publicApp "Countdown" "countdown" "auto-invert di:cronicle")
+          (publicApp "Nextcloud" "cloud" "di:nextcloud")
+          (publicApp "Nextcloud Office" "office" "di:collabora-online")
+          (publicApp "Mumble" "murmur" "di:mumble")
+          (publicApp "code-server" "code" "di:code-server.png")
         ])
       ];
     }

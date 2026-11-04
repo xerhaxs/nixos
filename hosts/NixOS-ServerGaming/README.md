@@ -2,13 +2,13 @@
 
 ## Purpose
 
-Public VPS for games only: Minecraft with BlueMap and the countdown website, no other services. Backups to NixOS-Server1.
+Public VPS for games: Minecraft with BlueMap. For testing only (`temp/`, removed later): the countdown website, Nextcloud with Collabora, Mumble and code-server. Backups to NixOS-Server1.
 
 ## How it works
 
 - `default.nix` imports the files below. See `hosts/README.md` for the separation of profile and machine.
 - ssh is reachable publicly until this host has a public key in `nixosModules/system/wireguard.nix`, afterwards only through WireGuard.
-- The date of the countdown is `target` in `server.nix`.
+- The date of the countdown is `target` in `temp/default.nix`.
 
 ## Contents
 
@@ -23,5 +23,6 @@ Public VPS for games only: Minecraft with BlueMap and the countdown website, no 
 | `machine.nix` | Machine: state version, initrd ssh. |
 | `minecraft.nix` | Minecraft server instances, BlueMap and its nginx virtual host. |
 | `networking.nix` | Hostname and addresses (`nixos.site.serverGaming`). |
-| `server.nix` | Enabled services and the countdown. |
+| `server.nix` | Enabled services. |
+| [`temp/`](temp/README.md) | Services only for testing (countdown, Nextcloud, Mumble, code-server), removed later. |
 | `wireguard.nix` | WireGuard peer. |
