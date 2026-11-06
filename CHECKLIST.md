@@ -288,3 +288,5 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | WLAN: Heimnetz nur WPA3 mit Pflicht-PMF und fester MAC, Hotspot WPA2, doppelte gespeicherte Profile werden beim Boot entfernt | `nixosModules/system/networking.nix` | Convertible verbindet nach dem Neustart, `nmcli connection show` zeigt das Heimnetz einmal |
 | [ ] | LibreWolf: WebGL wieder an | `homeModules/applications/browser/librewolf.nix` | https://get.webgl.org |
 | [ ] | Firewall-Tabelle: smtps (465) und submission (587) getrennt | `TODO.md` 8.4 | – |
+| [ ] | `~/.ssh/id_ed25519.pub` kommt aus `authorizedKeys` (Kommentar `jf@<Host>`), auch nach einer Neuinstallation | `homeModules/base/ssh.nix` | `readlink ~/.ssh/id_ed25519.pub` zeigt in den Store, `ssh admin@NixOS-Server1` klappt |
+| [ ] | `~/.config/sops` nicht mehr persistiert | `homeModules/base/secrets.nix` | nach dem Neustart kein `~/.config/sops` |

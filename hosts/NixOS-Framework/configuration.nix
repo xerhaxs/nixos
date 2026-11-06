@@ -9,6 +9,8 @@
 {
   _module.args.userName = "jf";
 
+  nixos.system.sops.file = "clients";
+
   system.stateVersion = "25.11";
 
   nixos.desktop = {

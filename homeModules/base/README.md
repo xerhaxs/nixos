@@ -8,8 +8,8 @@ Shell and CLI configuration of the user.
 
 - bash, btop, git, GnuPG, ranger, ssh, starship and vim.
 - `gpg.nix`: GnuPG with WKD lookup and gpg-agent, imports the own public key from the private repository.
-- `ssh.nix`: offers only the own key to the servers (they allow 3 attempts).
-- `persistent.nix` and `secrets.nix` keep the user data and the key directories (`.config/sops`, `.ssh`, `.gnupg`) on impermanence hosts.
+- `ssh.nix`: offers only the own key to the servers (they allow 3 attempts) and writes `~/.ssh/id_ed25519.pub` from `nixos.system.ssh.authorizedKeys` (comment `<user>@<host>`), the private key stays in KeePassXC.
+- `persistent.nix` and `secrets.nix` keep the user data and the key directories (`.ssh`, `.gnupg`) on impermanence hosts. `.config/sops` is not kept, the sops admin key comes from KeePassXC.
 
 ## Contents
 

@@ -21,8 +21,9 @@
 
   config = lib.mkIf config.homeManager.base.secrets.enable {
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      # No .config/sops: the sops admin key comes from KeePassXC (SOPS_AGE_KEY_CMD), a key file
+      # there would survive reboots.
       directories = [
-        ".config/sops"
         {
           directory = ".ssh";
           mode = "0700";

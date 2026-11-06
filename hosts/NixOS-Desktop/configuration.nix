@@ -9,6 +9,8 @@
 {
   _module.args.userName = "jf";
 
+  nixos.system.sops.file = "clients";
+
   nixos.desktop = {
     enable = true;
     desktopEnvironment = {

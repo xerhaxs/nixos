@@ -70,6 +70,21 @@ sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt
 
 The admin key exists only in KeePassXC (entry with the URL `https://sops-admin.invalid`). `sops` gets it through `SOPS_AGE_KEY_CMD` and `git-credential-keepassxc` while the database is unlocked, like the SSH keys. One-time setup per client: `kpxc-cred configure`.
 
+Every host key is backed up in KeePassXC as entry `age <host>` (the line `AGE-SECRET-KEY-1…` as password, the public key in the notes). These entries must not have the URL `https://sops-admin.invalid`: KeePassXC returns the first entry with a matching URL, sops would get a host key instead of the admin key and fail with "identity did not match any of the recipients".
+
+### Reinstalling a host with its existing key
+
+The sops file stays encrypted for the same key, nothing has to be re-encrypted. Take the key line from the KeePassXC entry `age <host>`:
+
+- Installer (`NixOSInstaller.sh`): paste it at "Paste the sops age key of this host", it ends up in `/mnt/secrets/keys.txt` (mode 0400, root).
+- nixos-anywhere (ServerPublic, ServerGaming): put it into the directory given to `--extra-files`: `mkdir -p extra/secrets && (umask 077 && cat > extra/secrets/keys.txt)`, paste the line, Ctrl+D, then `nixos-anywhere ... --extra-files extra`. Delete `extra/` afterwards (`shred -u extra/secrets/keys.txt`).
+- Manual install (Portable): before the first boot `sudo install -m 400 -o root -D /dev/stdin /mnt/secrets/keys.txt`, paste the line, Ctrl+D.
+- Copy to an already installed host: `ssh -t <host> 'sudo install -m 400 -o root -D /dev/stdin /secrets/keys.txt'`, paste the line, Ctrl+D, then reboot or run the activation again (`sudo /run/current-system/activate`), sops-nix installs the secrets during activation.
+
+Check after the first boot: `sudo age-keygen -y /secrets/keys.txt` shows the public key of the host in `.sops.yaml`, `systemctl --failed` is empty.
+
+SSH needs nothing after a reinstall of a client: Home Manager writes `~/.ssh/id_ed25519.pub` from `nixos.system.ssh.authorizedKeys`, the private key comes from KeePassXC (SSH agent) once the database is unlocked. If the key is lost: generate a new one as above, replace it in `.sops.yaml`, `sops updatekeys -y <file>.yaml` (admin key from KeePassXC), commit, `nix flake update private`, deploy.
+
 ### Secure Boot
 
 1. `sudo sbctl create-keys` (stored in `/var/lib/sbctl`, persisted).

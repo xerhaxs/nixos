@@ -5,14 +5,14 @@ KeePassXC can store SSH private keys as attachments of database entries and load
 ## Setup in this repository
 
 - `homeModules/applications/tools/keepassxc.nix`: `SSHAgent.Enabled = true`, and since now an ssh-agent user service (`services.ssh-agent`) with `SSH_AUTH_SOCK` exported to the graphical session, so KeePassXC finds the agent. Before this change no agent was running, the integration had nothing to talk to.
-- `homeModules/base/ssh.nix`: for the own servers only `~/.ssh/id_ed25519` is offered (`IdentitiesOnly`). ssh uses the key from the agent when it is loaded and the file otherwise, the private key may stay only in KeePassXC as long as `id_ed25519.pub` exists. The servers allow only 3 authentication attempts, an agent with many keys would fail otherwise.
+- `homeModules/base/ssh.nix`: for the own servers only `~/.ssh/id_ed25519` is offered (`IdentitiesOnly`). Home Manager writes `~/.ssh/id_ed25519.pub` from `nixos.system.ssh.authorizedKeys` (the entry with the comment `jf@<host>`), so it is back after a reinstall. ssh uses the key from the agent when it is loaded and the file otherwise, the private key may stay only in KeePassXC as long as `id_ed25519.pub` exists. The servers allow only 3 authentication attempts, an agent with many keys would fail otherwise.
 
 ## Steps (once)
 
 1. In KeePassXC create an entry "SSH id_ed25519", attach `~/.ssh/id_ed25519` (Advanced > Attachments), put the key passphrase into the password field.
 2. Entry > SSH Agent: "Add key to agent when database is opened/unlocked", "Remove key from agent when database is closed/locked", optional "Require user confirmation when this key is used" (every use asks; needs `ssh-askpass`, KDE has ksshaskpass) and a lifetime.
 3. Check: unlock the database, `ssh-add -l` lists the key; lock it, the list is empty.
-4. Keep `~/.ssh/id_ed25519.pub` on disk, delete the private key file from `~/.ssh` (it stays in the database and its backups).
+4. Delete the private key file from `~/.ssh` (it stays in the database and its backups). The `.pub` comes from the configuration, a new key needs its public key with the comment `jf@<host>` in `nixos.system.ssh.authorizedKeys`.
 
 ## Does it improve security?
 
