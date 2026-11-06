@@ -60,14 +60,15 @@ Desktops can start Plasma or Hyprland in SDDM; see `homeModules/desktop/windowMa
 
 ### Host keys for sops
 
+Every host decrypts only its own file of `nixos-private/secrets/` (`nixos.system.sops.file`): one per server and for the portable SSD, `clients.yaml` for Desktop, Framework and Convertible. Only that file is copied to the host. Each host has its own key, generated on the host:
+
 ```
-# new key of a host
-nix shell nixpkgs#age -c age-keygen -o /secrets/keys.txt
-# public key, add it to nixos-private/secrets/.sops.yaml and run: sops updatekeys <hostname>.yaml
-nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt
-# key from an ssh private key
-nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/private > ~/.config/sops/age/keys.txt
+sudo nix shell nixpkgs#age -c age-keygen -o /secrets/keys.txt
+# public key, add it to nixos-private/secrets/.sops.yaml and run: sops updatekeys -y <file>.yaml
+sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt
 ```
+
+The admin key exists only in KeePassXC (entry with the URL `https://sops-admin.invalid`). `sops` gets it through `SOPS_AGE_KEY_CMD` and `git-credential-keepassxc` while the database is unlocked, like the SSH keys. One-time setup per client: `kpxc-cred configure`.
 
 ### Secure Boot
 

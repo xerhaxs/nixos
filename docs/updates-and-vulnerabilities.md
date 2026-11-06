@@ -35,6 +35,14 @@ Alerts: new critical candidates, a scan older than 14 days, malware found by Cla
 
 ## ClamAV
 
-`clamdscan` scans `/home`, `/var/lib`, `/tmp`, `/etc`, `/var/tmp` and the extra directories of the host every night at 04:00 (`nixos.system.clamav`), freshclam updates the signatures hourly. A wrapper writes the number of infected files, the errors, the duration and up to 100 findings (path and signature) to `clamav.prom`. Exit code 1 means "found something" and does not mark the unit as failed, the alert `MalwareFound` reports it instead.
+| What | When | Where |
+|---|---|---|
+| Scan of new and changed files (ctime newer than the last scan) | every night at 04:00, a missed run starts after the next boot | all hosts: `/home`, `/var/lib`, `/etc`, `/tmp`, `/var/tmp` and the extra directories of the host (Desktop `/mount/Data/Datein`, Server1 `/pool01/shares` without `video`) |
+| Full scan of the same directories | on the 1st of the month (`fullScanDay`) or without a previous scan | all hosts |
+| On-access scan, infected files cannot be opened | when a program opens a file | only clients: download directory and `/tmp/mozilla_<user>0` (attachments opened from Thunderbird) |
+
+clamd uses at most 2 threads (`maxThreads`) with the lowest CPU and IO priority. On the clients it runs permanently for the on-access scan, on the servers it is started for the nightly scan and stopped afterwards (it holds the signatures in up to 3 GB of RAM). freshclam updates the signatures hourly.
+
+A wrapper writes the number of infected files, the errors, the number of changed files, whether it was a full scan and up to 100 findings (path and signature) to `clamav.prom`. Exit code 1 means "found something" and does not mark the unit as failed, the alert `MalwareFound` reports it instead. `sudo systemctl start clamdscan` runs the mode of the day, `sudo clamdscan-metrics full` forces a full scan.
 
 Findings can be false positives, for example in DLLs of Wine and DXVK. Look up the file hash (not the file) on VirusTotal before deleting anything.

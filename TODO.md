@@ -122,13 +122,43 @@ Nacharbeiten:
 
 Hintergrund: Die alte `secrets/secrets.yaml` und die alten Passwort-Hashes sind in der öffentlichen Git-Historie. Ändere deshalb alles, was dort stand.
 
-7A – sops pro Host (siehe auch README → „Host keys for sops“):
+7A – sops: getrennte Dateien und Schlüssel (Plan vom 06.11.2026, siehe auch README → „Host keys for sops“)
 
-- [ ] 7.1 Pro Host einen neuen age-Key erzeugen: `sudo nix shell nixpkgs#age -c age-keygen -o /secrets/keys.txt && sudo chmod 400 /secrets/keys.txt`. Den Public Key zeigt `age-keygen -y /secrets/keys.txt`.
-- [ ] 7.2 Die Public Keys in `$PRIV/secrets/.sops.yaml` eintragen und die auskommentierten Zeilen (`#- *sops_desktop` usw.) aktivieren.
-- [ ] 7.3 Pro Host eine Datei `$PRIV/secrets/<hostname>.yaml` anlegen und die Werte aus `sops -d $REPO/secrets/secrets.yaml` übernehmen, aber nur die des jeweiligen Hosts (Schlüsselliste unten).
-- [ ] 7.4 Auf jedem Host `nixos.system.sops.perHostFile = true;` setzen (Portable, ServerPublic und ServerGaming haben das schon).
-- [ ] 7.5 Wenn alle Hosts umgestellt sind: `git rm secrets/secrets.yaml secrets/.sops.yaml` im öffentlichen Repo.
+Ziel: Ein gehackter Server betrifft nur seine eigene Datei, Server und Clients teilen keine Datei. Jeder Host hat einen eigenen Schlüssel in `/secrets/keys.txt`, der Admin-Schlüssel liegt nur in KeePassXC. Auf jeden Host kommt nur seine eigene sops-Datei, nicht mehr das ganze private Repo (seit 06.11.2026 im Code, `nixos.system.sops.file`).
+
+| Datei in `$PRIV/secrets/` | Hosts | Verschlüsselt für |
+|---|---|---|
+| `clients.yaml` | Desktop, Framework, Convertible | Admin, `sops_desktop`, `sops_framework`, `sops_convertible` |
+| `nixos-server1.yaml` | Server1 | Admin, `sops_server1` (neu erzeugen) |
+| `nixos-serverpublic.yaml` | ServerPublic | Admin, `sops_serverpublic` |
+| `nixos-servergaming.yaml` | ServerGaming | Admin, `sops_servergaming` |
+| `nixos-portable.yaml` | Portable (eigene Datei, die SSD geht am ehesten verloren) | Admin, `sops_portable` |
+
+Werte, die mehrere Seiten brauchen (`mullvad`, `radicale/htpasswd`), stehen in beiden Dateien. Geht ein Client verloren: seinen Schlüssel aus `.sops.yaml` streichen, `sops updatekeys -y clients.yaml`, die Werte in `clients.yaml` rotieren. Die Server bleiben unberührt.
+
+- [ ] 7.0 Admin-Schlüssel nur noch in KeePassXC. Voraussetzung: Desktop mit dem Stand vom 06.11.2026 neu gebaut und neu angemeldet (`echo $SOPS_AGE_KEY_CMD` zeigt einen Pfad).
+  - [ ] Neuen Admin-Schlüssel erzeugen, ohne Datei: `nix shell nixpkgs#age -c age-keygen`. Die Zeile `AGE-SECRET-KEY-1…` als Passwort in einen neuen KeePassXC-Eintrag „sops age admin“, URL `https://sops-admin.invalid`, den Public Key (`age1…`) in die Notizen. Der alte Schlüssel lag als Datei auf mehreren Rechnern und kann die öffentliche Git-Historie von `secrets/secrets.yaml` lesen, deshalb ein neuer.
+  - [ ] Einmal verbinden: `kpxc-cred configure` (KeePassXC entsperrt, Verbindung bestätigen und benennen).
+  - [ ] In `$PRIV/secrets/.sops.yaml` und `$REPO/secrets/.sops.yaml` bei `sops_jf` den neuen Public Key eintragen. Dann mit dem alten Schlüssel neu verschlüsseln: `cd $PRIV/secrets && for f in nixos-*.yaml; do SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops updatekeys -y $f; done`, ebenso `$REPO/secrets/secrets.yaml`.
+  - [ ] Test: `sops -d $PRIV/secrets/nixos-portable.yaml | head -3`. KeePassXC fragt nach dem Zugriff, „Merken“ wählen.
+  - [ ] Erst danach den alten löschen: `shred -u ~/.config/sops/age/keys.txt`. Auf jedem Client prüfen, ob `/secrets/keys.txt` der alte Admin-Schlüssel ist (`sudo age-keygen -y /secrets/keys.txt` mit dem alten `sops_jf` vergleichen), er wird in 7.1 ersetzt.
+  - [ ] Offline-Kopie des neuen Admin-Schlüssels (Ausdruck oder USB-Stick), siehe [`docs/disaster-recovery.md`](docs/disaster-recovery.md).
+- [ ] 7.1 Pro Host einen eigenen Schlüssel direkt auf dem Host erzeugen: `sudo nix shell nixpkgs#age -c age-keygen -o /secrets/keys.txt && sudo chmod 400 /secrets/keys.txt`, Public Key mit `sudo age-keygen -y /secrets/keys.txt`. Sicherung in KeePassXC als Eintrag „age <host>“. Für Server1 einen neuen (der alte konnte die gemeinsame Datei mit den Client-Secrets lesen). 7.1 bis 7.4 pro Host in einem Zug: Bis zum Rebuild aus 7.4 passt der neue Schlüssel nicht zur alten Datei, ein Neustart dazwischen ließe die Dienste ohne Secrets starten.
+- [ ] 7.2 Die Public Keys in `$PRIV/secrets/.sops.yaml` eintragen (`sops_<host>`) und in den Regeln einkommentieren. Die Regel für `clients.yaml` steht schon da.
+- [ ] 7.3 Die gemeinsame Datei aufteilen, ohne Klartext auf der Platte:
+  ```
+  cd $PRIV/secrets
+  cp $REPO/secrets/secrets.yaml clients.yaml
+  cp $REPO/secrets/secrets.yaml nixos-server1.yaml
+  for k in changeme changeme_env cloudflare forgejo glance linkwarden monero nginx sabnzbd searxng smb-share user webdav-share zfs; do sops unset clients.yaml "[\"$k\"]"; done
+  sops unset clients.yaml '["syncthing"]["nixos-server1"]'
+  for k in alphavantage changeme changeme_env cloudflare nas-smb user weather-location wifi; do sops unset nixos-server1.yaml "[\"$k\"]"; done
+  for h in nixos-desktop nixos-framework nixos-convertible nixos-portable; do sops unset nixos-server1.yaml "[\"syncthing\"][\"$h\"]"; done
+  sops updatekeys -y clients.yaml && sops updatekeys -y nixos-server1.yaml
+  ```
+  Fehlermeldungen von `unset` für Schlüssel, die es nicht gibt, sind egal. Prüfen: `sops -d clients.yaml | grep -E '^[a-z]'` zeigt nur `alphavantage`, `mullvad`, `nas-smb`, `radicale`, `syncthing` (nur Clients), `weather-location`, `wifi`. Dann im privaten Repo committen, im öffentlichen `nix flake update private`.
+- [ ] 7.4 Hosts umstellen: in `hosts/NixOS-Desktop/configuration.nix`, `hosts/NixOS-Framework/configuration.nix` und `hosts/NixOS-Convertible/configuration.nix` die Zeile `nixos.system.sops.file = "clients";` ergänzen, in `hosts/NixOS-Server1/configuration.nix` `nixos.system.sops.file = "nixos-server1";` (oder mir Bescheid geben). Bauen, deployen, `systemctl --failed` prüfen.
+- [ ] 7.5 Wenn alle Hosts umgestellt sind: `git rm -r secrets/` im öffentlichen Repo, dazu `../../secrets/secrets.yaml` als Rückfallwert in `nixosModules/system/sops.nix` entfernen. Die Werte stehen weiter verschlüsselt in der öffentlichen Git-Historie, deshalb alles aus 7B rotieren.
 
 7B – Was neu gesetzt werden muss und wo es eingetragen wird:
 
@@ -324,7 +354,11 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
 - [ ] 13.21 Overlay `pkgs/default.nix`: `sqliteschema` und `SimpleSQLite` verlangen `typepy < 2`, nixpkgs liefert 2.0 (für `sbomnix` bzw. `vulnscan`). Die Grenze ist per `pythonRelaxDeps` gelockert. Nach einem Update prüfen, ob nixpkgs das selbst behoben hat, dann den Block entfernen.
 - [ ] 13.22 `nixosModules/virtualisation/kvm.nix`: `vendor-reset` installiert in nixpkgs nur die `.ko`. Seit Kernel 7.3 erwartet `aggregateModules` zu jedem externen Modul eine `.ko.cer`, sonst scheitert `linux-*-modules`. Der Override installiert über kbuilds `modules_install` (wie `broadcom-sta` in nixpkgs). Nach einem Update prüfen, ob das Paket in nixpkgs selbst `modules_install` nutzt, dann den Override entfernen.
 - [ ] 13.23 Zertifikate auf Server1: `comfyui`, `grafana`, `homebox` und `libretranslate` hatten nur das selbstsignierte Ersatzzertifikat. Ursache: lego 5 (Update vom 03.11.2026) kennt `--dns.propagation-wait` nicht mehr, jede neue Bestellung und jede Verlängerung brach ab. Mullvad und unbound waren nicht beteiligt. Jetzt `--dns.propagation.wait` in `nixosModules/server/network/nginx.nix`. Nach dem Deploy prüfen: `systemctl list-units --all 'acme-order-renew-*' | grep -v -E 'dead|exited'` ist leer, im Browser zeigen die vier Seiten ein Zertifikat von Let's Encrypt. Bei jedem lego-Update die Flags in `extraLegoFlags` gegen `lego run --help` prüfen.
-- [ ] 13.24 ClamAV in Grafana prüfen: Nach dem Deploy auf jedem Host einmal `sudo systemctl start clamdscan` (dauert auf dem Desktop gut eine Stunde), danach im Dashboard „Security and Updates“ die Zeilen „Infected files“, „ClamAV findings“ und „Last ClamAV scan“. Alarme: `MalwareFound` (Fund) und `MalwareScanStale` (älter als 3 Tage).
+- [ ] 13.24 ClamAV prüfen (seit 06.11.2026: nachts nur neue und geänderte Dateien, am 1. des Monats alles, niedrigste Priorität mit 2 Threads, clamd auf den Servern nur während des Scans, siehe [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md)):
+  - [ ] Auf jedem Host einmal `sudo clamdscan-metrics full` (legt den Zeitstempel für die nächtlichen Läufe an, dauert auf Server1 viele Stunden, stört aber kaum noch). Danach im Dashboard „Security and Updates“ die Zeilen „Infected files“, „ClamAV findings“ und „Last ClamAV scan“. Alarme: `MalwareFound` (Fund) und `MalwareScanStale` (älter als 3 Tage).
+  - [ ] Nach der nächsten Nacht: `journalctl -u clamdscan -b` zeigt einen kurzen Lauf, `grep changed_files /var/lib/prometheus-node-exporter/clamav.prom` die Zahl der neuen Dateien. Auf Server1 läuft clamd danach nicht mehr (`systemctl is-active clamav-daemon` → `inactive`).
+  - [ ] On-Access auf jedem Client: die EICAR-Testdatei (harmlos, jeder Scanner erkennt sie) in den Download-Ordner legen, `curl -o ~/Downloads/eicar.com https://secure.eicar.org/eicar.com` (auf dem Desktop `/mount/Data/Datein/Downloads`), dann `cat` auf die Datei: Es muss „Operation not permitted“ kommen, im Journal `journalctl -u clamav-clamonacc` steht der Fund. Danach die Datei mit `sudo rm` löschen. Kommt kein Block, `systemctl status clamav-clamonacc` ansehen.
+  - [ ] Funde auf Server1 ansehen: In `/pool01/shares/document/Papa File Share` und `/pool01/shares/document/Software` meldet ClamAV Windows-Schädlinge (`Win.Dropper.Zeus`, `Win.Malware.Pikabot`, `Win.Trojan.Agent` u. a.). Auf NixOS laufen sie nicht, auf einem Windows-PC wären sie gefährlich. Löschen oder in ein Archiv mit Passwort verschieben.
 - [ ] 13.25 ClamAV-Funde auf dem Desktop vom 03.11.2026 bewerten (13 Treffer):
   - [ ] `Win.Trojan.Virut-248` in `d3d11.dll` (32 Bit) von DXVK in allen Versionen, unter Heroic, im winetricks-Cache und im Fusion-360-Prefix. Sehr wahrscheinlich ein Fehlalarm: Virut infiziert beliebige Programme, hier trifft es nur dieselbe DLL aus unabhängigen Quellen. Prüfen: die Datei bei VirusTotal per Hash suchen (`sha256sum`, nicht hochladen). Bestätigt sich der Fehlalarm, die Signatur in ClamAV ignorieren (eigene Option `ignoreSignatures` in `nixosModules/system/clamav.nix`, schreibt `local.ign2`), sonst die Prefixe neu anlegen.
   - [ ] `Email.Phishing.VOF1-6336236-0` im Mailordner `PC-Infos` (1&1) und in alten Thunderbird-Sicherungen unter `Wichtige Datein/Mail`: eine gespeicherte Phishing-Mail. Löschen oder behalten, sie ist ungefährlich, solange niemand den Link öffnet.

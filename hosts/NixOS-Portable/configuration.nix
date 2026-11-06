@@ -27,7 +27,7 @@
     flavor = "Mocha";
   };
 
-  nixos.system.sops.perHostFile = true;
+  nixos.system.sops.file = "nixos-portable";
 
   nixos.userEnvironment.enable = true;
 

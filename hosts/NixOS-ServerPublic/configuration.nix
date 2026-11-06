@@ -8,7 +8,7 @@
 {
   _module.args.userName = "admin";
 
-  nixos.system.sops.perHostFile = true;
+  nixos.system.sops.file = "nixos-serverpublic";
   nixos.system.user.passwordFromSops = true;
 
   services.getty.autologinUser = null;

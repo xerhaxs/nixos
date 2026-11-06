@@ -1,9 +1,27 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
+
+let
+  # git-credential-keepassxc reads entries from the unlocked database through the browser
+  # integration, KeePassXC asks before the first access. The association lives in this file.
+  credConfig = "${config.xdg.configHome}/git-credential-keepassxc/config.json";
+  kpxcCred = pkgs.writeShellScriptBin "kpxc-cred" ''
+    exec ${pkgs.git-credential-keepassxc}/bin/git-credential-keepassxc --config "${credConfig}" "$@"
+  '';
+
+  # sops asks for the admin age key only while editing, the key is the password of the entry with
+  # the URL https://sops-admin.invalid. No copy of it on disk.
+  sopsAgeKey = pkgs.writeShellScript "sops-age-key" ''
+    printf 'protocol=https\nhost=sops-admin.invalid\n\n' \
+      | ${kpxcCred}/bin/kpxc-cred --unlock 3 get \
+      | ${pkgs.gnused}/bin/sed -n 's/^password=//p'
+  '';
+in
 
 {
   options.homeManager = {
@@ -188,6 +206,13 @@
     # KeePassXC adds the SSH keys of the unlocked database to this agent and removes them when it locks.
     services.ssh-agent.enable = true;
     systemd.user.sessionVariables.SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/ssh-agent";
+
+    # sops takes the admin age key from KeePassXC (setup: kpxc-cred configure, see TODO 7A).
+    home.packages = [ kpxcCred ];
+    home.sessionVariables.SOPS_AGE_KEY_CMD = "${sopsAgeKey}";
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [ ".config/git-credential-keepassxc" ];
+    };
 
     programs.plasma.startup.startupScript."keepassxc" = {
       text = ''

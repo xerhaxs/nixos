@@ -33,7 +33,7 @@ Videos are not part of the Proton Drive backup (size). Options for them, from ch
 
 Keep these on paper or on two offline USB sticks (encrypted with a passphrase you can remember), stored in two places:
 
-- sops admin age key (`~/.config/sops/age/keys.txt`, key `age1shm2...`), without it no secret of the private repository can be decrypted.
+- sops admin age key (only in KeePassXC, entry with the URL `https://sops-admin.invalid`, plus an offline copy on paper or a USB stick), without it no secret of the private repository can be edited. Host keys (`/secrets/keys.txt`) are replaceable: a new key plus `sops updatekeys` with the admin key.
 - restic repository passwords (`restic/password` of every host, they are in the sops files, but the sops files are useless without the age key).
 - LUKS passphrases and the TPM2 recovery keys (`systemd-cryptenroll --recovery-key`); LUKS header backups (`cryptsetup luksHeaderBackup`) of every disk.
 - KeePassXC database + key file.

@@ -15,7 +15,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 - `wireguard.nix`: network 10.100.0.0/24 with NixOS-ServerPublic as hub, Pi-hole as DNS through the tunnel, Mullvad bypass.
 - `restic.nix`: encrypted backups with btrfs or ZFS snapshots and PostgreSQL dumps.
 - `notify.nix`: alerts by mail (msmtp) and ntfy for failed units, SMART and ZFS; `killswitch.nix`: power off on an ntfy message.
-- `sops.nix`: sops-nix with one secrets file per host from the private repository (`perHostFile`).
+- `sops.nix`: sops-nix with the secrets file of the host from the private repository (`file`), only that file is copied to the host.
 
 ## Contents
 
@@ -23,7 +23,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 |---|---|
 | `boot.nix` | Set boot options. |
 | `bootloader.nix` | Enable Bootloader. |
-| `clamav.nix` | Enable ClamAV virus scanner (daily scan, findings as Prometheus metrics, see `docs/updates-and-vulnerabilities.md`). |
+| `clamav.nix` | Enable ClamAV virus scanner (nightly scan of new files, monthly full scan, on-access scan of downloads on clients, findings as Prometheus metrics, see `docs/updates-and-vulnerabilities.md`). |
 | `cron.nix` | Enable cron service and the hourly Back In Time job of `dailyProfile`. |
 | `dbus.nix` | Enable dbus. |
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.system.enable`. |
@@ -74,7 +74,11 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.bootloader.removable` | boolean | `false` | Install as removable medium (EFI/BOOT/BOOTX64.EFI, no NVRAM entry), boots on any UEFI machine. |
 | `nixos.system.clamav.enable` | boolean | `false` | Enable ClamAV virus scanner. |
 | `nixos.system.clamav.excludePaths` | list of string | `[ ]` | Regular expressions of paths that are not scanned (ExcludePath). |
-| `nixos.system.clamav.extraScanDirectories` | list of string | `[ ]` | Additional directories of the daily scan (user data, shares, uploads). |
+| `nixos.system.clamav.extraScanDirectories` | list of string | `[ ]` | Additional directories of the nightly scan (user data, shares, uploads). |
+| `nixos.system.clamav.fullScanDay` | integer between 1 and 28 (both inclusive) | `1` | Day of the month with a full scan, the other nights only scan new and changed files. |
+| `nixos.system.clamav.maxThreads` | positive integer, meaning >0 | `2` | Scan threads of clamd (cores used), clamd also runs with the lowest CPU and IO priority. |
+| `nixos.system.clamav.onAccess.enable` | boolean | `config.nixos.desktop.enable` | Scan files in the listed directories when they are opened and block infected ones. clamd then runs permanently, otherwise only for the nightly scan. |
+| `nixos.system.clamav.onAccess.paths` | list of string | `[ <download directory of the user> "/tmp/mozilla_<user>0" ]` | Directories checked on access: downloads and the directory Thunderbird opens attachments from. |
 | `nixos.system.cron.enable` | boolean | `false` | Enable cron service. |
 | `nixos.system.dbus.enable` | boolean | `false` | Enable dbus. |
 | `nixos.system.enable` | boolean | `false` | Enable system modules bundle. |
@@ -125,8 +129,9 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.networking.networkmanager.enable` | boolean | `true` | Use NetworkManager to manage network connections. |
 | `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict). Pi-hole is used through WireGuard when it is up. Captive portals need a manual workaround. |
 | `nixos.system.networking.wifi.enable` | boolean | `false` | Provide the wifi networks from sops (secret wifi) as read-only NetworkManager profiles. |
-| `nixos.system.networking.wifi.homeNetworks` | list of string | `[   "HOME" ]` | Networks of the sops wifi profiles which use the permanent MAC address. |
+| `nixos.system.networking.wifi.homeNetworks` | list of string | `[   "HOME" ]` | Networks of the sops wifi profiles which use the permanent MAC address (same MAC and DHCP lease on every boot). |
 | `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10;   HOTSPOT = 5; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
+| `nixos.system.networking.wifi.wpa3Networks` | list of string | `config.nixos.system.networking.wifi.homeNetworks` | Networks of the sops wifi profiles which only use WPA3 (SAE) with required management frame protection. The others use WPA2 with optional protection. |
 | `nixos.system.nh.enable` | boolean | `false` | Enable nh. |
 | `nixos.system.nixos.enable` | boolean | `false` | Enable the default NixOS settings. |
 | `nixos.system.nixosvm.enable` | boolean | `false` | Enable nixosvm. |
@@ -156,7 +161,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.secureboot.enable` | boolean | `false` | Enable secureboot. |
 | `nixos.system.smartd.enable` | boolean | `false` | Enable smartd. |
 | `nixos.system.sops.enable` | boolean | `false` | Enable Sops. |
-| `nixos.system.sops.perHostFile` | boolean | `false` | Use the own secrets file of the host from the private repository (secrets/<hostname>.yaml). |
+| `nixos.system.sops.file` | null or string | `null` | Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. null uses the old shared secrets/secrets.yaml of this repository. |
 | `nixos.system.ssh.authorizedKeys` | list of string | `[   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhC1nqSGZvIStHk...` | Public keys allowed to login as the system user. |
 | `nixos.system.ssh.enable` | boolean | `false` | Enable ssh with sshguard. |
 | `nixos.system.ssh.listenAddresses` | list of string | `[ ]` | Only listen on these addresses (e.g. the WireGuard IP), the port is not opened publicly then. All addresses if empty. |

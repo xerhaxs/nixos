@@ -22,11 +22,11 @@
         description = "Enable Sops.";
       };
 
-      perHostFile = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        example = true;
-        description = "Use the own secrets file of the host from the private repository (secrets/<hostname>.yaml).";
+      file = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "nixos-serverpublic";
+        description = "Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. null uses the old shared secrets/secrets.yaml of this repository.";
       };
     };
   };
@@ -37,9 +37,14 @@
     ];
 
     sops = {
+      # builtins.path copies only this file. "${private}/..." would put the whole private repository
+      # (all sops files, site.nix with the password hashes of every host) on the host.
       defaultSopsFile =
-        if config.nixos.system.sops.perHostFile then
-          "${private}/secrets/${lib.toLower config.networking.hostName}.yaml"
+        if config.nixos.system.sops.file != null then
+          builtins.path {
+            path = "${private}/secrets/${config.nixos.system.sops.file}.yaml";
+            name = "${config.nixos.system.sops.file}.yaml";
+          }
         else
           ../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";

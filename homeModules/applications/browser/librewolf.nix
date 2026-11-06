@@ -171,8 +171,9 @@ in
         "browser.safebrowsing.provider.google.updateURL" =
           "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
 
-        "webgl.disabled" = true;
-        "librewolf.webgl.prompt.hide" = false;
+        # On by default, too many sites break without it (LibreWolf disables it for fingerprinting).
+        "webgl.disabled" = false;
+        "librewolf.webgl.prompt.hide" = true;
 
         "media.ffmpeg.vaapi.enabled" = true;
         "media.rdd-ffmpeg.enabled" = true;

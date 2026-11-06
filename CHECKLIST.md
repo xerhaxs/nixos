@@ -275,3 +275,16 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | Nextcloud mit Collabora, Mumble, code-server und Countdown nur noch zum Testen auf ServerGaming | `hosts/NixOS-ServerGaming/temp/`, `hosts/NixOS-ServerPublic/server.nix` | TODO Phase 19 |
 | [ ] | Firewall-Tabelle mit Regelname und Quelle | `TODO.md` 8.4 | Regeln im Contabo-Panel gleich benannt |
 | [ ] | Hyprland-TODOs in Phase 18 zusammengeführt | `TODO.md` | – |
+
+## P. Neunte Arbeitsrunde: ClamAV-Last, sops-Trennung, WLAN
+
+| ✓ | Änderung | Wo | Prüfung |
+|---|---|---|---|
+| [ ] | ClamAV: nachts nur neue und geänderte Dateien, monatlich komplett, 2 Threads mit niedrigster Priorität, clamd auf Servern nur während des Scans | `nixosModules/system/clamav.nix` | TODO 13.24 |
+| [ ] | On-Access-Scan mit Sperre für Downloads und Thunderbird-Anhänge auf den Clients | dito | EICAR-Test aus TODO 13.24 |
+| [ ] | Auf jeden Host kommt nur seine eigene sops-Datei, nicht mehr das ganze private Repo | `nixosModules/system/sops.nix` (`file`), `site.nix` | `nix path-info -r` des Systems enthält kein `-source` des privaten Repos |
+| [ ] | Admin-Schlüssel nur in KeePassXC, sops holt ihn über `SOPS_AGE_KEY_CMD` | `homeModules/applications/tools/keepassxc.nix` | TODO 7.0 |
+| [ ] | Regel `clients.yaml` für Desktop, Framework, Convertible | `$PRIV/secrets/.sops.yaml` | TODO 7.2 |
+| [ ] | WLAN: Heimnetz nur WPA3 mit Pflicht-PMF und fester MAC, Hotspot WPA2, doppelte gespeicherte Profile werden beim Boot entfernt | `nixosModules/system/networking.nix` | Convertible verbindet nach dem Neustart, `nmcli connection show` zeigt das Heimnetz einmal |
+| [ ] | LibreWolf: WebGL wieder an | `homeModules/applications/browser/librewolf.nix` | https://get.webgl.org |
+| [ ] | Firewall-Tabelle: smtps (465) und submission (587) getrennt | `TODO.md` 8.4 | – |

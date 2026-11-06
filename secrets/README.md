@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Legacy sops file shared by the home hosts (to be split, see `TODO.md`).
+Legacy sops file shared by Desktop, Framework, Convertible and Server1, split into `clients.yaml` and `nixos-server1.yaml` of the private repository in TODO 7A, then deleted.
 
 ## How it works
 

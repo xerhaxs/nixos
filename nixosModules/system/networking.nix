@@ -225,7 +225,14 @@ in
         homeNetworks = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ "HOME" ];
-          description = "Networks of the sops wifi profiles which use the permanent MAC address.";
+          description = "Networks of the sops wifi profiles which use the permanent MAC address (same MAC and DHCP lease on every boot).";
+        };
+
+        wpa3Networks = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = cfg.wifi.homeNetworks;
+          defaultText = lib.literalExpression "config.nixos.system.networking.wifi.homeNetworks";
+          description = "Networks of the sops wifi profiles which only use WPA3 (SAE) with required management frame protection. The others use WPA2 with optional protection.";
         };
       };
 
@@ -271,10 +278,19 @@ in
               ssid = "\$ENV_${name}_SSID";
               cloned-mac-address = if lib.elem name cfg.wifi.homeNetworks then "permanent" else "random";
             };
-            wifi-security = {
-              key-mgmt = "wpa-psk";
-              psk = "\$ENV_${name}_PSK";
-            };
+            wifi-security =
+              if lib.elem name cfg.wifi.wpa3Networks then
+                {
+                  key-mgmt = "sae";
+                  pmf = 3;
+                  psk = "\$ENV_${name}_PSK";
+                }
+              else
+                {
+                  key-mgmt = "wpa-psk";
+                  pmf = 2;
+                  psk = "\$ENV_${name}_PSK";
+                };
             ipv4.method = "auto";
             ipv6 = {
               method = "auto";
@@ -308,6 +324,37 @@ in
     };
 
     sops.secrets."wifi" = lib.mkIf cfg.wifi.enable { };
+
+    # Saved profiles (Plasma, older installs) with the SSID of a declared network compete with the
+    # declarative one and use other security and MAC settings. Only those are removed, other
+    # networks stay.
+    systemd.services.NetworkManager-remove-duplicate-wifi = lib.mkIf cfg.wifi.enable {
+      description = "Remove saved WiFi profiles that duplicate a declarative one";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "NetworkManager-ensure-profiles.service" ];
+      requires = [ "NetworkManager-ensure-profiles.service" ];
+      before = [ "network-online.target" ];
+      path = [ config.networking.networkmanager.package ];
+      serviceConfig = {
+        Type = "oneshot";
+        EnvironmentFile = config.sops.secrets."wifi".path;
+      };
+      script = ''
+        declared=(${
+          lib.concatMapStringsSep " " (name: ''"''${ENV_${name}_SSID:-}"'') (lib.attrNames cfg.wifi.networks)
+        })
+        nmcli -t -f UUID,TYPE,FILENAME connection show | while IFS=: read -r uuid type file; do
+          [[ $type == 802-11-wireless && $file == /etc/NetworkManager/system-connections/* ]] || continue
+          ssid=$(nmcli -g 802-11-wireless.ssid connection show uuid "$uuid")
+          for wanted in "''${declared[@]}"; do
+            if [[ -n $wanted && $ssid == "$wanted" ]]; then
+              echo "removing saved duplicate of $ssid ($uuid)"
+              nmcli connection delete uuid "$uuid"
+            fi
+          done
+        done
+      '';
+    };
 
     services.resolved.enable = lib.mkDefault true;
     services.resolved.settings.Resolve = {

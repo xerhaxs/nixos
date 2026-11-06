@@ -6,7 +6,7 @@ Web browsers.
 
 ## How it works
 
-- LibreWolf: fingerprinting protection (FPP), WebGL only on request, no WebRTC IP leak, system DNS, uBlock Origin with cookie and annoyance lists, cookies of the own services survive the cleanup on shutdown.
+- LibreWolf: fingerprinting protection (FPP), WebGL on (too many sites break without it), no WebRTC IP leak, system DNS, uBlock Origin with cookie and annoyance lists, cookies of the own services survive the cleanup on shutdown.
 - Brave: Chromium policies from `nixosModules/userEnvironment/chromium-policies.nix` (HTTPS-only, no telemetry, shields).
 - Tor Browser is not modified on purpose, changes would make it distinguishable from other Tor users.
 

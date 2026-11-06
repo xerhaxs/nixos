@@ -47,8 +47,15 @@ in
       };
       pgpPublicKey = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
+        # Only this file, "${private}/..." would copy the whole private repository to the host.
         default =
-          if builtins.pathExists "${private}/pgp/public.asc" then "${private}/pgp/public.asc" else null;
+          if builtins.pathExists "${private}/pgp/public.asc" then
+            builtins.path {
+              path = "${private}/pgp/public.asc";
+              name = "pgp-public.asc";
+            }
+          else
+            null;
         defaultText = lib.literalExpression "private pgp/public.asc if it exists";
         description = "Own OpenPGP public key (ASCII armored), published by WKD on the mail server and imported into GnuPG.";
       };
