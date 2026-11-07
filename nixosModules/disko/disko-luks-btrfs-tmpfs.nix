@@ -12,6 +12,13 @@ let
   mirror = builtins.length disks > 1;
   systemDevice = if mirror then "/dev/mapper/system2" else "/dev/mapper/system";
 
+  # udev briefly removes the by-partlabel links after each partprobe, `udevadm settle` can return
+  # before they are back (seen on a Contabo VPS), and mkfs or cryptsetup fail with "No such file".
+  waitForDevice = ''
+    udevadm settle --timeout 30 || :
+    for _ in $(seq 1 30); do [ -e "$device" ] && break; sleep 1; done
+  '';
+
   luksFormatArgs = label: [
     "--type luks2"
     "--cipher aes-xts-plain64"
@@ -80,6 +87,7 @@ let
               content = {
                 type = "filesystem";
                 format = "vfat";
+                preCreateHook = waitForDevice;
                 mountpoint = espMountpoint;
                 mountOptions = [
                   "defaults"
@@ -96,6 +104,7 @@ let
               content = {
                 name = luksName;
                 type = "luks";
+                preCreateHook = waitForDevice;
                 extraOpenArgs = [
                   "--timeout 10"
                 ];
@@ -103,7 +112,6 @@ let
                 passwordFile = "/tmp/secret.key";
                 settings.allowDiscards = true;
                 initrdUnlock = true;
-                additionalKeyFiles = [ "/tmp/keyfile.key" ];
                 extraFormatArgs = luksFormatArgs (if luksName == "system" then "LUKS" else "LUKS2");
               }
               // lib.optionalAttrs (btrfs != null) { content = btrfs; };

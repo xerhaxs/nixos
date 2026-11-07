@@ -30,7 +30,9 @@ in
   };
 
   config = lib.mkIf config.nixos.server.public.ntfy.enable {
-    sops.secrets."ntfy/env" = lib.mkIf config.nixos.server.public.ntfy.declarativeAuth { };
+    sops.secrets."ntfy/env" = lib.mkIf config.nixos.server.public.ntfy.declarativeAuth {
+      restartUnits = [ "ntfy-sh.service" ];
+    };
 
     services.ntfy-sh = {
       enable = true;

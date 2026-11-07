@@ -43,7 +43,7 @@ in
   };
 
   config = lib.mkIf config.nixos.server.public.stalwart.enable {
-    sops.secrets."stalwart/admin" = { };
+    sops.secrets."stalwart/admin".restartUnits = [ "stalwart.service" ];
 
     services.stalwart = {
       enable = true;

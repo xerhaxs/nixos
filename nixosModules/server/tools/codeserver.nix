@@ -44,7 +44,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."codeserver/env" = { };
+    sops.secrets."codeserver/env".restartUnits = [ "code-server.service" ];
 
     users.users.${cfg.user} = {
       isNormalUser = true;

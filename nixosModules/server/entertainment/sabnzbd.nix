@@ -22,6 +22,7 @@
       owner = config.services.sabnzbd.user;
       group = config.services.sabnzbd.group;
       mode = "0400";
+      restartUnits = [ "sabnzbd.service" ];
     };
 
     services.sabnzbd = {

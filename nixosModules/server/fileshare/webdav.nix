@@ -18,7 +18,7 @@
   };
 
   config = lib.mkIf config.nixos.server.fileshare.webdav.enable {
-    sops.secrets."webdav-share/user-jf" = { };
+    sops.secrets."webdav-share/user-jf".restartUnits = [ "webdav.service" ];
 
     systemd.services.webdav.serviceConfig.EnvironmentFile = [
       config.sops.secrets."webdav-share/user-jf".path

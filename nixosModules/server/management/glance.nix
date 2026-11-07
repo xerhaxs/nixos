@@ -54,7 +54,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."glance" = { };
+    sops.secrets."glance".restartUnits = [ "glance.service" ];
 
     services.glance = {
       enable = true;

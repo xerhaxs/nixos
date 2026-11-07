@@ -19,8 +19,12 @@
   };
 
   config = lib.mkIf config.nixos.userEnvironment.syncthing.enable {
-    sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert" = { };
-    sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key" = { };
+    sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".restartUnits = [
+      "syncthing.service"
+    ];
+    sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".restartUnits = [
+      "syncthing.service"
+    ];
 
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 

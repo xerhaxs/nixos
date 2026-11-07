@@ -291,10 +291,13 @@ in
   config = lib.mkIf cfg.enable {
     sops.secrets = lib.mkMerge [
       (lib.mkIf cfg.alerts.ntfy {
-        "monitoring/ntfy-token" = { };
-        "monitoring/ntfy-url" = { };
+        "monitoring/ntfy-token".restartUnits = [ "alertmanager.service" ];
+        "monitoring/ntfy-url".restartUnits = [ "alertmanager.service" ];
       })
-      (lib.mkIf cfg.pihole { "monitoring/pihole-env" = { }; })
+      (lib.mkIf cfg.alerts.mail { "notify/mail-password".restartUnits = [ "alertmanager.service" ]; })
+      (lib.mkIf cfg.pihole {
+        "monitoring/pihole-env".restartUnits = [ "prometheus-pihole-exporter.service" ];
+      })
     ];
 
     systemd.services.alertmanager.serviceConfig.LoadCredential =

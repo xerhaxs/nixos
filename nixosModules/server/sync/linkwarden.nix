@@ -22,11 +22,13 @@
       owner = config.services.linkwarden.user;
       group = config.services.linkwarden.group;
       mode = "0400";
+      restartUnits = [ "linkwarden.service" ];
     };
     sops.secrets."linkwarden/postgres" = {
       owner = config.services.linkwarden.user;
       group = config.services.linkwarden.group;
       mode = "0400";
+      restartUnits = [ "linkwarden.service" ];
     };
 
     services.linkwarden = {

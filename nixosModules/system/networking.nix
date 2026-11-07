@@ -321,7 +321,12 @@ in
           lib.mkIf (cfg.lan.enable && cfg.lan.staticRouting) cfg.lan.nameservers;
     };
 
-    sops.secrets."wifi" = lib.mkIf cfg.wifi.enable { };
+    sops.secrets."wifi" = lib.mkIf cfg.wifi.enable {
+      restartUnits = [
+        "NetworkManager-ensure-profiles.service"
+        "NetworkManager-remove-duplicate-wifi.service"
+      ];
+    };
 
     # Saved profiles (Plasma, older installs) with the SSID of a declared network compete with the
     # declarative one and use other security and MAC settings. Only those are removed, other

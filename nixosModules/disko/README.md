@@ -37,4 +37,4 @@ Declarative disk layouts for the installation with disko, including encryption a
 ## Notes
 
 - Enroll TPM2 + PIN: `systemd-cryptenroll --tpm2-device=auto --tpm2-with-pin=yes --tpm2-pcrs=7 /dev/disk/by-partlabel/disk-NIXOS-LUKS`, recovery key: `systemd-cryptenroll --recovery-key <device>`. Requires Secure Boot to be set up first.
-- The data pool is unlocked after boot with `/secrets/keyfile.key` (crypttab), the installer creates this keyfile.
+- The data pool is unlocked after boot with `/secrets/keyfile.key` (crypttab), the installer creates this keyfile. The system disk has only the passphrase, the keyfile lies inside it and could not unlock it anyway.

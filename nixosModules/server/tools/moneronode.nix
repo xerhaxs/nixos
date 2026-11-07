@@ -98,7 +98,7 @@ in
       }
 
       (lib.mkIf cfg.p2pool.enable {
-        sops.secrets."monero/p2pool-env" = { };
+        sops.secrets."monero/p2pool-env".restartUnits = [ "p2pool.service" ];
 
         services.p2pool = {
           enable = true;

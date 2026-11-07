@@ -18,7 +18,7 @@
   };
 
   config = lib.mkIf config.nixos.server.tools.searxng.enable {
-    sops.secrets."searxng/secret" = { };
+    sops.secrets."searxng/secret".restartUnits = [ "searx.service" ];
 
     systemd.services.searx-init.serviceConfig.EnvironmentFile = [
       config.sops.secrets."searxng/secret".path

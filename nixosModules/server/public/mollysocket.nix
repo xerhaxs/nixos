@@ -24,7 +24,7 @@ in
   };
 
   config = lib.mkIf config.nixos.server.public.mollysocket.enable {
-    sops.secrets."mollysocket/env" = { };
+    sops.secrets."mollysocket/env".restartUnits = [ "mollysocket.service" ];
 
     services.mollysocket = {
       enable = true;

@@ -22,11 +22,13 @@
       owner = config.services.forgejo.user;
       group = config.services.forgejo.group;
       mode = "0400";
+      restartUnits = [ "forgejo.service" ];
     };
     sops.secrets."forgejo/token" = {
       owner = config.services.forgejo.user;
       group = config.services.forgejo.group;
       mode = "0400";
+      restartUnits = [ "forgejo.service" ];
     };
 
     environment.systemPackages = [

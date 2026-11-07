@@ -28,6 +28,7 @@ in
       owner = "turnserver";
       group = "turnserver";
       mode = "0400";
+      restartUnits = [ "coturn.service" ];
     };
 
     services.coturn = {

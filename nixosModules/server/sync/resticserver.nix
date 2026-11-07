@@ -38,6 +38,7 @@ in
       owner = "restic";
       group = "restic";
       mode = "0400";
+      restartUnits = [ "restic-rest-server.service" ];
     };
 
     services.restic.server = {

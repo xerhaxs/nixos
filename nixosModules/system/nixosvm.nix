@@ -25,7 +25,6 @@
         graphics = true;
         useEFIBoot = true;
         memorySize = 4096;
-        useSecureBoot = false;
       };
     };
   };

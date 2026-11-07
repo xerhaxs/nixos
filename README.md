@@ -50,13 +50,77 @@ sudo -i
 curl -L https://raw.githubusercontent.com/xerhaxs/nixos/main/NixOSInstaller.sh | bash
 ```
 
-The installer partitions with disko (LUKS2 + btrfs, tmpfs root), creates `/secrets/keyfile.key` for additional data disks and optionally stores the sops age key of the host in `/secrets/keys.txt`. The age key is only needed at activation (boot), not to build or install. Without it, secrets are missing until the key is copied, the password falls back to `initialHashedPassword`.
+The installer partitions with disko (LUKS2 + btrfs, tmpfs root), creates `/secrets/keyfile.key` for additional data disks (it unlocks only those, the system disk has just the passphrase) and optionally stores the sops age key of the host in `/secrets/keys.txt`. The age key is only needed at activation (boot), not to build or install. Without it, secrets are missing until the key is copied, the password falls back to `initialHashedPassword`.
 
-NixOS-ServerPublic is installed with nixos-anywhere, see `TODO.md`.
+NixOS-ServerPublic and NixOS-ServerGaming are installed with nixos-anywhere, see "Installing a VPS with nixos-anywhere" below.
 
 NixOS-Portable: set the disk id in `hosts/NixOS-Portable/disko.nix`, install it from any Linux with the SSD attached (`disko --mode destroy,format,mount` + `nixos-install --flake .#NixOS-Portable`). It boots on legacy BIOS (limine in the BIOS boot partition) and UEFI (removable path `EFI/BOOT/BOOTX64.EFI`, no NVRAM entry); Secure Boot has to be disabled on foreign machines. The boot menu entry with the tag `server` starts the services on `https://<service>.portable.internal` (self-signed certificate).
 
 Desktops can start Plasma or Hyprland in SDDM; see `homeModules/desktop/windowManager/hyprland/README.md` for the Hyprland key bindings.
+
+### Installing a VPS with nixos-anywhere
+
+For NixOS-ServerPublic and NixOS-ServerGaming (Contabo). nixos-anywhere connects to any running Linux as `root`, switches it to a NixOS installer in RAM (kexec), partitions the disk with disko, copies extra files and installs. Everything on the disk is lost.
+
+Before the first installation, once per host:
+
+- Host age key: `age <host>` in KeePassXC, public key in `nixos-private/secrets/.sops.yaml`, file re-encrypted (`sops updatekeys -y <file>.yaml`), private repository committed, `nix flake update private`.
+- Firewall in the Contabo panel with at least ports 22 and 2222 (initrd ssh).
+- Disk and firmware: Contabo VPS use `/dev/sda` and legacy BIOS (no `/sys/firmware/efi`). `hosts/<host>/disko.nix` then sets `biosBoot = true` and `nixos.system.bootloader` with `biosDevice = "/dev/sda"`, `biosPartitionIndex = 1` and `removable = true` (no EFI variables). Check with `lsblk` and `ls /sys/firmware/efi` in the system from the next step.
+- Network: `hosts/vps-uplink.nix` builds the static address of the system and of the initrd (`nixos.system.initrdssh.ip`) from `ipv4`, `ipv4Gateway` and `ipv4PrefixLength` of the host in `$PRIV/site.nix`. They must match the VPS (`ip -4 addr` and `ip -4 route` in the system from the next step), otherwise neither SSH nor the disk unlock in the initrd answers.
+
+1. Start a temporary system: Customer Panel, Servers & Hosting, VPS/VDS, "Install" (or "More", "Reinstall"), Standard Image Debian, add the SSH public key of the desktop (`cat ~/.ssh/id_ed25519.pub`), set a throwaway root password. Then on the desktop: `ssh-keygen -R <ipv4>` and `ssh root@<ipv4> true` (accept the fingerprint).
+
+2. Prepare the files in RAM (`/run/user/1000` is a tmpfs, nothing is written to a disk):
+
+   ```
+   d=$(mktemp -d -p /run/user/1000 anywhere.XXXXXX)
+   mkdir -p "$d"/extra/{secrets,etc/ssh,persistent/etc/ssh}
+   chmod 755 "$d"/extra "$d"/extra/etc "$d"/extra/etc/ssh "$d"/extra/persistent "$d"/extra/persistent/etc "$d"/extra/persistent/etc/ssh
+   chmod 700 "$d"/extra/secrets
+
+   # host age key: paste the line AGE-SECRET-KEY-1... from "age <host>", then Ctrl+D
+   (umask 077; cat > "$d"/extra/secrets/keys.txt)
+
+   # LUKS passphrase from "LUKS <host>", without a trailing newline (it is typed at boot)
+   (umask 077; read -rsp "LUKS passphrase: " p; printf '%s' "$p" > "$d"/luks.pass); echo
+
+   # initrd ssh host key, in both places: the installation reads /etc/ssh, after the first boot
+   # /etc/ssh comes from /persistent
+   ssh-keygen -q -t ed25519 -N "" -C "initrd@<host>" -f "$d"/extra/etc/ssh/initrd_host_key
+   cp -p "$d"/extra/etc/ssh/initrd_host_key* "$d"/extra/persistent/etc/ssh/
+   ssh-keygen -lf "$d"/extra/etc/ssh/initrd_host_key.pub
+   ```
+
+   Note the fingerprint of the initrd key in the KeePassXC entry "LUKS <host>".
+
+3. Install from the repository:
+
+   ```
+   cd ~/Documents/nixos
+   nix run nixpkgs#nixos-anywhere -- --flake .#<host> \
+     --disk-encryption-keys /tmp/secret.key "$d"/luks.pass \
+     --extra-files "$d"/extra \
+     root@<ipv4>
+   ```
+
+   The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpfs.nix`. A key file (`/tmp/keyfile.key`, kept as `/secrets/keyfile.key`) is only needed with `dataPool.enable`: the data disks are unlocked with it after the system disk, pass it with a second `--disk-encryption-keys /tmp/keyfile.key <file>` and put a copy into `extra/secrets/keyfile.key`. The system is built on the desktop and copied. At the end the VPS reboots.
+
+4. Unlock the disk (after every reboot):
+
+   ```
+   ssh-keygen -R <ipv4>; ssh-keygen -R "[<ipv4>]:2222"
+   ssh -p 2222 root@<ipv4>
+   systemd-tty-ask-password-agent
+   ```
+
+   Compare the fingerprint with the one in KeePassXC, then paste the passphrase. The session ends when the boot continues. If initrd ssh does not answer, use the VNC console in the Contabo panel.
+
+5. Check: `ssh admin@<ipv4>` (new host key, accept it), then `systemctl --failed` is empty, `sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt` shows the public key from `.sops.yaml`, `ls -l /etc/ssh/initrd_host_key` exists.
+
+6. Clean up: `shred -u "$d"/luks.pass "$d"/extra/secrets/* "$d"/extra/etc/ssh/* "$d"/extra/persistent/etc/ssh/* && rm -r "$d"`.
+
+Later deploys: `nixos-rebuild switch --flake .#<host> --build-host admin@<ipv4> --target-host admin@<ipv4> --sudo --ask-sudo-password`, by name through WireGuard once the tunnel is up.
 
 ### Host keys for sops
 

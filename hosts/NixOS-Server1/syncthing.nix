@@ -7,8 +7,12 @@
 }:
 
 {
-  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert" = { };
-  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key" = { };
+  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".restartUnits = [
+    "syncthing.service"
+  ];
+  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".restartUnits = [
+    "syncthing.service"
+  ];
   sops.secrets."syncthing/${lib.toLower config.networking.hostName}/gui-password" = {
     owner = config.services.syncthing.user;
     restartUnits = [ "syncthing-init.service" ];

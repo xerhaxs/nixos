@@ -24,6 +24,7 @@
 
     sops.secrets."radicale/htpasswd" = {
       owner = config.systemd.services.radicale.serviceConfig.User;
+      restartUnits = [ "radicale.service" ];
     };
 
     services.radicale = {

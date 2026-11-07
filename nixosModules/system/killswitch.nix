@@ -37,7 +37,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # NTFY_TOKEN=tk_... (read access to the topic), KILLSWITCH_TOPIC=<secret topic name>
-    sops.secrets."killswitch/env" = { };
+    sops.secrets."killswitch/env".restartUnits = [ "killswitch.service" ];
 
     systemd.services.killswitch = {
       description = "Killswitch (power off on ntfy message)";

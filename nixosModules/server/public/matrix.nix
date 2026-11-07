@@ -256,7 +256,7 @@ in
 
       (lib.mkIf cfg.bridges.signal.enable {
         # MAUTRIX_SIGNAL_PICKLE_KEY=..., MAUTRIX_SIGNAL_PROVISIONING_SECRET=...
-        sops.secrets."mautrix-signal/env" = { };
+        sops.secrets."mautrix-signal/env".restartUnits = [ "mautrix-signal.service" ];
 
         services.mautrix-signal = {
           enable = true;
@@ -284,7 +284,7 @@ in
 
       (lib.mkIf cfg.bridges.telegram.enable {
         # MAUTRIX_TELEGRAM_TELEGRAM_API_ID=..., MAUTRIX_TELEGRAM_TELEGRAM_API_HASH=... (https://my.telegram.org/apps)
-        sops.secrets."mautrix-telegram/env" = { };
+        sops.secrets."mautrix-telegram/env".restartUnits = [ "mautrix-telegram.service" ];
 
         services.mautrix-telegram = {
           enable = true;
@@ -317,7 +317,7 @@ in
 
       (lib.mkIf cfg.bridges.whatsapp.enable {
         # MAUTRIX_WHATSAPP_PICKLE_KEY=..., MAUTRIX_WHATSAPP_PROVISIONING_SECRET=...
-        sops.secrets."mautrix-whatsapp/env" = { };
+        sops.secrets."mautrix-whatsapp/env".restartUnits = [ "mautrix-whatsapp.service" ];
 
         services.mautrix-whatsapp = {
           enable = true;
