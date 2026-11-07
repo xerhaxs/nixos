@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Services that run on NixOS-ServerGaming only for testing and are removed later: Nextcloud with Collabora, Mumble, code-server and the countdown website.
+Services that run on NixOS-ServerGaming only for testing and are removed later: Nextcloud with Collabora, code-server and the countdown website.
 
 ## How it works
 

@@ -22,7 +22,6 @@
     home.packages = with pkgs; [
       briar-desktop
       element-desktop
-      mumble
       signal-desktop
       telegram-desktop
       (karere.overrideAttrs (old: {
@@ -63,8 +62,6 @@
       directories = [
         ".briar"
         ".config/Element"
-        ".config/Mumble"
-        ".local/share/Mumble"
         ".config/Signal"
         ".local/share/karere"
         ".local/share/TelegramDesktop"

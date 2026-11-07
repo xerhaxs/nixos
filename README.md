@@ -28,9 +28,9 @@ Every folder has a `README.md` with its purpose, contents and options.
 | NixOS-Framework, NixOS-Convertible | Laptops |
 | NixOS-Portable | All-in-one installation on an external SSD (every application, boot entry `server` with the offline capable services) |
 | NixOS-Server1 | Home server (ZFS pool, media, shares, Home Assistant, DNS, git, monitoring) |
-| NixOS-ServerGaming | Public VPS for games (Minecraft with BlueMap), test services in `temp/` (countdown, Nextcloud, Mumble, code-server) |
+| NixOS-ServerGaming | Public VPS for games (Minecraft with BlueMap), test services in `temp/` (countdown, Nextcloud, code-server) |
 | NixOS-ServerPublic | Public VPS (mail, Matrix, CryptPad, ntfy, Miniflux, Briar Mailbox), WireGuard hub |
-| NixOS-VMDesktop, NixOS-VMServer, NixOS-VMServerGaming, NixOS-VMServerPublic | Test VMs with the profile of the corresponding host |
+| NixOS-VMDesktop, NixOS-VMServer1, NixOS-VMServerGaming, NixOS-VMServerPublic | Test VMs with the profile of the corresponding host |
 
 ## Private repository
 

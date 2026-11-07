@@ -22,7 +22,7 @@ The exposed services of NixOS-ServerPublic are the main candidates, ordered by r
 1. Matrix (Synapse + four bridges): large code base, parses data from four foreign networks, keeps session secrets of your messenger accounts.
 2. Nextcloud + Collabora: large PHP code base, file uploads, office document parsing.
 3. Minecraft: Java server reachable from the internet, mods.
-4. Stalwart, CryptPad, Miniflux, ntfy, Mumble, Briar: smaller, written in memory-safe languages (Rust, Go, Node).
+4. Stalwart, CryptPad, Miniflux, ntfy, Briar: smaller, written in memory-safe languages (Rust, Go, Node).
 
 On NixOS-Server1 the services are only reachable in the LAN and through WireGuard, the benefit is smaller (exceptions: Home Assistant with many third-party integrations, the *arr stack that parses data from indexers).
 

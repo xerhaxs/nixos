@@ -323,7 +323,6 @@ in
           (publicApp "Countdown" "countdown" "auto-invert di:cronicle")
           (publicApp "Nextcloud" "cloud" "di:nextcloud")
           (publicApp "Nextcloud Office" "office" "di:collabora-online")
-          (publicApp "Mumble" "murmur" "di:mumble")
           (publicApp "code-server" "code" "di:code-server.png")
         ])
       ];

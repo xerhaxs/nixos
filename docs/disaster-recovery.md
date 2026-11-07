@@ -58,6 +58,6 @@ Keep these on paper or on two offline USB sticks (encrypted with a passphrase yo
 1. `restic check --read-data-subset=5%` for every repository (Proton Drive, REST server).
 2. Restore one random directory of each class to `/tmp` and compare with `diff -r`.
 3. Restore a PostgreSQL dump into a test database (VMServerPublic) and start Nextcloud against it.
-4. Boot VMServer / VMServerPublic from the repository to prove the configuration still builds without the real hardware.
+4. Boot VMServer1 / VMServerPublic from the repository to prove the configuration still builds without the real hardware.
 5. Check the age of the newest snapshot in Grafana (alert "backup older than 2 days").
 6. Once a year: read the paper copy of the keys and decrypt a sops file with it.

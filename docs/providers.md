@@ -36,7 +36,7 @@ Changing the ACME provider in this repository: `security.acme.defaults.dnsProvid
 | Path.net / TCPShield | Protection for game servers (Minecraft). |
 | Deflect | Free protection for civil society organisations. |
 
-Every reverse proxy in front of the server (like Cloudflare today) terminates TLS and sees the traffic in clear text. For mail, Matrix federation, Mumble and WireGuard a proxy does not work anyway; only the provider-level protection applies. Recommendation: no HTTP proxy, rely on the provider protection, rate limits in nginx and fail2ban.
+Every reverse proxy in front of the server (like Cloudflare today) terminates TLS and sees the traffic in clear text. For mail, Matrix federation and WireGuard a proxy does not work anyway; only the provider-level protection applies. Recommendation: no HTTP proxy, rely on the provider protection, rate limits in nginx and fail2ban.
 
 ## VPS hosting
 

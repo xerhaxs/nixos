@@ -14,7 +14,6 @@
     ./matrix.nix
     ./miniflux.nix
     ./mollysocket.nix
-    ./murmur.nix
     ./nextcloud.nix
     ./ntfy.nix
     ./stalwart.nix
@@ -40,7 +39,6 @@
       matrix.enable = lib.mkDefault true;
       miniflux.enable = lib.mkDefault true;
       mollysocket.enable = lib.mkDefault false;
-      murmur.enable = lib.mkDefault true;
       nextcloud.enable = lib.mkDefault true;
       ntfy.enable = lib.mkDefault true;
       stalwart.enable = lib.mkDefault true;

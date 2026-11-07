@@ -26,12 +26,19 @@
         type = lib.types.nullOr lib.types.str;
         default = null;
         example = "nixos-serverpublic";
-        description = "Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. null uses the old shared secrets/secrets.yaml of this repository.";
+        description = "Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. Required when sops is enabled.";
       };
     };
   };
 
   config = lib.mkIf config.nixos.system.sops.enable {
+    assertions = [
+      {
+        assertion = config.nixos.system.sops.file != null;
+        message = "nixos.system.sops.file is not set: name the secrets file of this host in the private repository (secrets/<file>.yaml).";
+      }
+    ];
+
     environment.systemPackages = with pkgs; [
       sops
     ];
@@ -39,16 +46,13 @@
     sops = {
       # builtins.path copies only this file. "${private}/..." would put the whole private repository
       # (all sops files, site.nix with the password hashes of every host) on the host.
-      defaultSopsFile =
-        if config.nixos.system.sops.file != null then
-          builtins.path {
-            path = "${private}/secrets/${config.nixos.system.sops.file}.yaml";
-            name = "${config.nixos.system.sops.file}.yaml";
-          }
-        else
-          ../../secrets/secrets.yaml;
+      defaultSopsFile = lib.mkIf (config.nixos.system.sops.file != null) (
+        builtins.path {
+          path = "${private}/secrets/${config.nixos.system.sops.file}.yaml";
+          name = "${config.nixos.system.sops.file}.yaml";
+        }
+      );
       defaultSopsFormat = "yaml";
-      #age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       age.keyFile = lib.mkDefault "/secrets/keys.txt";
 
       secrets = lib.mkIf config.nixos.userEnvironment.enable {

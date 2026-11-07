@@ -10,6 +10,7 @@
   _module.args.userName = "jf";
 
   nixos.system.sops.file = "clients";
+  nixos.system.user.passwordFromSops = true;
 
   nixos.desktop = {
     enable = true;

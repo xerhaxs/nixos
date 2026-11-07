@@ -6,7 +6,7 @@ Messengers, mail and voice.
 
 ## How it works
 
-- Thunderbird with privacy settings (no user agent, anonymous HELO, simplified HTML, no JavaScript) and the accounts Stalwart (first), Proton (through the bridge, default account, switch with `primaryAccount`), DLRG (with signature) and 1&1 from the site data, Proton Mail Bridge, Discord, Briar, Element, Mumble, Signal, Telegram, Karere (WhatsApp).
+- Thunderbird with privacy settings (no user agent, anonymous HELO, simplified HTML, no JavaScript) and the accounts Stalwart (first), Proton (through the bridge, default account, switch with `primaryAccount`), DLRG (with signature) and 1&1 from the site data, Proton Mail Bridge, Discord, Briar, Element, Signal, Telegram, Karere (WhatsApp).
 
 ## Contents
 

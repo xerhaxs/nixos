@@ -130,8 +130,8 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict). Pi-hole is used through WireGuard when it is up. Captive portals need a manual workaround. |
 | `nixos.system.networking.wifi.enable` | boolean | `false` | Provide the wifi networks from sops (secret wifi) as read-only NetworkManager profiles. |
 | `nixos.system.networking.wifi.homeNetworks` | list of string | `[   "HOME" ]` | Networks of the sops wifi profiles which use the permanent MAC address (same MAC and DHCP lease on every boot). |
-| `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10;   HOTSPOT = 5; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
-| `nixos.system.networking.wifi.wpa3Networks` | list of string | `config.nixos.system.networking.wifi.homeNetworks` | Networks of the sops wifi profiles which only use WPA3 (SAE) with required management frame protection. The others use WPA2 with optional protection. |
+| `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
+| `nixos.system.networking.wifi.wpa3Networks` | list of string | `[ ]` | Networks of the sops wifi profiles which only use WPA3 (SAE) with required management frame protection. The others use WPA2/WPA3 transition (NetworkManager picks SAE where the access point offers it) with optional protection. |
 | `nixos.system.nh.enable` | boolean | `false` | Enable nh. |
 | `nixos.system.nixos.enable` | boolean | `false` | Enable the default NixOS settings. |
 | `nixos.system.nixosvm.enable` | boolean | `false` | Enable nixosvm. |
@@ -161,7 +161,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.secureboot.enable` | boolean | `false` | Enable secureboot. |
 | `nixos.system.smartd.enable` | boolean | `false` | Enable smartd. |
 | `nixos.system.sops.enable` | boolean | `false` | Enable Sops. |
-| `nixos.system.sops.file` | null or string | `null` | Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. null uses the old shared secrets/secrets.yaml of this repository. |
+| `nixos.system.sops.file` | null or string | `null` | Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. Required when sops is enabled. |
 | `nixos.system.ssh.authorizedKeys` | list of string | `[   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhC1nqSGZvIStHk...` | Public keys allowed to login as the system user. |
 | `nixos.system.ssh.enable` | boolean | `false` | Enable ssh with sshguard. |
 | `nixos.system.ssh.listenAddresses` | list of string | `[ ]` | Only listen on these addresses (e.g. the WireGuard IP), the port is not opened publicly then. All addresses if empty. |

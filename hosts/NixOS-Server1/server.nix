@@ -48,7 +48,6 @@
     public = {
       #cryptpad.enable = true;
       #matrix.enable = true;
-      #murmur.enable = true;
       #stalwart.enable = true;
     };
     sync = {

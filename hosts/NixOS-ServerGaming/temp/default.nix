@@ -10,7 +10,6 @@
 {
   nixos.server.public = {
     collabora.enable = true;
-    murmur.enable = true;
     nextcloud.enable = true;
   };
 

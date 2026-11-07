@@ -217,7 +217,6 @@ in
           type = lib.types.attrsOf lib.types.int;
           default = {
             HOME = 10;
-            HOTSPOT = 5;
           };
           description = "Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network.";
         };
@@ -230,9 +229,8 @@ in
 
         wpa3Networks = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = cfg.wifi.homeNetworks;
-          defaultText = lib.literalExpression "config.nixos.system.networking.wifi.homeNetworks";
-          description = "Networks of the sops wifi profiles which only use WPA3 (SAE) with required management frame protection. The others use WPA2 with optional protection.";
+          default = [ ];
+          description = "Networks of the sops wifi profiles which only use WPA3 (SAE) with required management frame protection. The others use WPA2/WPA3 transition (NetworkManager picks SAE where the access point offers it) with optional protection.";
         };
       };
 

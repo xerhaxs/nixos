@@ -9,6 +9,10 @@
 {
   sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert" = { };
   sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key" = { };
+  sops.secrets."syncthing/${lib.toLower config.networking.hostName}/gui-password" = {
+    owner = config.services.syncthing.user;
+    restartUnits = [ "syncthing-init.service" ];
+  };
 
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
@@ -19,6 +23,8 @@
     group = "syncthing";
     cert = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/cert".path;
     key = config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/key".path;
+    guiPasswordFile =
+      config.sops.secrets."syncthing/${lib.toLower config.networking.hostName}/gui-password".path;
     overrideDevices = true;
     overrideFolders = true;
     openDefaultPorts = true;
@@ -35,7 +41,6 @@
 
       gui = {
         user = "${userName}";
-        password = "$2b$05$SDrb7x02Wgr/hHSFu8nOZe06iYWeDQ674wKvgeabKds/w3EOeN0nS";
         theme = lib.strings.toLower "black";
         tls = false;
         address = "127.0.0.1:8384";

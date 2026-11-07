@@ -14,7 +14,7 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | [ ] | Domains als Variablen: `domain`, `homeDomain`, `mailDomain`, dazu `acmeEmail`, `alertEmail`, `mailAddress`, `pgpFingerprint` | `nixosModules/system/site.nix` | `nix eval .#nixosConfigurations.NixOS-Server1.config.nixos.site.homeDomain` |
 | [ ] | Keine privaten Domains im öffentlichen Repo (SearXNG-Footer jetzt per Variable) | gesamtes Repo | `git grep -iE "<domain>\|<maildomain>"` findet nur die Git-Autoradresse |
 | [ ] | Hosts: Profil (`configuration.nix`, `server.nix`) getrennt von Maschine (`machine.nix`, `disko.nix`, `hardware-configuration.nix`) | `hosts/*` | `hosts/README.md` lesen |
-| [ ] | VM-Hosts als schlanke Kopien: VMDesktop, VMServer, VMServerPublic (neu) | `hosts/NixOS-VM*` | `nixos-rebuild build-vm --flake .#NixOS-VMServer` |
+| [ ] | VM-Hosts als schlanke Kopien: VMDesktop, VMServer1, VMServerPublic (neu) | `hosts/NixOS-VM*` | `nixos-rebuild build-vm --flake .#NixOS-VMServer1` |
 | [ ] | Neuer Host NixOS-Portable | `hosts/NixOS-Portable` | Abschnitt H |
 | [ ] | Eigene Pakete als Overlay (`pkgs/`), `nix build .#dangerzone` | `pkgs/`, `flake.nix` | `nix build .#dangerzone` |
 | [ ] | Englische README in jedem Ordner (einheitlich, ohne Emojis), Kommentare minimal und englisch | `*/README.md` | Stichproben, z. B. `homeModules/desktop/windowManager/hyprland/README.md` |
@@ -72,7 +72,7 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | ✓ | Änderung | Wo | Prüfung |
 |---|---|---|---|
 | [ ] | `nixos.server.dataDir` statt fester `/pool01`-Pfade | `nixosModules/server/default.nix` | Server1: Dienste schreiben nach `/pool01/applications` |
-| [ ] | ServerPublic: Stalwart (JMAP, IMAP, SMTP, DAV), Nextcloud mit Collabora, Talk, E2EE, Matrix mit vier Bridges, CryptPad, Murmur, ntfy, coturn, Miniflux, Briar Mailbox, MollySocket, Minecraft, code-server | `nixosModules/server/public/` | Phase 8, `systemctl --failed` |
+| [ ] | ServerPublic: Stalwart (JMAP, IMAP, SMTP, DAV), Nextcloud mit Collabora, Talk, E2EE, Matrix mit vier Bridges, CryptPad, ntfy, coturn, Miniflux, Briar Mailbox, MollySocket, Minecraft, code-server | `nixosModules/server/public/` | Phase 8, `systemctl --failed` |
 | [ ] | Neu: WKD für den eigenen PGP-Schlüssel auf `openpgpkey.<mailDomain>` | `nixosModules/server/public/stalwart.nix` | `gpg --auto-key-locate clear,wkd --locate-keys <adresse>` |
 | [ ] | Server1: Home Assistant (Tankerkönig, Killswitch), HomeBox, Monitoring (Prometheus, Alertmanager, Loki, Grafana mit Dashboards), Monero-Node mit P2Pool, Proton-Backup | `hosts/NixOS-Server1/` | `https://grafana.<homeDomain>`: alle Targets „up“ |
 | [ ] | Neu: Loki-Alarm „ExecOutsideNixStore“ (Benutzersitzung startet ein Programm außerhalb des Stores) | `nixosModules/server/management/monitoring.nix` | TODO 6.7 |
@@ -145,8 +145,9 @@ Stand der Verifikation durch mich: Alle neun Hosts evaluieren (`nix eval .#nixos
 | [ ] | Hybrid-Boot: limine für BIOS (EF02-Partition) und UEFI als Wechselmedium | `nixosModules/system/bootloader.nix` (`removable`, `biosPartitionIndex`), disko `biosBoot` | Boot auf UEFI- und BIOS-Rechner |
 | [ ] | Alle CPU-/GPU-Treiber, redistributable Firmware, breite initrd-Module | `machine.nix`, `hardware-configuration.nix` | LUKS-Abfrage erscheint auf fremden Rechnern, Tastatur geht |
 | [ ] | Alle Anwendungen (auch die sonst abgeschalteten, außer Back In Time), Plasma + Hyprland mit Touch | `hosts/NixOS-Portable/home/home.nix` | Anwendungsmenü |
-| [ ] | Boot-Eintrag `server`: Jellyfin, Kiwix, Ollama (`qwen3.5:4b`), ComfyUI, LanguageTool, LibreTranslate, Nextcloud + Collabora, Forgejo, Radicale, Linkwarden, HomeBox, Miniflux, Home Assistant, Monitoring, Samba + WebDAV, Glance, SearXNG, code-server, CryptPad, Minecraft (4 GB) | `hosts/NixOS-Portable/server.nix` | `https://glance.portable.internal` |
+| [ ] | Boot-Eintrag `server`: Jellyfin, Kiwix, Ollama (`qwen3.5:4b`), ComfyUI, LanguageTool, LibreTranslate, Forgejo, Radicale, Linkwarden, HomeBox, Miniflux, Home Assistant, Monitoring, Samba + WebDAV, Glance, SearXNG, code-server, CryptPad (seit 07.11.2026 ohne Minecraft, Nextcloud, Collabora) | `hosts/NixOS-Portable/server.nix` | `https://glance.portable.internal` |
 | [ ] | Eigene sops-Datei (Server-Secrets zufällig erzeugt, persönliche Werte als `REPLACE_ME`) | `$PRIV/secrets/nixos-portable.yaml` | `sops -d` zeigt keine `REPLACE_ME` mehr (TODO 1.5) |
+| [ ] | Server-Modus liest eigene Secrets unter `server/<name>`, nie die Werte von Server1; Monitoring prüft nur die eigenen `*.portable.internal`-Dienste | `hosts/NixOS-Portable/server.nix` | `nix eval .#nixosConfigurations.NixOS-Portable.config.specialisation.server.configuration.sops.secrets --apply 's: builtins.mapAttrs (n: v: v.key) s'` (TODO 7D-5) |
 
 ## I. Offene Punkte, die ich nicht prüfen konnte
 
@@ -272,7 +273,7 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | Metriken von vulnscan und ClamAV überleben den Neustart | `nixosModules/system/monitoring-agent.nix` | nach dem Neustart liegt `vulnscan.prom` noch da |
 | [ ] | EasyEffects mit dem Mikrofon-Preset nur noch auf dem Desktop | `hosts/NixOS-Desktop/home/home.nix`, Media-Bundle | auf den Laptops kein `easyeffects` im Tray |
 | [ ] | Thunderbird: Stalwart steht oben, Standardkonto per `primaryAccount` umschaltbar (jetzt Proton), Signatur für DLRG aus den privaten Daten | `thunderbird.nix`, `$PRIV/site.nix` | neue Mail im DLRG-Konto zeigt die Signatur |
-| [ ] | Nextcloud mit Collabora, Mumble, code-server und Countdown nur noch zum Testen auf ServerGaming | `hosts/NixOS-ServerGaming/temp/`, `hosts/NixOS-ServerPublic/server.nix` | TODO Phase 19 |
+| [ ] | Nextcloud mit Collabora, code-server und Countdown nur noch zum Testen auf ServerGaming | `hosts/NixOS-ServerGaming/temp/`, `hosts/NixOS-ServerPublic/server.nix` | TODO Phase 19 |
 | [ ] | Firewall-Tabelle mit Regelname und Quelle | `TODO.md` 8.4 | Regeln im Contabo-Panel gleich benannt |
 | [ ] | Hyprland-TODOs in Phase 18 zusammengeführt | `TODO.md` | – |
 
@@ -285,7 +286,7 @@ Stand der Verifikation: Waybar, Widgets, Rofi, wlogout und hyprlock sind per Scr
 | [ ] | Auf jeden Host kommt nur seine eigene sops-Datei, nicht mehr das ganze private Repo | `nixosModules/system/sops.nix` (`file`), `site.nix` | `nix path-info -r` des Systems enthält kein `-source` des privaten Repos |
 | [ ] | Admin-Schlüssel nur in KeePassXC, sops holt ihn über `SOPS_AGE_KEY_CMD` | `homeModules/applications/tools/keepassxc.nix` | TODO 7.0 |
 | [ ] | Regel `clients.yaml` für Desktop, Framework, Convertible | `$PRIV/secrets/.sops.yaml` | TODO 7.2 |
-| [ ] | WLAN: Heimnetz nur WPA3 mit Pflicht-PMF und fester MAC, Hotspot WPA2, doppelte gespeicherte Profile werden beim Boot entfernt | `nixosModules/system/networking.nix` | Convertible verbindet nach dem Neustart, `nmcli connection show` zeigt das Heimnetz einmal |
+| [ ] | WLAN: nur noch das Heimnetz vordefiniert (WPA3 mit Pflicht-PMF, feste MAC, seit 07.11.2026 ohne Hotspot), doppelte gespeicherte Profile werden beim Boot entfernt | `nixosModules/system/networking.nix` | Convertible verbindet nach dem Neustart, `nmcli connection show` zeigt das Heimnetz einmal |
 | [ ] | LibreWolf: WebGL wieder an | `homeModules/applications/browser/librewolf.nix` | https://get.webgl.org |
 | [ ] | Firewall-Tabelle: smtps (465) und submission (587) getrennt | `TODO.md` 8.4 | – |
 | [ ] | `~/.ssh/id_ed25519.pub` kommt aus `authorizedKeys` (Kommentar `jf@<Host>`), auch nach einer Neuinstallation | `homeModules/base/ssh.nix` | `readlink ~/.ssh/id_ed25519.pub` zeigt in den Store, `ssh admin@NixOS-Server1` klappt |

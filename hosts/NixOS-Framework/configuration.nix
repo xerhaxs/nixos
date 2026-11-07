@@ -10,6 +10,7 @@
   _module.args.userName = "jf";
 
   nixos.system.sops.file = "clients";
+  nixos.system.user.passwordFromSops = true;
 
   system.stateVersion = "25.11";
 

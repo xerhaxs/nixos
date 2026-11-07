@@ -126,6 +126,8 @@
       };
     };
 
+    # Without the dependency the snippet sorts before setupSecrets and sets the previous passwords.
+    system.activationScripts.sambaUsers.deps = [ "setupSecrets" ];
     system.activationScripts.sambaUsers.text = ''
       echo -e "$(cat ${config.sops.secrets."smb-share/user-jf".path})\n$(cat ${
         config.sops.secrets."smb-share/user-jf".path

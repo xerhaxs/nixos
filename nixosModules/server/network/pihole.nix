@@ -26,6 +26,15 @@
       nameserver 127.0.0.1
     '';
 
+    # FTLCONF_webserver_api_password (plaintext, FTL computes pwhash) and
+    # FTLCONF_webserver_api_app_pwhash (hash). Environment values override pihole.toml.
+    sops.secrets."pihole/env" = {
+      owner = config.services.pihole-ftl.user;
+      restartUnits = [ "pihole-ftl.service" ];
+    };
+
+    systemd.services.pihole-ftl.serviceConfig.EnvironmentFile = config.sops.secrets."pihole/env".path;
+
     services = {
       pihole-ftl = {
         enable = true;
@@ -293,11 +302,7 @@
 
               prettyJSON = false;
 
-              pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU=";
-
               totp_secret = "";
-
-              app_pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$7CJfup8/7jGX8lRwWmxkbA==$dr/bY6hyCSFAIxRUJOP6H45GEUa4M01rCvPytjP3jCU=";
 
               app_sudo = false;
 

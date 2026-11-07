@@ -12,7 +12,6 @@
     enable = true;
     # Only for testing on NixOS-ServerGaming (hosts/NixOS-ServerGaming/temp).
     collabora.enable = false;
-    murmur.enable = false;
     nextcloud.enable = false;
     matrix.bridges = {
       discord.enable = true;

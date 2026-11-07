@@ -28,6 +28,7 @@
   };
 
   nixos.system.sops.file = "nixos-portable";
+  nixos.system.user.passwordFromSops = true;
 
   nixos.userEnvironment.enable = true;
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Public VPS for games: Minecraft with BlueMap. For testing only (`temp/`, removed later): the countdown website, Nextcloud with Collabora, Mumble and code-server. Backups to NixOS-Server1.
+Public VPS for games: Minecraft with BlueMap. For testing only (`temp/`, removed later): the countdown website, Nextcloud with Collabora and code-server. Backups to NixOS-Server1.
 
 ## How it works
 
@@ -24,5 +24,5 @@ Public VPS for games: Minecraft with BlueMap. For testing only (`temp/`, removed
 | `minecraft.nix` | Minecraft server instances, BlueMap and its nginx virtual host. |
 | `networking.nix` | Hostname and addresses (`nixos.site.serverGaming`). |
 | `server.nix` | Enabled services. |
-| [`temp/`](temp/README.md) | Services only for testing (countdown, Nextcloud, Mumble, code-server), removed later. |
+| [`temp/`](temp/README.md) | Services only for testing (countdown, Nextcloud, code-server), removed later. |
 | `wireguard.nix` | WireGuard peer. |

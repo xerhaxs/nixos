@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Home Manager settings of the user on NixOS-VMServer.
+Home Manager settings of the user on NixOS-VMServer1.
 
 ## How it works
 

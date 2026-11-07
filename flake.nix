@@ -190,7 +190,7 @@
         "NixOS-ServerGaming"
         "NixOS-ServerPublic"
         "NixOS-VMDesktop"
-        "NixOS-VMServer"
+        "NixOS-VMServer1"
         "NixOS-VMServerGaming"
         "NixOS-VMServerPublic"
       ];

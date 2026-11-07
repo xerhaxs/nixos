@@ -14,7 +14,7 @@ let
   peers = {
     NixOS-ServerPublic = {
       ip = "10.100.0.1";
-      publicKey = "sBh0DQlOJwzQnjulBnx5KYISw8wKqCdl6zF/R/8pj24=";
+      publicKey = "WM3RI8KfcnWXoPzSWc0k/Xv3ZDC9vEsWER7w7u+y4w8=";
     };
     NixOS-Server1 = {
       ip = "10.100.0.2";
@@ -150,6 +150,18 @@ in
             }
           ];
     };
+
+    # The VPS have no name in the LAN, reach them by name through the tunnel.
+    networking.hosts = lib.mapAttrs' (name: peer: lib.nameValuePair peer.ip [ name ]) (
+      lib.filterAttrs (
+        name: _:
+        lib.elem name [
+          hub
+          "NixOS-ServerGaming"
+        ]
+        && name != hostName
+      ) peers
+    );
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = lib.mkIf isHub 1;
 
