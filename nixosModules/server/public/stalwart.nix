@@ -26,6 +26,7 @@ let
     gpg --batch --show-keys --with-colons ${pgpKey} \
       | awk -F: '$1 == "uid" { print $10 }' | grep -oi '[a-z0-9._%+-]*@${lib.escapeRegex mailDomain}' | sort -u \
       | while read -r mbox; do gpg-wks-client --install-key -C $out/.well-known/openpgpkey ${pgpKey} "$mbox"; done
+    mkdir -p $out/.well-known/openpgpkey/${mailDomain}
     touch $out/.well-known/openpgpkey/${mailDomain}/policy
   '';
 in

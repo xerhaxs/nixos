@@ -7,6 +7,7 @@ Public VPS for games: Minecraft with BlueMap. For testing only (`temp/`, removed
 ## How it works
 
 - `default.nix` imports the files below. See `hosts/README.md` for the separation of profile and machine.
+- Installation and maintenance: [`README.md`](../../README.md#installation), host specific steps in [its section](../../README.md#vps).
 - ssh is reachable publicly until this host has a public key in `nixosModules/system/wireguard.nix`, afterwards only through WireGuard.
 - The date of the countdown is `target` in `temp/default.nix`.
 

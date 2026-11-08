@@ -19,7 +19,7 @@ Development tools.
 | `imager.nix` | Enable imager tools. |
 | `kate.nix` | Enable kate. |
 | `singleboardcomputer.nix` | Enable Single-Board Computer software. |
-| `virtualisation.nix` | Enable Virtualisation GUIs. |
+| `virtualisation.nix` | Enable Virtualisation GUIs (virt-manager settings, KRDC for VNC and RDP). |
 | `vscodium.nix` | Enable VSCodium. |
 
 ## Options

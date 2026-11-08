@@ -11,6 +11,13 @@ let
   version = briar-mailbox.shortRev;
 
   image = "localhost/briar-mailbox:${version}";
+
+  # Podman has no search registries here, the short name of the base image does not resolve.
+  dockerfile = pkgs.writeText "briar-mailbox.Dockerfile" (
+    builtins.replaceStrings [ "FROM eclipse-temurin:" ] [ "FROM docker.io/library/eclipse-temurin:" ] (
+      builtins.readFile "${src}/Dockerfile"
+    )
+  );
   podman = "${config.virtualisation.podman.package}/bin/podman";
 in
 
@@ -40,7 +47,7 @@ in
       };
       script = ''
         if ! ${podman} image exists ${image}; then
-          ${podman} build --pull=missing --tag ${image} ${src}
+          ${podman} build --pull=missing --file ${dockerfile} --tag ${image} ${src}
         fi
       '';
     };

@@ -57,6 +57,9 @@
           fi
 
           ${pkgs.mullvad}/bin/mullvad lan set allow
+          # Without IPv6 in the tunnel Mullvad refuses connections to IPv6 addresses, downloads of
+          # Ollama from Cloudflare failed with "connection refused".
+          ${pkgs.mullvad}/bin/mullvad tunnel set ipv6 on
           ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
           ${pkgs.mullvad}/bin/mullvad dns set custom 127.0.0.1
           ${pkgs.mullvad}/bin/mullvad auto-connect set on

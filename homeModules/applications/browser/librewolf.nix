@@ -20,6 +20,7 @@ let
       "office"
       "matrix"
       "cryptpad"
+      "cryptpad-sandbox"
       "push"
       "rss"
       "bluemap"

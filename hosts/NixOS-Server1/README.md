@@ -7,6 +7,7 @@ Home server with ZFS pool `pool01`: media, file shares, Home Assistant, DNS, git
 ## How it works
 
 - `default.nix` imports the files below. See `hosts/README.md` for the separation of profile and machine.
+- Installation and maintenance: [`README.md`](../../README.md#installation), host specific steps in [its section](../../README.md#nixos-server1).
 
 ## Contents
 

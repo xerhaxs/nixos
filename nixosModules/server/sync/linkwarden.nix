@@ -36,7 +36,7 @@
       host = "127.0.0.1";
       port = 2794;
       openFirewall = false;
-      enableRegistration = true;
+      enableRegistration = false;
       user = "linkwarden";
       group = "linkwarden";
 

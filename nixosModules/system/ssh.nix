@@ -103,11 +103,22 @@
       config.nixos.system.ssh.listenAddresses != [ ]
     ) true;
 
+    # Host keys directly in /persistent: a persisted /etc/ssh is mounted after the activation and
+    # hides sshd_config and authorized_keys.d on a fresh installation.
+    services.openssh.hostKeys = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable [
+      {
+        path = "/persistent/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+      {
+        path = "/persistent/etc/ssh/ssh_host_rsa_key";
+        type = "rsa";
+        bits = 4096;
+      }
+    ];
+
     environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-      directories = [
-        "/etc/ssh"
-        "/var/lib/sshguard"
-      ];
+      directories = [ "/var/lib/sshguard" ];
     };
   };
 }

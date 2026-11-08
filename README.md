@@ -43,157 +43,281 @@ After changes in the private repository: commit there, then `nix flake update pr
 
 ## Installation
 
-Boot a NixOS installation medium, then:
+Every host is installed the same way: prepare it in the private repository, start a target system, install it from an existing client with nixos-anywhere, unlock it, then finish the host specific steps. The client builds the system; the target only needs network and SSH. Everything on the target disk is lost.
+
+| Host | Target system | Unlock at boot | Host specific steps |
+|---|---|---|---|
+| NixOS-Desktop, NixOS-Framework, NixOS-Convertible | NixOS ISO on the machine | passphrase at the console, later TPM2 + PIN | [Clients](#clients) |
+| NixOS-Server1 | NixOS ISO on the machine | initrd ssh (port 22) or TPM2 + PIN | [NixOS-Server1](#nixos-server1) |
+| NixOS-ServerPublic, NixOS-ServerGaming | Debian from the Contabo panel | initrd ssh (port 2222) | [VPS](#vps) |
+| NixOS-Portable | the SSD attached to any Linux | passphrase at the console | [NixOS-Portable](#nixos-portable) |
+| NixOS-VM* | not installed | – | [Test VMs](#test-vms) |
+
+In the commands, `<host>` is the host name (`NixOS-Server1`), `<ip>` its address, `<file>` its sops file: `clients.yaml` for Desktop, Framework and Convertible, `nixos-<host in lower case>.yaml` for all others.
+
+### Requirements on the client
+
+- Both repositories: `~/Documents/nixos` (this one) and `~/Documents/nixos-private` (flake input `private`, the path is fixed in `flake.nix`).
+- KeePassXC unlocked. Its SSH agent holds the key of the client, sops gets the admin key from it (one-time setup per client: `kpxc-cred configure`, see [Host keys for sops](#host-keys-for-sops)).
+- Entries for the new host in KeePassXC: `LUKS <host>` (disk passphrase), `Login <host>` (password of `jf` on clients and Portable, of `admin` on servers), `age <host>` (sops key, step 2 below). Generate the passphrase and the login password in KeePassXC before they are used anywhere.
+
+### 1. Prepare the host
+
+1. Hardware: `hosts/<host>/disko.nix` names the disk (`_module.args.disks`), `hardware-configuration.nix` the kernel modules. For new hardware, generate it from the target system (step 2 below): `ssh <user>@<ip> nixos-generate-config --show-hardware-config --no-filesystems > hosts/<host>/hardware-configuration.nix`. New files have to be added with `git add` (flakes ignore untracked files).
+2. VPS only: in `nixos-private/site.nix` under `serverPublic` or `serverGaming` the values `ipv4`, `ipv4Gateway`, `ipv4PrefixLength`, `ipv6` and `ipv6PrefixLength` from the Contabo panel. `hosts/vps-uplink.nix` builds the static address of the system and of the initrd from them.
+3. sops key of the host (skip on a reinstall, the key in `age <host>` stays valid):
+
+   ```
+   cd /run/user/1000
+   nix shell nixpkgs#age -c age-keygen -o keys.txt
+   ```
+
+   Put the line `AGE-SECRET-KEY-1…` into the password field of `age <host>` and the public key into its notes, then delete the file: `shred -u keys.txt`. Add the public key to `nixos-private/secrets/.sops.yaml` (rule of `<file>`) and re-encrypt: `cd ~/Documents/nixos-private/secrets && sops updatekeys -y <file>`.
+4. Login password as hash in sops (`<user>` is `jf` or `admin`, see above):
+
+   ```
+   cd ~/Documents/nixos-private/secrets
+   h=$(nix shell nixpkgs#mkpasswd -c mkpasswd -m sha-512 -R 500000) && printf '"%s"' "$h" | sops set --value-stdin <file> '["user"]["<host in lower case>"]["<user>"]'; unset h
+   ```
+
+5. All other secrets of the host: `sops <file>`. Every module declares the secrets it needs, the build fails when one is missing.
+6. Commit and build:
+
+   ```
+   cd ~/Documents/nixos-private && git add -A && git commit -m "<host>"
+   cd ~/Documents/nixos && nix flake update private
+   nix build --no-link .#nixosConfigurations.<host>.config.system.build.toplevel
+   ```
+
+   A missing secret stops the build with `the key '…' cannot be found`.
+
+### 2. Start the target system
+
+Physical machines (Desktop, laptops, Server1):
+
+1. Disable Secure Boot in the firmware (it is enabled again after the installation), boot the NixOS minimal ISO in UEFI mode.
+2. Connect the network (cable, or `nmtui` for wifi), set a password for the live user with `passwd`, start SSH with `sudo systemctl start sshd` (the ISO does not start it by itself), show the address with `ip -4 addr`.
+3. On the client: `ssh-keygen -R <ip>`, `ssh-copy-id nixos@<ip>`, then `ssh nixos@<ip> lsblk -o NAME,SIZE,TYPE,MODEL`. The disk must match `hosts/<host>/disko.nix`.
+
+The user for the next steps is `nixos` (nixos-anywhere uses its sudo).
+
+VPS (Contabo):
+
+1. Firewall: Customer Panel, Network Services, Firewall, one firewall per server with Accept rules, source "Any", each rule once for IPv4 and once for IPv6, assigned to the VPS. Before the installation only 22 and 2222 (TCP). After the installation:
+
+   | Host | Ports |
+   |---|---|
+   | NixOS-ServerPublic | 80, 443, 25, 465, 587, 993 (TCP); 3478, 5349 (TCP and UDP); 49152-49999 (UDP, TURN relay); 51820 (UDP, WireGuard); ICMP |
+   | NixOS-ServerGaming | 80, 443, 25565 (TCP); ICMP |
+
+   Port 22 is removed once SSH runs through WireGuard, 2222 (initrd ssh) stays.
+2. Customer Panel, Servers & Hosting, VPS/VDS, "Install" (or "More", "Reinstall"): Standard Image Debian, the SSH public key of the client (`cat ~/.ssh/id_ed25519.pub`), a throwaway root password. On a VPS that is already installed, the Rescue System with the same SSH key works as well.
+3. On the client: `ssh-keygen -R <ip>`, then `ssh root@<ip> 'lsblk -o NAME,SIZE,TYPE,MODEL; ls /sys/firmware/efi; ip -4 addr; ip -4 route; ip -6 addr'`. Contabo uses `/dev/sda` and legacy BIOS (`/sys/firmware/efi` does not exist), `hosts/<host>/disko.nix` is set up for that (`biosBoot = true`, `nixos.system.bootloader.biosDevice = "/dev/sda"`, `removable = true`). Address, prefix and gateway must match `site.nix`, otherwise neither SSH nor the disk unlock answers after the installation.
+
+The user for the next steps is `root`.
+
+### 3. Install
+
+Prepare the files in RAM (`/run/user/1000` is a tmpfs, nothing is written to a disk):
 
 ```
-sudo -i
-curl -L https://raw.githubusercontent.com/xerhaxs/nixos/main/NixOSInstaller.sh | bash
+d=$(mktemp -d -p /run/user/1000 anywhere.XXXXXX)
+mkdir -p "$d"/extra/{secrets,persistent/etc/ssh}
+chmod 755 "$d"/extra "$d"/extra/persistent "$d"/extra/persistent/etc "$d"/extra/persistent/etc/ssh
+chmod 700 "$d"/extra/secrets
+
+# sops key: paste the line AGE-SECRET-KEY-1... from "age <host>", Enter, Ctrl+D
+(umask 077; cat > "$d"/extra/secrets/keys.txt)
+
+# disk passphrase from "LUKS <host>", without a trailing newline (it is typed at boot)
+(umask 077; read -rsp "LUKS passphrase: " p; printf '%s' "$p" > "$d"/luks.pass); echo
 ```
 
-The installer partitions with disko (LUKS2 + btrfs, tmpfs root), creates `/secrets/keyfile.key` for additional data disks (it unlocks only those, the system disk has just the passphrase) and optionally stores the sops age key of the host in `/secrets/keys.txt`. The age key is only needed at activation (boot), not to build or install. Without it, secrets are missing until the key is copied, the password falls back to `initialHashedPassword`.
+Hosts with initrd ssh (Server1, ServerPublic, ServerGaming) also get the host key of the initrd:
 
-NixOS-ServerPublic and NixOS-ServerGaming are installed with nixos-anywhere, see "Installing a VPS with nixos-anywhere" below.
+```
+ssh-keygen -q -t ed25519 -N "" -C "initrd@<host>" -f "$d"/extra/persistent/etc/ssh/initrd_host_key
+ssh-keygen -lf "$d"/extra/persistent/etc/ssh/initrd_host_key.pub
+```
 
-NixOS-Portable: set the disk id in `hosts/NixOS-Portable/disko.nix`, install it from any Linux with the SSD attached (`disko --mode destroy,format,mount` + `nixos-install --flake .#NixOS-Portable`). It boots on legacy BIOS (limine in the BIOS boot partition) and UEFI (removable path `EFI/BOOT/BOOTX64.EFI`, no NVRAM entry); Secure Boot has to be disabled on foreign machines. The boot menu entry with the tag `server` starts the services on `https://<service>.portable.internal` (self-signed certificate).
+Note the fingerprint in the notes of `LUKS <host>`, it is compared at every unlock.
 
-Desktops can start Plasma or Hyprland in SDDM; see `homeModules/desktop/windowManager/hyprland/README.md` for the Hyprland key bindings.
+Hosts whose data disks are unlocked with `/secrets/keyfile.key` (the disks in `hosts/NixOS-Desktop/mount.nix`, hosts with `dataPool.enable`): on a reinstall save the existing key file from the attachment of `LUKS <host>` as `"$d"/extra/secrets/keyfile.key` (`chmod 400`). On a new installation with `dataPool.enable`, create one with `(umask 077; openssl rand -out "$d"/extra/secrets/keyfile.key 4096)`, add `--disk-encryption-keys /tmp/keyfile.key "$d"/extra/secrets/keyfile.key` to the command below and attach the file to `LUKS <host>`.
 
-### Installing a VPS with nixos-anywhere
+Install:
 
-For NixOS-ServerPublic and NixOS-ServerGaming (Contabo). nixos-anywhere connects to any running Linux as `root`, switches it to a NixOS installer in RAM (kexec), partitions the disk with disko, copies extra files and installs. Everything on the disk is lost.
+```
+cd ~/Documents/nixos
+nix run nixpkgs#nixos-anywhere -- --flake .#<host> \
+  --disk-encryption-keys /tmp/secret.key "$d"/luks.pass \
+  --extra-files "$d"/extra \
+  <user>@<ip> 2>&1 | tee /run/user/1000/anywhere.log
+```
 
-Before the first installation, once per host:
+The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpfs.nix`, the passphrase is only used to format and is not stored. On Debian, nixos-anywhere first switches to its installer in RAM (kexec). If GitHub fails to serve the kexec tarball (HTTP 504), build it locally and add it: `k=$(nix build --no-link --print-out-paths github:nix-community/nixos-images#kexec-installer-nixos-stable-noninteractive)`, then `--kexec "$k"/nixos-kexec-installer-noninteractive-x86_64-linux.tar.gz`. At the end the target reboots.
 
-- Host age key: `age <host>` in KeePassXC, public key in `nixos-private/secrets/.sops.yaml`, file re-encrypted (`sops updatekeys -y <file>.yaml`), private repository committed, `nix flake update private`.
-- Firewall in the Contabo panel with at least ports 22 and 2222 (initrd ssh).
-- Disk and firmware: Contabo VPS use `/dev/sda` and legacy BIOS (no `/sys/firmware/efi`). `hosts/<host>/disko.nix` then sets `biosBoot = true` and `nixos.system.bootloader` with `biosDevice = "/dev/sda"`, `biosPartitionIndex = 1` and `removable = true` (no EFI variables). Check with `lsblk` and `ls /sys/firmware/efi` in the system from the next step.
-- Network: `hosts/vps-uplink.nix` builds the static address of the system and of the initrd (`nixos.system.initrdssh.ip`) from `ipv4`, `ipv4Gateway` and `ipv4PrefixLength` of the host in `$PRIV/site.nix`. They must match the VPS (`ip -4 addr` and `ip -4 route` in the system from the next step), otherwise neither SSH nor the disk unlock in the initrd answers.
+### 4. Unlock, check, clean up
 
-1. Start a temporary system: Customer Panel, Servers & Hosting, VPS/VDS, "Install" (or "More", "Reinstall"), Standard Image Debian, add the SSH public key of the desktop (`cat ~/.ssh/id_ed25519.pub`), set a throwaway root password. Then on the desktop: `ssh-keygen -R <ipv4>` and `ssh root@<ipv4> true` (accept the fingerprint).
+1. Unlock:
+   - At the console (clients, Portable, Server1 without ssh): type the passphrase.
+   - Through initrd ssh (servers; port 22 on Server1, 2222 on the VPS):
 
-2. Prepare the files in RAM (`/run/user/1000` is a tmpfs, nothing is written to a disk):
+     ```
+     ssh-keygen -R <ip>; ssh-keygen -R "[<ip>]:<port>"
+     ssh -p <port> root@<ip>
+     systemd-tty-ask-password-agent
+     ```
 
-   ```
-   d=$(mktemp -d -p /run/user/1000 anywhere.XXXXXX)
-   mkdir -p "$d"/extra/{secrets,etc/ssh,persistent/etc/ssh}
-   chmod 755 "$d"/extra "$d"/extra/etc "$d"/extra/etc/ssh "$d"/extra/persistent "$d"/extra/persistent/etc "$d"/extra/persistent/etc/ssh
-   chmod 700 "$d"/extra/secrets
-
-   # host age key: paste the line AGE-SECRET-KEY-1... from "age <host>", then Ctrl+D
-   (umask 077; cat > "$d"/extra/secrets/keys.txt)
-
-   # LUKS passphrase from "LUKS <host>", without a trailing newline (it is typed at boot)
-   (umask 077; read -rsp "LUKS passphrase: " p; printf '%s' "$p" > "$d"/luks.pass); echo
-
-   # initrd ssh host key, in both places: the installation reads /etc/ssh, after the first boot
-   # /etc/ssh comes from /persistent
-   ssh-keygen -q -t ed25519 -N "" -C "initrd@<host>" -f "$d"/extra/etc/ssh/initrd_host_key
-   cp -p "$d"/extra/etc/ssh/initrd_host_key* "$d"/extra/persistent/etc/ssh/
-   ssh-keygen -lf "$d"/extra/etc/ssh/initrd_host_key.pub
-   ```
-
-   Note the fingerprint of the initrd key in the KeePassXC entry "LUKS <host>".
-
-3. Install from the repository:
+     Compare the fingerprint with the one in `LUKS <host>`, then paste the passphrase. The session ends when the boot continues. On a VPS without answer, use the VNC console in the Contabo panel.
+2. Check with the user of the host (`jf` or `admin`, new host key, accept it):
 
    ```
-   cd ~/Documents/nixos
-   nix run nixpkgs#nixos-anywhere -- --flake .#<host> \
-     --disk-encryption-keys /tmp/secret.key "$d"/luks.pass \
-     --extra-files "$d"/extra \
-     root@<ipv4>
+   ssh-keygen -R <ip>
+   ssh -t <user>@<ip> 'sudo -v && systemctl --failed --no-legend; sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt; ls /etc/ssh /persistent/etc/ssh'
    ```
 
-   The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpfs.nix`. A key file (`/tmp/keyfile.key`, kept as `/secrets/keyfile.key`) is only needed with `dataPool.enable`: the data disks are unlocked with it after the system disk, pass it with a second `--disk-encryption-keys /tmp/keyfile.key <file>` and put a copy into `extra/secrets/keyfile.key`. The system is built on the desktop and copied. At the end the VPS reboots.
+   `sudo` takes the password of `Login <host>`, no unit has failed, the public key matches `.sops.yaml`, `/etc/ssh` contains `sshd_config`, `/persistent/etc/ssh` the host keys (and `initrd_host_key`). On clients also `systemctl status home-manager-jf`. Note the fingerprint of the host key (`ssh-keygen -lf /persistent/etc/ssh/ssh_host_ed25519_key.pub`) in `Login <host>`.
+3. Reboot once (`sudo reboot`), unlock again. The login must work without a host key warning, which shows that the persistence holds.
+4. Clean up on the client: `shred -u "$d"/luks.pass "$d"/extra/secrets/* "$d"/extra/persistent/etc/ssh/* 2>/dev/null; rm -r "$d" /run/user/1000/anywhere.log`. Delete the throwaway root password of the Debian system.
 
-4. Unlock the disk (after every reboot):
+### 5. Host specific steps
+
+#### Clients
+
+1. Log in as `jf`. Syncthing brings `~/Documents` (both repositories and the KeePassXC database) from NixOS-Server1, its device identity comes from sops.
+2. Unlock KeePassXC. The SSH key of this client (entry `SSH id_ed25519 <host>`) is added to the agent, check with `ssh-add -l`. Run `kpxc-cred configure` once for sops and git.
+3. Secure Boot (keys in `/var/lib/sbctl`, persisted; limine creates them at the first bootloader installation):
+   1. `sudo sbctl status` shows the keys. If not: `sudo sbctl create-keys && sudo nixos-rebuild boot --flake .#<host>`.
+   2. In the firmware: reset Secure Boot to setup mode, boot.
+   3. `sudo sbctl enroll-keys --microsoft --firmware-builtin`, reboot, enable Secure Boot in the firmware.
+   4. `sudo sbctl status` shows "Secure Boot: enabled".
+4. TPM2 + PIN (with `nixos.disko.disko-luks-btrfs-tmpfs.tpm2 = true`, only after Secure Boot works):
 
    ```
-   ssh-keygen -R <ipv4>; ssh-keygen -R "[<ipv4>]:2222"
-   ssh -p 2222 root@<ipv4>
-   systemd-tty-ask-password-agent
+   sudo systemd-cryptenroll --tpm2-device=auto --tpm2-with-pin=yes --tpm2-pcrs=7 /dev/disk/by-partlabel/disk-NIXOS-LUKS
+   sudo systemd-cryptenroll --recovery-key /dev/disk/by-partlabel/disk-NIXOS-LUKS
    ```
 
-   Compare the fingerprint with the one in KeePassXC, then paste the passphrase. The session ends when the boot continues. If initrd ssh does not answer, use the VNC console in the Contabo panel.
+   Store the PIN and the recovery key (attribute `recovery key`, protected) in `LUKS <host>`. The passphrase stays as a separate key slot. If the TPM fails or the Secure Boot state changes, unlock with the passphrase and enroll again.
+5. NixOS-Desktop with new data disks: add the key file to each of them (asks for the passphrase of the disk), then attach `/secrets/keyfile.key` to `LUKS <host>`:
 
-5. Check: `ssh admin@<ipv4>` (new host key, accept it), then `systemctl --failed` is empty, `sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt` shows the public key from `.sops.yaml`, `ls -l /etc/ssh/initrd_host_key` exists.
+   ```
+   sudo cryptsetup luksAddKey /dev/disk/by-label/CRYPTDATA /secrets/keyfile.key
+   sudo cryptsetup luksAddKey /dev/disk/by-label/CRYPTGAMES /secrets/keyfile.key
+   sudo cryptsetup luksAddKey /dev/disk/by-label/CRYPTBACKUP /secrets/keyfile.key
+   ```
 
-6. Clean up: `shred -u "$d"/luks.pass "$d"/extra/secrets/* "$d"/extra/etc/ssh/* "$d"/extra/persistent/etc/ssh/* && rm -r "$d"`.
+6. Check: `systemctl --failed` and `systemctl --user --failed` are empty, Plasma has its panels and theme.
 
-Later deploys: `nixos-rebuild switch --flake .#<host> --build-host admin@<ipv4> --target-host admin@<ipv4> --sudo --ask-sudo-password`, by name through WireGuard once the tunnel is up.
+#### NixOS-Server1
+
+1. Secure Boot and TPM2 + PIN at the console, as for the clients (steps 3 and 4). initrd ssh stays available for remote unlocks.
+2. ZFS: the pool `pool01` is not touched by the installation. `zfs-load-keys` imports it (fixed `networking.hostId`), loads the keys from the sops secret `zfs/pool01` and mounts the datasets, services with data on the pool wait for `zfs-mounts-ready`. Check: `zpool status pool01`, `systemctl status zfs-mounts-ready`, `systemctl --failed`.
+3. Mullvad logs in with the account from sops, the device stays in the persisted `/etc/mullvad-vpn`. Check: `mullvad status`.
+
+#### VPS
+
+1. Open the remaining firewall ports (table in step 2).
+2. DNS in Cloudflare, every entry "DNS only", A and AAAA to the addresses of the VPS:
+   - NixOS-ServerPublic: `matrix` (Matrix ids are `@name:matrix.<domain>`, the apex needs no record), `turn`, `mail`, `stalwart`, `mta-sts`, `autoconfig`, `autodiscover`, `cryptpad`, `cryptpad-sandbox`, `rss`, `push`, and `openpgpkey` once a PGP key is set. The mail records (MX, SPF, DKIM, DMARC, TLS-RPT, SRV) are shown by Stalwart for the domain ("View DNS records"). MTA-STS needs a TXT record `_mta-sts` with `v=STSv1; id=<date>`, Stalwart serves the policy itself; change the id whenever the policy changes.
+   - NixOS-ServerGaming: `bluemap`, `flolserver`, `countdown`, and the test services in `temp/` (`cloud`, `office`, `code`).
+3. NixOS-ServerPublic: reverse DNS of both addresses to `mail.<domain>` (Contabo Customer Panel, Reverse DNS Management).
+4. Accounts in the services: admin and personal account are always separate, see the notes in [`nixosModules/server/public/README.md`](nixosModules/server/public/README.md).
+5. WireGuard: once the public key of the host is set in `nixosModules/system/wireguard.nix` and deployed, SSH listens only on the tunnel address. Then remove the firewall rule for port 22.
+
+#### NixOS-Portable
+
+Install from any Linux with the SSD attached and both repositories present:
+
+```
+lsblk -o NAME,SIZE,MODEL,SERIAL                # find the SSD, set its id in hosts/NixOS-Portable/disko.nix
+(umask 077; read -rsp "LUKS passphrase: " p; printf '%s' "$p" > /tmp/secret.key); echo
+cd ~/Documents/nixos
+sudo nix run github:nix-community/disko -- --mode destroy,format,mount --flake .#NixOS-Portable
+sudo install -m 400 -o root -D /dev/stdin /mnt/secrets/keys.txt    # paste the line from "age NixOS-Portable", Enter, Ctrl+D
+sudo nixos-install --no-root-passwd --flake .#NixOS-Portable
+shred -u /tmp/secret.key
+```
+
+It boots on legacy BIOS (limine in the BIOS boot partition) and UEFI (removable path `EFI/BOOT/BOOTX64.EFI`, no NVRAM entry). Secure Boot has to be disabled on foreign machines. The boot menu entry with the tag `server` starts the services on `https://<service>.portable.internal` (self-signed certificate).
+
+#### Test VMs
+
+`nixos-rebuild build-vm --flake .#NixOS-VMServerPublic`, then `./result/bin/run-NixOS-VMServerPublic-vm` (likewise for the other VM hosts). The VMs have no sops key: services with secrets fail, the login uses `initialHashedPasswords` from `site.nix`.
+
+#### Installer script
+
+`NixOSInstaller.sh` installs from the live ISO without a second machine (`sudo -i`, then `curl -L https://raw.githubusercontent.com/xerhaxs/nixos/main/NixOSInstaller.sh | bash`). It installs `github:xerhaxs/nixos/main` and therefore needs the private repository reachable from the live system. It asks for host, disk and passphrase, creates `/secrets/keyfile.key` and takes the sops key of the host. Steps 4 and 5 apply afterwards.
 
 ### Host keys for sops
 
-Every host decrypts only its own file of `nixos-private/secrets/` (`nixos.system.sops.file`): one per server and for the portable SSD, `clients.yaml` for Desktop, Framework and Convertible. Only that file is copied to the host. Each host has its own key, generated on the host:
+Every host decrypts only its own file of `nixos-private/secrets/` (`nixos.system.sops.file`): one per server and for the portable SSD, `clients.yaml` for Desktop, Framework and Convertible. Only that file is copied to the host. The key of the host is `/secrets/keys.txt`, backed up in KeePassXC as `age <host>` (the line `AGE-SECRET-KEY-1…` as password, the public key in the notes). It is only needed at activation (boot), not to build or install. Without it, secrets are missing until the key is copied.
+
+The admin key exists only in KeePassXC (entry with the URL `https://sops-admin.invalid`). `sops` gets it through `SOPS_AGE_KEY_CMD` and `git-credential-keepassxc` while the database is unlocked, like the SSH keys. One-time setup per client: `kpxc-cred configure`. The `age <host>` entries must not have that URL: KeePassXC returns the first entry with a matching URL, sops would get a host key instead of the admin key and fail with "identity did not match any of the recipients".
+
+Copy the key to an installed host (lost or replaced key): `ssh -t <user>@<host> 'sudo install -m 400 -o root -D /dev/stdin /secrets/keys.txt'`, paste the line, Ctrl+D, then `sudo /run/current-system/activate` or reboot. A new key needs `.sops.yaml` and `sops updatekeys -y <file>` first.
+
+SSH needs nothing after a reinstall of a client: Home Manager writes `~/.ssh/id_ed25519.pub` from `nixos.system.ssh.authorizedKeys`, the private key comes from KeePassXC once the database is unlocked. If the key is lost: generate a new one, replace it in `nixos.system.ssh.authorizedKeys`, deploy all servers.
+
+## Maintenance
+
+### Updates and deploys
 
 ```
-sudo nix shell nixpkgs#age -c age-keygen -o /secrets/keys.txt
-# public key, add it to nixos-private/secrets/.sops.yaml and run: sops updatekeys -y <file>.yaml
-sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt
+cd ~/Documents/nixos
+nix flake update --commit-lock-file                 # all inputs
+nix flake update private                            # after a commit in the private repository
+
+# build every host before deploying
+for h in NixOS-Desktop NixOS-Framework NixOS-Convertible NixOS-Portable NixOS-Server1 NixOS-ServerPublic NixOS-ServerGaming; do
+  nix build --no-link .#nixosConfigurations.$h.config.system.build.toplevel && echo "OK $h"
+done
+
+# client, on the client itself
+sudo nixos-rebuild switch --flake .#<host>
+
+# server, it builds itself because it rejects unsigned paths
+nixos-rebuild switch --flake .#<host> --build-host admin@<host> --target-host admin@<host> --sudo --ask-sudo-password
 ```
 
-The admin key exists only in KeePassXC (entry with the URL `https://sops-admin.invalid`). `sops` gets it through `SOPS_AGE_KEY_CMD` and `git-credential-keepassxc` while the database is unlocked, like the SSH keys. One-time setup per client: `kpxc-cred configure`.
+- Use `boot` instead of `switch` when the kernel, the initrd or the boot loader change, then reboot.
+- Before a deploy that touches SSH, the network or WireGuard, keep a second SSH session to the server open. Roll back with `sudo nixos-rebuild switch --rollback` or by choosing the previous generation in the boot menu.
+- The servers are reached by name through WireGuard. Until the tunnel is up, a VPS is reached by its public address.
+- New `.nix` files have to be added with `git add` before a build.
+- After a deploy: `systemctl --failed` on the host.
+- `system.autoUpgrade` is off until the rework is merged, afterwards the servers deploy the pushed configuration nightly without automatic reboot.
 
-Every host key is backed up in KeePassXC as entry `age <host>` (the line `AGE-SECRET-KEY-1…` as password, the public key in the notes). These entries must not have the URL `https://sops-admin.invalid`: KeePassXC returns the first entry with a matching URL, sops would get a host key instead of the admin key and fail with "identity did not match any of the recipients".
+### Secrets
 
-### Reinstalling a host with its existing key
+1. Create or change the value in KeePassXC first.
+2. Change it in the service if the service stores it itself (database, router, provider).
+3. `cd ~/Documents/nixos-private/secrets && sops <file>`, commit the private repository, `nix flake update private` here, deploy every host that uses the value. A changed secret restarts its unit (`restartUnits`).
+4. Check the service, then delete the old value.
 
-The sops file stays encrypted for the same key, nothing has to be re-encrypted. Take the key line from the KeePassXC entry `age <host>`:
+Never change a restic repository password only in sops: add the new key with `restic key add`, check it, remove the old one with `restic key remove <id>`, then change sops.
 
-- Installer (`NixOSInstaller.sh`): paste it at "Paste the sops age key of this host", it ends up in `/mnt/secrets/keys.txt` (mode 0400, root).
-- nixos-anywhere (ServerPublic, ServerGaming): put it into the directory given to `--extra-files`: `mkdir -p extra/secrets && (umask 077 && cat > extra/secrets/keys.txt)`, paste the line, Ctrl+D, then `nixos-anywhere ... --extra-files extra`. Delete `extra/` afterwards (`shred -u extra/secrets/keys.txt`).
-- Manual install (Portable): before the first boot `sudo install -m 400 -o root -D /dev/stdin /mnt/secrets/keys.txt`, paste the line, Ctrl+D.
-- Copy to an already installed host: `ssh -t <host> 'sudo install -m 400 -o root -D /dev/stdin /secrets/keys.txt'`, paste the line, Ctrl+D, then reboot or run the activation again (`sudo /run/current-system/activate`), sops-nix installs the secrets during activation.
+### Unlock after a reboot
 
-Check after the first boot: `sudo age-keygen -y /secrets/keys.txt` shows the public key of the host in `.sops.yaml`, `systemctl --failed` is empty.
+- Servers: `ssh -p <port> root@<host>` (port 22 on NixOS-Server1, 2222 on the VPS), then `systemd-tty-ask-password-agent`. NixOS-Server1 also unlocks with TPM2 + PIN at the console.
+- Clients: TPM2 PIN or passphrase at the console.
 
-SSH needs nothing after a reinstall of a client: Home Manager writes `~/.ssh/id_ed25519.pub` from `nixos.system.ssh.authorizedKeys`, the private key comes from KeePassXC (SSH agent) once the database is unlocked. If the key is lost: generate a new one as above, replace it in `.sops.yaml`, `sops updatekeys -y <file>.yaml` (admin key from KeePassXC), commit, `nix flake update private`, deploy.
+### Logs
 
-### Secure Boot
+- Current boot: `journalctl -b -p err`, earlier boot: `journalctl -b -1 -p err` (needs the persisted `/etc/machine-id`, older journals: `journalctl -m`).
+- Crashes: `coredumpctl list -S today`.
+- Home Manager on clients: `systemctl status home-manager-jf`. If it failed, all links in the home are missing at once.
 
-1. `sudo sbctl create-keys` (stored in `/var/lib/sbctl`, persisted).
-2. `nixos.system.secureboot.enable = true;`, rebuild.
-3. Enable the Secure Boot setup mode in the firmware, then `sudo sbctl enroll-keys --microsoft --firmware-builtin`.
-4. Check with `bootctl status`.
-
-### TPM2 + PIN
-
-With Secure Boot working and `nixos.disko.disko-luks-btrfs-tmpfs.tpm2 = true`:
-
-```
-systemd-cryptenroll --tpm2-device=auto --tpm2-with-pin=yes --tpm2-pcrs=7 /dev/disk/by-partlabel/disk-NIXOS-LUKS
-systemd-cryptenroll --recovery-key /dev/disk/by-partlabel/disk-NIXOS-LUKS
-```
-
-The passphrase stays as a separate key slot. If the TPM fails or the Secure Boot state changes, unlock with the passphrase and enroll again.
-
-### Keyfile for additional data disks
+### Firmware
 
 ```
-cryptsetup luksAddKey /dev/disk/by-label/CRYPTDATA /secrets/keyfile.key
-```
-
-## Operation
-
-```
-# update inputs and rebuild
-nix flake update --commit-lock-file
-nixos-rebuild switch --flake .#HOSTNAME
-
-# deploy to a server, it builds itself because it rejects unsigned paths
-nixos-rebuild switch --flake .#SERVERHOSTNAME --build-host REMOTEUSER@SERVERHOSTNAME --target-host REMOTEUSER@SERVERHOSTNAME --sudo --ask-sudo-password
-
-# firmware updates
 fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update
 ```
 
-New files have to be added to git (`git add`) before a rebuild, flakes ignore untracked files.
+### Backups
 
-Logs of earlier boots: `journalctl -b -1 -p err` (needs the persisted `/etc/machine-id`, older journals: `journalctl -m`).
-
-Unlock a server after a reboot: `ssh root@<host>` (NixOS-ServerPublic: port 2222), then `systemd-tty-ask-password-agent --query`.
-
-`system.autoUpgrade` is off until the rework is merged (TODO phase 17), afterwards the servers deploy the pushed configuration nightly without automatic reboot.
+- restic: every server backs up nightly (ServerPublic and ServerGaming to the rest-server on NixOS-Server1, NixOS-Server1 to Proton Drive). Check with `systemctl status restic-backups-home` on the host (`systemctl list-units 'restic-backups-*'` lists all repositories).
+- Back In Time: daily on NixOS-Desktop, on demand for the external disk of NixOS-Server1 (below).
+- Restore tests and offline copies of the keys: [`docs/disaster-recovery.md`](docs/disaster-recovery.md).
 
 ### Back In Time on the external disk of NixOS-Server1
 

@@ -67,7 +67,8 @@
       powermanagement.enable = true;
       restic.enable = lib.mkDefault false;
       secureboot.enable = lib.mkDefault false;
-      smartd.enable = true;
+      # Virtual disks of VMs and VPS have no SMART, smartd exits with an error.
+      smartd.enable = lib.mkDefault (!config.services.qemuGuest.enable);
       sops.enable = true;
       ssh.enable = true;
       user.enable = true;

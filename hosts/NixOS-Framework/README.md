@@ -7,6 +7,7 @@ Framework laptop (AMD), Plasma 6, sops wifi, private DNS, MAC randomization, TPM
 ## How it works
 
 - `default.nix` imports the files below. See `hosts/README.md` for the separation of profile and machine.
+- Installation and maintenance: [`README.md`](../../README.md#installation), host specific steps in [its section](../../README.md#clients).
 
 ## Contents
 

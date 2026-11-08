@@ -11,9 +11,10 @@ let
   domain = config.nixos.server.network.nginx.domain;
   matrixDomain = "matrix.${domain}";
 
+  # Matrix ids are @name:matrix.<domain>, the apex of the domain is not used.
   bridgePermissions = {
-    "${domain}" = "user";
-    "@${userName}:${domain}" = "admin";
+    "${matrixDomain}" = "user";
+    "@${userName}:${matrixDomain}" = "admin";
   };
 
   wellKnownServer = builtins.toJSON { "m.server" = "${matrixDomain}:443"; };
@@ -86,7 +87,7 @@ in
           extraConfigFiles = [ config.sops.templates."synapse-secrets.yaml".path ];
 
           settings = {
-            server_name = domain;
+            server_name = matrixDomain;
             public_baseurl = "https://${matrixDomain}";
 
             listeners = [
@@ -119,7 +120,9 @@ in
               };
             };
 
-            enable_registration = false;
+            # Only with a token from the admin API (_synapse/admin/v1/registration_tokens/new).
+            enable_registration = true;
+            registration_requires_token = true;
             allow_guest_access = false;
             url_preview_enabled = false;
             report_stats = false;
@@ -180,14 +183,7 @@ in
                 '';
               };
               locations."/_synapse/client".proxyPass = "http://127.0.0.1:8008";
-            };
-
-            "${domain}" = {
-              forceSSL = true;
-              enableACME = true;
-              acmeRoot = null;
-              kTLS = true;
-              http2 = true;
+              # Federation on 443 instead of 8448.
               locations."= /.well-known/matrix/server".extraConfig = ''
                 default_type application/json;
                 return 200 '${wellKnownServer}';
@@ -232,7 +228,7 @@ in
           settings = {
             homeserver = {
               address = "http://127.0.0.1:8008";
-              domain = domain;
+              domain = matrixDomain;
             };
             appservice = {
               hostname = "127.0.0.1";
@@ -293,7 +289,7 @@ in
           settings = {
             homeserver = {
               address = "http://127.0.0.1:8008";
-              domain = domain;
+              domain = matrixDomain;
             };
             appservice = {
               hostname = "127.0.0.1";

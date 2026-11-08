@@ -66,8 +66,7 @@ in
           UseGroupIconOnEntryCreation = true;
           AutoTypeEntryTitleMatch = true;
           AutoTypeEntryURLMatch = true;
-          # VNC viewers (remote-viewer) drop keystrokes and releases of Shift at 25 ms.
-          AutoTypeDelay = 150;
+          AutoTypeDelay = 25;
           AutoTypeStartDelay = 500;
           AutoTypeHideExpiredEntry = false;
           AutoTypeDialogSortColumn = 0;

@@ -20,9 +20,19 @@
 
   config = lib.mkIf config.homeManager.applications.development.virtualisation.enable {
     home.packages = with pkgs; [
+      kdePackages.krdc
       spice-gtk
-      virt-viewer
     ];
+
+    home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [ ".local/share/krdc" ];
+      files = [
+        {
+          file = ".config/krdcrc";
+          method = "symlink";
+        }
+      ];
+    };
 
     dconf.settings = {
       "org/virt-manager/virt-manager" = {

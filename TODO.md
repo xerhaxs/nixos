@@ -22,7 +22,7 @@ Konventionen:
 - [X] 1.1 `cd $PRIV && git status`. Neu bzw. geändert sind `site.nix` (initiale Passwort-Hashes), `secrets/.sops.yaml` (Regeln für `initial-passwords.yaml` und `nixos-portable.yaml`), `secrets/initial-passwords.yaml` und `secrets/nixos-portable.yaml`.
 - [X] 1.2 Eigene Login-Passwörter in KeePassXC anlegen. Klartext liegt nur dort, die Hashes (sha512crypt, 500 000 Runden) stehen in `site.nix` unter `initialHashedPasswords`, bei ServerPublic und ServerGaming in sops. `secrets/initial-passwords.yaml` ist gelöscht (02.11.2026).
 - [ ] 1.3 In `site.nix` ergänzen:
-  - [X] `mailAddress = "<du>@<mailDomain>";` und `mailRealName = "<Name>";` (Thunderbird-Konto, CalDAV/CardDAV von Stalwart)
+  - [X] `mailAddress = "<du>@<domain>";` und `mailRealName = "<Name>";` (Thunderbird-Konto, CalDAV/CardDAV von Stalwart)
   - [ ] `pgpFingerprint = "<40 Zeichen>";` (sobald der PGP-Schlüssel existiert, siehe Phase 11)
   - [X] `serverPublic`: Daten aus dem Contabo Customer Panel unter Network Services → IP Assignment, Button (i): `ipv4`, `ipv4Gateway`, `ipv4PrefixLength` (aus der Netzmaske, 255.255.240.0 ist 20), `ipv6` (eine Adresse aus dem Netz, z. B. `<Präfix>::1`) und `ipv6PrefixLength`. Die Einträge `interface` und `storageBox` löschen, beide werden nicht mehr gelesen.
   - [X] `serverGaming`: dasselbe für den Gaming-Server
@@ -84,7 +84,7 @@ Nacharbeiten:
 - [X] 4.7 Der erste Lauf über cron startete am 02.11.2026 um 17:07, der letzte fertige Snapshot war vom 26.08.2026. Abgeschlossen, wenn `last_snapshot` auf einen Snapshot von November zeigt. Back In Time läuft jetzt über cron: Ein Eintrag im System-Crontab startet stündlich `backup-job`, das Profil steht auf Modus 25 (anacron) und Back In Time sichert, sobald ein Tag vergangen ist. So holt es eine Sicherung nach, wenn der Rechner aus war. Der System-Crontab kommt aus der Konfiguration und übersteht den tmpfs, die Zeitstempel liegen im persistierten `~/.local/share/backintime`. Prüfen: `sudo grep backintime /etc/crontab`, `grep schedule.mode=25 ~/.config/backintime/config`, Back In Time öffnen (kein Fehler `cannot chdir(/var/cron)`). Nach spätestens einer Stunde: `ls -la /mount/Backup/backintime/*/*/*/ | tail` zeigt einen neuen Snapshot. Der alte Timer lief nie, weil `bin/backintime` im Paket fehlte, der letzte Snapshot kann also alt sein.
 - [X] 4.8 KeePassXC-SSH-Agent einrichten: [`docs/keepassxc-ssh-agent.md`](docs/keepassxc-ssh-agent.md). Danach `ssh-add -l`. Bis dahin nutzt ssh die Datei `~/.ssh/id_ed25519`. Diese ist ohne Passphrase, nach der Einrichtung also aus `~/.ssh` löschen, `id_ed25519.pub` bleibt.
 - [X] 4.9 DangerZone einmal starten. Beim ersten Start lädt es das Container-Image und prüft es mit cosign. Danach eine Test-PDF umwandeln.
-- [ ] 4.10 Fluent Reader: In Miniflux unter Einstellungen → API-Schlüssel einen Key anlegen und ihn in Fluent Reader unter Einstellungen → Dienst eintragen. Funktioniert erst, wenn ServerPublic läuft.
+- [X] 4.10 Fluent Reader: In Miniflux unter Einstellungen → API-Schlüssel einen Key anlegen und ihn in Fluent Reader unter Einstellungen → Dienst eintragen. Funktioniert erst, wenn ServerPublic läuft.
 - [ ] 4.11 EasyEffects: Das Preset `microphone` ist auf Rode Procaster und Behringer UMC22 abgestimmt (Eingang 1, 48V aus). Den Gain am UMC22 so einstellen, dass normale Sprache bei -18 bis -12 dBFS liegt, dann Probeaufnahme machen. Die Werte stammen aus den Datenblättern und sind nicht gemessen, Feinabstimmung siehe [`docs/microphone.md`](docs/microphone.md).
 - [X] 4.12 Hyprland: nach Phase 18 verschoben.
 - [ ] 4.13 Fusion 360: Die Installation ist fertig (02.11.2026, 11 GB im Prefix). `fusion360` starten und anmelden, die Anmeldung läuft über den Browser. Im Menü den Eintrag „Autodesk Fusion 360“ verwenden, nicht den von Wine erzeugten „Autodesk Fusion“ (Status 127, verschwindet beim Neustart). Startet es unter Wine nicht, ist die Alternative eine Windows-VM (siehe [`docs/virtual-machines.md`](docs/virtual-machines.md)).
@@ -113,7 +113,7 @@ Nacharbeiten:
 - [X] 6.3 (03.11.2026: Ollama nutzt die Arc A310 per Vulkan) Intel-GPU für Ollama prüfen: `ssh admin@NixOS-Server1 'nix shell nixpkgs#vulkan-tools -c vulkaninfo --summary'` muss die Intel-GPU zeigen. Danach im Log `journalctl -u ollama | grep -i vulkan`.
 - [X] 6.4 ComfyUI: `systemctl status podman-comfyui`. Der erste Start lädt das Image (mehrere GB). Danach `https://comfyui.<homeDomain>` öffnen und ein Modell (z. B. SDXL oder Flux) in `/pool01/applications/comfyui/models/checkpoints` legen. Am 03.11.2026 scheiterte der Start mit `statfs /pool01/applications/comfyui/models: no such file or directory`, ebenso Prometheus, Loki und HomeBox: `systemd-tmpfiles-setup` läuft vor dem Mount der verschlüsselten Datasets, die Ordner landeten verdeckt unter dem Mountpunkt. Jetzt wendet `zfs-mounts-ready` die tmpfiles-Regeln für `/pool01` nach dem Mount noch einmal an, `podman-comfyui` wartet darauf. Nach dem Deploy prüfen: `systemctl is-active podman-comfyui prometheus loki homebox`.
 - [X] 6.5 Neue DNS-Namen im Pi-hole: `comfyui`, `grafana`, `homebox` (kommen automatisch aus `lan.hosts`).
-- [X] 6.6 Externe Sicherung per Skript (erst nach 6.2 vorhanden, Anleitung in der README unter Operation): `sudo backup-external`. Der Lauf vom 03.11.2026 endete mit Code 23 (alte Windows-Streams als xattrs, FreeTube-Cache), beides ist jetzt ausgenommen. Nach dem nächsten Lauf prüfen: `sudo grep -c "rsync error" /root/.local/share/backintime/takesnapshot_.log` ist 0. Fortschritt: `sudo tail -f /root/.local/share/backintime/takesnapshot_.log`.
+- [X] 6.6 Externe Sicherung per Skript (erst nach 6.2 vorhanden, Anleitung in der README unter Maintenance): `sudo backup-external`. Der Lauf vom 03.11.2026 endete mit Code 23 (alte Windows-Streams als xattrs, FreeTube-Cache), beides ist jetzt ausgenommen. Nach dem nächsten Lauf prüfen: `sudo grep -c "rsync error" /root/.local/share/backintime/takesnapshot_.log` ist 0. Fortschritt: `sudo tail -f /root/.local/share/backintime/takesnapshot_.log`.
 - [ ] 6.7 Loki-Alarm „ExecOutsideNixStore“ testen: per ssh eine Kopie von `/run/current-system/sw/bin/true` nach `/tmp` legen und ausführen. Innerhalb von 5 Minuten muss ein Alarm kommen (nach Phase 10).
 - [ ] 6.8 Glance prüfen: Seite „Server“ mit den Abschnitten pro Server. Die externen Server zeigen erst Daten, wenn WireGuard steht (Phase 9).
 - [X] 6.9 Grafana: Dashboard „Security and Updates“ öffnen. Den ersten Scan von Hand starten: `sudo systemctl start vulnscan update-check` (lädt rund 3 GB Datenbank). Treffer sind Kandidaten, siehe [`docs/updates-and-vulnerabilities.md`](docs/updates-and-vulnerabilities.md).
@@ -347,7 +347,7 @@ Nicht in 7E:
 
 7F – Alle KeePassXC-Einträge mit Gruppe, URL für das automatische Ausfüllen und allen Stellen, an denen der Wert steht
 
-Eine Zeile mit mehreren Titeln heißt: je Titel ein eigener Eintrag mit eigenem Wert. Die Spalte „Notizfeld“ so übernehmen. URLs mit den echten Domains aus `$PRIV/site.nix` eintragen (`<homeDomain>`, `<domain>`, `<mailDomain>` sind hier nur Platzhalter, das öffentliche Repo enthält keine Domains). KeePassXC füllt im Browser nur aus, wenn Schema und Host passen (`MatchUrlScheme` ist an), also immer mit `https://`. Eine zweite Adresse desselben Dienstes unter Browser-Integration → Zusätzliche URLs. Einträge ohne Weboberfläche bekommen keine URL. Die URL `https://sops-admin.invalid` hat nur „sops age admin“ (siehe 7A).
+Eine Zeile mit mehreren Titeln heißt: je Titel ein eigener Eintrag mit eigenem Wert. Die Spalte „Notizfeld“ so übernehmen. URLs mit den echten Domains aus `$PRIV/site.nix` eintragen (`<homeDomain>`, `<domain>`, `<domain>` sind hier nur Platzhalter, das öffentliche Repo enthält keine Domains). KeePassXC füllt im Browser nur aus, wenn Schema und Host passen (`MatchUrlScheme` ist an), also immer mit `https://`. Eine zweite Adresse desselben Dienstes unter Browser-Integration → Zusätzliche URLs. Einträge ohne Weboberfläche bekommen keine URL. Die URL `https://sops-admin.invalid` hat nur „sops age admin“ (siehe 7A).
 
 | Titel | Gruppe | Benutzername | URL (Autofill) | Notizfeld |
 |---|---|---|---|---|
@@ -359,7 +359,7 @@ Eine Zeile mit mehreren Titeln heißt: je Titel ein eigener Eintrag mit eigenem 
 | sops age admin | `NixOS/Keys` | – | `https://sops-admin.invalid` | Only here. Public key (`age1…`) in `$PRIV/secrets/.sops.yaml`. |
 | age NixOS-Desktop, age NixOS-Framework, age NixOS-Convertible, age NixOS-Portable, age NixOS-Server1, age NixOS-ServerPublic, age NixOS-ServerGaming | `NixOS/Keys` | – | – | `/secrets/keys.txt` on the host. Public key in `$PRIV/secrets/.sops.yaml`. |
 | SSH jf@NixOS-Desktop, SSH jf@NixOS-Framework, SSH jf@NixOS-Convertible, SSH jf@NixOS-Portable | `NixOS/Keys` | `jf` | – | Desktop, Framework, Convertible: until phase 22 still named „SSH id_ed25519 <Host>“ (5.1b). Portable: new key since 07.11.2026 (12.2b). Private key attached, passphrase in the password field (SSH agent). Public key in `nixosModules/system/ssh.nix` (`authorizedKeys`) and `hosts/NixOS-Server1/machine.nix` (`initrdssh.authorizedKeys`). |
-| WireGuard NixOS-Desktop, WireGuard NixOS-Framework, WireGuard NixOS-Convertible, WireGuard NixOS-Server1, WireGuard NixOS-ServerPublic, WireGuard NixOS-ServerGaming, WireGuard GrapheneOS | `NixOS/Keys` | – | – | Private key in the password field: clients `clients.yaml`, servers `nixos-<host>.yaml`, each → `wireguard/nixos-<host>/private`; GrapheneOS only in the app (23.1). Public key in the notes and in `nixosModules/system/wireguard.nix` (ServerPublic since 07.11.2026, ServerGaming in 8.17, the others in 9.1, GrapheneOS in 23.1). |
+| WireGuard NixOS-Desktop, WireGuard NixOS-Framework, WireGuard NixOS-Convertible, WireGuard NixOS-Server1, WireGuard NixOS-ServerPublic, WireGuard NixOS-ServerGaming, WireGuard GrapheneOS | `NixOS/Keys` | – | – | Private key in the password field: clients `clients.yaml`, servers `nixos-<host>.yaml`, each → `wireguard/nixos-<host>/private`; GrapheneOS only in the app (23.1). Public key in the notes and in `nixosModules/system/wireguard.nix` (ServerPublic since 07.11.2026, ServerGaming in 8.18, the others in 9.1, GrapheneOS in 23.1). |
 | Syncthing NixOS-Desktop | `NixOS/Keys` | – | – | Device ID: PVZV2NU-LFXP33P-6I4XSXQ-M3TZWJN-HJOB2UC-2GLQSIE-GGF2TZ4-N22MAQN. Certificate: `clients.yaml` → `syncthing/nixos-desktop/cert` and `/key`, `cert.pem` and `key.pem` attached from phase 22.5 on. Device ID also in `nixosModules/userEnvironment/syncthing.nix`, `hosts/NixOS-Server1/syncthing.nix` and on the phone. |
 | Syncthing NixOS-Framework | `NixOS/Keys` | – | – | Device ID: FSX7XGK-OPZCHEB-GGK5B2Z-S6KINWL-WWTSUFA-WBIZFQW-I7HZF6L-IKH2NAW. Certificate: `clients.yaml` → `syncthing/nixos-framework/cert` and `/key`, `cert.pem` and `key.pem` attached from phase 22.5 on. Device ID also in `nixosModules/userEnvironment/syncthing.nix`, `hosts/NixOS-Server1/syncthing.nix` and on the phone. |
 | Syncthing NixOS-Convertible | `NixOS/Keys` | – | – | Device ID: MUOQSA5-7L5PSY4-DV3IYPW-VPCRMW6-RWOTIBN-DU27J42-AML2NCX-JGEMBQC. Certificate: `clients.yaml` → `syncthing/nixos-convertible/cert` and `/key`, `cert.pem` and `key.pem` attached from phase 22.5 on. Device ID also in `nixosModules/userEnvironment/syncthing.nix`, `hosts/NixOS-Server1/syncthing.nix` and on the phone. |
@@ -402,15 +402,18 @@ Eine Zeile mit mehreren Titeln heißt: je Titel ein eigener Eintrag mit eigenem 
 
 | Titel | Gruppe | Benutzername | URL (Autofill) | Notizfeld | Anlegen in |
 |---|---|---|---|---|---|
-| Mailbox jf@ (ebenso jede weitere Adresse) | `NixOS/ServerPublic` | Mailadresse | `https://mail.<mailDomain>` | In Stalwart; Thunderbird, phone. | 8.8 |
-| Mailbox alerts@ | `NixOS/ServerPublic` | `alerts@<mailDomain>` | `https://mail.<mailDomain>` | In Stalwart; every host file → `notify/mail-password` (Server1 also for Alertmanager). | 10.1 |
+| Stalwart mailadmin | `NixOS/ServerPublic` | `mailadmin` | `https://stalwart.<domain>` | Own admin account in Stalwart with 2FA (TOTP in the entry), the fallback admin is only for emergencies. | 8.8 |
+| Mailbox jf@ (ebenso jede weitere Adresse) | `NixOS/ServerPublic` | Mailadresse | `https://mail.<domain>` | In Stalwart, with 2FA (TOTP in the entry). | 8.8 |
+| Mailbox jf@ App <Gerät> | `NixOS/ServerPublic` | Mailadresse | – | App password from Stalwart for Thunderbird or the phone, one per device. | 8.8 |
+| Mailbox alerts@ | `NixOS/ServerPublic` | `alerts@<domain>` | `https://mail.<domain>` | In Stalwart; every host file → `notify/mail-password` (Server1 also for Alertmanager). | 10.1 |
 | ntfy jf | `NixOS/ServerPublic` | `jf` | `https://push.<domain>` | bcrypt hash in `nixos-serverpublic.yaml` → `ntfy/env` (`NTFY_AUTH_USERS`); ntfy app on the phone. | 10.2 |
 | ntfy token alerts | `NixOS/ServerPublic` | – | – | `nixos-serverpublic.yaml` → `ntfy/env` (`NTFY_AUTH_TOKENS`); every host file → `notify/ntfy-env` (line `NTFY_TOKEN=`); `nixos-server1.yaml` → `monitoring/ntfy-token`. Topic: `ALERT_TOPIC`. | 10.2, 10.3 |
 | ntfy token killswitch read, ntfy token killswitch write | `NixOS/ServerPublic` | – | – | `nixos-serverpublic.yaml` → `ntfy/env` (`NTFY_AUTH_TOKENS`). Read: every host file → `killswitch/env` (line `NTFY_TOKEN=`). Write: `nixos-server1.yaml` → `killswitch/ha-env`. Topic: `KILLSWITCH_TOPIC`. | 10.4 |
 | MollySocket VAPID | `NixOS/ServerPublic` | – | – | `nixos-serverpublic.yaml` → `mollysocket/env` (`MOLLY_VAPID_PRIVKEY`). | 13.10 (optional) |
-| Matrix jf, CryptPad, Miniflux | `NixOS/ServerPublic` | dein Benutzer | `https://matrix.<domain>`, `https://cryptpad.<domain>`, `https://rss.<domain>` | Only in the service, created in 8.8. | 8.8 |
+| Matrix admin, CryptPad admin, Miniflux | `NixOS/ServerPublic` | `admin` | `https://matrix.<domain>`, `https://cryptpad.<domain>`, `https://rss.<domain>` | Admin accounts, only in the service. Not for daily use. | 8.8 |
+| Matrix jf, CryptPad, Miniflux jf | `NixOS/ServerPublic` | `jf` | `https://matrix.<domain>`, `https://cryptpad.<domain>`, `https://rss.<domain>` | Personal accounts without admin rights, only in the service. Matrix: security key in an attribute. | 8.8 |
 | Miniflux token (Glance) | `NixOS/ServerPublic` | – | – | Issued by Miniflux. `nixos-server1.yaml` → `glance` (line `ENV_MINIFLUX_TOKEN=`). | 8.8a |
-| Nextcloud | `NixOS/ServerGaming` | dein Benutzer | `https://cloud.<domain>` | Only in Nextcloud. Test service, delete in phase 19. | 19.4 |
+| Nextcloud admin, Nextcloud jf | `NixOS/ServerGaming` | `admin`, `jf` | `https://cloud.<domain>` | Only in Nextcloud, admin and personal account separate. Test service, delete in phase 19. | 19.4 |
 | GitHub mirror token (Forgejo), Codeberg mirror token (Forgejo) | `NixOS/Providers` | Benutzer beim Anbieter | – | Issued by the provider, scoped to the mirrored repos. Only in Forgejo: repo → Settings → Mirror settings (7.16). | 7.16 |
 
 Die restic-Einträge (Backups der VPS auf Server1 und von Server1 zu Proton Drive) stehen mit allem Nötigen in Tabelle 9A.
@@ -515,7 +518,7 @@ Die Spalte „Name“ ist der Regelname im Panel, „Quelle“ das Feld Source. 
 
 | Name | Port | Protokoll | Quelle | ServerPublic | ServerGaming | Wofür |
 |---|---|---|---|---|---|---|
-| ssh | 22 | TCP | Any | bis WireGuard steht | bis WireGuard steht | SSH, danach Regel löschen (8.17) |
+| ssh | 22 | TCP | Any | bis WireGuard steht | bis WireGuard steht | SSH, danach Regel löschen (8.18) |
 | initrd-ssh | 2222 | TCP | Any | ja | ja | LUKS-Entsperrung im initrd bei jedem Neustart, nie löschen |
 | web | 80, 443 | TCP | Any | ja | ja | Webdienste, BlueMap, Testdienste |
 | smtp | 25 | TCP | Any | ja | nein | Mail von anderen Servern |
@@ -532,38 +535,174 @@ Die Spalte „Name“ ist der Regelname im Panel, „Quelle“ das Feld Source. 
 - [X] 8.5a Ergebnis ServerPublic (07.11.2026): `/dev/sda`, kein `/sys/firmware/efi`, also BIOS. `hosts/NixOS-ServerPublic/disko.nix` ist seitdem auf BIOS-Boot umgestellt. Ein Übergangssystem installieren und darin prüfen. Ein neuer VPS ist bei Contabo „nicht installiert“, das Menü „More“ (⋮) und das Rescue-System gibt es erst danach. nixos-anywhere (8.6) braucht ohnehin ein laufendes Linux mit SSH als `root`, es überschreibt die Platte.
   - [X] Customer Panel → Servers & Hosting → VPS/VDS → beim VPS „Install“ (bei einem schon installierten „More“ → „Reinstall“) → Standard Image, Debian (neueste Version), bei SSH Key den öffentlichen Schlüssel vom Desktop (`cat ~/.ssh/id_ed25519.pub`, „jf@NixOS-Desktop“), zusätzlich ein Root-Passwort aus KeePassXC (nur für dieses Übergangssystem, nach 8.6 wertlos) → Install. Fortschritt in der Spalte Status.
   - [X] Vom Desktop: `ssh-keygen -R <ipv4>`, dann `ssh root@<ipv4>` (`<ipv4>` aus `$PRIV/site.nix` → `serverPublic.ipv4`, den Fingerprint mit `yes` annehmen).
-  - [X] Darin `lsblk -o NAME,SIZE,TYPE,MODEL` (die Hosts erwarten `/dev/sda`, sonst `hosts/<Host>/disko.nix` anpassen) und `ls /sys/firmware/efi` (Liste = UEFI, passt; `No such file or directory` = BIOS, dann `nixos.system.bootloader.biosDevice` setzen). Beide Ausgaben an Claude geben. Bei ServerGaming dasselbe vor 8.14.
-- [X] 8.6 Installieren, Ablauf mit allen Befehlen in [`README.md`](README.md#installing-a-vps-with-nixos-anywhere) (Host `NixOS-ServerPublic`). Kurzform: `nixos-anywhere --flake .#NixOS-ServerPublic --disk-encryption-keys /tmp/secret.key <passphrase-datei> --extra-files <dir mit secrets/keys.txt, etc/ssh/initrd_host_key und persistent/etc/ssh/initrd_host_key> root@<ip>`. Den Hostkey in beide Pfade legen: Die Installation liest ihn unter `/etc/ssh`, nach dem ersten Boot kommt `/etc/ssh` aus `/persistent` (noch nicht getestet).
-- [ ] 8.7 DNS-Einträge anlegen: A/AAAA für alle Dienstnamen, dazu `openpgpkey.<mailDomain>`. Für die Mail-Domain MX, SPF, DKIM, DMARC, MTA-STS und TLS-RPT (die Werte zeigt die Stalwart-Weboberfläche), außerdem CAA und PTR beim Anbieter. Port 25 beim Anbieter freischalten lassen.
-- [ ] 8.8 Ersteinrichtung. Jedes Konto gleich mit dem endgültigen Passwort anlegen: zuerst in KeePassXC erzeugen und speichern, dann im Dienst eintragen. Passwörter: KeePassXC → Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9; lehnt der Dienst das ab, in KeePassXC auf das erlaubte Maximum kürzen und das im Notizfeld vermerken. Diese Konten sind neu, sie werden in Phase 20 nicht noch einmal geändert.
-  - [ ] Stalwart: `https://stalwart.<domain>`, Anmeldung mit `admin` und „Stalwart admin“. Postfach anlegen für deine Adresse: KeePassXC `NixOS/ServerPublic` → „Mailbox jf@“, Benutzername = die Adresse, URL `https://mail.<mailDomain>`. Ebenso jede weitere Adresse mit eigenem Eintrag. `alerts@` kommt in 10.1.
-  - [ ] Matrix: KeePassXC `NixOS/ServerPublic` → „Matrix jf“, Benutzername `jf`, URL `https://matrix.<domain>`. Auf ServerPublic: `sudo -u matrix-synapse register_new_matrix_user -c /run/secrets/rendered/synapse-secrets.yaml http://localhost:8008`, Benutzer `jf`, Passwort aus dem Eintrag, Admin `yes`. Prüfen: Anmeldung in Element.
+  - [X] Darin `lsblk -o NAME,SIZE,TYPE,MODEL` (die Hosts erwarten `/dev/sda`, sonst `hosts/<Host>/disko.nix` anpassen) und `ls /sys/firmware/efi` (Liste = UEFI, passt; `No such file or directory` = BIOS, dann `nixos.system.bootloader.biosDevice` setzen). Beide Ausgaben an Claude geben. Bei ServerGaming dasselbe vor 8.15.
+- [X] 8.6 Installieren, Ablauf auch in [`README.md`](README.md#installation). Die erste Installation am 07.11.2026 lief, danach fand sshd `/etc/ssh/sshd_config` nicht (das persistierte `/etc/ssh` verdeckte die Dateien der Aktivierung) und brauchte Handarbeit im Rescue-System. Behoben in `nixosModules/system/ssh.nix` und `initrdssh.nix`: Host-Keys und initrd-Key liegen direkt unter `/persistent/etc/ssh`, `/etc/ssh` wird nicht mehr persistiert. Am 08.11.2026 neu installieren, um das zu prüfen:
+  - [X] Vorher: KeePassXC entsperrt, `ssh-add -l` zeigt den Desktop-Key. Contabo-Panel → VPS → ⋮ → Rescue System, als Zugang den SSH-Key des Desktops. Dann vom Desktop `ssh-keygen -R <ipv4>` und `ssh root@<ipv4> true` (Fingerprint annehmen).
+  - [X] Dateien im RAM vorbereiten (die vom 07.11. sind weg, `/run/user/1000` ist ein tmpfs):
+
+    ```
+    d=$(mktemp -d -p /run/user/1000 anywhere.XXXXXX)
+    mkdir -p "$d"/extra/{secrets,persistent/etc/ssh}
+    chmod 755 "$d"/extra "$d"/extra/persistent "$d"/extra/persistent/etc "$d"/extra/persistent/etc/ssh
+    chmod 700 "$d"/extra/secrets
+    (umask 077; cat > "$d"/extra/secrets/keys.txt)
+    (umask 077; read -rsp "LUKS passphrase: " p; printf '%s' "$p" > "$d"/luks.pass); echo
+    ssh-keygen -q -t ed25519 -N "" -C "initrd@NixOS-ServerPublic" -f "$d"/extra/persistent/etc/ssh/initrd_host_key
+    ssh-keygen -lf "$d"/extra/persistent/etc/ssh/initrd_host_key.pub
+    echo "$d"
+    ```
+
+    Bei `cat` die Zeile `AGE-SECRET-KEY-1…` aus KeePassXC „age NixOS-ServerPublic“ einfügen, Enter, Strg+D. Bei `read` die Passphrase aus „LUKS NixOS-ServerPublic“. Den neuen Fingerprint des initrd-Keys in „LUKS NixOS-ServerPublic“ eintragen, den alten ersetzen.
+  - [X] Installieren (aus dem Rescue-System lädt nixos-anywhere zuerst per kexec seinen Installer, die Platte wird komplett neu angelegt):
+
+    ```
+    cd ~/Documents/nixos
+    nix run nixpkgs#nixos-anywhere -- --flake .#NixOS-ServerPublic \
+      --disk-encryption-keys /tmp/secret.key "$d"/luks.pass \
+      --extra-files "$d"/extra \
+      root@<ipv4> 2>&1 | tee /run/user/1000/anywhere.log
+    ```
+
+    Scheitert kexec im Rescue-System, im Panel stattdessen Debian als Standard-Image mit dem SSH-Key installieren und den Befehl wiederholen.
+    Antwortet GitHub beim Download des kexec-Tarballs mit `504` (08.11.2026 für einige Minuten), den Tarball lokal holen und mitgeben: `k=$(nix build --no-link --print-out-paths github:nix-community/nixos-images#kexec-installer-nixos-stable-noninteractive)`, dann zusätzlich `--kexec "$k"/nixos-kexec-installer-noninteractive-x86_64-linux.tar.gz`.
+  - [X] Entsperren, ohne Handarbeit:
+
+    ```
+    ssh-keygen -R <ipv4>; ssh-keygen -R "[<ipv4>]:2222"
+    ssh -p 2222 root@<ipv4>
+    systemd-tty-ask-password-agent
+    ```
+
+    Fingerprint mit KeePassXC vergleichen, Passphrase einfügen. Die Verbindung bricht danach ab.
+  - [X] Prüfen: `ssh-keygen -R <ipv4>`, dann `ssh -t admin@<ipv4> 'findmnt /etc/ssh; ls -la /etc/ssh /persistent/etc/ssh; sudo -v && systemctl --failed --no-legend; sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt'`. Erwartet: `findmnt` gibt nichts aus, `/etc/ssh` enthält `sshd_config` und `authorized_keys.d`, `/persistent/etc/ssh` die Host-Keys und `initrd_host_key`, `sudo -v` nimmt das Passwort aus KeePassXC (eingefügt), keine fehlgeschlagenen Units, der age-Key gehört zu einem Empfänger in `.sops.yaml`. Den Fingerprint von `ssh_host_ed25519_key` in KeePassXC notieren.
+  - [X] Einmal neu starten (`ssh -t admin@<ipv4> sudo reboot`), entsperren wie oben und `ssh admin@<ipv4>` muss ohne neue Host-Key-Warnung gehen. Damit ist gezeigt, dass die Host-Keys die Persistenz überleben.
+  - [X] Aufräumen: `shred -u "$d"/luks.pass "$d"/extra/secrets/* "$d"/extra/persistent/etc/ssh/* && rm -r "$d" /run/user/1000/anywhere.log`.
+- [ ] 8.7 DNS-Einträge und Einstellungen beim Anbieter. Stand 08.11.2026 (von außen geprüft): MX, SPF, DKIM (`202611r`, `202611e`), DMARC, TLS-RPT, SRV, CAA und A/AAAA für `mail` und `mta-sts` stehen. Es fehlen die offenen Punkte unten. Der Apex `<domain>` braucht keinen Eintrag: Matrix-Adressen heißen seit 08.11.2026 `@name:matrix.<domain>`.
+  - [ ] MTA-STS: Stalwart zeigt diesen Eintrag nicht an, also selbst anlegen. Cloudflare → `<domain>` → DNS → „Add record“: Typ TXT, Name `_mta-sts`, Inhalt `v=STSv1; id=20261108`. Die `id` ist frei wählbar (nur Buchstaben und Ziffern) und muss sich ändern, wenn sich die Policy ändert, sonst holen andere Server sie nicht neu. Die Policy selbst liefert Stalwart unter `https://mta-sts.<domain>/.well-known/mta-sts.txt` schon aus (`mode: testing`). Prüfen: `dig +short TXT _mta-sts.<domain>`. Später, wenn eingehende Mail stabil läuft (Port 25 und STARTTLS bei internet.nl grün), die Policy auf `mode: enforce` stellen und die `id` erhöhen, z. B. `id=20261201`.
+  - [X] PTR (Reverse DNS): Der Eintrag gehört dem Besitzer der IP, also Contabo, nicht Cloudflare. Customer Panel → „Reverse DNS Management“ → bei der IPv4 von ServerPublic `mail.<domain>` eintragen, ebenso bei der IPv6 (`serverPublic.ipv6`). Jetzt steht dort ein Name `vmd….contaboserver.net`, deshalb meldet mail-tester „Your reverse DNS does not match“, und manche Empfänger (AOL, teils Microsoft) lehnen Mails ohne passenden PTR ab. Prüfen (die Änderung braucht bis zu einige Stunden): `dig +short -x <ipv4>` zeigt `mail.<domain>.`.
+  - [X] CAA: steht schon. Cloudflare legt die Einträge für die Zertifizierungsstellen selbst an, `letsencrypt.org` ist dabei. Nichts tun.
+  - [ ] Port 25 eingehend: Ausgehend ist Port 25 offen (mail-tester hat die Mail direkt von `<ipv4>` bekommen), bei Contabo muss also nichts freigeschaltet werden. Eingehend kam internet.nl am 08.11.2026 nicht durch („Unreachable receiving mail server“, deshalb auch kein STARTTLS- und DANE-Test). Stalwart lauscht auf `*:25` (geprüft 08.11.2026), es bleibt die Firewall:
+    1. Contabo-Panel → Network Services → Firewall → Firewall von ServerPublic: Die Regel „smtp“ (Port 25, TCP) existiert zweimal, einmal mit Source IPv4 „Any“ und einmal IPv6 „Any“, und die Firewall ist dem VPS unter Active VPS/VDS zugewiesen. Fehlt sie, anlegen und speichern.
+    2. `https://internet.nl/test-mail/` mit `<domain>` erneut testen. Vom Desktop lässt sich Port 25 nicht prüfen, der Internetanschluss sperrt ausgehend Port 25 (auch zu Google).
+    3. Bleibt es rot: Ausgabe von `ssh admin@<ipv4> "sudo nft list ruleset | grep -w 25; sudo journalctl -u stalwart --since today | grep -i -e smtp -e listen | tail -20"` an Claude.
+  - [ ] DKIM-Signatur: mail-tester meldet „Your message is not signed with DKIM“, das Log von Stalwart am 08.11.2026 um 13:02 `DKIM signer not found`. Stalwart 0.15 signiert ausgehende Mails mit den Signaturen `rsa-<domain>` und `ed25519-<domain>`. So benennt es auch die Schlüssel, die es beim Anlegen der Domain erzeugt. Liest der laufende Dienst die Signaturen erst beim Start ein, kennt er sie bis dahin nicht.
+    1. Auf ServerPublic: `sudo systemctl restart stalwart`.
+    2. Eine neue Testmail an die Adresse von `https://www.mail-tester.com` schicken, Ziel 10/10. Dann `sudo journalctl -u stalwart --since "-10 min" | grep -i signer` muss leer sein.
+    3. Steht dort wieder `DKIM signer not found`, die Namen der Signaturen auflisten. Der Befehl zeigt nur die Namen der Einstellungen, nie die privaten Schlüssel: `sudo sh -c 'curl -s -u "admin:$(cat /run/secrets/stalwart/admin)" "http://127.0.0.1:8080/api/settings/list?prefix=signature"' | nix run nixpkgs#jq -- -r '.data.items | keys[] | select(endswith(".domain") or endswith(".selector"))'`. Die Ausgabe an Claude geben.
+  - [X] Vorher (08.11.2026): Stalwart läuft dauerhaft auf der Hauptdomain. In `$PRIV/site.nix` `mailDomain` auf denselben Wert wie `domain` setzen und `mailAddress` auf eine Adresse dieser Domain, im privaten Repo committen, dann hier `nix flake update private` und ServerPublic deployen. Vorher prüfen, dass die Hauptdomain keine MX- oder SPF-Einträge von anderer Stelle hat (z. B. E-Mail-Routing von Cloudflare). Die Einträge unten gelten für die Hauptdomain.
+- [X] 8.8 Ersteinrichtung. Jedes Konto gleich mit dem endgültigen Passwort anlegen: zuerst in KeePassXC erzeugen und speichern, dann im Dienst eintragen. Passwörter: KeePassXC → Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9; lehnt der Dienst das ab, in KeePassXC auf das erlaubte Maximum kürzen und das im Notizfeld vermerken. Diese Konten sind neu, sie werden in Phase 20 nicht noch einmal geändert.
+  - [X] Stalwart. Die Adressen lauten `name@<domain>`, `mail.<domain>` ist nur der Name des Servers. Die Oberfläche ist englisch, die Menünamen können je nach Version leicht abweichen.
+    1. Anmelden auf `https://stalwart.<domain>` mit `admin` und „Stalwart admin“. Das ist der Notfall-Admin aus der Konfiguration (`authentication.fallback-admin`). Er kann weder 2FA noch App-Passwörter, daher die Meldung „Fallback administrator accounts do not support 2FA or AppPasswords“. Nur für die Ersteinrichtung und als Notzugang nutzen.
+    2. Domain: Management → Directory → Domains → „Create domain“, Name `<domain>` (nicht `mail.<domain>`), speichern. Stalwart erzeugt dabei die DKIM-Schlüssel.
+    3. DNS: In der Domainliste bei `<domain>` „View DNS records“ öffnen und alle Einträge (MX, SPF, DKIM, DMARC, MTA-STS, TLS-RPT, SRV) in Cloudflare anlegen, „DNS only“ (8.7). Der MX zeigt auf `mail.<domain>`.
+    4. Eigenes Admin-Konto mit 2FA: KeePassXC `NixOS/ServerPublic` → „Stalwart mailadmin“, Benutzername `mailadmin`, URL `https://stalwart.<domain>`, Passwort wie oben erzeugen. Management → Directory → Accounts → „Create account“: Name `mailadmin`, Passwort aus dem Eintrag, keine E-Mail-Adresse, unter Roles `admin`, speichern. Abmelden, als `mailadmin` anmelden, unter Account → Security die Zwei-Faktor-Authentifizierung einschalten und den TOTP-Schlüssel in KeePassXC am Eintrag speichern (Eintrag → TOTP → Einrichten). Ab jetzt nur noch mit `mailadmin` verwalten.
+    5. Postfach `jf`: KeePassXC „Mailbox jf@“, Benutzername `jf@<domain>`, URL `https://mail.<domain>`. Als `mailadmin`: Accounts → „Create account“, Name `jf@<domain>` (so meldet sich Thunderbird an, `mailAddress` in `$PRIV/site.nix`), Passwort aus dem Eintrag, E-Mail-Adresse `jf@<domain>`, dazu als weitere Adressen `postmaster@<domain>`, `abuse@<domain>` und `dmarc@<domain>` (Pflichtadressen und DMARC-Berichte landen bei dir), Roles `user`, kein Admin. Weitere eigene Adressen ebenso als Alias oder als eigenes Konto mit eigenem Eintrag.
+    6. 2FA und App-Passwörter für `jf`: als `jf@<domain>` auf `https://stalwart.<domain>` anmelden, unter Account → Security die Zwei-Faktor-Authentifizierung einschalten (TOTP in KeePassXC am Eintrag „Mailbox jf@“). Danach unter App Passwords je Gerät ein Passwort erzeugen (Thunderbird Desktop, Framework, Convertible, Handy), jedes als eigener KeePassXC-Eintrag „Mailbox jf@ App <Gerät>“. Mit 2FA nehmen IMAP und SMTP nur noch App-Passwörter, Thunderbird fragt beim ersten Start danach.
+    7. Prüfen: Thunderbird sendet an eine fremde Adresse und empfängt die Antwort. `https://www.mail-tester.com` zeigt 10/10, `https://internet.nl/test-mail/` ist grün bei DKIM, DMARC, SPF, STARTTLS und MTA-STS.
+    8. `alerts@` kommt in 10.1 (eigenes Konto, Roles `user`, ohne 2FA, die Hosts senden per SMTP mit Passwort).
+  - [ ] Matrix, zwei getrennte Konten, beide direkt auf dem Server angelegt (die Registrierung in Element geht nur mit Token). Seit 08.11.2026 ist `server_name` `matrix.<domain>`, die Adressen lauten `@admin:matrix.<domain>` und `@jf:matrix.<domain>`, in Element ist der Server `matrix.<domain>`.
+    0. Zurücksetzen, einmalig vor dem Deploy dieser Änderung: Synapse lief schon mit `server_name` `<domain>`, und die Bridges haben ihre Bots damit registriert. Synapse verweigert den Start, wenn in der Datenbank Benutzer einer anderen Domain stehen, und der Name lässt sich nicht nachträglich ändern. Auf ServerPublic zuerst ansehen, was in der Datenbank steht: `sudo -u postgres psql -d matrix-synapse -tAc 'SELECT name FROM users'`. Erwartet sind nur die Bots der Bridges (`@discordbot:<domain>`, `@signalbot:<domain>`, `@telegrambot:<domain>`, `@whatsappbot:<domain>`). Steht dort ein eigenes Konto, erst Claude fragen. Sonst:
+
+       ```
+       sudo systemctl stop mautrix-discord mautrix-signal mautrix-telegram mautrix-whatsapp matrix-synapse
+       sudo -u postgres dropdb matrix-synapse
+       sudo find /var/lib/matrix-synapse /var/lib/mautrix-discord /var/lib/mautrix-signal /var/lib/mautrix-telegram /var/lib/mautrix-whatsapp -mindepth 1 -delete
+       ```
+
+       Dann vom Desktop deployen: `nixos-rebuild switch --flake .#NixOS-ServerPublic --build-host admin@<ipv4> --target-host admin@<ipv4> --sudo --ask-sudo-password`. Danach auf ServerPublic `sudo systemctl restart matrix-synapse-db matrix-synapse mautrix-discord mautrix-signal mautrix-telegram mautrix-whatsapp` und prüfen: `systemctl is-active matrix-synapse mautrix-discord mautrix-signal mautrix-telegram mautrix-whatsapp` zeigt fünfmal `active`, `curl https://matrix.<domain>/.well-known/matrix/client` zeigt `{"m.homeserver":{"base_url":"https://matrix.<domain>"}}`, `https://federationtester.matrix.org` mit `matrix.<domain>` ist grün.
+       Aufräumen: Für `<domain>` selbst holt nginx kein Zertifikat mehr. `ls /var/lib/acme /var/lib/acme/.lego` auf ServerPublic, dann die Ordner, die genau `<domain>` heißen (nicht `matrix.<domain>` usw.), löschen: `sudo rm -r /var/lib/acme/<domain> /var/lib/acme/.lego/<domain>`. Einen DNS-Eintrag für den Apex gibt es nicht, in Cloudflare ist nichts zu tun.
+    1. Admin: KeePassXC `NixOS/ServerPublic` → „Matrix admin“, Benutzername `admin`, URL `https://matrix.<domain>`. Auf ServerPublic: `sudo -u matrix-synapse register_new_matrix_user -c /run/secrets/rendered/synapse-secrets.yaml -u admin -a http://localhost:8008`, Passwort aus dem Eintrag. Nur für Tokens und Verwaltung, nicht in Element angemeldet lassen.
+    2. Persönlich: KeePassXC „Matrix jf“, Benutzername `jf`. `sudo -u matrix-synapse register_new_matrix_user -c /run/secrets/rendered/synapse-secrets.yaml -u jf --no-admin http://localhost:8008`. In Element mit Server `matrix.<domain>` als `jf` anmelden (Adresse `@jf:matrix.<domain>`), Sicherheitsschlüssel (Schlüsselsicherung) in KeePassXC am Eintrag speichern.
+    3. Prüfen: In Element eine Registrierung ohne Token versuchen, sie wird abgelehnt.
   - [ ] Bridges (Signal, WhatsApp, Telegram, Discord): in Element je den Bot anschreiben und `login` ausführen.
-  - [ ] Miniflux: KeePassXC `NixOS/ServerPublic` → „Miniflux“, URL `https://rss.<domain>`. Auf ServerPublic: `sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`, Benutzername und Passwort aus dem Eintrag.
-  - [ ] CryptPad: KeePassXC `NixOS/ServerPublic` → „CryptPad“, URL `https://cryptpad.<domain>`. Auf `https://cryptpad.<domain>` registrieren, dann Einstellungen → Konto → „Öffentlicher Signaturschlüssel“ kopieren und in `hosts/NixOS-ServerPublic/server.nix` bei `nixos.server.public.cryptpad.adminKeys` eintragen (Format `[name@cryptpad.<domain>/…=]`, steht damit im öffentlichen Repo wie ein Public Key), deployen.
-  - [ ] ntfy: Benutzer und Tokens kommen deklarativ aus `ntfy/env` (10.2), hier nichts anlegen.
-  - [ ] Briar-Mailbox: Den QR-Code zeigt `journalctl -u podman-briar-mailbox`. Verbinden am Handy: 23.8.
-- [ ] 8.8a Miniflux-Token für Glance und Fluent Reader (damit sind 4.10 und der Miniflux-Teil von 13.12 erledigt):
-  - [ ] Glance: Miniflux → Einstellungen → API-Schlüssel → „Neuen API-Schlüssel erstellen“, Beschreibung `glance`. KeePassXC `NixOS/ServerPublic` → „Miniflux token (Glance)“, ohne URL. `cd ~/Documents/nixos-private/secrets && sops nixos-server1.yaml`, unter `glance` die Zeile `ENV_MINIFLUX_TOKEN=<token>` ergänzen. In `hosts/NixOS-Server1/server.nix` `nixos.server.management.glance.miniflux.enable = true` setzen. Privates Repo committen, `cd ~/Documents/nixos && nix flake update private`, Server1 deployen: `nixos-rebuild switch --flake .#NixOS-Server1 --build-host admin@NixOS-Server1 --target-host admin@NixOS-Server1 --sudo --ask-sudo-password`. Prüfen: Glance zeigt auf der Seite Server die ungelesenen Einträge. Notizfeld in KeePassXC:
+  - [X] Miniflux (Admin): KeePassXC `NixOS/ServerPublic` → „Miniflux“, URL `https://rss.<domain>`. Auf ServerPublic: `sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`, Benutzername und Passwort aus dem Eintrag.
+  - [X] Miniflux, persönliches Konto: KeePassXC „Miniflux jf“, Benutzername `jf`, URL `https://rss.<domain>`. Als Admin anmelden → Settings → Users → „Add user“, Name `jf`, Passwort aus dem Eintrag, „Administrator“ nicht anhaken. Abmelden, als `jf` anmelden und dort die Feeds anlegen oder per OPML importieren. Das Admin-Konto liest keine Feeds.
+  - [X] CryptPad: KeePassXC `NixOS/ServerPublic` → „CryptPad“, URL `https://cryptpad.<domain>`. Auf `https://cryptpad.<domain>` registrieren, dann Einstellungen → Konto → „Öffentlicher Signaturschlüssel“ kopieren und in `hosts/NixOS-ServerPublic/server.nix` bei `nixos.server.public.cryptpad.adminKeys` eintragen, die Domain dabei nicht ausschreiben: `"[admin@cryptpad.${config.nixos.server.network.nginx.domain}/…=]"` (der Schlüssel ist öffentlich, die Domain kommt aus `site.nix`), deployen. Danach sofort Administration (`https://cryptpad.<domain>/admin/`) → Benutzerverzeichnis → „Registrierung schließen“. Freunde bekommen dort je einen Einladungslink (ein Konto pro Link, CryptPad verschickt nichts, den Link selbst über Signal o. Ä. schicken). Bis die Registrierung zu ist, kann sich jeder ein Konto anlegen, der die Adresse kennt.
+  - [X] CryptPad, Admin und `jf` trennen: Das registrierte Konto ist jetzt Admin. Ist es dein persönliches, ein zweites anlegen: KeePassXC „CryptPad admin“, Benutzername `admin`. Als jetziger Admin unter Administration → Benutzerverzeichnis einen Einladungslink erzeugen, im privaten Fenster damit `admin` registrieren, dort den „Öffentlichen Signaturschlüssel“ kopieren und in `nixos.server.public.cryptpad.adminKeys` statt des alten eintragen, deployen. Prüfen: Als `admin` ist Administration sichtbar, als `jf` nicht mehr. Zählen, wie viele Konten es gibt: `ssh -t admin@<ipv4> 'sudo find /var/lib/private/cryptpad/block -type f | wc -l'`.
+  - [X] ntfy: Benutzer und Tokens kommen deklarativ aus `ntfy/env` (10.2), hier nichts anlegen.
+  - [X] Briar-Mailbox: läuft seit 08.11.2026 (das Image baute vorher nicht, `briar-mailbox.nix` nennt das Basis-Image jetzt mit Registry). Den QR-Code zeigt `ssh -t admin@<ipv4> journalctl -u podman-briar-mailbox`, verbinden am Handy: 23.8.
+- [X] 8.8a Miniflux-Token für Glance und Fluent Reader (damit sind 4.10 und der Miniflux-Teil von 13.12 erledigt):
+  - [X] Glance: als `jf` in Miniflux angemeldet (der Token gehört zum Benutzer, Glance zeigt dessen Feeds) → Einstellungen → API-Schlüssel → „Neuen API-Schlüssel erstellen“, Beschreibung `glance`. KeePassXC `NixOS/ServerPublic` → „Miniflux token (Glance)“, ohne URL. `cd ~/Documents/nixos-private/secrets && sops nixos-server1.yaml`, unter `glance` die Zeile `ENV_MINIFLUX_TOKEN=<token>` ergänzen. In `hosts/NixOS-Server1/server.nix` `nixos.server.management.glance.miniflux.enable = true` setzen. Privates Repo committen, `cd ~/Documents/nixos && nix flake update private`, Server1 deployen: `nixos-rebuild switch --flake .#NixOS-Server1 --build-host admin@NixOS-Server1 --target-host admin@NixOS-Server1 --sudo --ask-sudo-password`. Prüfen: Glance zeigt auf der Seite Server die ungelesenen Einträge. Notizfeld in KeePassXC:
 
     ```
     Miniflux token (Glance):
     nixos-server1.yaml → glance (line ENV_MINIFLUX_TOKEN=)
     ```
-  - [ ] Fluent Reader: noch einen API-Schlüssel, Beschreibung `fluent-reader`, in Fluent Reader unter Einstellungen → Dienst → Miniflux eintragen (URL `https://rss.<domain>`). KeePassXC: im Eintrag „Miniflux“ unter Erweitert → Zusätzliche Attribute als `fluent-reader token` (geschützt).
-- [ ] 8.9 Ping ist absichtlich deaktiviert (`icmp_echo_ignore_all`). Monitoring per Ping funktioniert deshalb nicht, IPv6/ICMPv6 bleibt erlaubt.
+  - [X] Fluent Reader: noch einen API-Schlüssel, Beschreibung `fluent-reader`, in Fluent Reader unter Einstellungen → Dienst → Miniflux eintragen (URL `https://rss.<domain>`). KeePassXC: im Eintrag „Miniflux“ unter Erweitert → Zusätzliche Attribute als `fluent-reader token` (geschützt).
+- [X] 8.9 Ping ist absichtlich deaktiviert (`icmp_echo_ignore_all`). Monitoring per Ping funktioniert deshalb nicht, IPv6/ICMPv6 bleibt erlaubt.
 
 8B – NixOS-ServerGaming installieren (Minecraft, BlueMap, Countdown)
 
+In 8B ist `<ipv4>` immer die Adresse von ServerGaming (`$PRIV/site.nix` → `serverGaming.ipv4`), `<ipv6>` entsprechend `serverGaming.ipv6`. Die Befehle laufen auf dem Desktop im Ordner `~/Documents/nixos`, KeePassXC ist entsperrt.
+
 - [X] 8.10 Eigener VPS bei Contabo (200 GB), Daten stehen in `$PRIV/site.nix`. Minecraft nutzt bis zu 12 GB RAM, der VPS braucht also 16 GB oder mehr.
-- [X] 8.11 Host-Key erzeugen wie in 8.2, in `$PRIV/secrets/.sops.yaml` als `sops_servergaming` eintragen, Zeilen aktivieren, `sops updatekeys nixos-servergaming.yaml`.
-- [ ] 8.12 Die Werte in `nixos-servergaming.yaml` sind seit 7.6 neu (7D-4), restic folgt in Phase 9 (9A). Prüfen wie in 8.3: committen, `cd ~/Documents/nixos && nix flake update private && nix build --no-link .#nixosConfigurations.NixOS-ServerGaming.config.system.build.toplevel`, ein fehlender Eintrag bricht mit `the key '…' cannot be found` ab.
-- [ ] 8.13 Countdown: In `hosts/NixOS-ServerGaming/temp/default.nix` das echte Datum bei `target` eintragen (jetzt Platzhalter 01.01.2027) und die Texte prüfen. Der Name steht damit im öffentlichen Repo.
-- [ ] 8.14 Vorher im Übergangssystem wie in 8.5a `lsblk` und `ls /sys/firmware/efi` prüfen (`hosts/NixOS-ServerGaming/disko.nix` ist seit 07.11.2026 wie bei ServerPublic auf `/dev/sda` und BIOS eingestellt; zeigt der Ordner doch eine Liste, Claude Bescheid geben). Dann installieren, Ablauf mit allen Befehlen in [`README.md`](README.md#installing-a-vps-with-nixos-anywhere) (Host `NixOS-ServerGaming`). Kurzform: `nixos-anywhere --flake .#NixOS-ServerGaming --disk-encryption-keys /tmp/secret.key <passphrase-datei> --extra-files <dir mit secrets/keys.txt, etc/ssh/initrd_host_key und persistent/etc/ssh/initrd_host_key> root@<ip>`. Den Hostkey in beide Pfade legen: Die Installation liest ihn unter `/etc/ssh`, nach dem ersten Boot kommt `/etc/ssh` aus `/persistent`.
-- [ ] 8.15 DNS: A/AAAA für `bluemap`, `countdown` und `flolserver` auf den Gaming-VPS.
-- [ ] 8.16 Die Welt und die Mods vom alten Server nach `/srv/minecraft/flolserver` kopieren. BlueMap und Fabric API kommen aus dem Flake, gleichnamige alte Jars in `mods/` löschen. Prüfen: `https://bluemap.<domain>` (das erste Rendern dauert lange), `https://countdown.<domain>`.
-- [ ] 8.17 WireGuard für ServerGaming, erst wenn 9.1 erledigt ist und vom Desktop `ping 10.100.0.1` geht: In `nixosModules/system/wireguard.nix` bei `NixOS-ServerGaming` die Zeile `publicKey = null;` durch `publicKey = "tcO5iL+oBwtgfpuyv0BDmKygMUNoXS2whRYdrcJtcVk=";` ersetzen (abgeleitet aus dem privaten Schlüssel in sops, 07.11.2026). Zuerst ServerPublic deployen (`nixos-rebuild switch --flake .#NixOS-ServerPublic --build-host admin@NixOS-ServerPublic --target-host admin@NixOS-ServerPublic --sudo --ask-sudo-password`), dann ServerGaming über seine öffentliche IP (`nixos-rebuild switch --flake .#NixOS-ServerGaming --build-host admin@<ipv4> --target-host admin@<ipv4> --sudo --ask-sudo-password`, die alte Sitzung hält dabei). Danach hört SSH auf ServerGaming nur noch auf `10.100.0.6`. Prüfen: `ssh admin@NixOS-ServerGaming true` geht über den Tunnel. Geht es nicht, bleiben initrd-ssh (Port 2222) und die VNC-Konsole im Contabo-Panel.
-- [ ] 8.18 Restic-Benutzer `nixos-servergaming` in `resticserver/htpasswd` von Server1 ergänzen.
+- [X] 8.11 Host-Key: `nix shell nixpkgs#age -c age-keygen -o keys.txt` in einem Ordner außerhalb beider Repos. Die Zeile `AGE-SECRET-KEY-1…` in KeePassXC `NixOS/Keys` → „age NixOS-ServerGaming“ (Passwortfeld, Public Key ins Notizfeld). Den Public Key in `$PRIV/secrets/.sops.yaml` als `sops_servergaming` eintragen, die Zeilen für `nixos-servergaming.yaml` aktivieren, `cd ~/Documents/nixos-private/secrets && sops updatekeys -y nixos-servergaming.yaml`, dann `shred -u keys.txt`.
+- [ ] 8.12 Prüfen, dass kein Secret fehlt, ohne etwas zu entschlüsseln (die Werte sind seit 7.6 neu, 7D-4; restic folgt in Phase 9, 9A): `cd ~/Documents/nixos-private && git add -A && git commit -m "servergaming key"`, dann `cd ~/Documents/nixos && nix flake update private && nix build --no-link .#nixosConfigurations.NixOS-ServerGaming.config.system.build.toplevel`. Fehlt ein Eintrag, bricht der Build mit `the key '…' cannot be found` ab.
+- [ ] 8.13 Countdown: In `hosts/NixOS-ServerGaming/temp/default.nix` steht `target = "2026-11-13T19:00:00+01:00";`. Datum, Uhrzeit und die Texte daneben prüfen. Der Name steht damit im öffentlichen Repo.
+- [ ] 8.14 Firewall im Contabo-Panel: Network Services → Firewall → „Create Firewall“, Name `servergaming`. Unter Inbound Rules als Accept Rule mit Source „Any“ (je eine Regel für IPv4 und IPv6) zuerst nur `ssh` (22, TCP) und `initrd-ssh` (2222, TCP). Unter Active VPS/VDS den Gaming-VPS zuweisen. Nach der Installation (8.15) dazu: `web` (80 und 443, TCP), `minecraft` (25565, TCP), `icmp` (ICMP). Mehr braucht ServerGaming nicht (Tabelle in 8.4).
+- [ ] 8.15 Installieren:
+  - [ ] Übergangssystem: Customer Panel → Servers & Hosting → VPS/VDS → beim Gaming-VPS „Install“ (ist er schon installiert: „More“ → „Reinstall“) → Standard Image, Debian (neueste Version). Bei SSH Key den Schlüssel des Desktops (`cat ~/.ssh/id_ed25519.pub`, „jf@NixOS-Desktop“), dazu ein Root-Passwort aus KeePassXC (nur für dieses Übergangssystem) → Install. Warten, bis der Status „running“ zeigt.
+  - [ ] Vom Desktop: `ssh-keygen -R <ipv4>`, dann `ssh root@<ipv4> 'lsblk -o NAME,SIZE,TYPE,MODEL; ls /sys/firmware/efi; ip -4 addr; ip -4 route; ip -6 addr'` (Fingerprint mit `yes` annehmen). Erwartet: eine Platte `sda`, bei `/sys/firmware/efi` „No such file or directory“ (BIOS, so ist `hosts/NixOS-ServerGaming/disko.nix` eingestellt). Adresse, Präfixlänge und Gateway müssen zu `serverGaming.ipv4`, `ipv4PrefixLength`, `ipv4Gateway`, `ipv6` und `ipv6PrefixLength` in `$PRIV/site.nix` passen, sonst antworten nach der Installation weder SSH noch die Entsperrung. Weicht etwas ab: Ausgabe an Claude.
+  - [ ] Dateien im RAM vorbereiten:
+
+    ```
+    d=$(mktemp -d -p /run/user/1000 anywhere.XXXXXX)
+    mkdir -p "$d"/extra/{secrets,persistent/etc/ssh}
+    chmod 755 "$d"/extra "$d"/extra/persistent "$d"/extra/persistent/etc "$d"/extra/persistent/etc/ssh
+    chmod 700 "$d"/extra/secrets
+    (umask 077; cat > "$d"/extra/secrets/keys.txt)
+    (umask 077; read -rsp "LUKS passphrase: " p; printf '%s' "$p" > "$d"/luks.pass); echo
+    ssh-keygen -q -t ed25519 -N "" -C "initrd@NixOS-ServerGaming" -f "$d"/extra/persistent/etc/ssh/initrd_host_key
+    ssh-keygen -lf "$d"/extra/persistent/etc/ssh/initrd_host_key.pub
+    echo "$d"
+    ```
+
+    Bei `cat` die Zeile `AGE-SECRET-KEY-1…` aus „age NixOS-ServerGaming“ einfügen, Enter, Strg+D. Bei `read` die Passphrase aus `NixOS/Devices` → „LUKS NixOS-ServerGaming“ (vorher dort erzeugen: Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9). Den Fingerprint, den `ssh-keygen -lf` ausgibt, im Notizfeld von „LUKS NixOS-ServerGaming“ eintragen.
+  - [ ] Installieren (nixos-anywhere lädt per kexec seinen Installer, die Platte wird komplett neu angelegt, das System baut der Desktop):
+
+    ```
+    cd ~/Documents/nixos
+    nix run nixpkgs#nixos-anywhere -- --flake .#NixOS-ServerGaming \
+      --disk-encryption-keys /tmp/secret.key "$d"/luks.pass \
+      --extra-files "$d"/extra \
+      root@<ipv4> 2>&1 | tee /run/user/1000/anywhere.log
+    ```
+
+    Antwortet GitHub beim Download des kexec-Tarballs mit `504`: `k=$(nix build --no-link --print-out-paths github:nix-community/nixos-images#kexec-installer-nixos-stable-noninteractive)` und den Befehl mit zusätzlich `--kexec "$k"/nixos-kexec-installer-noninteractive-x86_64-linux.tar.gz` wiederholen. Am Ende startet der VPS neu.
+  - [ ] Entsperren:
+
+    ```
+    ssh-keygen -R <ipv4>; ssh-keygen -R "[<ipv4>]:2222"
+    ssh -p 2222 root@<ipv4>
+    systemd-tty-ask-password-agent
+    ```
+
+    Den angezeigten Fingerprint mit dem in „LUKS NixOS-ServerGaming“ vergleichen, dann die Passphrase einfügen. Die Verbindung bricht danach ab, das System bootet weiter. Antwortet Port 2222 nicht: Contabo-Panel → VPS → „VNC“ und dort die Passphrase eingeben.
+  - [ ] Prüfen: `ssh -t admin@<ipv4> 'findmnt /etc/ssh; ls -la /etc/ssh /persistent/etc/ssh; sudo -v && systemctl --failed --no-legend; sudo nix shell nixpkgs#age -c age-keygen -y /secrets/keys.txt'` (neuer Host-Key, mit `yes` annehmen). Erwartet: `findmnt` gibt nichts aus, `/etc/ssh` enthält `sshd_config` und `authorized_keys.d`, `/persistent/etc/ssh` die Host-Keys und `initrd_host_key`, `sudo -v` nimmt das Passwort aus „Login NixOS-ServerGaming“, keine fehlgeschlagenen Units, der age-Key ist der aus `.sops.yaml`. Den Fingerprint (`ssh admin@<ipv4> ssh-keygen -lf /persistent/etc/ssh/ssh_host_ed25519_key.pub`) im Notizfeld von „Login NixOS-ServerGaming“ notieren.
+  - [ ] Neustart: `ssh -t admin@<ipv4> sudo reboot`, entsperren mit den drei Befehlen aus dem Schritt „Entsperren“ (ohne `ssh-keygen -R`), danach muss `ssh admin@<ipv4> true` ohne Host-Key-Warnung gehen.
+  - [ ] Aufräumen: `shred -u "$d"/luks.pass "$d"/extra/secrets/* "$d"/extra/persistent/etc/ssh/* && rm -r "$d" /run/user/1000/anywhere.log`. Das Root-Passwort des Übergangssystems in KeePassXC löschen.
+  - [ ] Firewall: die Regeln `web`, `minecraft` und `icmp` aus 8.14 anlegen.
+- [ ] 8.16 DNS in Cloudflare → `<domain>` → DNS: für `bluemap`, `countdown` und `flolserver` je einen Eintrag Typ A (Wert `<ipv4>`) und AAAA (Wert `<ipv6>`), „DNS only“. Die Zertifikate holt ACME per DNS-01, dafür ist nichts weiter nötig.
+- [ ] 8.17 Minecraft-Welt übernehmen. Der Server läuft als Dienst `minecraft-server-flolserver` im Ordner `/srv/minecraft/flolserver` (persistiert). BlueMap und Fabric API kommen aus dem Flake.
+  1. Auf dem alten Server den Minecraft-Server stoppen und dort aus dem Serverordner `tar czf flolserver.tar.gz world world_nether world_the_end mods config server.properties whitelist.json ops.json banned-players.json banned-ips.json` packen (Dateien, die es nicht gibt, weglassen).
+  2. Hochladen: `scp flolserver.tar.gz admin@<ipv4>:/tmp/`.
+  3. Auf ServerGaming einspielen:
+
+     ```
+     ssh -t admin@<ipv4>
+     sudo systemctl stop minecraft-server-flolserver
+     cd /srv/minecraft/flolserver
+     sudo tar xzf /tmp/flolserver.tar.gz
+     sudo rm -f mods/bluemap*.jar mods/fabric-api*.jar
+     sudo chown -R minecraft:minecraft /srv/minecraft/flolserver
+     sudo systemctl start minecraft-server-flolserver
+     rm /tmp/flolserver.tar.gz
+     ```
+
+     `rm -f mods/bluemap*.jar mods/fabric-api*.jar` löscht die alten Jars aus dem Archiv. Die aus dem Flake heißen `bluemap.jar` und `fabric-api.jar` und werden beim Start neu verlinkt. `server.properties` aus dem Archiv ersetzt NixOS beim Start durch die Werte aus `minecraft.nix`.
+  4. Prüfen: `ssh admin@<ipv4> journalctl -u minecraft-server-flolserver -n 50` zeigt `Done`, im Spiel `<ipv4>` bzw. `flolserver.<domain>` beitreten. `https://bluemap.<domain>` lädt (das erste Rendern der Welt dauert lange), `https://countdown.<domain>` zeigt den Countdown.
+- [ ] 8.18 WireGuard für ServerGaming, erst wenn 9.1 erledigt ist und vom Desktop `ping 10.100.0.1` geht: In `nixosModules/system/wireguard.nix` bei `NixOS-ServerGaming` die Zeile `publicKey = null;` durch `publicKey = "tcO5iL+oBwtgfpuyv0BDmKygMUNoXS2whRYdrcJtcVk=";` ersetzen (abgeleitet aus dem privaten Schlüssel in sops, 07.11.2026). Zuerst ServerPublic deployen (`nixos-rebuild switch --flake .#NixOS-ServerPublic --build-host admin@NixOS-ServerPublic --target-host admin@NixOS-ServerPublic --sudo --ask-sudo-password`), dann ServerGaming über seine öffentliche IP (`nixos-rebuild switch --flake .#NixOS-ServerGaming --build-host admin@<ipv4> --target-host admin@<ipv4> --sudo --ask-sudo-password`, die alte Sitzung hält dabei). Danach hört SSH auf ServerGaming nur noch auf `10.100.0.6`. Prüfen: `ssh admin@NixOS-ServerGaming true` geht über den Tunnel. Dann im Contabo-Panel die Regel `ssh` (22) der Firewall `servergaming` löschen, `initrd-ssh` (2222) bleibt. Geht es nicht, bleiben initrd-ssh (Port 2222) und die VNC-Konsole im Contabo-Panel.
+- [ ] 8.19 Restic-Zugang von ServerGaming auf Server1, erst mit 9.3: Das Passwort steht in „restic REST nixos-servergaming“ (Tabelle 9A). `nix shell nixpkgs#apacheHttpd -c htpasswd -B -n nixos-servergaming`, Passwort aus dem Eintrag einfügen, die ausgegebene Zeile `nixos-servergaming:$2y$…` mit `cd ~/Documents/nixos-private/secrets && sops nixos-server1.yaml` unter `resticserver/htpasswd` als neue Zeile ergänzen. Privates Repo committen, `cd ~/Documents/nixos && nix flake update private`, Server1 deployen: `nixos-rebuild switch --flake .#NixOS-Server1 --build-host admin@NixOS-Server1 --target-host admin@NixOS-Server1 --sudo --ask-sudo-password`. Prüfen: `ssh admin@NixOS-ServerGaming sudo systemctl start restic-backups-home` und danach `systemctl status restic-backups-home` ohne Fehler.
 
 ## Phase 9 – WireGuard und Backups
 
@@ -577,7 +716,7 @@ Die Spalte „Name“ ist der Regelname im Panel, „Quelle“ das Feld Source. 
     NixOS-Convertible  publicKey = "I4znLKv4z2FrHwN23QmldPQyYgMOyAyl7sI71Mi2QFk=";
     ```
 
-    ServerGaming noch nicht, das ist 8.17.
+    ServerGaming noch nicht, das ist 8.18.
   - [ ] In `hosts/NixOS-Server1/configuration.nix`, `hosts/NixOS-Desktop/configuration.nix`, `hosts/NixOS-Framework/configuration.nix` und `hosts/NixOS-Convertible/configuration.nix` je die Zeile `nixos.system.wireguard.enable = true;` unter `nixos.system.sops.file = …;` ergänzen.
   - [ ] Bauen: `cd ~/Documents/nixos && for h in NixOS-Desktop NixOS-Server1 NixOS-ServerPublic NixOS-Framework NixOS-Convertible; do nix build --no-link .#nixosConfigurations.$h.config.system.build.toplevel && echo "OK $h"; done`
   - [ ] Reihenfolge beim Deployen (SSH auf ServerPublic hört danach nur noch auf `10.100.0.1`, die laufende Sitzung hält):
@@ -638,7 +777,7 @@ nixos-server1.yaml → resticserver/htpasswd (line nixos-servergaming:, bcrypt)
 
 ## Phase 10 – Benachrichtigungen, Killswitch, Monitoring
 
-- [ ] 10.1 Mail-Alarme: In Stalwart das Konto `alerts@<mailDomain>` anlegen (Passwort zuerst in KeePassXC `NixOS/ServerPublic` → „Mailbox alerts@“, Benutzername `alerts@<mailDomain>`, URL `https://mail.<mailDomain>`, KeePassXC → Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9; lehnt der Dienst das ab, in KeePassXC auf das erlaubte Maximum kürzen und das im Notizfeld vermerken), pro Host das Secret `notify/mail-password` setzen und `nixos.system.notify.mail` einschalten. Notizfeld in KeePassXC (ohne Alarme auf Portable die Zeile mit `nixos-portable.yaml` weglassen):
+- [ ] 10.1 Mail-Alarme: In Stalwart das Konto `alerts@<domain>` anlegen (Passwort zuerst in KeePassXC `NixOS/ServerPublic` → „Mailbox alerts@“, Benutzername `alerts@<domain>`, URL `https://mail.<domain>`, KeePassXC → Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9; lehnt der Dienst das ab, in KeePassXC auf das erlaubte Maximum kürzen und das im Notizfeld vermerken), pro Host das Secret `notify/mail-password` setzen und `nixos.system.notify.mail` einschalten. Notizfeld in KeePassXC (ohne Alarme auf Portable die Zeile mit `nixos-portable.yaml` weglassen):
 
   ```
   Mailbox alerts@:
@@ -690,8 +829,12 @@ nixos-server1.yaml → resticserver/htpasswd (line nixos-servergaming:, bcrypt)
 Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
 
 - [ ] 11.1 Den PGP-Schlüssel erzeugen oder den vorhandenen verwenden. Den Public Key nach `$PRIV/pgp/public.asc` legen und `pgpFingerprint` in `site.nix` setzen (Phase 1.3/1.4).
-- [ ] 11.2 Den DNS-Eintrag `openpgpkey.<mailDomain>` anlegen, ServerPublic neu bauen und WKD prüfen: `gpg --auto-key-locate clear,wkd --locate-keys <adresse>`.
-- [ ] 11.3 Stalwart Encryption at Rest: Auf `https://stalwart.<domain>` mit dem Mailkonto anmelden → Encryption at rest → Public Key einfügen → OpenPGP/AES256.
+- [ ] 11.2 Den DNS-Eintrag `openpgpkey.<domain>` anlegen, ServerPublic neu bauen und WKD prüfen: `gpg --auto-key-locate clear,wkd --locate-keys <adresse>`.
+- [ ] 11.3 Stalwart Encryption at Rest, erst nach 11.4 und erst, wenn auch das Handy PGP entschlüsseln kann (sonst sind neue Mails dort unlesbar). Was es tut: Stalwart verschlüsselt jede eingehende Mail mit deinem Public Key, bevor es sie speichert. Lesen kann sie nur ein Programm mit dem geheimen Schlüssel (Thunderbird, das Handy). Das schützt gegen jeden, der die Platte oder ein Backup liest (Contabo, das restic-Repo auf Server1, ein gestohlener Datenträger). Nicht geschützt ist die Mail auf dem Weg zum Server und im Speicher während des Empfangs. Nachteile: Die Suche auf dem Server findet im Text nichts mehr, Programme ohne Schlüssel zeigen nur einen verschlüsselten Anhang, Mails von vor dem Einschalten bleiben unverschlüsselt. Einstellung pro Konto, nicht in NixOS:
+  1. Als `jf@<domain>` auf `https://stalwart.<domain>` anmelden → Account → Encryption at rest.
+  2. Methode „OpenPGP“, Algorithmus „AES256“, den Public Key aus `$PRIV/pgp/public.asc` einfügen (Inhalt mit `-----BEGIN PGP PUBLIC KEY BLOCK-----`), speichern.
+  3. Prüfen: eine Mail von außen an `jf@<domain>` schicken. Thunderbird zeigt sie mit PGP-Schloss und entschlüsselt sie, am Handy ebenso.
+  4. `alerts@` (10.1) und `mailadmin` nicht verschlüsseln.
 - [ ] 11.4 Thunderbird: Den geheimen Schlüssel importieren oder per GnuPG/Smartcard nutzen. Das Konto, die Signatur und CalDAV/CardDAV kommen deklarativ.
 - [ ] 11.5 Thunderbird: Proton (Hauptkonto über die Bridge), Stalwart, DLRG und 1&1 kommen deklarativ aus `mailAccounts` und `mailAddress`, angezeigt werden sie mit ihrer Adresse. Einmalig: Bridge einrichten (`systemctl --user stop protonmail-bridge`, `protonmail-bridge --cli`, `login`, `info` zeigt das Bridge-Passwort) und deren Zertifikat in Thunderbird bestätigen, je Konto das Passwort eingeben. Zu prüfen: DLRG `mail.dlrg.de` (Quelle ist das DLRG-Wiki) und 1&1 `imap.1und1.de`/`smtp.1und1.de`, beide nicht getestet. Die Add-ons LanguageTool und CardBook bleiben manuell (siehe `Notes/Post-Installation.md`). In CardBook unter Einstellungen → Thunderbird den Haken „Spalten hinzufügen“ entfernen, sonst erscheinen in jedem Ordner die Spalten From (CB), Recipient (CB) und Correspondents (CB). Die Einstellung liegt in der Datenbank des Add-ons, nicht in der Config.
 - [ ] 11.6 JMAP: Thunderbird Desktop kann noch kein JMAP. Auf dem Handy Sterna Mail (F-Droid) verwenden, optional Bulwark als Webmail auf ServerPublic. Sobald Thunderbird JMAP unterstützt: Konto umstellen.
@@ -824,6 +967,14 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
     ssh admin@NixOS-Server1 'journalctl -u ollama-model-loader -b --no-pager | tail -20; ollama list'
     ```
 
+  - [ ] IPv6 prüfen: Mullvad lehnte Verbindungen zu IPv6-Adressen ab, der Loader brach deshalb 486-mal mit `connection refused` ab (Cloudflare-Speicher von Ollama) und startete ständig neu. Seit 08.11.2026 setzt `nixosModules/server/network/mullvad-server.nix` `mullvad tunnel set ipv6 on`. Nach dem Deploy:
+
+    ```
+    ssh admin@NixOS-Server1 'mullvad tunnel get | grep IPv6; curl -6 -s -o /dev/null -w "%{http_code}\n" https://registry.ollama.ai/v2/; systemctl show ollama-model-loader -p NRestarts -p ActiveState; journalctl -u ollama-model-loader -b --no-pager -o cat | grep -c "connection refused"'
+    ```
+
+    Erwartet: `IPv6: on`, `404` (Server erreichbar), der Loader endet ohne Neustarts, 0 Treffer. Danach schauen, ob andere Dienste mit IPv6 Probleme haben: `journalctl -b -p warning --no-pager | grep -iE "network is unreachable|connection refused|\[[0-9a-f:]+\]:[0-9]+" | tail -30`, und ob `curl -6 https://ifconfig.co` eine Adresse von Mullvad zeigt, nicht die der Fritzbox.
+
   - [ ] ComfyUI: In der Oberfläche Manager → Custom Nodes Manager → `ComfyUI-GGUF` (city96) installieren und ComfyUI neu starten. Ohne den Knoten lassen sich die `.gguf`-Dateien nicht laden. Die Knoten liegen unter `storage/ComfyUI/custom_nodes` und bleiben erhalten.
   - [ ] ComfyUI-Modelle laden (Z-Image Turbo und FLUX.2 klein 4B, beide Apache 2.0, zusammen etwa 7 GB):
 
@@ -842,6 +993,14 @@ Ausführlich in [`docs/mail-pgp-jmap.md`](docs/mail-pgp-jmap.md).
   - [ ] Workflow: „Unet Loader (GGUF)“ mit dem Modell, „CLIPLoader (GGUF)“ mit `Qwen3-4B-Q4_K_M.gguf` (Typ `lumina2` für Z-Image, `flux2` für FLUX.2), „Load VAE“ mit `ae.safetensors` bzw. `flux2-vae.safetensors`. Z-Image Turbo: 8 Schritte, CFG 1. FLUX.2 klein: 4 Schritte. Lehnt der GGUF-Loader den Text-Encoder ab, stattdessen `qwen_3_4b.safetensors` (8 GB) aus `Comfy-Org/Z-Image-Turbo`, `split_files/text_encoders` nach `text_encoders` laden, beide Modelle nutzen ihn.
   - [ ] Alte Checkpoints aussortieren: `ssh -t admin@NixOS-Server1 'sudo du -sh /pool01/applications/comfyui/models/*/*'` zeigt, was noch liegt, alles außer den Dateien oben löschen.
   - [ ] Ollama und ComfyUI teilen sich die 4 GB der A310. Prüfen, ob ein Bild langsamer wird oder mit Speichermangel abbricht, solange Ollama ein Modell geladen hat (`ollama ps`, Ollama entlädt nach 5 Minuten ohne Anfrage). Falls ja, `OLLAMA_KEEP_ALIVE` kürzer setzen.
+- [ ] 13.30 Reste der persistierten `/etc/ssh` löschen (seit 08.11.2026 liest sshd die Schlüssel direkt aus `/persistent/etc/ssh`). Auf jedem Rechner erst nach dem Deploy mit der neuen `ssh.nix`, vorher würde sshd seine Konfiguration verlieren. Betroffen: Desktop, Framework, Convertible, Portable, Server1 (ServerPublic ist neu installiert, ServerGaming kommt erst). Auf dem jeweiligen Rechner:
+
+    ```
+    if findmnt /etc/ssh >/dev/null; then echo "noch alte Konfiguration, erst deployen"; else sudo rm -rv /persistent/etc/ssh/sshd_config /persistent/etc/ssh/ssh_config /persistent/etc/ssh/ssh_known_hosts /persistent/etc/ssh/authorized_keys.d; fi
+    sudo ls -la /persistent/etc/ssh
+    ```
+
+    Übrig bleiben nur `ssh_host_*` und, wo vorhanden, `initrd_host_key*`. Danach mit einer neuen Verbindung `ssh` testen. Für Server1 vom Desktop: `ssh -t admin@NixOS-Server1 '<die Zeilen oben>'`.
 
 ## Phase 14 – Security, später entschieden
 
@@ -934,9 +1093,12 @@ Nextcloud mit Collabora, code-server und die Countdown-Seite laufen nur zum Test
 Einrichten (nach 8B, wenn ServerGaming läuft):
 
 - [ ] 19.1 Secrets: `codeserver/env` (`HASHED_PASSWORD=<argon2-Hash>`) aus `nixos-serverpublic.yaml` nach `nixos-servergaming.yaml` übertragen (`cd $PRIV/secrets && sops nixos-servergaming.yaml`), dann in `nixos-serverpublic.yaml` löschen, committen, `nix flake update private`.
-- [ ] 19.2 DNS: A/AAAA für `cloud`, `office` und `code` auf den Gaming-VPS umstellen (`countdown` steht schon in 8.15).
+- [ ] 19.2 DNS: A/AAAA für `cloud`, `office` und `code` auf den Gaming-VPS umstellen (`countdown` steht schon in 8.16).
 - [ ] 19.3 Murmur ist seit 07.11.2026 entfernt (Modul, Testdienst, Glance-Eintrag). Reste löschen, falls schon angelegt: Firewall-Regel „mumble-test“ (64738) im Contabo-Panel, DNS-Eintrag `murmur`, `murmur/env` in `nixos-serverpublic.yaml` und `nixos-servergaming.yaml`, KeePassXC-Eintrag „Mumble server password“.
-- [ ] 19.4 Nextcloud-Admin anlegen, NixOS setzt ihn seit dem Update vom 03.11.2026 nicht mehr selbst. Zuerst KeePassXC `NixOS/ServerGaming` → „Nextcloud“, Benutzername = dein Name, URL `https://cloud.<domain>`, KeePassXC → Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9; lehnt der Dienst das ab, in KeePassXC auf das erlaubte Maximum kürzen und das im Notizfeld vermerken. Dann auf ServerGaming `sudo nextcloud-occ user:add <name>` (fragt nach dem Passwort aus dem Eintrag) und `sudo nextcloud-occ group:adduser admin <name>`. Passwort nur in KeePassXC. Talk hat hier keinen TURN-Server (coturn läuft auf ServerPublic).
+- [ ] 19.4 Nextcloud-Konten anlegen, NixOS setzt den Admin seit dem Update vom 03.11.2026 nicht mehr selbst. Admin und persönliches Konto sind getrennt. Passwörter jeweils zuerst in KeePassXC erzeugen (Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9; lehnt der Dienst das ab, auf das erlaubte Maximum kürzen und im Notizfeld vermerken), nur dort speichern.
+  - [ ] Admin: KeePassXC `NixOS/ServerGaming` → „Nextcloud admin“, Benutzername `admin`, URL `https://cloud.<domain>`. Auf ServerGaming `sudo nextcloud-occ user:add admin` (fragt nach dem Passwort) und `sudo nextcloud-occ group:adduser admin admin`.
+  - [ ] Persönlich: KeePassXC „Nextcloud jf“, Benutzername `jf`. `sudo nextcloud-occ user:add jf`, ohne Admin-Gruppe. Den Nextcloud-Client und Kalender/Kontakte nur mit `jf` verbinden.
+  - [ ] Talk hat hier keinen TURN-Server (coturn läuft auf ServerPublic).
 
 Entfernen (ganz zum Schluss):
 
@@ -1026,7 +1188,7 @@ Einmal alles durchgehen, nachdem alle Werte erneuert sind. Was scheitert, als ne
   - [ ] fail2ban: `sudo fail2ban-client status` zeigt die Jails.
 - [ ] 21.5 ServerGaming: Minecraft beitreten, BlueMap und Countdown laden. Testdienste nur, solange Phase 19 sie noch nicht entfernt hat.
 - [ ] 21.6 Zwischen den Hosts:
-  - [ ] WireGuard: `sudo wg show` auf ServerPublic zeigt für alle Peers einen frischen Handshake, `ssh admin@<tunnel-ip>` von einem Client geht, SSH auf Port 22 von außen nicht mehr (8.17).
+  - [ ] WireGuard: `sudo wg show` auf ServerPublic zeigt für alle Peers einen frischen Handshake, `ssh admin@<tunnel-ip>` von einem Client geht, SSH auf Port 22 von außen nicht mehr (8.18).
   - [ ] Backups: Back In Time von Server1 auf die externe Platte, restic der VPS auf Server1 und Server1 nach Proton Drive: je `restic snapshots` zeigt einen Lauf von heute, eine Datei probehalber zurückholen.
   - [ ] Alarme: auf Server1 einen Test-Alarm schicken: `nix shell nixpkgs#prometheus-alertmanager -c amtool alert add Testalarm severity=critical --alertmanager.url=http://localhost:9093`, er kommt per ntfy und per Mail an. Killswitch nur testen, wenn ein Herunterfahren gerade passt.
 - [ ] 21.7 Clients (Desktop, Framework, Convertible, Portable):
@@ -1051,7 +1213,7 @@ nixos-rebuild switch --flake .#NixOS-ServerGaming --build-host admin@NixOS-Serve
 
 - [ ] 22.1 Vorbereitung:
   - [ ] Beide Repos sauber (`git status`), Syncthing überall „Aktuell“.
-  - [ ] Alte Fingerprints notieren. Client: `ssh-add -l`. Jeder Host: `for f in /etc/ssh/ssh_host_*_key.pub /etc/ssh/initrd_host_key.pub; do [ -e "$f" ] && ssh-keygen -lf "$f"; done`.
+  - [ ] Alte Fingerprints notieren. Client: `ssh-add -l`. Jeder Host: `for f in /persistent/etc/ssh/ssh_host_*_key.pub /persistent/etc/ssh/initrd_host_key.pub; do [ -e "$f" ] && ssh-keygen -lf "$f"; done`.
 - [ ] 22.2 Benutzerschlüssel, ein Client nach dem anderen. Reihenfolge: Framework, Convertible, zuletzt Desktop (Portable hat seinen Schlüssel erst in 12.2b neu bekommen und bleibt hier außen vor; der Desktop deployt und steht in der initrd-Liste von Server1, bis zum Schluss bleibt er der funktionierende Zugang). Alles auf dem jeweiligen Client:
   - [ ] Neuen Schlüssel im RAM erzeugen (`<Host>` ersetzen, z. B. `NixOS-Framework`): `d=$(mktemp -d -p /run/user/1000); ssh-keygen -t ed25519 -a 100 -C jf@<Host> -f "$d/id_ed25519"`. Als Passphrase ein neues Passwort aus KeePassXC (Reiter „Passwort“, 128 Zeichen, nur A-Z, a-z, 0-9).
   - [ ] KeePassXC: neuer Eintrag „SSH jf@<Host> neu“ in `NixOS/Keys`, Passwortfeld = diese Passphrase, unter Erweitert → Anhänge `$d/id_ed25519` hinzufügen, Reiter „SSH Agent“: Private key = Attachment `id_ed25519`, beide Haken setzen, speichern. `ssh-add -l` zeigt jetzt beide Schlüssel.
@@ -1064,11 +1226,11 @@ nixos-rebuild switch --flake .#NixOS-ServerGaming --build-host admin@NixOS-Serve
   - [ ] Nur Desktop: Der neue Key steht erst im neuen initrd von Server1. Beim nächsten Neustart von Server1, solange du vor Ort bist: `ssh -p 2222 root@NixOS-Server1` und entsperren.
 - [ ] 22.3 SSH-Hostkeys, Host für Host (Server1, ServerPublic, ServerGaming, dann die Clients). sshd startet pro Verbindung (`startWhenNeeded`) und liest die Schlüssel dabei neu, ein Neustart des Dienstes ist nicht nötig:
   - [ ] Sitzung A zum Host öffnen und offen lassen (bei Clients lokal im Terminal).
-  - [ ] In Sitzung A: `sudo rm -f /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_ed25519_key.pub /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key.pub && sudo ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key && sudo ssh-keygen -t rsa -b 4096 -N "" -f /etc/ssh/ssh_host_rsa_key && ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub`. Den angezeigten Fingerprint notieren. `/etc/ssh` liegt in der Persistenz, der initrd-Key (`initrd_host_key`) wird hier nicht angefasst.
+  - [ ] In Sitzung A: `sudo rm -f /persistent/etc/ssh/ssh_host_ed25519_key /persistent/etc/ssh/ssh_host_ed25519_key.pub /persistent/etc/ssh/ssh_host_rsa_key /persistent/etc/ssh/ssh_host_rsa_key.pub && sudo ssh-keygen -t ed25519 -N "" -f /persistent/etc/ssh/ssh_host_ed25519_key && sudo ssh-keygen -t rsa -b 4096 -N "" -f /persistent/etc/ssh/ssh_host_rsa_key && ssh-keygen -lf /persistent/etc/ssh/ssh_host_ed25519_key.pub`. Den angezeigten Fingerprint notieren. `/etc/ssh` liegt in der Persistenz, der initrd-Key (`initrd_host_key`) wird hier nicht angefasst.
   - [ ] Auf jedem Client den alten Eintrag entfernen, für jeden Namen, unter dem du den Host ansprichst: `ssh-keygen -R NixOS-Server1` (ebenso `ssh-keygen -R 10.100.0.1` usw. für WireGuard-Adressen). Dann `ssh admin@NixOS-Server1 true`, den Fingerprint mit dem notierten vergleichen, erst dann `yes`.
   - [ ] Sops ist nicht betroffen, die Hosts entschlüsseln mit `/secrets/keys.txt`. Zur Sicherheit den Host einmal deployen, die Dienste mit Secrets müssen danach laufen (`systemctl --failed` leer).
 - [ ] 22.4 initrd-Hostkeys der Server (Server1, ServerPublic, ServerGaming), nur mit Konsolenzugang in Reichweite:
-  - [ ] In einer Sitzung auf dem Server: `sudo rm -f /etc/ssh/initrd_host_key /etc/ssh/initrd_host_key.pub && sudo ssh-keygen -t ed25519 -N "" -f /etc/ssh/initrd_host_key && ssh-keygen -lf /etc/ssh/initrd_host_key.pub`. Fingerprint notieren.
+  - [ ] In einer Sitzung auf dem Server: `sudo rm -f /persistent/etc/ssh/initrd_host_key /persistent/etc/ssh/initrd_host_key.pub && sudo ssh-keygen -t ed25519 -N "" -f /persistent/etc/ssh/initrd_host_key && ssh-keygen -lf /persistent/etc/ssh/initrd_host_key.pub`. Fingerprint notieren.
   - [ ] Den Server deployen (Befehl oben). Erst damit kommt der neue Key ins initrd.
   - [ ] Auf jedem Client: `ssh-keygen -R '[NixOS-Server1]:2222'` (bzw. den Namen oder die IP des VPS mit `:2222`).
   - [ ] Beim nächsten geplanten Neustart: `ssh -p 2222 root@<host>`, Fingerprint vergleichen, entsperren. Klappt es nicht, über die Konsole entsperren. Der alte Key ist dann noch im initrd, sonst ist nichts kaputt.
@@ -1102,7 +1264,7 @@ Alles, was du am Handy (GrapheneOS), an Melis Rechner und an anderen Geräten na
 - [ ] 23.3 SMB jf (nach 20.4): im Dateimanager des Handys die Freigabe `smb://NixOS-Server1` bearbeiten, Benutzer `jf`, Passwort aus „SMB jf“ (`NixOS/Server1`), speichern, einen Ordner öffnen. Windows-Geräte: Systemsteuerung → Anmeldeinformationsverwaltung → Windows-Anmeldeinformationen → Eintrag `NixOS-Server1` → Bearbeiten, neues Passwort, dann `\\NixOS-Server1` im Explorer öffnen.
 - [ ] 23.4 SMB meli (nach 20.4): Meli das Passwort aus „SMB meli“ (`NixOS/Server1`) persönlich geben, am besten direkt an ihrem Rechner aus KeePassXC kopiert, nicht per Messenger. An ihrem Rechner: Windows wie in 23.3 (Anmeldeinformationsverwaltung → `NixOS-Server1` → Bearbeiten, Benutzer `meli`), unter Linux im Dateimanager die gespeicherte Freigabe bearbeiten bzw. das Passwort im Schlüsselbund ersetzen. In ihrem Bitwarden den Eintrag für den Server (Benutzer `meli`) öffnen → Bearbeiten → Passwort ersetzen → Speichern, damit der alte Wert nicht weiter angeboten wird. Prüfen: Meli öffnet einen Ordner auf `\\NixOS-Server1`.
 - [ ] 23.5 Radicale (nach 20.4): DAVx5 → Konto `jf` → Einstellungen → Passwort aus „Radicale jf“ (`NixOS/Server1`) einfügen, „Jetzt synchronisieren“. Prüfen: ein Testtermin aus Thunderbird erscheint im Kalender des Handys.
-- [ ] 23.6 Mail (nach 8.8 und 20.4): In der Mail-App (Sterna Mail für JMAP, sonst die vorhandene App) die Stalwart-Konten einrichten: Adresse, Passwort aus „Mailbox jf@“ (`NixOS/ServerPublic`), Server `mail.<mailDomain>`. Bei Proton, DLRG und 1&1 das neue Passwort aus „Proton“, „DLRG“, „1&1“ (`NixOS/Providers`) eintragen. Prüfen: eine Mail an dich selbst kommt am Handy an.
+- [ ] 23.6 Mail (nach 8.8 und 20.4): In der Mail-App (Sterna Mail für JMAP, sonst die vorhandene App) die Stalwart-Konten einrichten: Adresse, Passwort aus „Mailbox jf@“ (`NixOS/ServerPublic`), Server `mail.<domain>`. Bei Proton, DLRG und 1&1 das neue Passwort aus „Proton“, „DLRG“, „1&1“ (`NixOS/Providers`) eintragen. Prüfen: eine Mail an dich selbst kommt am Handy an.
 - [ ] 23.7 WLAN (nach 20.3): In der FRITZ!Box unter WLAN → Sicherheit den QR-Code anzeigen, am Handy unter Einstellungen → Netzwerk → Internet → „+“ → QR-Symbol scannen. Ebenso TV, Drucker und alle übrigen WLAN-Geräte, die Gästen gehören über das Gast-WLAN.
 - [ ] 23.8 Briar-Mailbox (nach 8.8): auf ServerPublic `journalctl -u podman-briar-mailbox | tail -40` zeigt den QR-Code. In Briar → Einstellungen → Mailbox → „Mailbox einrichten“ → scannen. Prüfen: Briar zeigt die Mailbox als verbunden.
 - [ ] 23.9 ntfy (nach 10.2): ntfy-App → Einstellungen → Benutzer → „+“, Server `https://push.<domain>`, Benutzer `jf`, Passwort aus „ntfy jf“ (`NixOS/ServerPublic`). Das Alarm-Topic abonnieren (`ALERT_TOPIC`, steht in `ntfy/env`). Prüfen: der Test-Alarm aus 21.6 kommt an.
@@ -1113,3 +1275,25 @@ Alles, was du am Handy (GrapheneOS), an Melis Rechner und an anderen Geräten na
 ## Phase 24 – Beobachten, ohne Termin
 
 - [ ] 24.1 Invidious: Die Wiedergabe braucht seit 2025 den eigenen Dienst Invidious companion. Er fehlt in nixpkgs (kein Paket, keine Option im Modul `services.invidious`, Stand 07.11.2026), deshalb zeigt Invidious auf Server1 nur Seiten und Suche, keine Videos. Bei Updates von nixpkgs nachsehen: `nix search nixpkgs invidious-companion` und die Optionen von `services.invidious` (Suche nach `companion` auf search.nixos.org). Gibt es ein Paket oder eine Option, companion mit gemeinsamem Schlüssel aus sops einbinden (`invidious_companion` und `invidious_companion_key` in den Einstellungen) und das auskommentierte `sig-helper` in `nixosModules/server/tools/invidious.nix` entfernen. Bis dahin wäre nur ein Podman-Container möglich (`quay.io/invidious/invidious-companion`, Updates von Hand). Prüfen, ob YouTube die Adresse von Server1 sperrt („Sign in to confirm you're not a bot“), wenn der Verkehr über Mullvad geht.
+- [ ] 24.2 KeePassXC Auto-Type unter Plasma-Wayland: Solange die Plasma-Bildschirmtastatur als Eingabemethode aktiv ist, bleibt nach Auto-Type mit Großbuchstaben Shift systemweit hängen, bis zum Abmelden ([keepassxc#13846](https://github.com/keepassxreboot/keepassxc/issues/13846), Ursache in KDE: [Bug 520990](https://bugs.kde.org/show_bug.cgi?id=520990), am 08.11.2026 noch offen, ein Merge Request für KWin ist verlinkt, getestet mit Plasma 6.8.2 und KeePassXC 2.8.0). Die Bildschirmtastatur bleibt bewusst auf allen Clients aktiv, Auto-Type mit Großbuchstaben ist bis zum Fix kaputt. Bei Plasma-Updates prüfen: `curl -s 'https://bugs.kde.org/rest/bug/520990?include_fields=status,resolution,cf_versionfixedin'` zeigt `RESOLVED`/`FIXED` und die Version. Ist die Version installiert (`plasmashell --version`), in Kate ein Passwort mit Großbuchstaben per Auto-Type tippen lassen, danach muss Shift wieder normal funktionieren.
+- [ ] 24.3 CryptPad: nixpkgs hat noch 2025.9.0 (Stand 08.11.2026), aktuell ist 2026.10.0. Das Update liegt als [nixpkgs#511890](https://github.com/NixOS/nixpkgs/pull/511890) offen (seit 20.04.2026, das Paket bündelt OnlyOffice und ist aufwendig). Nach jedem `nix flake update` prüfen: `nix eval --raw .#nixosConfigurations.NixOS-ServerPublic.config.services.cryptpad.package.version`. Ein eigenes Overlay lohnt nicht, die Versionen hängen an den OnlyOffice-Builds.
+
+## Phase 25 – Optionale Security-Anpassungen
+
+- [ ] 25.1 Cloudflare-Proxy (orange Wolke) für ServerGaming, Stand 08.11.2026 bewusst aus, alle Einträge „DNS only“. Bringt DDoS-Schutz nur, wenn die IP verborgen bleibt: kein grauer Eintrag auf ServerGaming (auch kein `mc` für Minecraft, das bräuchte eine eigene IP) und von Anfang an orange, graue Einträge landen in DNS-Archiven. Bei ServerPublic sinnlos, `mail`, `turn` und der MX zeigen die IP ohnehin. Nachteile: Cloudflare beendet TLS und sieht alles im Klartext außer Ende-zu-Ende-verschlüsselten Inhalten, Uploads über 100 MB pro Anfrage scheitern, passt schlecht zu 15.5. Nötig im Code: nginx `set_real_ip_from` mit den Bereichen von Cloudflare und `real_ip_header CF-Connecting-IP`, die fail2ban-Jails `nginx-bad-request`, `nginx-botsearch` und `nextcloud` abschalten oder über die API von Cloudflare sperren lassen (sonst sperren sie Cloudflare-Adressen), Firewall 80/443 nur aus den Bereichen von Cloudflare. In Cloudflare SSL/TLS auf „Full (strict)“. Die Zertifikate (DNS-01) sind nicht betroffen.
+
+## Phase 26 – Freunde einladen (wenn alles läuft)
+
+- [ ] 26.1 Nur für Leute, die du kennst, öffentliche Registrierung gibt es nirgends. Voraussetzung: Matrix und CryptPad sind eingerichtet (8.8), die Konten `admin` gibt es.
+  - [ ] Matrix: Auf ServerPublic einen Token erzeugen, gültig 7 Tage. Die `1` bei `uses_allowed` ist die Zahl der Konten, die damit angelegt werden können, für mehrere Freunde erhöhen oder je einen Token erzeugen. Das Admin-Passwort aus „Matrix admin“ wird abgefragt, die Sitzung danach wieder abgemeldet:
+
+    ```
+    read -rsp "Matrix admin password: " pw; echo
+    at=$(curl -s -X POST -d "{\"type\":\"m.login.password\",\"identifier\":{\"type\":\"m.id.user\",\"user\":\"admin\"},\"password\":\"$pw\"}" http://127.0.0.1:8008/_matrix/client/v3/login | nix run nixpkgs#jq -- -r .access_token); unset pw
+    curl -s -X POST -H "Authorization: Bearer $at" -d "{\"uses_allowed\": 1, \"expiry_time\": $(date -d '+7 days' +%s%3N)}" http://127.0.0.1:8008/_synapse/admin/v1/registration_tokens/new | nix run nixpkgs#jq -- -r .token
+    curl -s -H "Authorization: Bearer $at" http://127.0.0.1:8008/_synapse/admin/v1/registration_tokens | nix run nixpkgs#jq -- '.registration_tokens[] | {token, uses_allowed, completed}'
+    curl -s -X POST -H "Authorization: Bearer $at" http://127.0.0.1:8008/_matrix/client/v3/logout; unset at
+    ```
+
+    Den Token mit der Anleitung schicken (Signal o. Ä.): Element installieren, „Konto erstellen“, Server `matrix.<domain>` eintragen, Benutzername und Passwort wählen, Token eingeben, danach die Schlüsselsicherung einrichten. Die dritte Zeile zeigt, wie oft jeder Token schon benutzt wurde. Abgelaufene oder ungenutzte löschen: `curl -s -X DELETE -H "Authorization: Bearer $at" http://127.0.0.1:8008/_synapse/admin/v1/registration_tokens/<token>` (vor dem Abmelden).
+  - [ ] CryptPad: als `admin` → Administration → Benutzerverzeichnis → Einladung erstellen, Name und Mail nur zur eigenen Zuordnung. Ein Link gilt für genau ein Konto, für mehrere Leute je einen Link. CryptPad verschickt nichts, den Link selbst schicken. Ohne Konto können Freunde geteilte Dokumente öffnen und bearbeiten, aber keine eigenen anlegen.

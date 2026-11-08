@@ -29,7 +29,12 @@
 
       hostKey = lib.mkOption {
         type = lib.types.str;
-        default = "/etc/ssh/initrd_host_key";
+        default =
+          if config.nixos.disko.disko-luks-btrfs-tmpfs.enable then
+            "/persistent/etc/ssh/initrd_host_key"
+          else
+            "/etc/ssh/initrd_host_key";
+        defaultText = lib.literalExpression ''"/persistent/etc/ssh/initrd_host_key" with impermanence, else "/etc/ssh/initrd_host_key"'';
         description = "Path of the initrd ssh host key.";
       };
 

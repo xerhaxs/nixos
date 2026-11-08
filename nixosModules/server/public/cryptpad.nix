@@ -5,6 +5,43 @@
   ...
 }:
 
+let
+  cfg = config.services.cryptpad;
+  cryptpadDir = "${cfg.package}/lib/node_modules/cryptpad";
+
+  # Same structure as customize.dist/application_config.js. Only enforced in the browser.
+  applicationConfig = pkgs.writeText "application_config.js" ''
+    (() => {
+    const factory = (AppConfig) => {
+        AppConfig.disableAnonymousPadCreation = true;
+        AppConfig.disableAnonymousStore = true;
+        return AppConfig;
+    };
+
+    if (typeof(module) !== 'undefined' && module.exports) {
+        module.exports = factory(
+            require('../www/common/application_config_internal.js')
+        );
+    } else if ((typeof(define) !== 'undefined' && define !== null) && (define.amd !== null)) {
+        define(['/common/application_config_internal.js'], factory);
+    }
+    })();
+  '';
+
+  # The wrapper of the package creates customize/ only on the first start, so do the same here
+  # before copying the configuration into it (a copy, require() resolves symlinks into the store).
+  installCustomize = pkgs.writeShellScript "cryptpad-customize" ''
+    set -eu
+    for d in src customize.dist lib www scripts; do
+      ${pkgs.coreutils}/bin/ln -sf "${cryptpadDir}/$d" .
+    done
+    if ! [ -d customize ]; then
+      ${lib.getExe pkgs.nodejs} "${cryptpadDir}/scripts/build.js"
+    fi
+    ${pkgs.coreutils}/bin/install -m 0644 ${applicationConfig} customize/application_config.js
+  '';
+in
+
 {
   options.nixos = {
     server.public.cryptpad = {
@@ -51,6 +88,8 @@
         defaultStorageLimit = 5 * 1024 * 1024 * 1024;
       };
     };
+
+    systemd.services.cryptpad.serviceConfig.ExecStartPre = [ installCustomize ];
 
     services.nginx = {
       virtualHosts = {

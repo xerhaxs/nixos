@@ -52,7 +52,10 @@ Services of the public server (NixOS-ServerPublic).
 ## Notes
 
 - Stalwart: accounts, DKIM and the needed DNS records are managed in the webadmin (`stalwart.<domain>`), login with the fallback admin.
+- Matrix: `server_name` is `matrix.<domain>`, ids are `@name:matrix.<domain>`, the apex of the domain is not used. It cannot be changed once users exist.
 - Matrix users: `register_new_matrix_user -k "$(cat /run/secrets/matrix/registration_shared_secret)" http://127.0.0.1:8008`.
+- Matrix registration needs a token. Create one per person (access token of an admin from Element, Settings, Help & About): `curl -X POST -H "Authorization: Bearer <token>" -d '{"uses_allowed": 1}' http://127.0.0.1:8008/_synapse/admin/v1/registration_tokens/new`, list them with a GET on `/_synapse/admin/v1/registration_tokens`.
+- CryptPad: close the registration in the admin panel (`/admin/`, User Directory) and invite people with invitation links. Guests can open shared links but not create documents or use a drive (`application_config.js`, enforced only in the browser).
 - Miniflux admin: `sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin`.
 - Briar Mailbox setup code: `journalctl -u podman-briar-mailbox`.
 - ntfy admin: `sudo ntfy user add --role=admin <name>` or declarative users (`declarativeAuth`).

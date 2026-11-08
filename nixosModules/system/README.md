@@ -96,7 +96,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.hardening.unitHardening` | attribute set of anything | `{   LockPersonality = true;   NoNewPrivileges = true;   P...` | Common systemd hardening for the own units (serviceConfig = unitHardening // { ... }). |
 | `nixos.system.initrdssh.authorizedKeys` | list of string | `[   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhC1nqSGZvIStHk...` | Public keys allowed to unlock the disk. |
 | `nixos.system.initrdssh.enable` | boolean | `false` | Enable ssh in initrd to unlock encrypted disks remotely. |
-| `nixos.system.initrdssh.hostKey` | string | `"/etc/ssh/initrd_host_key"` | Path of the initrd ssh host key. |
+| `nixos.system.initrdssh.hostKey` | string | `"/persistent/etc/ssh/initrd_host_key"` with impermanence, else `"/etc/ssh/initrd_host_key"` | Path of the initrd ssh host key. |
 | `nixos.system.initrdssh.ip` | null or string | `null` | Static network configuration for initrd as kernel parameter ip=. DHCP is used if null. |
 | `nixos.system.initrdssh.kernelModules` | list of string | `[ ]` | Network driver modules needed in initrd. |
 | `nixos.system.initrdssh.port` | 16 bit unsigned integer; between 0 and 65535 (both inclusive) | `22` | Port of the initrd ssh server. |

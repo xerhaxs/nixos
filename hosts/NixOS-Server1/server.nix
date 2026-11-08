@@ -30,7 +30,10 @@
     };
     management = {
       cockpit.enable = true;
-      glance.enable = true;
+      glance = {
+        enable = true;
+        miniflux.enable = true;
+      };
       homeassistant.enable = true;
       update-check.enable = true;
       homebox = {
@@ -44,11 +47,6 @@
       nginx.enable = true;
       pihole.enable = true;
       unbound.enable = true;
-    };
-    public = {
-      #cryptpad.enable = true;
-      #matrix.enable = true;
-      #stalwart.enable = true;
     };
     sync = {
       forgejo.enable = true;
