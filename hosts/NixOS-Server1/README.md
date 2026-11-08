@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Home server with ZFS pool `pool01`: media, file shares, Home Assistant, DNS, git, monitoring, Monero node, HomeBox. Application state on `/pool01/applications`.
+Home server with ZFS pool `pool01`: media, file shares, Home Assistant, DNS, git, monitoring, HomeBox. Application state on `/pool01/applications`.
 
 ## How it works
 

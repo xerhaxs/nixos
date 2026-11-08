@@ -23,7 +23,6 @@
       "3dprinting".enable = true;
       ai.enable = true;
       blender.enable = true;
-      fusion360.enable = true;
     };
     education = {
       kiwix.enable = true;

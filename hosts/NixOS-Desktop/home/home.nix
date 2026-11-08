@@ -28,7 +28,6 @@
     };
     editing = {
       "3dprinting".enable = true;
-      fusion360.enable = true;
     };
     # Rode Procaster on the Behringer UMC22, only connected here (docs/microphone.md).
     media.easyeffects.enable = true;

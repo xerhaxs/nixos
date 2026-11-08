@@ -35,13 +35,6 @@
         ];
         description = "Addresses or networks never blocked by sshguard.";
       };
-
-      listenAddresses = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "10.100.0.1" ];
-        description = "Only listen on these addresses (e.g. the WireGuard IP), the port is not opened publicly then. All addresses if empty.";
-      };
     };
   };
 
@@ -49,11 +42,7 @@
     services.openssh = {
       enable = true;
       startWhenNeeded = true;
-      openFirewall = config.nixos.system.ssh.listenAddresses == [ ];
-      listenAddresses = map (addr: {
-        inherit addr;
-        port = 22;
-      }) config.nixos.system.ssh.listenAddresses;
+      openFirewall = true;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
@@ -98,10 +87,6 @@
     };
 
     services.sshd.enable = true;
-
-    systemd.sockets.sshd.socketConfig.FreeBind = lib.mkIf (
-      config.nixos.system.ssh.listenAddresses != [ ]
-    ) true;
 
     # Host keys directly in /persistent: a persisted /etc/ssh is mounted after the activation and
     # hides sshd_config and authorized_keys.d on a fresh installation.

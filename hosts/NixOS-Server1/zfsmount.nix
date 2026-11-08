@@ -50,21 +50,22 @@ in
       enable = true;
       interval = "weekly";
     };
-    /*
-      autoSnapshot = {
-        enable = false;
-        frequent = 4;
-        hourly = 24;
-        daily = 7;
-        weekly = 4;
-        monthly = 12;
-      };
-    */
+    # Snapshots of every dataset with com.sun:auto-snapshot=true (set once on pool01, inherited).
+    autoSnapshot = {
+      enable = true;
+      daily = 7;
+      weekly = 4;
+      monthly = 3;
+    };
     trim = {
       enable = true;
       interval = "weekly";
     };
   };
+
+  # A count of 0 means "keep all" for zfs-auto-snapshot, so the short intervals are switched off.
+  systemd.timers.zfs-snapshot-frequent.enable = false;
+  systemd.timers.zfs-snapshot-hourly.enable = false;
 
   systemd.services.zfs-load-keys = {
     description = "Load ZFS encryption keys from SOPS";

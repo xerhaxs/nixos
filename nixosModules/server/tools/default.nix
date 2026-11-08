@@ -40,7 +40,7 @@
       languagetool.enable = true;
       libreddit.enable = true;
       libretranslate.enable = true;
-      moneronode.enable = true;
+      moneronode.enable = lib.mkDefault false;
       networkingtoolbox.enable = true;
       ollama.enable = true;
       searxng.enable = true;

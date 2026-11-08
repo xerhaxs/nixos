@@ -15,4 +15,7 @@
   };
 
   services.qemuGuest.enable = true;
+
+  # Shows no effect today (1 thread per core, SMT "notsupported"), takes effect if the provider changes the topology.
+  security.allowSimultaneousMultithreading = false;
 }

@@ -58,3 +58,11 @@ Management, dashboards, home automation, inventory and monitoring.
 
 - Home Assistant devices that depend on the hardware (IPs, Thread radio) are configured in the host (`hosts/NixOS-Server1/homeassistant.nix`).
 - Killswitch button: add a button card for `script.killswitch` with confirmation to a dashboard.
+- Glance integrations: each widget reads an API key from the secret `glance` (env file, one `NAME=value` line per key) and stays off until its option is enabled; Glance does not start when a referenced key is missing. Add the key first (`cd ~/Documents/nixos-private/secrets && sops nixos-server1.yaml`, commit, `nix flake update private`), then enable the option in `hosts/NixOS-Server1/server.nix` under `nixos.server.management.glance` and deploy.
+
+  | Option | Line in `glance` | Where the key comes from |
+  |---|---|---|
+  | `miniflux.enable` | `ENV_MINIFLUX_TOKEN=` | Miniflux as `jf`: Settings, API Keys, "Create a new API key" (the widget shows the feeds of that user) |
+  | `jellyfin.enable` | `ENV_JELLYFIN_TOKEN=` | Jellyfin as admin: Dashboard, API Keys, "+" |
+  | `calendar.enable` | `ENV_SONARR_KEY=`, `ENV_RADARR_KEY=` | Sonarr and Radarr: Settings, General, API Key |
+  | `homeassistant.enable` | `ENV_HA_TOKEN=` | Home Assistant: profile, Security, Long-lived access tokens; the shown sensors are `homeassistant.entities` |

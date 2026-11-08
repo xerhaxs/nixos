@@ -58,6 +58,24 @@ let
 
   hostEntries = lib.mkMerge (lib.mapAttrsToList mkHostEntries cfg.lan.hosts);
 
+  # The VPS have no name in the LAN, ssh and deploys reach them by name on their public addresses.
+  vpsEntries = lib.mkMerge (
+    lib.mapAttrsToList
+      (
+        name: net:
+        lib.genAttrs (lib.filter (ip: ip != null) [
+          (net.ipv4 or null)
+          (net.ipv6 or null)
+        ]) (_: [ name ])
+      )
+      (
+        lib.filterAttrs (name: _: name != config.networking.hostName) {
+          NixOS-ServerPublic = config.nixos.site.serverPublic;
+          NixOS-ServerGaming = config.nixos.site.serverGaming;
+        }
+      )
+  );
+
 in
 
 {
@@ -302,7 +320,10 @@ in
       tempAddresses = "default";
       useDHCP = false;
 
-      hosts = lib.mkIf cfg.lan.enable hostEntries;
+      hosts = lib.mkMerge [
+        (lib.mkIf cfg.lan.enable hostEntries)
+        vpsEntries
+      ];
 
       hostFiles = lib.mkIf cfg.blocklists.enable (map fetchBlocklist cfg.blocklists.urls);
 

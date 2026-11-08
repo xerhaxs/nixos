@@ -51,14 +51,6 @@
 
     programs.nix-ld.enable = lib.mkDefault config.nixos.desktop.enable;
 
-    system.autoUpgrade = {
-      enable = lib.mkDefault false;
-      flake = "github:xerhaxs/nixos";
-      dates = "04:30";
-      randomizedDelaySec = "45min";
-      allowReboot = false;
-    };
-
     nix = {
       settings = {
         auto-optimise-store = true;

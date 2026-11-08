@@ -4,13 +4,13 @@ Das Repo ist öffentlich: Hier nichts Privates ablegen (keine Domains, Adressen,
 
 ## Einstieg
 
-- Offene Arbeit: [`TODO.md`](TODO.md) (Reihenfolge) und [`CHECKLIST.md`](CHECKLIST.md) (Abnahme). Dort steht der Stand, hier nur das, was man sonst neu herausfinden müsste.
+- Offene Arbeit: [`TODO.md`](TODO.md) (Reihenfolge, Funktionstest in Phase 21). Dort steht der Stand, hier nur das, was man sonst neu herausfinden müsste.
 - Aufbau: [`README.md`](README.md), jeder Ordner hat eine eigene `README.md`.
 - Hintergrund: [`docs/`](docs/README.md). `Notes/` ist per `.gitignore` lokal.
 
 ## Regeln
 
-- Mit dem Benutzer Deutsch sprechen. `TODO.md` und `CHECKLIST.md` sind deutsch, READMEs und Code-Kommentare englisch, Kommentare minimal.
+- Mit dem Benutzer Deutsch sprechen. `TODO.md` ist deutsch, READMEs und Code-Kommentare englisch, Kommentare minimal.
 - Nur committen, wenn es ausdrücklich verlangt wird. Branch ist `rework`, `main` erst in Phase 17.
 - Flakes ignorieren untracked Dateien: Neue `.nix`-Dateien vor dem Build mit `git add` aufnehmen.
 - `.nix` mit nixfmt formatieren, Import- und Bundle-Listen alphabetisch, neue Optionen in der README des Ordners nachtragen.

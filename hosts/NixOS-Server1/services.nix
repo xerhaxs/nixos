@@ -61,11 +61,6 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
-  systemd.services.monero = {
-    after = [ "zfs-mounts-ready.service" ];
-    requires = [ "zfs-mounts-ready.service" ];
-  };
-
   systemd.services.nzbhydra2 = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];

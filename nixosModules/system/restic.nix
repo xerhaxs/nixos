@@ -73,10 +73,19 @@ let
         cfg.paths
       else
         [ ];
+    # With zfsSubdirs only the listed directories of the dataset are backed up.
     dynamicFilesFrom = lib.mkIf (mode == "zfs") (
-      lib.concatMapStringsSep "\n" (dataset: ''
-        echo "$(${zfs} get -H -o value mountpoint ${dataset})/.zfs/snapshot/${snapshotName name}"
-      '') cfg.zfsDatasets
+      lib.concatMapStringsSep "\n" (
+        dataset:
+        let
+          root = "$(${zfs} get -H -o value mountpoint ${dataset})/.zfs/snapshot/${snapshotName name}";
+          subdirs = cfg.zfsSubdirs.${dataset} or [ ];
+        in
+        if subdirs == [ ] then
+          "echo \"${root}\""
+        else
+          lib.concatMapStringsSep "\n" (dir: "echo \"${root}/\"${lib.escapeShellArg dir}") subdirs
+      ) cfg.zfsDatasets
     );
     exclude = cfg.exclude;
     extraOptions =
@@ -123,6 +132,15 @@ in
         default = [ ];
         example = [ "pool01/applications" ];
         description = "ZFS datasets which are snapshotted and backed up (instead of the btrfs subvolumes or paths).";
+      };
+
+      zfsSubdirs = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.listOf lib.types.str);
+        default = { };
+        example = {
+          "pool01/shares/jf" = [ "Dokumente" ];
+        };
+        description = "Only back up these directories of a dataset in zfsDatasets (relative to its mountpoint); datasets without entry are backed up completely.";
       };
 
       subvolumes = lib.mkOption {
@@ -183,6 +201,12 @@ in
                 default = null;
                 description = "rclone config (secret) for rclone: repositories, copied once to a writable location.";
               };
+              sizeLimit = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = null;
+                example = 1900000000000;
+                description = "Warn (alert ResticRepositoryFull) when the repository grows beyond this many bytes; the size is measured after every backup.";
+              };
               extraOptions = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [ ];
@@ -200,6 +224,32 @@ in
 
   config = lib.mkIf cfg.enable {
     services.restic.backups = lib.mapAttrs mkBackup cfg.repositories;
+
+    # Size of the repository for Prometheus (textfile collector), measured after each backup with the
+    # wrapper restic-<name> that the restic module installs.
+    systemd.services = lib.mapAttrs' (
+      name: repo:
+      lib.nameValuePair "restic-size-${name}" {
+        description = "Measure the size of the restic repository ${name}";
+        after = [ "restic-backups-${name}.service" ];
+        wantedBy = [ "restic-backups-${name}.service" ];
+        path = [ pkgs.jq ];
+        serviceConfig = {
+          Type = "oneshot";
+          IOSchedulingClass = "idle";
+        };
+        script = ''
+          size=$(/run/current-system/sw/bin/restic-${name} stats --json --mode raw-data | jq .total_size)
+          dir=/var/lib/prometheus-node-exporter
+          mkdir -p $dir
+          {
+            echo "restic_repository_size_bytes{repository=\"${name}\"} $size"
+            echo "restic_repository_size_limit_bytes{repository=\"${name}\"} ${toString repo.sizeLimit}"
+          } > $dir/restic-${name}.prom.tmp
+          mv $dir/restic-${name}.prom.tmp $dir/restic-${name}.prom
+        '';
+      }
+    ) (lib.filterAttrs (_: repo: repo.sizeLimit != null) cfg.repositories);
 
     services.postgresqlBackup = lib.mkIf config.services.postgresql.enable {
       enable = true;

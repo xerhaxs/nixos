@@ -15,10 +15,49 @@
         example = true;
         description = "Enable dolphin.";
       };
+
+      places = lib.mkOption {
+        type = lib.types.listOf (
+          lib.types.submodule {
+            options = {
+              title = lib.mkOption { type = lib.types.str; };
+              url = lib.mkOption { type = lib.types.str; };
+              icon = lib.mkOption {
+                type = lib.types.str;
+                default = "folder-network";
+              };
+            };
+          }
+        );
+        default = [
+          {
+            title = "Minecraft";
+            url = "sftp://admin@NixOS-ServerGaming/srv/minecraft";
+            icon = "network-server";
+          }
+        ];
+        description = "Entries added to the places panel if missing (removing one in Dolphin brings it back at the next activation).";
+      };
     };
   };
 
   config = lib.mkIf config.homeManager.desktop.desktopEnvironment.plasma6.dolphin.enable {
+    # KDE rewrites user-places.xbel itself, so the entries are added instead of managing the file. A
+    # missing file is left alone, KDE creates it with its defaults at the first start.
+    home.activation.dolphinPlaces = lib.hm.dag.entryAfter [ "linkGeneration" ] (
+      lib.concatMapStrings (place: ''
+        placesFile="$HOME/.local/share/user-places.xbel"
+        if [ -e "$placesFile" ]; then
+          placesContent=$(cat "$placesFile")
+          if [[ $placesContent != *'href="${place.url}"'* ]]; then
+            run ${pkgs.gnused}/bin/sed -i --follow-symlinks \
+              's|</xbel>| <bookmark href="${place.url}"><title>${place.title}</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="${place.icon}"/></metadata></info></bookmark>\n</xbel>|' \
+              "$placesFile"
+          fi
+        fi
+      '') config.homeManager.desktop.desktopEnvironment.plasma6.dolphin.places
+    );
+
     programs.plasma.configFile."dolphinrc" = {
       "ContentDisplay" = {
         "DirectorySizeCount".value = false;

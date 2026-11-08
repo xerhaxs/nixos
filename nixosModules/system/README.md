@@ -155,16 +155,17 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.restic.repositories.<name>.passwordFile` | string |  | File with the repository password. |
 | `nixos.system.restic.repositories.<name>.rcloneConfigSecret` | null or string | `null` | rclone config (secret) for rclone: repositories, copied once to a writable location. |
 | `nixos.system.restic.repositories.<name>.repository` | string |  | restic repository URL. |
+| `nixos.system.restic.repositories.<name>.sizeLimit` | null or signed integer | `null` | Warn (alert ResticRepositoryFull) when the repository grows beyond this many bytes; the size is measured after every backup. |
 | `nixos.system.restic.subvolumes` | list of string | `[   "/persistent"   "/persistent/home" ]` | btrfs subvolumes which are snapshotted and backed up (impermanence hosts). |
 | `nixos.system.restic.time` | string | `"03:00"` | systemd OnCalendar expression for the backups. |
 | `nixos.system.restic.zfsDatasets` | list of string | `[ ]` | ZFS datasets which are snapshotted and backed up (instead of the btrfs subvolumes or paths). |
+| `nixos.system.restic.zfsSubdirs` | attribute set of list of string | `{ }` | Only back up these directories of a dataset in zfsDatasets (relative to its mountpoint); datasets without entry are backed up completely. |
 | `nixos.system.secureboot.enable` | boolean | `false` | Enable secureboot. |
 | `nixos.system.smartd.enable` | boolean | `false` | Enable smartd. |
 | `nixos.system.sops.enable` | boolean | `false` | Enable Sops. |
 | `nixos.system.sops.file` | null or string | `null` | Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. Required when sops is enabled. |
 | `nixos.system.ssh.authorizedKeys` | list of string | `[   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhC1nqSGZvIStHk...` | Public keys allowed to login as the system user. |
 | `nixos.system.ssh.enable` | boolean | `false` | Enable ssh with sshguard. |
-| `nixos.system.ssh.listenAddresses` | list of string | `[ ]` | Only listen on these addresses (e.g. the WireGuard IP), the port is not opened publicly then. All addresses if empty. |
 | `nixos.system.ssh.whitelist` | list of string | `[   "10.75.0.40"   "10.75.0.80" ]` | Addresses or networks never blocked by sshguard. |
 | `nixos.system.user.enable` | boolean | `false` | Setup the system user. |
 | `nixos.system.user.passwordFromSops` | boolean | `false` | Read the password hash of the system user from sops (user/<hostname>/<username>). |
@@ -173,8 +174,6 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.vulnscan.interval` | string | `"weekly"` on desktops, `"daily"` on servers | systemd OnCalendar expression of the scan. |
 | `nixos.system.wireguard.dns` | null or string | `Pi-hole on NixOS-Server1 for desktops` | DNS server used for all domains while the tunnel is up (Pi-hole on NixOS-Server1). |
 | `nixos.system.wireguard.enable` | boolean | `false` | Enable the WireGuard network. |
-| `nixos.system.wireguard.enrolled` | boolean | `false` | Whether this host has a public key in the peer list, so the hub accepts it. |
-| `nixos.system.wireguard.hasPeers` | boolean | `true` | Whether peers with public keys exist for this host. |
 | `nixos.system.wireguard.hubAddress` | string | `config.nixos.site.serverPublic.ipv4` | Public IP of the hub (an IP, so the tunnel works without DNS and can bypass Mullvad). |
 | `nixos.system.wireguard.interface` | string | `"wg0"` | Name of the WireGuard interface. |
 | `nixos.system.wireguard.mullvadBypass` | boolean | `true` | Let traffic to the hub bypass Mullvad (needed with Mullvad lockdown mode). |

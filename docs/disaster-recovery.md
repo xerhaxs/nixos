@@ -7,9 +7,9 @@ Plan for losing a disk, a host, the home or the VPS, or the whole site (fire, th
 | Class | Examples | Where it lives | Loss tolerance |
 |---|---|---|---|
 | A: irreplaceable | documents, photos, KeePassXC database, sops age keys, LUKS headers, PGP and SSH keys, mail | NixOS-Server1 `pool01/shares` (document, photo, jf), Stalwart on NixOS-ServerPublic, clients | none |
-| B: expensive to recreate | application state (Nextcloud, Forgejo, Home Assistant, Linkwarden, HomeBox, Matrix, Monero wallet files) | `pool01/applications`, `/var/lib` on NixOS-ServerPublic | one day |
+| B: expensive to recreate | application state (Nextcloud, Forgejo, Home Assistant, Linkwarden, HomeBox, Matrix), Monero wallet files (Documents) | `pool01/applications`, `/var/lib` on NixOS-ServerPublic | one day |
 | C: replaceable | music, videos, games, Kiwix ZIMs, Ollama and ComfyUI models | `pool01/shares/{music,video,games}`, `pool01/applications/{ollama,comfyui}` | can be downloaded again |
-| D: configuration | NixOS configuration, private repository | git (local, Forgejo, later a remote mirror) | none |
+| D: configuration | NixOS configuration, private repository | git on the clients, Syncthing | none |
 
 ## Copies (3-2-1-1)
 
@@ -19,10 +19,10 @@ Plan for losing a disk, a host, the home or the VPS, or the whole site (fire, th
 | A + B of NixOS-ServerPublic | btrfs on one disk (raid1 only with a second disk) | restic to the append-only REST server on NixOS-Server1 (WireGuard) | full disk backup at the provider | append-only REST server (the VPS cannot delete its backups) |
 | A + B of NixOS-ServerGaming (Minecraft worlds) | btrfs on one disk | restic to the append-only REST server on NixOS-Server1 (WireGuard) | full disk backup at the provider | append-only REST server |
 | Clients | btrfs on the client | Syncthing to NixOS-Server1 / Back In Time (Desktop) | through NixOS-Server1 to Proton Drive | - |
-| C (videos, music) | ZFS pool | optional: second large disk or cold storage | not covered | - |
-| D | local git | Forgejo on NixOS-Server1 | TODO: second remote (Codeberg private repo or a Forgejo instance on NixOS-ServerPublic) | Portable SSD (contains the configuration) |
+| C (videos, music) | ZFS pool (daily, weekly, monthly snapshots) | none, decision 08.11.2026: accept the loss, the content can be downloaded again | not covered | - |
+| D | local git on the clients | Syncthing to `pool01/shares/jf` on NixOS-Server1 | through NixOS-Server1 to Proton Drive (restic, encrypted, no provider sees `site.nix`) | Portable SSD (contains the configuration) |
 
-Videos are not part of the Proton Drive backup (size). Options for them, from cheap to safe:
+Videos are not part of the Proton Drive backup (size). Decision 08.11.2026: option 4. The other options, if this changes:
 
 1. A second large HDD in a different place (parents, office), filled every few months with `zfs send` or `rsync`, encrypted with LUKS.
 2. Hetzner Storage Box BX21+ (5-10 TB, about 2-4 EUR/TB/month) with restic or `zfs send` over ssh; restic encrypts client-side.

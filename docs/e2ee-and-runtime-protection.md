@@ -20,23 +20,15 @@ Data is only protected against a compromised server if it is encrypted on the cl
 
 | Option | What it is | Pros | Cons |
 |---|---|---|---|
-| Ente Photos (self-hosted, `services.ente` in nixpkgs) | E2EE photo and video library with apps for Android/iOS/desktop/web, face and object search on the device | Real E2EE, very good apps, automatic phone backup, sharing links stay E2EE, open source (server "museum" + web apps), NixOS module exists | Needs S3 object storage (Garage or MinIO on the same host, or external), 5 subdomains, PostgreSQL; only photos and videos; the self-hosted server needs the free plan limits lifted manually (`ente admin update-subscription`); another service to maintain |
-| Ente Auth | E2EE 2FA (TOTP) app with sync | Replaces Aegis + manual export, sync through the own Ente server | Same server needs; Aegis (local only) is simpler and safer if you do not need sync |
-| Cryptomator vault in Nextcloud/WebDAV | Client-side encrypted folder (files and names), apps for Linux, Android (paid), iOS | Works with any storage (Nextcloud, WebDAV, Proton Drive), no server change | Desktop app needed (cryptomator in nixpkgs), no web access, no server-side preview or search |
+| Cryptomator vault | Client-side encrypted folder (files and names) inside any synced or shared folder, apps for Linux, Android (paid), iOS | Works with Syncthing, SMB, WebDAV, Proton Drive, no server change | Desktop app needed (cryptomator in nixpkgs), no web access, no server-side preview or search |
 | gocryptfs / rclone crypt | Client-side encrypted directory or remote | Simple, scriptable, rclone crypt also works on Android (Round Sync) | No GUI sharing, conflicts with sync clients if used wrong |
-| Syncthing with an untrusted device | NixOS-ServerPublic as "untrusted" Syncthing device: it stores only encrypted data, the password lives on the clients | Server never sees plaintext, uses the existing Syncthing setup, good off-site copy | No web access, no sharing; an encrypted folder can only be read on trusted devices |
-| Nextcloud E2EE app | see above | Already installed | Folder-level only, fragile |
+| Nextcloud E2EE app | see above | Comes with Nextcloud | Folder-level only, fragile |
 
-Recommendation:
-
-1. Photos from the phone: Ente Photos on NixOS-ServerPublic with Garage as local S3 storage (both have NixOS modules). It replaces the photo upload of the Nextcloud app and is the only option with real E2EE and good apps. If you want it, it can be added as `nixos.server.public.ente` (TODO).
-2. Sensitive documents: a Cryptomator vault inside Nextcloud (or the Nextcloud E2EE app for a few folders).
-3. Off-site copy of the home data to the VPS: Syncthing with NixOS-ServerPublic as untrusted device instead of plaintext folders.
-4. Keep Nextcloud for things that need the server to read them (calendar, contacts, Collabora office, shares with other people).
+Decision (08.11.2026): photos and files stay on NixOS-Server1 (LUKS and encrypted ZFS, Syncthing and SMB), no E2EE photo service and no Syncthing copy on the VPS. They are protected while the server is off; a compromised running NixOS-Server1 could read them. For single sensitive folders a Cryptomator vault inside the synced folder is the simplest addition.
 
 ## Protection while running (beyond E2EE)
 
 - Killswitch (Home Assistant button -> ntfy -> every host powers off, the disks lock).
 - Confidential computing at the VPS provider (AMD SEV-SNP or Intel TDX): RAM is encrypted against the hypervisor. Few providers offer it for small VMs (Azure, Google, OVH bare metal, some Hetzner dedicated), check before choosing a provider (see `providers.md`).
-- Isolation of the exposed services so one exploited service does not see the data of the others: see `isolation.md`.
+- Isolation of the exposed services: systemd sandboxing per service (`systemd-analyze security` scores 1 to 2 for most services on NixOS-ServerPublic, the bridges and ntfy were tightened on 08.11.2026). NixOS containers or micro VMs were considered and not chosen: with one kernel they add little over the sandboxing, nested virtualisation on the VPS is slow.
 - Minimize what the server keeps: short log retention, no plaintext backups (restic encrypts), mail encryption at rest in Stalwart.

@@ -28,24 +28,13 @@
 
       models = lib.mkOption {
         type = lib.types.listOf lib.types.str;
+        # Chosen for a Ryzen 5 7600 with 124 GB RAM and an Arc A310 (4 GB): MoE models with few active
+        # parameters run fast on the CPU, the small ones fit into the GPU.
         default = [
-          "deepseek-r1:1.5b"
-          "deepseek-r1:7b"
-          "deepseek-r1:8b"
-          "deepseek-r1:14b"
-          "deepseek-r1:32b"
-          "gemma3:270m"
-          "gemma3:1b"
-          "gemma3:4b"
-          "gemma3:12b"
-          "gemma3:27b"
-          "gpt-oss:20b"
-          "llama3.1:8b"
-          "llama3.2:3b"
-          "nemotron-3-nano:30b"
-          "qwen3.5:9b"
-          "qwen3.5:27b"
-          "qwen3.5:35b"
+          "gemma4:26b-a4b"
+          "gemma4:e4b"
+          "qwen3.5:4b"
+          "qwen3.6:35b-a3b"
         ];
         description = "Models pulled at startup.";
       };

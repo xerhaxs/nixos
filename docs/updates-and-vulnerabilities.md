@@ -12,7 +12,7 @@
 
 A flake input cannot follow "the newest release", and `flake.lock` cannot hold registry digests. Registry images are therefore the only pins outside of `flake.lock`, and `update-images` keeps them in one file.
 
-Downloads at runtime have no pin: the wine prefix of Fusion 360, the first start of Dangerzone (verified by cosign), Ollama models and the SDDM background.
+Downloads at runtime have no pin: the first start of Dangerzone (verified by cosign), Ollama models and the SDDM background.
 
 ## What runs where
 

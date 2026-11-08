@@ -7,7 +7,6 @@ Graphics, video, audio, CAD and 3D editing.
 ## How it works
 
 - The `compiler` module also refreshes the AACS key database for Blu-ray playback in VLC weekly over https.
-- `fusion360`: Autodesk Fusion 360 in a wine prefix (`fusion360-install` once, then `fusion360`), following the steps of the cryinkfly installer.
 
 ## Contents
 
@@ -18,7 +17,6 @@ Graphics, video, audio, CAD and 3D editing.
 | `blender.nix` | Enable blender |
 | `compiler.nix` | Enable Media compiler tools. |
 | `default.nix` | Imports the modules of this folder and defines the bundle option `homeManager.applications.editing.enable`. |
-| `fusion360.nix` | Enable Autodesk Fusion 360 through wine (fusion360-install sets up the prefix, needs internet and an Autodesk account). |
 | `gimp.nix` | Enable GIMP |
 | `image.nix` | Enable image tools. |
 | `kdenlive.nix` | Enable kdenlive |
@@ -33,7 +31,6 @@ Graphics, video, audio, CAD and 3D editing.
 | `homeManager.applications.editing.blender.enable` | boolean | `false` | Enable blender |
 | `homeManager.applications.editing.compiler.enable` | boolean | `false` | Enable Media compiler tools. |
 | `homeManager.applications.editing.enable` | boolean | `false` | Enable editing modules bundle. |
-| `homeManager.applications.editing.fusion360.enable` | boolean | `false` | Enable Autodesk Fusion 360 through wine (fusion360-install sets up the prefix, needs internet and an Autodesk account). |
 | `homeManager.applications.editing.gimp.enable` | boolean | `false` | Enable GIMP |
 | `homeManager.applications.editing.image.enable` | boolean | `false` | Enable image tools. |
 | `homeManager.applications.editing.kdenlive.enable` | boolean | `false` | Enable kdenlive |

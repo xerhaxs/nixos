@@ -64,6 +64,28 @@ in
 
     environment.variables.NTFY_AUTH_FILE = config.services.ntfy-sh.settings.auth-file;
 
+    # On top of the sandboxing of the nixpkgs module (mkDefault, the module values win).
+    systemd.services.ntfy-sh.serviceConfig = lib.mapAttrs (_: lib.mkDefault) (
+      config.nixos.system.hardening.unitHardening
+      // {
+        CapabilityBoundingSet = "";
+        PrivateDevices = true;
+        ProcSubset = "pid";
+        ProtectHostname = true;
+        ProtectProc = "invisible";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
+      }
+    );
+
     services.nginx = {
       virtualHosts = {
         "${hostname}" = {

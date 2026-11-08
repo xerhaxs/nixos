@@ -88,20 +88,6 @@ in
         description = "DNS server used for all domains while the tunnel is up (Pi-hole on NixOS-Server1).";
       };
 
-      hasPeers = lib.mkOption {
-        type = lib.types.bool;
-        readOnly = true;
-        default = validPeers != { };
-        description = "Whether peers with public keys exist for this host.";
-      };
-
-      enrolled = lib.mkOption {
-        type = lib.types.bool;
-        readOnly = true;
-        default = (peers.${hostName} or { publicKey = null; }).publicKey != null;
-        description = "Whether this host has a public key in the peer list, so the hub accepts it.";
-      };
-
       mullvadBypass = lib.mkOption {
         type = lib.types.bool;
         default = config.services.mullvad-vpn.enable;
@@ -150,18 +136,6 @@ in
             }
           ];
     };
-
-    # The VPS have no name in the LAN, reach them by name through the tunnel.
-    networking.hosts = lib.mapAttrs' (name: peer: lib.nameValuePair peer.ip [ name ]) (
-      lib.filterAttrs (
-        name: _:
-        lib.elem name [
-          hub
-          "NixOS-ServerGaming"
-        ]
-        && name != hostName
-      ) peers
-    );
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = lib.mkIf isHub 1;
 

@@ -32,6 +32,7 @@
   };
 
   nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.networkshares.webdav.enable = true;
 
   nixos.virtualisation.android.enable = true;
   nixos.virtualisation.kvm.enable = true;

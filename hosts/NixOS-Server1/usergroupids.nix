@@ -18,7 +18,6 @@
     linkwarden.gid = 970;
     loki.gid = 968;
     matter-server.gid = 545;
-    monero.gid = 967;
     nzbhydra2.gid = 994;
     ollama.gid = 993;
     otbr.gid = 973;
@@ -81,8 +80,6 @@
     };
 
     meli.uid = 994;
-
-    monero.uid = 974;
 
     nzbhydra2 = {
       uid = 991;

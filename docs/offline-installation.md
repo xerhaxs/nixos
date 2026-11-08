@@ -28,7 +28,7 @@ sudo /nix/store/<...>-disko --mode destroy,format,mount     # disko script of th
 sudo nixos-install --no-channel-copy --no-root-passwd --system /nix/store/<...>-nixos-system-NixOS-Desktop-...
 ```
 
-The installer script (`NixOSInstaller.sh`) can detect the offline image and use the prebuilt paths. Size: the desktop closures are 30-60 GB, the image must be written to a USB SSD (`isoImage` has no 4 GB limit on USB; or use `nixos-generators` format `raw-efi`). The portable host already is such a medium for itself.
+Plan (decision 08.11.2026, `TODO.md` 15.3): `NixOSInstaller.sh` is rebuilt to install from this image, and the image is rebuilt about every three months. Size measured on 08.11.2026: Desktop 51.5 GB, NixOS-Server1 23.1 GB, NixOS-ServerGaming 18.1 GB, NixOS-ServerPublic 9.0 GB per system, about 70-90 GB for all hosts because most packages are shared, compressed roughly 40-60 GB. The image must be written to a USB SSD (`isoImage` has no 4 GB limit on USB; or use `nixos-generators` format `raw-efi`). It contains the private input (domains, login hashes, encrypted sops files), so keep it private. The portable host already is such a medium for itself. nixos-anywhere from a client stays the recommended way to install.
 
 Limits: the closures are frozen at build time; secrets (age key) still have to be copied by hand.
 
@@ -44,10 +44,10 @@ Limits: the closures are frozen at build time; secrets (age key) still have to b
 
 Recommendation:
 
-1. NixOS-Server1: a nightly systemd timer runs `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` for every host (after `nix flake update` in a checkout of the repository) and keeps GC roots for the results.
+1. NixOS-Server1: a nightly systemd timer runs `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` for every host from the committed state of the repository (Syncthing already brings both repositories to `pool01/shares/jf`; updates stay manual, there is no `nix flake update` on the server). Only the current result per host is kept as GC root, older ones are collected; `keep-outputs = true` keeps the source tarballs so everything can be rebuilt if an upstream disappears.
 2. `services.harmonia` on NixOS-Server1 with a signing key from sops, vhost `cache.<homeDomain>` (LAN/WireGuard only).
 3. All hosts: `nix.settings.substituters = [ "https://cache.<homeDomain>" ]` before cache.nixos.org, `trusted-public-keys` with the harmonia key.
 4. Optional: `ncps` as proxy for everything not built locally.
 5. For a fully offline copy: `nix copy --to file:///mount/usb/cache <closures>` creates a binary cache directory on any disk, usable with `--option substituters file:///mount/usb/cache`.
 
-Effect: rebuilds and installations in the home network work without internet for everything that was built the night before; the cache also keeps old versions available when upstream removes them.
+Effect: rebuilds and installations in the home network work without internet for everything that was built the night before, and the sources stay available when upstream removes them. Git mirrors of all upstream projects (Forgejo) are not needed for this and were dropped on 08.11.2026.

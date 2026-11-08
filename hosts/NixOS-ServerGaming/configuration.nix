@@ -14,7 +14,6 @@
   services.getty.autologinUser = null;
 
   # Off until the rework is merged, it would switch back to the old configuration of main (TODO phase 17).
-  system.autoUpgrade.enable = false;
 
   nixos.server.network.fail2ban.enable = true;
 
@@ -34,8 +33,4 @@
     "iptable_mangle"
     "iptable_raw"
   ];
-
-  # ssh only through WireGuard, as soon as the hub knows this host (otherwise it would lock itself out).
-  nixos.system.ssh.listenAddresses = lib.mkIf config.nixos.system.wireguard.enrolled [ "10.100.0.6" ];
-  networking.firewall.interfaces.${config.nixos.system.wireguard.interface}.allowedTCPPorts = [ 22 ];
 }

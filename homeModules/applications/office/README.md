@@ -6,7 +6,7 @@ Office, documents, finance.
 
 ## How it works
 
-- LibreOffice with dictionaries and LanguageTool (own server), LaTeX (Kile, TeX Live), Okular, OCR and scanning, KMyMoney with AqBanking, Monero wallet with `monero-mine` (xmrig against P2Pool on NixOS-Server1), Bisq.
+- LibreOffice with dictionaries and LanguageTool (own server), LaTeX (Kile, TeX Live), Okular, OCR and scanning, KMyMoney with AqBanking, Monero GUI (own local node, mining through P2Pool from the GUI), Bisq.
 
 ## Contents
 
@@ -26,7 +26,6 @@ Office, documents, finance.
 |---|---|---|---|
 | `homeManager.applications.office.enable` | boolean | `false` | Enable office modules bundle. |
 | `homeManager.applications.office.financial.enable` | boolean | `false` | Enable financial tools. |
-| `homeManager.applications.office.financial.miningPool` | string | `"NixOS-Server1:3333"` | P2Pool stratum address used by monero-mine (xmrig). |
 | `homeManager.applications.office.kile.enable` | boolean | `false` | Enable kile |
 | `homeManager.applications.office.kmymoney.enable` | boolean | `false` | Enable kmymoney |
 | `homeManager.applications.office.office.enable` | boolean | `false` | Enable office tools. |

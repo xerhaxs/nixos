@@ -6,7 +6,7 @@ Web tools, private frontends and local AI.
 
 ## How it works
 
-- Invidious, Redlib, SearXNG, Kiwix, LanguageTool, LibreTranslate, Networking Toolbox, Ollama with web UI (Vulkan, `gpu` selects the vendor), ComfyUI (Stable Diffusion in a podman container with Intel XPU), code-server (VS Code with LaTeX, only through WireGuard) and a pruned Monero node with P2Pool.
+- Invidious, Redlib, SearXNG, Kiwix, LanguageTool, LibreTranslate, Networking Toolbox, Ollama with web UI (Vulkan, `gpu` selects the vendor), ComfyUI (Stable Diffusion in a podman container with Intel XPU), code-server (VS Code with LaTeX, only through WireGuard) and a pruned Monero node with P2Pool (module kept, enabled on no host since 08.11.2026; the clients run their own node in the Monero GUI).
 
 ## Contents
 
@@ -50,5 +50,5 @@ Web tools, private frontends and local AI.
 | `nixos.server.tools.networkingtoolbox.enable` | boolean | `false` | Enable networking-toolbox. |
 | `nixos.server.tools.ollama.enable` | boolean | `false` | Enable Ollama. |
 | `nixos.server.tools.ollama.gpu` | one of "any", "amd", "intel" | `"any"` | Restrict the Vulkan backend to the GPUs of one vendor (selects the Vulkan driver file). |
-| `nixos.server.tools.ollama.models` | list of string | `[   "deepseek-r1:1.5b"   "deepseek-r1:7b"   "deepseek-r1:...` | Models pulled at startup. |
+| `nixos.server.tools.ollama.models` | list of string | `[   "gemma4:26b-a4b"   "gemma4:e4b"   "qwen3.5:4b"   "qwen3.6:35b-a3b" ]` | Models pulled at startup. |
 | `nixos.server.tools.searxng.enable` | boolean | `false` | Enable Searxng. |

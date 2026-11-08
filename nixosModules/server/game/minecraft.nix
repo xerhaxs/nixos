@@ -45,7 +45,8 @@
           generate-structures = true;
           hardcore = false;
           hide-online-players = false;
-          initial-enabled-packs = "vanilla,fabric,fabric-convention-tags-v2,server_translations_api,universal-graves";
+          # Read only when a world is created.
+          initial-enabled-packs = "vanilla,fabric,fabric-convention-tags-v2";
           level-name = "world";
           level-type = "minecraft\:normal";
           log-ips = false;
@@ -95,6 +96,12 @@
         "minecraft"
       ];
     };
+
+    # The admin (group minecraft) manages the files over sftp. The default ACL keeps new files of the
+    # server and of the admin writable for the group, independent of the umask.
+    systemd.tmpfiles.rules = [
+      "A+ /srv/minecraft - - - - group:minecraft:rwX,default:group:minecraft:rwX"
+    ];
 
     environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
       directories = [

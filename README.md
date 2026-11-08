@@ -12,10 +12,9 @@ Personal NixOS configuration based on flakes, disko, impermanence, sops-nix and 
 | [`hosts/`](hosts/README.md) | One folder per host, only options. Profile (`configuration.nix`, `server.nix`) and machine (`machine.nix`, `disko.nix`, `hardware-configuration.nix`) are separated, the VM hosts reuse the profile of their model. |
 | [`pkgs/`](pkgs/README.md) | Own packages (overlay): Dangerzone, hyprgrass fix, image pins (`images.json`, `nix run .#update-images`). |
 | [`secrets/`](secrets/README.md) | Legacy sops file of the home hosts (to be split, see `TODO.md`). |
-| [`docs/`](docs/README.md) | Background documents: disaster recovery, E2EE, isolation, VMs, offline installation, providers, mail/PGP, ... |
-| `NixOSInstaller.sh` | Installer script for the live ISO. |
+| [`docs/`](docs/README.md) | Background documents: disaster recovery, E2EE, offline installation, providers, mail/PGP, ... |
+| `NixOSInstaller.sh` | Installer script for the live ISO, to be rebuilt for the offline installation image (`TODO.md` 15.3). |
 | [`TODO.md`](TODO.md) | Step-by-step list of the manual steps (German). |
-| [`CHECKLIST.md`](CHECKLIST.md) | Acceptance checklist of all changes (German). |
 | [`CLAUDE.md`](CLAUDE.md) | Context notes for Claude Code (German). |
 
 Every folder has a `README.md` with its purpose, contents and options.
@@ -39,7 +38,7 @@ Domains, addresses and secrets are not part of this repository. They are in the 
 - `site.nix`: domains (`domain`, `homeDomain`, `mailDomain`), contact addresses, data of NixOS-ServerPublic. Available as `config.nixos.site.*`.
 - `secrets/<hostname>.yaml`: one sops file per host, only decryptable by the admin key and the key of that host (`nixos.system.sops.perHostFile = true`).
 
-After changes in the private repository: commit there, then `nix flake update private` here. Building from the remote flake (installer, `system.autoUpgrade`) needs read access to the private repository (deploy key).
+After changes in the private repository: commit there, then `nix flake update private` here. The private repository is not published: every host is built and deployed from a client that has it (see Installation and Maintenance).
 
 ## Installation
 
@@ -110,7 +109,7 @@ VPS (Contabo):
    | NixOS-ServerPublic | 80, 443, 25, 465, 587, 993 (TCP); 3478, 5349 (TCP and UDP); 49152-49999 (UDP, TURN relay); 51820 (UDP, WireGuard); ICMP |
    | NixOS-ServerGaming | 80, 443, 25565 (TCP); ICMP |
 
-   Port 22 is removed once SSH runs through WireGuard, 2222 (initrd ssh) stays.
+   Ports 22 (SSH) and 2222 (initrd ssh) stay open, SSH does not depend on WireGuard.
 2. Customer Panel, Servers & Hosting, VPS/VDS, "Install" (or "More", "Reinstall"): Standard Image Debian, the SSH public key of the client (`cat ~/.ssh/id_ed25519.pub`), a throwaway root password. On a VPS that is already installed, the Rescue System with the same SSH key works as well.
 3. On the client: `ssh-keygen -R <ip>`, then `ssh root@<ip> 'lsblk -o NAME,SIZE,TYPE,MODEL; ls /sys/firmware/efi; ip -4 addr; ip -4 route; ip -6 addr'`. Contabo uses `/dev/sda` and legacy BIOS (`/sys/firmware/efi` does not exist), `hosts/<host>/disko.nix` is set up for that (`biosBoot = true`, `nixos.system.bootloader.biosDevice = "/dev/sda"`, `removable = true`). Address, prefix and gateway must match `site.nix`, otherwise neither SSH nor the disk unlock answers after the installation.
 
@@ -223,7 +222,7 @@ The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpf
    - NixOS-ServerGaming: `bluemap`, `flolserver`, `countdown`, and the test services in `temp/` (`cloud`, `office`, `code`).
 3. NixOS-ServerPublic: reverse DNS of both addresses to `mail.<domain>` (Contabo Customer Panel, Reverse DNS Management).
 4. Accounts in the services: admin and personal account are always separate, see the notes in [`nixosModules/server/public/README.md`](nixosModules/server/public/README.md).
-5. WireGuard: once the public key of the host is set in `nixosModules/system/wireguard.nix` and deployed, SSH listens only on the tunnel address. Then remove the firewall rule for port 22.
+5. WireGuard: set the public key of the host in `nixosModules/system/wireguard.nix` and deploy the hub first, then the host. The tunnel carries backups, monitoring and internal services, SSH stays reachable directly.
 
 #### NixOS-Portable
 
@@ -247,7 +246,7 @@ It boots on legacy BIOS (limine in the BIOS boot partition) and UEFI (removable 
 
 #### Installer script
 
-`NixOSInstaller.sh` installs from the live ISO without a second machine (`sudo -i`, then `curl -L https://raw.githubusercontent.com/xerhaxs/nixos/main/NixOSInstaller.sh | bash`). It installs `github:xerhaxs/nixos/main` and therefore needs the private repository reachable from the live system. It asks for host, disk and passphrase, creates `/secrets/keyfile.key` and takes the sops key of the host. Steps 4 and 5 apply afterwards.
+`NixOSInstaller.sh` is meant for installing without a second machine. Today it installs `github:xerhaxs/nixos/main`, which cannot reach the private repository, so it does not work for these hosts. It will be rebuilt to install from a locally built offline image that contains the systems of all hosts and the private input (`TODO.md` 15.3, `docs/offline-installation.md`). Until then use nixos-anywhere as described above, it stays the recommended way.
 
 ### Host keys for sops
 
@@ -282,10 +281,10 @@ nixos-rebuild switch --flake .#<host> --build-host admin@<host> --target-host ad
 
 - Use `boot` instead of `switch` when the kernel, the initrd or the boot loader change, then reboot.
 - Before a deploy that touches SSH, the network or WireGuard, keep a second SSH session to the server open. Roll back with `sudo nixos-rebuild switch --rollback` or by choosing the previous generation in the boot menu.
-- The servers are reached by name through WireGuard. Until the tunnel is up, a VPS is reached by its public address.
+- The VPS are reached by name on their public addresses (`networking.hosts` from `site.nix`), NixOS-Server1 in the LAN or through WireGuard. Before the clients know the names, use the address.
 - New `.nix` files have to be added with `git add` before a build.
 - After a deploy: `systemctl --failed` on the host.
-- `system.autoUpgrade` is off until the rework is merged, afterwards the servers deploy the pushed configuration nightly without automatic reboot.
+- There is no automatic upgrade. Servers and clients are updated by hand as above (`nix flake update`, build all hosts, deploy); after kernel updates reboot and unlock the servers.
 
 ### Secrets
 
@@ -317,6 +316,8 @@ fwupdmgr refresh --force && fwupdmgr get-updates && fwupdmgr update
 
 - restic: every server backs up nightly (ServerPublic and ServerGaming to the rest-server on NixOS-Server1, NixOS-Server1 to Proton Drive). Check with `systemctl status restic-backups-home` on the host (`systemctl list-units 'restic-backups-*'` lists all repositories).
 - Back In Time: daily on NixOS-Desktop, on demand for the external disk of NixOS-Server1 (below).
+- ZFS snapshots on NixOS-Server1: daily (7), weekly (4) and monthly (3) of every dataset with `com.sun:auto-snapshot=true` (set once on `pool01`, inherited). Restore single files from `/pool01/<dataset>/.zfs/snapshot/<name>/`, list them with `zfs list -t snapshot -r pool01`. Snapshots keep deleted and replaced files, watch the free space (`zfs list -o name,used,usedbysnapshots,avail -r pool01`).
+- The repositories reach an off-site copy through the Proton Drive backup of NixOS-Server1 (Syncthing puts them into `pool01/shares/jf`).
 - Restore tests and offline copies of the keys: [`docs/disaster-recovery.md`](docs/disaster-recovery.md).
 
 ### Back In Time on the external disk of NixOS-Server1
@@ -352,13 +353,13 @@ sudo cryptsetup close WD2_10TB_BCK
 - System: sysctl and kernel hardening, module blacklist, hidepid, auditd (servers log every program start), sudo only for wheel, no su/sg/newgrp/sudoedit setuid wrappers, restricted nix daemon, hardened own systemd units, coredumps limited and not persisted, authenticated time (chrony with NTS), hardened malloc on NixOS-ServerPublic.
 - SSH: keys only, post-quantum key exchange (mlkem768x25519), 3 attempts, verbose logging, sshguard; SSH keys can live in KeePassXC (`docs/keepassxc-ssh-agent.md`).
 - Untrusted documents: Dangerzone converts them to safe PDFs in a gVisor sandbox.
-- Network: firewall with only the needed ports, services behind nginx on localhost, catch-all vhost, HSTS, WireGuard for internal access (code-server, backups, monitoring, ssh of NixOS-ServerPublic), fail2ban and sshguard, recursive DNSSEC validating resolver, Pi-hole through WireGuard on the clients, DNS over TLS fallback, MAC randomization.
+- Network: firewall with only the needed ports, services behind nginx on localhost, catch-all vhost, HSTS, WireGuard for internal access (code-server, backups, monitoring), fail2ban and sshguard, recursive DNSSEC validating resolver, Pi-hole through WireGuard on the clients, DNS over TLS fallback, MAC randomization.
 - Data: restic backups (append-only REST server at home, Proton Drive for NixOS-Server1), ZFS and btrfs snapshots before backups, ClamAV scans with alerts.
 - Monitoring: Prometheus, Loki and Grafana on NixOS-Server1, alerts by mail and ntfy.
 - Vulnerabilities and updates: every host scans its closure (sbomnix, grype), NixOS-Server1 compares the pins with upstream, the result is in Grafana (`docs/updates-and-vulnerabilities.md`).
 - Killswitch: a Home Assistant script publishes to an ntfy topic, every host powers off immediately.
 
-Protection while running (beyond encryption at rest, details in `docs/e2ee-and-runtime-protection.md` and `docs/isolation.md`): end-to-end encrypted services (CryptPad, Matrix, Nextcloud end-to-end encryption, Briar), Stalwart encryption at rest with the PGP/S/MIME key of the user, the killswitch, and on the VPS confidential computing (AMD SEV-SNP/Intel TDX) if the provider offers it. The provider of a VPS can still read the memory of a running VM without confidential computing.
+Protection while running (beyond encryption at rest, details in `docs/e2ee-and-runtime-protection.md`): end-to-end encrypted services (CryptPad, Matrix, Nextcloud end-to-end encryption, Briar), Stalwart encryption at rest with the PGP/S/MIME key of the user, the killswitch, and on the VPS confidential computing (AMD SEV-SNP/Intel TDX) if the provider offers it. The provider of a VPS can still read the memory of a running VM without confidential computing.
 
 ## UnifiedPush on GrapheneOS
 

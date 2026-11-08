@@ -194,6 +194,13 @@ let
             annotations.summary = "{{ $labels.instance }}: the last ClamAV scan is older than 3 days";
           }
           {
+            alert = "ResticRepositoryFull";
+            expr = "restic_repository_size_bytes > restic_repository_size_limit_bytes";
+            "for" = "1h";
+            labels.severity = "warning";
+            annotations.summary = "{{ $labels.instance }}: restic repository {{ $labels.repository }} is larger than its limit, the storage is almost full";
+          }
+          {
             alert = "RebootRequired";
             expr = "nixos_reboot_required == 1";
             "for" = "3d";

@@ -36,10 +36,7 @@
       };
       homeassistant.enable = true;
       update-check.enable = true;
-      homebox = {
-        enable = true;
-        allowRegistration = true;
-      };
+      homebox.enable = true;
       monitoring.enable = true;
     };
     network = {
@@ -60,7 +57,6 @@
       languagetool.enable = true;
       libreddit.enable = true;
       libretranslate.enable = true;
-      moneronode.enable = true;
       networkingtoolbox.enable = true;
       ollama = {
         enable = true;
