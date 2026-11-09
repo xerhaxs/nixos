@@ -1,13 +1,29 @@
 # RSS
 
-- Server: Miniflux on NixOS-ServerPublic (`rss.<domain>`), the single source of feeds and read state. It offers the Miniflux API, the Fever API and the Google Reader API.
-- Clients: Fluent Reader (`homeModules/applications/media/fluentreader.nix`) on all clients, in the Plasma task bar between Clementine and FreeTube. The Miniflux sync is prefilled (`https://rss.<domain>`, API key authentication); create an API key in Miniflux (Settings > API keys) and paste it once in Fluent Reader (Settings > Service). Theme follows the system, refresh every 30 minutes.
-- Phone (GrapheneOS):
+Miniflux on NixOS-ServerPublic (`https://rss.<domain>`) keeps all feeds and the read state, every client syncs with it. Feeds are read with the personal account `jf`, `admin` only manages users.
 
-| App | Sync | Notes |
-|---|---|---|
-| Capy Reader (F-Droid) | Miniflux, FreshRSS, Feedbin, local | Recommended: native Miniflux support, Material You, offline reading, open source. |
-| Read You (F-Droid) | Fever, Google Reader API (FreshRSS, Miniflux), local | Very polished, uses the Google Reader API endpoint of Miniflux (`https://rss.<domain>/` with the Miniflux user and an integration password from Settings > Integrations > Google Reader). |
-| FeedMe | Miniflux, FreshRSS, others | Feature rich, closed source. |
+## Miniflux account
 
-FreshRSS is not needed: every app that syncs with FreshRSS through the Google Reader API also works with Miniflux.
+1. Admin (once): `sudo -u miniflux env DATABASE_URL="user=miniflux host=/run/postgresql dbname=miniflux" miniflux -create-admin` on NixOS-ServerPublic, login from the KeePassXC entry "Miniflux".
+2. As admin: Settings > Users > "Add user" `jf`, without admin rights, password from "Miniflux jf".
+3. As `jf`: add feeds or import an OPML file (Settings > Import).
+
+## Fluent Reader (clients)
+
+Installed on all clients (`homeModules/applications/media/fluentreader.nix`), the Miniflux service is prefilled.
+
+1. In Miniflux as `jf`: Settings > API Keys > "Create a new API key", description `fluent-reader`.
+2. Fluent Reader > Settings > Service > Miniflux: URL `https://rss.<domain>`, authentication by API key, paste the key, save. Store the key in KeePassXC ("Miniflux jf", additional attribute `fluent-reader token`).
+3. The theme follows the system, it refreshes every 30 minutes.
+
+## Read You (phone)
+
+Read You (F-Droid) syncs through the Google Reader API of Miniflux.
+
+1. In Miniflux as `jf`: Settings > Integrations > Google Reader: enable it, set a user name (e.g. `jf`) and a separate integration password (generate it in KeePassXC, store it at "Miniflux jf" as attribute `google reader password`), save.
+2. Read You > Settings > Accounts > Add account > "Google Reader API": server `https://rss.<domain>`, user name and integration password from step 1.
+3. Choose the sync interval and whether only unread articles are kept offline. Read state syncs back to Miniflux and Fluent Reader.
+
+## Glance
+
+The page Server of Glance on NixOS-Server1 shows the unread count (API key of `jf` as `ENV_MINIFLUX_TOKEN`, see `nixosModules/server/management/README.md`).

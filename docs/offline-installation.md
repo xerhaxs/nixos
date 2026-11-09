@@ -34,20 +34,11 @@ Limits: the closures are frozen at build time; secrets (age key) still have to b
 
 ## 2. Local binary cache
 
-| Tool | What it does | Fit |
-|---|---|---|
-| harmonia | Serves the `/nix/store` of a host as binary cache, signs on the fly | Simplest: NixOS-Server1 builds all hosts nightly and serves its store |
-| attic | Multi-tenant cache with deduplication and garbage collection, push with `attic push` | Good when several machines push, needs PostgreSQL and storage |
-| nix-serve-ng | Like harmonia (older) | No advantage over harmonia |
-| Hydra | Full CI that evaluates the flake and builds every job, with web UI | Powerful but heavy (PostgreSQL, evaluator RAM); only worth it for many jobs |
-| ncps | Caching proxy in front of cache.nixos.org | Saves bandwidth, no own builds |
-
-Recommendation:
+Plan (`TODO.md` 15.3), with harmonia:
 
 1. NixOS-Server1: a nightly systemd timer runs `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` for every host from the committed state of the repository (Syncthing already brings both repositories to `pool01/shares/jf`; updates stay manual, there is no `nix flake update` on the server). Only the current result per host is kept as GC root, older ones are collected; `keep-outputs = true` keeps the source tarballs so everything can be rebuilt if an upstream disappears.
 2. `services.harmonia` on NixOS-Server1 with a signing key from sops, vhost `cache.<homeDomain>` (LAN/WireGuard only).
 3. All hosts: `nix.settings.substituters = [ "https://cache.<homeDomain>" ]` before cache.nixos.org, `trusted-public-keys` with the harmonia key.
-4. Optional: `ncps` as proxy for everything not built locally.
-5. For a fully offline copy: `nix copy --to file:///mount/usb/cache <closures>` creates a binary cache directory on any disk, usable with `--option substituters file:///mount/usb/cache`.
+4. For a fully offline copy: `nix copy --to file:///mount/usb/cache <closures>` creates a binary cache directory on any disk, usable with `--option substituters file:///mount/usb/cache`.
 
 Effect: rebuilds and installations in the home network work without internet for everything that was built the night before, and the sources stay available when upstream removes them. Git mirrors of all upstream projects (Forgejo) are not needed for this and were dropped on 08.11.2026.

@@ -205,7 +205,7 @@ in
                 type = lib.types.nullOr lib.types.int;
                 default = null;
                 example = 1900000000000;
-                description = "Warn (alert ResticRepositoryFull) when the repository grows beyond this many bytes; the size is measured after every backup.";
+                description = "Size limit in bytes: after every backup the oldest versions are forgotten (monthly, weekly, then daily) until the repository fits, the alert ResticRepositoryFull fires if it still does not.";
               };
               extraOptions = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
@@ -226,11 +226,12 @@ in
     services.restic.backups = lib.mapAttrs mkBackup cfg.repositories;
 
     # Size of the repository for Prometheus (textfile collector), measured after each backup with the
-    # wrapper restic-<name> that the restic module installs.
+    # wrapper restic-<name> that the restic module installs. Above sizeLimit the oldest versions are
+    # forgotten step by step (monthly first, then weekly, then daily) until it fits, the latest stays.
     systemd.services = lib.mapAttrs' (
       name: repo:
       lib.nameValuePair "restic-size-${name}" {
-        description = "Measure the size of the restic repository ${name}";
+        description = "Measure the restic repository ${name} and thin it out above its size limit";
         after = [ "restic-backups-${name}.service" ];
         wantedBy = [ "restic-backups-${name}.service" ];
         path = [ pkgs.jq ];
@@ -239,12 +240,30 @@ in
           IOSchedulingClass = "idle";
         };
         script = ''
-          size=$(/run/current-system/sw/bin/restic-${name} stats --json --mode raw-data | jq .total_size)
+          restic=/run/current-system/sw/bin/restic-${name}
+          limit=${toString repo.sizeLimit}
+          size() { $restic stats --json --mode raw-data | jq .total_size; }
+          current=$(size)
+          for keep in \
+            "--keep-daily 7 --keep-weekly 4 --keep-monthly 9" \
+            "--keep-daily 7 --keep-weekly 4 --keep-monthly 6" \
+            "--keep-daily 7 --keep-weekly 4 --keep-monthly 3" \
+            "--keep-daily 7 --keep-weekly 4" \
+            "--keep-daily 7 --keep-weekly 2" \
+            "--keep-daily 7" \
+            "--keep-daily 3" \
+            "--keep-last 1"; do
+            [ "$current" -le "$limit" ] && break
+            echo "repository has $current bytes, limit $limit: forget $keep"
+            # shellcheck disable=SC2086
+            $restic forget $keep --prune
+            current=$(size)
+          done
           dir=/var/lib/prometheus-node-exporter
           mkdir -p $dir
           {
-            echo "restic_repository_size_bytes{repository=\"${name}\"} $size"
-            echo "restic_repository_size_limit_bytes{repository=\"${name}\"} ${toString repo.sizeLimit}"
+            echo "restic_repository_size_bytes{repository=\"${name}\"} $current"
+            echo "restic_repository_size_limit_bytes{repository=\"${name}\"} $limit"
           } > $dir/restic-${name}.prom.tmp
           mv $dir/restic-${name}.prom.tmp $dir/restic-${name}.prom
         '';

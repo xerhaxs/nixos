@@ -155,7 +155,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.restic.repositories.<name>.passwordFile` | string |  | File with the repository password. |
 | `nixos.system.restic.repositories.<name>.rcloneConfigSecret` | null or string | `null` | rclone config (secret) for rclone: repositories, copied once to a writable location. |
 | `nixos.system.restic.repositories.<name>.repository` | string |  | restic repository URL. |
-| `nixos.system.restic.repositories.<name>.sizeLimit` | null or signed integer | `null` | Warn (alert ResticRepositoryFull) when the repository grows beyond this many bytes; the size is measured after every backup. |
+| `nixos.system.restic.repositories.<name>.sizeLimit` | null or signed integer | `null` | Size limit in bytes: after every backup the oldest versions are forgotten (monthly, weekly, then daily) until the repository fits, the alert ResticRepositoryFull fires if it still does not. |
 | `nixos.system.restic.subvolumes` | list of string | `[   "/persistent"   "/persistent/home" ]` | btrfs subvolumes which are snapshotted and backed up (impermanence hosts). |
 | `nixos.system.restic.time` | string | `"03:00"` | systemd OnCalendar expression for the backups. |
 | `nixos.system.restic.zfsDatasets` | list of string | `[ ]` | ZFS datasets which are snapshotted and backed up (instead of the btrfs subvolumes or paths). |

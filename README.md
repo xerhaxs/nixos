@@ -11,11 +11,9 @@ Personal NixOS configuration based on flakes, disko, impermanence, sops-nix and 
 | [`homeModules/`](homeModules/README.md) | Home Manager modules (`options.homeManager.*`). |
 | [`hosts/`](hosts/README.md) | One folder per host, only options. Profile (`configuration.nix`, `server.nix`) and machine (`machine.nix`, `disko.nix`, `hardware-configuration.nix`) are separated, the VM hosts reuse the profile of their model. |
 | [`pkgs/`](pkgs/README.md) | Own packages (overlay): Dangerzone, hyprgrass fix, image pins (`images.json`, `nix run .#update-images`). |
-| [`secrets/`](secrets/README.md) | Legacy sops file of the home hosts (to be split, see `TODO.md`). |
-| [`docs/`](docs/README.md) | Background documents: disaster recovery, E2EE, offline installation, providers, mail/PGP, ... |
+| [`docs/`](docs/README.md) | How-to pages (disaster recovery, Proton backup, mail/PGP, RSS, updates, ...), becomes the maintenance wiki at the end of the rework. |
 | `NixOSInstaller.sh` | Installer script for the live ISO, to be rebuilt for the offline installation image (`TODO.md` 15.3). |
-| [`TODO.md`](TODO.md) | Step-by-step list of the manual steps (German). |
-| [`CLAUDE.md`](CLAUDE.md) | Context notes for Claude Code (German). |
+| `TODO.md`, `CLAUDE.md` | Local only, not in the repository: the step-by-step list of the manual steps and the context notes for Claude Code (both German). References like "`TODO.md` 15.3" point to that list. |
 
 Every folder has a `README.md` with its purpose, contents and options.
 
@@ -359,7 +357,7 @@ sudo cryptsetup close WD2_10TB_BCK
 - Vulnerabilities and updates: every host scans its closure (sbomnix, grype), NixOS-Server1 compares the pins with upstream, the result is in Grafana (`docs/updates-and-vulnerabilities.md`).
 - Killswitch: a Home Assistant script publishes to an ntfy topic, every host powers off immediately.
 
-Protection while running (beyond encryption at rest, details in `docs/e2ee-and-runtime-protection.md`): end-to-end encrypted services (CryptPad, Matrix, Nextcloud end-to-end encryption, Briar), Stalwart encryption at rest with the PGP/S/MIME key of the user, the killswitch, and on the VPS confidential computing (AMD SEV-SNP/Intel TDX) if the provider offers it. The provider of a VPS can still read the memory of a running VM without confidential computing.
+Protection while running (beyond encryption at rest): end-to-end encrypted services (CryptPad, Matrix, Nextcloud end-to-end encryption, Briar), Stalwart encryption at rest with the PGP/S/MIME key of the user, the killswitch, and on the VPS confidential computing (AMD SEV-SNP/Intel TDX) if the provider offers it. The provider of a VPS can still read the memory of a running VM without confidential computing.
 
 ## UnifiedPush on GrapheneOS
 

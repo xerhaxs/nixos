@@ -4,19 +4,15 @@
 
 NixOS-Server1 backs up only irreplaceable data with restic to Proton Drive (decision 08.11.2026, the Duo plan has 2 TB): `pool01/shares/photo` completely, `pool01/shares/jf/Dokumente` (contains both NixOS repositories through Syncthing), `pool01/shares/document/Office Dokumente` and `pool01/shares/document/Wiso Mein Geld`. Every dataset is snapshotted on its own (`zfsDatasets`, subdirectories in `zfsSubdirs`). The alert `ResticRepositoryFull` fires above 1.9 TB (`sizeLimit`); after each backup `restic-size-proton` measures the repository. The data is backed up (`hosts/NixOS-Server1/backup.nix`, currently disabled until the secrets exist). restic talks to Proton Drive through rclone (backend `protondrive`, repository `rclone:proton:nixos-server1`). restic encrypts and deduplicates everything on the server before the upload: Proton only stores restic pack files, and Proton's own encryption comes on top.
 
-## Access from the phone
+## Schedule and versions
 
-The Proton Drive app shows only the encrypted restic pack files, not the original files. Options:
+The backup runs every night at 02:00 (up to 30 minutes later), see `nixos.system.restic.time`. Every run is a restic snapshot; restic stores only what changed (deduplication), so many versions cost little space. Kept are the last 7 daily, 4 weekly and 12 monthly snapshots (`pruneOpts` in `nixosModules/system/restic.nix`), older ones are pruned after the backup. If the repository grows beyond 1.9 TB (`sizeLimit`, the Duo plan has 2 TB), `restic-size-proton` thins it out after the backup until it fits: monthly versions first (12, 9, 6, 3, 0), then weekly (4, 2, 0), then daily (7, 3, 1); the latest snapshot always stays. If it still does not fit, the alert `ResticRepositoryFull` fires. After each run `restic check --read-data-subset=2%` reads a sample of the data back.
 
-| Need | Way |
-|---|---|
-| Restore a few files in an emergency | Termux on Android: `pkg install restic rclone`, copy the rclone config (with the Proton login) and the restic password, then `restic -r rclone:proton:nixos-server1 ls latest` and `restic restore latest --include <path> --target ~/restore`. Needs Proton two-factor login once. |
-| Browse files on the phone regularly | Not with restic. Use a separate folder: either normal files in Proton Drive (Proton's E2EE, readable in the Proton app) or an rclone `crypt` remote on top of Proton Drive, readable with Round Sync (rclone for Android). |
-| Photos | Syncthing to NixOS-Server1 (decision 08.11.2026), alternatively the Proton Drive photo backup of the Proton app. |
+## Restore on a client
 
-Round Sync (Android, based on rclone) can open Proton Drive and rclone crypt remotes. Users report that the Proton login in the app fails sometimes; the workaround is to create the rclone config with `rclone config` on the PC or in Termux and import it into Round Sync. Large files (over a few GB) are reported to fail, restic packs are small, so this does not affect restores.
+On a client with the repository passwords (KeePassXC entries "restic repository NixOS-Server1" and "Proton"): the same steps as in the emergency below, or directly on NixOS-Server1 with the wrapper of the restic module: `sudo restic-proton snapshots`, `sudo restic-proton mount /mnt` (browse, Ctrl+C ends it), `sudo restic-proton restore latest --target /tmp/restore --include <path>`.
 
-Keep the restic password and the rclone config in KeePassXC; without the restic password the backup is unreadable (see `disaster-recovery.md`).
+The Proton Drive app and website only show the encrypted restic pack files.
 
 ## Emergency access without any own device
 

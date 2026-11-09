@@ -14,12 +14,7 @@ KeePassXC can store SSH private keys as attachments of database entries and load
 3. Check: unlock the database, `ssh-add -l` lists the key; lock it, the list is empty.
 4. Delete the private key file from `~/.ssh` (it stays in the database and its backups). The `.pub` comes from the configuration, a new key needs its public key with the comment `jf@<host>` in `nixos.system.ssh.authorizedKeys`.
 
-## Does it improve security?
+## Notes
 
-Yes, moderately:
-
-- The private key no longer lies on disk; it is protected by the database (Argon2 + key file) instead of only an ssh key passphrase, and it is part of the KeePassXC backups.
-- The key is only usable while the database is unlocked; locking the screen locks the database (`LockDatabaseScreenLock = true`) and removes the key from the agent.
-- The confirmation option shows every use of the key, a malicious process cannot use the agent silently.
-
-It does not protect against malware running as your user while the database is unlocked (it can use the agent, and without confirmation silently). The strongest option is a hardware key (FIDO2 `ed25519-sk` keys on a YubiKey/Nitrokey): the private key never leaves the token and every use needs a touch. Both can be combined: the `-sk` key handle can also be stored in KeePassXC.
+- The key is only in the agent while the database is unlocked; locking the screen locks the database and removes it.
+- Malware running as your user can use the agent while the database is unlocked. "Require user confirmation" makes every use visible.
