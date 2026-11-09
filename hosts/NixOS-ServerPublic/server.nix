@@ -18,6 +18,7 @@
     collabora.enable = false;
     nextcloud.enable = false;
     matrix.bridges = {
+      doublePuppet = true;
       discord.enable = true;
       signal.enable = true;
       telegram.enable = true;
