@@ -58,23 +58,28 @@ let
 
   hostEntries = lib.mkMerge (lib.mapAttrsToList mkHostEntries cfg.lan.hosts);
 
+  vpsHosts = lib.filterAttrs (name: _: name != config.networking.hostName) {
+    NixOS-ServerPublic = config.nixos.site.serverPublic;
+    NixOS-ServerGaming = config.nixos.site.serverGaming;
+  };
+
   # The VPS have no name in the LAN, ssh and deploys reach them by name on their public addresses.
   vpsEntries = lib.mkMerge (
-    lib.mapAttrsToList
-      (
-        name: net:
-        lib.genAttrs (lib.filter (ip: ip != null) [
-          (net.ipv4 or null)
-          (net.ipv6 or null)
-        ]) (_: [ name ])
-      )
-      (
-        lib.filterAttrs (name: _: name != config.networking.hostName) {
-          NixOS-ServerPublic = config.nixos.site.serverPublic;
-          NixOS-ServerGaming = config.nixos.site.serverGaming;
-        }
-      )
+    lib.mapAttrsToList (
+      name: net:
+      lib.genAttrs (lib.filter (ip: ip != null) [
+        (net.ipv4 or null)
+        (net.ipv6 or null)
+      ]) (_: [ name ])
+    ) vpsHosts
   );
+
+  # Known by name and address, otherwise non-interactive ssh (deploys, nix copy) fails with
+  # "Host key verification failed" when only the address is in ~/.ssh/known_hosts.
+  vpsKnownHosts = lib.mapAttrs (name: net: {
+    hostNames = [ name ] ++ lib.optional (net ? ipv4) net.ipv4;
+    publicKey = net.hostKey;
+  }) (lib.filterAttrs (_: net: net ? hostKey) vpsHosts);
 
 in
 
@@ -379,6 +384,8 @@ in
         done
       '';
     };
+
+    programs.ssh.knownHosts = vpsKnownHosts;
 
     services.resolved.enable = lib.mkDefault true;
     services.resolved.settings.Resolve = {

@@ -65,6 +65,8 @@ let
   acceptInvites = pkgs.writeShellScriptBin "matrix-accept-invites" ''
     set -eu
     api=http://127.0.0.1:8008/_matrix/client/v3
+    # Only invites from the bridge bots and their ghost users (default localparts of the bridges).
+    bridgeSenders='^@(${lib.concatStringsSep "|" enabledBridges})(bot|_[^:]+):${lib.escapeRegex matrixDomain}$'
     user=''${1:?usage: matrix-accept-invites <user>}
     read -rsp "Matrix password of $user: " pw
     echo
@@ -77,13 +79,15 @@ let
     filter='{"room":{"timeline":{"limit":0},"state":{"types":[]},"ephemeral":{"types":[]},"account_data":{"types":[]}},"presence":{"types":[]},"account_data":{"types":[]}}'
     invites=$(${pkgs.curl}/bin/curl -fsS -G -H "Authorization: Bearer $at" \
       --data-urlencode "filter=$filter" --data-urlencode "timeout=0" "$api/sync" \
-      | ${pkgs.jq}/bin/jq -r '.rooms.invite // {} | keys[] | @uri')
+      | ${pkgs.jq}/bin/jq -r --arg re "$bridgeSenders" '.rooms.invite // {} | to_entries[]
+          | select(any(.value.invite_state.events[]; .type == "m.room.member" and .content.membership == "invite" and (.sender | test($re))))
+          | .key | @uri')
     count=0
     for room in $invites; do
       ${pkgs.curl}/bin/curl -fsS -X POST -H "Authorization: Bearer $at" -d '{}' "$api/rooms/$room/join" > /dev/null
       count=$((count + 1))
     done
-    echo "$count invites accepted"
+    echo "$count bridge invites accepted, other invites left open"
   '';
   wellKnownServer = builtins.toJSON { "m.server" = "${matrixDomain}:443"; };
   wellKnownClient = builtins.toJSON {
@@ -347,6 +351,8 @@ in
             };
             bridge = {
               permissions = bridgePermissions;
+              # DMs and group DMs created at startup (default 5), there is no "unlimited" value.
+              startup_private_channel_create_limit = 1000;
               backfill.forward_limits =
                 let
                   limits = {
@@ -499,21 +505,30 @@ in
           envFile = config.sops.templates."mautrix-doublepuppet.env".path;
         in
         {
-          sops.templates."mautrix-doublepuppet.env".restartUnits = map (b: "mautrix-${b}.service") bridges;
+          sops.templates."mautrix-doublepuppet.env".restartUnits =
+            map (b: "mautrix-${b}.service") bridges
+            ++ lib.optional (lib.elem "discord" bridges) "mautrix-discord-registration.service";
 
           services.mautrix-discord.settings.bridge.login_shared_secret_map.${matrixDomain} = secret;
           services.mautrix-signal.settings.double_puppet.secrets.${matrixDomain} = secret;
           services.mautrix-telegram.settings.bridge.login_shared_secret_map.${matrixDomain} = secret;
           services.mautrix-whatsapp.settings.double_puppet.secrets.${matrixDomain} = secret;
 
-          systemd.services = lib.genAttrs (map (b: "mautrix-${b}") bridges) (service: {
-            serviceConfig.EnvironmentFile = lib.mkForce (
-              lib.filter (f: f != null) [
-                config.services.${service}.environmentFile
-                envFile
-              ]
-            );
-          });
+          # Discord writes its config in a separate registration service, it needs the token as well.
+          systemd.services =
+            let
+              units =
+                map (b: "mautrix-${b}") bridges
+                ++ lib.optional (lib.elem "discord" bridges) "mautrix-discord-registration";
+            in
+            lib.genAttrs units (unit: {
+              serviceConfig.EnvironmentFile = lib.mkForce (
+                lib.filter (f: f != null) [
+                  config.services.${lib.removeSuffix "-registration" unit}.environmentFile
+                  envFile
+                ]
+              );
+            });
         }
       ))
 

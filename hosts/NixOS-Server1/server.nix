@@ -32,6 +32,8 @@
       cockpit.enable = true;
       glance = {
         enable = true;
+        calendar.enable = true;
+        jellyfin.enable = true;
         miniflux.enable = true;
       };
       homeassistant.enable = true;

@@ -316,7 +316,7 @@ in
       profile3.snapshots.use_checksum=false
       profile3.snapshots.user_backup.ionice=false
 
-      profile4.name=WD2_5TB_BCK_${userName}
+      profile4.name=WD2_5TB_BCK_${lib.toUpper userName}
       profile4.schedule.mode=0
       profile4.snapshots.backup_on_restore.enabled=true
       profile4.snapshots.bwlimit.enabled=false
@@ -363,7 +363,7 @@ in
       profile4.snapshots.local.nocache=false
       profile4.snapshots.local.password.save=false
       profile4.snapshots.local.password.use_cache=true
-      profile4.snapshots.local_encfs.path=/run/media/${userName}/WD2_5TB_BCK_${userName}
+      profile4.snapshots.local_encfs.path=/run/media/${userName}/WD2_5TB_BCK_${lib.toUpper userName}
       profile4.snapshots.log_level=3
       profile4.snapshots.min_free_inodes.enabled=true
       profile4.snapshots.min_free_inodes.value=2
@@ -374,7 +374,7 @@ in
       profile4.snapshots.no_on_battery=false
       profile4.snapshots.notify.enabled=true
       profile4.snapshots.one_file_system=false
-      profile4.snapshots.path=/run/media/${userName}/WD2_5TB_BCK_${userName}
+      profile4.snapshots.path=/run/media/${userName}/WD2_5TB_BCK_${lib.toUpper userName}
       profile4.snapshots.path.host=NixOS-PC
       profile4.snapshots.path.profile=4
       profile4.snapshots.path.user=${userName}
