@@ -10,7 +10,6 @@
 let
   cfg = config.nixos.system.networking;
   homeDomain = config.nixos.site.homeDomain;
-  publicDomain = config.nixos.site.domain;
 
   # Files of the flake inputs, flake.lock pins them and nix flake update refreshes them.
   blocklistFiles = {
@@ -28,16 +27,26 @@ let
     tracking = "${inputs.blocklistproject}/tracking.txt";
   };
 
-  fetchBlocklist = name: blocklistFiles.${name};
+  # Some lists hold bare domains (Perflyst), some names that systemd-resolved rejects (underscores).
+  # Normalized to "0.0.0.0 <domain>" with valid names only, otherwise resolved logs every line.
+  fetchBlocklist =
+    name:
+    pkgs.runCommand "blocklist-${name}" { } ''
+      ${pkgs.gawk}/bin/awk '
+        { sub(/#.*/, ""); sub(/\r$/, "") }
+        NF == 1 { host = $1 }
+        NF >= 2 { host = ($1 == "0.0.0.0" && $2 != "0.0.0.0") ? $2 : "" }
+        NF == 0 || host !~ /^[A-Za-z0-9]([A-Za-z0-9.-]*[A-Za-z0-9])?$/ { next }
+        { print "0.0.0.0 " host }
+      ' ${blocklistFiles.${name}} > $out
+    '';
 
   enabledBlocklists = [
     "adobe"
-    "amazonFireTV"
     "malware"
     "phishing"
     "ransomware"
     "scam"
-    "smart-tv"
     "stevenBlack"
     "tiktok"
     "tracking"
@@ -145,12 +154,12 @@ in
           default = [
             "10.75.0.21"
             "10.75.0.1"
-            "9.9.9.9"
-            "149.112.112.112"
-            "2620:fe::fe"
-            "2620:fe::9"
+            "9.9.9.9#dns.quad9.net"
+            "149.112.112.112#dns.quad9.net"
+            "2620:fe::fe#dns.quad9.net"
+            "2620:fe::9#dns.quad9.net"
           ];
-          description = "Nameservers used in the home LAN.";
+          description = "Nameservers of the home LAN in order: Pi-hole, the FRITZ!Box, then Quad9 (DNS over TLS where the server supports it).";
         };
 
         hosts = lib.mkOption {
@@ -189,11 +198,8 @@ in
               "syncthing.${homeDomain}"
               "webdav.${homeDomain}"
             ];
-            "10.100.0.1" = [
-              "code.${publicDomain}"
-            ];
           };
-          defaultText = lib.literalExpression "gateway, services of NixOS-Server1 on nixos.site.homeDomain, code.<nixos.site.domain> on the wireguard ip of NixOS-ServerPublic";
+          defaultText = lib.literalExpression "gateway and the services of NixOS-Server1 on nixos.site.homeDomain";
           description = "Local DNS records (IP -> hostnames), used for /etc/hosts and pihole.";
         };
       };
@@ -209,7 +215,7 @@ in
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict). Pi-hole is used through WireGuard when it is up. Captive portals need a manual workaround.";
+        description = "Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict), the local blocklists still apply. Captive portals need a manual workaround.";
       };
 
       macRandomization = {
@@ -391,6 +397,8 @@ in
     services.resolved.settings.Resolve = {
       DNSSEC = lib.mkIf cfg.dnssec "allow-downgrade";
       DNSOverTLS = if cfg.privateDns then "true" else lib.mkIf cfg.dnssec "opportunistic";
+      # Avahi answers mDNS where it runs (printing, Home Assistant), two stacks make mDNS unreliable.
+      MulticastDNS = lib.mkIf config.services.avahi.enable false;
     };
 
     users.users."${userName}" = lib.mkIf cfg.networkmanager.enable {

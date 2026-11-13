@@ -42,7 +42,12 @@
       dataDir = "${config.nixos.server.dataDir}/radarr";
     };
 
-    systemd.services.radarr.serviceConfig.UMask = lib.mkForce "0007";
+    # PrivateUsers (nixpkgs default) drops the supplementary group share, the media folders are only
+    # accessible through it (imports failed with "path does not exist or is not accessible").
+    systemd.services.radarr.serviceConfig = {
+      UMask = lib.mkForce "0007";
+      PrivateUsers = lib.mkForce false;
+    };
 
     services.nginx = {
       virtualHosts = {
@@ -53,7 +58,7 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:7878";
+            proxyPass = "http://127.0.0.1:7878";
           };
         };
       };

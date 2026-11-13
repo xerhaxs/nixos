@@ -33,6 +33,15 @@
       glance = {
         enable = true;
         calendar.enable = true;
+        homeassistant = {
+          enable = true;
+          # House consumption (W), PV generation (W), battery charge (%).
+          entities = [
+            "sensor.goodwe_house_consumption"
+            "sensor.goodwe_pv_power"
+            "sensor.goodwe_battery_state_of_charge"
+          ];
+        };
         jellyfin.enable = true;
         miniflux.enable = true;
       };

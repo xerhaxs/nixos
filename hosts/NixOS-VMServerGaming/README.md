@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Virtual machine with the profile of NixOS-ServerGaming (without WireGuard identity and backups, uses the secrets of NixOS-ServerGaming).
+Virtual machine with the profile of NixOS-ServerGaming (uses the secrets of NixOS-ServerGaming).
 
 ## How it works
 

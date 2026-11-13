@@ -7,7 +7,7 @@ Management, dashboards, home automation, inventory and monitoring.
 ## How it works
 
 - Cockpit (server administration), Glance (start page), Home Assistant (with Matter, Thread, Tankerkoenig, killswitch script), HomeBox (inventory).
-- `monitoring.nix`: Prometheus, Alertmanager, Loki and Grafana with pinned dashboards from grafana.com (node, ZFS, SMART, nginx, PostgreSQL, Pi-hole, Unbound, blackbox, WireGuard, Alertmanager, logs). The exporters run on every host (`nixosModules/system/monitoring-agent.nix`).
+- `monitoring.nix`: Prometheus, Alertmanager, Loki and Grafana with pinned dashboards from grafana.com (node, ZFS, SMART, nginx, PostgreSQL, Pi-hole, Unbound, blackbox, Alertmanager, logs). The exporters run on every host (`nixosModules/system/monitoring-agent.nix`). Hosts in the LAN are scraped over HTTP, the VPS over HTTPS with a client certificate (`remote`), nothing connects from a VPS to NixOS-Server1.
 - Alert rules: host down, disk space, memory, failed units, SMART, ZFS pool, certificates, endpoints. Alerts go to ntfy and/or mail (`alerts.*`).
 - `glance-server-page.nix`: page Server of Glance with a section per server, the stats of the other hosts come from Prometheus. Jellyfin, calendar, Miniflux and Home Assistant are options and need API keys in the secret `glance`.
 - `update-check.nix`: compares the pinned sources and images with upstream once a day (`docs/updates-and-vulnerabilities.md`), `dashboards/security-updates.nix` is the Grafana dashboard.
@@ -46,7 +46,9 @@ Management, dashboards, home automation, inventory and monitoring.
 | `nixos.server.management.monitoring.alerts.mail` | boolean | `false` | Send alerts by mail (uses the account of nixos.system.notify.mail and its password secret). |
 | `nixos.server.management.monitoring.alerts.ntfy` | boolean | `false` | Send alerts to ntfy (secret monitoring/ntfy-token, topic in monitoring/ntfy-url). |
 | `nixos.server.management.monitoring.enable` | boolean | `false` | Enable Prometheus, Alertmanager, Loki and Grafana. |
-| `nixos.server.management.monitoring.nodes` | attribute set of string | `{   NixOS-Convertible = "10.100.0.5";   NixOS-Desktop = "...` | Hosts to scrape (hostname -> address in the LAN or the WireGuard network). |
+| `nixos.server.management.monitoring.nodes` | attribute set of string | `{ NixOS-Desktop = "10.75.0.80"; NixOS-Server1 = "127.0.0.1"; }` | Hosts in the LAN to scrape over HTTP (hostname -> fixed address). The laptops have no fixed address, the VPS are in remote.hosts. |
+| `nixos.server.management.monitoring.remote.enable` | boolean | `false` | Scrape the VPS over HTTPS with a client certificate (secrets monitoring/client-cert and monitoring/client-key, counterpart nixos.system.monitoring-agent.remote on the VPS). |
+| `nixos.server.management.monitoring.remote.hosts` | attribute set of (submodule) | NixOS-ServerPublic and NixOS-ServerGaming from the private site.nix | VPS scraped over HTTPS (address, serverName, exporters). |
 | `nixos.server.management.monitoring.pihole` | boolean | `false` | Export Pi-hole metrics (secret monitoring/pihole-env with PIHOLE_PASSWORD). |
 | `nixos.server.management.monitoring.probes` | list of string | `all nginx vhosts of this host and the main public services` | HTTPS endpoints checked for availability and certificate expiry. |
 | `nixos.server.management.monitoring.retention` | string | `"180d"` | Retention of the metrics. |

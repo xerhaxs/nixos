@@ -15,7 +15,7 @@ let
         backintime = home.homeManager.applications.tools.backintime;
       in
       lib.optional (backintime.enable && backintime.dailyProfile != null)
-        "7 * * * * ${user} nice -n 19 ionice -c 3 /etc/profiles/per-user/${user}/bin/backintime --profile-id ${toString backintime.dailyProfile} backup-job > /dev/null 2>&1"
+        "7 * * * * ${user} nice -n 19 ionice -c 3 /etc/profiles/per-user/${user}/bin/backintime --profile ${toString backintime.dailyProfile} backup --background > /dev/null 2>&1"
     ) (config.home-manager.users or { })
   );
 in

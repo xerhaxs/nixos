@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Public VPS: mail, Matrix, CryptPad, ntfy, Miniflux, Briar Mailbox; WireGuard hub; backups to NixOS-Server1.
+Public VPS: mail, Matrix, CryptPad, ntfy, Miniflux, Briar Mailbox; backups only through the Contabo portal.
 
 ## How it works
 
@@ -14,7 +14,7 @@ Public VPS: mail, Matrix, CryptPad, ntfy, Miniflux, Briar Mailbox; WireGuard hub
 | Path | Description |
 |---|---|
 | [`home/`](home/README.md) | User (Home Manager) settings of this host. |
-| `backup.nix` | restic backups of this host. |
+| `backup.nix` | Nightly PostgreSQL dumps to `/var/backup/postgresql` (persistent), picked up by the backup in the Contabo portal. |
 | `configuration.nix` | Profile: user name, desktop/server role and the general settings shared with the VM of this host. |
 | `default.nix` | Imports of the host files. |
 | `disko.nix` | Disk layout selection (`nixos.disko.*`, disks, swap size, data pool). |
@@ -22,4 +22,3 @@ Public VPS: mail, Matrix, CryptPad, ntfy, Miniflux, Briar Mailbox; WireGuard hub
 | `machine.nix` | Machine: state version, password fallback, hardware modules, Secure Boot, TPM2, initrd ssh and machine specific paths. |
 | `networking.nix` | Hostname, addresses, LAN and DNS options. |
 | `server.nix` | Enabled server services (on NixOS-Portable: the `server` specialisation). |
-| `wireguard.nix` | WireGuard hub of the network. |

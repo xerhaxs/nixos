@@ -39,7 +39,7 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:8001";
+            proxyPass = "http://127.0.0.1:8001";
             extraConfig = ''
               proxy_set_header Host $host;
               proxy_set_header X-Real-IP $remote_addr;

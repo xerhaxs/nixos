@@ -184,7 +184,7 @@ in
             options = {
               repository = lib.mkOption {
                 type = lib.types.str;
-                example = "rest:http://10.100.0.2:8000/myhost/";
+                example = "sftp:backup@example.org:/srv/restic/myhost";
                 description = "restic repository URL.";
               };
               passwordFile = lib.mkOption {
@@ -285,8 +285,14 @@ in
     environment.persistence."/persistent" = lib.mkIf impermanence {
       directories = [
         "/var/backup"
-        "/var/cache/restic-backups"
-      ];
+        # rclone keeps the renewed Proton tokens here. The copy from sops only holds the first ones,
+        # after a reboot they would be used up and the login would need a new 2FA code.
+        {
+          directory = "/var/lib/restic-rclone";
+          mode = "0700";
+        }
+      ]
+      ++ map (name: "/var/cache/restic-backups-${name}") (lib.attrNames cfg.repositories);
     };
   };
 }

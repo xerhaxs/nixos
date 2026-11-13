@@ -53,7 +53,7 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:8787";
+            proxyPass = "http://127.0.0.1:8787";
           };
         };
       };

@@ -9,7 +9,6 @@ let
   # Secrets of the server services, read from server/<name> in nixos-portable.yaml, so the portable
   # host never shares a value with NixOS-Server1. Add every secret of a newly enabled service here.
   serverSecrets = [
-    "codeserver/env"
     "forgejo/secret"
     "forgejo/token"
     "glance"
@@ -70,11 +69,6 @@ in
           radicale.enable = true;
         };
         tools = {
-          codeserver = {
-            enable = true;
-            listenAddress = "127.0.0.1";
-            user = "code";
-          };
           comfyui.enable = true;
           kiwix.enable = true;
           languagetool.enable = true;

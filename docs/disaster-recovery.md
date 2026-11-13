@@ -7,7 +7,7 @@ Plan for losing a disk, a host, the home or the VPS, or the whole site (fire, th
 | Class | Examples | Where it lives | Loss tolerance |
 |---|---|---|---|
 | A: irreplaceable | documents, photos, KeePassXC database, sops age keys, LUKS headers, PGP and SSH keys, mail | NixOS-Server1 `pool01/shares` (document, photo, jf), Stalwart on NixOS-ServerPublic, clients | none |
-| B: expensive to recreate | application state (Nextcloud, Forgejo, Home Assistant, Linkwarden, HomeBox, Matrix), Monero wallet files (Documents) | `pool01/applications`, `/var/lib` on NixOS-ServerPublic | one day |
+| B: expensive to recreate | application state (Forgejo, Home Assistant, Linkwarden, HomeBox, Matrix), Monero wallet files (Documents) | `pool01/applications`, `/var/lib` on NixOS-ServerPublic | one day |
 | C: replaceable | music, videos, games, Kiwix ZIMs, Ollama and ComfyUI models | `pool01/shares/{music,video,games}`, `pool01/applications/{ollama,comfyui}` | can be downloaded again |
 | D: configuration | NixOS configuration, private repository | git on the clients, Syncthing | none |
 
@@ -16,8 +16,8 @@ Plan for losing a disk, a host, the home or the VPS, or the whole site (fire, th
 | Data | Copy 1 | Copy 2 (other medium) | Copy 3 (off-site) | Offline / immutable |
 |---|---|---|---|---|
 | A + B of NixOS-Server1 | ZFS pool (raid) + snapshots | Back In Time to the external disk WD2_10TB_BCK (`backup-external`) | restic to Proton Drive (encrypted before upload, `hosts/NixOS-Server1/backup.nix`) | external disk is disconnected after the backup |
-| A + B of NixOS-ServerPublic | btrfs on one disk (raid1 only with a second disk) | restic to the append-only REST server on NixOS-Server1 (WireGuard) | full disk backup at the provider | append-only REST server (the VPS cannot delete its backups) |
-| A + B of NixOS-ServerGaming (Minecraft worlds) | btrfs on one disk | restic to the append-only REST server on NixOS-Server1 (WireGuard) | full disk backup at the provider | append-only REST server |
+| A + B of NixOS-ServerPublic | btrfs on one disk (raid1 only with a second disk) | automatic backup in the Contabo portal (decided 10.11.2026, no copy on NixOS-Server1) | – | the provider keeps several days, check the retention in the portal |
+| A + B of NixOS-ServerGaming (Minecraft worlds) | btrfs on one disk | automatic backup in the Contabo portal | – | as above |
 | Clients | btrfs on the client | Syncthing to NixOS-Server1 / Back In Time (Desktop) | through NixOS-Server1 to Proton Drive | - |
 | C (videos, music) | ZFS pool (daily, weekly, monthly snapshots) | none, decision 08.11.2026: accept the loss, the content can be downloaded again | not covered | - |
 | D | local git on the clients | Syncthing to `pool01/shares/jf` on NixOS-Server1 | through NixOS-Server1 to Proton Drive (restic, encrypted, no provider sees `site.nix`) | Portable SSD (contains the configuration) |
@@ -47,8 +47,8 @@ Keep these on paper or on two offline USB sticks (encrypted with a passphrase yo
 | One disk of a mirror fails | Replace the disk, `zpool replace` (Server1) or `btrfs replace` (ServerPublic with two disks). |
 | Client lost or broken | Install with `NixOSInstaller.sh`, copy the host age key to `/secrets/keys.txt` (or create a new one and `sops updatekeys`), restore the home data from NixOS-Server1 (Syncthing, Back In Time). |
 | NixOS-Server1 lost | New machine, install the host, create the ZFS pool, restore `applications` and `shares` from the external disk (fast) or from Proton Drive (`restic -r rclone:proton:nixos-server1 restore latest --target /`). Videos only from the optional copy. |
-| NixOS-ServerPublic lost | New VPS, `nixos-anywhere` (see `TODO.md`), restore `/var/lib` and the PostgreSQL dumps from the REST server on NixOS-Server1 or the full disk backup at the provider, change the DNS records to the new IP. |
-| NixOS-ServerGaming lost | New VPS, `nixos-anywhere`, restore `/persistent/srv/minecraft` with restic, change the DNS records. |
+| NixOS-ServerPublic lost | Restore the backup in the Contabo portal. If the VPS itself is gone: new VPS, `nixos-anywhere` (see `README.md`), restore `/var/lib` from the provider backup, change the DNS records to the new IP. |
+| NixOS-ServerGaming lost | Restore the backup in the Contabo portal, or new VPS with `nixos-anywhere` and the provider backup, change the DNS records. |
 | Ransomware on a client or server | The append-only REST server and the offline external disk cannot be encrypted by the attacker; ZFS snapshots are read-only. Restore from a snapshot older than the infection. Rotate all secrets afterwards. |
 | Home destroyed (fire, theft) | Proton Drive (A + B of Server1), full disk backups of the VPS at the provider, the off-site copy of the keys. Rebuild the hosts from git (the Portable SSD or the remote mirror of the repository). |
 | Proton account locked | The other copies stay; move the restic repository with `restic copy` to another backend. |
@@ -57,7 +57,7 @@ Keep these on paper or on two offline USB sticks (encrypted with a passphrase yo
 
 1. `restic check --read-data-subset=5%` for every repository (Proton Drive, REST server).
 2. Restore one random directory of each class to `/tmp` and compare with `diff -r`.
-3. Restore a PostgreSQL dump into a test database (VMServerPublic) and start Nextcloud against it.
+3. Restore a PostgreSQL dump into a test database (VMServerPublic) and start Matrix (Synapse) against it.
 4. Boot VMServer1 / VMServerPublic from the repository to prove the configuration still builds without the real hardware.
 5. Check the age of the newest snapshot in Grafana (alert "backup older than 2 days").
 6. Once a year: read the paper copy of the keys and decrypt a sops file with it.

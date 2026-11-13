@@ -36,6 +36,8 @@
   nixos.hardware = {
     intelcpu.enable = true;
     intelgpu.enable = true;
+    # Waits for TPS68470 board data in the kernel (docs/workarounds.md, TODO 24.4).
+    ipu6camera.enable = true;
   };
 
   hardware.sensor.iio.enable = true;

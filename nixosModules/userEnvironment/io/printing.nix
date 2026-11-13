@@ -26,7 +26,12 @@
     services.printing = {
       enable = true;
       startWhenNeeded = false;
-      browsing = true;
+      # No own printers are shared, nothing to advertise.
+      browsing = false;
+      # cups-browsed (default with Avahi) turns printers announced in the network into queues, the
+      # attack surface of the 2024 CUPS vulnerabilities. CUPS finds IPP Everywhere/AirPrint printers
+      # through Avahi itself and creates a temporary queue when printing.
+      browsed.enable = false;
       openFirewall = false;
       drivers = with pkgs; [
         #cups-kyocera-ecosys-m2x35-40-p2x35-40dnw

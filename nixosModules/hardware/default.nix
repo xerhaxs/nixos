@@ -11,6 +11,7 @@
     ./amdgpu.nix
     ./intelcpu.nix
     ./intelgpu.nix
+    ./ipu6camera.nix
     ./nvidiagpu.nix
   ];
 
@@ -31,6 +32,7 @@
       amdgpu.enable = lib.mkDefault false;
       intelcpu.enable = lib.mkDefault false;
       intelgpu.enable = lib.mkDefault false;
+      ipu6camera.enable = lib.mkDefault false;
       nvidiagpu.enable = lib.mkDefault false;
     };
   };

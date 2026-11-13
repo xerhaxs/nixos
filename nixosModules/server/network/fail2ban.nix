@@ -5,10 +5,6 @@
   ...
 }:
 
-let
-  nextcloudLog = "${config.services.nextcloud.home}/data/nextcloud.log";
-in
-
 {
   options.nixos = {
     server.network.fail2ban = {
@@ -34,8 +30,9 @@ in
       ignoreIP = [
         "127.0.0.0/8"
         "::1"
-        config.nixos.system.wireguard.subnet
       ];
+      # Keeps the ban history for the increment (default 1d would forget repeat offenders).
+      daemonSettings.Definition.dbpurgeage = "30d";
 
       jails = {
         sshd.settings.enabled = false;
@@ -53,26 +50,12 @@ in
           logpath = "/var/log/nginx/access.log";
           backend = "auto";
         };
-
-        nextcloud.settings = lib.mkIf config.services.nextcloud.enable {
-          enabled = true;
-          filter = "nextcloud";
-          logpath = nextcloudLog;
-          backend = "auto";
-          maxretry = 5;
-        };
       };
     };
 
-    environment.etc."fail2ban/filter.d/nextcloud.conf" = lib.mkIf config.services.nextcloud.enable {
-      text = ''
-        [Definition]
-        _groupsre = (?:(?:,?\s*"\w+":(?:"[^"]+"|\w+))*)
-        failregex = ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Login failed:
-                    ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Two-factor challenge failed:
-                    ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
-        datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
-      '';
+    # Bans survive a reboot, fail2ban restores them from its database.
+    environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
+      directories = [ "/var/lib/fail2ban" ];
     };
   };
 }

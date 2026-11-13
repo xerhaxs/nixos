@@ -53,6 +53,9 @@
       syncModels = true;
       environmentVariables = {
         OLLAMA_VULKAN = "1";
+        # Loading a model from pool01 (HDD) takes up to two minutes, keep it loaded longer than the
+        # default 5 minutes. Shorter if ComfyUI runs out of GPU memory (TODO 13.29).
+        OLLAMA_KEEP_ALIVE = "30m";
       }
       // lib.optionalAttrs (config.nixos.server.tools.ollama.gpu != "any") {
         VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/${
@@ -83,7 +86,14 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:11440";
+            proxyPass = "http://127.0.0.1:11440";
+            # The first answer waits for the model to load (minutes from the HDD pool), nginx
+            # closed the connection after 60 s. No buffering, the answer is streamed.
+            extraConfig = ''
+              proxy_read_timeout 600s;
+              proxy_send_timeout 600s;
+              proxy_buffering off;
+            '';
           };
         };
       };

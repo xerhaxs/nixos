@@ -17,6 +17,7 @@ CPU and GPU specific settings (microcode, drivers, video acceleration).
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.hardware.enable`. |
 | `intelcpu.nix` | Enable intelcpu support. |
 | `intelgpu.nix` | Enable intelgpu support. |
+| `ipu6camera.nix` | Cameras on the Intel IPU6 through libcamera and PipeWire, raw IPU6 nodes hidden. |
 | `nvidiagpu.nix` | Enable nvidiagpu support. |
 
 ## Options
@@ -28,4 +29,5 @@ CPU and GPU specific settings (microcode, drivers, video acceleration).
 | `nixos.hardware.enable` | boolean | `false` | Enable hardware modules bundle. |
 | `nixos.hardware.intelcpu.enable` | boolean | `false` | Enable intelcpu support. |
 | `nixos.hardware.intelgpu.enable` | boolean | `false` | Enable intelgpu support. |
+| `nixos.hardware.ipu6camera.enable` | boolean | `false` | Cameras on the Intel IPU6 through libcamera (mainline driver, software ISP) and PipeWire. The sensors also need kernel support for the board, see `docs/workarounds.md`. |
 | `nixos.hardware.nvidiagpu.enable` | boolean | `false` | Enable nvidiagpu support. |

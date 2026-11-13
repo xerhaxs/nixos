@@ -48,7 +48,7 @@ in
         no-multicast-peers
         no-tlsv1
         no-tlsv1_1
-        # never relay into private networks (LAN, WireGuard, localhost)
+        # never relay into private networks (LAN, localhost)
         denied-peer-ip=0.0.0.0-0.255.255.255
         denied-peer-ip=10.0.0.0-10.255.255.255
         denied-peer-ip=100.64.0.0-100.127.255.255

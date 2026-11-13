@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./backup.nix
     ./configuration.nix
     ./disko.nix
     ./hardware-configuration.nix
@@ -16,6 +15,5 @@
     ./networking.nix
     ./server.nix
     ./temp
-    ./wireguard.nix
   ];
 }

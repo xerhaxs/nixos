@@ -26,4 +26,5 @@ Web browsers.
 | `homeManager.applications.browser.brave.enable` | boolean | `false` | Enable brave browser. |
 | `homeManager.applications.browser.enable` | boolean | `false` | Enable browser modules bundle. |
 | `homeManager.applications.browser.librewolf.enable` | boolean | `false` | Enable librewolf browser. |
+| `homeManager.applications.browser.librewolf.pipewireCamera` | boolean | `osConfig.nixos.hardware.ipu6camera.enable` | Use cameras through PipeWire (needed for libcamera cameras like the IPU6, works for USB webcams too). |
 | `homeManager.applications.browser.tor.enable` | boolean | `false` | Enable Tor browser. |

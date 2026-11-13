@@ -11,13 +11,18 @@ let
 
   isServer1 = config.networking.hostName == "NixOS-Server1";
 
-  ports = [
-    exporters.node.port
-  ]
-  ++ lib.optional exporters.smartctl.enable exporters.smartctl.port
-  ++ lib.optional exporters.nginx.enable exporters.nginx.port
-  ++ lib.optional exporters.postgres.enable exporters.postgres.port
-  ++ lib.optional exporters.wireguard.enable exporters.wireguard.port;
+  # Exporter name (path below the metrics vhost) -> port.
+  exporterPorts = {
+    node = exporters.node.port;
+  }
+  // lib.optionalAttrs exporters.smartctl.enable { smartctl = exporters.smartctl.port; }
+  // lib.optionalAttrs exporters.nginx.enable { nginx = exporters.nginx.port; }
+  // lib.optionalAttrs exporters.postgres.enable { postgres = exporters.postgres.port; };
+
+  ports = lib.attrValues exporterPorts;
+
+  # Only hosts in the LAN ship their journal, the VPS keep it (no way from them to NixOS-Server1).
+  shipJournal = isServer1 || config.nixos.system.networking.lan.enable;
 
   firewallRules = lib.concatMapStrings (
     source:
@@ -73,11 +78,8 @@ in
 
       scrapers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [
-          "10.75.0.21"
-          "10.100.0.2"
-        ];
-        description = "Addresses of the monitoring server (LAN and WireGuard) allowed to scrape the exporters.";
+        default = [ "10.75.0.21" ];
+        description = "Addresses of the monitoring server in the LAN allowed to scrape the exporters.";
       };
 
       lokiUrl = lib.mkOption {
@@ -85,11 +87,32 @@ in
         default =
           if isServer1 then
             "http://127.0.0.1:3100/loki/api/v1/push"
-          else if config.nixos.system.wireguard.enable then
-            "http://10.100.0.2:3100/loki/api/v1/push"
           else
             "http://10.75.0.21:3100/loki/api/v1/push";
-        description = "Loki push endpoint.";
+        description = "Loki push endpoint (only hosts in the LAN ship their journal).";
+      };
+
+      remote = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          example = true;
+          description = "For hosts outside the LAN (VPS): the exporters listen on 127.0.0.1 only, nginx serves them over HTTPS on remote.hostName and only to a client certificate signed by remote.caCertificate (NixOS-Server1 fetches them, nothing connects from here to NixOS-Server1).";
+        };
+
+        hostName = lib.mkOption {
+          type = lib.types.str;
+          default = "metrics-${lib.toLower (lib.removePrefix "NixOS-" config.networking.hostName)}.${config.nixos.site.domain}";
+          defaultText = lib.literalExpression ''"metrics-<host without NixOS->.''${config.nixos.site.domain}"'';
+          description = "Name of the metrics vhost (certificate by DNS-01, no DNS record needed, Prometheus connects to the IP).";
+        };
+
+        caCertificate = lib.mkOption {
+          type = lib.types.path;
+          default = ./monitoring-ca.pem;
+          defaultText = lib.literalExpression "./monitoring-ca.pem";
+          description = "CA that signs the client certificate of NixOS-Server1 (public, the key stays offline).";
+        };
       };
 
       smart = lib.mkOption {
@@ -102,38 +125,62 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.prometheus.exporters = {
-      node = {
-        enable = true;
-        port = 9100;
-        enabledCollectors = [
-          "systemd"
-          "processes"
-          "textfile"
-        ];
-        extraFlags = [ "--collector.textfile.directory=/var/lib/prometheus-node-exporter" ];
-      };
+    assertions = [
+      {
+        assertion = cfg.remote.enable -> builtins.pathExists cfg.remote.caCertificate;
+        message = "nixos.system.monitoring-agent.remote: the CA certificate ${toString cfg.remote.caCertificate} is missing, create it and git add it (TODO 30.3).";
+      }
+    ];
 
-      smartctl = lib.mkIf cfg.smart {
-        enable = true;
-        port = 9633;
-      };
+    services.prometheus.exporters = lib.mkMerge [
+      {
+        node = {
+          enable = true;
+          port = 9100;
+          enabledCollectors = [
+            "systemd"
+            "processes"
+            "textfile"
+          ];
+          extraFlags = [ "--collector.textfile.directory=/var/lib/prometheus-node-exporter" ];
+        };
 
-      nginx = lib.mkIf config.services.nginx.enable {
-        enable = true;
-        port = 9113;
-      };
+        smartctl = lib.mkIf cfg.smart {
+          enable = true;
+          port = 9633;
+        };
 
-      postgres = lib.mkIf config.services.postgresql.enable {
-        enable = true;
-        port = 9187;
-        runAsLocalSuperUser = true;
-      };
+        nginx = lib.mkIf config.services.nginx.enable {
+          enable = true;
+          port = 9113;
+        };
 
-      wireguard = lib.mkIf config.nixos.system.wireguard.enable {
-        enable = true;
-        port = 9586;
-      };
+        postgres = lib.mkIf config.services.postgresql.enable {
+          enable = true;
+          port = 9187;
+          runAsLocalSuperUser = true;
+        };
+      }
+      (lib.genAttrs [ "node" "smartctl" "nginx" "postgres" ] (_: {
+        listenAddress = lib.mkIf cfg.remote.enable "127.0.0.1";
+      }))
+    ];
+
+    services.nginx.virtualHosts.${cfg.remote.hostName} = lib.mkIf cfg.remote.enable {
+      forceSSL = true;
+      enableACME = true;
+      acmeRoot = null;
+      http2 = true;
+      # Without a certificate of the CA nginx answers 400 and passes nothing on.
+      extraConfig = ''
+        ssl_client_certificate ${cfg.remote.caCertificate};
+        ssl_verify_client on;
+        ssl_verify_depth 1;
+      '';
+      locations = lib.mapAttrs' (
+        name: port:
+        lib.nameValuePair "= /${name}" { proxyPass = "http://127.0.0.1:${toString port}/metrics"; }
+      ) exporterPorts;
     };
 
     services.nginx.statusPage = lib.mkIf config.services.nginx.enable true;
@@ -167,39 +214,41 @@ in
       };
     };
 
-    networking.firewall.extraCommands = firewallRules;
+    networking.firewall.extraCommands = lib.mkIf (!cfg.remote.enable) firewallRules;
 
-    services.alloy.enable = true;
+    services.alloy.enable = shipJournal;
 
-    environment.etc."alloy/config.alloy".text = ''
-      loki.relabel "journal" {
-        forward_to = []
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label  = "unit"
+    environment.etc."alloy/config.alloy" = lib.mkIf shipJournal {
+      text = ''
+        loki.relabel "journal" {
+          forward_to = []
+          rule {
+            source_labels = ["__journal__systemd_unit"]
+            target_label  = "unit"
+          }
+          rule {
+            source_labels = ["__journal_priority_keyword"]
+            target_label  = "level"
+          }
+          rule {
+            source_labels = ["__journal__transport"]
+            target_label  = "transport"
+          }
         }
-        rule {
-          source_labels = ["__journal_priority_keyword"]
-          target_label  = "level"
-        }
-        rule {
-          source_labels = ["__journal__transport"]
-          target_label  = "transport"
-        }
-      }
 
-      loki.source.journal "journal" {
-        max_age       = "12h"
-        relabel_rules = loki.relabel.journal.rules
-        forward_to    = [loki.write.server.receiver]
-        labels        = { host = "${config.networking.hostName}" }
-      }
-
-      loki.write "server" {
-        endpoint {
-          url = "${cfg.lokiUrl}"
+        loki.source.journal "journal" {
+          max_age       = "12h"
+          relabel_rules = loki.relabel.journal.rules
+          forward_to    = [loki.write.server.receiver]
+          labels        = { host = "${config.networking.hostName}" }
         }
-      }
-    '';
+
+        loki.write "server" {
+          endpoint {
+            url = "${cfg.lokiUrl}"
+          }
+        }
+      '';
+    };
   };
 }

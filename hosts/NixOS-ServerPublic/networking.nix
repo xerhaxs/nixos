@@ -27,5 +27,4 @@
     lan.enable = false;
   };
 
-  nixos.system.ssh.whitelist = [ "10.100.0.0/24" ];
 }

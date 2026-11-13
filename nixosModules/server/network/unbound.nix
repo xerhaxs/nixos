@@ -51,6 +51,12 @@
           prefetch = true;
           edns-buffer-size = 1232;
 
+          # While Mullvad reconnects (about a minute, "SSL_handshake ... Connection refused") answer
+          # from the expired cache after 1.8 s instead of failing (RFC 8767), for at most a day.
+          serve-expired = true;
+          serve-expired-ttl = 86400;
+          serve-expired-client-timeout = 1800;
+
           # Query types, rcodes, DNSSEC and memory for the exporter and its dashboard.
           extended-statistics = true;
 

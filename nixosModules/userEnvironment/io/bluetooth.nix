@@ -22,11 +22,6 @@
       enable = true;
       powerOnBoot = true;
       hsphfpd.enable = false;
-      settings = {
-        General = {
-          Enable = "Source,Sink,Media,Socket";
-        };
-      };
     };
 
     environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {

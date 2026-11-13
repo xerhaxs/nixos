@@ -13,7 +13,6 @@ Rule of thumb: NixOS defines **how a service runs** (ports, paths, database, rev
 | Grafana, Prometheus, Loki, Alertmanager | Data sources, dashboards, alerts, scrape targets | Admin password, additional own dashboards |
 | Glance | The whole page | Nothing |
 | Forgejo | Domain, database, server settings | Accounts, repositories, organisations |
-| Nextcloud | Apps, Office and Talk integration, quota, PHP | Admin and users, shares, personal settings |
 | Matrix | Server, bridges, registration rules | Rooms, accounts |
 | Stalwart | Domains, ports, certificates | Mailboxes, aliases (admin web UI) |
 | HomeBox, Linkwarden, Miniflux, Radicale | Port, path, registration on or off | Accounts and all content |

@@ -25,7 +25,6 @@
 
   security.lockKernelModules = true;
   boot.kernelModules = [
-    "wireguard"
     "tun"
     "veth"
     "bridge"

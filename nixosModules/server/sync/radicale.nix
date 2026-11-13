@@ -59,7 +59,7 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:5232/";
+            proxyPass = "http://127.0.0.1:5232/";
             extraConfig = ''
               proxy_set_header X-Script-Name /radicale;
               proxy_pass_header Authorization;

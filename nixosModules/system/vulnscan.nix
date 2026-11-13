@@ -83,7 +83,8 @@ in
 
       ignore = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = import ./vulnscan-ignore.nix;
+        defaultText = lib.literalExpression "import ./vulnscan-ignore.nix (reviewed false positives)";
         example = [ "CVE-2026-24061" ];
         description = "Checked false positives. Findings are matched by name and version, patches of nixpkgs are not known to the scanner.";
       };

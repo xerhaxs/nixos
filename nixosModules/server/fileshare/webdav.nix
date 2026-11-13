@@ -53,7 +53,7 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:9123";
+            proxyPass = "http://127.0.0.1:9123";
           };
         };
         "webdav.${config.nixos.server.network.nginx.domain}" = {
@@ -63,7 +63,7 @@
           kTLS = true;
           http2 = true;
           locations."/" = {
-            proxyPass = "http://localhost:9123";
+            proxyPass = "http://127.0.0.1:9123";
           };
         };
       };

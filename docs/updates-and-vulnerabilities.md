@@ -14,6 +14,8 @@ A flake input cannot follow "the newest release", and `flake.lock` cannot hold r
 
 Downloads at runtime have no pin: the first start of Dangerzone (verified by cosign), Ollama models and the SDDM background.
 
+After every `nix flake update`, build all hosts and go through [`workarounds.md`](workarounds.md): each entry says how to tell that it is no longer needed.
+
 ## What runs where
 
 | Unit | Host | Interval | Output in `/var/lib/prometheus-node-exporter` |
@@ -23,7 +25,7 @@ Downloads at runtime have no pin: the first start of Dangerzone (verified by cos
 | `nixos-version-metrics` | all hosts | hourly | `nixos-version.prom` |
 | `update-check` | NixOS-Server1 | daily | `updates.prom` |
 
-Prometheus on NixOS-Server1 pulls the files every 30 seconds through the textfile collector of the node exporter (port 9100, in the LAN or through WireGuard). The clients send nothing themselves. The directory is persisted, a result survives a reboot. Grafana shows them in the dashboard `Security and Updates`, Glance on the page `Server`. For a host that is not reachable (a laptop that is off or away), the dashboard shows the last value of the past 14 days, reachable hosts show only their current values.
+Prometheus on NixOS-Server1 pulls the files every 30 seconds through the textfile collector of the node exporter (port 9100 in the LAN, the VPS over HTTPS with a client certificate). The clients send nothing themselves. The directory is persisted, a result survives a reboot. Grafana shows them in the dashboard `Security and Updates`, Glance on the page `Server`. For a host that is not reachable (a laptop that is off or away), the dashboard shows the last value of the past 14 days, reachable hosts show only their current values.
 
 ## Reading the results
 
@@ -38,11 +40,11 @@ Alerts: new critical candidates, a scan older than 14 days, malware found by Cla
 | What | When | Where |
 |---|---|---|
 | Scan of new and changed files (ctime newer than the last scan) | every night at 04:00, a missed run starts after the next boot | all hosts: `/home`, `/var/lib`, `/etc`, `/tmp`, `/var/tmp` and the extra directories of the host (Desktop `/mount/Data/Datein`, Server1 `/pool01/shares` without `video`) |
-| Full scan of the same directories | on the 1st of the month (`fullScanDay`) or without a previous scan | all hosts |
+| Full scan of the same directories | on the 1st of the month (`fullScanDay`), without a previous scan, or when the last full scan is older than 31 days (host was off on the 1st) | all hosts |
 | On-access scan, infected files cannot be opened | when a program opens a file | only clients: download directory and `/tmp/mozilla_<user>0` (attachments opened from Thunderbird) |
 
 clamd uses at most 2 threads (`maxThreads`) with the lowest CPU and IO priority. On the clients it runs permanently for the on-access scan, on the servers it is started for the nightly scan and stopped afterwards (it holds the signatures in up to 3 GB of RAM). freshclam updates the signatures hourly.
 
-A wrapper writes the number of infected files, the errors, the number of changed files, whether it was a full scan and up to 100 findings (path and signature) to `clamav.prom`. Exit code 1 means "found something" and does not mark the unit as failed, the alert `MalwareFound` reports it instead. `sudo systemctl start clamdscan` runs the mode of the day, `sudo clamdscan-metrics full` forces a full scan.
+A wrapper keeps the open findings in `/var/lib/clamav/findings.jsonl` (persisted): a nightly scan only sees changed files, earlier findings stay as long as the file exists unchanged, a full scan replaces the list. It writes the number of open findings, the errors, the number of changed files, whether it was a full scan and up to 100 findings (path and signature) to `clamav.prom`. Findings checked by hand go into `nixos.system.clamav.acknowledged` (globs for path and signature) and leave the metrics and the alert. Exit code 1 means "found something" and does not mark the unit as failed, the alert `MalwareFound` reports it instead. `sudo systemctl start clamdscan` runs the mode of the day, `sudo clamdscan-metrics full` forces a full scan.
 
 Findings can be false positives, for example in DLLs of Wine and DXVK. Look up the file hash (not the file) on VirusTotal before deleting anything.

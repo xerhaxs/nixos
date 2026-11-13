@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Virtual machine with the profile of NixOS-ServerPublic (without WireGuard identity and backups, uses the secrets of NixOS-ServerPublic).
+Virtual machine with the profile of NixOS-ServerPublic (uses the secrets of NixOS-ServerPublic).
 
 ## How it works
 

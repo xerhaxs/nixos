@@ -12,7 +12,6 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 - `ssh.nix`: key only, post-quantum key exchange (mlkem768x25519), AEAD ciphers, ETM MACs, 3 authentication attempts, verbose log.
 - `persistent.nix`: impermanence base directories and `/etc/machine-id` (a new id per boot would split the journal).
 - `networking.nix`: home LAN (gateway, nameservers, local DNS records), sops wifi profiles, DNS privacy, MAC randomization, blocklists.
-- `wireguard.nix`: network 10.100.0.0/24 with NixOS-ServerPublic as hub, Pi-hole as DNS through the tunnel, Mullvad bypass.
 - `restic.nix`: encrypted backups with btrfs or ZFS snapshots and PostgreSQL dumps.
 - `notify.nix`: alerts by mail (msmtp) and ntfy for failed units, SMART and ZFS; `killswitch.nix`: power off on an ntfy message.
 - `sops.nix`: sops-nix with the secrets file of the host from the private repository (`file`), only that file is copied to the host.
@@ -48,7 +47,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `ssh.nix` | Enable ssh with sshguard. |
 | `user.nix` | Setup the system user. |
 | `vulnscan.nix` | Scan the closure of the running system for known vulnerabilities. |
-| `wireguard.nix` | Enable the WireGuard network. |
+| `vulnscan-ignore.nix` | Reviewed false positives of the CVE scan with the reason, default of `nixos.system.vulnscan.ignore`. |
 
 ## Options
 
@@ -72,10 +71,11 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.bootloader.biosPartitionIndex` | null or signed integer | `null` | Index (1-based) of the BIOS boot partition (EF02) limine embeds its stage 2 into. |
 | `nixos.system.bootloader.enable` | boolean | `false` | Enable Bootloader. |
 | `nixos.system.bootloader.removable` | boolean | `false` | Install as removable medium (EFI/BOOT/BOOTX64.EFI, no NVRAM entry), boots on any UEFI machine. |
+| `nixos.system.clamav.acknowledged` | list of (submodule) | `[ ]` | Findings checked by hand (path and signature as shell globs). They stay in the findings list but leave the metrics, the dashboard and the alert MalwareFound; new findings in the same files still show up. |
 | `nixos.system.clamav.enable` | boolean | `false` | Enable ClamAV virus scanner. |
 | `nixos.system.clamav.excludePaths` | list of string | `[ ]` | Regular expressions of paths that are not scanned (ExcludePath). |
 | `nixos.system.clamav.extraScanDirectories` | list of string | `[ ]` | Additional directories of the nightly scan (user data, shares, uploads). |
-| `nixos.system.clamav.fullScanDay` | integer between 1 and 28 (both inclusive) | `1` | Day of the month with a full scan, the other nights only scan new and changed files. |
+| `nixos.system.clamav.fullScanDay` | integer between 1 and 28 (both inclusive) | `1` | Day of the month with a full scan, the other nights only scan new and changed files. A host that was off that night catches up once the last full scan is older than 31 days. |
 | `nixos.system.clamav.maxThreads` | positive integer, meaning >0 | `2` | Scan threads of clamd (cores used), clamd also runs with the lowest CPU and IO priority. |
 | `nixos.system.clamav.onAccess.enable` | boolean | `config.nixos.desktop.enable` | Scan files in the listed directories when they are opened and block infected ones. clamd then runs permanently, otherwise only for the nightly scan. |
 | `nixos.system.clamav.onAccess.paths` | list of string | `[ <download directory of the user> "/tmp/mozilla_<user>0" ]` | Directories checked on access: downloads and the directory Thunderbird opens attachments from. |
@@ -108,26 +108,29 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.locals.lang` | string | `"en_US.UTF-8"` |  |
 | `nixos.system.locals.local` | string | `"de_DE.UTF-8"` |  |
 | `nixos.system.locals.timezone` | anything | `"Europe/Berlin"` |  |
-| `nixos.system.monitoring-agent.enable` | boolean | `false` | Export metrics (prometheus exporters) and ship the journal to Loki. |
-| `nixos.system.monitoring-agent.lokiUrl` | string | `"http://10.75.0.21:3100/loki/api/v1/push"` | Loki push endpoint. |
-| `nixos.system.monitoring-agent.scrapers` | list of string | `[   "10.75.0.21"   "10.100.0.2" ]` | Addresses of the monitoring server (LAN and WireGuard) allowed to scrape the exporters. |
+| `nixos.system.monitoring-agent.enable` | boolean | `false` | Export metrics (prometheus exporters) and ship the journal to Loki (only hosts in the LAN). |
+| `nixos.system.monitoring-agent.lokiUrl` | string | `"http://10.75.0.21:3100/loki/api/v1/push"` | Loki push endpoint (only hosts in the LAN ship their journal). |
+| `nixos.system.monitoring-agent.remote.caCertificate` | path | `./monitoring-ca.pem` | CA that signs the client certificate of NixOS-Server1 (public, the key stays offline). |
+| `nixos.system.monitoring-agent.remote.enable` | boolean | `false` | For hosts outside the LAN (VPS): the exporters listen on 127.0.0.1 only, nginx serves them over HTTPS on remote.hostName and only to a client certificate signed by remote.caCertificate. |
+| `nixos.system.monitoring-agent.remote.hostName` | string | `"metrics-<host without NixOS->.${config.nixos.site.domain}"` | Name of the metrics vhost (certificate by DNS-01, no DNS record needed). |
+| `nixos.system.monitoring-agent.scrapers` | list of string | `[ "10.75.0.21" ]` | Addresses of the monitoring server in the LAN allowed to scrape the exporters. |
 | `nixos.system.monitoring-agent.smart` | boolean | `smartd enabled and no VM` | Export SMART values of the disks. |
 | `nixos.system.networking.blocklists.enable` | boolean | `true` | Enable DNS blocklists. |
-| `nixos.system.networking.blocklists.urls` | list of string | `[   "adobe"   "amazonFireTV"   "malware"   "phishing"   "...` | Names of the blocklists to use. |
+| `nixos.system.networking.blocklists.urls` | list of string | `[ "adobe" "malware" "phishing" "ransomware" "scam" "stevenBlack" "tiktok" "tracking" ]` (TV lists only in Pi-hole) | Names of the blocklists to use. |
 | `nixos.system.networking.dnssec` | boolean | `config.nixos.desktop.enable` | Validate DNSSEC in systemd-resolved (allow-downgrade). |
 | `nixos.system.networking.enable` | boolean | `false` | Enable networking and network config. |
 | `nixos.system.networking.lan.enable` | boolean | `true` | Host is part of the home LAN (gateway, nameservers and local host entries). |
 | `nixos.system.networking.lan.gateway` | string | `"10.75.0.1"` | IPv4 gateway of the home LAN. |
 | `nixos.system.networking.lan.gateway6` | string | `"fe80::1"` | IPv6 gateway of the home LAN. |
 | `nixos.system.networking.lan.hosts` | attribute set of list of string | `gateway, services of NixOS-Server1 on nixos.site.homeDoma...` | Local DNS records (IP -> hostnames), used for /etc/hosts and pihole. |
-| `nixos.system.networking.lan.nameservers` | list of string | `[   "10.75.0.21"   "10.75.0.1"   "9.9.9.9"   "149.112.112...` | Nameservers used in the home LAN. |
+| `nixos.system.networking.lan.nameservers` | list of string | `[   "10.75.0.21"   "10.75.0.1"   "9.9.9.9#dns.quad9.net"   "149.112.112...` | Nameservers of the home LAN in order: Pi-hole, the FRITZ!Box, then Quad9 (DNS over TLS where the server supports it). |
 | `nixos.system.networking.lan.staticRouting` | boolean | `true` | Set gateway and nameservers of the home LAN statically (disable on laptops, they get both by DHCP). |
 | `nixos.system.networking.lan.subnet` | string | `"10.75.0.0/24"` | Subnet of the home LAN. |
 | `nixos.system.networking.localIP` | null or string | `null` | Local IP address of this host. Host entries matching this IP will use 127.0.0.1 instead. |
 | `nixos.system.networking.macRandomization.ethernet` | boolean | `false` | Random MAC address for every wired connection. |
 | `nixos.system.networking.macRandomization.wifi` | boolean | `false` | Random MAC address for every wifi connection (home networks keep the permanent one). |
 | `nixos.system.networking.networkmanager.enable` | boolean | `true` | Use NetworkManager to manage network connections. |
-| `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict). Pi-hole is used through WireGuard when it is up. Captive portals need a manual workaround. |
+| `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict), the local blocklists still apply. Captive portals need a manual workaround. |
 | `nixos.system.networking.wifi.enable` | boolean | `false` | Provide the wifi networks from sops (secret wifi) as read-only NetworkManager profiles. |
 | `nixos.system.networking.wifi.homeNetworks` | list of string | `[   "HOME" ]` | Networks of the sops wifi profiles which use the permanent MAC address (same MAC and DHCP lease on every boot). |
 | `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
@@ -170,15 +173,8 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.user.enable` | boolean | `false` | Setup the system user. |
 | `nixos.system.user.passwordFromSops` | boolean | `false` | Read the password hash of the system user from sops (user/<hostname>/<username>). |
 | `nixos.system.vulnscan.enable` | boolean | `false` | Scan the closure of the running system for known vulnerabilities (sbomnix + grype) and export the result to Prometheus. |
-| `nixos.system.vulnscan.ignore` | list of string | `[ ]` | Checked false positives. |
+| `nixos.system.vulnscan.ignore` | list of string | `import ./vulnscan-ignore.nix` | Checked false positives (see `docs/vulnerability-review.md`). |
 | `nixos.system.vulnscan.interval` | string | `"weekly"` on desktops, `"daily"` on servers | systemd OnCalendar expression of the scan. |
-| `nixos.system.wireguard.dns` | null or string | `Pi-hole on NixOS-Server1 for desktops` | DNS server used for all domains while the tunnel is up (Pi-hole on NixOS-Server1). |
-| `nixos.system.wireguard.enable` | boolean | `false` | Enable the WireGuard network. |
-| `nixos.system.wireguard.hubAddress` | string | `config.nixos.site.serverPublic.ipv4` | Public IP of the hub (an IP, so the tunnel works without DNS and can bypass Mullvad). |
-| `nixos.system.wireguard.interface` | string | `"wg0"` | Name of the WireGuard interface. |
-| `nixos.system.wireguard.mullvadBypass` | boolean | `true` | Let traffic to the hub bypass Mullvad (needed with Mullvad lockdown mode). |
-| `nixos.system.wireguard.port` | 16 bit unsigned integer; between 0 and 65535 (both inclusive) | `51820` | Listen port of the hub. |
-| `nixos.system.wireguard.subnet` | string | `"10.100.0.0/24"` | WireGuard subnet, routed through the tunnel on the peers (split tunnel). |
 
 ## Notes
 

@@ -268,18 +268,6 @@
         "url": "https://grafana.com/api/dashboards/11705/revisions/1/download"
       }
     },
-    "grafana-wireguard": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-uSF82AvM38fNApIhvSmwFLVffmpa7NXYhW+6NXP9hgw=",
-        "type": "file",
-        "url": "https://grafana.com/api/dashboards/12177/revisions/1/download"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://grafana.com/api/dashboards/12177/revisions/1/download"
-      }
-    },
     "grafana-zfs": {
       "flake": false,
       "locked": {
@@ -596,11 +584,11 @@
     "private": {
       "flake": false,
       "locked": {
-        "lastModified": 1794315315,
-        "narHash": "sha256-AWUiRK6LsMcFGNXeob4EHys2ApHaYiNPayC6HqEb3EU=",
+        "lastModified": 1794319573,
+        "narHash": "sha256-XiKAxoG8/ZH6nrapiwliYNi7iO5uARqPNMM46a5+vDc=",
         "ref": "refs/heads/main",
-        "rev": "4b545acba40cfc62ba57f5e68a509cadce8e5f5f",
-        "revCount": 18,
+        "rev": "1de9915d2ac9ef06cd00c1938d6184fe765a1a17",
+        "revCount": 20,
         "type": "git",
         "url": "file:///home/jf/Documents/nixos-private"
       },
@@ -628,7 +616,6 @@
         "grafana-postgresql": "grafana-postgresql",
         "grafana-smartctl": "grafana-smartctl",
         "grafana-unbound": "grafana-unbound",
-        "grafana-wireguard": "grafana-wireguard",
         "grafana-zfs": "grafana-zfs",
         "home-manager": "home-manager",
         "hyprgrass-src": "hyprgrass-src",

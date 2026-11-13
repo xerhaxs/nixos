@@ -11,7 +11,6 @@ let
   domain = config.nixos.server.network.nginx.domain;
   dataDir = config.nixos.server.dataDir;
   lanSubnet = config.nixos.system.networking.lan.subnet;
-  wgInterface = config.nixos.system.wireguard.interface;
 
   prometheusPort = 9091;
   grafanaPort = 3010;
@@ -76,7 +75,6 @@ let
         "postgresql"
         "smartctl"
         "unbound"
-        "wireguard"
         "zfs"
       ]
     ++ [
@@ -93,6 +91,36 @@ let
     targets = [ "${address}:9100" ];
     labels.instance = name;
   }) cfg.nodes;
+
+  # One job per VPS and exporter, the job label is set back to the exporter so dashboards and
+  # alerts (job="node") cover them as well.
+  remoteJobs = lib.concatLists (
+    lib.mapAttrsToList (
+      host: remote:
+      map (exporter: {
+        job_name = "remote-${exporter}-${host}";
+        scheme = "https";
+        metrics_path = "/${exporter}";
+        tls_config = {
+          cert_file = config.sops.secrets."monitoring/client-cert".path;
+          key_file = config.sops.secrets."monitoring/client-key".path;
+          server_name = remote.serverName;
+        };
+        static_configs = [
+          {
+            targets = [ "${remote.address}:443" ];
+            labels.instance = host;
+          }
+        ];
+        relabel_configs = [
+          {
+            target_label = "job";
+            replacement = exporter;
+          }
+        ];
+      }) remote.exporters
+    ) cfg.remote.hosts
+  );
 
   exporterJob = job: port: hosts: {
     job_name = job;
@@ -235,12 +263,59 @@ in
         default = {
           NixOS-Server1 = "127.0.0.1";
           NixOS-Desktop = "10.75.0.80";
-          NixOS-Framework = "10.100.0.4";
-          NixOS-Convertible = "10.100.0.5";
-          NixOS-ServerGaming = "10.100.0.6";
-          NixOS-ServerPublic = "10.100.0.1";
         };
-        description = "Hosts to scrape (hostname -> address in the LAN or the WireGuard network).";
+        description = "Hosts in the LAN to scrape over HTTP (hostname -> fixed address). The laptops have no fixed address, the VPS are in remote.hosts.";
+      };
+
+      remote = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          example = true;
+          description = "Scrape the VPS over HTTPS with a client certificate (secrets monitoring/client-cert and monitoring/client-key, counterpart nixos.system.monitoring-agent.remote on the VPS).";
+        };
+
+        hosts = lib.mkOption {
+          type = lib.types.attrsOf (
+            lib.types.submodule {
+              options = {
+                address = lib.mkOption {
+                  type = lib.types.str;
+                  description = "Public IPv4 of the host (no DNS record needed).";
+                };
+                serverName = lib.mkOption {
+                  type = lib.types.str;
+                  description = "Name of the metrics vhost (TLS server name).";
+                };
+                exporters = lib.mkOption {
+                  type = lib.types.listOf lib.types.str;
+                  description = "Exporters served below /<name>.";
+                };
+              };
+            }
+          );
+          default = {
+            NixOS-ServerPublic = {
+              address = config.nixos.site.serverPublic.ipv4;
+              serverName = "metrics-serverpublic.${config.nixos.site.domain}";
+              exporters = [
+                "node"
+                "nginx"
+                "postgres"
+              ];
+            };
+            NixOS-ServerGaming = {
+              address = config.nixos.site.serverGaming.ipv4;
+              serverName = "metrics-servergaming.${config.nixos.site.domain}";
+              exporters = [
+                "node"
+                "nginx"
+              ];
+            };
+          };
+          defaultText = lib.literalExpression "NixOS-ServerPublic and NixOS-ServerGaming from the private site.nix";
+          description = "VPS scraped over HTTPS.";
+        };
       };
 
       probes = lib.mkOption {
@@ -252,7 +327,6 @@ in
             )
           )
           ++ map (name: "https://${name}.${config.nixos.site.domain}") [
-            "cloud"
             "matrix"
             "cryptpad"
             "push"
@@ -305,6 +379,16 @@ in
       (lib.mkIf cfg.pihole {
         "monitoring/pihole-env".restartUnits = [ "prometheus-pihole-exporter.service" ];
       })
+      (lib.mkIf cfg.remote.enable {
+        "monitoring/client-cert" = {
+          owner = "prometheus";
+          restartUnits = [ "prometheus.service" ];
+        };
+        "monitoring/client-key" = {
+          owner = "prometheus";
+          restartUnits = [ "prometheus.service" ];
+        };
+      })
     ];
 
     systemd.services.alertmanager.serviceConfig.LoadCredential =
@@ -328,6 +412,8 @@ in
       listenAddress = "127.0.0.1";
       port = prometheusPort;
       retentionTime = cfg.retention;
+      # The client certificate exists only at runtime (sops), a full check looks for the file.
+      checkConfig = if cfg.remote.enable then "syntax-only" else true;
       stateDir = "prometheus2";
       globalConfig = {
         scrape_interval = "30s";
@@ -352,11 +438,6 @@ in
         ])
         (exporterJob "postgres" 9187 [
           "NixOS-Server1"
-          "NixOS-ServerPublic"
-        ])
-        (exporterJob "wireguard" 9586 [
-          "NixOS-Server1"
-          "NixOS-ServerGaming"
           "NixOS-ServerPublic"
         ])
         {
@@ -390,6 +471,7 @@ in
           ];
         }
       ]
+      ++ lib.optionals cfg.remote.enable remoteJobs
       ++ lib.optional cfg.pihole {
         job_name = "pihole";
         static_configs = [
@@ -561,14 +643,9 @@ in
       };
     };
 
-    networking.firewall = {
-      extraCommands = ''
-        iptables -A nixos-fw -p tcp -s ${lanSubnet} --dport ${toString lokiPort} -j nixos-fw-accept
-      '';
-      interfaces.${wgInterface}.allowedTCPPorts = lib.mkIf config.nixos.system.wireguard.enable [
-        lokiPort
-      ];
-    };
+    networking.firewall.extraCommands = ''
+      iptables -A nixos-fw -p tcp -s ${lanSubnet} --dport ${toString lokiPort} -j nixos-fw-accept
+    '';
 
     systemd.services.grafana-secret-key = {
       description = "Create the secret key of Grafana";

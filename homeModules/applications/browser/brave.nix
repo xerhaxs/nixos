@@ -26,10 +26,18 @@
       commandLineArgs = [
         "--ozone-platform=wayland"
         "--ozone-platform-hint=auto"
-        "--enable-features=WaylandWindowDecorations"
+        # Chromium only reads the last --enable-features, all features go into one flag.
+        "--enable-features=${
+          lib.concatStringsSep "," (
+            [
+              "AllowQt"
+              "WaylandWindowDecorations"
+            ]
+            ++ lib.optional (osConfig.nixos.hardware.ipu6camera.enable or false) "WebRtcPipeWireCamera"
+          )
+        }"
         "--no-first-run"
         "--no-default-browser-check"
-        "--enable-features=AllowQt"
         "--force-webrtc-ip-handling-policy=disable_non_proxied_udp"
       ];
 

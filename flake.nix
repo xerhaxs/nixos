@@ -141,10 +141,6 @@
       url = "https://grafana.com/api/dashboards/11705/revisions/1/download";
       flake = false;
     };
-    grafana-wireguard = {
-      url = "https://grafana.com/api/dashboards/12177/revisions/1/download";
-      flake = false;
-    };
     grafana-zfs = {
       url = "https://grafana.com/api/dashboards/7845/revisions/4/download";
       flake = false;

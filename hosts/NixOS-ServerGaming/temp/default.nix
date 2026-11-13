@@ -5,16 +5,9 @@
   ...
 }:
 
-# Services that only run here for testing. To remove them: delete this folder and its import in
-# ../default.nix, the DNS records and the firewall rules (TODO, last phase).
+# Runs here only for testing. To remove it: delete this folder and its import in ../default.nix and
+# the DNS record (TODO, last phase).
 {
-  nixos.server.public = {
-    collabora.enable = true;
-    nextcloud.enable = true;
-  };
-
-  nixos.server.tools.codeserver.enable = true;
-
   nixos.server.game.countdown = {
     enable = true;
     # Date of the countdown, with the time zone offset.
@@ -23,6 +16,4 @@
     subtitle = "und wir uns endlich wiedersehen.";
     doneText = "Wir sind wieder zusammen! <3";
   };
-
-  nixos.system.clamav.extraScanDirectories = [ "${config.services.nextcloud.home}/data" ];
 }

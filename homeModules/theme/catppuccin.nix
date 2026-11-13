@@ -38,7 +38,7 @@
       workspace = {
         theme = "default";
         colorScheme = "Catppuccin${osConfig.nixos.theme.catppuccin.flavor}${osConfig.nixos.theme.catppuccin.accent}";
-        cursor.theme = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
+        cursor.theme = lib.strings.toLower "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.prefer}-Cursors";
         lookAndFeel = "Catppuccin-${osConfig.nixos.theme.catppuccin.flavor}-${osConfig.nixos.theme.catppuccin.accent}";
         iconTheme = "Papirus-${osConfig.nixos.theme.catppuccin.prefer}";
       };

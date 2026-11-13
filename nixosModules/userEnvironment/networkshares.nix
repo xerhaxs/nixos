@@ -10,7 +10,6 @@ let
   nas-options = [
     "nofail"
     "_netdev"
-    "x-systemd.device-timeout=10s"
     "x-systemd.mount-timeout=15s"
     "gid=500,file_mode=0777,dir_mode=0777"
     "vers=3.1.1,credentials=${config.sops.secrets."nas-smb/user".path}"

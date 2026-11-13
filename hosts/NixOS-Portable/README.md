@@ -8,7 +8,7 @@ Portable all-in-one installation on one external SSD: every application, hybrid 
 
 - `default.nix` imports the files below. See `hosts/README.md` for the separation of profile and machine.
 - Installation and maintenance: [`README.md`](../../README.md#installation), host specific steps in [its section](../../README.md#nixos-portable).
-- The `server` specialisation has no game server and no Nextcloud. Its services use the own domain `portable.internal` and read their secrets from `server/<name>` in `nixos-portable.yaml` (list `serverSecrets` in `server.nix`), so no value is shared with NixOS-Server1. Monitoring scrapes and probes only this host.
+- The `server` specialisation has no game server. Its services use the own domain `portable.internal` and read their secrets from `server/<name>` in `nixos-portable.yaml` (list `serverSecrets` in `server.nix`), so no value is shared with NixOS-Server1. Monitoring scrapes and probes only this host.
 
 ## Contents
 

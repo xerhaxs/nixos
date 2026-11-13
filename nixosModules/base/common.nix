@@ -45,7 +45,7 @@
         fwupd
 
         # network
-        inetutils
+        whois
         dnsutils
         ldns
         ipcalc

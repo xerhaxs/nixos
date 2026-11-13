@@ -10,7 +10,6 @@
     ./forgejo.nix
     ./linkwarden.nix
     ./radicale.nix
-    ./resticserver.nix
   ];
 
   options.nixos = {
@@ -29,7 +28,6 @@
       forgejo.enable = true;
       linkwarden.enable = true;
       radicale.enable = true;
-      resticserver.enable = lib.mkDefault false;
     };
   };
 }

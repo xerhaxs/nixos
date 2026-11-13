@@ -33,7 +33,6 @@
     ./ssh.nix
     ./user.nix
     ./vulnscan.nix
-    ./wireguard.nix
   ];
 
   options.nixos = {
@@ -73,7 +72,6 @@
       ssh.enable = true;
       user.enable = true;
       vulnscan.enable = lib.mkDefault config.nixos.system.monitoring-agent.enable;
-      wireguard.enable = lib.mkDefault false;
     };
   };
 }

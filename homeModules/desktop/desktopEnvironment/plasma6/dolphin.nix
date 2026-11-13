@@ -35,7 +35,13 @@
             url = "sftp://admin@NixOS-ServerGaming/srv/minecraft";
             icon = "network-server";
           }
-        ];
+        ]
+        ++ lib.optional (osConfig.nixos.userEnvironment.networkshares.webdav.enable or false) {
+          title = "WebDAV";
+          url = "file:///mount/dav";
+          icon = "folder-cloud";
+        };
+        defaultText = lib.literalExpression "Minecraft on NixOS-ServerGaming, plus /mount/dav if nixos.userEnvironment.networkshares.webdav is enabled";
         description = "Entries added to the places panel if missing (removing one in Dolphin brings it back at the next activation).";
       };
     };

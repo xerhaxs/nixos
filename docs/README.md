@@ -17,3 +17,5 @@ How-to pages for setting up and maintaining the hosts and services that are not 
 | [`rss.md`](rss.md) | Miniflux accounts, Fluent Reader on the clients, Read You on the phone. |
 | [`service-settings.md`](service-settings.md) | Which settings of each server service live in NixOS and which in the service itself. |
 | [`updates-and-vulnerabilities.md`](updates-and-vulnerabilities.md) | Where versions are pinned, how to update them, CVE scan and update status in Grafana. |
+| [`vulnerability-review.md`](vulnerability-review.md) | How to review CVE candidates, candidates left open on purpose. |
+| [`workarounds.md`](workarounds.md) | Own patches and overrides that wait for upstream, with how to tell they are obsolete. |

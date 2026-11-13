@@ -16,15 +16,12 @@ let
       lib.flatten (lib.attrValues osConfig.nixos.system.networking.lan.hosts)
     )
     ++ map (service: "${service}.${domain}") [
-      "cloud"
-      "office"
       "matrix"
       "cryptpad"
       "cryptpad-sandbox"
       "push"
       "rss"
       "bluemap"
-      "code"
       "countdown"
       "stalwart"
     ]
@@ -135,6 +132,13 @@ in
         example = true;
         description = "Enable librewolf browser.";
       };
+
+      pipewireCamera = lib.mkOption {
+        type = lib.types.bool;
+        default = osConfig.nixos.hardware.ipu6camera.enable or false;
+        defaultText = lib.literalExpression "osConfig.nixos.hardware.ipu6camera.enable";
+        description = "Use cameras through PipeWire (needed for libcamera cameras like the IPU6, works for USB webcams too).";
+      };
     };
   };
 
@@ -178,6 +182,8 @@ in
 
         "media.ffmpeg.vaapi.enabled" = true;
         "media.rdd-ffmpeg.enabled" = true;
+        "media.webrtc.camera.allow-pipewire" =
+          config.homeManager.applications.browser.librewolf.pipewireCamera;
         "widget.dmabuf.force-enabled" = true;
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor" = true;

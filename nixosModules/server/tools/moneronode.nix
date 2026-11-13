@@ -8,7 +8,6 @@
 let
   cfg = config.nixos.server.tools.moneronode;
   lanSubnet = config.nixos.system.networking.lan.subnet;
-  wgInterface = config.nixos.system.wireguard.interface;
 in
 
 {
@@ -24,7 +23,7 @@ in
       restrictedRpcPort = lib.mkOption {
         type = lib.types.port;
         default = 18089;
-        description = "Port of the restricted RPC for wallets in the LAN and the WireGuard network.";
+        description = "Port of the restricted RPC for wallets in the LAN.";
       };
 
       p2pool = {
@@ -91,9 +90,6 @@ in
           + lib.optionalString cfg.p2pool.enable ''
             iptables -A nixos-fw -p tcp -s ${lanSubnet} --dport ${toString cfg.p2pool.stratumPort} -j nixos-fw-accept
           '';
-          interfaces.${wgInterface}.allowedTCPPorts = lib.mkIf config.nixos.system.wireguard.enable (
-            [ cfg.restrictedRpcPort ] ++ lib.optional cfg.p2pool.enable cfg.p2pool.stratumPort
-          );
         };
       }
 

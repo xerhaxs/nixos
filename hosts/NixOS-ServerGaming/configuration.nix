@@ -21,7 +21,6 @@
 
   security.lockKernelModules = true;
   boot.kernelModules = [
-    "wireguard"
     "nf_tables"
     "nft_ct"
     "nft_compat"

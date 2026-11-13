@@ -33,6 +33,14 @@ let
     <div><div class="color-highlight size-h3">${value}</div><div class="size-h6">${label}</div></div>
   '';
 
+  # Glance only fails on a non-2xx status if the body is not JSON, a 401 with a JSON or empty body
+  # renders an empty widget. Shows the status instead (0: no response, see the journal of glance).
+  httpError = response: ''
+    {{ if or (lt ${response}.StatusCode 200) (ge ${response}.StatusCode 300) }}
+      <p class="color-negative">HTTP {{ ${response}.StatusCode }}{{ if or (eq ${response}.StatusCode 401) (eq ${response}.StatusCode 403) }}: check the token in sops glance{{ end }}</p>
+    {{ end }}
+  '';
+
   # Metrics of the other hosts are already in Prometheus, this needs no agent or open port on them.
   hostStats =
     title: instance:
@@ -151,24 +159,29 @@ let
     title-url = "https://jellyfin.${homeDomain}";
     cache = "2m";
     url = "http://127.0.0.1:8096/Sessions?ActiveWithinSeconds=120";
-    headers.X-Emby-Token = "\${ENV_JELLYFIN_TOKEN}";
+    # Jellyfin 12 turned off the legacy X-Emby-Token header (EnableLegacyAuthorization).
+    headers.Authorization = "MediaBrowser Token=\${ENV_JELLYFIN_TOKEN}";
     template = ''
+      ${httpError ".Response"}
       {{ range .JSON.Array "" }}
         {{ if .Exists "NowPlayingItem" }}
           <p class="color-positive">{{ .String "UserName" }}: {{ .String "NowPlayingItem.Name" }}</p>
         {{ end }}
       {{ end }}
       {{ $latest := newRequest "http://127.0.0.1:8096/Items"
-        | withHeader "X-Emby-Token" "''${ENV_JELLYFIN_TOKEN}"
+        | withHeader "Authorization" "MediaBrowser Token=''${ENV_JELLYFIN_TOKEN}"
         | withParameter "Recursive" "true"
         | withParameter "IncludeItemTypes" "Movie,Episode"
         | withParameter "SortBy" "DateCreated"
         | withParameter "SortOrder" "Descending"
         | withParameter "Limit" "6"
         | getResponse }}
+      ${httpError "$latest.Response"}
       <ul class="list list-gap-6">
       {{ range $latest.JSON.Array "Items" }}
         <li>{{ if .Exists "SeriesName" }}{{ .String "SeriesName" }}: {{ end }}{{ .String "Name" }}</li>
+      {{ else }}
+        <li class="color-subdue">No recent items</li>
       {{ end }}
       </ul>
     '';
@@ -213,11 +226,17 @@ let
     url = "https://rss.${domain}/v1/categories?counts=true";
     headers.X-Auth-Token = "\${ENV_MINIFLUX_TOKEN}";
     template = ''
+      ${httpError ".Response"}
+      {{ $unread := 0 }}
       <ul class="list list-gap-6">
-      {{ range sortByInt "unread_count" "desc" (.JSON.Array "") }}
-        {{ if gt (.Int "unread_count") 0 }}
-          <li class="flex justify-between"><span>{{ .String "title" }}</span><span class="color-highlight">{{ .Int "unread_count" }}</span></li>
+      {{ range sortByInt "total_unread" "desc" (.JSON.Array "") }}
+        {{ if gt (.Int "total_unread") 0 }}
+          {{ $unread = add $unread (.Int "total_unread") }}
+          <li class="flex justify-between"><span>{{ .String "title" }}</span><span class="color-highlight">{{ .Int "total_unread" }}</span></li>
         {{ end }}
+      {{ end }}
+      {{ if eq $unread 0 }}
+        <li class="color-subdue">No unread entries</li>
       {{ end }}
       </ul>
     '';
@@ -231,13 +250,14 @@ let
     url = "http://127.0.0.1:8123/api/states";
     headers.Authorization = "Bearer \${ENV_HA_TOKEN}";
     template = ''
+      ${httpError ".Response"}
       <ul class="list list-gap-6">
       {{ range .JSON.Array "" }}
         {{ $id := .String "entity_id" }}
         {{ if or ${
           lib.concatMapStringsSep " " (entity: ''(eq $id "${entity}")'') cfg.homeassistant.entities
         } }}
-          <li class="flex justify-between"><span>{{ .String "attributes.friendly_name" }}</span><span class="color-highlight">{{ .String "state" }} {{ .String "attributes.unit_of_measurement" }}</span></li>
+          <li class="flex justify-between" style="gap: 1rem"><span>{{ .String "attributes.friendly_name" | trimPrefix "GoodWe " }}</span><span class="color-highlight" style="white-space: nowrap">{{ .String "state" }} {{ .String "attributes.unit_of_measurement" }}</span></li>
         {{ end }}
       {{ end }}
       </ul>
@@ -321,9 +341,6 @@ in
         # hosts/NixOS-ServerGaming/temp, removed later.
         (monitor "ServerGaming: Test" [
           (publicApp "Countdown" "countdown" "auto-invert di:cronicle")
-          (publicApp "Nextcloud" "cloud" "di:nextcloud")
-          (publicApp "Nextcloud Office" "office" "di:collabora-online")
-          (publicApp "code-server" "code" "di:code-server.png")
         ])
       ];
     }

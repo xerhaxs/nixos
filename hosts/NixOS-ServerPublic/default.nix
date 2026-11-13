@@ -14,6 +14,5 @@
     ./machine.nix
     ./networking.nix
     ./server.nix
-    ./wireguard.nix
   ];
 }

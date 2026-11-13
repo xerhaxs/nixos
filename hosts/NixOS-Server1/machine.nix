@@ -31,5 +31,33 @@
   nixos.system.clamav = {
     extraScanDirectories = [ "/pool01/shares" ];
     excludePaths = [ "^/pool01/shares/video" ];
+    # Checked 10.11.2026 (TODO 13.24): Win10XPE build project, a joke program from a floppy disk and
+    # a 2003 mail in old mail copies, all kept on purpose.
+    acknowledged =
+      let
+        papa = "/pool01/shares/document/Papa File Share";
+      in
+      [
+        {
+          path = "${papa}/Backup/ctnotwin/*";
+          signature = "Win.*";
+        }
+        {
+          path = "/pool01/shares/document/Disketten_Digitalisierung/Have-Fun/have_fun.zip";
+          signature = "Win.Joke.*";
+        }
+        {
+          path = "${papa}/Outlook Export/*";
+          signature = "*Phishing*";
+        }
+        {
+          path = "${papa}/*/Thunderbird/Profiles/*";
+          signature = "*Phishing*";
+        }
+        {
+          path = "/pool01/shares/jf/Dokumente/Wichtige Datein/Mail/*";
+          signature = "*Phishing*";
+        }
+      ];
   };
 }

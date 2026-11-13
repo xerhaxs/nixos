@@ -7,6 +7,7 @@ name:
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -52,4 +53,29 @@ in
 
   nixos.system.initrdssh.ip =
     if gateway == null then "dhcp" else "${net.ipv4}::${gateway}:${netmask}:::none";
+
+  # Contabo's router forgets the IPv6 neighbor entry of an idle VPS and then fails to resolve it
+  # again ("No route to host" from outside, IPv4 unaffected). Regular outgoing traffic from the
+  # global address keeps the entry alive.
+  systemd.services.ipv6-keepalive = lib.mkIf (ipv6 != null) {
+    description = "Keep the IPv6 neighbor entry at the provider's router alive";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "-${pkgs.iputils}/bin/ping -6 -c 1 -W 2 -I ${ipv6} 2620:fe::fe";
+      DynamicUser = true;
+      AmbientCapabilities = [ "CAP_NET_RAW" ];
+      CapabilityBoundingSet = [ "CAP_NET_RAW" ];
+    };
+  };
+
+  systemd.timers.ipv6-keepalive = lib.mkIf (ipv6 != null) {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "30s";
+      OnUnitActiveSec = "30s";
+      AccuracySec = "1s";
+    };
+  };
 }
