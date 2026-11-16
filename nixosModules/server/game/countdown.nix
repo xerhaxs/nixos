@@ -15,12 +15,14 @@ let
         "@title@"
         "@subtitle@"
         "@target@"
+        "@start@"
         "@doneText@"
       ]
       [
         (lib.escapeXML cfg.title)
         (lib.escapeXML cfg.subtitle)
         cfg.target
+        (if cfg.start == null then "" else cfg.start)
         (lib.escape [ ''"'' "\\" ] cfg.doneText)
       ]
       (builtins.readFile ./countdown.html)
@@ -41,6 +43,15 @@ in
         type = lib.types.strMatching "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+-][0-9]{2}:[0-9]{2})";
         example = "2027-01-01T18:00:00+01:00";
         description = "End of the countdown (ISO 8601 with time zone).";
+      };
+
+      start = lib.mkOption {
+        type = lib.types.nullOr (
+          lib.types.strMatching "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+-][0-9]{2}:[0-9]{2})"
+        );
+        default = null;
+        example = "2026-12-24T18:00:00+01:00";
+        description = "Time the countdown starts running (ISO 8601 with time zone); before it the page shows doneText with fireworks and when the countdown starts again. null: runs from the start.";
       };
 
       title = lib.mkOption {

@@ -13,7 +13,7 @@ Game servers.
 
 | Path | Description |
 |---|---|
-| `countdown.html` | Page of the countdown (`@title@`, `@subtitle@`, `@target@`, `@doneText@` are replaced). |
+| `countdown.html` | Page of the countdown (`@title@`, `@subtitle@`, `@target@`, `@start@`, `@doneText@` are replaced), fireworks on a canvas before the start and after the end. |
 | `countdown.nix` | Enable the countdown website on countdown.<domain>. |
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.server.game.enable`. |
 | `minecraft.nix` | Enable Minecraft Server. |
@@ -24,6 +24,7 @@ Game servers.
 |---|---|---|---|
 | `nixos.server.game.countdown.doneText` | string |  | Headline shown when the countdown has ended. |
 | `nixos.server.game.countdown.enable` | boolean | `false` | Enable the countdown website on countdown.<domain>. |
+| `nixos.server.game.countdown.start` | null or string matching the ISO 8601 pattern | `null` | Time the countdown starts running (ISO 8601 with time zone); before it the page shows doneText with fireworks and when the countdown starts again. null: runs from the start. |
 | `nixos.server.game.countdown.subtitle` | string | `""` | Line below the headline. |
 | `nixos.server.game.countdown.target` | string matching the ISO 8601 pattern |  | End of the countdown (ISO 8601 with time zone). |
 | `nixos.server.game.countdown.title` | string |  | Headline of the page. |

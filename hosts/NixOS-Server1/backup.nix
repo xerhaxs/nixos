@@ -7,7 +7,7 @@
 
 {
   nixos.system.restic = {
-    enable = false;
+    enable = true;
     time = "02:00";
     # Only irreplaceable data fits into the 2 TB of Proton Drive (decision 08.11.2026). Every dataset
     # is snapshotted on its own, child datasets of pool01/shares have to be listed separately.

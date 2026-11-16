@@ -19,6 +19,8 @@
 
   * { box-sizing: border-box; margin: 0; }
 
+  [hidden] { display: none !important; }
+
   html, body { height: 100%; }
 
   body {
@@ -34,7 +36,15 @@
     text-align: center;
   }
 
-  main { width: min(100%, 44rem); }
+  main { position: relative; z-index: 1; width: min(100%, 44rem); }
+
+  #fx {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
 
   .heart {
     width: 2.75rem;
@@ -111,6 +121,7 @@
 </style>
 </head>
 <body>
+  <canvas id="fx" hidden aria-hidden="true"></canvas>
   <main>
     <svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M12 21s-7.5-4.6-10-9.2C.4 8.7 2 5 5.6 5c2.1 0 3.6 1.1 4.4 2.5h4C14.8 6.1 16.3 5 18.4 5 22 5 23.6 8.7 22 11.8 19.5 16.4 12 21 12 21z"/>
@@ -126,30 +137,182 @@
     </div>
 
     <p class="date" id="date"></p>
+    <p class="date" id="startNote" hidden></p>
   </main>
 
   <script>
     const target = new Date("@target@");
+    const start = "@start@" ? new Date("@start@") : null;
     const doneText = "@doneText@";
     const pad = (value) => String(value).padStart(2, "0");
     const set = (id, value) => { document.getElementById(id).textContent = value; };
+    const show = (id, visible) => { document.getElementById(id).hidden = !visible; };
+    const format = (date) => date.toLocaleString("de-DE", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Berlin" }) + " Uhr";
 
-    set("date", target.toLocaleString("de-DE", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Berlin" }) + " Uhr");
+    const countdownTitle = document.getElementById("title").textContent;
+    let effect = null;
+
+    set("date", format(target));
+    if (start) set("startNote", "Der Countdown startet wieder am " + format(start) + ".");
+
+    // Before start: the reunion screen with fireworks and a note when the countdown starts again.
+    // From start to target: the countdown. After target: the reunion screen for good.
+    function together(withNote) {
+      set("title", doneText);
+      show("subtitle", false);
+      show("units", false);
+      show("date", false);
+      show("startNote", withNote);
+      if (!effect) effect = fireworks();
+    }
 
     function tick() {
-      const left = Math.floor((target - Date.now()) / 1000);
+      const now = Date.now();
+      if (start !== null && now < start) {
+        together(true);
+        return;
+      }
+      const left = Math.floor((target - now) / 1000);
       if (left <= 0) {
-        set("title", doneText);
-        document.getElementById("subtitle").hidden = true;
-        document.getElementById("units").hidden = true;
-        document.getElementById("date").hidden = true;
+        together(false);
         clearInterval(timer);
         return;
       }
+      if (effect) {
+        effect.stop();
+        effect = null;
+      }
+      set("title", countdownTitle);
+      show("subtitle", true);
+      show("units", true);
+      show("date", true);
+      show("startNote", false);
       set("days", Math.floor(left / 86400));
       set("hours", pad(Math.floor(left / 3600) % 24));
       set("minutes", pad(Math.floor(left / 60) % 60));
       set("seconds", pad(left % 60));
+    }
+
+    function fireworks() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return { stop() {} };
+      const canvas = document.getElementById("fx");
+      const ctx = canvas.getContext("2d");
+      const colors = ["#f5c2e7", "#cba6f7", "#f38ba8", "#fab387", "#f9e2af", "#a6e3a1", "#89dceb", "#b4befe"];
+      const gravity = 0.12;
+      const rockets = [];
+      const sparks = [];
+      const rand = (min, max) => min + Math.random() * (max - min);
+      let width = 0;
+      let height = 0;
+
+      function resize() {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      }
+
+      function launch() {
+        const rise = rand(height * 0.45, height * 0.8);
+        rockets.push({
+          x: rand(width * 0.15, width * 0.85),
+          y: height,
+          vx: rand(-0.8, 0.8),
+          vy: -Math.sqrt(2 * gravity * rise),
+          color: colors[Math.floor(Math.random() * colors.length)],
+        });
+      }
+
+      function explode(rocket) {
+        const count = Math.round(rand(50, 90));
+        const second = colors[Math.floor(Math.random() * colors.length)];
+        for (let i = 0; i < count; i++) {
+          const angle = (i / count) * Math.PI * 2;
+          const speed = rand(1.5, 4.5);
+          sparks.push({
+            x: rocket.x,
+            y: rocket.y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: rand(55, 95),
+            age: 0,
+            color: Math.random() < 0.7 ? rocket.color : second,
+          });
+        }
+      }
+
+      let last = performance.now();
+      let nextLaunch = 0;
+      let request = 0;
+
+      function frame(now) {
+        const step = Math.min((now - last) / 16.67, 3);
+        last = now;
+
+        if (now >= nextLaunch) {
+          launch();
+          if (Math.random() < 0.35) launch();
+          nextLaunch = now + rand(450, 1100);
+        }
+
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fillStyle = "rgba(0, 0, 0, " + Math.min(0.2 * step, 1) + ")";
+        ctx.fillRect(0, 0, width, height);
+        ctx.globalCompositeOperation = "lighter";
+
+        for (let i = rockets.length - 1; i >= 0; i--) {
+          const r = rockets[i];
+          r.x += r.vx * step;
+          r.y += r.vy * step;
+          r.vy += gravity * step;
+          ctx.fillStyle = r.color;
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+          if (r.vy >= 0) {
+            explode(r);
+            rockets.splice(i, 1);
+          }
+        }
+
+        for (let i = sparks.length - 1; i >= 0; i--) {
+          const s = sparks[i];
+          s.age += step;
+          if (s.age >= s.life) {
+            sparks.splice(i, 1);
+            continue;
+          }
+          const drag = Math.pow(0.985, step);
+          s.vx *= drag;
+          s.vy = s.vy * drag + 0.05 * step;
+          s.x += s.vx * step;
+          s.y += s.vy * step;
+          ctx.globalAlpha = 1 - s.age / s.life;
+          ctx.fillStyle = s.color;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, 1.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        request = requestAnimationFrame(frame);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+      canvas.hidden = false;
+      request = requestAnimationFrame(frame);
+
+      return {
+        stop() {
+          cancelAnimationFrame(request);
+          window.removeEventListener("resize", resize);
+          ctx.clearRect(0, 0, width, height);
+          canvas.hidden = true;
+        },
+      };
     }
 
     const timer = setInterval(tick, 1000);
