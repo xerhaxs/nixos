@@ -16,6 +16,17 @@ inputs: final: prev: {
     '';
   });
 
+  # Proton-API-Bridge (vendored in rclone) blocks on an unbuffered channel after a failed block
+  # upload (e.g. a 502 from Proton) and never releases its semaphore slot; after a few failures every
+  # upload hangs and the restic backup to Proton Drive stalls. Remove once upstream fixes
+  # uploadAndCollectBlockData (docs/workarounds.md).
+  rclone = prev.rclone.overrideAttrs (old: {
+    postConfigure = (old.postConfigure or "") + ''
+      chmod -R u+w vendor/github.com/rclone/Proton-API-Bridge
+      patch -p1 -d vendor/github.com/rclone/Proton-API-Bridge < ${./rclone/proton-upload-deadlock.patch}
+    '';
+  });
+
   # nixpkgs ships typepy 2, sqliteschema and SimpleSQLite still pin typepy < 2 (sbomnix needs them).
   # Remove once nixpkgs relaxes the pins itself (TODO 13.21).
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [

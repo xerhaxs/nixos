@@ -1,0 +1,18 @@
+--- a/file_upload.go
++++ b/file_upload.go
+@@ -292,11 +292,14 @@
+ 			return err
+ 		}
+ 
+-		errChan := make(chan error)
++		// Buffered: after the first error nobody reads anymore, the other uploads must still finish
++		// and release the semaphore, otherwise every failed batch leaks slots until all uploads hang.
++		errChan := make(chan error, len(blockUploadResp))
+ 		uploadBlockWrapper := func(ctx context.Context, errChan chan error, bareURL, token string, block io.Reader) {
+ 			// log.Println("Before semaphore")
+ 			if err := protonDrive.blockUploadSemaphore.Acquire(ctx, 1); err != nil {
+ 				errChan <- err
++				return
+ 			}
+ 			defer protonDrive.blockUploadSemaphore.Release(1)
+ 			// log.Println("After semaphore")

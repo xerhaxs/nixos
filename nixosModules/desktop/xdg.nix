@@ -19,6 +19,7 @@ let
   signal = [ "signal-desktop.desktop;" ];
   discord = [ "com.discordapp.Discord.desktop;" ];
   maps = [ "openstreetmap-geo-handler.desktop;" ];
+  mail = [ "thunderbird.desktop;" ];
 
   associations = {
     "application/x-extension-htm" = browser;
@@ -49,6 +50,9 @@ let
     "x-scheme-handler/discord" = discord;
     "inode/directory" = filemanager;
     "x-scheme-handler/geo" = maps;
+    "x-scheme-handler/mailto" = mail;
+    "x-scheme-handler/mid" = mail;
+    "message/rfc822" = mail;
     "application/geo+json" = maps;
   };
 in

@@ -31,6 +31,9 @@
       repository = "rclone:proton:nixos-server1";
       passwordFile = config.sops.secrets."restic/password".path;
       rcloneConfigSecret = config.sops.secrets."restic/rclone-proton".path;
+      # Proton keeps a draft after a failed upload (502), without this every retry fails with
+      # "a draft exist" and the backup aborts.
+      rcloneOptions.protondrive-replace-existing-draft = true;
       # Proton Duo has 2 TB.
       sizeLimit = 1900000000000;
     };

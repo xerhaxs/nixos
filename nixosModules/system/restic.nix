@@ -92,6 +92,7 @@ let
       repo.extraOptions
       ++ lib.optional (repo.rcloneConfigSecret != null) "rclone.program=${pkgs.rclone}/bin/rclone";
     rcloneConfigFile = lib.mkIf (repo.rcloneConfigSecret != null) (rcloneConfig name);
+    rcloneOptions = lib.mkIf (repo.rcloneOptions != { }) repo.rcloneOptions;
     timerConfig = {
       OnCalendar = cfg.time;
       RandomizedDelaySec = "30m";
@@ -200,6 +201,14 @@ in
                 type = lib.types.nullOr lib.types.str;
                 default = null;
                 description = "rclone config (secret) for rclone: repositories, copied once to a writable location.";
+              };
+              rcloneOptions = lib.mkOption {
+                type = lib.types.attrsOf (lib.types.either lib.types.str lib.types.bool);
+                default = { };
+                example = {
+                  protondrive-replace-existing-draft = true;
+                };
+                description = "rclone options (without --), passed as RCLONE_* variables to the service and the wrapper restic-<name>.";
               };
               sizeLimit = lib.mkOption {
                 type = lib.types.nullOr lib.types.int;

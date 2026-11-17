@@ -2,7 +2,7 @@
 
 ## How it is used
 
-NixOS-Server1 backs up only irreplaceable data with restic to Proton Drive (decision 08.11.2026, the Duo plan has 2 TB): `pool01/shares/photo` completely, `pool01/shares/jf/Dokumente` (contains both NixOS repositories through Syncthing), `pool01/shares/document/Office Dokumente` and `pool01/shares/document/Wiso Mein Geld`. Every dataset is snapshotted on its own (`zfsDatasets`, subdirectories in `zfsSubdirs`). The alert `ResticRepositoryFull` fires above 1.9 TB (`sizeLimit`); after each backup `restic-size-proton` measures the repository. The data is backed up (`hosts/NixOS-Server1/backup.nix`, currently disabled until the secrets exist). restic talks to Proton Drive through rclone (backend `protondrive`, repository `rclone:proton:nixos-server1`). restic encrypts and deduplicates everything on the server before the upload: Proton only stores restic pack files, and Proton's own encryption comes on top.
+NixOS-Server1 backs up only irreplaceable data with restic to Proton Drive (decision 08.11.2026, the Duo plan has 2 TB): `pool01/shares/photo` completely, `pool01/shares/jf/Dokumente` (contains both NixOS repositories through Syncthing), `pool01/shares/document/Office Dokumente` and `pool01/shares/document/Wiso Mein Geld`. Every dataset is snapshotted on its own (`zfsDatasets`, subdirectories in `zfsSubdirs`). The alert `ResticRepositoryFull` fires above 1.9 TB (`sizeLimit`); after each backup `restic-size-proton` measures the repository. The data is backed up (`hosts/NixOS-Server1/backup.nix`). restic talks to Proton Drive through rclone (backend `protondrive`, repository `rclone:proton:nixos-server1`). restic encrypts and deduplicates everything on the server before the upload: Proton only stores restic pack files, and Proton's own encryption comes on top.
 
 ## Schedule and versions
 
@@ -10,7 +10,14 @@ The backup runs every night at 02:00 (up to 30 minutes later), see `nixos.system
 
 ## Restore on a client
 
-On a client with the repository passwords (KeePassXC entries "restic repository NixOS-Server1" and "Proton"): the same steps as in the emergency below, or directly on NixOS-Server1 with the wrapper of the restic module: `sudo restic-proton snapshots`, `sudo restic-proton mount /mnt` (browse, Ctrl+C ends it), `sudo restic-proton restore latest --target /tmp/restore --include <path>`.
+On the own clients (Desktop, laptops, Portable) with the command `proton-backup` (`homeModules/applications/sync/proton-backup.nix`), KeePassXC unlocked:
+
+- Once: give the KeePassXC entry "restic repository NixOS-Server1" the URL `https://restic-proton.invalid`, then `proton-backup setup` (Proton address, password and the current 2FA code). The password is not stored: the rclone config in `~/.config/rclone-proton` (persistent) only keeps the session tokens, rclone renews them on every use, and the file is encrypted with the restic passphrase. No 2FA code afterwards, unless Proton ends the session (password change, "sign out of all devices", long unused): then `proton-backup setup` again.
+- Browse: `proton-backup` mounts all snapshots read-only in `~/ProtonBackup` (Dolphin: `snapshots/<date>/pool01/shares/…`), Ctrl+C unmounts.
+- Other restic commands: `proton-backup snapshots`, `proton-backup restore latest --target ~/restore --include <path>`, `proton-backup find <name>`.
+- Reading takes a shared lock and runs alongside the nightly backup; the first snapshot exists only after the first run has finished.
+
+On a foreign device: the same steps as in the emergency below. Directly on NixOS-Server1 with the wrapper of the restic module: `sudo restic-proton snapshots`, `sudo restic-proton mount /mnt` (browse, Ctrl+C ends it), `sudo restic-proton restore latest --target /tmp/restore --include <path>`.
 
 The Proton Drive app and website only show the encrypted restic pack files.
 

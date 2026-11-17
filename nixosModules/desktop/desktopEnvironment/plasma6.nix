@@ -72,6 +72,13 @@ in
 
     programs.kdeconnect.package = lib.mkForce pkgs.kdePackages.kdeconnect-kde;
 
+    # Plasma enables KDE PIM by default; mail is Thunderbird, only Merkuro and Akonadi stay for the
+    # calendar in the panel.
+    programs.kde-pim = {
+      kmail = false;
+      kontact = false;
+    };
+
     environment.sessionVariables = {
       QML_IMPORT_PATH = [
         "${pkgs.kdePackages.merkuro}/lib/qt-6/qml"
