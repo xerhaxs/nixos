@@ -90,7 +90,7 @@ let
     exclude = cfg.exclude;
     extraOptions =
       repo.extraOptions
-      ++ lib.optional (repo.rcloneConfigSecret != null) "rclone.program=${pkgs.rclone}/bin/rclone";
+      ++ lib.optional (repo.rcloneConfigSecret != null) "rclone.program=${pkgs.rclone-proton}/bin/rclone";
     rcloneConfigFile = lib.mkIf (repo.rcloneConfigSecret != null) (rcloneConfig name);
     rcloneOptions = lib.mkIf (repo.rcloneOptions != { }) repo.rcloneOptions;
     timerConfig = {

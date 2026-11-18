@@ -33,4 +33,6 @@
     media.easyeffects.enable = true;
     tools.backintime.enable = true;
   };
+
+  homeManager.desktop.favoritesExclude = [ "com.github.flxzt.rnote" ];
 }

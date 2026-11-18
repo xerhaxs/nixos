@@ -35,4 +35,6 @@
     sync.rclone.enable = true;
     vpn.protonvpn.enable = true;
   };
+
+  homeManager.desktop.favoritesExclude = [ "com.github.flxzt.rnote" ];
 }

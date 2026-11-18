@@ -25,5 +25,7 @@ User side of the desktop: Plasma, Hyprland, xdg and X settings.
 |---|---|---|---|
 | `homeManager.desktop.enable` | boolean | `false` | Enable desktop modules bundle. |
 | `homeManager.desktop.favorites` | list of string | The applications of the Plasma task bar. | Desktop entry ids (without `.desktop`) of the favorite applications, shared by the Plasma task bar and the Hyprland launcher. |
+| `homeManager.desktop.favoritesExclude` | list of string | `[ ]` | Entries of desktop.favorites left out on this host. |
+| `homeManager.desktop.favoritesShown` | list of string | favorites without favoritesExclude | The favorites this host shows (task bar, start menu, Hyprland launcher). |
 | `homeManager.desktop.xdg.enable` | boolean | `false` | Enable xdg settings. |
 | `homeManager.desktop.xserver.enable` | boolean | `false` | Enable xserver settings. |

@@ -10,8 +10,8 @@
   imports = [
     ./kdeconnect.nix
     ./onionshare.nix
-    ./proton-backup.nix
     ./rclone.nix
+    ./restic-browser.nix
     ./syncthing.nix
   ];
 
@@ -30,8 +30,8 @@
     homeManager.applications.sync = {
       kdeconnect.enable = true;
       onionshare.enable = lib.mkDefault true;
-      protonBackup.enable = lib.mkDefault config.homeManager.applications.tools.keepassxc.enable;
       rclone.enable = lib.mkDefault false;
+      resticBrowser.enable = lib.mkDefault true;
       syncthing.enable = lib.mkIf osConfig.nixos.userEnvironment.syncthing.enable true;
     };
   };

@@ -196,7 +196,12 @@
               config = {
                 General = {
                   icon = "nix-snowflake-white";
-                  favoritesPortedToKAstats = "true";
+                  # Plasma keeps the favorites in the activity database (tmpfs, empty after every boot)
+                  # and imports this list while it is empty and the flag is false: the same apps in
+                  # the same order as the task manager. kicker-extra-favoritesrc below covers the
+                  # default menu Plasma loads before this panel exists.
+                  favorites = map (id: "${id}.desktop") config.homeManager.desktop.favoritesShown;
+                  favoritesPortedToKAstats = "false";
                   systemFavorites = "suspend\\,reboot\\,shutdown";
                 };
               };
@@ -226,7 +231,9 @@
             {
               name = "org.kde.plasma.icontasks";
               config = {
-                General.launchers = map (id: "applications:${id}.desktop") config.homeManager.desktop.favorites;
+                General.launchers = map (
+                  id: "applications:${id}.desktop"
+                ) config.homeManager.desktop.favoritesShown;
               };
             }
 
@@ -247,7 +254,7 @@
               config = {
                 Appearance = {
                   dateFormat = "isoDate";
-                  enabledCalendarPlugins = "alternatecalendar,astronomicalevents,holidaysevents";
+                  enabledCalendarPlugins = "alternatecalendar,astronomicalevents,holidaysevents,pimevents";
                   showSeconds = "Always";
                   showWeekNumbers = "true";
                   use24hFormat = "2";
@@ -589,6 +596,16 @@
       };
 
       configFile = {
+        # Plasma first loads its default menu, which imports these favorites into the empty activity
+        # database instead of its own defaults (browser, Kontact, ...). The menu of the panel then finds
+        # them and keeps them.
+        "kicker-extra-favoritesrc"."General" = {
+          "Prepend" = lib.concatStringsSep ";" (
+            map (id: "${id}.desktop") config.homeManager.desktop.favoritesShown
+          );
+          "IgnoreDefaults" = true;
+        };
+
         "plasmaparc"."General" = {
           "VolumeStep" = 1;
           "AudioFeedback" = false;

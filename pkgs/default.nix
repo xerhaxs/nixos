@@ -18,9 +18,10 @@ inputs: final: prev: {
 
   # Proton-API-Bridge (vendored in rclone) blocks on an unbuffered channel after a failed block
   # upload (e.g. a 502 from Proton) and never releases its semaphore slot; after a few failures every
-  # upload hangs and the restic backup to Proton Drive stalls. Remove once upstream fixes
+  # upload hangs and the restic backup to Proton Drive stalls. A separate package, so restic and other
+  # packages with rclone stay in the binary cache. Remove once upstream fixes
   # uploadAndCollectBlockData (docs/workarounds.md).
-  rclone = prev.rclone.overrideAttrs (old: {
+  rclone-proton = prev.rclone.overrideAttrs (old: {
     postConfigure = (old.postConfigure or "") + ''
       chmod -R u+w vendor/github.com/rclone/Proton-API-Bridge
       patch -p1 -d vendor/github.com/rclone/Proton-API-Bridge < ${./rclone/proton-upload-deadlock.patch}

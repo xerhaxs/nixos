@@ -10,6 +10,7 @@
   imports = [
     ./dconf.nix
     ./dolphin.nix
+    ./merkuro.nix
     ./plasma6.nix
   ];
 
@@ -34,6 +35,7 @@
         homeManager.desktop.desktopEnvironment.plasma6 = {
           dconf.enable = true;
           dolphin.enable = true;
+          merkuro.enable = lib.mkDefault true;
           plasma6.enable = true;
         };
       };

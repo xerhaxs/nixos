@@ -204,7 +204,9 @@ The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpf
    sudo cryptsetup luksAddKey /dev/disk/by-label/CRYPTBACKUP /secrets/keyfile.key
    ```
 
-6. Check: `systemctl --failed` and `systemctl --user --failed` are empty, Plasma has its panels and theme.
+6. Calendar and contacts: after the first login the Radicale resource of Akonadi asks for the password once (KeePassXC `Radicale jf`, stored in KWallet), the rest of Merkuro is declarative (`homeModules/desktop/desktopEnvironment/plasma6/merkuro.nix`).
+7. Proton backup: `rclone config` once (remote `proton`, Proton login with 2FA) for Restic Browser, see [`docs/proton-drive.md`](docs/proton-drive.md#restore-on-a-client).
+8. Check: `systemctl --failed` and `systemctl --user --failed` are empty, Plasma has its panels and theme, the clock calendar shows the events.
 
 #### NixOS-Server1
 

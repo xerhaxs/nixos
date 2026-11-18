@@ -20,7 +20,7 @@ let
     name = "favorites-list";
     runtimeInputs = [ pkgs.jq ];
     text = ''
-      ids=(${lib.escapeShellArgs config.homeManager.desktop.favorites})
+      ids=(${lib.escapeShellArgs config.homeManager.desktop.favoritesShown})
       IFS=: read -ra dirs <<< "''${XDG_DATA_HOME:-$HOME/.local/share}:''${XDG_DATA_DIRS:-/run/current-system/sw/share}"
 
       list() {

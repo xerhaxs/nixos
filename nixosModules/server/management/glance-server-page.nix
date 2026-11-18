@@ -313,12 +313,24 @@ in
           (app "Ollama" "ollama" "auto-invert di:ollama")
           (app "ComfyUI" "comfyui" "di:comfyui")
           (app "SearXNG" "searxng" "di:searxng")
-          (app "LanguageTool" "languagetool" "sh:languagetool")
+          # API only or no own start page: the root answers 400 (LanguageTool) or 404 (Matrix, Redlib),
+          # check a page that always answers instead.
+          (
+            (app "LanguageTool" "languagetool" "sh:languagetool")
+            // {
+              check-url = "https://languagetool.${homeDomain}/v2/languages";
+            }
+          )
           (app "LibreTranslate" "libretranslate" "auto-invert di:libretranslate")
           (app "Linkwarden" "linkwarden" "sh:linkwarden")
           (app "Radicale" "radicale" "di:radicale")
           (app "Invidious" "invidious" "di:invidious")
-          (app "Redlib" "libreddit" "di:redlib")
+          (
+            (app "Redlib" "libreddit" "di:redlib")
+            // {
+              check-url = "https://libreddit.${homeDomain}/settings";
+            }
+          )
           (app "Networking Toolbox" "networkingtoolbox" "di:networking-toolbox-dark")
         ])
         (hostStats "NixOS-ServerPublic" "NixOS-ServerPublic")
@@ -329,7 +341,12 @@ in
             icon = "di:stalwart";
           }
           (publicApp "CryptPad" "cryptpad" "di:cryptpad")
-          (publicApp "Matrix" "matrix" "di:matrix-light")
+          (
+            (publicApp "Matrix" "matrix" "di:matrix-light")
+            // {
+              check-url = "https://matrix.${domain}/_matrix/client/versions";
+            }
+          )
           (publicApp "ntfy" "push" "di:ntfy")
           (publicApp "Miniflux" "rss" "di:miniflux")
         ])

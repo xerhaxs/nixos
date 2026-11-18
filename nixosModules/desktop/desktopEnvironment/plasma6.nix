@@ -110,6 +110,9 @@ in
         with kdePackages;
         [
           akonadi
+          # Serializer for calendar items: without it plasmashell gets the events without payload and the
+          # clock shows none (Merkuro brings it in its own wrapper).
+          akonadi-calendar
           akonadi-calendar-tools
           bluedevil
           colord-kde
