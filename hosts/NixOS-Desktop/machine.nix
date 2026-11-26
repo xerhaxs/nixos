@@ -15,10 +15,10 @@
 
   nixos.system.clamav = {
     extraScanDirectories = [ "/mount/Data/Datein" ];
-    # Checked 10.11.2026 (TODO 13.25): a 2003 mail in the 1&1 account and in old mail copies.
+    # Checked 10.11.2026: a 2003 mail in the 1&1 account and in old mail copies.
     acknowledged = [
       {
-        path = "/mount/Data/Datein/Dokumente/Wichtige Datein/Mail/*";
+        path = "/mount/Data/Datein/Dokumente/Wichtige Datein/*";
         signature = "*Phishing*";
       }
       {

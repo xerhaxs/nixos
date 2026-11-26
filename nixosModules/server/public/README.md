@@ -6,8 +6,8 @@ Services of the public server (NixOS-ServerPublic).
 
 ## How it works
 
-- Mail (Stalwart), Matrix (Synapse with Discord/Signal/Telegram/WhatsApp bridges), CryptPad, ntfy (UnifiedPush), TURN (coturn), Miniflux, Briar Mailbox, MollySocket.
-- All services listen on localhost behind nginx, except the protocols that need own ports (SMTP/IMAP, TURN).
+- Mail (Stalwart), Matrix (Synapse with Discord/Signal/Telegram/WhatsApp bridges), CryptPad, ntfy (UnifiedPush), TURN (coturn), Miniflux, Briar Mailbox, MollySocket, MediaMTX (emergency stream from the phone).
+- All services listen on localhost behind nginx, except the protocols that need own ports (SMTP/IMAP, TURN, SRT).
 - The bridges are built without the deprecated libolm (goolm or without encryption support).
 - Stalwart publishes the own OpenPGP key (private `pgp/public.asc`) by WKD on `openpgpkey.<mailDomain>`.
 
@@ -20,6 +20,7 @@ Services of the public server (NixOS-ServerPublic).
 | `cryptpad.nix` | Enable cryptpad. |
 | `default.nix` | Imports the modules of this folder and defines the bundle option `nixos.server.public.enable`. |
 | `matrix.nix` | Enable matrix server. |
+| `mediamtx.nix` | Enable MediaMTX for an emergency stream from the phone: SRT ingest with login and passphrase, every stream recorded until deleted by hand, live view and recordings behind nginx with login (secret mediamtx/env). |
 | `miniflux.nix` | Enable the Miniflux RSS reader. |
 | `mollysocket.nix` | Enable MollySocket (UnifiedPush for the Signal client Molly, secret mollysocket/env with MOLLY_VAPID_PRIVKEY). |
 | `ntfy.nix` | Enable ntfy push server (UnifiedPush). |
@@ -39,6 +40,8 @@ Services of the public server (NixOS-ServerPublic).
 | `nixos.server.public.matrix.bridges.telegram.enable` | boolean | `false` | Enable the Telegram bridge (mautrix-telegram), needs api_id/api_hash from my.telegram.org. |
 | `nixos.server.public.matrix.bridges.whatsapp.enable` | boolean | `false` | Enable the WhatsApp bridge (mautrix-whatsapp). |
 | `nixos.server.public.matrix.enable` | boolean | `false` | Enable matrix server. |
+| `nixos.server.public.mediamtx.enable` | boolean | `false` | Enable MediaMTX for an emergency stream from the phone: SRT ingest with login and passphrase, every stream recorded until deleted by hand, live view and recordings behind nginx with login (secret mediamtx/env). |
+| `nixos.server.public.mediamtx.path` | string | `"notfall"` | Stream path, part of the SRT streamid and the URLs. |
 | `nixos.server.public.miniflux.enable` | boolean | `false` | Enable the Miniflux RSS reader. |
 | `nixos.server.public.mollysocket.enable` | boolean | `false` | Enable MollySocket (UnifiedPush for the Signal client Molly, secret mollysocket/env with MOLLY_VAPID_PRIVKEY). |
 | `nixos.server.public.ntfy.declarativeAuth` | boolean | `false` | Users, tokens and access rules from sops (ntfy/env with NTFY_AUTH_USERS, NTFY_AUTH_TOKENS, NTFY_AUTH_ACCESS). |
@@ -102,6 +105,13 @@ Set up in Element as `jf`. The bot of each bridge answers in a room with only yo
   - Glance on NixOS-Server1: line `ENV_MINIFLUX_TOKEN=<key>` in the secret `glance` of `nixos-server1.yaml`, then `nixos.server.management.glance.miniflux.enable = true` (see `nixosModules/server/management/README.md`).
   - Fluent Reader: Settings, Service, Miniflux, `https://rss.<domain>`, the key.
   - Phone apps: see `docs/rss.md`.
+
+### MediaMTX
+
+- Two accounts: `publisher` may only send (its password is stored in the app on the phone), `jf` may only watch and download. A stolen phone gives no access to the recordings.
+- Sending: SRT on UDP 8890, `srt://stream.<domain>:8890` with streamid `publish:<path>:publisher:<password>` and the publish passphrase (AES, 10 to 79 characters). Without the passphrase or with a wrong login the connection is refused.
+- Every stream is written to `/var/lib/private/mediamtx/recordings/<path>/` (fMP4, flushed every second, one file per stream, nothing is deleted automatically). Delete by hand: `sudo rm /var/lib/private/mediamtx/recordings/<path>/<file>.mp4`.
+- Live view: `https://stream.<domain>/<path>/` (HLS, a few seconds delay), recordings: `https://stream.<domain>/list?path=<path>` lists them with download links (`/get`), both with the login `jf`.
 
 ### Other services
 

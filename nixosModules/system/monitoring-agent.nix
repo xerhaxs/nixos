@@ -21,9 +21,6 @@ let
 
   ports = lib.attrValues exporterPorts;
 
-  # Only hosts in the LAN ship their journal, the VPS keep it (no way from them to NixOS-Server1).
-  shipJournal = isServer1 || config.nixos.system.networking.lan.enable;
-
   firewallRules = lib.concatMapStrings (
     source:
     lib.concatMapStrings (port: ''
@@ -73,23 +70,13 @@ in
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Export metrics (prometheus exporters) and ship the journal to Loki.";
+        description = "Export metrics (prometheus exporters).";
       };
 
       scrapers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ "10.75.0.21" ];
         description = "Addresses of the monitoring server in the LAN allowed to scrape the exporters.";
-      };
-
-      lokiUrl = lib.mkOption {
-        type = lib.types.str;
-        default =
-          if isServer1 then
-            "http://127.0.0.1:3100/loki/api/v1/push"
-          else
-            "http://10.75.0.21:3100/loki/api/v1/push";
-        description = "Loki push endpoint (only hosts in the LAN ship their journal).";
       };
 
       remote = {
@@ -128,7 +115,7 @@ in
     assertions = [
       {
         assertion = cfg.remote.enable -> builtins.pathExists cfg.remote.caCertificate;
-        message = "nixos.system.monitoring-agent.remote: the CA certificate ${toString cfg.remote.caCertificate} is missing, create it and git add it (TODO 30.3).";
+        message = "nixos.system.monitoring-agent.remote: the CA certificate ${toString cfg.remote.caCertificate} is missing, create it and git add it.";
       }
     ];
 
@@ -162,7 +149,7 @@ in
         };
       }
       (lib.genAttrs [ "node" "smartctl" "nginx" "postgres" ] (_: {
-        listenAddress = lib.mkIf cfg.remote.enable "127.0.0.1";
+        listenAddress = lib.mkIf (cfg.remote.enable || isServer1) "127.0.0.1";
       }))
     ];
 
@@ -215,40 +202,5 @@ in
     };
 
     networking.firewall.extraCommands = lib.mkIf (!cfg.remote.enable) firewallRules;
-
-    services.alloy.enable = shipJournal;
-
-    environment.etc."alloy/config.alloy" = lib.mkIf shipJournal {
-      text = ''
-        loki.relabel "journal" {
-          forward_to = []
-          rule {
-            source_labels = ["__journal__systemd_unit"]
-            target_label  = "unit"
-          }
-          rule {
-            source_labels = ["__journal_priority_keyword"]
-            target_label  = "level"
-          }
-          rule {
-            source_labels = ["__journal__transport"]
-            target_label  = "transport"
-          }
-        }
-
-        loki.source.journal "journal" {
-          max_age       = "12h"
-          relabel_rules = loki.relabel.journal.rules
-          forward_to    = [loki.write.server.receiver]
-          labels        = { host = "${config.networking.hostName}" }
-        }
-
-        loki.write "server" {
-          endpoint {
-            url = "${cfg.lokiUrl}"
-          }
-        }
-      '';
-    };
   };
 }

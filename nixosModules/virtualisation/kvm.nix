@@ -59,7 +59,7 @@
 
     # nixpkgs installs vendor-reset by copying the .ko, so the .ko.cer that aggregateModules expects
     # is missing. kbuild's modules_install signs the module and writes it (like broadcom-sta).
-    # Remove once nixpkgs fixes the package (TODO 13.22).
+    # Remove once nixpkgs fixes the package.
     boot.extraModulePackages = with config.boot.kernelPackages; [
       (vendor-reset.overrideAttrs (old: {
         installPhase = ''

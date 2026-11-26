@@ -50,11 +50,9 @@ let
     "stevenBlack"
     "tiktok"
     "tracking"
-    # "ads"
-    # "redirect"
   ];
 
-  localIP = cfg.localIP;
+  inherit (cfg) localIP;
 
   mkHostEntries =
     ip: hosts:
@@ -184,7 +182,6 @@ in
               "libretranslate.${homeDomain}"
               "lidarr.${homeDomain}"
               "linkwarden.${homeDomain}"
-              #"moneronode.${homeDomain}"
               "networkingtoolbox.${homeDomain}"
               "nzbhydra.${homeDomain}"
               "ollama.${homeDomain}"
@@ -215,7 +212,7 @@ in
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict), the local blocklists still apply. Captive portals need a manual workaround.";
+        description = "Ignore the DNS servers of the networks (DHCP) and use Quad9, then Cloudflare, with DNS over TLS (strict), the local blocklists still apply. Captive portals need a manual workaround.";
       };
 
       macRandomization = {
@@ -342,12 +339,18 @@ in
       defaultGateway6 = lib.mkIf (cfg.lan.enable && cfg.lan.staticRouting) cfg.lan.gateway6;
 
       nameservers =
+        # Cloudflare after Quad9: Quad9 refuses whole countries (France since 24.11.2026), resolved
+        # then switches to the next server.
         if cfg.privateDns then
           [
             "9.9.9.9#dns.quad9.net"
             "149.112.112.112#dns.quad9.net"
             "2620:fe::fe#dns.quad9.net"
             "2620:fe::9#dns.quad9.net"
+            "1.1.1.1#cloudflare-dns.com"
+            "1.0.0.1#cloudflare-dns.com"
+            "2606:4700:4700::1111#cloudflare-dns.com"
+            "2606:4700:4700::1001#cloudflare-dns.com"
           ]
         else
           lib.mkIf (cfg.lan.enable && cfg.lan.staticRouting) cfg.lan.nameservers;

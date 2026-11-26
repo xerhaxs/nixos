@@ -30,8 +30,6 @@
         "mafpmfcccpbjnhfhjnllmmalhifmlcie"
       ];
 
-      #initialPrefs = { };
-
       extraOpts = {
         "BrowserSignin" = 0;
         "SyncDisabled" = true;

@@ -34,12 +34,13 @@ Game servers.
 
 ## Notes
 
-- BlueMap and Fabric API are pinned as flake inputs and linked into `mods/` of the instance in the host, the map is on `bluemap.<domain>`.
+- The mods (BlueMap, Fabric API and the others) come from Modrinth as flake inputs `mc-<project>` in `flake.nix`, every one is linked as `mods/<project>.jar` into the instance `flolserver` in the host. The map is on `bluemap.<domain>`.
+- VanillaTweaks datapacks are not in the repo (only short-lived downloads, no redistribution): copy them once to `/srv/minecraft/<name>/world/datapacks/` and run `reload` in the console.
 - https://github.com/Infinidoge/nix-minecraft
 
 ### Managing the Minecraft servers
 
-Every instance is a block under `services.minecraft-servers.servers` in `hosts/NixOS-ServerGaming/minecraft.nix` (version, mods, whitelist, operators, `serverProperties`). Its data is in `/srv/minecraft/<name>` (persisted, in the nightly restic backup), the service is `minecraft-server-<name>`. The commands below run on NixOS-ServerGaming (`ssh -t admin@NixOS-ServerGaming`), `<name>` is e.g. `flolserver`.
+Every instance is a block under `services.minecraft-servers.servers` in `hosts/NixOS-ServerGaming/minecraft.nix` (version, mods, whitelist, operators, `serverProperties`). Its data is in `/srv/minecraft/<name>` (persisted, backed up only by the automatic backup of the VPS provider; for an own copy download the world as below), the service is `minecraft-server-<name>`. The commands below run on NixOS-ServerGaming (`ssh -t admin@NixOS-ServerGaming`), `<name>` is e.g. `flolserver`.
 
 - Files: Dolphin on the clients has the place "Minecraft" (`sftp://admin@NixOS-ServerGaming/srv/minecraft`, option `homeManager.desktop.desktopEnvironment.plasma6.dolphin.places`), KeePassXC has to be unlocked for the SSH key. `admin` is in the group `minecraft`, a default ACL on `/srv/minecraft` keeps all files writable for the group, so worlds and configs can be copied and edited there directly. Stop the server before replacing a world.
 - Status and log: `systemctl status minecraft-server-<name>`, `journalctl -u minecraft-server-<name> -f`.
@@ -82,8 +83,8 @@ Change the Minecraft version:
 
 1. Back up the world first (download above). A world can be upgraded but never downgraded.
 2. Available versions: `nix flake update nix-minecraft` (newer versions), then `nix eval --json .#nixosConfigurations.NixOS-ServerGaming.pkgs.fabricServers --apply builtins.attrNames`. The name is the version with `_` (`fabric-1_21_11`, `fabric-26_3`).
-3. Mods for exactly that version: on modrinth.com open Fabric API and BlueMap, Versions, filter by the game version and loader Fabric, copy the link of the `.jar` file. Put the links into the inputs `fabric-api` and `bluemap` in `flake.nix` (keep `flake = false;`), then `nix flake update fabric-api bluemap`.
-4. Set `package = pkgs.fabricServers.fabric-<version>;` of the instance, build (`nix build --no-link .#nixosConfigurations.NixOS-ServerGaming.config.system.build.toplevel`), deploy.
+3. Mods for exactly that version: for every input `mc-<project>` in `flake.nix` open the project on modrinth.com, Versions, filter by the game version and loader Fabric, copy the link of the `.jar` file of the newest release into the input (keep `flake = false;`), then `nix flake update` with the changed inputs. A mod without a release for the new version blocks the change; remove its input or wait. A new mod: add an input `mc-<project>` (and its required dependencies, listed on Modrinth), nothing else is needed. `update-check` shows newer releases in Grafana.
+4. Set `package = pkgs.fabricServers.fabric-<version>;` of the instance (nix-minecraft may pick an older Java than the version needs: `UnsupportedClassVersionError` in the log means `.override { jre_headless = pkgs.jdk<N>_headless; }`, 26.3 needs Java 25), build (`nix build --no-link .#nixosConfigurations.NixOS-ServerGaming.config.system.build.toplevel`), deploy.
 5. Check: `journalctl -u minecraft-server-<name> -n 50` shows `Done` without mod errors, the clients join with the same version.
 
 Another instance: copy a block in `minecraft.nix` (other name, `server-port` and `query-port`), `enable = true;`, open its port in the Contabo firewall, deploy. The disabled blocks (`creativeserver`, `pvpserver`, `testserver`, `silverageserver`) are examples.

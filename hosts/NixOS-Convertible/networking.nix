@@ -19,6 +19,5 @@
       wifi = true;
       ethernet = true;
     };
-    #localIP = "10.75.0.103";
   };
 }

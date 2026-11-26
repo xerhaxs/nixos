@@ -56,6 +56,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hytale-launcher = {
+      url = "github:JPyke3/hytale-launcher-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nix-minecraft = {
@@ -75,10 +80,6 @@
     };
 
     # Sources pinned to a release or commit: the version is in the URL, the hash in flake.lock.
-    bluemap = {
-      url = "https://cdn.modrinth.com/data/swbUV1cr/versions/TROfpX7m/bluemap-5.16-fabric.jar";
-      flake = false;
-    };
     briar-mailbox = {
       url = "git+https://code.briarproject.org/briar/briar-mailbox.git?ref=refs/tags/release-1.0.9";
       flake = false;
@@ -87,12 +88,67 @@
       url = "github:freedomofpress/dangerzone/v0.11.0";
       flake = false;
     };
-    fabric-api = {
-      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/6qAuTtLR/fabric-api-0.141.6%2B1.21.11.jar";
-      flake = false;
-    };
     hyprgrass-src = {
       url = "github:horriblename/hyprgrass/8e605468cbf429791d61ddbfaeb14ff5e08fec3e";
+      flake = false;
+    };
+    # Fabric mods of the Minecraft server (Modrinth, Minecraft 26.3), every input mc-<project>
+    # becomes mods/<project>.jar (hosts/NixOS-ServerGaming/minecraft.nix). The newest release each;
+    # MezzConfig (needed by JEI) exists only as beta.
+    mc-balm = {
+      url = "https://cdn.modrinth.com/data/MBAkmtvl/versions/MYj31XNG/balm-fabric-26.3-26.3.0.3.jar";
+      flake = false;
+    };
+    mc-better-craftables = {
+      url = "https://cdn.modrinth.com/data/BLG002oq/versions/2UkGDTXL/BetterCraftables_v8.0.0%2Bmod_mc26.3.jar";
+      flake = false;
+    };
+    mc-better-unpackables = {
+      url = "https://cdn.modrinth.com/data/bUmlsA7b/versions/viTS04Xz/BetterUnpackables_v5.0.1%2Bmod_mc26.3.jar";
+      flake = false;
+    };
+    mc-bluemap = {
+      url = "https://cdn.modrinth.com/data/swbUV1cr/versions/SX74rxzP/bluemap-5.29-fabric.jar";
+      flake = false;
+    };
+    mc-chunky = {
+      url = "https://cdn.modrinth.com/data/fALzjamp/versions/86FKD9qx/Chunky-Fabric-1.5.66.jar";
+      flake = false;
+    };
+    mc-fabric-api = {
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Zns5SSRA/fabric-api-0.166.2%2B26.3.jar";
+      flake = false;
+    };
+    mc-happy-ghast-stopper = {
+      url = "https://cdn.modrinth.com/data/LnG7iWcI/versions/qITVihgn/Happy_Ghast_Stopper_Mod.jar";
+      flake = false;
+    };
+    mc-inventory-essentials = {
+      url = "https://cdn.modrinth.com/data/Boon8xwi/versions/yTozEhFD/inventoryessentials-fabric-26.3-26.3.0.5.jar";
+      flake = false;
+    };
+    mc-jei = {
+      url = "https://cdn.modrinth.com/data/u6dRKJwZ/versions/Zebwcvua/jei-26.3-fabric-31.14.0.72.jar";
+      flake = false;
+    };
+    mc-lithium = {
+      url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/Lal8mJGR/lithium-fabric-0.26.4%2Bmc26.3.jar";
+      flake = false;
+    };
+    mc-luckperms = {
+      url = "https://cdn.modrinth.com/data/Vebnzrzj/versions/DzQPkkXY/LuckPerms-Fabric-5.5.85.jar";
+      flake = false;
+    };
+    mc-mezzconfig = {
+      url = "https://cdn.modrinth.com/data/7tEfOcA7/versions/26GXFp06/mezz_config-26.3-fabric-0.7.1.jar";
+      flake = false;
+    };
+    mc-tabtps = {
+      url = "https://cdn.modrinth.com/data/cUhi3iB2/versions/prer9z2m/tabtps-fabric-mc26.3-1.4.3.jar";
+      flake = false;
+    };
+    mc-worldedit = {
+      url = "https://cdn.modrinth.com/data/1u6JkXh5/versions/ByRNkO83/worldedit-mod-7.4.6.jar";
       flake = false;
     };
     weishaupt-webif-api-src = {
@@ -111,10 +167,6 @@
     };
     grafana-blackbox = {
       url = "https://grafana.com/api/dashboards/7587/revisions/3/download";
-      flake = false;
-    };
-    grafana-logs = {
-      url = "https://grafana.com/api/dashboards/13639/revisions/2/download";
       flake = false;
     };
     grafana-nginx = {

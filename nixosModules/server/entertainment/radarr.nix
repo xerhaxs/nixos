@@ -25,7 +25,7 @@
       group = "radarr";
       settings = {
         server = {
-          urlbase = "localhost";
+          bindaddress = "127.0.0.1";
           port = 7878;
         };
 
@@ -38,7 +38,6 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "/var/lib/radarr/.config/radarr";
       dataDir = "${config.nixos.server.dataDir}/radarr";
     };
 

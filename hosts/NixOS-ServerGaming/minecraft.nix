@@ -1,7 +1,6 @@
 {
-  bluemap,
   config,
-  fabric-api,
+  inputs,
   lib,
   pkgs,
   ...
@@ -11,6 +10,11 @@ let
   defaults = config.nixos.server.game.minecraft.serverProperties;
   domain = config.nixos.server.network.nginx.domain;
   bluemapPort = 8100;
+
+  # Every flake input mc-<project> (Modrinth) as mods/<project>.jar.
+  mods = lib.mapAttrs' (name: src: lib.nameValuePair "mods/${lib.removePrefix "mc-" name}.jar" src) (
+    lib.filterAttrs (name: _: lib.hasPrefix "mc-" name) inputs
+  );
 in
 
 {
@@ -20,11 +24,9 @@ in
       autoStart = true;
       openFirewall = true;
       jvmOpts = "-Xmx12288M -Dlog4j2.formatMsgNoLookups=true";
-      package = pkgs.fabricServers.fabric-1_21_11;
-      symlinks = {
-        "mods/bluemap.jar" = bluemap;
-        "mods/fabric-api.jar" = fabric-api;
-      };
+      # nix-minecraft picks Java 21, Minecraft 26.3 needs 25 (class file version 69).
+      package = pkgs.fabricServers.fabric-26_3.override { jre_headless = pkgs.jdk25_headless; };
+      symlinks = mods;
       files = {
         # accept-download: BlueMap fetches the Minecraft client for its textures (Mojang EULA).
         "config/bluemap/core.conf" = pkgs.writeText "bluemap-core.conf" ''
@@ -73,6 +75,7 @@ in
       };
       serverProperties = defaults // {
         #"&4&lFür=eine sozialistische Weltrevolution\!";
+        level-seed = "1106000001942515752";
         motd = "§4§lWillkommen auf KSLEPMHH-Flolserver§r\n§a§k****§6 Für eine sozialistische Weltrevolution\! §a§k****";
         query-port = 25565;
         server-port = 25565;

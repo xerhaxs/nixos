@@ -80,7 +80,7 @@ let
               latest="$(curl -fsS --max-time 30 -G "https://api.modrinth.com/v2/project/''${BASH_REMATCH[1]}/version" \
                 --data-urlencode 'loaders=["fabric"]' \
                 --data-urlencode 'game_versions=[${builtins.toJSON cfg.minecraftVersion}]' \
-                | jq -r '.[0].files[0].url // empty' || true)"
+                | jq -r '(([.[] | select(.version_type == "release")][0] // .[0]).files[0].url) // empty' || true)"
               if [ -n "$latest" ] && [ "$latest" != "$url" ]; then
                 emit release "$name" "$(basename "$url")" "$(basename "$latest")"
               fi
@@ -114,7 +114,7 @@ in
 
       minecraftVersion = lib.mkOption {
         type = lib.types.str;
-        default = "1.21.11";
+        default = "26.3";
         description = "Minecraft version the pinned Fabric mods have to support.";
       };
     };

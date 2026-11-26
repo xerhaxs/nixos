@@ -73,7 +73,8 @@ let
         cfg.paths
       else
         [ ];
-    # With zfsSubdirs only the listed directories of the dataset are backed up.
+    # With zfsSubdirs only the listed directories of the dataset are backed up. A missing one (renamed
+    # or moved) fails the backup instead of silently dropping out of it.
     dynamicFilesFrom = lib.mkIf (mode == "zfs") (
       lib.concatMapStringsSep "\n" (
         dataset:
@@ -84,10 +85,16 @@ let
         if subdirs == [ ] then
           "echo \"${root}\""
         else
-          lib.concatMapStringsSep "\n" (dir: "echo \"${root}/\"${lib.escapeShellArg dir}") subdirs
+          lib.concatMapStringsSep "\n" (dir: ''
+            if [ -d "${root}/"${lib.escapeShellArg dir} ]; then
+              echo "${root}/"${lib.escapeShellArg dir}
+            else
+              echo ${lib.escapeShellArg "restic: ${dataset}/${dir} does not exist, fix zfsSubdirs"} >&2
+              exit 1
+            fi'') subdirs
       ) cfg.zfsDatasets
     );
-    exclude = cfg.exclude;
+    inherit (cfg) exclude;
     extraOptions =
       repo.extraOptions
       ++ lib.optional (repo.rcloneConfigSecret != null) "rclone.program=${pkgs.rclone-proton}/bin/rclone";
@@ -104,7 +111,9 @@ let
       "--keep-monthly 12"
     ];
     runCheck = true;
-    checkOpts = [ "--read-data-subset=2%" ];
+    # A fixed amount instead of a share: 2 % of the Proton repository meant 30 GB of download every
+    # night. 5 GB of random packs read about 1.8 TB a year, roughly the whole repository.
+    checkOpts = [ "--read-data-subset=5G" ];
 
     backupPrepareCommand = prepareRclone name repo + prepareSnapshots name;
     backupCleanupCommand = cleanupSnapshots name;
@@ -141,7 +150,7 @@ in
         example = {
           "pool01/shares/jf" = [ "Dokumente" ];
         };
-        description = "Only back up these directories of a dataset in zfsDatasets (relative to its mountpoint); datasets without entry are backed up completely.";
+        description = "Only back up these directories of a dataset in zfsDatasets (relative to its mountpoint); datasets without entry are backed up completely. A listed directory that does not exist fails the backup.";
       };
 
       subvolumes = lib.mkOption {

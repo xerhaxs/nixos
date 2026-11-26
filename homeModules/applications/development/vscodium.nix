@@ -75,12 +75,27 @@
           mode = "0700";
         }
       ];
-      files = [
-        {
-          file = ".claude.json";
-          method = "symlink";
-        }
-      ];
     };
+
+    # Claude Code replaces ~/.claude.json by rename, which breaks a persistence symlink (the next
+    # switch fails with "A file already exists"). With CLAUDE_CONFIG_DIR the file is
+    # ~/.claude/.claude.json inside the persisted directory. systemd.user for the editor started by
+    # Plasma, home for shells.
+    home.sessionVariables.CLAUDE_CONFIG_DIR = "${config.home.homeDirectory}/.claude";
+    systemd.user.sessionVariables.CLAUDE_CONFIG_DIR = "${config.home.homeDirectory}/.claude";
+
+    # Once: take over the newest old ~/.claude.json (the file in the home or its persisted copy).
+    home.activation.claudeConfigMove = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      new="$HOME/.claude/.claude.json"
+      if [ ! -e "$new" ] && [ -d "$HOME/.claude" ]; then
+        for old in "$HOME/.claude.json" "/persistent$HOME/.claude.json"; do
+          if [ -f "$old" ] && [ ! -L "$old" ]; then
+            if [ ! -e "$new" ] || [ "$old" -nt "$new" ]; then
+              run cp -p "$old" "$new"
+            fi
+          fi
+        done
+      fi
+    '';
   };
 }

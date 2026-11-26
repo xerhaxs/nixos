@@ -45,6 +45,18 @@ let
         };
       };
 
+  statUnit =
+    unit: title: x: y: expr: steps:
+    let
+      s = stat title x y expr steps;
+    in
+    s
+    // {
+      fieldConfig.defaults = s.fieldConfig.defaults // {
+        inherit unit;
+      };
+    };
+
   # Instant table, only the listed labels (and optionally the value) in this order.
   table =
     title: y: h: expr: columns:
@@ -166,6 +178,32 @@ in
       greenAbove 1 "red"
     ))
     (stat "ClamAV scan errors" 6 57 "sum(${lastKnown "clamav_scan_errors"})" (greenAbove 1 "orange"))
+    (statUnit "decbytes" "Backup Proton Drive (size)" 12 57
+      ''max(restic_repository_size_bytes{repository="proton"})''
+      [
+        {
+          color = "blue";
+          value = null;
+        }
+      ]
+    )
+    (statUnit "percent" "Backup Proton Drive (share of the limit)" 18 57
+      ''max(100 * restic_repository_size_bytes{repository="proton"} / restic_repository_size_limit_bytes{repository="proton"})''
+      [
+        {
+          color = "green";
+          value = null;
+        }
+        {
+          color = "orange";
+          value = 90;
+        }
+        {
+          color = "red";
+          value = 100;
+        }
+      ]
+    )
 
     (table "ClamAV findings (verify before deleting, see docs/updates-and-vulnerabilities.md)" 61 10
       (lastKnown "clamav_infected_file")

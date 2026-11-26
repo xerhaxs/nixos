@@ -24,11 +24,6 @@
         ".cache"
         ".local/cache"
         ".local/state"
-
-        #".winboat"
-        #".wine"
-        #".config/Proton"
-        #".config/steamtinkerlaunch"
       ];
     };
   };

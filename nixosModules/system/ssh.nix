@@ -35,6 +35,13 @@
         ];
         description = "Addresses or networks never blocked by sshguard.";
       };
+
+      lanOnly = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = "Accept ssh only from the home LAN (IPv4 subnet, IPv6 ULA and link-local), e.g. on laptops in foreign networks.";
+      };
     };
   };
 
@@ -42,7 +49,7 @@
     services.openssh = {
       enable = true;
       startWhenNeeded = true;
-      openFirewall = true;
+      openFirewall = !config.nixos.system.ssh.lanOnly;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
@@ -87,6 +94,16 @@
     };
 
     services.sshd.enable = true;
+
+    # Terminal descriptions of all terminals (kitty, foot, alacritty ...): tmux and other programs
+    # also find them under sudo -u, which does not see ~/.terminfo of the login user.
+    environment.enableAllTerminfo = true;
+
+    networking.firewall.extraCommands = lib.mkIf config.nixos.system.ssh.lanOnly ''
+      iptables -A nixos-fw -p tcp -s ${config.nixos.system.networking.lan.subnet} --dport 22 -j nixos-fw-accept
+      ip6tables -A nixos-fw -p tcp -s fd00::/8 --dport 22 -j nixos-fw-accept
+      ip6tables -A nixos-fw -p tcp -s fe80::/10 --dport 22 -j nixos-fw-accept
+    '';
 
     # Host keys directly in /persistent: a persisted /etc/ssh is mounted after the activation and
     # hides sshd_config and authorized_keys.d on a fresh installation.

@@ -11,6 +11,7 @@
     ./coturn.nix
     ./cryptpad.nix
     ./matrix.nix
+    ./mediamtx.nix
     ./miniflux.nix
     ./mollysocket.nix
     ./ntfy.nix
@@ -34,6 +35,7 @@
       coturn.enable = lib.mkDefault true;
       cryptpad.enable = lib.mkDefault true;
       matrix.enable = lib.mkDefault true;
+      mediamtx.enable = lib.mkDefault false;
       miniflux.enable = lib.mkDefault true;
       mollysocket.enable = lib.mkDefault false;
       ntfy.enable = lib.mkDefault true;

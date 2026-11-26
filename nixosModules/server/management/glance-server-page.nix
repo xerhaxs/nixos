@@ -364,8 +364,7 @@ in
     {
       size = "small";
       widgets =
-        [ ]
-        ++ lib.optional cfg.jellyfin.enable jellyfin
+        lib.optional cfg.jellyfin.enable jellyfin
         ++ lib.optional cfg.calendar.enable calendar
         ++ [
           {

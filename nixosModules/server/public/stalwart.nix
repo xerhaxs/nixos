@@ -60,7 +60,7 @@ in
 
       settings = {
         server = {
-          hostname = hostname;
+          inherit hostname;
           tls = {
             enable = true;
             implicit = false;
@@ -97,7 +97,7 @@ in
         };
 
         lookup.default = {
-          hostname = hostname;
+          inherit hostname;
           domain = mailDomain;
         };
 

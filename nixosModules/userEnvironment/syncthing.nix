@@ -68,7 +68,7 @@
             id = "PVZV2NU-LFXP33P-6I4XSXQ-M3TZWJN-HJOB2UC-2GLQSIE-GGF2TZ4-N22MAQN";
             autoAcceptFolders = false;
             addresses = [
-              "tcp://10.75.0.80:22000"
+              "tcp://nixos-desktop.fritz.box:22000"
               "dynamic"
             ];
           };

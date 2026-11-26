@@ -131,18 +131,6 @@
           dns = {
             upstreams = [
               "127.0.0.1#5335"
-              #"9.9.9.9"
-              #"149.112.112.112"
-              #"2620:fe::fe"
-              #"2620:fe::9"
-              #"9.9.9.11"
-              #"2620:fe::11"
-              #"149.112.112.11"
-              #"2620:fe::fe:11"
-              #"2606:4700:4700::1001"
-              #"2606:4700:4700::1111"
-              #"1.0.0.1"
-              #"1.1.1.1"
             ];
 
             CNAMEdeepInspect = true;
@@ -179,8 +167,6 @@
 
             dnssec = true;
 
-            #interface = "eth0";
-
             hostRecord = "";
 
             listeningMode = "LOCAL";
@@ -189,11 +175,9 @@
 
             cnameRecords = [ ];
 
-            #port = 53;
-
             # "<enabled>,<ip-address>[/<prefix-len>],<server>[#<port>][,<domain>]"
             revServers = [
-              "true,10.75.0.0/24,fritz.box"
+              "true,10.75.0.0/24,10.75.0.1,fritz.box"
             ];
 
             cache = {
@@ -257,7 +241,7 @@
             acl = "";
 
             # [...]
-            port = "3334";
+            port = "127.0.0.1:3334";
 
             threads = 50;
 
@@ -278,18 +262,6 @@
 
               restore = true;
             };
-
-            #tls = {
-            #cert = "/etc/pihole/tls.pem";
-            #};
-
-            #paths = {
-            #webroot = "/var/www/html";
-
-            #webhome = "/admin/";
-
-            # [...]
-            #};
 
             interface = {
               boxed = true;
@@ -334,7 +306,7 @@
       pihole-web = {
         enable = true;
         ports = [
-          "3334"
+          "127.0.0.1:3334"
         ];
         hostName = "localhost";
       };

@@ -38,11 +38,6 @@
       workspace = {
         clickItemTo = "select";
         tooltipDelay = 30;
-        #wallpaper = lib.mkDefault "${config.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/52338778943_9704c200b4_o.jpg";
-        #wallpaperSlideShow = lib.mkForce {
-        #  path = "${config.xdg.userDirs.pictures}/Desktopbilder/Kanada";
-        #  interval = 60;
-        #};
       };
 
       windows = {
@@ -512,7 +507,6 @@
           "Decrease Keyboard Brightness" = "Keyboard Brightness Down";
           "Decrease Screen Brightness" = "Monitor Brightness Down";
           "Decrease Screen Brightness Small" = "Shift+Monitor Brightness Down";
-          # "Hibernate" = "Hibernate";
           "Increase Keyboard Brightness" = "Keyboard Brightness Up";
           "Increase Screen Brightness" = "Monitor Brightness Up";
           "Increase Screen Brightness Small" = "Shift+Monitor Brightness Up";
@@ -623,14 +617,6 @@
           };
         };
 
-        /*
-          "kactivitymanagerdrc" = {
-            "activities" = {
-              "38402596-f588-4024-a556-e6942b794c08" = "Default";
-            };
-          };
-        */
-
         "kcminputrc" = {
           "Keyboard" = {
             "NumLock" = 1;
@@ -712,19 +698,20 @@
           "PreviewSettings" = {
             "MaximumRemoteSize" = 0;
           };
-          # "WM" = {
-          #   "activeBackground" = "239,241,245";
-          #   "activeBlend" = "76,79,105";
-          #   "activeForeground" = "76,79,105";
-          #   "inactiveBackground" = "220,224,232";
-          #   "inactiveBlend" = "108,111,133";
-          #   "inactiveForeground" = "108,111,133";
-          # };
         };
 
         "kglobalshortcutsrc" = {
           "ActivityManager" = {
             "_k_friendly_name" = "Activity Manager";
+          };
+          # Legcord registers these over the GlobalShortcuts portal at every start. overrideConfig
+          # resets this file, without the entries Plasma asks again each time. Known and unbound.
+          "app.legcord.Legcord" = {
+            "_k_friendly_name" = "Legcord";
+            "deafen" = "none,none,Toggle Deafen";
+            "leave" = "none,none,Leave Call";
+            "mute" = "none,none,Toggle Mute";
+            "opensettings" = "none,none,Open Settings";
           };
           "Clementine" = {
             "_k_friendly_name" = "Clementine";
@@ -1898,10 +1885,8 @@
           })
           [
             ".config/kwinoutputconfig.json"
-            #".local/share/krunnerstaterc"
             ".local/share/recently-used.xbel"
             ".local/share/user-places.xbel"
-            #".local/share/user-places.xbel.bak"
             ".local/share/user-places.xbel.tbcache"
           ];
     };

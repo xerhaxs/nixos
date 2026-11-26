@@ -49,6 +49,17 @@
       };
     };
 
+    # Redlib exits when it cannot reach Reddit at start (e.g. while Mullvad connects after a boot).
+    systemd.services.redlib = {
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      unitConfig.StartLimitIntervalSec = 0;
+      serviceConfig = {
+        Restart = "on-failure";
+        RestartSec = 30;
+      };
+    };
+
     services.nginx = {
       virtualHosts = {
         "libreddit.${config.nixos.server.network.nginx.domain}" = {

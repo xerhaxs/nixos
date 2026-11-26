@@ -20,12 +20,9 @@
   homeManager.applications.enable = true;
 
   homeManager.desktop.favoritesExclude = [
-    # Laptops: no virtual machines, recording or games on the task bar.
+    # Laptops: no virtual machines or recording on the task bar.
     "virt-manager"
     "com.obsproject.Studio"
-    "org.prismlauncher.PrismLauncher"
-    "com.heroicgameslauncher.hgl"
-    "steam"
     "com.github.flxzt.rnote"
   ];
 }

@@ -15,6 +15,7 @@ Game launchers and tools.
 | `default.nix` | Imports the modules of this folder and defines the bundle option `homeManager.applications.gaming.enable`. |
 | `gameconqueror.nix` | Enable scanmem / gameconqueror / cheat engine. |
 | `heroic.nix` | Enable heroic. |
+| `hytale.nix` | Enable the Hytale launcher (flake input hytale-launcher, FHS-wrapped so the launcher can update the game). |
 | `lutris.nix` | Enable lutris. |
 | `mangohud.nix` | Enable mangohud. |
 | `prismlauncher.nix` | Enable prismlauncher. |
@@ -27,6 +28,7 @@ Game launchers and tools.
 | `homeManager.applications.gaming.enable` | boolean | `false` | Enable gaming modules bundle. |
 | `homeManager.applications.gaming.gameconqueror.enable` | boolean | `false` | Enable scanmem / gameconqueror / cheat engine. |
 | `homeManager.applications.gaming.heroic.enable` | boolean | `false` | Enable heroic. |
+| `homeManager.applications.gaming.hytale.enable` | boolean | `false` | Enable the Hytale launcher (flake input hytale-launcher, FHS-wrapped so the launcher can update the game). |
 | `homeManager.applications.gaming.lutris.enable` | boolean | `false` | Enable lutris. |
 | `homeManager.applications.gaming.mangohud.enable` | boolean | `false` | Enable mangohud. |
 | `homeManager.applications.gaming.prismlauncher.enable` | boolean | `false` | Enable prismlauncher. |

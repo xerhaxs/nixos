@@ -34,24 +34,6 @@
       videoDrivers = [ "amdgpu" ];
     };
 
-    /*
-      # Workaround for HIP GPU acceleration on AMD APUs
-      systemd.tmpfiles.rules =
-        let
-          rocmEnv = pkgs.symlinkJoin {
-            name = "rocm-combined";
-            paths = with pkgs.rocmPackages; [
-              rocblas
-              hipblas
-              clr
-            ];
-          };
-        in
-        [
-          "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-        ];
-    */
-
     environment.systemPackages = with pkgs; [
       nvtopPackages.amd
       vulkan-tools

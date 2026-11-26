@@ -54,7 +54,7 @@
       environmentVariables = {
         OLLAMA_VULKAN = "1";
         # Loading a model from pool01 (HDD) takes up to two minutes, keep it loaded longer than the
-        # default 5 minutes. Shorter if ComfyUI runs out of GPU memory (TODO 13.29).
+        # default 5 minutes. Shorter if ComfyUI runs out of GPU memory.
         OLLAMA_KEEP_ALIVE = "30m";
       }
       // lib.optionalAttrs (config.nixos.server.tools.ollama.gpu != "any") {
@@ -67,7 +67,6 @@
         }_icd.x86_64.json";
       };
       modelsDir = "${config.nixos.server.dataDir}/ollama/models";
-      #models = "/var/lib/ollama/models";
       loadModels = config.nixos.server.tools.ollama.models;
     };
 

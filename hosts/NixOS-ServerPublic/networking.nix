@@ -11,12 +11,10 @@
   networking = {
     hostName = "NixOS-ServerPublic";
 
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.112"
-      "2620:fe::fe"
-      "2620:fe::9"
-    ];
+    # Own recursive resolver (unbound, DNSSEC): Quad9 refuses every query from France since
+    # 24.11.2026, GeoIP puts the VPS there. mkForce drops the 127.0.0.1 and ::1 on port 53 that the
+    # unbound module adds, unbound listens on 5335.
+    nameservers = lib.mkForce [ "127.0.0.1:5335" ];
 
     tempAddresses = lib.mkForce "disabled";
   };
@@ -27,4 +25,7 @@
     lan.enable = false;
   };
 
+  nixos.server.network.unbound.enable = true;
+  # No TLS to the local resolver.
+  services.resolved.settings.Resolve.DNSOverTLS = lib.mkForce "no";
 }

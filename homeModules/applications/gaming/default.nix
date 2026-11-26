@@ -9,6 +9,7 @@
   imports = [
     ./gameconqueror.nix
     ./heroic.nix
+    ./hytale.nix
     ./lutris.nix
     ./mangohud.nix
     ./prismlauncher.nix

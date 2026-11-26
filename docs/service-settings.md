@@ -10,7 +10,7 @@ Rule of thumb: NixOS defines **how a service runs** (ports, paths, database, rev
 | Jellyfin | Data path, GPU groups | Libraries, users, transcoding |
 | Syncthing | Devices and folders, completely (`overrideDevices`, `overrideFolders`): changes made in the UI are overwritten on the next deploy | Nothing permanent |
 | Pi-hole, Unbound | Blocklists, local DNS names, upstream, all settings | At most temporary changes (groups, exceptions) |
-| Grafana, Prometheus, Loki, Alertmanager | Data sources, dashboards, alerts, scrape targets | Admin password, additional own dashboards |
+| Grafana, Prometheus, Alertmanager | Data sources, dashboards, alerts, scrape targets | Admin password, additional own dashboards |
 | Glance | The whole page | Nothing |
 | Forgejo | Domain, database, server settings | Accounts, repositories, organisations |
 | Matrix | Server, bridges, registration rules | Rooms, accounts |

@@ -9,31 +9,16 @@
   networking = {
     hostName = "NixOS-Desktop";
 
-    interfaces = {
-      enp5s0 = {
-        ipv4.addresses = [
-          {
-            address = "10.75.0.80";
-            prefixLength = 24;
-          }
-        ];
-        ipv6.addresses = [
-          {
-            address = "fe80::f22f:74ff:fe54:aac9";
-            prefixLength = 64;
-          }
-        ];
-      };
-    };
-
-    defaultGateway.interface = "enp5s0";
-    defaultGateway6.interface = "enp5s0";
+    # Address and gateway by DHCP through NetworkManager like the laptops. With the static setup of
+    # the NixOS scripts NetworkManager saw the interface as external and reported local only, Qt then
+    # had no internet and Akonadi took the Radicale resource offline. DNS stays Pi-hole, then Quad9.
+    nameservers = config.nixos.system.networking.lan.nameservers;
   };
 
   nixos.system.networking = {
     enable = true;
     wifi.enable = true;
     macRandomization.wifi = true;
-    localIP = "10.75.0.80";
+    lan.staticRouting = false;
   };
 }

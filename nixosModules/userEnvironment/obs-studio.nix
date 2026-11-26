@@ -18,10 +18,6 @@
   };
 
   config = lib.mkIf config.nixos.userEnvironment.obs-studio.enable {
-    #boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-
-    #boot.extraModprobeConfig = ''
-
     programs.obs-studio.enableVirtualCamera = true;
   };
 }

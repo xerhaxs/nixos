@@ -13,13 +13,11 @@
 
   services.getty.autologinUser = null;
 
-  # Off until the rework is merged, it would switch back to the old configuration of main (TODO phase 17).
+  # Off until the rework is merged, it would switch back to the old configuration of main.
 
   services.postgresql.package = pkgs.postgresql_17;
 
   nixos.server.network.fail2ban.enable = true;
-
-  nixos.system.hardening.hardenedMalloc = true;
 
   boot.kernel.sysctl."net.ipv4.icmp_echo_ignore_all" = 1;
 

@@ -24,7 +24,6 @@
       shellIntegration = {
         enableBashIntegration = true;
       };
-      #environment = { };
       settings = {
         confirm_os_window_close = 0;
         shell_integration = "enabled";

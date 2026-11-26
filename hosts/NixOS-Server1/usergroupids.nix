@@ -16,7 +16,6 @@
     kiwix.gid = 543;
     lidarr.gid = 306;
     linkwarden.gid = 970;
-    loki.gid = 968;
     matter-server.gid = 545;
     nzbhydra2.gid = 994;
     ollama.gid = 993;
@@ -70,8 +69,6 @@
     };
 
     linkwarden.uid = 970;
-
-    loki.uid = 975;
 
     matter-server = {
       isSystemUser = true;

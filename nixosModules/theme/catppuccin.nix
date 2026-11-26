@@ -94,7 +94,6 @@
 
       sddm = {
         font = "Noto Sans";
-        #background = "${config.home-manager.users.${userName}.xdg.userDirs.pictures}/Desktopbilder/JWST/compress/STScI-01G7ETPF7DVBJAC42JR5N6EQRH.jpg";
         background = "https://wallpapercave.com/wp/wp6058967.jpg";
         loginBackground = true;
       };

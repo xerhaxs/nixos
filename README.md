@@ -45,7 +45,7 @@ Every host is installed the same way: prepare it in the private repository, star
 | Host | Target system | Unlock at boot | Host specific steps |
 |---|---|---|---|
 | NixOS-Desktop, NixOS-Framework, NixOS-Convertible | NixOS ISO on the machine | passphrase at the console, later TPM2 + PIN | [Clients](#clients) |
-| NixOS-Server1 | NixOS ISO on the machine | initrd ssh (port 22) or TPM2 + PIN | [NixOS-Server1](#nixos-server1) |
+| NixOS-Server1 | NixOS ISO on the machine | initrd ssh (port 2222) or TPM2 + PIN | [NixOS-Server1](#nixos-server1) |
 | NixOS-ServerPublic, NixOS-ServerGaming | Debian from the Contabo panel | initrd ssh (port 2222) | [VPS](#vps) |
 | NixOS-Portable | the SSD attached to any Linux | passphrase at the console | [NixOS-Portable](#nixos-portable) |
 | NixOS-VM* | not installed | – | [Test VMs](#test-vms) |
@@ -157,7 +157,7 @@ The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpf
 
 1. Unlock:
    - At the console (clients, Portable, Server1 without ssh): type the passphrase.
-   - Through initrd ssh (servers; port 22 on Server1, 2222 on the VPS):
+   - Through initrd ssh (servers, port 2222):
 
      ```
      ssh-keygen -R <ip>; ssh-keygen -R "[<ip>]:<port>"
@@ -218,7 +218,7 @@ The path `/tmp/secret.key` is fixed in `nixosModules/disko/disko-luks-btrfs-tmpf
 
 1. Open the remaining firewall ports (table in step 2).
 2. DNS in Cloudflare, every entry "DNS only", A and AAAA to the addresses of the VPS:
-   - NixOS-ServerPublic: `matrix` (Matrix ids are `@name:matrix.<domain>`, the apex needs no record), `turn`, `mail`, `stalwart`, `mta-sts`, `autoconfig`, `autodiscover`, `cryptpad`, `cryptpad-sandbox`, `rss`, `push`, and `openpgpkey` once a PGP key is set. The mail records (MX, SPF, DKIM, DMARC, TLS-RPT, SRV) are shown by Stalwart for the domain ("View DNS records"). MTA-STS needs a TXT record `_mta-sts` with `v=STSv1; id=<date>`, Stalwart serves the policy itself; change the id whenever the policy changes.
+   - NixOS-ServerPublic: `matrix` (Matrix ids are `@name:matrix.<domain>`, the apex needs no record), `turn`, `mail`, `stalwart`, `mta-sts`, `autoconfig`, `autodiscover`, `cryptpad`, `cryptpad-sandbox`, `rss`, `push`, `stream`, and `openpgpkey` once a PGP key is set. The mail records (MX, SPF, DKIM, DMARC, TLS-RPT, SRV) are shown by Stalwart for the domain ("View DNS records"). MTA-STS needs a TXT record `_mta-sts` with `v=STSv1; id=<date>`, Stalwart serves the policy itself; change the id whenever the policy changes.
    - NixOS-ServerGaming: `bluemap`, `flolserver`, `countdown`, and the test services in `temp/` (`cloud`, `office`, `code`).
 3. NixOS-ServerPublic: reverse DNS of both addresses to `mail.<domain>` (Contabo Customer Panel, Reverse DNS Management).
 4. Accounts in the services: admin and personal account are always separate, see the notes in [`nixosModules/server/public/README.md`](nixosModules/server/public/README.md).
@@ -297,7 +297,7 @@ Never change a restic repository password only in sops: add the new key with `re
 
 ### Unlock after a reboot
 
-- Servers: `ssh -p <port> root@<host>` (port 22 on NixOS-Server1, 2222 on the VPS), then `systemd-tty-ask-password-agent`. NixOS-Server1 also unlocks with TPM2 + PIN at the console.
+- Servers: `ssh -p 2222 root@<host>`, then `systemd-tty-ask-password-agent`. NixOS-Server1 also unlocks with TPM2 + PIN at the console.
 - Clients: TPM2 PIN or passphrase at the console.
 
 ### Logs
@@ -353,11 +353,11 @@ sudo cryptsetup close WD2_10TB_BCK
 - System: sysctl and kernel hardening, module blacklist, hidepid, auditd (servers log every program start), sudo only for wheel, no su/sg/newgrp/sudoedit setuid wrappers, restricted nix daemon, hardened own systemd units, coredumps limited and not persisted, authenticated time (chrony with NTS), hardened malloc on NixOS-ServerPublic.
 - SSH: keys only, post-quantum key exchange (mlkem768x25519), 3 attempts, verbose logging, sshguard; SSH keys can live in KeePassXC (`docs/keepassxc-ssh-agent.md`).
 - Untrusted documents: Dangerzone converts them to safe PDFs in a gVisor sandbox.
-- Network: firewall with only the needed ports, services behind nginx on localhost, catch-all vhost, HSTS, no connection from the VPS to NixOS-Server1 (monitoring is fetched over HTTPS with a client certificate), fail2ban and sshguard, recursive DNSSEC validating resolver, local blocklists on the clients, Quad9 with DNS over TLS on the laptops, MAC randomization.
+- Network: firewall with only the needed ports, services behind nginx on localhost, catch-all vhost, HSTS, no connection from the VPS to NixOS-Server1 (monitoring is fetched over HTTPS with a client certificate), fail2ban and sshguard, recursive DNSSEC validating resolver, local blocklists on the clients, Quad9 (then Cloudflare) with DNS over TLS on the laptops, own recursive unbound on the VPS, MAC randomization.
 - Data: restic backups (append-only REST server at home, Proton Drive for NixOS-Server1), ZFS and btrfs snapshots before backups, ClamAV scans with alerts.
-- Monitoring: Prometheus, Loki and Grafana on NixOS-Server1, alerts by mail and ntfy.
+- Monitoring: Prometheus and Grafana on NixOS-Server1, alerts by mail and ntfy.
 - Vulnerabilities and updates: every host scans its closure (sbomnix, grype), NixOS-Server1 compares the pins with upstream, the result is in Grafana (`docs/updates-and-vulnerabilities.md`).
-- Killswitch: a Home Assistant script publishes to an ntfy topic, every host powers off immediately.
+- Killswitch: a Home Assistant script (dashboard button or battery powered Thread button) publishes to an ntfy topic, NixOS-Server1 and the clients power off immediately, the VPS keep running. Without internet it powers off the clients in the LAN over ssh and NixOS-Server1 locally; with NixOS-Server1 down the phone can publish to the topic directly.
 
 Protection while running (beyond encryption at rest): end-to-end encrypted services (CryptPad, Matrix, Briar), Stalwart encryption at rest with the PGP/S/MIME key of the user, the killswitch, and on the VPS confidential computing (AMD SEV-SNP/Intel TDX) if the provider offers it. The provider of a VPS can still read the memory of a running VM without confidential computing.
 

@@ -25,7 +25,7 @@
       group = "lidarr";
       settings = {
         server = {
-          urlbase = "localhost";
+          bindaddress = "127.0.0.1";
           port = 8686;
         };
 
@@ -38,7 +38,6 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "/var/lib/lidarr";
       dataDir = "${config.nixos.server.dataDir}/lidarr";
     };
 

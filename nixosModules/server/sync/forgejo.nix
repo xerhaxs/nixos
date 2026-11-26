@@ -39,7 +39,6 @@
       enable = true;
       user = "forgejo";
       group = "forgejo";
-      #stateDir = "/var/lib/forgejo";
       stateDir = "${config.nixos.server.dataDir}/forgejo";
 
       database = {
@@ -51,7 +50,8 @@
 
       settings = {
         server = {
-          DOMAIN = "127.0.0.1";
+          DOMAIN = "forgejo.${config.nixos.server.network.nginx.domain}";
+          HTTP_ADDR = "127.0.0.1";
           ROOT_URL = "https://forgejo.${config.nixos.server.network.nginx.domain}";
           HTTP_PORT = 3005;
           DISABLE_SSH = true;
@@ -72,17 +72,11 @@
           DEFAULT_KEEP_EMAIL_PRIVATE = true;
           DEFAULT_ALLOW_CREATE_ORGANIZATION = true;
           DEFAULT_ENABLE_TIMETRACKING = true;
-          #NO_REPLY_ADDRESS = "noreply@${config.nixos.server.fediverse.forgejo.domain}";
         };
 
         actions = {
           ENABLED = true;
           DEFAULT_ACTIONS_URL = "https://github.com";
-        };
-
-        ui = {
-          #DEFAULT_THEME = "forgejo-auto";
-          #THEMES = "auto,forgejo-light,forgejo-dark,arc-green";
         };
 
         repository = {

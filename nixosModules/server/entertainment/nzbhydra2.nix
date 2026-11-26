@@ -21,7 +21,6 @@
     services.nzbhydra2 = {
       enable = true;
       openFirewall = false;
-      #dataDir = "/var/lib/nzbhydra2";
       dataDir = "${config.nixos.server.dataDir}/nzbhydra2";
     };
 

@@ -13,7 +13,7 @@
 
   services.getty.autologinUser = null;
 
-  # Off until the rework is merged, it would switch back to the old configuration of main (TODO phase 17).
+  # Off until the rework is merged, it would switch back to the old configuration of main.
 
   nixos.server.network.fail2ban.enable = true;
 

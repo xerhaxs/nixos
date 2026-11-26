@@ -24,7 +24,7 @@
       sddm.enable = true;
     };
     windowManager = {
-      hyprland.enable = false; # disabled 2026-11-03, see TODO phase 18
+      hyprland.enable = false; # disabled 2026-11-03
     };
   };
 
@@ -36,16 +36,18 @@
   nixos.hardware = {
     intelcpu.enable = true;
     intelgpu.enable = true;
-    # Waits for TPS68470 board data in the kernel (docs/workarounds.md, TODO 24.4).
+    # Waits for TPS68470 board data in the kernel (docs/workarounds.md).
     ipu6camera.enable = true;
   };
 
   hardware.sensor.iio.enable = true;
 
   nixos.system.secureboot.enable = true;
+  nixos.system.ssh.lanOnly = true;
   nixos.disko.disko-luks-btrfs-tmpfs.tpm2 = true;
 
   nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.game.enable = false;
   nixos.userEnvironment.networkshares.webdav.enable = true;
 
   nixos.virtualisation.android.enable = true;

@@ -29,9 +29,9 @@ inputs: final: prev: {
   });
 
   # nixpkgs ships typepy 2, sqliteschema and SimpleSQLite still pin typepy < 2 (sbomnix needs them).
-  # Remove once nixpkgs relaxes the pins itself (TODO 13.21).
+  # Remove once nixpkgs relaxes the pins itself.
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-    (pyFinal: pyPrev: {
+    (_pyFinal: pyPrev: {
       simplesqlite = pyPrev.simplesqlite.overridePythonAttrs (old: {
         pythonRelaxDeps = (old.pythonRelaxDeps or [ ]) ++ [ "typepy" ];
       });
@@ -40,6 +40,31 @@ inputs: final: prev: {
       });
     })
   ];
+
+  # nixpkgs links stalwart 0.15 against the system jemalloc (rust-jemalloc-sys-unprefixed) since
+  # 11/2026, the binary then crashes at start (SIGSEGV in _rjem_je_arena_dalloc_small, also with
+  # --version). Back to the bundled jemalloc, as nixpkgs does for 0.16 and 1.0 ("Using
+  # rust-jemalloc-sys causes segmentation faults on x86_64"). Remove once nixpkgs reverts it.
+  stalwart_0_15 =
+    let
+      feature = "jemallocator/unprefixed_malloc_on_supported_platforms";
+    in
+    prev.stalwart_0_15.overrideAttrs (old: {
+      buildInputs = final.lib.remove final.rust-jemalloc-sys-unprefixed old.buildInputs;
+      cargoBuildFeatures = final.lib.remove feature old.cargoBuildFeatures;
+      cargoCheckFeatures = final.lib.remove feature old.cargoCheckFeatures;
+      # The cargo setup hook points JEMALLOC_OVERRIDE to a missing path to force the system library.
+      preBuild = (old.preBuild or "") + ''
+        unset JEMALLOC_OVERRIDE
+      '';
+      # LTO optimizes the whole program in the last rustc step, fat and thin need more memory than
+      # NixOS-ServerPublic has next to its services, the kernel kills rustc. Without LTO that step
+      # only links.
+      env = old.env // {
+        CARGO_PROFILE_RELEASE_LTO = "false";
+        CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "16";
+      };
+    });
 
   update-images = final.callPackage ./update-images.nix { };
 }

@@ -6,7 +6,7 @@
 |---|---|---|
 | nixpkgs, Home Manager, flakes, blocklists | `flake.lock` | `nix flake update` |
 | Grafana dashboards | `flake.lock`, URL with `revisions/latest` | `nix flake update` |
-| Releases (dangerzone, briar-mailbox, weishaupt-webif-api-src, bluemap, fabric-api) | version in the URL in `flake.nix`, hash in `flake.lock` | change the URL, then `nix flake update <input>` |
+| Releases (dangerzone, briar-mailbox, weishaupt-webif-api-src, Minecraft mods `mc-*`) | version in the URL in `flake.nix`, hash in `flake.lock` | change the URL, then `nix flake update <input>` |
 | Commits (hyprgrass-src, wf-touch-src) | commit in the URL in `flake.nix`, hash in `flake.lock` | change the URL, then `nix flake update <input>` |
 | Container images (ComfyUI, Networking Toolbox) | `pkgs/images.json` | `nix run .#update-images` |
 

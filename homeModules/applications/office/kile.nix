@@ -25,10 +25,6 @@
       texliveFull
     ];
 
-    #programs.texlive = {
-    #  enable = true;
-    #};
-
     programs.plasma.configFile."kilerc" = {
       "FileBrowserWidget" = {
         "Allow Expansion".value = false;

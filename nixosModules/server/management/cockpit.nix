@@ -18,6 +18,12 @@
   };
 
   config = lib.mkIf config.nixos.server.management.cockpit.enable {
+    # Only nginx connects, the socket of the module listens on all addresses.
+    systemd.sockets.cockpit.listenStreams = lib.mkForce [
+      ""
+      "127.0.0.1:9090"
+    ];
+
     services.cockpit = {
       enable = true;
       openFirewall = false;

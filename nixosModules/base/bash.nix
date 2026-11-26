@@ -22,7 +22,6 @@
       completion.enable = true;
       blesh.enable = false;
       vteIntegration = true;
-      #shellAliases = { };
     };
 
     programs.nix-index.enableBashIntegration = true;

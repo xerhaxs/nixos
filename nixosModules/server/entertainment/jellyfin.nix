@@ -24,10 +24,6 @@
       user = "jellyfin";
       group = "jellyfin";
       dataDir = "${config.nixos.server.dataDir}/jellyfin";
-      #dataDir = "/var/lib/jellyfin";
-      #configDir = "/var/lib/jellyfin/config";
-      #logDir = "/var/log/jellyfin";
-      #cacheDir = "/var/cache/jellyfin";
       forceEncodingConfig = false;
       hardwareAcceleration = {
         enable = true;
@@ -108,12 +104,5 @@
       };
     };
 
-    /*
-      environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-        directories = [
-          "/var/lib/jellyfin"
-        ];
-      };
-    */
   };
 }

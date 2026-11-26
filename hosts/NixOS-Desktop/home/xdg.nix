@@ -19,12 +19,15 @@
     };
   };
 
-  home.file = {
-    "Desktop".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.desktop;
-    "Documents".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.documents;
-    "Downloads".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.download;
-    "Music".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.music;
-    "Pictures".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.pictures;
-    "Videos".source = config.lib.file.mkOutOfStoreSymlink config.xdg.userDirs.videos;
+  # Direct symlinks (systemd-tmpfiles), not home.file: mkOutOfStoreSymlink leads through the Nix
+  # store, and Nix refuses such a path for the flake input private (~/Documents/nixos-private,
+  # "path '//home/jf/Documents' is a symlink").
+  systemd.user.tmpfiles.rules = lib.mapAttrsToList (link: target: "L+ %h/${link} - - - - ${target}") {
+    Desktop = config.xdg.userDirs.desktop;
+    Documents = config.xdg.userDirs.documents;
+    Downloads = config.xdg.userDirs.download;
+    Music = config.xdg.userDirs.music;
+    Pictures = config.xdg.userDirs.pictures;
+    Videos = config.xdg.userDirs.videos;
   };
 }

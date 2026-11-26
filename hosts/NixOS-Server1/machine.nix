@@ -16,6 +16,7 @@
 
   nixos.system.initrdssh = {
     enable = true;
+    port = 2222;
     authorizedKeys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyndaaCmTLHdA5+sLBbxgSZNC6KXKtZkKiMK6AAY8Rt jf@NixOS-Desktop"
     ];
@@ -31,33 +32,26 @@
   nixos.system.clamav = {
     extraScanDirectories = [ "/pool01/shares" ];
     excludePaths = [ "^/pool01/shares/video" ];
-    # Checked 10.11.2026 (TODO 13.24): Win10XPE build project, a joke program from a floppy disk and
+    # Checked 10.11.2026: Win10XPE build project, a joke program from a floppy disk and
     # a 2003 mail in old mail copies, all kept on purpose.
-    acknowledged =
-      let
-        papa = "/pool01/shares/document/Papa File Share";
-      in
-      [
-        {
-          path = "${papa}/Backup/ctnotwin/*";
-          signature = "Win.*";
-        }
-        {
-          path = "/pool01/shares/document/Disketten_Digitalisierung/Have-Fun/have_fun.zip";
-          signature = "Win.Joke.*";
-        }
-        {
-          path = "${papa}/Outlook Export/*";
-          signature = "*Phishing*";
-        }
-        {
-          path = "${papa}/*/Thunderbird/Profiles/*";
-          signature = "*Phishing*";
-        }
-        {
-          path = "/pool01/shares/jf/Dokumente/Wichtige Datein/Mail/*";
-          signature = "*Phishing*";
-        }
-      ];
+    # The globs do not depend on the folder structure of the shares, moved files stay acknowledged.
+    acknowledged = [
+      {
+        path = "/pool01/shares/*/ctnotwin*/*";
+        signature = "Win.*";
+      }
+      {
+        path = "/pool01/shares/*/Have-Fun/have_fun.zip";
+        signature = "Win.Joke.*";
+      }
+      {
+        path = "/pool01/shares/*/Papa File Share/*";
+        signature = "*Phishing*";
+      }
+      {
+        path = "/pool01/shares/jf/Dokumente/Wichtige Datein/*";
+        signature = "*Phishing*";
+      }
+    ];
   };
 }

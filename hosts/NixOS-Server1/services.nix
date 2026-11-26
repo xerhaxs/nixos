@@ -26,11 +26,6 @@
     requires = [ "zfs-mounts-ready.service" ];
   };
 
-  systemd.services.loki = {
-    after = [ "zfs-mounts-ready.service" ];
-    requires = [ "zfs-mounts-ready.service" ];
-  };
-
   systemd.services.prometheus = {
     after = [ "zfs-mounts-ready.service" ];
     requires = [ "zfs-mounts-ready.service" ];

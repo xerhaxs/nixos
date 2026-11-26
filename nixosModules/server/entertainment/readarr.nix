@@ -25,7 +25,7 @@
       group = "readarr";
       settings = {
         server = {
-          urlbase = "localhost";
+          bindaddress = "127.0.0.1";
           port = 8787;
         };
 
@@ -38,7 +38,6 @@
           analyticsEnabled = false;
         };
       };
-      #dataDir = "/var/lib/readarr/";
       dataDir = "${config.nixos.server.dataDir}/readarr/";
     };
 

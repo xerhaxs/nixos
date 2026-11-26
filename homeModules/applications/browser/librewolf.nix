@@ -145,9 +145,6 @@ in
   config = lib.mkIf config.homeManager.applications.browser.librewolf.enable {
     programs.librewolf = {
       enable = true;
-      #package = pkgs.librewolf-unwrapped.override {
-      #  pipewireSupport = true;
-      #};
 
       nativeMessagingHosts = with pkgs; [
         kdePackages.plasma-browser-integration
@@ -163,7 +160,6 @@ in
         "media.peerconnection.ice.proxy_only_if_behind_proxy" = true;
 
         "network.trr.mode" = 5;
-        #"security.OCSP.require" = false;
         "browser.safebrowsing.malware.enabled" = true;
         "browser.safebrowsing.phishing.enabled" = true;
         "browser.safebrowsing.blockedURIs.enabled" = true;
@@ -191,7 +187,6 @@ in
         "media.eme.enabled" = true;
 
         "browser.eme.ui.enabled" = true;
-        #"media.autoplay.blocking_policy" = 2;
         "cookiebanners.service.mode" = 2;
         "general.autoScroll" = true;
         "middlemouse.paste" = false;
@@ -229,7 +224,6 @@ in
         };
 
         HardwareAcceleration = true;
-        #RequestedLocales = [ "de-DE" "en-US" ];
 
         PrintingEnabled = true;
 

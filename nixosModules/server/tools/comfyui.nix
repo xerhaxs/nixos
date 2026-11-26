@@ -38,7 +38,7 @@ in
 
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers.comfyui = {
-      image = cfg.image;
+      inherit (cfg) image;
 
       ports = [
         "127.0.0.1:8188:8188"

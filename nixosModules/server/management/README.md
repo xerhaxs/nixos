@@ -7,7 +7,7 @@ Management, dashboards, home automation, inventory and monitoring.
 ## How it works
 
 - Cockpit (server administration), Glance (start page), Home Assistant (with Matter, Thread, Tankerkoenig, killswitch script), HomeBox (inventory).
-- `monitoring.nix`: Prometheus, Alertmanager, Loki and Grafana with pinned dashboards from grafana.com (node, ZFS, SMART, nginx, PostgreSQL, Pi-hole, Unbound, blackbox, Alertmanager, logs). The exporters run on every host (`nixosModules/system/monitoring-agent.nix`). Hosts in the LAN are scraped over HTTP, the VPS over HTTPS with a client certificate (`remote`), nothing connects from a VPS to NixOS-Server1.
+- `monitoring.nix`: Prometheus, Alertmanager and Grafana with pinned dashboards from grafana.com (node, ZFS, SMART, nginx, PostgreSQL, Pi-hole, Unbound, blackbox, Alertmanager). The exporters run on every host (`nixosModules/system/monitoring-agent.nix`). Hosts in the LAN are scraped over HTTP, the VPS over HTTPS with a client certificate (`remote`), nothing connects from a VPS to NixOS-Server1.
 - Alert rules: host down, disk space, memory, failed units, SMART, ZFS pool, certificates, endpoints. Alerts go to ntfy and/or mail (`alerts.*`).
 - `glance-server-page.nix`: page Server of Glance with a section per server, the stats of the other hosts come from Prometheus. Jellyfin, calendar, Miniflux and Home Assistant are options and need API keys in the secret `glance`.
 - `update-check.nix`: compares the pinned sources and images with upstream once a day (`docs/updates-and-vulnerabilities.md`), `dashboards/security-updates.nix` is the Grafana dashboard.
@@ -23,7 +23,7 @@ Management, dashboards, home automation, inventory and monitoring.
 | `glance.nix` | Enable glance. |
 | `homeassistant.nix` | Enable Home Assistant. |
 | `homebox.nix` | Enable HomeBox inventory management. |
-| `monitoring.nix` | Enable Prometheus, Alertmanager, Loki and Grafana. |
+| `monitoring.nix` | Enable Prometheus, Alertmanager and Grafana. |
 | `update-check.nix` | Compare the pinned sources and container images with upstream. |
 
 ## Options
@@ -41,12 +41,15 @@ Management, dashboards, home automation, inventory and monitoring.
 | `nixos.server.management.glance.serverPage` | boolean | `config.networking.hostName == "NixOS-Server1"` | Add the page Server with a section per server, alerts and vulnerabilities. |
 | `nixos.server.management.homeassistant.enable` | boolean | `false` | Enable Home Assistant. |
 | `nixos.server.management.homeassistant.killswitch` | boolean | `false` | Provide script.killswitch, which publishes poweroff to the killswitch ntfy topic (secret killswitch/ha-env with NTFY_TOKEN and KILLSWITCH_TOPIC). |
+| `nixos.server.management.homeassistant.killswitchButtons` | list of string | `[ ]` | Event entities of buttons (e.g. Matter over Thread) that run script.killswitch on the first press, without confirmation. |
+| `nixos.server.management.homeassistant.killswitchLan.enable` | boolean | `false` | script.killswitch also powers off the hosts in the LAN over ssh, for the case without internet (secret killswitch/ssh-key, counterpart nixos.system.killswitch.lan on the hosts). |
+| `nixos.server.management.homeassistant.killswitchLan.hosts` | list of string | `[ "nixos-convertible.fritz.box" "nixos-desktop.fritz.box" "nixos-framework.fritz.box" ]` | Hosts powered off over ssh (names of the FRITZ!Box through Pi-hole). Hosts away from home time out after 15 seconds. |
 | `nixos.server.management.homebox.allowRegistration` | boolean | `false` | Allow new accounts (enable once to create the accounts). |
 | `nixos.server.management.homebox.enable` | boolean | `false` | Enable HomeBox inventory management. |
 | `nixos.server.management.monitoring.alerts.mail` | boolean | `false` | Send alerts by mail (uses the account of nixos.system.notify.mail and its password secret). |
 | `nixos.server.management.monitoring.alerts.ntfy` | boolean | `false` | Send alerts to ntfy (secret monitoring/ntfy-token, topic in monitoring/ntfy-url). |
-| `nixos.server.management.monitoring.enable` | boolean | `false` | Enable Prometheus, Alertmanager, Loki and Grafana. |
-| `nixos.server.management.monitoring.nodes` | attribute set of string | `{ NixOS-Desktop = "10.75.0.80"; NixOS-Server1 = "127.0.0.1"; }` | Hosts in the LAN to scrape over HTTP (hostname -> fixed address). The laptops have no fixed address, the VPS are in remote.hosts. |
+| `nixos.server.management.monitoring.enable` | boolean | `false` | Enable Prometheus, Alertmanager and Grafana. |
+| `nixos.server.management.monitoring.nodes` | attribute set of string | `{ NixOS-Desktop = "nixos-desktop.fritz.box"; NixOS-Server1 = "127.0.0.1"; }` | Hosts in the LAN to scrape over HTTP (hostname -> address or DNS name, names of the FRITZ!Box resolve through Pi-hole as <host>.fritz.box). The laptops are often away, the VPS are in remote.hosts. |
 | `nixos.server.management.monitoring.remote.enable` | boolean | `false` | Scrape the VPS over HTTPS with a client certificate (secrets monitoring/client-cert and monitoring/client-key, counterpart nixos.system.monitoring-agent.remote on the VPS). |
 | `nixos.server.management.monitoring.remote.hosts` | attribute set of (submodule) | NixOS-ServerPublic and NixOS-ServerGaming from the private site.nix | VPS scraped over HTTPS (address, serverName, exporters). |
 | `nixos.server.management.monitoring.pihole` | boolean | `false` | Export Pi-hole metrics (secret monitoring/pihole-env with PIHOLE_PASSWORD). |
@@ -54,12 +57,14 @@ Management, dashboards, home automation, inventory and monitoring.
 | `nixos.server.management.monitoring.retention` | string | `"180d"` | Retention of the metrics. |
 
 | `nixos.server.management.update-check.enable` | boolean | `false` | Compare the pinned sources and container images with upstream once a day. |
-| `nixos.server.management.update-check.minecraftVersion` | string | `"1.21.11"` | Minecraft version the pinned Fabric mods have to support. |
+| `nixos.server.management.update-check.minecraftVersion` | string | `"26.3"` | Minecraft version the pinned Fabric mods have to support. |
 
 ## Notes
 
 - Home Assistant devices that depend on the hardware (IPs, Thread radio) are configured in the host (`hosts/NixOS-Server1/homeassistant.nix`).
 - Killswitch button: add a button card for `script.killswitch` with confirmation to a dashboard.
+- Killswitch remote: pair a Matter button through the companion app, then list its event entity in `killswitchButtons`. Changes from or to `unavailable` and `unknown` and entities that appear after a restart do not trigger it, only a press does.
+- Killswitch order: `script.killswitch` publishes to ntfy, then (with `killswitchLan`) powers off the hosts in the LAN over ssh, then creates `/run/killswitch/poweroff`, which the path unit `killswitch-local` turns into a poweroff of NixOS-Server1. Each step runs even if the one before failed, so the LAN is covered without internet. Test the ssh step without powering off: `sudo -u hass ssh -i /run/secrets/killswitch/ssh-key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null killswitch@<host> test`.
 - Glance integrations: each widget reads an API key from the secret `glance` (env file, one `NAME=value` line per key) and stays off until its option is enabled; Glance does not start when a referenced key is missing. Add the key first (`cd ~/Documents/nixos-private/secrets && sops nixos-server1.yaml`, commit, `nix flake update private`), then enable the option in `hosts/NixOS-Server1/server.nix` under `nixos.server.management.glance` and deploy.
 
   | Option | Line in `glance` | Where the key comes from |

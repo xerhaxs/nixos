@@ -25,11 +25,6 @@
       builtins.elem (lib.getName pkg) [
         "unrar"
 
-        #"b43-firmware"
-        #"broadcom-bt-firmware"
-        #"facetimehd-calibration"
-        #"facetimehd-firmware"
-
         "ventoy"
 
         "lsfg-vk"
@@ -47,7 +42,12 @@
         "cups-kyocera-ecosys-m2x35-40-p2x35-40dnw"
       ];
 
-    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.18" ];
+    nixpkgs.config.permittedInsecurePackages = [
+      # CVE-2026-120459 (forged JWTs with an empty HMAC key) concerns services that verify tokens,
+      # here it is only pulled in by the woob plugin of KMyMoney. Remove once nixpkgs has a fix.
+      "python3.14-python-jose-3.5.0"
+      "ventoy-1.1.18"
+    ];
 
     programs.nix-ld.enable = lib.mkDefault config.nixos.desktop.enable;
 

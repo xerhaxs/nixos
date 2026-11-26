@@ -147,8 +147,6 @@ in
             "thunderbird.policies.runOncePerModification.extensionsInstall" =
               "https://addons.thunderbird.net/thunderbird/downloads/latest/grammar-and-spell-checker/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/german-dictionary-de_de-for-sp/latest/latest.xpi,https://addons.thunderbird.net/thunderbird/downloads/latest/cardbook/latest/latest.xpi";
           };
-
-          #extraConfig = ''
         };
       };
     };

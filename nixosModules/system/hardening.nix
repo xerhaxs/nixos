@@ -75,7 +75,7 @@ in
         type = lib.types.bool;
         default = !config.nixos.desktop.enable;
         defaultText = lib.literalExpression "!config.nixos.desktop.enable";
-        description = "Log every program execution (execve) with auditd and forward audit records to the journal (Loki alert for user commands outside /nix/store). Logs are rotated (5 x 50 MB).";
+        description = "Log every program execution (execve) with auditd and forward audit records to the journal. Logs are rotated (5 x 50 MB).";
       };
 
       server = lib.mkOption {

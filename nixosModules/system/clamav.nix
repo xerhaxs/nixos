@@ -335,6 +335,9 @@ in
     # sudo clamdscan-metrics full: full scan by hand.
     environment.systemPackages = [ scan ];
 
+    # A deploy must not restart a running scan: switch-to-configuration would wait for the oneshot to
+    # finish (hours on NixOS-Server1), and the next deploy fails with "already loaded".
+    systemd.services.clamdscan.restartIfChanged = false;
     systemd.services.clamdscan.serviceConfig = {
       ExecStart = lib.mkForce (lib.getExe scan);
       SuccessExitStatus = 1;

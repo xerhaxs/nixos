@@ -52,13 +52,15 @@
     profile1.snapshots.exclude.1.type=0
     profile1.snapshots.exclude.2.value=.zfs
     profile1.snapshots.exclude.2.type=2
-    profile1.snapshots.exclude.3.value=.Trash-1000
+    profile1.snapshots.exclude.3.value=.Trash-*
     profile1.snapshots.exclude.3.type=2
     profile1.snapshots.exclude.4.value=.recycle
     profile1.snapshots.exclude.4.type=2
     profile1.snapshots.exclude.5.value=/pool01/shares/*/FreeTube/Cache
     profile1.snapshots.exclude.5.type=0
-    profile1.snapshots.exclude.size=5
+    profile1.snapshots.exclude.6.value=.stfolder
+    profile1.snapshots.exclude.6.type=2
+    profile1.snapshots.exclude.size=6
 
     # Old Windows streams that Samba stored as xattrs, up to 2 MB each. ext4 cannot hold them, rsync
     # then reports code 23 and skips deleting removed files in the snapshot.

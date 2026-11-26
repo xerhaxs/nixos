@@ -13,7 +13,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 - `persistent.nix`: impermanence base directories and `/etc/machine-id` (a new id per boot would split the journal).
 - `networking.nix`: home LAN (gateway, nameservers, local DNS records), sops wifi profiles, DNS privacy, MAC randomization, blocklists.
 - `restic.nix`: encrypted backups with btrfs or ZFS snapshots and PostgreSQL dumps.
-- `notify.nix`: alerts by mail (msmtp) and ntfy for failed units, SMART and ZFS; `killswitch.nix`: power off on an ntfy message.
+- `notify.nix`: alerts by mail (msmtp) and ntfy for failed units, SMART and ZFS; `killswitch.nix`: power off on an ntfy message, optionally also over ssh from NixOS-Server1 in the LAN (user `killswitch` with a forced command that only knows `poweroff` and `test`).
 - `sops.nix`: sops-nix with the secrets file of the host from the private repository (`file`), only that file is copied to the host.
 
 ## Contents
@@ -31,7 +31,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `initrdssh.nix` | Enable ssh in initrd to unlock encrypted disks remotely. |
 | `killswitch.nix` | Power off immediately when the message poweroff is published to the killswitch ntfy topic. |
 | `locals.nix` | Enable system locals. |
-| `monitoring-agent.nix` | Export metrics (prometheus exporters) and ship the journal to Loki. |
+| `monitoring-agent.nix` | Export metrics (prometheus exporters). |
 | `networking.nix` | Enable networking and network config. |
 | `nh.nix` | Enable nh. |
 | `nixos.nix` | Enable the default NixOS settings. |
@@ -84,7 +84,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.enable` | boolean | `false` | Enable system modules bundle. |
 | `nixos.system.firewall.enable` | boolean | `false` | Enable network firewall. |
 | `nixos.system.hardening.audit` | boolean | `true` | Enable auditd with rules for identity, sudo, ssh, kernel modules and root commands of users. |
-| `nixos.system.hardening.auditExec` | boolean | `!config.nixos.desktop.enable` | Log every program execution (execve) with auditd and forward audit records to the journal (Loki alert for user commands outside /nix/store). Logs are rotated (5 x 50 MB). |
+| `nixos.system.hardening.auditExec` | boolean | `!config.nixos.desktop.enable` | Log every program execution (execve) with auditd and forward audit records to the journal. Logs are rotated (5 x 50 MB). |
 | `nixos.system.hardening.blacklistModules` | boolean | `true` | Prevent loading of rarely used network protocols and filesystems (udf stays allowed on desktops). |
 | `nixos.system.hardening.enable` | boolean | `false` | Enable basic system hardening. |
 | `nixos.system.hardening.hardenedMalloc` | boolean | `false` | Use graphene-hardened-light as memory allocator for all programs (preloaded globally, test services first). |
@@ -102,14 +102,16 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.initrdssh.port` | 16 bit unsigned integer; between 0 and 65535 (both inclusive) | `22` | Port of the initrd ssh server. |
 | `nixos.system.killswitch.delay` | unsigned integer, meaning >=0 | `0` | Seconds to wait before powering off (e.g. on the host that sends the signal). |
 | `nixos.system.killswitch.enable` | boolean | `false` | Power off immediately when the message poweroff is published to the killswitch ntfy topic. |
+| `nixos.system.killswitch.lan.enable` | boolean | `false` | Fallback without internet: NixOS-Server1 may power this host off over ssh from the LAN (user killswitch, one key, forced command). |
+| `nixos.system.killswitch.lan.network` | string | `"10.75.0.0/24"` | Network the key is accepted from. |
+| `nixos.system.killswitch.lan.publicKey` | string | `""` | Public key of NixOS-Server1 for the fallback (private key in the secret killswitch/ssh-key of NixOS-Server1). |
 | `nixos.system.killswitch.url` | string | `"https://push.${config.nixos.site.domain}"` | URL of the ntfy server. |
 | `nixos.system.locals.consolekbd` | string | `"de"` |  |
 | `nixos.system.locals.enable` | boolean | `false` | Enable system locals. |
 | `nixos.system.locals.lang` | string | `"en_US.UTF-8"` |  |
 | `nixos.system.locals.local` | string | `"de_DE.UTF-8"` |  |
 | `nixos.system.locals.timezone` | anything | `"Europe/Berlin"` |  |
-| `nixos.system.monitoring-agent.enable` | boolean | `false` | Export metrics (prometheus exporters) and ship the journal to Loki (only hosts in the LAN). |
-| `nixos.system.monitoring-agent.lokiUrl` | string | `"http://10.75.0.21:3100/loki/api/v1/push"` | Loki push endpoint (only hosts in the LAN ship their journal). |
+| `nixos.system.monitoring-agent.enable` | boolean | `false` | Export metrics (prometheus exporters). |
 | `nixos.system.monitoring-agent.remote.caCertificate` | path | `./monitoring-ca.pem` | CA that signs the client certificate of NixOS-Server1 (public, the key stays offline). |
 | `nixos.system.monitoring-agent.remote.enable` | boolean | `false` | For hosts outside the LAN (VPS): the exporters listen on 127.0.0.1 only, nginx serves them over HTTPS on remote.hostName and only to a client certificate signed by remote.caCertificate. |
 | `nixos.system.monitoring-agent.remote.hostName` | string | `"metrics-<host without NixOS->.${config.nixos.site.domain}"` | Name of the metrics vhost (certificate by DNS-01, no DNS record needed). |
@@ -130,7 +132,7 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.networking.macRandomization.ethernet` | boolean | `false` | Random MAC address for every wired connection. |
 | `nixos.system.networking.macRandomization.wifi` | boolean | `false` | Random MAC address for every wifi connection (home networks keep the permanent one). |
 | `nixos.system.networking.networkmanager.enable` | boolean | `true` | Use NetworkManager to manage network connections. |
-| `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9 with DNS over TLS (strict), the local blocklists still apply. Captive portals need a manual workaround. |
+| `nixos.system.networking.privateDns` | boolean | `false` | Ignore the DNS servers of the networks (DHCP) and use Quad9, then Cloudflare, with DNS over TLS (strict), the local blocklists still apply. Captive portals need a manual workaround. |
 | `nixos.system.networking.wifi.enable` | boolean | `false` | Provide the wifi networks from sops (secret wifi) as read-only NetworkManager profiles. |
 | `nixos.system.networking.wifi.homeNetworks` | list of string | `[   "HOME" ]` | Networks of the sops wifi profiles which use the permanent MAC address (same MAC and DHCP lease on every boot). |
 | `nixos.system.networking.wifi.networks` | attribute set of signed integer | `{   HOME = 10; }` | Network name -> autoconnect priority. The sops secret wifi contains ENV_<NAME>_SSID and ENV_<NAME>_PSK for each network. |
@@ -163,13 +165,14 @@ Base system: boot, users, networking, security, secrets, backups, monitoring and
 | `nixos.system.restic.subvolumes` | list of string | `[   "/persistent"   "/persistent/home" ]` | btrfs subvolumes which are snapshotted and backed up (impermanence hosts). |
 | `nixos.system.restic.time` | string | `"03:00"` | systemd OnCalendar expression for the backups. |
 | `nixos.system.restic.zfsDatasets` | list of string | `[ ]` | ZFS datasets which are snapshotted and backed up (instead of the btrfs subvolumes or paths). |
-| `nixos.system.restic.zfsSubdirs` | attribute set of list of string | `{ }` | Only back up these directories of a dataset in zfsDatasets (relative to its mountpoint); datasets without entry are backed up completely. |
+| `nixos.system.restic.zfsSubdirs` | attribute set of list of string | `{ }` | Only back up these directories of a dataset in zfsDatasets (relative to its mountpoint); datasets without entry are backed up completely. A listed directory that does not exist fails the backup. |
 | `nixos.system.secureboot.enable` | boolean | `false` | Enable secureboot. |
 | `nixos.system.smartd.enable` | boolean | `false` | Enable smartd. |
 | `nixos.system.sops.enable` | boolean | `false` | Enable Sops. |
 | `nixos.system.sops.file` | null or string | `null` | Secrets file of the host in the private repository (secrets/<file>.yaml), only this file is copied to the host. Required when sops is enabled. |
 | `nixos.system.ssh.authorizedKeys` | list of string | `[   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhC1nqSGZvIStHk...` | Public keys allowed to login as the system user. |
 | `nixos.system.ssh.enable` | boolean | `false` | Enable ssh with sshguard. |
+| `nixos.system.ssh.lanOnly` | boolean | `false` | Accept ssh only from the home LAN (IPv4 subnet, IPv6 ULA and link-local), e.g. on laptops in foreign networks. |
 | `nixos.system.ssh.whitelist` | list of string | `[   "10.75.0.40"   "10.75.0.80" ]` | Addresses or networks never blocked by sshguard. |
 | `nixos.system.user.enable` | boolean | `false` | Setup the system user. |
 | `nixos.system.user.passwordFromSops` | boolean | `false` | Read the password hash of the system user from sops (user/<hostname>/<username>). |

@@ -21,7 +21,6 @@
   config = lib.mkIf config.homeManager.base.ranger.enable {
     programs.ranger = {
       enable = true;
-      #settings = { };
     };
 
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {

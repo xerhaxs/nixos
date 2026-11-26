@@ -83,7 +83,6 @@ in
       extraConfig = ''
         ${nginxCfg.securityHeaders}
         add_header Content-Security-Policy "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" always;
-        add_header X-Robots-Tag "noindex" always;
       '';
     };
   };

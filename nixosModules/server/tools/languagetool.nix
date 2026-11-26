@@ -40,11 +40,9 @@
           http2 = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:8001";
+            # Host and X-Forwarded-* come from recommendedProxySettings. Setting Host again sends it
+            # twice, LanguageTool then answers every request with 400 "Multiple Host headers".
             extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
               proxy_set_header Content-Type "application/x-www-form-urlencoded";
             '';
           };

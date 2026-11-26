@@ -18,6 +18,7 @@
         "org.kde.merkuro.calendar"
         "org.kde.kate"
         "codium"
+        "element-desktop"
         "signal"
         "org.telegram.desktop"
         "io.github.tobagin.karere"
@@ -38,6 +39,7 @@
         "com.heroicgameslauncher.hgl"
         "steam"
       ]
+      ++ lib.optional config.homeManager.applications.gaming.hytale.enable "hytale-launcher"
       ++ lib.optionals config.homeManager.applications.vpn.enable [
         "mullvad-vpn"
       ];

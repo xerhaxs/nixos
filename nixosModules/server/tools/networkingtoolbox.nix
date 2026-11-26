@@ -30,9 +30,6 @@
           NODE_ENV = "production";
           PORT = "3000";
           HOST = "0.0.0.0";
-          #NTB_HOMEPAGE_LAYOUT = "categories";
-          #NTB_DEFAULT_THEME = "catppuccin";
-          #NTB_FONT_SCALE = "2";
         };
 
         extraOptions = [
@@ -61,13 +58,8 @@
           http2 = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:3872";
+            # The proxy headers come from recommendedProxySettings, setting them here sends them twice.
             proxyWebsockets = true;
-            extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
-            '';
           };
         };
       };

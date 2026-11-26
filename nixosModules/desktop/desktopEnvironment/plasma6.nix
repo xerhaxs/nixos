@@ -6,7 +6,7 @@
 }:
 
 let
-  spectacleOverlay = self: super: {
+  spectacleOverlay = _self: super: {
     kdePackages = super.kdePackages // {
       spectacle = super.kdePackages.spectacle.overrideAttrs (oldAttrs: rec {
         nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ super.makeWrapper ];

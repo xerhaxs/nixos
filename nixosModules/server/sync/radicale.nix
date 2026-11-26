@@ -45,7 +45,6 @@
 
         storage = {
           filesystem_folder = "${config.nixos.server.dataDir}/radicale";
-          #filesystem_folder = "/var/lib/radicale/";
         };
       };
     };
@@ -69,12 +68,5 @@
       };
     };
 
-    /*
-      environment.persistence."/persistent" = lib.mkIf config.nixos.disko.disko-luks-btrfs-tmpfs.enable {
-        directories = [
-          "/var/lib/radicale"
-        ];
-      };
-    */
   };
 }

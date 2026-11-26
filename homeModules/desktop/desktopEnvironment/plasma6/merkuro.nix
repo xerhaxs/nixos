@@ -9,10 +9,16 @@
 let
   cfg = config.homeManager.desktop.desktopEnvironment.plasma6.merkuro;
 
-  # agentsrc and akonadiserverrc are QSettings files with backslashes in the keys, plasma-manager
-  # would escape them. Adds the Radicale resource if missing and points Akonadi to the current
-  # MariaDB (a stale store path after an update and garbage collection keeps Akonadi from starting).
-  akonadiSetup = pkgs.writeShellScript "akonadi-radicale" ''
+  # Accounts (e.g. Radicale) are added by hand in Merkuro, their settings are the files
+  # akonadi_<resource>_<n>rc in ~/.config. Persisted for the first instances of every type.
+  resourceFiles = lib.concatMap (
+    type: map (n: ".config/akonadi_${type}_resource_${toString n}rc") (lib.range 0 4)
+  ) [ "davgroupware" ];
+
+  # akonadiserverrc is a QSettings file with backslashes in the keys, plasma-manager would escape
+  # them. Points Akonadi to the current MariaDB (a stale store path after an update and garbage
+  # collection keeps Akonadi from starting).
+  akonadiSetup = pkgs.writeShellScript "akonadi-setup" ''
     set -eu -o pipefail
     PATH=${
       lib.makeBinPath [
@@ -23,10 +29,8 @@ let
       ]
     }
     dir="$HOME/.config/akonadi"
-    agents="$dir/agentsrc"
     firstrun="$HOME/.config/akonadi-firstrunrc"
     mkdir -p "$dir"
-    [ -e "$agents" ] || printf '[InstanceCounters]\n\n[Instances]\n' > "$agents"
 
     # Adds key=value to the group unless the key exists. Writes through the file (cat, not mv), the
     # firstrun file is a symlink into the persistence.
@@ -44,14 +48,8 @@ let
         printf '\n[%s]\n%s=%s\n' "$group" "$key" "$value" >> "$file"
       fi
     }
-    # Only when there is no DAV resource yet (one added in Merkuro gets a higher number).
-    if ! grep -q -E '^akonadi_davgroupware_resource_[0-9]+\\AgentType=' "$agents"; then
-      ensure "$agents" InstanceCounters 'akonadi_davgroupware_resource\InstanceCounter' 1
-      ensure "$agents" Instances 'akonadi_davgroupware_resource_0\AgentType' akonadi_davgroupware_resource
-    fi
-
-    # Only Radicale: mark the default birthday calendar, personal calendar and address book as
-    # created, so Akonadi does not add them on a fresh home.
+    # Mark the default birthday calendar, personal calendar and address book as created, so Akonadi
+    # does not add them on a fresh home (only the accounts added by hand).
     ensure "$firstrun" ProcessedDefaults birthdaycalendar akonadi_birthdays_resource
     ensure "$firstrun" ProcessedDefaults defaultaddressbook akonadi_contacts_resource_0
     ensure "$firstrun" ProcessedDefaults defaultcalendar akonadi_ical_resource_0
@@ -70,33 +68,13 @@ in
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Merkuro with the calendars and tasks of Radicale only (Akonadi DAV resource, CalDAV, complete history), events in the calendar of the clock; the password is asked once and kept in KWallet.";
-      };
-
-      url = lib.mkOption {
-        type = lib.types.str;
-        default = "https://radicale.${osConfig.nixos.site.homeDomain}/";
-        defaultText = lib.literalExpression ''"https://radicale.''${osConfig.nixos.site.homeDomain}/"'';
-        description = "CalDAV address of Radicale.";
+        description = "Merkuro with persistent Akonadi data and accounts, events in the calendar of the clock. The accounts (e.g. Radicale) are added by hand in Merkuro, the password is kept in KWallet.";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
     programs.plasma.configFile = {
-      "akonadi_davgroupware_resource_0rc".General = {
-        defaultUsername = config.home.username;
-        displayName = "Radicale";
-        # Retrieve all past events and tasks, not only the last 3 months.
-        limitSyncRange = false;
-        # CalDAV only: with CardDAV on the same URL both discoveries start at once, one of them goes out
-        # without credentials, gets 401 and the resource drops the whole collection tree. Contacts are in
-        # Thunderbird (CardBook).
-        remoteUrls = "$default$|CalDav|${cfg.url}";
-        settingsVersion = 3;
-      };
-      "akonadi/agent_config_akonadi_davgroupware_resource_0".Agent.Name = "Radicale";
-
       "defaultcalendarrc".General.ApplicationId = "org.kde.merkuro";
       "eventviewsrc".Timescale."24 Hour Clock" = true;
       "kalendarrc" = {
@@ -116,7 +94,7 @@ in
     # plasma-manager would delete the file on every activation.
     programs.plasma.resetFilesExclude = [ "plasmashellrc" ];
 
-    home.activation.akonadiRadicale = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    home.activation.akonadiSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run ${akonadiSetup}
     '';
 
@@ -124,7 +102,7 @@ in
     # into the persistence once (the copy there wins if both exist).
     home.activation.akonadiPersistFiles = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable (
       lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-        for f in .config/akonadi-firstrunrc .config/merkuro.calendarrc .config/plasmashellrc; do
+        for f in .config/akonadi-firstrunrc .config/merkuro.calendarrc .config/plasmashellrc ${lib.concatStringsSep " " resourceFiles}; do
           p="/persistent$HOME/$f"
           if [ -f "$HOME/$f" ] && [ ! -L "$HOME/$f" ]; then
             if [ -e "$p" ]; then
@@ -151,18 +129,21 @@ in
       ];
       # Symlinks: KDE replaces these files by rename. The calendar selections of Merkuro and of the
       # clock refer to collection ids of the Akonadi database, firstrun keeps Akonadi from repeating
-      # its migrations.
+      # its migrations, the resource files hold the accounts added in Merkuro.
       files =
         map
           (file: {
             inherit file;
             method = "symlink";
           })
-          [
-            ".config/akonadi-firstrunrc"
-            ".config/merkuro.calendarrc"
-            ".config/plasmashellrc"
-          ];
+          (
+            [
+              ".config/akonadi-firstrunrc"
+              ".config/merkuro.calendarrc"
+              ".config/plasmashellrc"
+            ]
+            ++ resourceFiles
+          );
     };
   };
 }

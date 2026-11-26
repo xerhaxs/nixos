@@ -136,23 +136,6 @@ in
       options = nas-options;
     };
 
-    #fileSystems."/mount/document" = {
-    #  device = "10.75.0.20:/document";
-    #  fsType = "nfs";
-    #  options = truenas-options;
-    #};
-
-    #fileSystems."/mount/sshfs/jf" = {
-    #  device = "admin@NixOS-Server1:/srv/share/jf";
-    #  fsType = "sshfs";
-    #  options = [
-    #    "nodev"
-    #    "noatime"
-    #    "allow_other"
-    #    "IdentityFile=/root/.ssh/id_ed25519"
-    #  ];
-    #};
-
     networking.firewall.extraCommands = "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns";
 
     users.users."${userName}" = {

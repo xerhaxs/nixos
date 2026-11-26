@@ -9,22 +9,19 @@
   nixos.system.restic = {
     enable = true;
     time = "02:00";
-    # Only irreplaceable data fits into the 2 TB of Proton Drive (decision 08.11.2026). Every dataset
-    # is snapshotted on its own, child datasets of pool01/shares have to be listed separately.
+    # Only irreplaceable data fits into the 2 TB of Proton Drive: the shares document and photo
+    # completely (decision 24.11.2026, renamed folders stay in the backup), of jf only Dokumente.
+    # Every dataset is snapshotted on its own, child datasets of pool01/shares have to be listed
+    # separately. .zfs needs no exclude, the backup reads from inside the snapshot.
     zfsDatasets = [
       "pool01/shares/document"
       "pool01/shares/jf"
       "pool01/shares/photo"
     ];
-    zfsSubdirs = {
-      "pool01/shares/document" = [
-        "Office Dokumente"
-        "Wiso Mein Geld"
-      ];
-      "pool01/shares/jf" = [ "Dokumente" ];
-    };
+    zfsSubdirs."pool01/shares/jf" = [ "Dokumente" ];
     exclude = [
       ".recycle"
+      ".stfolder"
       ".Trash-*"
     ];
     repositories.proton = {

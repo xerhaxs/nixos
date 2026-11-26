@@ -24,7 +24,7 @@
       sddm.enable = true;
     };
     windowManager = {
-      hyprland.enable = false; # disabled 2026-11-03, see TODO phase 18
+      hyprland.enable = false; # disabled 2026-11-03
     };
   };
 
@@ -39,9 +39,11 @@
   };
 
   nixos.system.secureboot.enable = true;
+  nixos.system.ssh.lanOnly = true;
   nixos.disko.disko-luks-btrfs-tmpfs.tpm2 = true;
 
   nixos.userEnvironment.enable = true;
+  nixos.userEnvironment.game.enable = false;
   nixos.userEnvironment.networkshares.webdav.enable = true;
 
   nixos.virtualisation.android.enable = true;

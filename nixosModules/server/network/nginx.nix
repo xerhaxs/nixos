@@ -67,10 +67,14 @@ in
       securityHeaders = lib.mkOption {
         type = lib.types.lines;
         readOnly = true;
+        # The Referrer-Policy of nginx only when the service sends none ($referrer_policy is empty
+        # otherwise, nginx then adds no header): with two headers the browser takes the last one and
+        # a stricter policy of the service (no-referrer, same-origin) would be lost.
         default = ''
           add_header Strict-Transport-Security "max-age=63072000" always;
           add_header X-Content-Type-Options "nosniff" always;
-          add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+          add_header Referrer-Policy $referrer_policy always;
+          add_header X-Robots-Tag "noindex" always;
         '';
         description = "Security headers of all vhosts, repeat them in locations with own add_header (nginx drops inherited headers there).";
       };
@@ -93,26 +97,29 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      commonHttpConfig = cfg.securityHeaders;
+      # headers-more removes the Server header of nginx itself (server_tokens only drops the version).
+      additionalModules = [ pkgs.nginxModules.moreheaders ];
+
+      # HSTS, nosniff and X-Robots-Tag of the services are hidden, otherwise they arrive twice (the
+      # browser takes the first HSTS, e.g. 7 days from Redlib). Hiding is inherited by every location
+      # that does not set proxy_hide_header itself. Server and X-Powered-By name software and version.
+      commonHttpConfig = ''
+        map $upstream_http_referrer_policy $referrer_policy {
+          "" "same-origin";
+          default "";
+        }
+        proxy_hide_header Strict-Transport-Security;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header X-Robots-Tag;
+        more_clear_headers Server X-Powered-By;
+      ''
+      + cfg.securityHeaders;
 
       virtualHosts."_" = {
         default = true;
         rejectSSL = true;
         locations."/".return = "444";
       };
-
-      #virtualHosts = {
-      #"${cfg.domain}" = {
-      #  forceSSL = true;
-      #  enableACME = true;
-      #  acmeRoot = null;
-      #  kTLS = true;
-      #  http2 = true;
-      #  http3 = true;
-      #  quic = true;
-      #  root = "/mount/Data/Datein/Server/startpage/index.html";
-      #};
-      #};
     };
 
     security.acme = lib.mkMerge [
@@ -120,9 +127,7 @@ in
         acceptTerms = true;
         defaults = {
           email = cfg.acmeEmail;
-          #dnsResolver = "127.0.0.1"; # for usage behind mullvad vpn
           dnsProvider = "cloudflare";
-          #dnsPropagationCheck = false; # for usage behind mullvad vpn
           # lego 5 renamed the flag, an unknown flag fails every new order and renewal.
           extraLegoFlags = [
             "--dns.propagation.wait"

@@ -207,7 +207,7 @@ in
     services.ssh-agent.enable = true;
     systemd.user.sessionVariables.SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR}/ssh-agent";
 
-    # sops takes the admin age key from KeePassXC (setup: kpxc-cred configure, see TODO 7A).
+    # sops takes the admin age key from KeePassXC (setup: kpxc-cred configure).
     home.packages = [ kpxcCred ];
     home.sessionVariables.SOPS_AGE_KEY_CMD = "${sopsAgeKey}";
     home.persistence."/persistent" = lib.mkIf osConfig.nixos.disko.disko-luks-btrfs-tmpfs.enable {

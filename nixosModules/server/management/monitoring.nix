@@ -10,41 +10,26 @@ let
   cfg = config.nixos.server.management.monitoring;
   domain = config.nixos.server.network.nginx.domain;
   dataDir = config.nixos.server.dataDir;
-  lanSubnet = config.nixos.system.networking.lan.subnet;
 
   prometheusPort = 9091;
   grafanaPort = 3010;
-  lokiPort = 3100;
 
-  # Loki rules, directory layout <dir>/<tenant>/<file> (tenant "fake" without auth).
-  lokiRules = pkgs.writeTextDir "fake/audit.yaml" (
-    builtins.toJSON {
-      groups = [
-        {
-          name = "audit";
-          rules = [
-            {
-              alert = "ExecOutsideNixStore";
-              expr = ''sum by (host) (count_over_time({transport="audit"} |~ "exe=" !~ "auid=4294967295" !~ "exe=\"(/nix/store/|/run/wrappers/|/run/current-system/)" [5m])) > 0'';
-              labels.severity = "critical";
-              annotations.summary = "A user session executed a program outside /nix/store on {{ $labels.host }}";
-            }
-          ];
-        }
-      ];
-    }
-  );
   alertmanagerPort = 9093;
   blackboxPort = 9115;
 
-  # The JSON of grafana.com comes from the flake inputs grafana-<name>, the revision is in flake.nix.
-  # Alloy labels the journal with unit and host, the logs dashboard expects job.
-  dashboardFixes.logs = ''
-    walk(if type == "string" then
-      gsub("label_values\\(job\\)"; "label_values(unit)") | gsub("job=\"\\$app\""; "unit=\"$app\"")
-    else . end)
-  '';
+  # Services without a start page answer 4xx on /, the probe checks a page that always answers
+  # (the same as in Glance).
+  probePath =
+    host:
+    {
+      languagetool = "/v2/languages";
+      libreddit = "/settings";
+      matrix = "/_matrix/client/versions";
+    }
+    .${lib.head (lib.splitString "." host)} or "";
+  probeUrl = host: "https://${host}${probePath host}";
 
+  # The JSON of grafana.com comes from the flake inputs grafana-<name>, the revision is in flake.nix.
   dashboard =
     name:
     pkgs.runCommand "grafana-dashboard-${name}.json"
@@ -55,8 +40,7 @@ let
       ''
         sed -e 's/\''${DS_PROMETHEUS}/prometheus/g' \
             -e 's/\''${DS_SIGNCL-PROMETHEUS}/prometheus/g' \
-            -e 's/\''${DS_LOKI}/loki/g' \
-            "$src" | jq ${lib.escapeShellArg (dashboardFixes.${name} or ".")} > "$out"
+            "$src" | jq . > "$out"
       '';
 
   dashboards = pkgs.linkFarm "grafana-dashboards" (
@@ -68,7 +52,6 @@ let
       [
         "alertmanager"
         "blackbox"
-        "logs"
         "nginx"
         "node-exporter-full"
         "pihole"
@@ -151,7 +134,8 @@ let
           }
           {
             alert = "DiskWillFillIn24h";
-            expr = ''predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs|ramfs|overlay|squashfs"}[6h], 24 * 3600) < 0'';
+            # /boot grows in steps (a kernel per deploy), its trend of a few hours means nothing.
+            expr = ''predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs|ramfs|overlay|squashfs", mountpoint!~"/boot.*"}[6h], 24 * 3600) < 0'';
             "for" = "1h";
             labels.severity = "warning";
             annotations.summary = "{{ $labels.instance }}: {{ $labels.mountpoint }} will be full within 24h";
@@ -255,16 +239,16 @@ in
         type = lib.types.bool;
         default = false;
         example = true;
-        description = "Enable Prometheus, Alertmanager, Loki and Grafana.";
+        description = "Enable Prometheus, Alertmanager and Grafana.";
       };
 
       nodes = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
         default = {
           NixOS-Server1 = "127.0.0.1";
-          NixOS-Desktop = "10.75.0.80";
+          NixOS-Desktop = "nixos-desktop.fritz.box";
         };
-        description = "Hosts in the LAN to scrape over HTTP (hostname -> fixed address). The laptops have no fixed address, the VPS are in remote.hosts.";
+        description = "Hosts in the LAN to scrape over HTTP (hostname -> address or DNS name, names of the FRITZ!Box resolve through Pi-hole as <host>.fritz.box). The laptops are often away, the VPS are in remote.hosts.";
       };
 
       remote = {
@@ -321,12 +305,12 @@ in
       probes = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default =
-          map (name: "https://${name}") (
+          map probeUrl (
             lib.filter (name: name != "_" && lib.hasInfix "." name) (
               lib.attrNames config.services.nginx.virtualHosts
             )
           )
-          ++ map (name: "https://${name}.${config.nixos.site.domain}") [
+          ++ map (name: probeUrl "${name}.${config.nixos.site.domain}") [
             "matrix"
             "cryptpad"
             "push"
@@ -400,8 +384,6 @@ in
 
     systemd.tmpfiles.rules = lib.mkIf (!lib.hasPrefix "/var/lib" dataDir) [
       "d ${dataDir}/prometheus 0750 prometheus prometheus -"
-      # The loki module only creates its data dir as the home of the user, at activation.
-      "d ${dataDir}/loki 0750 loki loki -"
     ];
     systemd.services.prometheus.serviceConfig.BindPaths = lib.mkIf (!lib.hasPrefix "/var/lib" dataDir) [
       "${dataDir}/prometheus:/var/lib/prometheus2"
@@ -531,6 +513,8 @@ in
         enable = true;
         listenAddress = "127.0.0.1";
         port = alertmanagerPort;
+        # A single instance, no cluster gossip on port 9094.
+        extraFlags = [ "--cluster.listen-address=" ];
         configuration = {
           route = {
             receiver = "default";
@@ -584,69 +568,6 @@ in
       lib.mkIf config.services.unbound.enable
         [ "unbound" ];
 
-    services.loki = {
-      enable = true;
-      dataDir = "${dataDir}/loki";
-      configuration = {
-        auth_enabled = false;
-        server = {
-          http_listen_address = "0.0.0.0";
-          http_listen_port = lokiPort;
-          grpc_listen_address = "127.0.0.1";
-          grpc_listen_port = 9095;
-        };
-        common = {
-          path_prefix = "${dataDir}/loki";
-          replication_factor = 1;
-          ring = {
-            instance_addr = "127.0.0.1";
-            kvstore.store = "inmemory";
-          };
-        };
-        # gRPC only listens on localhost, the default advertises the LAN address to the querier
-        # and every query through the frontend times out.
-        frontend.address = "127.0.0.1";
-        schema_config.configs = [
-          {
-            from = "2026-01-01";
-            store = "tsdb";
-            object_store = "filesystem";
-            schema = "v13";
-            index = {
-              prefix = "index_";
-              period = "24h";
-            };
-          }
-        ];
-        storage_config.filesystem.directory = "${dataDir}/loki/chunks";
-        limits_config = {
-          retention_period = "720h";
-          reject_old_samples = true;
-          reject_old_samples_max_age = "168h";
-        };
-        compactor = {
-          working_directory = "${dataDir}/loki/compactor";
-          retention_enabled = true;
-          delete_request_store = "filesystem";
-        };
-        analytics.reporting_enabled = false;
-        ruler = {
-          storage = {
-            type = "local";
-            local.directory = lokiRules;
-          };
-          rule_path = "${dataDir}/loki/ruler";
-          alertmanager_url = "http://127.0.0.1:${toString alertmanagerPort}";
-          ring.kvstore.store = "inmemory";
-          enable_api = false;
-        };
-      };
-    };
-
-    networking.firewall.extraCommands = ''
-      iptables -A nixos-fw -p tcp -s ${lanSubnet} --dport ${toString lokiPort} -j nixos-fw-accept
-    '';
-
     systemd.services.grafana-secret-key = {
       description = "Create the secret key of Grafana";
       before = [ "grafana.service" ];
@@ -692,6 +613,12 @@ in
 
       provision = {
         enable = true;
+        datasources.settings.deleteDatasources = [
+          {
+            name = "Loki";
+            orgId = 1;
+          }
+        ];
         datasources.settings.datasources = [
           {
             name = "Prometheus";
@@ -699,12 +626,6 @@ in
             type = "prometheus";
             url = "http://127.0.0.1:${toString prometheusPort}";
             isDefault = true;
-          }
-          {
-            name = "Loki";
-            uid = "loki";
-            type = "loki";
-            url = "http://127.0.0.1:${toString lokiPort}";
           }
           {
             name = "Alertmanager";
@@ -719,7 +640,6 @@ in
             name = "nixos";
             folder = "NixOS";
             options.path = dashboards;
-            disableDeletion = true;
           }
         ];
       };
@@ -750,12 +670,6 @@ in
               directory = "${dataDir}/grafana";
               user = "grafana";
               group = "grafana";
-              mode = "0750";
-            }
-            {
-              directory = "${dataDir}/loki";
-              user = "loki";
-              group = "loki";
               mode = "0750";
             }
           ];

@@ -30,6 +30,7 @@
       "3dprinting".enable = true;
     };
     # Rode Procaster on the Behringer UMC22, only connected here (docs/microphone.md).
+    gaming.hytale.enable = true;
     media.easyeffects.enable = true;
     tools.backintime.enable = true;
   };

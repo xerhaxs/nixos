@@ -6,7 +6,7 @@
 }:
 
 # Runs here only for testing. To remove it: delete this folder and its import in ../default.nix and
-# the DNS record (TODO, last phase).
+# the DNS record.
 {
   nixos.server.game.countdown = {
     enable = true;

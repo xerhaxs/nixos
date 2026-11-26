@@ -9,7 +9,6 @@ let
   browser = [ "librewolf.desktop;" ];
   chrome = [ "brave.desktop;" ];
   filemanager = [ "org.kde.dolphin.desktop;" ];
-  mediaplayer = [ "mpv.desktop;" ];
   videoplayer = [ "mpv.desktop;" ];
   musicplayer = [ "mpv.desktop;" ];
   pdfviewer = [ "org.kde.okular.desktop;" ];
