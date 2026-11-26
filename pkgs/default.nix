@@ -54,8 +54,10 @@ inputs: final: prev: {
       cargoBuildFeatures = final.lib.remove feature old.cargoBuildFeatures;
       cargoCheckFeatures = final.lib.remove feature old.cargoCheckFeatures;
       # The cargo setup hook points JEMALLOC_OVERRIDE to a missing path to force the system library.
+      # At most two rustc jobs at once (cargo -j and the codegen threads take NIX_BUILD_CORES).
       preBuild = (old.preBuild or "") + ''
         unset JEMALLOC_OVERRIDE
+        if [ "$NIX_BUILD_CORES" -gt 2 ]; then NIX_BUILD_CORES=2; fi
       '';
       # LTO optimizes the whole program in the last rustc step, fat and thin need more memory than
       # NixOS-ServerPublic has next to its services, the kernel kills rustc. Without LTO that step
