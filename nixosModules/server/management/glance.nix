@@ -703,6 +703,11 @@ in
           http2 = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:5679";
+            # Glance answers only after every widget has refreshed; an unreachable source (e.g. Reddit
+            # dropping the Mullvad exit) takes the kernel's TCP connect timeout of about two minutes.
+            extraConfig = ''
+              proxy_read_timeout 300s;
+            '';
           };
         };
       };

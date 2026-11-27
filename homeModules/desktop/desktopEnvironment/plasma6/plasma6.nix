@@ -740,6 +740,11 @@
           "mediacontrol" = {
             "_k_friendly_name" = "Media Controller";
           };
+          # Same as Legcord: KeePassXC registers its global Auto-Type over the portal.
+          "org.keepassxc.KeePassXC" = {
+            "_k_friendly_name" = "KeePassXC";
+            "autotype" = "none,none,Trigger global Auto-Type";
+          };
           "org_kde_powerdevil" = {
             "_k_friendly_name" = "KDE Power Management System";
           };
